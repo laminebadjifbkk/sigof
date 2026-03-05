@@ -63,7 +63,7 @@
 
                             @if ($individuelles->isNotEmpty())
                                 <div class="form-check col-md-12 border rounded bg-light shadow-sm p-3">
-                                    <div class="table-responsive">
+                                    <div class="table-responsive ms-4">
                                         <table class="m-2 table datatables align-middle" id="table-collectives">
                                             <thead>
                                                 <tr>
