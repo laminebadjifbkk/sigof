@@ -24,14 +24,11 @@ class ExportProjetStatut implements FromView, ShouldAutoSize
         $projetmodule = Projetmodule::findorFail($this->module);
         $projet = $projetmodule->projet;
 
-        // Supposons que $module est défini et contient l'id du module courant
         $individuelles = Individuelle::where('projets_id', $projet->id)
-            ->when($this->statut !== 'all', function ($query) {
-                $query->where('statut', $this->statut);
-            })
+            ->where('statut', $this->statut)
             ->get();
 
-        dd($projetmodule, $projet, $projet->id, $individuelles);
+        dd($individuelles);
 
         return view('projets.excel', [
             'individuelles' => $individuelles,
