@@ -1,6 +1,7 @@
 <table>
     <thead>
         <tr>
+            <th>N°</th>
             <th>Numéro CIN</th>
             <th>Civilité</th>
             <th>Prénom</th>
@@ -28,6 +29,7 @@
     <tbody>
         @foreach ($individuelles as $index => $individuelle)
             <tr>
+                <td>{{ $loop?->iteration }}</td>
                 <td>{{ $individuelle?->user?->cin }}</td>
                 <td>{{ $individuelle?->user?->civilite }}</td>
                 <td>{{ $individuelle?->user?->firstname }}</td>
