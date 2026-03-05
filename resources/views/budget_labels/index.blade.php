@@ -23,6 +23,7 @@
                 <tr>
                     <th width="5%" class="text-center">N°</th>
                     <th width="25%">Libellé</th>
+                    <th width="10%" class="text-center">Type</th>
                     <th>Description</th>
                     <th width="2">#</th>
                 </tr>
@@ -32,6 +33,7 @@
                     <tr>
                         <td class="text-center">{{ $loop->iteration }}</td>
                         <td>{{ $label->libelle }}</td>
+                        <td class="text-center">{{ $label->type }}</td>
                         <td>{{ $label->description }}</td>
                         <td>
                             <div class="d-flex align-items-baseline">
