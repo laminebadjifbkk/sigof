@@ -141,11 +141,51 @@ class DetfController extends Controller
         $headerFirst = $section1->addHeader();
         $headerFirst->firstPage(); // première page
 
-        // Footer pour cette section
+        /* // Footer pour cette section
         $footer1 = $section1->addFooter();
         $footer1->firstPage(); // appliquer aussi sur première page
         $footer1->addText("SIGOF - Document confidentiel", ['italic' => true, 'size' => 10], ['align' => Jc::CENTER]);
-        $footer1->addPreserveText('Page {PAGE} / {NUMPAGES}', ['size' => 10], ['align' => Jc::CENTER]);
+        $footer1->addPreserveText('Page {PAGE} / {NUMPAGES}', ['size' => 10], ['align' => Jc::CENTER]); */
+        // Footer pour la première section
+        $footer1 = $section1->addFooter();
+        $footer1->firstPage(); // appliquer sur la première page uniquement
+
+        // Ligne horizontale en haut du footer, sans espace après
+        $footer1->addLine([
+            'weight' => 1,       // épaisseur
+            'width' => 500,      // largeur de la ligne
+            'height' => 0,
+            'align' => Jc::CENTER,
+            'color' => '000000',
+            'spaceBefore' => 0,
+            'spaceAfter' => 0   // pas d'espace après la ligne
+        ]);
+
+        // Créer un tableau pour texte + page
+        $table = $footer1->addTable([
+            'alignment' => Jc::CENTER,
+            'cellMarginTop' => 0,
+            'cellMarginBottom' => 0,
+            'spaceBefore' => 0,
+            'spaceAfter' => 0
+        ]);
+
+        $row = $table->addRow(0); // hauteur automatique
+        // Cellule texte centré
+        $row->addCell(8000)->addText(
+            "Cité Sipres 1, Lot 2 - 2 voies liberté 6 extension VDN\n" .
+                "Tel: 33 827 92 51 - Fax: 33 827 92 55\n" .
+                "BP: 21013 Dakar-Ponty - Email: onfp@onfp.sn",
+            ['size' => 10],
+            ['align' => Jc::CENTER, 'spaceBefore' => 0, 'spaceAfter' => 0]
+        );
+
+        // Cellule numéro de page aligné à droite
+        $row->addCell(2000)->addPreserveText(
+            'Page {PAGE} / {NUMPAGES}',
+            ['size' => 10],
+            ['align' => Jc::RIGHT, 'spaceBefore' => 0, 'spaceAfter' => 0]
+        );
 
         // Style sans espace entre lignes
         $noSpacing = [
@@ -345,11 +385,81 @@ class DetfController extends Controller
             'marginLeft' => 1000,
             'marginRight' => 1000
         ]);
-
+        /* 
         // Footer pour cette nouvelle section
         $footer2 = $section2->addFooter();
         $footer2->addText("SIGOF - Document confidentiel", ['italic' => true, 'size' => 10], ['align' => Jc::CENTER]);
-        $footer2->addPreserveText('Page {PAGE} / {NUMPAGES}', ['size' => 10], ['align' => Jc::CENTER]);
+        $footer2->addPreserveText('Page {PAGE} / {NUMPAGES}', ['size' => 10], ['align' => Jc::CENTER]); */
+
+       /*  // Footer pour cette nouvelle section
+        $footer2 = $section2->addFooter();
+
+        // Ligne de séparation (comme <div class="footer-line"></div>)
+        $footer2->addLine([
+            'weight' => 1,       // épaisseur de la ligne
+            'width' => 500,      // longueur (ajuster si nécessaire)
+            'height' => 0,       // hauteur = 0 pour ligne horizontale
+            'align' => Jc::CENTER,
+            'color' => '000000'  // couleur noire
+        ]);
+
+        // Petit espace avant le texte
+        $footer2->addTextBreak(1);
+
+        // Texte harmonisé avec le modèle HTML
+        $footer2->addText(
+            "Cité Sipres 1, Lot 2 - 2 voies liberté 6 extension VDN\n" .
+                "Tel: 33 827 92 51 - Fax: 33 827 92 55\n" .
+                "BP: 21013 Dakar-Ponty - Email: onfp@onfp.sn",
+            ['size' => 10],
+            ['align' => Jc::CENTER]
+        );
+
+        // Numérotation des pages
+        $footer2->addPreserveText(
+            'Page {PAGE} / {NUMPAGES}',
+            ['size' => 10],
+            ['align' => Jc::CENTER]
+        ); */
+
+        $footer2 = $section2->addFooter();
+
+        // Ligne horizontale en haut du footer, sans espace après
+        $footer2->addLine([
+            'weight' => 1,       // épaisseur
+            'width' => 500,      // largeur de la ligne
+            'height' => 0,
+            'align' => Jc::CENTER,
+            'color' => '000000',
+            'spaceBefore' => 0,
+            'spaceAfter' => 0   // pas d'espace après la ligne
+        ]);
+
+        // Créer un tableau pour texte + page
+        $table = $footer2->addTable([
+            'alignment' => Jc::CENTER,
+            'cellMarginTop' => 0,
+            'cellMarginBottom' => 0,
+            'spaceBefore' => 0,
+            'spaceAfter' => 0
+        ]);
+
+        $row = $table->addRow(0); // hauteur automatique
+        // Cellule texte centré
+        $row->addCell(8000)->addText(
+            "Cité Sipres 1, Lot 2 - 2 voies liberté 6 extension VDN\n" .
+                "Tel: 33 827 92 51 - Fax: 33 827 92 55\n" .
+                "BP: 21013 Dakar-Ponty - Email: onfp@onfp.sn",
+            ['size' => 10],
+            ['align' => Jc::CENTER, 'spaceBefore' => 0, 'spaceAfter' => 0]
+        );
+
+        // Cellule numéro de page aligné à droite
+        $row->addCell(2000)->addPreserveText(
+            'Page {PAGE} / {NUMPAGES}',
+            ['size' => 10],
+            ['align' => Jc::RIGHT, 'spaceBefore' => 0, 'spaceAfter' => 0]
+        );
 
         // ==============================
         // BOUCLE PAR TYPE (3 TABLEAUX)
