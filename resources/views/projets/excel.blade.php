@@ -39,7 +39,7 @@
                 <td>{{ $individuelle?->user?->email }}</td>
                 {{-- Téléphones : nettoyage des caractères --}}
                 <td>{{ preg_replace('/\D+/', '', $individuelle?->user?->telephone ?? '') }}</td>
-                <td>{{ preg_replace('/\D+/', '', $individuelle?->user?->telephone_secondaire ?? $individuelle?->user?->telephone_parent) }}
+                <td>{{ preg_replace('/\D+/', '', $individuelle?->telephone ?? $individuelle?->user?->telephone_parent) }}
                 </td>
                 <td>{{ $individuelle?->user?->adresse }}</td>
                 <td>{{ $individuelle?->region?->nom }}</td>
