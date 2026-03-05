@@ -614,61 +614,7 @@ class IndividuelleController extends Controller
 
     public function addIndividuelle(Request $request)
     {
-        /* $this->validate($request, [
-            'civilite'                  => ['required', 'string'],
-            'date_depot'                => ['required', 'date', 'date_format:Y-m-d\TH:i'],
-            'cin'                       => [
-                'required',
-                'string',
-                'min:13',
-                'max:14',
-                Rule::unique('users')->whereNull('deleted_at'), // Ignore les utilisateurs supprimés
-            ],
-            'email'                     => [
-                'required',
-                'string',
-                'email',
-                'max:250',
-                Rule::unique('users')->whereNull('deleted_at'), // Ignore les utilisateurs supprimés
-            ],
-            'firstname'                 => ['required', 'string', 'max:50'],
-            'lastname'                  => ['required', 'string', 'max:25'],
-            'telephone'                 => ['required', 'string', 'size:9'],
-            'telephone_secondaire'      => ['nullable', 'string', 'size:9'],
-            'date_naissance'            => ['required', 'date_format:d/m/Y'],
-            'lieu_naissance'            => ['required', 'string'],
-            'adresse'                   => ['required', 'string', 'max:250'],
-            'departement'               => ['required', 'string', 'max:250'],
-            'module'                    => ['required', 'string', 'max:250'],
-            'situation_professionnelle' => ['nullable', 'string', 'max:250'],
-            'situation_familiale'       => ['nullable', 'string', 'max:250'],
-            'niveau_etude'              => ['required', 'string', 'max:250'],
-            'diplome_academique'        => ['required', 'string', 'max:250'],
-            'diplome_professionnel'     => ['required', 'string', 'max:250'],
-            'projet_poste_formation'    => ['required', 'string', 'max:250'],
-            'qualification'             => ['nullable', 'string', 'max:200'],
-        ]); */
-
-        // Nettoyer le CIN avant validation
-        /* $request->merge([
-            'cin' => preg_replace('/\s+/', '', $request->cin)
-        ]); */
-
         $cin = preg_replace('/\s+/', '', $request->cin);
-
-        // 🔹 Formatage si CNI
-        if ($request->type_piece === 'cni') {
-            $cin = $this->formatCin($cin);
-        }
-
-        // 🔹 Préfixe
-        if ($request->type_piece === 'extrait') {
-            $cin = 'EXT. ' . $cin;
-        }
-
-        if ($request->type_piece === 'passeport') {
-            $cin = 'PPT. ' . $cin;
-        }
 
         // 🔹 Injecter la vraie valeur
         $request->merge(['cin' => $cin]);
@@ -702,30 +648,13 @@ class IndividuelleController extends Controller
             'qualification'             => ['nullable', 'string', 'max:200'],
         ]);
 
+        // 🔹 Validation conditionnelle selon type_piece
+        $validator->sometimes('cin', ['regex:/^[A-Z0-9]{13,14}$/i'], fn($input) => $input->type_piece === 'cni');
+        $validator->sometimes('cin', ['regex:/^[0-9\/]{10}$/'], fn($input) => $input->type_piece === 'extrait');
+        $validator->sometimes('cin', ['digits:9'], fn($input) => $input->type_piece === 'passeport');
+
         // Validation finale
         $data = $validator->validate();
-
-        /* // Validation conditionnelle
-        $validator->sometimes('cin', ['digits:5'], function ($input) {
-            return $input->type_piece === 'extrait';
-        });
-
-        $validator->sometimes('cin', ['digits:9'], function ($input) {
-            return $input->type_piece === 'passeport';
-        });
-
-        $validator->sometimes('cin', ['digits_between:13,14'], function ($input) {
-            return $input->type_piece === 'cni';
-        }); */
-
-
-        // Formatage CIN uniquement si nécessaire
-        if ($data['type_piece'] === 'cni') {
-            $data['cin'] = $this->formatCin($data['cin']);
-        }
-
-        // Utilisation des données validées
-        $cin = $data['cin'] ?? null;
 
         $date_input = $data['date_depot'] ?? null;
 
@@ -881,30 +810,6 @@ class IndividuelleController extends Controller
         Alert::success("Succès !", "Enregistrement effectué avec succès.");
 
         return redirect()->back();
-    }
-
-    private function formatCin(string $cin): string
-    {
-        // Supprimer tous les espaces
-        $cin = preg_replace('/\s+/', '', $cin);
-
-        if (strlen($cin) === 13) {
-            // 1 099 2002 00085
-            return substr($cin, 0, 1) . ' '
-                . substr($cin, 1, 3) . ' '
-                . substr($cin, 4, 4) . ' '
-                . substr($cin, 8, 5);
-        }
-
-        if (strlen($cin) === 14) {
-            // même logique mais 6 derniers chiffres collés
-            return substr($cin, 0, 1) . ' '
-                . substr($cin, 1, 3) . ' '
-                . substr($cin, 4, 4) . ' '
-                . substr($cin, 8, 6);
-        }
-
-        return $cin; // sécurité
     }
 
     /* public function edit(Individuelle $individuelle)

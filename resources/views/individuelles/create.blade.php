@@ -220,7 +220,7 @@
                             <label class="form-label">
                                 Téléphone personnel<span class="required">*</span>
                             </label>
-                            <input name="telephone" type="text" maxlength="12"
+                            <input name="telephone" type="text" maxlength="9"
                                 class="form-control form-control-sm @error('telephone') is-invalid @enderror"
                                 id="telephone" value="{{ old('telephone') }}" autocomplete="tel"
                                 placeholder="XX:XXX:XX:XX">
@@ -234,7 +234,7 @@
                             <label class="form-label">
                                 Téléphone secondaire
                             </label>
-                            <input name="telephone_secondaire" type="text" maxlength="12"
+                            <input name="telephone_secondaire" type="text" maxlength="9"
                                 class="form-control form-control-sm @error('telephone_secondaire') is-invalid @enderror"
                                 id="telephone_s" value="{{ old('telephone_secondaire') }}" autocomplete="tel"
                                 placeholder="XX:XXX:XX:XX">
@@ -764,10 +764,10 @@
                     case 'extrait':
                         numeroLabel.innerHTML =
                             'Numéro de l’extrait de naissance <span class="required">*</span>';
-                        numeroInput.placeholder = 'Ex : 12345';
-                        numeroInput.setAttribute('minlength', 5);
-                        numeroInput.setAttribute('maxlength', 5);
-                        numeroInput.setAttribute('pattern', '[A-Za-z0-9]{5}');
+                        numeroInput.placeholder = 'Ex : 00450/2010';
+                        numeroInput.setAttribute('minlength', 10);
+                        numeroInput.setAttribute('maxlength', 10);
+                        numeroInput.setAttribute('pattern', '[A-Za-z0-9/]{10}');
                         break;
 
                     case 'passeport':
