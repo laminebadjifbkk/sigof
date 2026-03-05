@@ -62,8 +62,8 @@
                             @method('PUT')
 
                             @if ($individuelles->isNotEmpty())
-                                <div class="form-check col-md-12 border rounded bg-light shadow-sm p-3">
-                                    <div class="table-responsive ms-4">
+                                <div class="col-md-12 border rounded bg-light shadow-sm p-3">
+                                    <div class="table-responsive">
                                         <table class="m-2 table datatables align-middle" id="table-collectives">
                                             <thead>
                                                 <tr>
