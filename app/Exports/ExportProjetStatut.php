@@ -31,7 +31,7 @@ class ExportProjetStatut implements FromView, ShouldAutoSize
             })
             ->get();
 
-            dd($individuelles);
+        dd($projetmodule, $projet, $projet->id, $individuelles);
 
         return view('projets.excel', [
             'individuelles' => $individuelles,
