@@ -298,7 +298,7 @@
                                         Informations formation
                                     </h5>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                     <label for="module" class="form-label">Formation sollicitée (module)<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="module"
@@ -333,7 +333,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
+                                {{-- <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                     <label for="adresse" class="form-label">Adresse<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="adresse"
@@ -345,7 +345,7 @@
                                             <div>{{ $message }}</div>
                                         </span>
                                     @enderror
-                                </div>
+                                </div> --}}
                                 {{-- <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                     <label for="numero" class="form-label">numero<span
                                             class="text-danger mx-1">*</span></label>
