@@ -46,7 +46,7 @@
                             <label class="form-label fw-semibold">
                                 <i class="bi bi-tag"></i> Libellé <span class="text-danger">*</span>
                             </label>
-                            <select name="label_id" class="form-select form-select-sm">
+                            <select name="label_id" class="form-select form-select-sm" id="select-field-lebelles_id">
                                 <option value="">-- Sélectionner --</option>
                                 @foreach ($labels as $label)
                                     <option value="{{ $label->id }}">
