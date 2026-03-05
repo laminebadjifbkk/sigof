@@ -9,7 +9,7 @@ class BudgetLabelController extends Controller
 {
     public function index()
     {
-        $labels = BudgetLabel::orderBy('libelle')->paginate(10);
+        $labels = BudgetLabel::latest()->get();
         return view('budget_labels.index', compact('labels'));
     }
 
