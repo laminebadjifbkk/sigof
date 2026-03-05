@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\SimpleType\Jc;
-use PhpOffice\PhpWord\SimpleType\HeaderFooterType;
 
 class DetfController extends Controller
 {
@@ -130,36 +129,23 @@ class DetfController extends Controller
 
         $phpWord = new PhpWord();
 
-        // Crée la section principale
-        $section = $phpWord->addSection([
+        // SECTION 1 : En-tête et tableau principal
+        $section1 = $phpWord->addSection([
             'marginTop' => 1200,
             'marginBottom' => 1200,
             'marginLeft' => 1000,
             'marginRight' => 1000
         ]);
 
-        // Ajouter le footer directement sur cette section
-        $footer = $section->addFooter();
+        // Header de la première page
+        $headerFirst = $section1->addHeader();
+        $headerFirst->firstPage(); // première page
 
-        // Texte du pied de page
-        $footer->addText(
-            "SIGOF - Document confidentiel",
-            ['italic' => true, 'size' => 10],
-            ['align' => Jc::CENTER]
-        );
-
-        // Numérotation automatique
-        $footer->addPreserveText(
-            'Page {PAGE} / {NUMPAGES}',
-            ['size' => 10],
-            ['align' => Jc::CENTER]
-        );
-
-        // ENTETE OFFICIELLE
-        // HEADER OFFICIEL COMPACT
-        // Header pour la première page uniquement
-        $headerFirst = $section->addHeader();
-        $headerFirst->firstPage();
+        // Footer pour cette section
+        $footer1 = $section1->addFooter();
+        $footer1->firstPage(); // appliquer aussi sur première page
+        $footer1->addText("SIGOF - Document confidentiel", ['italic' => true, 'size' => 10], ['align' => Jc::CENTER]);
+        $footer1->addPreserveText('Page {PAGE} / {NUMPAGES}', ['size' => 10], ['align' => Jc::CENTER]);
 
         // Style sans espace entre lignes
         $noSpacing = [
@@ -211,15 +197,15 @@ class DetfController extends Controller
         ];
 
         // Petit espace après l'entête
-        $section->addTextBreak(0);
+        $section1->addTextBreak(0);
 
-        $section->addText(
+        $section1->addText(
             "DIRECTION DE L’INGENIERIE ET DES OPERATIONS DE",
             ['bold' => true, 'size' => 14],
             $centerNoSpace
         );
 
-        $section->addText(
+        $section1->addText(
             "FORMATION",
             ['bold' => true, 'size' => 14],
             $centerNoSpace
@@ -230,10 +216,10 @@ class DetfController extends Controller
         // ==============================
 
         // Petit espace avant
-        $section->addTextBreak(1);
+        $section1->addTextBreak(1);
 
         // Création tableau pour encadré
-        $table = $section->addTable([
+        $table = $section1->addTable([
             'alignment' => Jc::CENTER,
             'borderSize' => 12,
             'borderColor' => '000000',
@@ -264,10 +250,10 @@ class DetfController extends Controller
             ]
         );
 
-        $section->addTextBreak(1);
+        $section1->addTextBreak(1);
 
         // Créer le tableau principal avec marge interne
-        $table = $section->addTable([
+        $table = $section1->addTable([
             'borderSize' => 6,
             'borderColor' => '000000',
             'alignment' => Jc::START,
@@ -353,17 +339,27 @@ class DetfController extends Controller
 
         $totalGeneral = 0;
 
-        // Maintenant, vous pouvez ajouter votre section principale
-        $section = $phpWord->addSection();
+        $section2 = $phpWord->addSection([
+            'breakType' => 'nextPage', // force le saut de page
+            'marginTop' => 1200,
+            'marginBottom' => 1200,
+            'marginLeft' => 1000,
+            'marginRight' => 1000
+        ]);
+
+        // Footer pour cette nouvelle section
+        $footer2 = $section2->addFooter();
+        $footer2->addText("SIGOF - Document confidentiel", ['italic' => true, 'size' => 10], ['align' => Jc::CENTER]);
+        $footer2->addPreserveText('Page {PAGE} / {NUMPAGES}', ['size' => 10], ['align' => Jc::CENTER]);
 
         // ==============================
         // BOUCLE PAR TYPE (3 TABLEAUX)
         // ==============================
         foreach ($grouped as $type => $items) {
 
-            $section->addTitle(strtoupper($type), 2);
+            $section2->addTitle(strtoupper($type), 2);
 
-            $table = $section->addTable([
+            $table = $section2->addTable([
                 'borderSize' => 6,
                 'borderColor' => '000000',
                 'alignment' => Jc::START,
@@ -402,7 +398,7 @@ class DetfController extends Controller
             $table->addCell(2000)
                 ->addText(number_format($sousTotal, 0, ',', ' '), ['bold' => true]);
 
-            $section->addTextBreak(1);
+            $section2->addTextBreak(1);
 
             $totalGeneral += $sousTotal;
         }
@@ -410,7 +406,7 @@ class DetfController extends Controller
         // ==============================
         // TOTAL GENERAL
         // ==============================
-        $section->addText(
+        $section2->addText(
             "TOTAL GENERAL : " . number_format($totalGeneral, 0, ',', ' ') . " FCFA",
             ['bold' => true, 'size' => 14]
         );
