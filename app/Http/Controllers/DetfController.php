@@ -315,13 +315,13 @@ class DetfController extends Controller
         // Préparer les infos dynamiques de l'opérateur
         $operateurLines = [
             "Nom : {$detf->operateur?->user?->operateur}",
-            "Agrément ONFP : 000739.23/ONFP/DG/DEC/2023",
-            "Statut : Privé",
-            "Catégorie : 2",
-            "Adresse : Kaolack, Bene Tally Villa 11 bis",
-            "Tel : 77 537 37 42/70 800 68 45",
-            "Email : institutsk@gmail.com",
-            "PVCCO du 23-07-2025",
+            "Agrément ONFP : {$detf->operateur?->numero_agrement}",
+            "Statut : {$detf->operateur?->types_operateur?->name}",
+            "Catégorie : {$detf->operateur?->user?->categorie}",
+            "Adresse : {$detf->operateur?->user?->adresse}",
+            "Tel : {$detf->operateur?->user?->fixe} / {$detf->operateur?->user?->telephone}",
+            "Email : {$detf->operateur?->user?->email}",
+            "PVCCO du ",
         ];
 
         // Préparer l'ingénieur
@@ -332,10 +332,9 @@ class DetfController extends Controller
         addRow($table, 'Bénéficiaires à former', $detf->titre2 ?? '');
         addRow($table, 'Niveau ou Titre de qualification visé', $detf->titre2 ?? '');
         addRowWithLinesMerged($table, 'Opérateur', $operateurLines);
-        addRow($table, 'Ingénieur responsable', $ingenieurInfo);
         addRow($table, 'Lieu', $detf->lieu ?? '');
         addRow($table, 'Période de la formation', $detf->periode ?? '');
-        addRow($table, 'Responsable', $detf->responsable ?? '');
+        addRow($table, 'Responsable', $ingenieurInfo);
 
         $totalGeneral = 0;
 
