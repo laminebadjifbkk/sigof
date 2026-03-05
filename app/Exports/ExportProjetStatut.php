@@ -2,10 +2,11 @@
 
 namespace App\Exports;
 
-use Maatwebsite\Excel\Concerns\FromView;
 use App\Models\Individuelle;
+use App\Models\Module;
 use App\Models\Projetmodule;
 use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
 class ExportProjetStatut implements FromView, ShouldAutoSize
@@ -23,9 +24,11 @@ class ExportProjetStatut implements FromView, ShouldAutoSize
         // Récupère le module et le projet lié
         $projetmodule = Projetmodule::findOrFail($this->module);
         $projet = $projetmodule->projet;
+        $module = Module::where('name', $projetmodule->module)->first();
 
-        // Récupère les Individuelles liées au projet
+        // Récupère les Individuelles liées au projet et au module
         $individuelles = Individuelle::where('projets_id', $projet->id)
+            ->where('modules_id', $module->id) // <- filtre par module
             ->when($this->statut !== 'Aucun statut', function ($query) {
                 $query->where('statut', $this->statut);
             }, function ($query) {

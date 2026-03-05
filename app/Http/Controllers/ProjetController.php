@@ -915,7 +915,7 @@ class ProjetController extends Controller
             mkdir($tempPath, 0777, true);
         }
 
-        $fileName = "{$projet->sigle}_{$projetmodule->module}.xlsx";
+        $fileName = "{$projet->sigle}_{$projetmodule->module}_{$statut}.xlsx";
         Excel::store(new ExportProjetStatut($module, $statut), "temp/{$fileName}", 'local');
 
         $excelPath = storage_path("app/temp/{$fileName}");
@@ -971,7 +971,7 @@ class ProjetController extends Controller
             }); */
 
         // === 4. Créer le ZIP ===
-        $zipPath = storage_path("app/temp/Projet_{$projet->sigle}_{$projetmodule->module}.zip");
+        $zipPath = storage_path("app/temp/Projet_{$projet->sigle}_{$projetmodule->module}_{$statut}.zip");
         $zip = new \ZipArchive;
         if ($zip->open($zipPath, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) === true) {
             $files = new \RecursiveIteratorIterator(
