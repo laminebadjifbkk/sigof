@@ -915,7 +915,7 @@ class ProjetController extends Controller
             mkdir($tempPath, 0777, true);
         }
 
-        $fileName = "{$projet->sigle}.xlsx";
+        $fileName = "{$projet->sigle}_{$projetmodule->module}.xlsx";
         Excel::store(new ExportProjetStatut($module, $statut), "temp/{$fileName}", 'local');
 
         $excelPath = storage_path("app/temp/{$fileName}");
