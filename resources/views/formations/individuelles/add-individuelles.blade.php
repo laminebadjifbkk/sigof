@@ -67,7 +67,7 @@
                                         <table class="m-2 table datatables align-middle" id="table-collectives">
                                             <thead>
                                                 <tr>
-                                                    <th><input type="checkbox" class="form-check-input" id="checkAll"> Choisir tout
+                                                    <th><input type="checkbox" class="form-check-input" id="checkAll"> All
                                                     </th>
                                                     {{-- <th>Civilité</th> --}}
                                                     <th>Name</th>
