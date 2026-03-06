@@ -594,7 +594,7 @@ class UserController extends Controller
                 'date_naissance' => ['required', 'date_format:d/m/Y'],
                 'lieu_naissance' => ['nullable', 'string'],
                 'image'          => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:1024'],
-                'telephone'      => ['required', 'string', 'min:9', 'max:12'],
+                'telephone'      => ['required', 'string', 'size:9'],
                 'adresse'        => ['required', 'string', 'max:255'],
                 'roles.*'        => ['nullable', 'string', 'max:255'],
                 'email'          => [
@@ -863,7 +863,7 @@ class UserController extends Controller
             }
         } elseif ($request->telephone_value == "1") {
             $this->validate($request, [
-                'telephone' => 'required|size:12',
+                'telephone' => 'required|size:9',
             ]);
 
             $users = User::where('telephone', 'LIKE', "%{$request->telephone}%")

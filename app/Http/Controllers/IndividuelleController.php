@@ -1152,7 +1152,26 @@ class IndividuelleController extends Controller
 
         $userRoles = Auth::user()->roles->pluck('name')->toArray();
 
-        $excludedRoles = ['super-admin', 'Employe', 'admin', 'DIOF', 'ADIOF', 'Ingenieur', 'DEC', 'AntKD', 'AntKL', 'AntSL', 'AntKG', 'AntMT', 'AntDL', 'AntZG', 'AntTH', 'CAR', 'DG'];
+        $excludedRoles = [
+            'super-admin',
+            'Employe',
+            'admin',
+            'DIOF',
+            'ADIOF',
+            'Ingenieur',
+            'DEC',
+            'Antenne',
+            'AntKD',
+            'AntKL',
+            'AntSL',
+            'AntKG',
+            'AntMT',
+            'AntDL',
+            'AntZG',
+            'AntTH',
+            'CAR',
+            'DG'
+        ];
 
         if (! empty(array_diff($userRoles, $excludedRoles))) {
             $this->authorize('show', $individuelle);
