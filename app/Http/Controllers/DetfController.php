@@ -112,10 +112,14 @@ class DetfController extends Controller
 
     public function show(Request $request, $id)
     {
-
         $detf = Detf::findOrFail($id);
 
-        return view('detfs.show', compact('detf'));
+        // Filtrer les budgetItems de type 'budget'
+        $budgetItems = $detf->budgetItems->filter(function ($item) {
+            return $item?->label?->type === 'budget';
+        });
+
+        return view('detfs.show', compact('detf', 'budgetItems'));
     }
 
     public function exportWord($id)

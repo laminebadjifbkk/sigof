@@ -50,24 +50,26 @@
             {{-- Budget --}}
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <h5>Lignes budgétaires</h5>
+                    <h5>BUDGET PREVISIONNEL </h5>
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
+                                <th>Rubriques</th>
                                 <th>Libellé</th>
                                 <th>Unité</th>
-                                <th>Type</th>
+                                {{-- <th>Type</th> --}}
                                 <th>Quantité</th>
                                 <th>Prix Unitaire</th>
                                 <th>Montant</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($detf?->budgetItems as $item)
+                            @forelse($budgetItems as $item)
                                 <tr>
+                                    <td>-</td>
                                     <td>{{ $item?->label?->libelle }}</td>
                                     <td>{{ $item?->unite }}</td>
-                                    <td>{{ $item?->label?->type }}</td>
+                                    {{-- <td>{{ $item?->label?->type }}</td> --}}
                                     <td>{{ $item?->quantite }}</td>
                                     <td>{{ number_format($item?->prix_unitaire, 0, ',', ' ') }}</td>
                                     <td>{{ number_format($item?->montant, 0, ',', ' ') }}</td>
@@ -78,12 +80,12 @@
                                 </tr>
                             @endforelse
                         </tbody>
-                        @if ($detf->budgetItems->count() > 0)
+                        @if ($budgetItems->count() > 0)
                             <tfoot>
                                 <tr>
-                                    <th colspan="4" class="text-end">Total</th>
+                                    <th colspan="5" class="text-end">Total</th>
                                     <th>
-                                        {{ number_format($detf?->budgetItems->sum('montant'), 0, ',', ' ') }}
+                                        {{ number_format($budgetItems->sum('montant'), 0, ',', ' ') }}
                                     </th>
                                 </tr>
                             </tfoot>
