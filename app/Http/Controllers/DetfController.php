@@ -457,8 +457,10 @@ class DetfController extends Controller
         );
 
         // ==============================
-        // BOUCLE PAR TYPE (3 TABLEAUX)
+        // BOUCLE PAR TYPE (4 TABLEAUX)
         // ==============================
+        $sousTotalIndex = 1;
+
         foreach ($grouped as $type => $items) {
 
             $section2->addTitle(strtoupper($type), 2);
@@ -467,44 +469,58 @@ class DetfController extends Controller
                 'borderSize' => 6,
                 'borderColor' => '000000',
                 'alignment' => Jc::START,
-                'cellMarginTop' => 15,     // réduire l'espace en haut
-                'cellMarginBottom' => 15,  // réduire l'espace en bas
-                'cellMarginLeft' => 100,   // petite marge à gauche
-                'cellMarginRight' => 100,  // optionnel, pour symétrie
+                'cellMarginTop' => 0,
+                'cellMarginBottom' => 0,
+                'cellMarginLeft' => 50,
+                'cellMarginRight' => 50,
             ]);
+
+            $textFont = [
+                'size' => 11
+            ];
+
+            $textStyle = [
+                'spaceBefore' => 0,
+                'spaceAfter' => 0,
+                'lineHeight' => 1
+            ];
 
             // Entête
             $table->addRow();
-            $table->addCell(3000)->addText('Libellé', ['bold' => true]);
-            $table->addCell(1500)->addText('Unité', ['bold' => true]);
-            $table->addCell(1500)->addText('Quantité', ['bold' => true]);
-            $table->addCell(2000)->addText('Prix Unitaire', ['bold' => true]);
-            $table->addCell(2000)->addText('Montant', ['bold' => true]);
+            $table->addCell(3000, ['vAlign' => 'center'])->addText('Libellé', ['bold' => true, 'size' => 11], $textStyle);
+            $table->addCell(1500, ['vAlign' => 'center'])->addText('Unité', ['bold' => true, 'size' => 11], $textStyle);
+            $table->addCell(1500, ['vAlign' => 'center'])->addText('Quantité', ['bold' => true, 'size' => 11], $textStyle);
+            $table->addCell(2000, ['vAlign' => 'center'])->addText('Prix Unitaire', ['bold' => true, 'size' => 11], $textStyle);
+            $table->addCell(2000, ['vAlign' => 'center'])->addText('Montant', ['bold' => true, 'size' => 11], $textStyle);
 
             $sousTotal = 0;
 
             foreach ($items as $item) {
 
                 $table->addRow();
-                $table->addCell(3000)->addText($item->label->libelle);
-                $table->addCell(1500)->addText($item->unite);
-                $table->addCell(1500)->addText($item->quantite);
-                $table->addCell(2000)->addText(number_format($item->prix_unitaire, 0, ',', ' '));
-                $table->addCell(2000)->addText(number_format($item->montant, 0, ',', ' '));
+                $table->addCell(3000, ['vAlign' => 'center'])->addText($item->label->libelle, $textFont, $textStyle);
+                $table->addCell(1500, ['vAlign' => 'center'])->addText($item->unite, $textFont, $textStyle);
+                $table->addCell(1500, ['vAlign' => 'center'])->addText($item->quantite, $textFont, $textStyle);
+                $table->addCell(2000, ['vAlign' => 'center'])->addText(number_format($item->prix_unitaire, 0, ',', ' '), $textFont, $textStyle);
+                $table->addCell(2000, ['vAlign' => 'center'])->addText(number_format($item->montant, 0, ',', ' '), $textFont, $textStyle);
 
                 $sousTotal += $item->montant;
             }
 
-            // Sous-total par type
+            // Sous-total
             $table->addRow();
-            $table->addCell(8000, ['gridSpan' => 4])
-                ->addText('Sous-total', ['bold' => true]);
-            $table->addCell(2000)
-                ->addText(number_format($sousTotal, 0, ',', ' '), ['bold' => true]);
+            $table->addCell(8000, ['gridSpan' => 4, 'vAlign' => 'center'])
+                ->addText('Sous-total ' . $sousTotalIndex, ['bold' => true, 'size' => 11], $textStyle);
+
+            $table->addCell(2000, ['vAlign' => 'center'])
+                ->addText(number_format($sousTotal, 0, ',', ' '), ['bold' => true, 'size' => 11], $textStyle);
 
             $section2->addTextBreak(1);
 
             $totalGeneral += $sousTotal;
+
+            // Incrémenter pour le prochain groupe
+            $sousTotalIndex++;
         }
 
         // ==============================
