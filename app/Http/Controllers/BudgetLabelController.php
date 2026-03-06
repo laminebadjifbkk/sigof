@@ -22,7 +22,7 @@ class BudgetLabelController extends Controller
     {
         $request->validate([
             'libelle' => 'required|string|max:255|unique:budget_labels,libelle',
-            'type' => 'required|in:fournitures,materiels,intrants',
+            'type' => 'required|in:fournitures,materiels,intrants,budget',
             'description' => 'nullable|string|max:500',
         ]);
 
@@ -40,7 +40,7 @@ class BudgetLabelController extends Controller
     {
         $request->validate([
             'libelle' => 'required|string|max:255|unique:budget_labels,libelle,' . $budgetLabel->id,
-            'type' => 'required|in:fournitures,materiels,intrants,type,' . $budgetLabel->id,
+            'type' => 'required|in:fournitures,materiels,intrants,budget,type,' . $budgetLabel->id,
             'description' => 'nullable|string|max:500',
         ]);
 

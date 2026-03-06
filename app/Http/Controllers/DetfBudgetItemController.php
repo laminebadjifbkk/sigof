@@ -18,26 +18,15 @@ class DetfBudgetItemController extends Controller
             ->with('label')
             ->get();
 
-        // Regrouper par rubrique (colonne texte)
-        $groupedItems = $budgetItems->groupBy(function ($item) {
-            return $item->label->rubrique;
-        });
-
-        $totauxParRubrique = [];
-
-        foreach ($groupedItems as $rubrique => $items) {
-            $totauxParRubrique[$rubrique] = $items->sum('montant');
-        }
-
-        $totalGeneral = $budgetItems->sum('montant');
+        $grouped = $budgetItems->groupBy(fn($item) => $item->label->type ?? 'Autres');
+        $totalGeneral = 0;
 
         return view('detfs.budget', compact(
             'detf',
             'labels',
+            'grouped',
+            'totalGeneral',
             'budgetItems',
-            'groupedItems',
-            'totauxParRubrique',
-            'totalGeneral'
         ));
     }
 

@@ -7,7 +7,8 @@
             <span class="text-danger">*</span>
         </label>
 
-        <input type="text" name="libelle" id="libelle" placeholder="Libellé" class="form-control form-control-sm @error('libelle') is-invalid @enderror"
+        <input type="text" name="libelle" id="libelle" placeholder="Libellé"
+            class="form-control form-control-sm @error('libelle') is-invalid @enderror"
             value="{{ old('libelle', $budgetLabel->libelle ?? '') }}" required>
 
         @error('libelle')
@@ -24,7 +25,8 @@
             <span class="text-danger">*</span>
         </label>
 
-        <select name="type" id="type" class="form-select form-select-sm @error('type') is-invalid @enderror" required>
+        <select name="type" id="type" class="form-select form-select-sm @error('type') is-invalid @enderror"
+            required>
 
             <option value="">-- Sélectionner un type --</option>
 
@@ -38,6 +40,10 @@
 
             <option value="intrants" {{ old('type', $budgetLabel->type ?? '') == 'intrants' ? 'selected' : '' }}>
                 Intrants pédagogiques
+            </option>
+
+            <option value="budget" {{ old('type', $budgetLabel->type ?? '') == 'budget' ? 'selected' : '' }}>
+                Budget previsionnel
             </option>
 
         </select>
