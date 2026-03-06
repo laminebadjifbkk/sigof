@@ -1182,12 +1182,6 @@ class IndividuelleController extends Controller
             ->distinct()
             ->get();
 
-        /* $user_files = File::where('users_id', $individuelle->user->id)
-            ->whereNull('file')
-            ->whereNotIn('sigle', ['AC', 'Arrêté', 'Ninea/RC'])
-            ->distinct()
-            ->get(); */
-
         $user_files = File::whereNull('file')
             ->whereNull('users_id')
             ->whereNotIn('sigle', ['AC', 'Arrêté', 'Ninea/RC', 'Titre', 'Contrat', 'Convention', 'Organigramme', 'Quitus', 'Carte', 'Casier', 'Assurance', 'Lettre', 'Bail', 'RIB', 'Domicile', 'Justificatif', 'Non-fonctionnaire'])
