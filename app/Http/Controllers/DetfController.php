@@ -68,9 +68,9 @@ class DetfController extends Controller
             'titre2' => 'required|string',
             'operateurs_id' => 'required|exists:operateurs,id',
             'ingenieurs_id' => 'required|exists:ingenieurs,id',
-            'pv_commission' => 'required|string',
             'lieu_formation' => 'required|string',
             'periode_formation' => 'required|string',
+            'date_pv' => 'required|date',
         ]);
 
         $numero = 'DETF-' . date('Y') . '-' . str_pad(Detf::count() + 1, 3, '0', STR_PAD_LEFT);
@@ -87,6 +87,7 @@ class DetfController extends Controller
             'etat'  => 'Nouveau',
             'operateurs_id'  => $request->operateurs_id,
             'ingenieurs_id'  => $request->ingenieurs_id,
+            'date1'  => $request->date_pv,
         ]);
 
         return redirect()->route('detfs.create')->with('success', 'DETF créée avec succès !');
@@ -107,9 +108,9 @@ class DetfController extends Controller
             'titre2' => 'required|string',
             'operateurs_id' => 'required|exists:operateurs,id',
             'ingenieurs_id' => 'required|exists:ingenieurs,id',
-            'pv_commission' => 'required|string',
             'lieu_formation' => 'required|string',
             'periode_formation' => 'required|string',
+            'date_pv' => 'required|date',
         ]);
 
         /* $detf->update($request->all()); */
@@ -122,6 +123,7 @@ class DetfController extends Controller
             'etat'  => 'Nouveau',
             'operateurs_id'  => $request->operateurs_id,
             'ingenieurs_id'  => $request->ingenieurs_id,
+            'date1'  => $request->date_pv,
         ]);
 
         return redirect()->back()
@@ -386,7 +388,7 @@ class DetfController extends Controller
             "Adresse : {$detf->operateur?->user?->adresse}",
             "Tel : {$detf->operateur?->user?->fixe} / {$detf->operateur?->user?->telephone}",
             "Email : {$detf->operateur?->user?->email}",
-            "PVCCO du ",
+            "PVCCO du {$detf->date1->format('d/m/Y')}",
         ];
 
         // Préparer l'ingénieur
@@ -397,8 +399,8 @@ class DetfController extends Controller
         addRow($table, 'Bénéficiaires à former', $detf->titre2 ?? '');
         addRow($table, 'Niveau ou Titre de qualification visé', $detf->titre2 ?? '');
         addRowWithLinesMerged($table, 'Opérateur', $operateurLines);
-        addRow($table, 'Lieu', $detf->lieu ?? '');
-        addRow($table, 'Période de la formation', $detf->periode ?? '');
+        addRow($table, 'Lieu', $detf->lieu_de_formation ?? '');
+        addRow($table, 'Période de la formation', $detf->periode_de_formation ?? '');
         addRow($table, 'Responsable', $ingenieurInfo);
 
         $totalGeneral = 0;

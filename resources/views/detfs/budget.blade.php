@@ -146,16 +146,13 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     @if ($isLastGroup)
-                                        <td></td> <!-- colonne Rubriques vide pour TOTAL GENERAL -->
+                                        <td>-</td> <!-- colonne Rubriques vide pour TOTAL GENERAL -->
                                     @endif
                                     <td>{{ $item->label->libelle }}</td>
                                     <td>{{ $item->unite }}</td>
                                     <td>{{ $item->quantite }}</td>
                                     <td class="text-end">{{ number_format($item->prix_unitaire, 0, ',', ' ') }}</td>
                                     <td class="text-end">{{ number_format($item->montant, 0, ',', ' ') }}</td>
-                                    @if ($isLastGroup)
-                                        <td>{{ $item->rubrique ?? '-' }}</td>
-                                    @endif
                                     <td>
                                         <div class="d-flex align-items-baseline"> <a
                                                 href="{{ route('budget-items.edit', ['detf' => $detf->id, 'budget_item' => $item->id]) }}"

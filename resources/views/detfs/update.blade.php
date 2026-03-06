@@ -59,6 +59,16 @@
                             </div>
 
                             <div class="col-md-6">
+                                <label for="date_pv" class="form-label">Date pv choix opérateurs</label>
+                                <input type="date" name="date_pv" id="date_pv"
+                                    class="form-control form-control-sm @error('date_pv') is-invalid @enderror"
+                                    value="{{ old('date_pv', $detf->date1?->format('Y-m-d')) }}">
+                                @error('date_pv')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            {{-- <div class="col-md-6">
                                 <label for="pv_commission" class="form-label">PV commission<span class="text-danger">
                                         *</span></label>
                                 <input type="text" name="pv_commission" id="pv_commission"
@@ -68,7 +78,7 @@
                                 @error('pv_commission')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
-                            </div>
+                            </div> --}}
 
                             <div class="col-md-6">
                                 <label for="lieu_formation" class="form-label">Lieu formation<span class="text-danger">
