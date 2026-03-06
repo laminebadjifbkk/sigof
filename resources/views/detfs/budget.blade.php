@@ -157,7 +157,23 @@
                                         <td>{{ $item->rubrique ?? '-' }}</td>
                                     @endif
                                     <td>
-                                        <!-- actions -->
+                                        <div class="d-flex align-items-baseline"> <a
+                                                href="{{ route('budget-items.edit', ['detf' => $detf->id, 'budget_item' => $item->id]) }}"
+                                                class="btn btn-success btn-sm" title="Modifier"> <i
+                                                    class="bi bi-pencil"></i> </a>
+                                            <div class="filter"> <a class="icon" href="#" data-bs-toggle="dropdown">
+                                                    <i class="bi bi-three-dots"></i> </a>
+                                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                    <li>
+                                                        <form
+                                                            action="{{ route('budget-items.destroy', ['detf' => $detf->id, 'budget_item' => $item->id]) }}"
+                                                            method="post"> @csrf @method('DELETE') <button type="submit"
+                                                                class="dropdown-item show_confirm"> <i
+                                                                    class="bi bi-trash"></i> Supprimer </button> </form>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach

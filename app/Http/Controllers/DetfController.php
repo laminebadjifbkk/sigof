@@ -63,11 +63,14 @@ class DetfController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'titre1' => 'nullable|string',
-            'titre2' => 'nullable|string',
-            'date1' => 'nullable|date',
-            'operateurs_id' => 'nullable|integer',
+        $request->validate([
+            'titre1' => 'required|string',
+            'titre2' => 'required|string',
+            'operateurs_id' => 'required|exists:operateurs,id',
+            'ingenieurs_id' => 'required|exists:ingenieurs,id',
+            'pv_commission' => 'required|string',
+            'lieu_formation' => 'required|string',
+            'periode_formation' => 'required|string',
         ]);
 
         $numero = 'DETF-' . date('Y') . '-' . str_pad(Detf::count() + 1, 3, '0', STR_PAD_LEFT);
@@ -78,7 +81,9 @@ class DetfController extends Controller
             'numero' => $numero,
             'titre1' => $request->titre1,
             'titre2' => $request->titre2,
-            'date1'  => $request->date1,
+            'pvchoixoperateur'  => $request->pv_commission,
+            'lieu_de_formation'  => $request->lieu_formation,
+            'periode_de_formation'  => $request->periode_formation,
             'etat'  => 'Nouveau',
             'operateurs_id'  => $request->operateurs_id,
             'ingenieurs_id'  => $request->ingenieurs_id,
@@ -97,7 +102,27 @@ class DetfController extends Controller
 
     public function update(Request $request, Detf $detf)
     {
-        $detf->update($request->all());
+        $request->validate([
+            'titre1' => 'required|string',
+            'titre2' => 'required|string',
+            'operateurs_id' => 'required|exists:operateurs,id',
+            'ingenieurs_id' => 'required|exists:ingenieurs,id',
+            'pv_commission' => 'required|string',
+            'lieu_formation' => 'required|string',
+            'periode_formation' => 'required|string',
+        ]);
+
+        /* $detf->update($request->all()); */
+        $detf->update([
+            'titre1' => $request->titre1,
+            'titre2' => $request->titre2,
+            'pvchoixoperateur'  => $request->pv_commission,
+            'lieu_de_formation'  => $request->lieu_formation,
+            'periode_de_formation'  => $request->periode_formation,
+            'etat'  => 'Nouveau',
+            'operateurs_id'  => $request->operateurs_id,
+            'ingenieurs_id'  => $request->ingenieurs_id,
+        ]);
 
         return redirect()->back()
             ->with('success', 'DETF modifié avec succès.');

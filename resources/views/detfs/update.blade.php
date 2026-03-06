@@ -39,24 +39,60 @@
                         <div class="row g-3">
 
                             {{-- Titre 1 --}}
-                            <div class="col-md-6">
-                                <label for="titre1" class="form-label">Titre 1</label>
-                                <input type="text" name="titre1" id="titre1" class="form-control form-control-sm"
+                            <div class="col-md-12">
+                                <label for="titre1" class="form-label">Bénéficiaires<span class="text-danger">
+                                        *</span></label>
+                                <input type="text" name="titre1" id="titre1"
+                                    class="form-control form-control-sm @error('titre2') is-invalid @enderror"
                                     value="{{ old('titre1', $detf->titre1) }}">
+                                @error('titre2')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             {{-- Titre 2 --}}
                             <div class="col-md-6">
-                                <label for="titre2" class="form-label">Titre 2</label>
+                                <label for="titre2" class="form-label">Intitulé<span class="text-danger">
+                                        *</span></label>
                                 <input type="text" name="titre2" id="titre2" class="form-control form-control-sm"
                                     value="{{ old('titre2', $detf->titre2) }}">
                             </div>
 
-                            {{-- Date --}}
                             <div class="col-md-6">
-                                <label for="date1" class="form-label">Date</label>
-                                <input type="date" name="date1" id="date1" class="form-control form-control-sm"
-                                    value="{{ old('date1', optional($detf->date1)->format('Y-m-d')) }}">
+                                <label for="pv_commission" class="form-label">PV commission<span class="text-danger">
+                                        *</span></label>
+                                <input type="text" name="pv_commission" id="pv_commission"
+                                    placeholder="Pv commission choix opérateurs"
+                                    class="form-control form-control-sm @error('pv_commission') is-invalid @enderror"
+                                    value="{{ old('pv_commission', $detf->pvchoixoperateur) }}">
+                                @error('pv_commission')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="lieu_formation" class="form-label">Lieu formation<span class="text-danger">
+                                        *</span></label>
+                                <input type="text" name="lieu_formation" id="lieu_formation"
+                                    placeholder="Lieu exacte de la formation"
+                                    class="form-control form-control-sm @error('lieu_formation') is-invalid @enderror"
+                                    value="{{ old('lieu_formation', $detf->lieu_de_formation) }}">
+                                @error('lieu_formation')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="periode_formation" class="form-label">Période formation<span
+                                        class="text-danger">
+                                        *</span></label>
+                                <input type="text" name="periode_formation" id="periode_formation"
+                                    placeholder="Le mois et l'année"
+                                    class="form-control form-control-sm @error('periode_formation') is-invalid @enderror"
+                                    value="{{ old('periode_formation', $detf->periode_de_formation) }}">
+                                @error('periode_formation')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             {{-- Opérateurs --}}

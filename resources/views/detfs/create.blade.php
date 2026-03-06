@@ -35,17 +35,25 @@
                         <div class="row g-3">
 
                             <div class="col-md-12">
-                                <label for="titre1" class="form-label">Intitulé<span class="text-danger">
-                                        *</span></label>
-                                <input type="text" name="titre1" id="titre1" placeholder="Intitulé"
-                                    class="form-control form-control-sm" value="{{ old('titre1') }}">
-                            </div>
-
-                            <div class="col-md-12">
                                 <label for="titre2" class="form-label">Bénéficiaires<span class="text-danger">
                                         *</span></label>
                                 <input type="text" name="titre2" id="titre2" placeholder="Bénéficiaires"
-                                    class="form-control form-control-sm" value="{{ old('titre2') }}">
+                                    class="form-control form-control-sm @error('titre2') is-invalid @enderror"
+                                    value="{{ old('titre2') }}">
+                                @error('titre2')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="titre1" class="form-label">Intitulé<span class="text-danger">
+                                        *</span></label>
+                                <input type="text" name="titre1" id="titre1" placeholder="Intitulé"
+                                    class="form-control form-control-sm @error('titre1') is-invalid @enderror"
+                                    value="{{ old('titre1') }}">
+                                @error('titre1')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             {{-- <div class="col-md-6">
@@ -54,10 +62,44 @@
                                     value="{{ old('date1') }}">
                             </div> --}}
 
+                            <div class="col-md-6">
+                                <label for="pv_commission" class="form-label">PV commission<span class="text-danger">
+                                        *</span></label>
+                                <input type="text" name="pv_commission" id="pv_commission" placeholder="Pv commission choix opérateurs"
+                                    class="form-control form-control-sm @error('pv_commission') is-invalid @enderror"
+                                    value="{{ old('pv_commission') }}">
+                                @error('pv_commission')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="lieu_formation" class="form-label">Lieu formation<span class="text-danger">
+                                        *</span></label>
+                                <input type="text" name="lieu_formation" id="lieu_formation" placeholder="Lieu exacte de la formation"
+                                    class="form-control form-control-sm @error('lieu_formation') is-invalid @enderror"
+                                    value="{{ old('lieu_formation') }}">
+                                @error('lieu_formation')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="periode_formation" class="form-label">Période formation<span
+                                        class="text-danger">
+                                        *</span></label>
+                                <input type="text" name="periode_formation" id="periode_formation" placeholder="Le mois et l'année"
+                                    class="form-control form-control-sm @error('periode_formation') is-invalid @enderror"
+                                    value="{{ old('periode_formation') }}">
+                                @error('periode_formation')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
                             <div class="col-md-6 col-sm-12">
                                 <label for="operateurs_id" class="form-label">
-                                    Opérateurs <span class="text-danger">
-                                        *</span></label>
+                                    Opérateurs <span class="text-danger">*</span>
+                                </label>
                                 <select name="operateurs_id" id="select-field-operateurs_id"
                                     class="form-select form-select-sm @error('operateurs_id') is-invalid @enderror">
                                     <option value="">-- Choisir un opérateur --</option>

@@ -57,6 +57,9 @@ class Detf extends Model
 		'montant_realise',
 		'etat',
 		'description',
+		'periode_de_formation',
+		'lieu_de_formation',
+		'pvchoixoperateur',
 	];
 
 	public function formations()
