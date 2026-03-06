@@ -459,6 +459,7 @@ class DetfController extends Controller
         // ==============================
         // BOUCLE PAR TYPE (4 TABLEAUX)
         // ==============================
+        $totalTypes = count($grouped);
         $sousTotalIndex = 1;
 
         foreach ($grouped as $type => $items) {
@@ -498,38 +499,54 @@ class DetfController extends Controller
             foreach ($items as $item) {
 
                 $table->addRow();
-                $table->addCell(3000, ['vAlign' => 'center'])->addText($item->label->libelle, $textFont, $textStyle);
-                $table->addCell(1500, ['vAlign' => 'center'])->addText($item->unite, $textFont, $textStyle);
-                $table->addCell(1500, ['vAlign' => 'center'])->addText($item->quantite, $textFont, $textStyle);
-                $table->addCell(2000, ['vAlign' => 'center'])->addText(number_format($item->prix_unitaire, 0, ',', ' '), $textFont, $textStyle);
-                $table->addCell(2000, ['vAlign' => 'center'])->addText(number_format($item->montant, 0, ',', ' '), $textFont, $textStyle);
+                $table->addCell(3000, ['vAlign' => 'center'])
+                    ->addText($item->label->libelle, $textFont, $textStyle);
+
+                $table->addCell(1500, ['vAlign' => 'center'])
+                    ->addText($item->unite, $textFont, $textStyle);
+
+                $table->addCell(1500, ['vAlign' => 'center'])
+                    ->addText($item->quantite, $textFont, $textStyle);
+
+                $table->addCell(2000, ['vAlign' => 'center'])
+                    ->addText(number_format($item->prix_unitaire, 0, ',', ' '), $textFont, $textStyle);
+
+                $table->addCell(2000, ['vAlign' => 'center'])
+                    ->addText(number_format($item->montant, 0, ',', ' '), $textFont, $textStyle);
 
                 $sousTotal += $item->montant;
             }
 
-            // Sous-total
+            // Déterminer le label
+            $label = ($sousTotalIndex == $totalTypes)
+                ? 'TOTAL GENERAL'
+                : 'Sous-total ' . $sousTotalIndex;
+
+            // Ligne Sous-total / Total général
             $table->addRow();
-            $table->addCell(8000, ['gridSpan' => 4, 'vAlign' => 'center'])
-                ->addText('Sous-total ' . $sousTotalIndex, ['bold' => true, 'size' => 11], $textStyle);
+
+            $table->addCell(8000, [
+                'gridSpan' => 4,
+                'vAlign' => 'center'
+            ])->addText($label, ['bold' => true, 'size' => 11], $textStyle);
 
             $table->addCell(2000, ['vAlign' => 'center'])
                 ->addText(number_format($sousTotal, 0, ',', ' '), ['bold' => true, 'size' => 11], $textStyle);
 
             $section2->addTextBreak(1);
 
-            $totalGeneral += $sousTotal;
+            /* $totalGeneral += $sousTotal; */
 
-            // Incrémenter pour le prochain groupe
             $sousTotalIndex++;
         }
 
         // ==============================
         // TOTAL GENERAL
         // ==============================
-        $section2->addText(
+        /* $section2->addText(
             "TOTAL GENERAL : " . number_format($totalGeneral, 0, ',', ' ') . " FCFA",
             ['bold' => true, 'size' => 14]
-        );
+        ); */
 
         // ==============================
         // TELECHARGEMENT
