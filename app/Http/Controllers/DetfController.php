@@ -459,7 +459,7 @@ class DetfController extends Controller
         // ==============================
         // BOUCLE PAR TYPE (4 TABLEAUX)
         // ==============================
-        $totalTypes = count($grouped);
+        /*  $totalTypes = count($grouped);
         $sousTotalIndex = 1;
 
         foreach ($grouped as $type => $items) {
@@ -535,10 +535,10 @@ class DetfController extends Controller
 
             $section2->addTextBreak(1);
 
-            /* $totalGeneral += $sousTotal; */
+            // $totalGeneral += $sousTotal; 
 
             $sousTotalIndex++;
-        }
+        } */
 
         // ==============================
         // TOTAL GENERAL
@@ -547,6 +547,73 @@ class DetfController extends Controller
             "TOTAL GENERAL : " . number_format($totalGeneral, 0, ',', ' ') . " FCFA",
             ['bold' => true, 'size' => 14]
         ); */
+
+
+        $totalTypes = count($grouped);
+        $sousTotalIndex = 1;
+
+        foreach ($grouped as $type => $items) {
+
+            $isLastGroup = ($sousTotalIndex == $totalTypes);
+
+            $section2->addTitle(strtoupper($type), 2);
+
+            $table = $section2->addTable([
+                'borderSize' => 6,
+                'borderColor' => '000000',
+                'alignment' => Jc::START,
+                'cellMarginTop' => 0,
+                'cellMarginBottom' => 0,
+                'cellMarginLeft' => 50,
+                'cellMarginRight' => 50,
+            ]);
+
+            $textFont = ['size' => 11];
+            $textStyle = ['spaceBefore' => 0, 'spaceAfter' => 0, 'lineHeight' => 1];
+
+            // Entête
+            $table->addRow();
+            if ($isLastGroup) {
+                $table->addCell(2000, ['vAlign' => 'center'])->addText('Rubriques', ['bold' => true, 'size' => 11], $textStyle);
+            }
+            $table->addCell(3000, ['vAlign' => 'center'])->addText('Libellé', ['bold' => true, 'size' => 11], $textStyle);
+            $table->addCell(1500, ['vAlign' => 'center'])->addText('Unité', ['bold' => true, 'size' => 11], $textStyle);
+            $table->addCell(1500, ['vAlign' => 'center'])->addText('Quantité', ['bold' => true, 'size' => 11], $textStyle);
+            $table->addCell(2000, ['vAlign' => 'center'])->addText('Prix Unitaire', ['bold' => true, 'size' => 11], $textStyle);
+            $table->addCell(2000, ['vAlign' => 'center'])->addText('Montant', ['bold' => true, 'size' => 11], $textStyle);
+
+            $sousTotal = 0;
+
+            foreach ($items as $item) {
+                $table->addRow();
+                if ($isLastGroup) {
+                    $table->addCell(2000, ['vAlign' => 'center'])->addText($item->rubrique ?? '-', $textFont, $textStyle);
+                }
+                $table->addCell(3000, ['vAlign' => 'center'])->addText($item->label->libelle, $textFont, $textStyle);
+                $table->addCell(1500, ['vAlign' => 'center'])->addText($item->unite, $textFont, $textStyle);
+                $table->addCell(1500, ['vAlign' => 'center'])->addText($item->quantite, $textFont, $textStyle);
+                $table->addCell(2000, ['vAlign' => 'center'])->addText(number_format($item->prix_unitaire, 0, ',', ' '), $textFont, $textStyle);
+                $table->addCell(2000, ['vAlign' => 'center'])->addText(number_format($item->montant, 0, ',', ' '), $textFont, $textStyle);
+
+                $sousTotal += $item->montant;
+            }
+
+            // Ligne Sous-total / TOTAL GENERAL
+            $table->addRow();
+
+            // Ajuster le gridSpan pour TOTAL GENERAL pour qu’il corresponde au nombre de colonnes
+            $gridSpan = $isLastGroup ? 5 : 4; // Si dernière table, Rubriques déjà comptée dans entête et items
+            $table->addCell(8000, ['gridSpan' => $gridSpan, 'vAlign' => 'center'])
+                ->addText($isLastGroup ? 'TOTAL GENERAL' : 'Sous-total ' . $sousTotalIndex, ['bold' => true, 'size' => 11], $textStyle);
+
+            $table->addCell(2000, ['vAlign' => 'center'])
+                ->addText(number_format($sousTotal, 0, ',', ' '), ['bold' => true, 'size' => 11], $textStyle);
+
+            // Ne PAS ajouter de cellule supplémentaire pour Rubriques sur TOTAL GENERAL
+            $section2->addTextBreak(1);
+
+            $sousTotalIndex++;
+        }
 
         // ==============================
         // TELECHARGEMENT

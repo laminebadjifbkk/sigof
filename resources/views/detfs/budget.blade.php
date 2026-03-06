@@ -105,25 +105,33 @@
             </div>
         </div>
 
+        @php
+            $totalGeneral = 0;
+            $i = 1;
+            $totalGroups = count($grouped);
+        @endphp
+
         @foreach ($grouped as $type => $items)
             @php
                 $sousTotal = $items->sum('montant');
                 $totalGeneral += $sousTotal;
+                $isLastGroup = $i == $totalGroups;
             @endphp
+
             <div class="card mb-4">
-                <div class="card mb-4">
-                    <div class="card-header" style="background-color: #E0E0E0; color: #000000;">
-                        <strong>{{ strtoupper($type) }}</strong>
-                    </div>
-                    <div class="card-body p-0">
-                        <!-- tableau ici -->
-                    </div>
+
+                <div class="card-header" style="background-color: #E0E0E0; color: #000000;">
+                    <strong>{{ strtoupper($type) }}</strong>
                 </div>
+
                 <div class="card-body p-0">
                     <table class="table table-bordered mb-0">
                         <thead class="table-light">
                             <tr>
                                 <th>N°</th>
+                                @if ($isLastGroup)
+                                    <th>Rubriques</th>
+                                @endif
                                 <th>Libellé</th>
                                 <th>Unité</th>
                                 <th>Quantité</th>
@@ -132,61 +140,55 @@
                                 <th width="2%">#</th>
                             </tr>
                         </thead>
+
                         <tbody>
                             @foreach ($items as $item)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
+                                    @if ($isLastGroup)
+                                        <td></td> <!-- colonne Rubriques vide pour TOTAL GENERAL -->
+                                    @endif
                                     <td>{{ $item->label->libelle }}</td>
                                     <td>{{ $item->unite }}</td>
                                     <td>{{ $item->quantite }}</td>
-                                    <td>{{ number_format($item->prix_unitaire, 0, ',', ' ') }}</td>
-                                    <td>{{ number_format($item->montant, 0, ',', ' ') }}</td>
+                                    <td class="text-end">{{ number_format($item->prix_unitaire, 0, ',', ' ') }}</td>
+                                    <td class="text-end">{{ number_format($item->montant, 0, ',', ' ') }}</td>
+                                    @if ($isLastGroup)
+                                        <td>{{ $item->rubrique ?? '-' }}</td>
+                                    @endif
                                     <td>
-                                        <div class="d-flex align-items-baseline">
-                                            <a href="{{ route('budget-items.edit', ['detf' => $detf->id, 'budget_item' => $item->id]) }}"
-                                                class="btn btn-success btn-sm" title="Modifier">
-                                                <i class="bi bi-pencil"></i>
-                                            </a>
-                                            <div class="filter">
-                                                <a class="icon" href="#" data-bs-toggle="dropdown">
-                                                    <i class="bi bi-three-dots"></i>
-                                                </a>
-                                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                    <li>
-                                                        <form
-                                                            action="{{ route('budget-items.destroy', ['detf' => $detf->id, 'budget_item' => $item->id]) }}"
-                                                            method="post">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="dropdown-item show_confirm">
-                                                                <i class="bi bi-trash"></i> Supprimer
-                                                            </button>
-                                                        </form>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                        <!-- actions -->
                                     </td>
                                 </tr>
                             @endforeach
-                            <tr class="table-secondary fw-bold">
-                                <td colspan="5" class="text-end">Sous-total {{ $loop->iteration }}</td>
-                                <td>{{ number_format($sousTotal, 0, ',', ' ') }} FCFA</td>
+
+                            <tr class="{{ $isLastGroup ? 'bg-dark text-white fw-bold' : 'table-secondary fw-bold' }}">
+                                <td colspan="{{ $isLastGroup ? 6 : 5 }}" class="text-end">
+                                    {{ $isLastGroup ? 'TOTAL GENERAL' : 'Sous-total ' . $i }}
+                                </td>
+                                <td class="text-end">
+                                    {{ number_format($sousTotal, 0, ',', ' ') }} FCFA
+                                </td>
+                                <td></td>
                             </tr>
+
                         </tbody>
                     </table>
                 </div>
+
             </div>
+
+            @php $i++; @endphp
         @endforeach
 
         {{-- Total général --}}
-        <div class="card">
+        {{-- <div class="card">
             <div class="card-body text-end">
                 <h5 class="fw-bold">
                     TOTAL GÉNÉRAL : {{ number_format($totalGeneral, 0, ',', ' ') }} FCFA
                 </h5>
             </div>
-        </div>
+        </div> --}}
 
     </div>
 @endsection
