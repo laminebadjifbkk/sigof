@@ -76,12 +76,15 @@
 
                                     <div class="pt-0 pb-2 text-center">
                                         <h5 class="card-title fs-4 mb-1">
-                                            <a href="{{ route('accueil') }}"
+                                            {{-- <a href="{{ route('accueil') }}"
                                                 class="logo d-flex align-items-center justify-content-center w-auto"
                                                 target="_blank">
-                                                <span class="d-none d-lg-block">SIGOF | ONFP</span>
+                                                <span class="d-none d-lg-block">SIGOF</span>
+                                            </a> --}}
+
+                                            <a href="{{ route('accueil') }}" style="text-decoration: none">
+                                                <span class="fw-bold" style="font-size: 2rem;">SIGOF Connexion</span>
                                             </a>
-                                            <span class="fw-bold" style="font-size: 2rem;">Connexion</span>
                                         </h5>
                                         <p class="small mb-0">Entrez vos identifiants pour vous connecter</p>
                                     </div>

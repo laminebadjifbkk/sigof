@@ -234,16 +234,20 @@
 
                                     <div class="pt-0 pb-2 text-center">
                                         <h5 class="card-title fs-4 mb-1">
-                                            <a href="{{ route('accueil') }}"
+                                            {{-- <a href="{{ route('accueil') }}"
                                                 class="logo d-flex align-items-center justify-content-center w-auto"
                                                 target="_blank">
-                                                <span>SIGOF | ONFP</span>
+                                                <span>SIGOF</span>
+                                            </a> --}}
+                                            <a href="{{ route('accueil') }}" style="text-decoration: none">
+                                                <span class="fw-bold" style="font-size: 2rem;">SIGOF
+                                                    Réinitialisation</span><br>
                                             </a>
-                                            <span class="fw-bold" style="font-size: 2rem;">Mot de passe oublié !</span><br>
-                                            <span class="fw-bold" style="font-size: 2rem;">Réinitialiser</span>
+                                            {{-- <span class="fw-bold" style="font-size: 2rem;">Réinitialiser</span> --}}
                                         </h5>
-                                        <p class="small mb-0">Entrez votre adresse e-mail pour recevoir un lien
-                                            de réinitialisation.</p>
+                                        <p class="small mb-0">Vous avez oublié votre mot de passe ! <br>
+                                            Entrez votre adresse e-mail pour recevoir un lien
+                                            de réinitialisation !</p>
                                     </div>
 
                                     {{-- <div class="pt-0 pb-2">

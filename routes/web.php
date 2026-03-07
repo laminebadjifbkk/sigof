@@ -4,6 +4,7 @@ use App\Http\Controllers\AntenneController;
 use App\Http\Controllers\ArriveController;
 use App\Http\Controllers\ArrondissementController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BudgetLabelController;
 use App\Http\Controllers\CategorieController;
@@ -92,6 +93,7 @@ use App\Http\Controllers\ValidationoperateurController;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Formula;
+
 
 
 
@@ -1017,6 +1019,10 @@ Route::group(['middleware' => ['XSS']], function () {
             Route::get('/prisencharge/merci', [FormulaireController::class, 'merci'])->name('formulaire.merci');
         });
     });
+
+    Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
+        ->name('password.email');
+
     Route::resource('/contacts', ContactController::class);
     Route::get('/services-details', [ContactController::class, 'servicesDetails'])->name('services.details');
     Route::get('nos-modules', [ContactController::class, 'nosModules'])->name('nos-modules');

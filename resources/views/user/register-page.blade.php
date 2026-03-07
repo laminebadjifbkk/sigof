@@ -99,15 +99,18 @@
                                         <p class="text-center small">Entrez vos informations pour créer un compte</p>
                                     </div> --}}
 
-                                    
+
                                     <div class="pt-0 pb-2 text-center">
                                         <h5 class="card-title fs-4 mb-1">
-                                            <a href="{{ route('accueil') }}"
+                                            {{-- <a href="{{ route('accueil') }}"
                                                 class="logo d-flex align-items-center justify-content-center w-auto"
                                                 target="_blank">
-                                                <span class="d-none d-lg-block">SIGOF | ONFP</span>
+                                                <span class="d-none d-lg-block">SIGOF</span>
+                                            </a> --}}
+
+                                            <a href="{{ route('accueil') }}" style="text-decoration: none">
+                                                <span class="fw-bold" style="font-size: 2rem;">SIGOF Inscription</span>
                                             </a>
-                                            <span class="fw-bold" style="font-size: 2rem;">Inscription</span>
                                         </h5>
                                         <p class="small mb-0">Entrez vos informations pour créer un compte</p>
                                     </div>
@@ -164,8 +167,7 @@
                                                         <span class="input-group-text" id="inputGroupPrepend">@</span>
                                                         <input type="text" name="votre_telephone" maxlength="12"
                                                             class="form-control form-control-sm @error('votre_telephone') is-invalid @enderror"
-                                                            id="votre_telephone" required
-                                                            placeholder="Votre téléphone"
+                                                            id="votre_telephone" required placeholder="Votre téléphone"
                                                             value="{{ old('votre_telephone') }}"
                                                             autocomplete="votre_telephone">
                                                         <div class="invalid-feedback">
@@ -186,8 +188,7 @@
                                                         <input type="password" name="password"
                                                             class="form-control form-control-sm @error('password') is-invalid @enderror"
                                                             id="password" required placeholder="Votre mot de passe"
-                                                            value="{{ old('password') }}"
-                                                            autocomplete="new-password">
+                                                            value="{{ old('password') }}" autocomplete="new-password">
                                                         <button class="btn btn-outline-secondary" type="button"
                                                             id="togglePassword">
                                                             <i class="bi bi-eye"></i>
@@ -246,7 +247,8 @@
                                                             type="radio" name="role" id="role_operateur"
                                                             value="Operateur"
                                                             {{ old('role') == 'Operateur' ? 'checked' : '' }} disabled>
-                                                        <label class="form-check-label" for="role_operateur">Opérateur de formation</label>
+                                                        <label class="form-check-label" for="role_operateur">Opérateur
+                                                            de formation</label>
                                                     </div>
                                                     <div class="invalid-feedback d-block">
                                                         @error('role')
