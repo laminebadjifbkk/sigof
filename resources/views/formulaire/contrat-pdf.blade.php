@@ -216,7 +216,7 @@
                 </div>
 
                 {{-- <div style="float:right; width:40%; text-align:right;font-size: 10pt;">
-                    ONFP/DG/DIOF/ss<br><br>
+                    ONFP/DG/DIOF/{{ auth()->user()->username }}<br><br>
                     <i>Dakar, le ...............................</i>
                 </div> --}}
 
@@ -231,7 +231,7 @@
             <!-- TITRE CONTRAT -->
             <h3 style="text-align:center;">
                 CONTRAT N° <span style="display:inline-block; width:100px; border-bottom:0px solid #000;"></span>
-                <span style="font-size:10pt;">ONFP/DG/DIOF/ss</span>
+                <span style="font-size:10pt;">ONFP/DG/DIOF/{{ auth()->user()->username }}</span>
             </h3>
 
             <p style="text-align:center; margin:0; margin-bottom:10px; line-height:1;">

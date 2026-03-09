@@ -190,7 +190,7 @@
                     </div>
 
                     <div style="float:right; width:40%; text-align:right;">
-                        ONFP/DG/DIOF/ss<br><br>
+                        ONFP/DG/DIOF/{{ auth()->user()->username }}<br><br>
                         <i>Dakar, le ...............................</i>
                     </div>
 
@@ -314,7 +314,7 @@
                     </div>
 
                     <div style="float:right; width:40%; text-align:right;">
-                        ONFP/DG/DIOF/ss<br><br>
+                        ONFP/DG/DIOF/{{ auth()->user()->username }}<br><br>
                         <i>Dakar, le ...............................</i>
                     </div>
 
@@ -330,7 +330,7 @@
                 <h3 style="text-align:center;">
                     CONTRAT N°
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    ONFP/DG/DIOF/ss
+                    ONFP/DG/DIOF/{{ auth()->user()->username }}
                 </h3>
 
                 <p><b>Entre les soussignés</b></p>

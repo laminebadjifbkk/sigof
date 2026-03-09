@@ -210,7 +210,7 @@
                 </div>
 
                 <div style="float:right; width:40%; text-align:right;font-size: 10pt;">
-                    ONFP/DG/DIOF/ss<br><br>
+                    ONFP/DG/DIOF/{{ auth()->user()->username }}<br><br>
                     <i>Dakar, le ...............................</i>
                 </div>
 
