@@ -48,7 +48,8 @@
                         <th width='25%'>Bénéficiaires</th>
                         <th width='15%'>Modules</th>
                         <th width='15%'>Niveau qualif.</th>
-                        {{-- <th width='10%' class="text-center">Opérateurs</th> --}}
+                        <th width='10%' class="text-center">Responsable</th>
+                        <th width='5%' class="text-center">Effectif</th>
                         <th width='5%' class="text-center">Statut</th>
                         @can('formation-show')
                             <th width='3%'><i class="bi bi-gear"></i></th>
@@ -65,9 +66,12 @@
                                 {{ $formation?->module?->name ?? ($formation?->collectivemodule?->module ?? '') }}
                             </td>
                             <td>{{ $formation?->titre ?? $formation?->referentiel?->titre }}</td>
-                            {{-- <td class="text-center">
-                                {{ $formation?->operateur?->user?->username ?? ' ' }}
-                            </td> --}}
+                            <td class="text-center">
+                                {{ $formation?->ingenieur?->user?->firstname . ' ' . $formation?->ingenieur?->user?->name ?? ' ' }}
+                            </td>
+                            <td class="text-center">
+                                {{ $formation?->effectif_prevu }}
+                            </td>
                             <td class="text-center">
                                 <a><span class="{{ $formation->statut }}">{{ $formation->statut }}</span></a>
                             </td>
