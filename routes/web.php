@@ -1031,6 +1031,34 @@ Route::group(['middleware' => ['XSS']], function () {
             Route::post('/prisencharge', [FormulaireController::class, 'store'])->name('formulaire.store');
             Route::get('/prisencharge/merci', [FormulaireController::class, 'merci'])->name('formulaire.merci');
         });
+
+        Route::get('/note_de_frais', function () {
+
+            $path = public_path('EXEMPLAIRE_NOTE_DE_FRAIS_ACOMPTE_ET_DEFINITIVE.docx');
+
+            if (!file_exists($path)) {
+                abort(404);
+            }
+
+            return response()->file($path, [
+                'Content-Type' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                'Content-Disposition' => 'inline; filename="EXEMPLAIRE_NOTE_DE_FRAIS_ACOMPTE_ET_DEFINITIVE.docx"',
+            ]);
+        });
+
+        Route::get('/decharge_transport', function () {
+
+            $path = public_path('EXEMPLE_DECHARGE_TRANSPORT.docx');
+
+            if (!file_exists($path)) {
+                abort(404);
+            }
+
+            return response()->file($path, [
+                'Content-Type' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                'Content-Disposition' => 'inline; filename="EXEMPLE_DECHARGE_TRANSPORT.docx"',
+            ]);
+        });
     });
 
     Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])

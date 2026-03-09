@@ -12,40 +12,27 @@
                 </h6>
             </div>
 
-            {{-- <div class="d-flex align-items-center gap-2 text-info fw-semibold">
-                <i class="bi bi-list-ul me-1"></i>
-                <span>
-                    Affichage :
-                    <span class="text-dark">{{ $affichees }}</span>
-                    sur
-                    <span class="text-dark">{{ $total }}</span> demandes
-                </span>
-            </div> --}}
+            <div class="d-flex align-items-center gap-2 text-info fw-semibold">
+
+                <a href="{{ url('/note_de_frais') }}" class="btn btn-outline-primary btn-sm d-flex align-items-center gap-2"
+                    target="_blank">
+                    <i class="bi bi-file-earmark-word-fill text-primary"></i>
+                    Note de frais (Acompte & Définitive)
+                </a>
+            </div>
 
             {{-- Boutons à droite --}}
-          {{--   @can('formation-create')
-                <div class="d-flex align-items-center gap-2">
-                    <a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#AddFormationModal"
-                        title="Ajouter une formation">
-                        Ajouter
+            <div class="d-flex align-items-center gap-2">
+                <div class="d-flex align-items-center gap-3">
+
+                    <a href="{{ url('/decharge_transport') }}"
+                        class="btn btn-outline-primary btn-sm d-flex align-items-center gap-2" target="_blank">
+                        <i class="bi bi-file-earmark-word-fill text-primary"></i>
+                        Décharge transport
                     </a>
-                    @can('suivi-convention')
-                        <div class="dropdown">
-                            <a href="#" class="btn btn-sm btn-light" data-bs-toggle="dropdown" title="Options">
-                                <i class="bi bi-three-dots-vertical"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li>
-                                    <button type="button" class="dropdown-item" data-bs-toggle="modal"
-                                        data-bs-target="#generate_rapportFormation">
-                                        <i class="bi bi-file-earmark-text"></i> Générer suivi-convention
-                                    </button>
-                                </li>
-                            </ul>
-                        </div>
-                    @endcan
+
                 </div>
-            @endcan --}}
+            </div>
 
         </div>
     </div>
