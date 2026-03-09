@@ -397,7 +397,7 @@ class DetfController extends Controller
         // Remplissage du tableau principal
         addRow($table, 'Intitulé de la formation', $detf->titre1 ?? '');
         addRow($table, 'Bénéficiaires à former', $detf->titre2 ?? '');
-        addRow($table, 'Niveau ou Titre de qualification visé', $detf->titre2 ?? '');
+        addRow($table, 'Niveau ou Titre de qualification visé', $detf->niveau_qualification ?? '');
         addRowWithLinesMerged($table, 'Opérateur', $operateurLines);
         addRow($table, 'Lieu', $detf->lieu_de_formation ?? '');
         addRow($table, 'Période de la formation', $detf->periode_de_formation ?? '');
