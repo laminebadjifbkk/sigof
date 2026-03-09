@@ -111,8 +111,18 @@
 
             <!-- Diplôme retiré -->
             <div class="mb-3">
-                <label for="diplome" class="form-label">Diplôme retiré</label>
-                <input type="text" name="diplome" id="diplome" class="form-control" value="{{ old('diplome') }}">
+                <label class="form-label">Diplôme retiré</label>
+
+                <div class="form-check">
+                    <input type="radio" name="diplome" value="1" class="form-check-input">
+                    <label class="form-check-label">Oui</label>
+                </div>
+
+                <div class="form-check">
+                    <input type="radio" name="diplome" value="0" class="form-check-input">
+                    <label class="form-check-label">Non</label>
+                </div>
+
             </div>
 
             <!-- Commentaires -->
