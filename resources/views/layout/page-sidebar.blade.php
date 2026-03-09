@@ -363,7 +363,7 @@
         @can('formation-view')
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#detfs-nav" href="#">
-                    <i class="bi bi-folder-plus"></i>
+                    <i class="bi bi-folder"></i>
                     <span>Création DETF</span>
                     <i class="bi bi-chevron-down ms-auto"></i>
                 </a>
