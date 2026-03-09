@@ -22,17 +22,21 @@
                 <div class="card-body">
                     <h5>Informations générales</h5>
                     <div class="row g-3">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <label class="form-label fw-bold">Intitulé :</label>
                             <p>{{ $detf->titre1 }}</p>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <label class="form-label fw-bold">Bénéficiaires :</label>
                             <p>{{ $detf->titre2 }}</p>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <label class="form-label fw-bold">Opérateur :</label>
                             <p>{{ $detf->operateur?->user?->operateur ?? '-' }}</p>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label fw-bold">Niveau de qualification :</label>
+                            <p>{{ $detf->niveau_qualification ?? '-' }}</p>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-bold">Ingénieur :</label>
