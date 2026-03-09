@@ -38,9 +38,9 @@
                     {{-- <a href="{{ route('budget-labels.create') }}" class="btn btn-sm btn-primary">
                         <i class="bi bi-plus-circle me-1"></i> Ajouter label
                     </a> --}}
-                    <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                    <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
                         data-bs-target="#addBudgetLabelModal">
-                        <i class="bi bi-plus-circle me-1"></i> Ajouter label
+                        <i class="bi bi-plus-circle me-1"></i> Insérer label
                     </a>
                 </div>
 
