@@ -4,6 +4,7 @@
         $activeAntenne = request()->is('antennes*');
         $activeUsers = request()->is('users*');
         $activeFormations = request()->is('formations*');
+        $activeDetfs = request()->is('detfs*') || request()->is('budget-labels*');
         $activeOperateurs = request()->is('operateurs*');
         $activeCourriers = request()->is('courriers*');
         $activeAntennes = request()->is('antennes*');
@@ -355,6 +356,31 @@
                             </a>
                         </li>
                     @endhasrole
+                </ul>
+            </li>
+        @endcan
+
+        @can('formation-view')
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#detfs-nav" href="#">
+                    <i class="bi bi-folder-symlink-fill"></i>Création DETF
+                    <i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="detfs-nav" class="nav-content collapse {{ $activeDetfs ? 'show' : '' }}"
+                    data-bs-parent="#detfs-nav">
+
+                    @can('detf-view')
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" href="{{ route('detfs.index') }}">
+                                <span>DETF</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" href="{{ route('budget-labels.index') }}">
+                                <span>Libellés</span>
+                            </a>
+                        </li>
+                    @endcan
                 </ul>
             </li>
         @endcan
