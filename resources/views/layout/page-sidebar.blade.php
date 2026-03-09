@@ -3,9 +3,14 @@
     @php
         $activeAntenne = request()->is('antennes*');
         $activeUsers = request()->is('users*');
-        $activeFormations = request()->is('formations*');
+        $activeFormations = request()->is('formations*') || request()->is('showConventions*');
         $activeDetfs = request()->is('detfs*') || request()->is('budget-labels*');
-        $activeOperateurs = request()->is('operateurs*');
+        $activeOperateurs =
+            request()->is('operateurs*') ||
+            request()->is('commissionagrements*') ||
+            request()->is('commissionmembres*') ||
+            request()->is('operateurmodules*') ||
+            request()->is('operateurcategories*');
         $activeCourriers = request()->is('courriers*');
         $activeAntennes = request()->is('antennes*');
         $activeRoles = request()->is('roles*');
