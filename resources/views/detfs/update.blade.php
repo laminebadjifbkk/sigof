@@ -72,7 +72,7 @@
                                 <label for="niveau_qualification" class="form-label">Niveau de qualification<span
                                         class="text-danger">
                                         *</span></label>
-                                <input type="text" name="niveau_qualification" id="niveau_qualification"
+                                <input type="text" name="niveau_qualification"
                                     placeholder="Lieu exacte de la formation"
                                     class="form-control form-control-sm @error('niveau_qualification') is-invalid @enderror"
                                     value="{{ old('niveau_qualification', $detf->niveau_qualification) }}">
