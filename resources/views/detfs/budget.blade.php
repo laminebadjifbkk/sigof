@@ -50,7 +50,7 @@
                         <div class="row g-4">
 
                             {{-- Libellé --}}
-                            <div class="col-md-6">
+                            <div class="col-md-8">
                                 <label class="form-label fw-semibold">
                                     <i class="bi bi-tag"></i> Libellé <span class="text-danger">*</span>
                                 </label>
@@ -69,7 +69,7 @@
                             </div>
 
                             {{-- Unité --}}
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label class="form-label fw-semibold">
                                     <i class="bi bi-box"></i> Unité
                                 </label>
