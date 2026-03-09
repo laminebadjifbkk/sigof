@@ -60,6 +60,7 @@ class Detf extends Model
 		'periode_de_formation',
 		'lieu_de_formation',
 		'pvchoixoperateur',
+		'niveau_qualification',
 	];
 
 	public function formations()

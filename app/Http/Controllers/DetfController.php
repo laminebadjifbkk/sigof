@@ -71,6 +71,7 @@ class DetfController extends Controller
             'lieu_formation' => 'required|string',
             'periode_formation' => 'required|string',
             'date_pv' => 'required|date',
+            'niveau_qualification' => 'required|string',
         ]);
 
         $numero = 'DETF-' . date('Y') . '-' . str_pad(Detf::count() + 1, 3, '0', STR_PAD_LEFT);
@@ -88,6 +89,7 @@ class DetfController extends Controller
             'operateurs_id'  => $request->operateurs_id,
             'ingenieurs_id'  => $request->ingenieurs_id,
             'date1'  => $request->date_pv,
+            'niveau_qualification'  => $request->niveau_qualification,
         ]);
 
         return redirect()->route('detfs.create')->with('success', 'DETF créée avec succès !');
@@ -111,6 +113,7 @@ class DetfController extends Controller
             'lieu_formation' => 'required|string',
             'periode_formation' => 'required|string',
             'date_pv' => 'required|date',
+            'niveau_qualification' => 'required|string',
         ]);
 
         /* $detf->update($request->all()); */
@@ -124,6 +127,7 @@ class DetfController extends Controller
             'operateurs_id'  => $request->operateurs_id,
             'ingenieurs_id'  => $request->ingenieurs_id,
             'date1'  => $request->date_pv,
+            'niveau_qualification'  => $request->niveau_qualification,
         ]);
 
         return redirect()->back()

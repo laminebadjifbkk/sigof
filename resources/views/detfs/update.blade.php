@@ -51,7 +51,7 @@
                             </div>
 
                             {{-- Titre 2 --}}
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <label for="titre2" class="form-label">Intitulé<span class="text-danger">
                                         *</span></label>
                                 <input type="text" name="titre2" id="titre2" class="form-control form-control-sm"
@@ -64,6 +64,19 @@
                                     class="form-control form-control-sm @error('date_pv') is-invalid @enderror"
                                     value="{{ old('date_pv', $detf->date1?->format('Y-m-d')) }}">
                                 @error('date_pv')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="niveau_qualification" class="form-label">Niveau de qualification<span
+                                        class="text-danger">
+                                        *</span></label>
+                                <input type="text" name="niveau_qualification" id="niveau_qualification"
+                                    placeholder="Lieu exacte de la formation"
+                                    class="form-control form-control-sm @error('niveau_qualification') is-invalid @enderror"
+                                    value="{{ old('niveau_qualification', $detf->niveau_qualification) }}">
+                                @error('niveau_qualification')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
