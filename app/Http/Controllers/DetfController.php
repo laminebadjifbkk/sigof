@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Detf;
 use App\Models\Ingenieur;
 use App\Models\Operateur;
+use App\Models\Referentiel;
 use Illuminate\Http\Request;
-use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\IOFactory;
+use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\SimpleType\Jc;
 
 class DetfController extends Controller
@@ -16,7 +17,9 @@ class DetfController extends Controller
     {
         $operateurs = Operateur::where('statut_agrement', 'agréé')->get();
         $ingenieurs = Ingenieur::get();
-        return view('detfs.create', compact('operateurs', 'ingenieurs'));
+        $referentiels = Referentiel::get();
+
+        return view('detfs.create', compact('operateurs', 'ingenieurs', 'referentiels'));
     }
 
     public function index(Request $request)
@@ -99,8 +102,9 @@ class DetfController extends Controller
     {
         $operateurs = Operateur::all();
         $ingenieurs = Ingenieur::all();
+        $referentiels = Referentiel::all();
 
-        return view('detfs.update', compact('detf', 'operateurs', 'ingenieurs'));
+        return view('detfs.update', compact('detf', 'operateurs', 'ingenieurs', 'referentiels'));
     }
 
     public function update(Request $request, Detf $detf)

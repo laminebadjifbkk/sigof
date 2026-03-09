@@ -70,12 +70,27 @@
                                 <label for="niveau_qualification" class="form-label">Niveau de qualification<span
                                         class="text-danger">
                                         *</span></label>
-                                <input type="text" name="niveau_qualification"
+                                {{-- <input type="text" name="niveau_qualification"
                                     placeholder="Niveau de qualification"
                                     class="form-control form-control-sm @error('niveau_qualification') is-invalid @enderror"
-                                    value="{{ old('niveau_qualification') }}">
+                                    value="{{ old('niveau_qualification') }}"> --}}
+                                <select name="niveau_qualification"
+                                    class="form-select  @error('niveau_qualification') is-invalid @enderror"
+                                    aria-label="Select" id="select-field-types_formation_update"
+                                    data-placeholder="Choisir type formation">
+                                    <option value="">
+                                        {{ old('niveau_qualification') }}
+                                    </option>
+                                    @foreach ($referentiels as $referentiel)
+                                        <option value="{{ $referentiel?->titre }}">
+                                            {{ $referentiel?->titre }}
+                                        </option>
+                                    @endforeach
+                                </select>
                                 @error('niveau_qualification')
-                                    <span class="text-danger">{{ $message }}</span>
+                                    <span class="invalid-feedback" role="alert">
+                                        <div>{{ $message }}</div>
+                                    </span>
                                 @enderror
                             </div>
 

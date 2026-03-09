@@ -68,7 +68,7 @@
                                 @enderror
                             </div>
 
-                            <div class="col-md-6">
+                            {{-- <div class="col-md-6">
                                 <label for="niveau_qualification" class="form-label">Niveau de qualification<span
                                         class="text-danger">
                                         *</span></label>
@@ -78,6 +78,33 @@
                                     value="{{ old('niveau_qualification', $detf->niveau_qualification) }}">
                                 @error('niveau_qualification')
                                     <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div> --}}
+                            <div class="col-md-6">
+                                <label for="niveau_qualification" class="form-label">
+                                    Niveau de qualification
+                                    <span class="text-danger">*</span>
+                                </label>
+
+                                <select name="niveau_qualification"
+                                    class="form-select @error('niveau_qualification') is-invalid @enderror"
+                                    id="select-field-types_formation_update" data-placeholder="Choisir type formation">
+
+                                    <option value="">-- Choisir niveau --</option>
+
+                                    @foreach ($referentiels as $referentiel)
+                                        <option value="{{ $referentiel->titre }}"
+                                            {{ old('niveau_qualification', $detf->niveau_qualification ?? '') == $referentiel->titre ? 'selected' : '' }}>
+                                            {{ $referentiel->titre }}
+                                        </option>
+                                    @endforeach
+
+                                </select>
+
+                                @error('niveau_qualification')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                 @enderror
                             </div>
 
