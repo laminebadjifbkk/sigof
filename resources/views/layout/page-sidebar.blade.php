@@ -363,7 +363,8 @@
         @can('formation-view')
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#detfs-nav" href="#">
-                    <i class="bi bi-folder-symlink-fill"></i>Création DETF
+                    <i class="bi bi-folder-plus"></i>
+                    <span>Création DETF</span>
                     <i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="detfs-nav" class="nav-content collapse {{ $activeDetfs ? 'show' : '' }}"
@@ -423,19 +424,6 @@
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="{{ route('showConventions') }}">
                                 <span>Conventions</span>
-                            </a>
-                        </li>
-                    @endcan
-
-                    @can('detf-view')
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="{{ route('detfs.index') }}">
-                                <span>DETF</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="{{ route('budget-labels.index') }}">
-                                <span>Libellés</span>
                             </a>
                         </li>
                     @endcan
