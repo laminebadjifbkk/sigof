@@ -71,7 +71,7 @@
                                         class="text-danger">
                                         *</span></label>
                                 <input type="text" name="niveau_qualification"
-                                    placeholder="Lieu exacte de la formation"
+                                    placeholder="Niveau de qualification"
                                     class="form-control form-control-sm @error('niveau_qualification') is-invalid @enderror"
                                     value="{{ old('niveau_qualification') }}">
                                 @error('niveau_qualification')
