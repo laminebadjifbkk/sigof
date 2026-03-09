@@ -42,7 +42,6 @@ class SuiviPostIndividuel extends Model
 
     public function individuelle()
     {
-        return $this->belongsTo(Individuelle::class);
+        return $this->belongsTo(Individuelle::class, 'individuelles_id');
     }
-
 }

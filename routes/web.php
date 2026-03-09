@@ -996,11 +996,12 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::resource('detfs', DetfController::class);
         Route::resource('budget-labels', BudgetLabelController::class);
 
-        // Routes pour le suivi individuel
-        Route::resource('suivi-individuel', SuiviPostIndividuelController::class);
-
-        // Routes pour le suivi groupement
-        Route::resource('suivi-groupement', SuiviPostGroupementController::class);
+        Route::prefix('suivi')->group(function () {
+            // Routes pour le suivi individuel
+            Route::resource('individuels', SuiviPostIndividuelController::class);
+            // Routes pour le suivi groupement
+            Route::resource('groupements', SuiviPostGroupementController::class);
+        });
 
         Route::prefix('detfs/{detf}')->group(function () {
             Route::resource('budget-items', DetfBudgetItemController::class);

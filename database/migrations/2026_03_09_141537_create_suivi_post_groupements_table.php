@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('suivi_post_groupements', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('projets_id')->nullable()->constrained('projets')->onDelete('set null');
+            $table->unsignedInteger('projets_id')->nullable();
+            $table->foreign('projets_id')->references('id')->on('projets')->onDelete('set null');
 
             $table->string('activite_principale')->nullable();
             $table->integer('nombre_membres')->nullable();

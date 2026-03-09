@@ -2,15 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Individuelle;
 use App\Models\SuiviPostIndividuel;
 use Illuminate\Http\Request;
 
 class SuiviPostIndividuelController extends Controller
 {
-    public function storeIndividuel(Request $request)
+    // Méthode index attendue par Laravel
+    public function index()
+    {
+        $suivis = SuiviPostIndividuel::all();
+        return view('suivi_post_individuels.index', compact('suivis'));
+    }
+
+    public function create()
+    {
+        $individuelles = Individuelle::all(); // récupère les individus pour le select
+        return view('suivi_post_individuels.create', compact('individuelles'));
+    }
+
+    public function store(Request $request)
     {
         SuiviPostIndividuel::create([
-            'individuelle_id' => $request->individuelle_id,
+            'individuelles_id' => $request->individuelle_id,
             'situation_actuelle' => $request->situation,
             'temps_emploi' => $request->temps_emploi,
             'entreprise' => $request->entreprise,
@@ -27,5 +41,16 @@ class SuiviPostIndividuelController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Suivi enregistré');
+    }
+
+    public function destroy($id)
+    {
+        $suivi = SuiviPostIndividuel::findOrFail($id);
+
+        $suivi->delete();
+
+        return redirect()
+            ->route('individuels.index')
+            ->with('success', 'Suivi supprimé avec succès.');
     }
 }

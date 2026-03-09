@@ -768,12 +768,12 @@
                 </ul>
                 <ul id="suivi-formes-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                     <li class="nav-item">
-                        <a class="nav-link collapsed" href="{{ route('suivi-individuel.index') }}">
+                        <a class="nav-link collapsed" href="{{ route('individuels.index') }}">
                             <span>Suivi individuel</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link collapsed" href="{{ route('suivi-groupement.index') }}">
+                        <a class="nav-link collapsed" href="{{ route('groupements.index') }}">
                             <span>Suivi groupement</span>
                         </a>
                     </li>

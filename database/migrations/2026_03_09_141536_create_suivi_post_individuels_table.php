@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('suivi_post_individuels', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('individuelles_id')->nullable()->constrained('individuelles')->onDelete('set null');
+            $table->unsignedInteger('individuelles_id')->nullable();
+            $table->foreign('individuelles_id')->references('id')->on('individuelles')->onDelete('set null');
 
             $table->string('situation_actuelle')->nullable();
             $table->string('temps_emploi')->nullable();
