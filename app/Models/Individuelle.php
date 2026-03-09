@@ -385,4 +385,9 @@ class Individuelle extends Model
     {
         return $this->attributes['row_class'] ?? '';
     }
+
+    public function suiviPost()
+    {
+        return $this->hasOne(SuiviPostIndividuel::class);
+    }
 }

@@ -97,7 +97,7 @@ class Projet extends Model
         'convention_file',
         'image',
     ];
-	
+
     public function getRouteKeyName()
     {
         return 'uuid';
@@ -199,5 +199,10 @@ class Projet extends Model
         return $this->belongsToMany(Zone::class, 'projetszones', 'projets_id', 'zones_id')
             ->withPivot('id', 'deleted_at')
             ->withTimestamps();
+    }
+
+    public function suiviGroupement()
+    {
+        return $this->hasOne(SuiviPostGroupement::class);
     }
 }

@@ -83,6 +83,8 @@ use App\Http\Controllers\RegionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SecteurController;
 use App\Http\Controllers\SMSController;
+use App\Http\Controllers\SuiviPostGroupementController;
+use App\Http\Controllers\SuiviPostIndividuelController;
 use App\Http\Controllers\UneController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ValidationcollectiveController;
@@ -93,6 +95,9 @@ use App\Http\Controllers\ValidationoperateurController;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Formula;
+
+
+
 
 
 
@@ -991,6 +996,12 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::resource('detfs', DetfController::class);
         Route::resource('budget-labels', BudgetLabelController::class);
 
+        // Routes pour le suivi individuel
+        Route::resource('suivi-individuel', SuiviPostIndividuelController::class);
+
+        // Routes pour le suivi groupement
+        Route::resource('suivi-groupement', SuiviPostGroupementController::class);
+
         Route::prefix('detfs/{detf}')->group(function () {
             Route::resource('budget-items', DetfBudgetItemController::class);
         });
@@ -1088,8 +1099,8 @@ Route::group(['middleware' => ['XSS']], function () {
     Route::get('/inscription/{id}/confirmation', [InscriptioncontactController::class, 'confirmation'])
         ->name('inscription.confirmation');
 
-    Route::get('/inscription/{id}/questions', [InscriptionController::class, 'questions'])
-        ->name('inscription.questions');
+    /* Route::get('/inscription/{id}/questions', [InscriptionController::class, 'questions'])
+        ->name('inscription.questions'); */
 
     /* Route::get('/pcharge', [FormulaireController::class, 'create'])->name('formulaire.create');
     Route::post('/pcharge', [FormulaireController::class, 'store'])->name('formulaire.store');
