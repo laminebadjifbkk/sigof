@@ -1,0 +1,176 @@
+@extends('layout.user-layout')
+@section('title', 'ONFP | OPERATEURS')
+@section('space-work')
+
+    <div class="pt-1">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+
+            {{-- Titre à gauche --}}
+            <div class="d-flex align-items-center gap-2">
+                <h6 class="mb-0 text-muted fw-semibold text-uppercase">
+                    Liste des formations
+                </h6>
+            </div>
+
+            {{-- <div class="d-flex align-items-center gap-2 text-info fw-semibold">
+                <i class="bi bi-list-ul me-1"></i>
+                <span>
+                    Affichage :
+                    <span class="text-dark">{{ $affichees }}</span>
+                    sur
+                    <span class="text-dark">{{ $total }}</span> demandes
+                </span>
+            </div> --}}
+
+            {{-- Boutons à droite --}}
+          {{--   @can('formation-create')
+                <div class="d-flex align-items-center gap-2">
+                    <a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#AddFormationModal"
+                        title="Ajouter une formation">
+                        Ajouter
+                    </a>
+                    @can('suivi-convention')
+                        <div class="dropdown">
+                            <a href="#" class="btn btn-sm btn-light" data-bs-toggle="dropdown" title="Options">
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <button type="button" class="dropdown-item" data-bs-toggle="modal"
+                                        data-bs-target="#generate_rapportFormation">
+                                        <i class="bi bi-file-earmark-text"></i> Générer suivi-convention
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    @endcan
+                </div>
+            @endcan --}}
+
+        </div>
+    </div>
+
+    @if ($operateur)
+        <div class="table-responsive">
+            <table class="table datatables table-bordered table-hover align-middle justify-content-center"
+                id="table-formations">
+                <thead class="table-success text-center">
+                    <tr>
+                        {{-- <th width='6%' class="text-center">Code</th> --}}
+                        <th width='8%' class="text-center">N° conv.</th>
+                        <th width='25%'>Bénéficiaires</th>
+                        <th width='15%'>Modules</th>
+                        <th width='15%'>Niveau qualif.</th>
+                        {{-- <th width='10%' class="text-center">Opérateurs</th> --}}
+                        <th width='5%' class="text-center">Statut</th>
+                        @can('formation-show')
+                            <th width='3%'><i class="bi bi-gear"></i></th>
+                        @endcan
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($operateur->formations as $formation)
+                        <tr>
+                            {{-- <td style="text-align: center">{{ $formation?->code }}</td> --}}
+                            <td style="text-align: center">{{ $formation?->numero_convention }}</td>
+                            <td>{{ $formation?->name ?? ' ' }}</td>
+                            <td>
+                                {{ $formation?->module?->name ?? ($formation?->collectivemodule?->module ?? '') }}
+                            </td>
+                            <td>{{ $formation?->titre ?? $formation?->referentiel?->titre }}</td>
+                            {{-- <td class="text-center">
+                                {{ $formation?->operateur?->user?->username ?? ' ' }}
+                            </td> --}}
+                            <td class="text-center">
+                                <a><span class="{{ $formation->statut }}">{{ $formation->statut }}</span></a>
+                            </td>
+                            @can('formation-show')
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <a href="{{ route('formations.show', $formation) }}" class="btn btn-primary btn-sm"
+                                            title="Voir les détails">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                        <div class="dropdown">
+                                            <a href="#" class="btn btn-sm btn-light" data-bs-toggle="dropdown"
+                                                aria-expanded="false" title="Plus d'actions">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                @can('formation-update')
+                                                    <li>
+                                                        <a href="{{ route('formations.edit', $formation) }}" class="dropdown-item">
+                                                            <i class="bi bi-pencil"></i> Modifier
+                                                        </a>
+                                                    </li>
+                                                @endcan
+                                                @can('formation-delete')
+                                                    <li>
+                                                        <form action="{{ route('formations.destroy', $formation) }}" method="POST"
+                                                            class="dropdown-item show_confirm">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="dropdown-item text-danger">
+                                                                <i class="bi bi-trash"></i> Supprimer
+                                                            </button>
+                                                        </form>
+                                                    </li>
+                                                @endcan
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+                            @endcan
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    @else
+        <div class="alert alert-info">Aucune formation créée pour l'instant !</div>
+    @endif
+@endsection
+
+@push('scripts')
+    <script>
+        new DataTable('#table-formations', {
+            layout: {
+                topStart: {
+                    buttons: ['csv', 'excel', 'print'],
+                }
+            },
+            "order": [
+                [0, 'desc']
+            ],
+            language: {
+                "sProcessing": "Traitement en cours...",
+                "sSearch": "Rechercher&nbsp;:",
+                "sLengthMenu": "Afficher _MENU_ &eacute;l&eacute;ments",
+                "sInfo": "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                "sInfoEmpty": "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
+                "sInfoFiltered": "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                "sInfoPostFix": "",
+                "sLoadingRecords": "Chargement en cours...",
+                "sZeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                "sEmptyTable": "Aucune donn&eacute;e disponible dans le tableau",
+                "oPaginate": {
+                    "sFirst": "Premier",
+                    "sPrevious": "Pr&eacute;c&eacute;dent",
+                    "sNext": "Suivant",
+                    "sLast": "Dernier"
+                },
+                "oAria": {
+                    "sSortAscending": ": activer pour trier la colonne par ordre croissant",
+                    "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+                },
+                "select": {
+                    "rows": {
+                        _: "%d lignes sÃ©lÃ©ctionnÃ©es",
+                        0: "Aucune ligne sÃ©lÃ©ctionnÃ©e",
+                        1: "1 ligne sÃ©lÃ©ctionnÃ©e"
+                    }
+                }
+            }
+        });
+    </script>
+@endpush

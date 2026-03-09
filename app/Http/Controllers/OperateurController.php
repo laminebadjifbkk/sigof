@@ -1731,6 +1731,24 @@ class OperateurController extends Controller
         }
     }
 
+    public function mesFormations()
+    {
+        $user = Auth::user();
+        // Si l'utilisateur N'EST PAS un opérateur, on stoppe avec une exception 403
+        if (! $user->hasRole('Operateur')) {
+            abort(403, 'Accès refusé.');
+        }
+
+        // Récupérer l'opérateur lié à l'utilisateur
+        $operateur = Operateur::where('users_id', $user->id)->orderBy("created_at", "desc")->first();
+
+        // Si aucun opérateur n'est trouvé, afficher une vue différente
+        return view(
+            'operateurs.mesformation',
+            compact('operateur')
+        );
+    }
+
     public function rapports(Request $request)
     {
         $title          = 'rapports opérateurs';

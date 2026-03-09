@@ -273,6 +273,22 @@
             </li>
         @endcan
 
+        @can('devenir-operateur-view')
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#operateur-formations-nav" data-bs-toggle="collapse"
+                    href="#">
+                    <i class="bi bi-folder-plus"></i><span>Formations</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="operateur-formations-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="{{ route('mesFormations') }}">
+                            <span>Formations</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        @endcan
+
         @can('operateur-view')
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#operateur-nav" data-bs-toggle="collapse" href="#">

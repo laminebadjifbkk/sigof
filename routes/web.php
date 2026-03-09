@@ -411,6 +411,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::put('/projets/{id}/terminer', [ProjetController::class, 'terminer'])->name('terminerProjet');
 
         Route::get('/devenirOperateurs', [OperateurController::class, 'devenirOperateur'])->name('devenirOperateur');
+        Route::get('/mesFormations', [OperateurController::class, 'mesFormations'])->name('mesFormations');
         Route::post('/addOperateur', [OperateurController::class, 'addOperateur'])->name('addOperateur');
 
         Route::post('/renewOperateur', [OperateurController::class, 'renewOperateur'])->name('renewOperateur');
