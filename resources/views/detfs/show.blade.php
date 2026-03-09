@@ -18,36 +18,115 @@
             @endif
 
             {{-- Informations principales --}}
-            <div class="card shadow-sm mb-4">
+            <div class="card shadow-sm border-0 mb-4">
+
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">
+                        <i class="bi bi-info-circle me-2 text-primary"></i>
+                        Informations générales
+                    </h5>
+                </div>
+
                 <div class="card-body">
-                    <h5>Informations générales</h5>
-                    <div class="row g-3">
+
+                    <div class="row g-4">
+
+                        {{-- Intitulé --}}
                         <div class="col-md-12">
-                            <label class="form-label fw-bold">Intitulé :</label>
-                            <p>{{ $detf->titre1 }}</p>
+                            <small class="text-muted">
+                                <i class="bi bi-card-text me-1"></i> Intitulé de la formation
+                            </small>
+                            <div class="fw-semibold">
+                                {{ $detf->titre1 ?? '-' }}
+                            </div>
                         </div>
+
+                        {{-- Bénéficiaires --}}
                         <div class="col-md-12">
-                            <label class="form-label fw-bold">Bénéficiaires :</label>
-                            <p>{{ $detf->titre2 }}</p>
+                            <small class="text-muted">Bénéficiaires
+                            </small>
+                            <div class="fw-semibold">
+                                {{ $detf->titre2 ?? '-' }}
+                            </div>
                         </div>
-                        <div class="col-md-12">
-                            <label class="form-label fw-bold">Opérateur :</label>
-                            <p>{{ $detf->operateur?->user?->operateur ?? '-' }}</p>
+
+                        {{-- Opérateur --}}
+                        <div class="col-md-8">
+                            <small class="text-muted">Opérateur</small>
+
+                            <div class="fw-semibold">
+                                {{ $detf->operateur?->user?->operateur ?? '-' }}
+
+                                @if ($detf->operateur?->user?->username)
+                                    ({{ $detf->operateur->user->username }})
+                                @endif
+                            </div>
                         </div>
-                        <div class="col-md-12">
-                            <label class="form-label fw-bold">Niveau de qualification :</label>
-                            <p>{{ $detf->niveau_qualification ?? '-' }}</p>
+
+                        {{-- Ingénieur --}}
+                        <div class="col-md-4">
+                            <small class="text-muted">Ingénieur responsable
+                            </small>
+                            <div class="fw-semibold">
+                                {{ $detf->ingenieur?->user?->firstname ?? '' }}
+                                {{ $detf->ingenieur?->user?->name ?? '' }}
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold">Ingénieur :</label>
-                            <p>{{ $detf->ingenieur?->user?->firstname ?? '' }} {{ $detf->ingenieur?->user?->name ?? '' }}
-                            </p>
+
+                        {{-- Niveau --}}
+                        <div class="col-md-4">
+                            <small class="text-muted">Niveau de qualification
+                            </small>
+                            <div>
+                                {{ $detf->niveau_qualification ?? '-' }}
+                                </span>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold">Date :</label>
-                            <p>{{ $detf->date1?->format('d/m/Y') ?? '-' }}</p>
+
+                        {{-- Lieu --}}
+                        <div class="col-md-4">
+                            <small class="text-muted">Lieu de formation
+                            </small>
+                            <div class="fw-semibold">
+                                {{ $detf->lieu_de_formation ?? '-' }}
+                            </div>
                         </div>
+
+                        {{-- Période --}}
+                        <div class="col-md-4">
+                            <small class="text-muted">Période de formation
+                            </small>
+                            <div class="fw-semibold">
+                                {{ $detf->periode_de_formation ?? '-' }}
+                            </div>
+                        </div>
+
+                        {{-- Date PV --}}
+                        <div class="col-md-4">
+                            <small class="text-muted"> Date PV commission
+                            </small>
+                            <div class="fw-semibold">
+                                {{ $detf->date1?->format('d/m/Y') ?? '-' }}
+                            </div>
+                        </div>
+
+                        {{-- Etat --}}
+                        <div class="col-md-4">
+                            <small class="text-muted"> État
+                            </small>
+                            <div>
+                                <span class="etat-btn {{ $detf?->etat }}">
+                                    {{ $detf?->etat }}
+                                </span>
+                            </div>
+                        </div>
+
                     </div>
+
+                    <a href="{{ route('detfs.edit', $detf->id) }}" class="btn btn-secondary btn-sm mt-3">
+                        <i class="bi bi-pencil-square"></i> Modifier
+                    </a>
+
                 </div>
             </div>
 
