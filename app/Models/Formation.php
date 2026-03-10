@@ -415,6 +415,21 @@ class Formation extends Model
         return $this->belongsTo(Referentiel::class, 'referentiels_id');
     }
 
+    public function niveauQualificationAffichage()
+    {
+        $ref = $this->referentiel; // ici c'est déjà un modèle, pas besoin de where()
+
+        if ($this->type_certification === 'Renforcement de capacités') {
+            // si c’est du renforcement de capacités, retourne juste le titre de la formation
+            return $this->titre ?? ($ref?->titre ?? '');
+        }
+
+        // sinon, on affiche le niveau avec catégorie et convention si disponibles
+        return !empty($ref?->categorie)
+            ? $ref->categorie . ' de la ' . $ref?->convention?->name
+            : ($ref->titre ?? $this->titre);
+    }
+
     public function courrier()
     {
         return $this->belongsTo(Courrier::class, 'courriers_id');

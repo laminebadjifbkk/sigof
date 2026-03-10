@@ -246,7 +246,7 @@
                         <td colspan="2"><b>{{ __('Code : ') }}</b>
                             {{ $formation?->code . 'C' }}
                         </td>
-                        <td colspan="4"><b>{{ __('Niveau qualification : ') }}</b>
+                        {{-- <td colspan="4"><b>{{ __('Niveau qualification : ') }}</b>
                             @if ($formation?->type_certification !== 'Titre')
                                 {{ $formation?->titre ?? $formation?->referentiel?->titre }}
                             @else
@@ -254,6 +254,11 @@
                                     {{ $formation?->referentiel?->categorie . ' de la ' . $formation?->referentiel?->convention?->name }}
                                 @endif
                             @endif
+                        </td> --}}
+
+                        <td colspan="4">
+                            <b>{{ __('Niveau qualification :') }}</b>
+                            {{ $formation->niveauQualificationAffichage() }}
                         </td>
                         <td colspan="5"><b>{{ __('Type certification : ') }}</b>
                             @if ($formation?->type_certification !== 'Titre')
