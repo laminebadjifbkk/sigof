@@ -142,10 +142,11 @@
 
                                 <div class="col-12 col-lg-6">
                                     <label for="fixe" class="form-label">Téléphone fixe</label>
-                                    <input name="fixe" type="text" maxlength="12"
+                                    <input name="fixe" type="text" maxlength="9"
                                         class="form-control form-control-sm @error('fixe') is-invalid @enderror"
-                                        id="fixe" value="{{ $collective?->fixe ?? old('fixe') }}" autocomplete="tel"
-                                        placeholder="XX:XXX:XX:XX">
+                                        id="fixe"
+                                        value="{{ old('fixe') ?? str_replace(' ', '', $collective?->fixe) }}"
+                                        autocomplete="tel" placeholder="XX:XXX:XX:XX">
                                     @error('fixe')
                                         <span class="invalid-feedback" role="alert">
                                             <div>{{ $message }}</div>
@@ -156,9 +157,10 @@
                                 <div class="col-12 col-lg-6">
                                     <label for="telephone" class="form-label">Téléphone portable<span
                                             class="text-danger mx-1">*</span></label>
-                                    <input name="telephone" type="text" maxlength="12"
+                                    <input name="telephone" type="text" maxlength="9"
                                         class="form-control form-control-sm @error('telephone') is-invalid @enderror"
-                                        id="telephone" value="{{ $collective?->telephone ?? old('telephone') }}"
+                                        id="telephone"
+                                        value="{{ old('telephone') ?? str_replace(' ', '', $collective?->telephone) }}"
                                         autocomplete="tel" placeholder="XX:XXX:XX:XX">
                                     @error('telephone')
                                         <span class="invalid-feedback" role="alert">
@@ -292,9 +294,9 @@
                                         placeholder="Description de l'organisation, de ses activités et de ses réalisations">
                                         {{ $collective?->description ?? old('description') }}
                                     </textarea> --}}
-                                    <textarea name="description" id="description" rows="6"
+                                    <textarea name="description" id="description" rows="6" minlength="100" maxlength="200"
                                         class="form-control form-control-sm @error('description') is-invalid @enderror"
-                                        placeholder="Description de l'organisation, de ses activités et de ses réalisations">{!! $collective?->description ?? old('description') !!}
+                                        placeholder="Faire un résumé de la description de l'organisation, de ses activités et de ses réalisations">{!! $collective?->description ?? old('description') !!}
                                     </textarea>
 
                                     @error('description')
@@ -307,9 +309,9 @@
                                 <div class="col-12">
                                     <label for="projetprofessionnel" class="form-label">Projet professionnel<span
                                             class="text-danger mx-1">*</span></label>
-                                    <textarea name="projetprofessionnel" id="projetprofessionnel" rows="6"
+                                    <textarea name="projetprofessionnel" id="projetprofessionnel" rows="6" minlength="100" maxlength="200"
                                         class="form-control form-control-sm @error('projetprofessionnel') is-invalid @enderror"
-                                        placeholder="Description détaillée du projet professionnel et de l'effet attendu après la formation">{!! $collective?->projetprofessionnel ?? old('projetprofessionnel') !!}
+                                        placeholder="Faire un résumé de la description détaillée du projet professionnel et de l'effet attendu après la formation">{!! $collective?->projetprofessionnel ?? old('projetprofessionnel') !!}
                                     </textarea>
 
                                     @error('projetprofessionnel')
@@ -390,10 +392,10 @@
                                 <div class="col-12 col-lg-6">
                                     <label for="telephone_responsable" class="form-label">Téléphone<span
                                             class="text-danger mx-1">*</span></label>
-                                    <input name="telephone_responsable" type="text" maxlength="12"
+                                    <input name="telephone_responsable" type="text" maxlength="9"
                                         class="form-control form-control-sm @error('telephone_responsable') is-invalid @enderror"
                                         id="telephone_responsable"
-                                        value="{{ $collective->telephone_responsable ?? old('telephone_responsable') }}"
+                                        value="{{ old('telephone_responsable') ?? str_replace(' ', '', $collective->telephone_responsable) }}"
                                         autocomplete="tel" placeholder="XX:XXX:XX:XX">
                                     @error('telephone_responsable')
                                         <span class="invalid-feedback" role="alert">

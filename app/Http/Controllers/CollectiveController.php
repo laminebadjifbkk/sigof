@@ -291,8 +291,8 @@ class CollectiveController extends Controller
             /* "module"                =>      ["required","string"], */
             "adresse"               => ["required", "string"],
             "statut"                => ["required", "string"],
-            "description"           => ["required", "string", "max:1000"],
-            "projetprofessionnel"   => ["required", "string", "max:1000"],
+            "description"           => ["required", "string", "min:100", "max:150"],
+            "projetprofessionnel"   => ["required", "string", "min:100", "max:150"],
             "departement"           => ["required", "string"],
             "civilite"              => ["required", "string"],
             "prenom"                => ["required", "string"],
@@ -501,8 +501,8 @@ class CollectiveController extends Controller
             "adresse"               => ["required", "string"],
             "statut"                => ["required", "string"],
             "numero_courrier"       => ["nullable", "string"],
-            "description"           => ["required", "string", "max:1000"],
-            "projetprofessionnel"   => ["required", "string", "max:1000"],
+            "description"           => ["required", "string", "min:100", "max:150"],
+            "projetprofessionnel"   => ["required", "string", "min:100", "max:150"],
             "departement"           => ["required", "string"],
             "civilite"              => ["required", "string"],
             "prenom"                => ["required", "string"],
@@ -638,7 +638,6 @@ class CollectiveController extends Controller
     {
         /* $projetPurifie = Purifier::clean($request->projetprofessionnel, 'default'); */
 
-
         /* $collective = Collective::findOrFail($id); */
         $user_id = $collective?->users_id;
 
@@ -664,8 +663,8 @@ class CollectiveController extends Controller
             'date_depot'            => ['nullable', 'date', 'size:10', 'date_format:Y-m-d'],
             "adresse"               => ["required", "string"],
             "statut"                => ["required", "string"],
-            "description"           => ["required", "string", "max:1000"],
-            "projetprofessionnel"   => ["required", "string", "max:1000"],
+            "description"           => ["required", "string", "min:100", "max:150"],
+            "projetprofessionnel"   => ["required", "string", "min:100", "max:150"],
             "departement"           => ["required", "string"],
             "numero_courrier"       => ["nullable", "string"],
             "civilite"              => ["required", "string"],
