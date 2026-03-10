@@ -210,13 +210,13 @@
                                                                     </a>
                                                                     <ul
                                                                         class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                        <li>
+                                                                        {{-- <li>
                                                                             <button type="button" class="dropdown-item"
                                                                                 data-bs-toggle="modal"
                                                                                 data-bs-target="#PresenceModal{{ $feuillepresencecollective?->listecollective->id }}">
                                                                                 Pointer
                                                                             </button>
-                                                                        </li>
+                                                                        </li> --}}
                                                                         <li>
                                                                             <form
                                                                                 action="{{ route('feuillepresencecollectives.destroy', $feuillepresencecollective?->listecollective) }}"
