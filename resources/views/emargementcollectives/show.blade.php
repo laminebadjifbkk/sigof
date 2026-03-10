@@ -177,11 +177,11 @@
                                                                 @if (in_array($presence?->emargementcollectives_id, $feuillepresenceListecollective))
                                                                     <span
                                                                         class="badge 
-                {{ $presence?->presence === 'Oui'
-                    ? 'bg-success'
-                    : ($presence?->presence === 'Non'
-                        ? 'bg-danger'
-                        : 'bg-secondary') }}">
+                                                                        {{ $presence?->presence === 'Oui'
+                                                                            ? 'bg-success'
+                                                                            : ($presence?->presence === 'Non'
+                                                                                ? 'bg-danger'
+                                                                                : 'bg-secondary') }}">
                                                                         {{ $presence?->presence }}
                                                                     </span>
                                                                 @endif
