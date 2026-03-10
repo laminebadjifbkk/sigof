@@ -142,7 +142,7 @@ class NotifierGroupesVingtDemandeurs extends Command
 
         $attachments = null;
 
-       /*  if (file_exists($fichier)) {
+        if (file_exists($fichier)) {
 
             $attachments = [
                 [
@@ -155,7 +155,7 @@ class NotifierGroupesVingtDemandeurs extends Command
         } else {
 
             $this->warn("Fichier Excel introuvable.");
-        } */
+        }
 
         // Créer l’HTML de l’email (vous pouvez aussi utiliser votre Mailable)
         $htmlContent = "<h2>Récapitulatif des modules ayant atteint {$seuil} demandes</h2>";
