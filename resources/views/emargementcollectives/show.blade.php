@@ -210,14 +210,14 @@
                                                                     </a>
                                                                     <ul
                                                                         class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                        {{-- <li>
+                                                                        <li>
                                                                             <button type="button" class="dropdown-item"
                                                                                 data-bs-toggle="modal"
                                                                                 data-bs-target="#PresenceModal{{ $feuillepresencecollective?->listecollective->id }}">
                                                                                 Pointer
                                                                             </button>
-                                                                        </li> --}}
-                                                                        {{-- <li>
+                                                                        </li>
+                                                                        <li>
                                                                             <form
                                                                                 action="{{ route('feuillepresencecollectives.destroy', $feuillepresencecollective?->listecollective) }}"
                                                                                 method="POST" class="m-0 p-0">
@@ -229,7 +229,7 @@
                                                                                     Supprimer
                                                                                 </button>
                                                                             </form>
-                                                                        </li> --}}
+                                                                        </li>
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -373,13 +373,13 @@
             </tr>
         @endforelse --}}
 
-        {{-- @forelse ($feuillepresencecollectives as $feuillepresencecollective)
+        @forelse ($feuillepresencecollectives as $feuillepresencecollective)
 
             @php
                 $listecollective = $feuillepresencecollective->listecollective;
             @endphp
 
-            <div class="modal fade" data-bs-target="#PresenceModal{{ $feuillepresencecollective?->listecollective?->id }}" tabindex="-1"
+            <div class="modal fade" id="PresenceModal{{ $listecollective->id }}" tabindex="-1"
                 aria-labelledby="presenceModalLabel{{ $listecollective->id }}" aria-hidden="true">
 
                 <div class="modal-dialog modal-lg">
@@ -443,7 +443,7 @@
 
         @empty
             <p class="text-center text-muted">Aucun bénéficiaire</p>
-        @endforelse --}}
+        @endforelse
 
     </section>
 @endsection
