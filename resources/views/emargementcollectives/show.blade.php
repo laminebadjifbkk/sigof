@@ -373,14 +373,13 @@
             </tr>
         @endforelse --}}
 
-        @forelse ($feuillepresencecollectives as $feuillepresencecollective)
+        {{-- @forelse ($feuillepresencecollectives as $feuillepresencecollective)
 
             @php
                 $listecollective = $feuillepresencecollective->listecollective;
             @endphp
 
-            <div class="modal fade"
-                data-bs-target="#PresenceModal{{ $feuillepresencecollective?->listecollective?->id }}" tabindex="-1"
+            <div class="modal fade" data-bs-target="#PresenceModal{{ $feuillepresencecollective?->listecollective?->id }}" tabindex="-1"
                 aria-labelledby="presenceModalLabel{{ $listecollective->id }}" aria-hidden="true">
 
                 <div class="modal-dialog modal-lg">
@@ -444,7 +443,7 @@
 
         @empty
             <p class="text-center text-muted">Aucun bénéficiaire</p>
-        @endforelse
+        @endforelse --}}
 
     </section>
 @endsection
