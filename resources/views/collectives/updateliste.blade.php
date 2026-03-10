@@ -200,8 +200,9 @@
                                         value="{{ $listecollective?->collectivemodule->id }}">
 
                                     <div class="col-12 col-md-4 mb-0">
-                                        <label for="telephone" class="form-label">Téléphone</label>
-                                        <input name="telephone" type="text" maxlength="12"
+                                        <label for="telephone" class="form-label">Téléphone<span
+                                                class="text-danger mx-1">*</span></label>
+                                        <input name="telephone" type="text" maxlength="9"
                                             class="form-control form-control-sm @error('telephone') is-invalid @enderror"
                                             id="telephone"
                                             value="{{ old('telephone', $listecollective->telephone ?? '') }}"
@@ -214,7 +215,8 @@
                                     </div>
 
                                     <div class="col-12 col-md-4 mb-0">
-                                        <label for="Niveau étude" class="form-label">Niveau étude</label>
+                                        <label for="Niveau étude" class="form-label">Niveau étude<span
+                                                class="text-danger mx-1">*</span></label>
                                         <select name="niveau_etude"
                                             class="form-select  @error('niveau_etude') is-invalid @enderror"
                                             aria-label="Select" id="select-field-niveau_etude"
@@ -269,7 +271,8 @@
                                     </div> --}}
 
                                     <div class="col-12 mb-0">
-                                        <label for="experience" class="form-label">Expériences</label>
+                                        <label for="experience" class="form-label">Expériences<span
+                                                class="text-danger mx-1">*</span></label>
                                         <textarea name="experience" id="experience" rows="1"
                                             class="form-control form-control-sm @error('experience') is-invalid @enderror"
                                             placeholder="Expériences ou stages">{{ $listecollective?->experience ?? old('experience') }}</textarea>

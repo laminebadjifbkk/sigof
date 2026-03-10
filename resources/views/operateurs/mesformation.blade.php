@@ -12,32 +12,33 @@
                 </h6>
             </div>
 
-            <div class="d-flex align-items-center gap-2 text-info fw-semibold">
+            @if ($operateur->formations->isNotEmpty())
+                <div class="d-flex align-items-center gap-2 text-info fw-semibold">
 
-                <a href="{{ url('/note_de_frais') }}" class="btn btn-outline-primary btn-sm d-flex align-items-center gap-2"
-                    target="_blank">
-                    <i class="bi bi-file-earmark-word-fill text-primary"></i>
-                    Note de frais (Acompte & Définitive)
-                </a>
-            </div>
-
-            {{-- Boutons à droite --}}
-            <div class="d-flex align-items-center gap-2">
-                <div class="d-flex align-items-center gap-3">
-
-                    <a href="{{ url('/decharge_transport') }}"
+                    <a href="{{ url('/note_de_frais') }}"
                         class="btn btn-outline-primary btn-sm d-flex align-items-center gap-2" target="_blank">
                         <i class="bi bi-file-earmark-word-fill text-primary"></i>
-                        Décharge transport
+                        Note de frais (Acompte & Définitive)
                     </a>
-
                 </div>
-            </div>
 
+                {{-- Boutons à droite --}}
+                <div class="d-flex align-items-center gap-2">
+                    <div class="d-flex align-items-center gap-3">
+
+                        <a href="{{ url('/decharge_transport') }}"
+                            class="btn btn-outline-primary btn-sm d-flex align-items-center gap-2" target="_blank">
+                            <i class="bi bi-file-earmark-word-fill text-primary"></i>
+                            Décharge transport
+                        </a>
+
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 
-    @if ($operateur)
+    @if ($operateur->formations->isNotEmpty())
         <div class="table-responsive">
             <table class="table datatables table-bordered table-hover align-middle justify-content-center"
                 id="table-formations">
@@ -118,7 +119,7 @@
             </table>
         </div>
     @else
-        <div class="alert alert-info">Aucune formation créée pour l'instant !</div>
+        <div class="alert alert-info">Vous ne bénéficiez d'aucune formation pour l'instant !</div>
     @endif
 @endsection
 

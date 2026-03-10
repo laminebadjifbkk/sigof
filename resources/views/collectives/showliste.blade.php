@@ -157,7 +157,7 @@
 
                                     <div class="col-12 col-md-6 col-sm-12 col-xs-12 col-xxl-6">
                                         <label class="form-label">
-                                            Type de pièce <span class="required">*</span>
+                                            Type de pièce <span class="text-danger mx-1">*</span>
                                         </label>
                                         <select name="type_piece" id="type_piece" class="form-select form-select-sm">
                                             <option value="">-- Choisir --</option>
@@ -185,7 +185,7 @@
 
                                     <div class="col-12 col-md-6 col-sm-12 col-xs-12 col-xxl-6" id="numero_piece_wrapper">
                                         <label class="form-label" id="numero_piece_label">
-                                            Numéro de la pièce <span class="required">*</span>
+                                            Numéro de la pièce <span class="text-danger mx-1">*</span>
                                         </label>
                                         <input name="cin" type="text"
                                             class="form-control form-control-sm @error('cin') is-invalid @enderror"
@@ -277,8 +277,9 @@
                                     <input type="hidden" name="module" value="{{ $collectivemodule->id }}">
 
                                     <div class="col-12 col-md-6 col-sm-12 col-xs-12 col-xxl-6">
-                                        <label for="telephone" class="form-label">Téléphone</label>
-                                        <input name="telephone" type="text" maxlength="12"
+                                        <label for="telephone" class="form-label">Téléphone <span
+                                                class="text-danger mx-1">*</span></label>
+                                        <input name="telephone" type="text" maxlength="9"
                                             class="form-control form-control-sm @error('telephone') is-invalid @enderror"
                                             id="telephone" value="{{ old('telephone', $user->telephone ?? '') }}"
                                             autocomplete="tel" placeholder="XX:XXX:XX:XX">
@@ -290,7 +291,8 @@
                                     </div>
 
                                     <div class="col-12 col-md-6 col-sm-12 col-xs-12 col-xxl-6">
-                                        <label for="Niveau étude" class="form-label">Niveau étude</label>
+                                        <label for="Niveau étude" class="form-label">Niveau étude<span
+                                                class="text-danger mx-1">*</span></label>
                                         <select name="niveau_etude"
                                             class="form-select  @error('niveau_etude') is-invalid @enderror"
                                             aria-label="Select" id="select-field-niveau_etude"
@@ -325,7 +327,8 @@
                                     </div>
 
                                     <div class="col-12 mb-0">
-                                        <label for="experience" class="form-label">Expériences</label>
+                                        <label for="experience" class="form-label">Expériences <span
+                                                class="text-danger mx-1">*</span></label>
                                         <textarea name="experience" id="experience" rows="1"
                                             class="form-control form-control-sm @error('experience') is-invalid @enderror"
                                             placeholder="Expériences ou stages">{{ old('experience') }}</textarea>
@@ -600,7 +603,7 @@
 
                     case 'extrait':
                         numeroLabel.innerHTML =
-                            'Numéro de l’extrait de naissance <span class="required">*</span>';
+                            'Numéro de l’extrait de naissance <span class="text-danger mx-1">*</span>';
                         numeroInput.placeholder = 'Ex : 00345/2010';
                         numeroInput.setAttribute('minlength', 10);
                         numeroInput.setAttribute('maxlength', 10);
@@ -608,7 +611,8 @@
                         break;
 
                     case 'passeport':
-                        numeroLabel.innerHTML = 'Numéro du passeport <span class="required">*</span>';
+                        numeroLabel.innerHTML =
+                            'Numéro du passeport <span class="text-danger mx-1">*</span>';
                         numeroInput.placeholder = 'Ex : A12345678';
                         numeroInput.setAttribute('minlength', 9);
                         numeroInput.setAttribute('maxlength', 9);
@@ -616,7 +620,7 @@
 
                     case 'cni':
                         numeroLabel.innerHTML =
-                            'Numéro de la carte nationale <span class="required">*</span>';
+                            'Numéro de la carte nationale <span class="text-danger mx-1">*</span>';
                         numeroInput.placeholder = 'Ex : 1099200500012';
                         numeroInput.setAttribute('minlength', 13);
                         numeroInput.setAttribute('maxlength', 14);

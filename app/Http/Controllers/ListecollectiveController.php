@@ -55,8 +55,9 @@ class ListecollectiveController extends Controller
             'date_naissance' => ['required', 'date_format:d/m/Y'],
             "lieu_naissance" => "required|string",
             "module"         => "required|string",
-            "niveau_etude"   => "nullable|string",
-            "telephone"      => "nullable|string|size:9",
+            "niveau_etude"   => "required|string",
+            "experience"     => "required|string",
+            "telephone"      => "required|string|size:9",
             "cin" => [
                 "required",
                 "string",
@@ -97,23 +98,6 @@ class ListecollectiveController extends Controller
         return redirect()->back();
     }
 
-    /**
-     * Formate la CIN pour affichage (CNI uniquement)
-     */
-    private function formatCin($cin)
-    {
-        $cin = preg_replace('/\D/', '', $cin); // garder uniquement les chiffres
-
-        if (strlen($cin) !== 13) {
-            return $cin;
-        }
-
-        return substr($cin, 0, 1) . ' ' .
-            substr($cin, 1, 3) . ' ' .
-            substr($cin, 4, 4) . ' ' .
-            substr($cin, 8, 5);
-    }
-
     public function edit(Listecollective $listecollective)
     {
         $user             = Auth::user();
@@ -131,87 +115,6 @@ class ListecollectiveController extends Controller
         Alert::warning('Désolé !', 'Vous n\'avez pas l\'autorisation de modifier cette collective.');
         return redirect()->back();
     }
-    /* 
-    public function update(Request $request, Listecollective $listecollective)
-    {
-        $cin = preg_replace('/\s+/', '', $request->cin);
-
-        // 🔹 Si CNI → formater immédiatement
-        if ($request->type_piece === 'cni') {
-            $cin = $this->formatCin($cin);
-        }
-
-        // 🔹 Injecter la version formatée AVANT validation
-        $request->merge(['cin' => $cin]);
-
-        $validator = Validator::make($request->all(), [
-            "type_piece"     => "required|in:cni,extrait,passeport",
-            "civilite"       => "required|string",
-            "firstname"      => "required|string",
-            "name"           => "required|string",
-            'date_naissance' => ['required', 'date_format:d/m/Y'],
-            "lieu_naissance" => "required|string",
-            "module"         => "required|string",
-            "niveau_etude"   => "nullable|string",
-            "telephone"      => "nullable|string|min:9|max:12",
-            "cin" => [
-                "required",
-                "string",
-                Rule::unique('listecollectives', 'cin')
-                    ->whereNull('deleted_at')
-                    ->ignore($listecollective->id)
-            ],
-        ]);
-
-        // 🔹 Validation adaptée
-
-        $validator->sometimes('cin', [
-            'regex:/^[0-9] [0-9]{3} [0-9]{4} [0-9]{5}$/'
-        ], fn($input) => $input->type_piece === 'cni');
-
-        $validator->sometimes('cin', [
-            'regex:/^[0-9\/]{10}$/'
-        ], fn($input) => $input->type_piece === 'extrait');
-
-        $validator->sometimes('cin', [
-            'digits:9'
-        ], fn($input) => $input->type_piece === 'passeport');
-
-        $data = $validator->validate();
-
-        // Formatage CIN uniquement si nécessaire
-        if ($data['type_piece'] === 'cni') {
-            $data['cin'] = $this->formatCin($data['cin']);
-        }
-
-        // Utilisation des données validées
-        $cin = $data['cin'] ?? null;
-
-        $dateString     = $request->input('date_naissance');
-        $date_naissance = Carbon::createFromFormat('d/m/Y', $dateString);
-
-        $listecollective->update([
-            'cin'                  => $cin,
-            'civilite'             => $request->input('civilite'),
-            'prenom'               => format_proper_name($request->input('firstname')),
-            'nom'                  => remove_accents_uppercase($request->input('name')),
-            'date_naissance'       => $date_naissance,
-            'lieu_naissance'       => remove_accents_uppercase($request->input('lieu_naissance')),
-            'niveau_etude'         => $request->input('niveau_etude'),
-            'telephone'            => $request->input('telephone'),
-            'experience'           => $request->input('experience'),
-            'autre_experience'     => $request->input('autre_experience'),
-            'details'              => $request->input('details'),
-            'collectivemodules_id' => $request->input('module'),
-            'collectives_id'       => $listecollective->collective->id,
-        ]);
-
-        $listecollective->save();
-
-        Alert::success("Succès !", "Modification effectuée avec succès");
-
-        return Redirect::back();
-    } */
 
     public function update(Request $request, Listecollective $listecollective)
     {
@@ -230,8 +133,9 @@ class ListecollectiveController extends Controller
             'date_naissance' => ['required', 'date_format:d/m/Y'],
             "lieu_naissance" => "required|string",
             "module"         => "required|string",
-            "niveau_etude"   => "nullable|string",
-            "telephone"      => "nullable|string|size:9",
+            "niveau_etude"   => "required|string",
+            "experience"     => "required|string",
+            "telephone"      => "required|string|size:9",
             "cin" => [
                 "required",
                 "string",

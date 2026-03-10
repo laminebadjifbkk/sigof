@@ -291,6 +291,82 @@
                                     </div>
                                 </div>
 
+                                {{-- <div class="my-2 p-3 border rounded text-center">
+
+                                    @php
+                                        // Vérifie si l'utilisateur a joint sa carte d'identité (CIN)
+                                        $hasCIN = $files->contains(function ($file) {
+                                            return $file->sigle === 'CIN';
+                                        });
+
+                                        // Vérifie si l'utilisateur a joint soit le Ninea/RCC ou AC
+$hasRC = $files->contains(function ($file) {
+    return in_array($file->sigle, ['Ninea/RC', 'AC']);
+                                        });
+                                    @endphp
+
+                                    @if ($hasCIN && $hasRC)
+                                        <span class="text-success fw-bold fs-5">
+                                            ✅ Demande complète
+                                        </span>
+                                    @else
+                                        <span class="text-danger fw-bold fs-5 d-block">
+                                            ⚠ Demande incomplète !
+                                        </span>
+                                        <span class="text-danger fw-normal fs-6 d-block">
+                                            Veuillez téléverser les documents nécessaires.
+                                        </span>
+                                    @endif
+
+                                </div> --}}
+
+                                <div class="my-2 p-3 border rounded text-center">
+
+                                    @php
+                                        // Vérification des documents
+                                        $hasCIN = $files->contains(fn($file) => $file->sigle === 'CIN');
+                                        $hasRC = $files->contains(
+                                            fn($file) => in_array($file->sigle, ['Ninea/RC', 'AC']),
+                                        );
+
+                                        // Vérifie s'il y a au moins un module
+$hasModule = $modules->isNotEmpty() ?? false;
+
+// Vérifie s'il y a des bénéficiaires sur au moins un module avec effectif ≥ 10
+                                        $hasBeneficiaries = $modules->contains(function ($module) {
+                                            return $module->listecollectives->count() >= 10;
+                                        });
+                                    @endphp
+
+                                    @if ($hasCIN && $hasRC && $hasModule && $hasBeneficiaries)
+                                        <span class="text-success fw-bold fs-5">
+                                            ✅ Demande complète
+                                        </span>
+                                    @else
+                                        <span class="text-danger fw-bold fs-5 d-block">
+                                            ⚠ Demande incomplète !
+                                        </span>
+
+                                        <div class="text-danger fs-6">
+                                            @if (!$hasCIN)
+                                                Veuillez téléverser la carte d'identité du responsable.<br>
+                                            @endif
+                                            @if (!$hasRC)
+                                                Veuillez téléverser le Ninéa/RCC ou l'Acte de création.<br>
+                                            @endif
+
+                                            @if (!$hasModule)
+                                                Ajouter au moins un module.<br>
+                                            @endif
+
+                                            @if ($hasModule && !$hasBeneficiaries)
+                                                Ajouter au moins 10 bénéficiaires sur un module.
+                                            @endif
+                                        </div>
+                                    @endif
+
+                                </div>
+
                                 <div>
                                     <div class="p-3 bg-success-subtle rounded-3">
                                         <h6 class="text-muted mb-1">Effectif total</h6>
@@ -366,7 +442,7 @@
                                                             {{-- Bouton Voir --}}
                                                             <a href="{{ route('collectivemodules.show', $module_collective) }}"
                                                                 class="btn btn-sm btn-outline-primary">
-                                                                <i class="bi bi-eye"></i>
+                                                                <i class="bi bi-plus me-0"></i> Ajouter bénéficiaires
                                                             </a>
 
                                                             {{-- Dropdown Actions --}}
@@ -715,9 +791,18 @@
                                                 </td>
 
                                                 <td>
-                                                    <button class="btn btn-outline-danger btn-sm">
-                                                        <i class="bi bi-trash"></i>
-                                                    </button>
+                                                    <form action="{{ route('fileDestroy') }}" method="post"
+                                                        class="d-inline">
+                                                        @csrf
+                                                        @method('put')
+                                                        <input type="hidden" name="idFile"
+                                                            value="{{ $file->id }}">
+                                                        <button type="submit"
+                                                            class="btn btn-outline-danger btn-sm show_confirm"
+                                                            title="Supprimer">
+                                                            <i class="bi bi-trash"></i>
+                                                        </button>
+                                                    </form>
                                                 </td>
 
                                             </tr>

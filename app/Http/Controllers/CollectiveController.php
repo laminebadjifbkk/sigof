@@ -885,30 +885,12 @@ class CollectiveController extends Controller
             ->flatMap(fn($m) => $m->listecollectives ?? collect())
             ->count();
 
-        /* $totalFormes = $modules
-            ->where('statut', 'formé')
-            ->count(); */
-
         $departements     = Departement::latest()->get();
-        /* $modules          = Module::latest()->get(); */
-        /* $collective       = $user->collectives()->first(); // Récupère le plus récent grâce à `latest() definie dans le modele User`
-        $collective_total = $user->collectives()->count(); // Compte le nombre total de collectives */
 
         $files = File::where('users_id', $collective?->user?->id)
             ->whereNotNull('file') // Utilisation de whereNotNull pour plus de clarté
             ->distinct()
             ->get();
-
-        /* $user_files = File::where('users_id', $collective?->user?->id)
-            ->whereNull('file')
-            ->where(function ($query) {
-                $query->where('sigle', 'AC')
-                    ->orWhere('sigle', 'Arrêté')
-                    ->orWhere('sigle', 'Autres')
-                    ->orWhere('sigle', 'Ninea/RC');
-            })
-            ->distinct()
-            ->get(); */
 
         $user_files = File::whereNull('file')
             ->whereNull('users_id')
@@ -933,7 +915,6 @@ class CollectiveController extends Controller
                     'modules',
                     'totalModules',
                     'totalEffectif',
-                    /* 'totalFormes' */
                 )
             );
         }
