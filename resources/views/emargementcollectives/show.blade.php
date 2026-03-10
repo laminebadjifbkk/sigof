@@ -289,7 +289,7 @@
             </div>
         @endforeach --}}
 
-        @foreach ($formation?->listecollectives as $listecollective)
+        @forelse ($feuillepresencecollectives as $feuillepresencecollective)
             <div class="modal fade" id="PresenceModal{{ $listecollective->id }}" tabindex="-1"
                 aria-labelledby="presenceModalLabel{{ $listecollective->id }}" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
@@ -374,7 +374,11 @@
                     </div>
                 </div>
             </div>
-        @endforeach
+        @empty
+            <tr>
+                <td colspan="7" class="text-center">Aucun bénéficiaire</td>
+            </tr>
+        @endforelse
 
     </section>
 @endsection
