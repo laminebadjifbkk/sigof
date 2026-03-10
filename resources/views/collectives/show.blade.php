@@ -384,6 +384,63 @@
                                                         <div class="card-body pb-0">
                                                             <div class="d-flex justify-content-between align-items-center">
                                                                 <h5 class="card-title">Modules de formations</h5>
+
+                                                                <div class="my-2 p-3 border rounded text-center">
+
+                                                                    @php
+                                                                        // Vérification des documents
+                                                                        $hasCIN = $files->contains(
+                                                                            fn($file) => $file->sigle === 'CIN',
+                                                                        );
+                                                                        $hasRC = $files->contains(
+                                                                            fn($file) => in_array($file->sigle, [
+                                                                                'Ninea/RC',
+                                                                                'AC',
+                                                                            ]),
+                                                                        );
+
+                                                                        // Vérifie s'il y a au moins un module
+$hasModule = $collective?->collectivemodules->isNotEmpty() ?? false;
+
+// Vérifie s'il y a des bénéficiaires sur au moins un module avec effectif ≥ 10
+                                                                        $hasBeneficiaries = $collective?->collectivemodules->contains(
+                                                                            function ($module) {
+                                                                                return $module->listecollectives->count() >=
+                                                                                    10;
+                                                                            },
+                                                                        );
+                                                                    @endphp
+
+                                                                    @if ($hasCIN && $hasRC && $hasModule && $hasBeneficiaries)
+                                                                        <span class="text-success fw-bold fs-5">
+                                                                            ✅ Demande complète
+                                                                        </span>
+                                                                    @else
+                                                                        <span class="text-danger fw-bold fs-5 d-block">
+                                                                            ⚠ Demande incomplète !
+                                                                        </span>
+
+                                                                        <div class="text-danger fs-6">
+                                                                            @if (!$hasCIN)
+                                                                                Veuillez téléverser la carte d'identité du
+                                                                                responsable.<br>
+                                                                            @endif
+                                                                            @if (!$hasRC)
+                                                                                Veuillez téléverser le Ninéa/RCC ou l'Acte de
+                                                                                création.<br>
+                                                                            @endif
+
+                                                                            @if (!$hasModule)
+                                                                                Ajouter au moins un module.<br>
+                                                                            @endif
+
+                                                                            @if ($hasModule && !$hasBeneficiaries)
+                                                                                Ajouter au moins 10 bénéficiaires sur un module.
+                                                                            @endif
+                                                                        </div>
+                                                                    @endif
+
+                                                                </div>
                                                                 <button type="button"
                                                                     class="btn btn-success btn-sm float-end btn-rounded"
                                                                     data-bs-toggle="modal"
