@@ -189,11 +189,18 @@
                                                         </td>
                                                         <td>
                                                             <div class="d-flex align-items-baseline gap-2">
-                                                                <a href="{{ route('listecollectives.show', $feuillepresencecollective?->listecollective) }}"
+                                                                {{-- <a href="{{ route('listecollectives.show', $feuillepresencecollective?->listecollective) }}"
                                                                     class="btn btn-primary btn-sm" title="Voir détails"
                                                                     target="_blank" rel="noopener noreferrer">
                                                                     <i class="bi bi-eye"></i>
-                                                                </a>
+                                                                </a> --}}
+                                                                @if ($feuillepresencecollective?->listecollective)
+                                                                    <a href="{{ route('listecollectives.show', $feuillepresencecollective->listecollective->id) }}"
+                                                                        class="btn btn-primary btn-sm"
+                                                                        title="Voir détails" target="_blank">
+                                                                        <i class="bi bi-eye"></i>
+                                                                    </a>
+                                                                @endif
 
                                                                 <div class="dropdown">
                                                                     <a href="#" class="btn btn-light btn-sm"
