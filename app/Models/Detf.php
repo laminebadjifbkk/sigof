@@ -82,4 +82,22 @@ class Detf extends Model
 	{
 		return $this->hasMany(DetfsBudgetItem::class, 'detfs_id');
 	}
+
+	public function referentiel()
+	{
+		return Referentiel::where('titre', $this->niveau_qualification)->first();
+	}
+
+	public function niveauQualificationAffichage()
+	{
+		$ref = $this->referentiel();
+
+		if ($this->niveau_qualification === 'Renforcement de capacités') {
+			return $this->niveau_qualification;
+		}
+
+		return !empty($ref?->categorie)
+			? $this->niveau_qualification . ' classé à la ' . $ref->categorie . ' de la ' . $ref?->convention?->name
+			: $this->niveau_qualification;
+	}
 }
