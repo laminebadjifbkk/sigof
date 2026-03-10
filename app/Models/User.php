@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Notifications\ResetPasswordNotification;
+use App\Services\BrevoMailer;
+use App\Services\EmailService;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -310,7 +312,7 @@ class User extends Authenticatable
     }
  */
 
-    public function sendPasswordResetNotification($token): void
+    /* public function sendPasswordResetNotification($token): void
     {
         try {
             $this->notify(new ResetPasswordNotification($token));
@@ -321,6 +323,38 @@ class User extends Authenticatable
             \Log::error('Échec envoi email reset password : ' . $e->getMessage());
             session()->flash('error', 'Impossible d’envoyer l’email pour le moment.');
             return;
+        }
+    } */
+
+    public function sendPasswordResetNotification($token): void
+    {
+        $emailService = new EmailService(new BrevoMailer());
+
+        $to = [
+            'email' => $this->email,
+            'name'  => $this->firstname . ' ' . $this->name ?? $this->email,
+        ];
+
+        $resetUrl = url(route('password.reset', [
+            'token' => $token,
+            'email' => $this->getEmailForPasswordReset(),
+        ], false));
+
+        $htmlContent = view('emails.reset_password', [
+            'name' => $this->firstname . ' ' . $this->name ?? $this->email,
+            'resetUrl' => $resetUrl,
+            'expire'   => config('auth.passwords.' . config('auth.defaults.passwords') . '.expire'),
+        ])->render();
+
+        $subject = "Notification de réinitialisation du mot de passe";
+
+        $success = $emailService->send($to, $subject, $htmlContent);
+
+        if ($success) {
+            session()->flash('success', 'Nous vous avons envoyé le lien de réinitialisation du mot de passe par email !');
+        } else {
+            \Log::error("Échec envoi email reset password pour {$this->email}");
+            session()->flash('error', 'Impossible d’envoyer l’email pour le moment.');
         }
     }
 
