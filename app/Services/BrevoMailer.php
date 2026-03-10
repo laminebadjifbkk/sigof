@@ -28,13 +28,13 @@ class BrevoMailer
      * @param array|null $attachments [['name' => '', 'content' => base64], ...]
      * @return mixed
      */
-    public function sendEmail(array $to, string $subject, string $htmlContent, ?array $attachments = null)
+    /* public function sendEmail(array $to, string $subject, string $htmlContent, ?array $attachments = null)
     {
         $email = new SendSmtpEmail([
             'subject' => $subject,
             'sender' => [
                 'name' => env('BREVO_SENDER_NAME', 'ONFP'),
-                'email' => env('BREVO_SENDER_EMAIL', 'contact@onfp.sn'),
+                'email' => env('BREVO_SENDER_EMAIL', 'danilobadji@gmail.com'),
             ],
             'to' => [$to],
             'htmlContent' => $htmlContent,
@@ -47,5 +47,31 @@ class BrevoMailer
             \Log::error('Erreur Brevo : ' . $e->getMessage());
             return false;
         }
+    } */
+
+    public function sendEmail($to, $subject, $htmlContent, $attachments = null)
+    {
+        $emailData = [
+            'subject' => $subject,
+            'htmlContent' => $htmlContent,
+            'sender' => [
+                'name' => env('BREVO_SENDER_NAME', 'SIGOF'),
+                'email' => env('BREVO_SENDER_EMAIL')
+            ],
+            'to' => [
+                [
+                    'email' => $to['email'],
+                    'name' => $to['name']
+                ]
+            ]
+        ];
+
+        if (!empty($attachments)) {
+            $emailData['attachment'] = $attachments;
+        }
+
+        $email = new SendSmtpEmail($emailData);
+
+        return $this->api->sendTransacEmail($email);
     }
 }

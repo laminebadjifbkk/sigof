@@ -50,6 +50,6 @@ class ModulesParRegionExport implements FromCollection, WithHeadings
      */
     public function headings(): array
     {
-        return ['N°', 'Région', 'Module', 'Nombre de demandes'];
+        return ['N°', 'Région', 'Module', 'Effectif'];
     }
 }

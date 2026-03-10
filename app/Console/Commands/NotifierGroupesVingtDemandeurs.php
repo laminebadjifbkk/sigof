@@ -2,14 +2,16 @@
 
 namespace App\Console\Commands;
 
+use App\Exports\ModulesParRegionExport;
 use App\Mail\NotificationDemandeursMail;
 use App\Models\Individuelle;
-use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Mail;
-use App\Models\Region;
 use App\Models\Module;
 use App\Models\NotificationRegion;
+use App\Models\Region;
 use App\Services\BrevoMailer;
+use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Mail;
+use Maatwebsite\Excel\Facades\Excel;
 
 class NotifierGroupesVingtDemandeurs extends Command
 {
@@ -128,6 +130,33 @@ class NotifierGroupesVingtDemandeurs extends Command
             ];
         }
 
+        $filename = 'recap_modules_' . now()->format('Y_m_d_H_i_s') . '.xlsx';
+
+        Excel::store(
+            new ModulesParRegionExport($donnees),
+            $filename,
+            'local'
+        );
+
+        $fichier = storage_path('app/' . $filename);
+
+        $attachments = null;
+
+        if (file_exists($fichier)) {
+
+            $attachments = [
+                [
+                    'name' => $filename,
+                    'content' => base64_encode(file_get_contents($fichier))
+                ]
+            ];
+
+            $this->info("Fichier Excel généré : " . $filename);
+        } else {
+
+            $this->warn("Fichier Excel introuvable.");
+        }
+
         // Créer l’HTML de l’email (vous pouvez aussi utiliser votre Mailable)
         $htmlContent = "<h2>Récapitulatif des modules ayant atteint {$seuil} demandes</h2>";
         foreach ($donnees as $region => $modules) {
@@ -143,16 +172,64 @@ class NotifierGroupesVingtDemandeurs extends Command
             ['email' => 'lamine.badji@onfp.sn', 'name' => 'Lamine Badji'],
         ];
 
+        /* $fichier = storage_path('app/recap_modules.xlsx');
+
+        $attachments = null;
+
+        if (file_exists($fichier)) {
+
+            $attachments = [
+                [
+                    "name" => "recap_modules.xlsx",
+                    "content" => base64_encode(file_get_contents($fichier))
+                ]
+            ];
+
+            $this->info("Fichier Excel attaché.");
+        } else {
+
+            $this->warn("Fichier Excel introuvable : " . $fichier);
+        } */
+
+        /* $mailer = new BrevoMailer();
+
+        foreach ($destinataires as $to) {
+
+            try {
+                $mailer->sendEmail(
+                    $to,
+                    "Récapitulatif des modules >= {$seuil} demandes",
+                    $htmlContent
+                );
+
+                $this->info("Email envoyé à {$to['email']}");
+            } catch (\Exception $e) {
+
+                $this->error("Erreur envoi mail : " . $e->getMessage());
+            }
+        }
+
+        $this->info("Email récapitulatif envoyé via Brevo."); */
+
         $mailer = new BrevoMailer();
 
         foreach ($destinataires as $to) {
-            $mailer->sendEmail(
-                $to,
-                "Récapitulatif des modules >= {$seuil} demandes",
-                $htmlContent
-            );
-        }
 
+            try {
+
+                $mailer->sendEmail(
+                    $to,
+                    "Récapitulatif des modules >= {$seuil} demandes",
+                    $htmlContent,
+                    $attachments
+                );
+
+                $this->info("Email envoyé à {$to['email']}");
+            } catch (\Exception $e) {
+
+                $this->error("Erreur envoi mail : " . $e->getMessage());
+            }
+        }
         $this->info("Email récapitulatif envoyé via Brevo.");
     }
 }
