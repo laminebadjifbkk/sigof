@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 use App\Models\Emargementcollective;
 use App\Models\Feuillepresencecollective;
 use App\Models\Formation;
+use App\Models\Listecollective;
+use App\Models\Validationindividuelle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -139,7 +142,7 @@ class EmargementcollectiveController extends Controller
                 Validationindividuelle::create([
                     'validated_id'     => Auth::id(),
                     'action'           => 'Sélectionné',
-                    'collectives_id' => $individuelle->id,
+                    'collectives_id' => $collective->id,
                 ]);
             }
 
