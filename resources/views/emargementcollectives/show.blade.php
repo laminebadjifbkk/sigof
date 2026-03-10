@@ -289,7 +289,7 @@
             </div>
         @endforeach --}}
 
-        @forelse ($feuillepresencecollectives as $feuillepresencecollective)
+        {{-- @forelse ($feuillepresencecollectives as $feuillepresencecollective)
             <div class="modal fade" id="PresenceModal{{ $listecollective->id }}" tabindex="-1"
                 aria-labelledby="presenceModalLabel{{ $listecollective->id }}" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
@@ -314,20 +314,6 @@
                                 <div class="mb-3">
                                     <label for="selectPresence{{ $listecollective->id }}"
                                         class="form-label fw-semibold">Pointer <span class="text-danger">*</span></label>
-                                    {{-- <select id="selectPresence{{ $listecollective->id }}" name="presence"
-                                        class="form-select form-select-sm @error('presence') is-invalid @enderror" required>
-                                        <option value="" disabled selected hidden>--Choisir--</option>
-                                        @foreach ($listecollective?->feuillepresencecollectives->unique('presence') as $feuillepresencecollective)
-                                            @if (in_array($feuillepresencecollective?->emargementcollectives_id, $feuillepresenceListecollective))
-                                                <option value="{{ $feuillepresencecollective?->presence }}">
-                                                    {{ $feuillepresencecollective?->presence }}
-                                                </option>
-                                            @endif
-                                        @endforeach
-                                        <option value="Oui">Oui</option>
-                                        <option value="Non">Non</option>
-                                        <option value="">Dépointer</option>
-                                    </select> --}}
                                     @php
                                         // Récupère uniquement les valeurs de présence valides dans la liste
                                         $presencesDisponibles = $listecollective?->feuillepresencecollectives
@@ -378,6 +364,78 @@
             <tr>
                 <td colspan="7" class="text-center">Aucun bénéficiaire</td>
             </tr>
+        @endforelse --}}
+
+        @forelse ($feuillepresencecollectives as $feuillepresencecollective)
+
+            @php
+                $listecollective = $feuillepresencecollective->listecollective;
+            @endphp
+
+            <div class="modal fade" id="PresenceModal{{ $listecollective->id }}" tabindex="-1"
+                aria-labelledby="presenceModalLabel{{ $listecollective->id }}" aria-hidden="true">
+
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content shadow rounded-3">
+
+                        <form method="POST"
+                            action="{{ route('feuillepresencecollectives.update', $listecollective->id) }}">
+                            @csrf
+                            @method('PATCH')
+
+                            <div class="modal-header">
+                                <h5 class="modal-title text-center w-100">
+                                    {{ $listecollective->prenom }} {{ $listecollective->nom }}
+                                </h5>
+                            </div>
+
+                            <div class="modal-body">
+
+                                <input type="hidden" name="idemargement" value="{{ $emargementcollective->id }}">
+                                <input type="hidden" name="pointeur" value="0">
+
+                                @php
+                                    $presencesDisponibles = $listecollective?->feuillepresencecollectives
+                                        ->whereIn('emargementcollectives_id', $feuillepresenceListecollective)
+                                        ->pluck('presence')
+                                        ->unique()
+                                        ->filter();
+                                @endphp
+
+                                <select name="presence" class="form-select form-select-sm">
+
+                                    <option value="" disabled selected>-- Choisir une présence --</option>
+
+                                    @foreach ($presencesDisponibles as $presence)
+                                        <option value="{{ $presence }}">{{ $presence }}</option>
+                                    @endforeach
+
+                                    <option value="Oui">Oui</option>
+                                    <option value="Non">Non</option>
+                                    <option value="null">Dépointer</option>
+
+                                </select>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+                                    Fermer
+                                </button>
+
+                                <button type="submit" class="btn btn-success btn-sm">
+                                    Valider
+                                </button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+        @empty
+            <p class="text-center text-muted">Aucun bénéficiaire</p>
         @endforelse
 
     </section>

@@ -17,7 +17,6 @@ class EmargementcollectiveController extends Controller
 
     public function formationemargementcollective(Request $request)
     {
-        dd('ok');
         $formation            = Formation::findOrFail($request->input('idformation'));
         $emargementcollective = Emargementcollective::findOrFail($request->input('idemargement'));
 
