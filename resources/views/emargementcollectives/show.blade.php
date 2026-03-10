@@ -173,16 +173,16 @@
                                                         <td>{{ $feuillepresencecollective?->listecollective?->lieu_naissance }}
                                                         </td>
                                                         <td class="text-center">
-                                                            @foreach ($feuillepresencecollective?->listecollective?->feuillepresencecollectives as $feuillepresencecollective)
-                                                                @if (in_array($feuillepresencecollective?->emargementcollectives_id, $feuillepresenceListecollective))
+                                                            @foreach ($feuillepresencecollective?->listecollective?->feuillepresencecollectives ?? [] as $presence)
+                                                                @if (in_array($presence?->emargementcollectives_id, $feuillepresenceListecollective))
                                                                     <span
                                                                         class="badge 
-                                                                        {{ $feuillepresencecollective?->presence === 'Oui'
-                                                                            ? 'bg-success'
-                                                                            : ($feuillepresencecollective?->presence === 'Non'
-                                                                                ? 'bg-danger'
-                                                                                : 'bg-default') }}">
-                                                                        {{ $feuillepresencecollective?->presence }}
+                {{ $presence?->presence === 'Oui'
+                    ? 'bg-success'
+                    : ($presence?->presence === 'Non'
+                        ? 'bg-danger'
+                        : 'bg-secondary') }}">
+                                                                        {{ $presence?->presence }}
                                                                     </span>
                                                                 @endif
                                                             @endforeach
