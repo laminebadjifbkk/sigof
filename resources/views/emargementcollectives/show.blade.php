@@ -217,7 +217,7 @@
                                                                                 Pointer
                                                                             </button>
                                                                         </li> --}}
-                                                                        <li>
+                                                                        {{-- <li>
                                                                             <form
                                                                                 action="{{ route('feuillepresencecollectives.destroy', $feuillepresencecollective?->listecollective) }}"
                                                                                 method="POST" class="m-0 p-0">
@@ -229,7 +229,7 @@
                                                                                     Supprimer
                                                                                 </button>
                                                                             </form>
-                                                                        </li>
+                                                                        </li> --}}
                                                                     </ul>
                                                                 </div>
                                                             </div>
