@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActiviteQuotidienneController;
 use App\Http\Controllers\AntenneController;
 use App\Http\Controllers\ArriveController;
 use App\Http\Controllers\ArrondissementController;
@@ -95,6 +96,7 @@ use App\Http\Controllers\ValidationoperateurController;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Formula;
+
 
 
 
@@ -996,6 +998,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::resource('parc-type-missions', ParcTypeMissionController::class);
         Route::resource('detfs', DetfController::class);
         Route::resource('budget-labels', BudgetLabelController::class);
+        Route::resource('activites-quotidiennes', ActiviteQuotidienneController::class);
 
         Route::prefix('suivi')->group(function () {
             // Routes pour le suivi individuel
