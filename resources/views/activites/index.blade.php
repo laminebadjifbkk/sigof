@@ -125,10 +125,11 @@
                                     <td>{{ $activite->user->firstname ?? '' }} {{ $activite->user->name ?? '' }}</td>
                                     <td>{{ $activite->date_activite->format('d/m/Y') }}</td>
                                     <td>
-                                        <span class="{{ $activite->priorite }}">{{ $activite->priorite }}</span>
+                                        <span
+                                            class="badge-activite {{ ucfirst($activite->priorite) }}">{{ $activite->priorite }}</span>
                                     </td>
                                     <td>
-                                        <span class="{{ $activite->statut }}">
+                                        <span class="badge-activite {{ ucfirst($activite->statut) }}">
                                             {{ $labels[$activite->statut] ?? $activite->statut }}
                                         </span>
                                     </td>

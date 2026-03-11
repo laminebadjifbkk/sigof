@@ -114,7 +114,7 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-    <style>
+    {{--  <style>
         .nouvelle {
             background-color: #ff9966;
             /* couleur cyan Bootstrap (info) */
@@ -1384,6 +1384,69 @@
             display: inline-block;
         }
 
+
+
+        /* Statuts */
+        .En_attente {
+            background-color: #FFC107;
+            /* jaune bootstrap warning */
+            color: #212529;
+        }
+
+        .En_cours {
+            background-color: #17A2B8;
+            /* cyan bootstrap info */
+            color: #ffffff;
+        }
+
+        .Terminee {
+            background-color: #28A745;
+            /* vert bootstrap success */
+            color: #ffffff;
+        }
+
+        .Validee {
+            background-color: #0D6EFD;
+            /* bleu bootstrap primary */
+            color: #ffffff;
+        }
+
+        .Rejete {
+            background-color: #DC3545;
+            /* rouge bootstrap danger */
+            color: #ffffff;
+        }
+
+        /* Priorités */
+        .Faible {
+            background-color: #6C757D;
+            /* gris bootstrap secondary */
+            color: #ffffff;
+        }
+
+        .Normale {
+            background-color: #0D6EFD;
+            /* bleu bootstrap primary */
+            color: #ffffff;
+        }
+
+        .Urgente {
+            background-color: #DC3545;
+            /* rouge bootstrap danger */
+            color: #ffffff;
+        }
+
+        /* Style commun pour toutes les badges */
+        .badge-activite {
+            padding: 6px 12px;
+            text-align: center;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+
         a {
             text-decoration: none;
         }
@@ -1639,6 +1702,364 @@
         /* Important pour mobile */
         .card {
             overflow-x: hidden;
+        }
+    </style> --}}
+
+
+    <style>
+        /* Styles communs pour badges de couleur similaire */
+        .nouvelle,
+        .Nouvelle,
+        .Extension {
+            background-color: #ff9966;
+            color: #ffffff;
+            padding: 6px 12px;
+            text-align: center;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+
+        .Téléchargé {
+            background-color: #28a745;
+            color: #ffffff;
+            padding: 6px 12px;
+            text-align: center;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+
+        .Nouveau {
+            background-color: #36e0e0;
+            color: #ffffff;
+            padding: 6px 12px;
+            text-align: center;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+
+        .rejeter,
+        .Rejetée,
+        .Rejet,
+        .Rejeté,
+        .rejeté,
+        .Indisponible,
+        .Injoignable,
+        .annuler,
+        .Abandon,
+        .Expiré,
+        .expiré,
+        .Suspendue,
+        .fermer,
+        .Fermé,
+        .fermé,
+        .Non,
+        .non,
+        .incomplète,
+        .invalide,
+        .fin,
+        .décliner {
+            background-color: #DC3545;
+            color: #ffffff;
+            padding: 6px 12px;
+            text-align: center;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+
+        .retirer,
+        .corriger,
+        .réserve,
+        .Disponibles,
+        .Retirée,
+        .Retiré,
+        .renew,
+        .Renouvellement,
+        .Absent,
+        .expirer,
+        .Absente {
+            background-color: #ffcc00;
+            color: #ffffff;
+            padding: 6px 12px;
+            text-align: center;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+
+        .cours,
+        .Disponible,
+        .formés,
+        .formé,
+        .Présent,
+        .Présente,
+        .former,
+        .ouvert,
+        .Ouvert,
+        .terminer,
+        .confirmer,
+        .Terminée,
+        .agréé {
+            background-color: #198754;
+            color: #ffffff;
+            padding: 6px 12px;
+            text-align: center;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+
+        .accepter,
+        .Délivrés,
+        .Oui,
+        .retenue,
+        .retenu,
+        .Retenu,
+        .Retenue,
+        .Sélectionné,
+        .programmer,
+        .commission,
+        .démarrer,
+        .new,
+        .retiré {
+            background-color: #0DCAF0;
+            color: #ffffff;
+            padding: 6px 12px;
+            text-align: center;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+
+        .Conforme {
+            background-color: #0d6efd;
+            color: #fff;
+            padding: 6px 16px;
+            text-align: center;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 10px rgba(13, 110, 253, 0.15);
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .déjà,
+        .exécutée,
+        .Exécutée {
+            background-color: #6c9d78;
+            color: #ffffff;
+            padding: 6px 12px;
+            text-align: center;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+
+        .Aucun {
+            background-color: white;
+            color: #DC3545;
+            padding: 4px 8px;
+            text-align: center;
+            border-radius: 25% 10%;
+        }
+
+        /* Roles */
+        .responsable {
+            color: #0d6efd;
+        }
+
+        .participant,
+        .chauffeur {
+            color: #198754;
+        }
+
+        .observateur {
+            color: #6c757d;
+        }
+
+        .default-role {
+            color: #343a40;
+        }
+
+        /* Statuts texte */
+        .planifiee {
+            color: #343a40;
+        }
+
+        .en_cours,
+        .en_mission {
+            color: #0aa2c0;
+        }
+
+        .terminee,
+        .actif,
+        .disponible,
+        .operationnel {
+            color: #198754;
+        }
+
+        .annulee,
+        .indisponible,
+        .hors_service {
+            color: #dc3545;
+        }
+
+        .maintenance {
+            color: #ffc107;
+        }
+
+        /* Permis */
+        .permis-expire {
+            color: #dc3545;
+            font-weight: 600;
+        }
+
+        .permis-bientot {
+            color: #fd7e14;
+            font-weight: 600;
+        }
+
+        .permis-ok {
+            color: #198754;
+            font-weight: 600;
+        }
+
+        /* Statuts d'activité */
+        .En_attente {
+            background-color: #FFC107;
+            color: #212529;
+        }
+
+        .En_cours {
+            background-color: #17A2B8;
+            color: #ffffff;
+        }
+
+        .Terminee {
+            background-color: #28A745;
+            color: #ffffff;
+        }
+
+        .Validee {
+            background-color: #0D6EFD;
+            color: #ffffff;
+        }
+
+        .Rejete {
+            background-color: #DC3545;
+            color: #ffffff;
+        }
+
+        /* Priorités */
+        .Faible {
+            background-color: #6C757D;
+            color: #ffffff;
+        }
+
+        .Normale {
+            background-color: #0D6EFD;
+            color: #ffffff;
+        }
+
+        .Urgente {
+            background-color: #DC3545;
+            color: #ffffff;
+        }
+
+        /* Styles communs */
+        .badge-activite {
+            padding: 6px 12px;
+            text-align: center;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+
+        .missions-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .etat-btn {
+            background: none !important;
+            border: none;
+            padding: 0;
+            box-shadow: none;
+            color: inherit;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        #productList {
+            position: absolute;
+            z-index: 1000;
+            width: 100%;
+            max-height: 200px;
+            overflow-y: auto;
+            background: white;
+            border: 1px solid #ddd;
+            display: none;
+        }
+
+        #productList ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #productList li {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #ddd;
+        }
+
+        #productList li:hover {
+            background: #f8f9fa;
+        }
+
+        .vertical-align-middle {
+            vertical-align: middle;
+        }
+
+        .modal-header-sm {
+            padding: 10px 20px;
+            font-size: 1rem;
+            line-height: 1.2;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .dropdown-menu {
+            background-color: #f8f9fa;
+            border-radius: 0.5rem;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
         }
     </style>
 
