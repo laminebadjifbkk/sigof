@@ -106,6 +106,7 @@ class CollectiveController extends Controller
         $communes     = Commune::latest()->get();
         $modules      = Module::latest()->get();
 
+        $recherche = false;
 
         return view('collectives.index', compact(
             'collectives',
@@ -116,6 +117,7 @@ class CollectiveController extends Controller
             'demandesDuJourCount',
             'departements',
             'communes',
+            'recherche',
             'modules'
         ));
     }
@@ -1194,6 +1196,13 @@ class CollectiveController extends Controller
             ->distinct()
             ->get();
 
+
+        $groupes = Collective::query()
+            ->selectRaw('YEAR(date_depot) as annee, COUNT(*) as total')
+            ->groupBy('annee')
+            ->orderByDesc('annee')
+            ->paginate(1); // ← une ligne par page
+
         $totalCollectives = number_format($collectives?->count(), 0, ',', ' ');
 
         $collectivesQuery = Collective::query();
@@ -1229,6 +1238,8 @@ class CollectiveController extends Controller
         $today        = date('Y-m-d');
         $count_today  = Collective::where("created_at", "LIKE", "{$today}%")->count();
 
+        $recherche = true;
+
         return view(
             'collectives.index',
             compact(
@@ -1240,6 +1251,7 @@ class CollectiveController extends Controller
                 'groupes',
                 'totalAffichees',
                 'totalDemandes',
+                'recherche',
                 'count_today'
             )
         );
