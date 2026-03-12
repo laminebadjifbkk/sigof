@@ -50,7 +50,7 @@
                     <div class="col-md-6 col-sm-12 mb-3">
                         <label class="form-label">Agent concerné <span class="text-danger">*</span></label>
                         <select name="user_id" class="form-select form-select-sm @error('user_id') is-invalid @enderror"
-                            required>
+                            required id="select-field-employe">
                             <option value="">-- Choisir un agent --</option>
                             @foreach ($employes as $employe)
                                 <option value="{{ $employe->user->id }}"
