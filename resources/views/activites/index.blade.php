@@ -136,75 +136,77 @@
                 </div>
             </div>
             <!-- Tableau des activités -->
-            <div class="card shadow-sm">
-                <div class="card-body table-responsive">
-                    <table class="table table-sm table-hover align-middle" id="table-activite">
-                        <thead class="table-light">
-                            <tr>
-                                <th>#</th>
-                                <th>Titre</th>
-                                <th>Agent</th>
-                                <th>Date</th>
-                                <th>HD</th>
-                                <th>HF</th>
-                                <th>Priorité</th>
-                                {{-- <th>Statut</th> --}}
-                                <th class="text-center" width="12%">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($activites as $activite)
+            @if ($activites->isNotEmpty())
+                <div class="card shadow-sm">
+                    <div class="card-body table-responsive">
+                        <table class="table table-sm table-hover align-middle" id="table-activite">
+                            <thead class="table-light">
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $activite->titre }}</td>
-                                    <td>{{ $activite->user->firstname ?? '' }} {{ $activite->user->name ?? '' }}</td>
-                                    <td>{{ $activite->date_activite?->format('d/m/Y') }}</td>
-                                    <td>{{ $activite->heure_debut?->format('H:i') }}</td>
-                                    <td>{{ $activite->heure_fin?->format('H:i') }}</td>
-                                    <td>
-                                        <span class="badge-activite {{ ucfirst($activite->priorite) }}">
-                                            {{ $labels[$activite->priorite] ?? $activite->priorite }}
-                                        </span>
-                                    </td>
-                                    {{-- <td>
+                                    <th>#</th>
+                                    <th>Titre</th>
+                                    <th>Agent</th>
+                                    <th>Date</th>
+                                    <th>HD</th>
+                                    <th>HF</th>
+                                    <th>Priorité</th>
+                                    {{-- <th>Statut</th> --}}
+                                    <th class="text-center" width="12%">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($activites as $activite)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $activite->titre }}</td>
+                                        <td>{{ $activite->user->firstname ?? '' }} {{ $activite->user->name ?? '' }}</td>
+                                        <td>{{ $activite->date_activite?->format('d/m/Y') }}</td>
+                                        <td>{{ $activite->heure_debut?->format('H:i') }}</td>
+                                        <td>{{ $activite->heure_fin?->format('H:i') }}</td>
+                                        <td>
+                                            <span class="badge-activite {{ ucfirst($activite->priorite) }}">
+                                                {{ $labels[$activite->priorite] ?? $activite->priorite }}
+                                            </span>
+                                        </td>
+                                        {{-- <td>
                                         <span class="badge-activite {{ ucfirst($activite->statut) }}">
                                             {{ $labels[$activite->statut] ?? $activite->statut }}
                                         </span>
                                     </td> --}}
 
-                                    <td class="text-center">
-                                        <span class="d-flex align-items-baseline justify-content-center gap-1">
-                                            <a href="{{ route('activites-quotidiennes.show', $activite->id) }}"
-                                                class="btn btn-sm btn-info">
-                                                <i class="bi bi-eye"></i>
-                                            </a>
-                                            <a href="{{ route('activites-quotidiennes.edit', $activite->id) }}"
-                                                class="btn btn-sm btn-warning">
-                                                <i class="bi bi-pencil-square"></i>
-                                            </a>
-                                            <form action="{{ route('activites-quotidiennes.destroy', $activite->id) }}"
-                                                method="POST" class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
+                                        <td class="text-center">
+                                            <span class="d-flex align-items-baseline justify-content-center gap-1">
+                                                <a href="{{ route('activites-quotidiennes.show', $activite->id) }}"
+                                                    class="btn btn-sm btn-info">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                <a href="{{ route('activites-quotidiennes.edit', $activite->id) }}"
+                                                    class="btn btn-sm btn-warning">
+                                                    <i class="bi bi-pencil-square"></i>
+                                                </a>
+                                                <form action="{{ route('activites-quotidiennes.destroy', $activite->id) }}"
+                                                    method="POST" class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
 
-                                                <button type="submit" class="btn btn-sm btn-danger show_confirm"
-                                                    title="Supprimer">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
-                                            </form>
-                                        </span>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <span>Aucune activité trouvée</span>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+                                                    <button type="submit" class="btn btn-sm btn-danger show_confirm"
+                                                        title="Supprimer">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <span>Aucune activité trouvée</span>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-
+            @else
+            @endif
         </div>
     </section>
 @endsection
