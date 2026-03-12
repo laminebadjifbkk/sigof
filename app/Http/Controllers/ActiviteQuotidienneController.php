@@ -44,9 +44,10 @@ class ActiviteQuotidienneController extends Controller
     {
         $query = ActiviteQuotidienne::query();
 
-        $statut = $request->query('statut');
-        $annee  = $request->query('annee');
-        $filter = $request->query('filter');
+        // Récupération des paramètres de filtre
+        $statut = $request->query('statut'); // peut être null
+        $annee  = $request->query('annee');  // peut être null
+        $filter = $request->query('filter'); // peut être null
 
         // Filtre statut
         if ($statut) {
