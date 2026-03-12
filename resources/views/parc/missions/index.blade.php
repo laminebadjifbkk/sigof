@@ -12,10 +12,10 @@
                             Missions total
                         </h6>
                         <div class="d-flex flex-column align-items-center justify-content-center mb-2">
-                            <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-1"
+                            {{-- <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-1"
                                 style="width:36px; height:36px; font-size:1rem;">
                                 <i class="bi bi-flag"></i>
-                            </div>
+                            </div> --}}
                             <span class="h6 mb-0" style="font-size:1rem;">{{ $totalMissions }}</span>
                             {{-- <small class="text-muted" style="font-size:0.7rem;">mission(s)</small> --}}
                         </div>
@@ -47,10 +47,10 @@
                         </h6>
 
                         <div class="d-flex flex-column align-items-center justify-content-center mb-2">
-                            <div class="rounded-circle bg-success text-white d-flex justify-content-center align-items-center mb-1"
+                            {{-- <div class="rounded-circle bg-success text-white d-flex justify-content-center align-items-center mb-1"
                                 style="width:36px; height:36px; font-size:1rem;">
                                 <i class="bi bi-calendar"></i>
-                            </div>
+                            </div> --}}
                             <span class="h6 mb-0" style="font-size:1rem;">{{ $missionsAnnee }}</span>
                             {{-- <small class="text-muted" style="font-size:0.7rem;">mission(s)</small> --}}
                         </div>
@@ -87,10 +87,10 @@
 
                             <!-- Nombre et icône -->
                             <div class="d-flex flex-column align-items-center justify-content-center mb-2">
-                                <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-1"
+                                {{-- <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-1"
                                     style="width: 36px; height: 36px; font-size: 1rem;">
                                     <i class="bi bi-flag"></i>
-                                </div>
+                                </div> --}}
                                 <span class="h6 mb-0" style="font-size: 1rem;">
                                     {{ $items->count() }}
                                 </span>
