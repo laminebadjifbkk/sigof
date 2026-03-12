@@ -2,6 +2,7 @@
 /*
 namespace App\Providers;
 
+use App\Models\ActiviteQuotidienne;
 use App\Models\Antenne;
 use App\Models\ParcMission;
 use Carbon\Carbon;
@@ -51,6 +52,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use App\Models\ActiviteQuotidienne;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -84,6 +86,7 @@ class AppServiceProvider extends ServiceProvider
             $formationsEnCours = Formation::where('statut', 'En cours')->count();
             $missionsEnCours = ParcMission::where('statut', 'en_cours')->count();
             $showAttestations  = Formation::where('attestation', 'Nouveau')->count();
+            $retards = ActiviteQuotidienne::where('statut', 'retard')->count();
 
             $view->with([
                 'antennes'          => $antennes,
@@ -92,6 +95,7 @@ class AppServiceProvider extends ServiceProvider
                 'formationsEnCours' => $formationsEnCours,
                 'showAttestations'  => $showAttestations,
                 'missionsEnCours'  => $missionsEnCours,
+                'retards'  => $retards,
             ]);
         });
 

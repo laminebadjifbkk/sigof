@@ -1765,6 +1765,7 @@
         .non,
         .incomplète,
         .invalide,
+        .Retard,
         .fin,
         .décliner {
             background-color: #DC3545;

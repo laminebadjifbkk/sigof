@@ -44,6 +44,7 @@ class ActiviteQuotidienne extends Model
     const STATUT_TERMINEE = 'terminee';
     const STATUT_VALIDEE = 'validee';
     const STATUT_REJETE = 'rejete';
+    const STATUT_RETARD = 'retard';
 
     const PRIORITE_FAIBLE = 'faible';
     const PRIORITE_NORMALE = 'normale';

@@ -132,6 +132,11 @@
                 <a class="nav-link collapsed" href="{{ route('activites-quotidiennes.index') }}">
                     <i class="bi bi-list-check"></i>
                     <span>Mes activités</span>
+                    @if ($retards > 0)
+                        <span class="badge bg-danger text-white ms-2">
+                            {{ $retards }} en retard
+                        </span>
+                    @endif
                 </a>
             </li>
         @endcan

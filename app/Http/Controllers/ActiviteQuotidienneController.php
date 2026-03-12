@@ -95,6 +95,7 @@ class ActiviteQuotidienneController extends Controller
             'urgente'     => 'Urgente',
             'normale'     => 'Normale',
             'faible'     => 'Faible',
+            'retard'     => 'Retard',
         ];
 
         return view('activites.index', compact(
@@ -123,6 +124,7 @@ class ActiviteQuotidienneController extends Controller
             'urgente'     => 'Urgente',
             'normale'     => 'Normale',
             'faible'     => 'Faible',
+            'retard'     => 'Retard',
         ];
         return view('activites.show', compact('activitequotidienne', 'labels'));
     }
@@ -141,6 +143,7 @@ class ActiviteQuotidienneController extends Controller
             'urgente'     => 'Urgente',
             'normale'     => 'Normale',
             'faible'     => 'Faible',
+            'retard'     => 'Retard',
         ];
         return view('activites.update', compact('activitequotidienne', 'labels'));
     }
@@ -156,7 +159,7 @@ class ActiviteQuotidienneController extends Controller
             'description'  => 'nullable|string',
             'date_activite' => 'required|date',
             'priorite'     => 'required|in:faible,normale,urgente',
-            'statut'       => 'required|in:en_attente,en_cours,terminee,validee,rejete',
+            'statut'       => 'required|in:en_attente,en_cours,terminee,validee,rejete,retard',
         ]);
 
         $activitequotidienne->update($request->only([
