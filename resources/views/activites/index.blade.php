@@ -197,7 +197,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="text-center">Aucune activité trouvée</td>
+                                    <td colspan="8" class="text-center">Aucune activité trouvée</td>
                                 </tr>
                             @endforelse
                         </tbody>
