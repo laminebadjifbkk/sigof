@@ -198,7 +198,9 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <span>Aucune activité trouvée</span>
+                                        <div class="alert alert-warning">
+                                            Aucune activité trouvée.
+                                        </div>
                                     </tr>
                                 @endforelse
                             </tbody>
@@ -206,6 +208,9 @@
                     </div>
                 </div>
             @else
+                <div class="alert alert-warning">
+                    Aucune activité trouvée.
+                </div>
             @endif
         </div>
     </section>
