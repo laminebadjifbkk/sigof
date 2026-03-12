@@ -231,7 +231,7 @@
 
                         <div style="text-align:right;">
                             ONFP/DG/DRH/DIVagp
-                            @if (!empty($mission?->creator?->username) && $mission->creator->username !== 'fbd')
+                            @if (!empty($mission?->creator?->username) && !in_array($mission->creator->username, ['fbd', 'lb']))
                                 /{{ $mission->creator->username }}
                             @endif
                         </div>
