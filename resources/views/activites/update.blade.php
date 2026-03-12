@@ -38,17 +38,43 @@
                     <textarea name="description" class="form-control">{{ old('description', $activitequotidienne->description) }}</textarea>
                 </div>
 
-                <div class="mb-3">
-                    <label for="date_activite">Date <span class="text-danger">*</span></label>
-                    <input type="date" name="date_activite" class="form-control"
-                        value="{{ old('date_activite', $activitequotidienne->date_activite->format('Y-m-d')) }}" required>
+                <div class="row mb-3">
+
+                    <div class="col-md-6 col-sm-6">
+                        <label for="date_activite">Date <span class="text-danger">*</span></label>
+                        <input type="date" name="date_activite" class="form-control"
+                            value="{{ old('date_activite', optional($activitequotidienne->date_activite)->format('Y-m-d')) }}"
+                            required>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6">
+                        <label class="form-label">Heure début</label>
+                        <input type="time" name="heure_debut"
+                            class="form-control form-control-sm @error('heure_debut') is-invalid @enderror"
+                            value="{{ old('heure_debut', optional($activitequotidienne->heure_debut)->format('H:i')) }}">
+                        @error('heure_debut')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-3 col-sm-6">
+                        <label class="form-label">Heure fin</label>
+                        <input type="time" name="heure_fin"
+                            class="form-control form-control-sm @error('heure_fin') is-invalid @enderror"
+                            value="{{ old('heure_fin', optional($activitequotidienne->heure_fin)->format('H:i')) }}">
+                        @error('heure_fin')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+
                 </div>
 
                 <div class="mb-3">
                     <label for="priorite">Priorité <span class="text-danger">*</span></label>
                     <select name="priorite" class="form-select" required>
                         <option value="faible"
-                            {{ old('priorite', $activitequotidienne->priorite) == 'faible' ? 'selected' : '' }}>Faible</option>
+                            {{ old('priorite', $activitequotidienne->priorite) == 'faible' ? 'selected' : '' }}>Faible
+                        </option>
                         <option value="normale"
                             {{ old('priorite', $activitequotidienne->priorite) == 'normale' ? 'selected' : '' }}>Normale
                         </option>
@@ -62,7 +88,8 @@
                     <label for="statut">Statut <span class="text-danger">*</span></label>
                     <select name="statut" class="form-select" required>
                         @foreach ($labels as $key => $label)
-                            <option value="{{ $key }}" {{ $activitequotidienne->statut == $key ? 'selected' : '' }}>
+                            <option value="{{ $key }}"
+                                {{ $activitequotidienne->statut == $key ? 'selected' : '' }}>
                                 {{ $label }}</option>
                         @endforeach
                     </select>

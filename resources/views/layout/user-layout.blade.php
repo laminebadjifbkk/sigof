@@ -1390,7 +1390,7 @@
         .En_attente {
             background-color: #FFC107;
             /* jaune bootstrap warning */
-            color: #212529;
+            color: #ffffff;
         }
 
         .En_cours {
@@ -1946,8 +1946,8 @@
 
         /* Statuts d'activité */
         .En_attente {
-            background-color: #FFC107;
-            color: #212529;
+            background-color: #6C757D;
+            color: #ffffff;
         }
 
         .En_cours {
@@ -1972,7 +1972,7 @@
 
         /* Priorités */
         .Faible {
-            background-color: #6C757D;
+            background-color: #ffcc00;
             color: #ffffff;
         }
 

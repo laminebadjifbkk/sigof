@@ -81,6 +81,9 @@ class ActiviteQuotidienneController extends Controller
             'terminee'   => 'Terminée',
             'validee'    => 'Validée',
             'rejete'     => 'Rejetée',
+            'urgente'     => 'Urgente',
+            'normale'     => 'Normale',
+            'faible'     => 'Faible',
         ];
 
         return view('activites.index', compact(
@@ -112,13 +115,19 @@ class ActiviteQuotidienneController extends Controller
             'terminee'   => 'Terminée',
             'validee'    => 'Validée',
             'rejete'     => 'Rejetée',
+            'urgente'     => 'Urgente',
+            'normale'     => 'Normale',
+            'faible'     => 'Faible',
         ];
         return view('activites.update', compact('activitequotidienne', 'labels'));
     }
 
     // Mettre à jour une activité
-    public function update(Request $request, ActiviteQuotidienne $activitequotidienne)
+    public function update(Request $request, $id)
     {
+
+        $activitequotidienne = ActiviteQuotidienne::findOrFail($id);
+
         $request->validate([
             'titre'        => 'required|string|max:255',
             'description'  => 'nullable|string',
@@ -132,6 +141,8 @@ class ActiviteQuotidienneController extends Controller
             'description',
             'date_activite',
             'priorite',
+            'heure_debut',
+            'heure_fin',
             'statut'
         ]));
 
@@ -139,8 +150,10 @@ class ActiviteQuotidienneController extends Controller
             ->with('status', 'Activité modifiée avec succès !');
     }
 
-    public function destroy(ActiviteQuotidienne $activitequotidienne)
+    public function destroy($id)
     {
+        $activitequotidienne = ActiviteQuotidienne::findOrFail($id);
+
         $activitequotidienne->delete();
 
         return redirect()->back()

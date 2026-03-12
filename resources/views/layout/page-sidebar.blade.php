@@ -127,6 +127,15 @@
             </li>
         @endcan
 
+        @can('activite-view')
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('activites-quotidiennes.index') }}">
+                    <i class="bi bi-list-check"></i>
+                    <span>Mes activités</span>
+                </a>
+            </li>
+        @endcan
+
         @hasrole('Employe')
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('mescourriers') }}">
