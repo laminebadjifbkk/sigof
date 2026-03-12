@@ -5,7 +5,7 @@
     <section class="section">
         <div class="container">
 
-            <div class="row mb-4">
+            <div class="row mb-1">
                 <!-- Total activités -->
                 <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                     <div class="card shadow-sm text-center p-2" style="min-height:140px; border-radius:10px;">
@@ -96,12 +96,13 @@
                 </div>
             @endif
 
-            {{-- <div class="d-flex justify-content-between align-items-center mb-3">
-                <h1 class="mb-0">Activités quotidiennes</h1>
-                <a href="{{ route('activites-quotidiennes.create') }}" class="btn btn-success btn-sm">
-                    <i class="bi bi-plus-circle"></i> Créer activité
-                </a>
-            </div> --}}
+            <div class="mb-3 d-flex gap-2 flex-wrap">
+                <a href="{{ route('activites-quotidiennes.index') }}" class="btn btn-secondary btn-sm">Toutes</a>
+                <a href="{{ route('activites-quotidiennes.index', ['filter' => 'today']) }}"
+                    class="btn btn-primary btn-sm">Aujourd'hui</a>
+                <a href="{{ route('activites-quotidiennes.index', ['filter' => 'week']) }}"
+                    class="btn btn-info btn-sm">Cette semaine</a>
+            </div>
 
             <div class="pt-1">
                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
@@ -147,7 +148,7 @@
                                 <th>HD</th>
                                 <th>HF</th>
                                 <th>Priorité</th>
-                                <th>Statut</th>
+                                {{-- <th>Statut</th> --}}
                                 <th class="text-center" width="12%">Actions</th>
                             </tr>
                         </thead>
@@ -157,28 +158,18 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $activite->titre }}</td>
                                     <td>{{ $activite->user->firstname ?? '' }} {{ $activite->user->name ?? '' }}</td>
-                                    <td>{{ $activite->date_activite->format('d/m/Y') }}</td>
-                                    <td>{{ $activite->heure_debut->format('H:i') }}</td>
-                                    <td>{{ $activite->heure_fin->format('H:i') }}</td>
+                                    <td>{{ $activite->date_activite?->format('d/m/Y') }}</td>
+                                    <td>{{ $activite->heure_debut?->format('H:i') }}</td>
+                                    <td>{{ $activite->heure_fin?->format('H:i') }}</td>
                                     <td>
                                         <span class="badge-activite {{ ucfirst($activite->priorite) }}">
                                             {{ $labels[$activite->priorite] ?? $activite->priorite }}
                                         </span>
                                     </td>
-                                    <td>
+                                    {{-- <td>
                                         <span class="badge-activite {{ ucfirst($activite->statut) }}">
                                             {{ $labels[$activite->statut] ?? $activite->statut }}
                                         </span>
-                                    </td>
-                                    {{-- <td>
-                                        <a href="{{ route('activites-quotidiennes.show', $activite->id) }}"
-                                            class="btn btn-outline-primary btn-sm">
-                                            <i class="bi bi-eye"></i> Voir
-                                        </a>
-                                        <a href="{{ route('activites-quotidiennes.edit', $activite->id) }}"
-                                            class="btn btn-outline-secondary btn-sm">
-                                            <i class="bi bi-pencil"></i> Modifier
-                                        </a>
                                     </td> --}}
 
                                     <td class="text-center">

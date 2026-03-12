@@ -46,6 +46,7 @@ class ActiviteQuotidienneController extends Controller
 
         $statut = $request->query('statut');
         $annee  = $request->query('annee');
+        $filter = $request->query('filter');
 
         // Filtre statut
         if ($statut) {
@@ -57,45 +58,94 @@ class ActiviteQuotidienneController extends Controller
             $query->whereYear('date_activite', $annee);
         }
 
+        if ($filter) {
+            if ($filter === 'today') {
+                $query->whereDate('date_activite', now());
+            } elseif ($filter === 'week') {
+                $query->whereBetween('date_activite', [
+                    now()->startOfWeek(),
+                    now()->endOfWeek()
+                ]);
+            }
+        }
         // Activités filtrées
-        /* $activites = $query->with('user')->orderBy('date_activite', 'desc')->get(); */
-
         $activites = $query
-            ->with('user')->orderBy('date_activite', 'desc')
+            ->with('user')
+            ->orderBy('date_activite', 'desc')
             ->limit(100)
             ->get();
 
+        /*
+    |--------------------------------------------------------------------------
+    | Dashboard statistiques
+    |--------------------------------------------------------------------------
+    */
 
-        // Pour les cards : grouper toutes les activités par statut
-        $allActivites = ActiviteQuotidienne::with('user')->orderBy('date_activite', 'desc')->get();
+        $allActivites = ActiviteQuotidienne::with('user')->get();
+
         $groupes = $allActivites->groupBy(fn($item) => $item->statut ?? 'Aucun');
 
-        // Calcul des pourcentages par statut
         $total = $allActivites->count();
+
         $statutPourcentages = $groupes->mapWithKeys(function ($items, $statutKey) use ($total) {
-            return [$statutKey => ['percent' => $total ? round($items->count() * 100 / $total, 1) : 0]];
+            return [
+                $statutKey => [
+                    'percent' => $total ? round($items->count() * 100 / $total, 1) : 0
+                ]
+            ];
         });
 
-        // Totaux
+        /*
+    |--------------------------------------------------------------------------
+    | Totaux
+    |--------------------------------------------------------------------------
+    */
+
         $totalActivites = $total;
-        $activitesAnnee = ActiviteQuotidienne::whereYear('date_activite', now()->year)->count();
 
-        $affichees = $activites?->count();
-        $total     = $totalIndividuelles ?? ($activites instanceof \Illuminate\Pagination\LengthAwarePaginator
-            ? $activites->total()
-            : $activites?->count());
+        $activitesAnnee = ActiviteQuotidienne::whereYear(
+            'date_activite',
+            now()->year
+        )->count();
 
-        // Labels lisibles (optionnel)
+        $activitesJour = ActiviteQuotidienne::whereDate(
+            'date_activite',
+            now()
+        )->count();
+
+        $activitesRetard = ActiviteQuotidienne::where('statut', 'retard')->count();
+
+        $activitesTerminees = ActiviteQuotidienne::where('statut', 'terminee')
+            ->whereDate('updated_at', now())
+            ->count();
+
+        /*
+    |--------------------------------------------------------------------------
+    | Compteur affichage
+    |--------------------------------------------------------------------------
+    */
+
+        $affichees = $activites->count();
+        $total = $allActivites->count();
+
+        /*
+    |--------------------------------------------------------------------------
+    | Labels
+    |--------------------------------------------------------------------------
+    */
+
         $labels = [
             'en_attente' => 'En attente',
             'en_cours'   => 'En cours',
             'terminee'   => 'Terminée',
             'validee'    => 'Validée',
             'rejete'     => 'Rejetée',
-            'urgente'     => 'Urgente',
-            'normale'     => 'Normale',
-            'faible'     => 'Faible',
-            'retard'     => 'Retard',
+            'retard'     => 'En retard',
+
+            // Priorité
+            'urgente' => 'Urgente',
+            'normale' => 'Normale',
+            'faible'  => 'Faible',
         ];
 
         return view('activites.index', compact(
@@ -104,8 +154,12 @@ class ActiviteQuotidienneController extends Controller
             'statutPourcentages',
             'totalActivites',
             'activitesAnnee',
+            'activitesJour',
+            'activitesRetard',
+            'activitesTerminees',
             'labels',
             'statut',
+            'filter',
             'affichees',
             'total'
         ));
