@@ -58,7 +58,13 @@ class ActiviteQuotidienneController extends Controller
         }
 
         // Activités filtrées
-        $activites = $query->with('user')->orderBy('date_activite', 'desc')->get();
+        /* $activites = $query->with('user')->orderBy('date_activite', 'desc')->get(); */
+
+        $activites = $query
+            ->with('user')->orderBy('date_activite', 'desc')
+            ->limit(100)
+            ->get();
+
 
         // Pour les cards : grouper toutes les activités par statut
         $allActivites = ActiviteQuotidienne::with('user')->orderBy('date_activite', 'desc')->get();
@@ -73,6 +79,11 @@ class ActiviteQuotidienneController extends Controller
         // Totaux
         $totalActivites = $total;
         $activitesAnnee = ActiviteQuotidienne::whereYear('date_activite', now()->year)->count();
+
+        $affichees = $activites?->count();
+        $total     = $totalIndividuelles ?? ($activites instanceof \Illuminate\Pagination\LengthAwarePaginator
+            ? $activites->total()
+            : $activites?->count());
 
         // Labels lisibles (optionnel)
         $labels = [
@@ -93,7 +104,9 @@ class ActiviteQuotidienneController extends Controller
             'totalActivites',
             'activitesAnnee',
             'labels',
-            'statut'
+            'statut',
+            'affichees',
+            'total'
         ));
     }
 
@@ -101,7 +114,17 @@ class ActiviteQuotidienneController extends Controller
     public function show($id)
     {
         $activitequotidienne = ActiviteQuotidienne::findOrFail($id);
-        return view('activites.show', compact('activitequotidienne'));
+        $labels = [
+            'en_attente' => 'En attente',
+            'en_cours'   => 'En cours',
+            'terminee'   => 'Terminée',
+            'validee'    => 'Validée',
+            'rejete'     => 'Rejetée',
+            'urgente'     => 'Urgente',
+            'normale'     => 'Normale',
+            'faible'     => 'Faible',
+        ];
+        return view('activites.show', compact('activitequotidienne', 'labels'));
     }
 
     // Formulaire modification

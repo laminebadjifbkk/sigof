@@ -1,23 +1,89 @@
 @extends('layout.user-layout')
 @section('title', 'Détails activité')
+
 @section('space-work')
 
     <section class="section">
         <div class="container">
-            <h1>Détails de l'activité</h1>
 
-            <div class="card shadow-sm p-3">
-                <p><strong>Titre :</strong> {{ $activitequotidienne->titre }}</p>
-                <p><strong>Description :</strong> {{ $activitequotidienne->description }}</p>
-                <p><strong>Agent :</strong> {{ $activitequotidienne->user->firstname ?? '' }}
-                    {{ $activitequotidienne->user->name ?? '' }}</p>
-                <p><strong>Date :</strong>
-                    {{ optional($activitequotidienne->date_activite)->format('d/m/Y') ?? 'Non définie' }}</p>
-                <p><strong>Priorité :</strong> {{ ucfirst($activitequotidienne->priorite) }}</p>
-                <p><strong>Statut :</strong> {{ $labels[$activitequotidienne->statut] ?? $activitequotidienne->statut }}</p>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="mb-0">Détails de l'activité</h4>
 
-                <a href="{{ route('activites-quotidiennes.index') }}" class="btn btn-secondary btn-sm mt-2">Retour</a>
+                <a href="{{ route('activites-quotidiennes.index') }}" class="btn btn-outline-secondary btn-sm">
+                    <i class="bi bi-arrow-left-circle"></i> Retour à la liste
+                </a>
             </div>
+
+            <div class="card shadow-sm">
+                <div class="card-body">
+
+                    <div class="row mb-2">
+                        <div class="col-md-3"><strong>Titre :</strong></div>
+                        <div class="col-md-9">{{ $activitequotidienne->titre }}</div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-3"><strong>Description :</strong></div>
+                        <div class="col-md-9">{{ $activitequotidienne->description }}</div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-3"><strong>Agent :</strong></div>
+                        <div class="col-md-9">
+                            {{ $activitequotidienne->user->firstname ?? '' }}
+                            {{ $activitequotidienne->user->name ?? '' }}
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-3"><strong>Date :</strong></div>
+                        <div class="col-md-9">
+                            {{ optional($activitequotidienne->date_activite)->format('d/m/Y') ?? 'Non définie' }}
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-3"><strong>Heure début :</strong></div>
+                        <div class="col-md-9">
+                            {{ optional($activitequotidienne->heure_debut)->format('H:m') ?? 'Non définie' }}
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-3"><strong>Heure fin :</strong></div>
+                        <div class="col-md-9">
+                            {{ optional($activitequotidienne->heure_fin)->format('H:m') ?? 'Non définie' }}
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-3"><strong>Priorité :</strong></div>
+                        <div class="col-md-9">
+                            <span class="badge-activite {{ ucfirst($activitequotidienne->priorite) }}">
+                                {{ $labels[$activitequotidienne->priorite] ?? $activitequotidienne->priorite }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3"><strong>Statut :</strong></div>
+                        <div class="col-md-9">
+                            <span class="badge-activite {{ ucfirst($activitequotidienne->statut) }}">
+                                {{ $labels[$activitequotidienne->statut] ?? $activitequotidienne->statut }}
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="mt-3">
+                <a href="{{ route('activites-quotidiennes.edit', $activitequotidienne->id) }}"
+                    class="btn btn-primary btn-sm">
+                    <i class="bi bi-pencil-square"></i> Modifier
+                </a>
+            </div>
+
         </div>
     </section>
 

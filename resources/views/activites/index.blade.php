@@ -96,16 +96,48 @@
                 </div>
             @endif
 
-            <div class="d-flex justify-content-between align-items-center mb-3">
+            {{-- <div class="d-flex justify-content-between align-items-center mb-3">
                 <h1 class="mb-0">Activités quotidiennes</h1>
                 <a href="{{ route('activites-quotidiennes.create') }}" class="btn btn-success btn-sm">
-                    <i class="bi bi-plus-circle"></i> Ajouter une activité
+                    <i class="bi bi-plus-circle"></i> Créer activité
                 </a>
+            </div> --}}
+
+            <div class="pt-1">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+
+                    {{-- Titre à gauche --}}
+                    <div class="d-flex align-items-center gap-2">
+                        <h6 class="mb-0 text-muted fw-semibold text-uppercase">
+                            Liste des activités
+                        </h6>
+                    </div>
+
+                    <div class="d-flex align-items-center gap-2 text-info fw-semibold">
+                        <i class="bi bi-list-ul me-1"></i>
+                        <span>
+                            Affichage :
+                            <span class="text-dark">{{ $affichees }}</span>
+                            sur
+                            <span class="text-dark">{{ $total }}</span> activités
+                        </span>
+                    </div>
+
+                    {{-- Boutons à droite --}}
+                    @can('activite-create')
+                        <div class="d-flex align-items-center gap-2">
+                            <a href="{{ route('activites-quotidiennes.create') }}" class="btn btn-sm btn-primary">
+                                Créer activité
+                            </a>
+                        </div>
+                    @endcan
+
+                </div>
             </div>
             <!-- Tableau des activités -->
             <div class="card shadow-sm">
                 <div class="card-body table-responsive">
-                    <table class="table table-sm table-hover align-middle">
+                    <table class="table table-sm table-hover align-middle" id="table-activite">
                         <thead class="table-light">
                             <tr>
                                 <th>#</th>
@@ -185,3 +217,45 @@
         </div>
     </section>
 @endsection
+
+
+@push('scripts')
+    <script>
+        new DataTable('#table-activite', {
+            ordering: false,
+            layout: {
+                topStart: {
+                    buttons: ['csv', 'excel', 'print'],
+                }
+            },
+            language: {
+                "sProcessing": "Traitement en cours...",
+                "sSearch": "Rechercher&nbsp;:",
+                "sLengthMenu": "Afficher _MENU_ éléments",
+                "sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+                "sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+                "sInfoFiltered": "(filtré de _MAX_ éléments au total)",
+                "sLoadingRecords": "Chargement en cours...",
+                "sZeroRecords": "Aucun élément à afficher",
+                "sEmptyTable": "Aucune donnée disponible dans le tableau",
+                "oPaginate": {
+                    "sFirst": "Premier",
+                    "sPrevious": "Précédent",
+                    "sNext": "Suivant",
+                    "sLast": "Dernier"
+                },
+                "oAria": {
+                    "sSortAscending": ": activer pour trier la colonne par ordre croissant",
+                    "sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+                },
+                "select": {
+                    "rows": {
+                        _: "%d lignes sélectionnées",
+                        0: "Aucune ligne sélectionnée",
+                        1: "1 ligne sélectionnée"
+                    }
+                }
+            }
+        });
+    </script>
+@endpush
