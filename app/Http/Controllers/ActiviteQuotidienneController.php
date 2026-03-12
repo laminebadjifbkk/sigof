@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ActiviteQuotidienne;
+use App\Models\Employee;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -11,14 +12,13 @@ class ActiviteQuotidienneController extends Controller
 
     public function create()
     {
-        $users = User::orderBy('name')->get();
+        $employes = Employee::get();
 
-        return view('activites.create', compact('users'));
+        return view('activites.create', compact('employes'));
     }
 
     public function store(Request $request)
     {
-
         $request->validate([
             'titre' => 'required|string|max:255',
             'user_id' => 'required|exists:users,id',
@@ -186,7 +186,8 @@ class ActiviteQuotidienneController extends Controller
     // Formulaire modification
     public function edit($id)
     {
-        $activitequotidienne = ActiviteQuotidienne::findOrFail($id);
+        $activitequotidienne = ActiviteQuotidienne::with('user')->find($id);
+        $employes = Employee::get();
         // Labels lisibles (optionnel)
         $labels = [
             'en_attente' => 'En attente',
@@ -199,7 +200,7 @@ class ActiviteQuotidienneController extends Controller
             'faible'     => 'Faible',
             'retard'     => 'Retard',
         ];
-        return view('activites.update', compact('activitequotidienne', 'labels'));
+        return view('activites.update', compact('activitequotidienne', 'labels', 'employes'));
     }
 
     // Mettre à jour une activité
@@ -212,8 +213,11 @@ class ActiviteQuotidienneController extends Controller
             'titre'        => 'required|string|max:255',
             'description'  => 'nullable|string',
             'date_activite' => 'required|date',
+            'heure_debut' => 'required',
+            'heure_fin' => 'required',
             'priorite'     => 'required|in:faible,normale,urgente',
             'statut'       => 'required|in:en_attente,en_cours,terminee,validee,rejete,retard',
+            'user_id' => 'required|exists:users,id',
         ]);
 
         $activitequotidienne->update($request->only([
@@ -223,6 +227,7 @@ class ActiviteQuotidienneController extends Controller
             'priorite',
             'heure_debut',
             'heure_fin',
+            'user_id',
             'statut'
         ]));
 

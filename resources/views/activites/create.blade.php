@@ -37,39 +37,39 @@
 
                         <input type="hidden" name="created_by" value="{{ auth()->id() }}">
 
-                        {{-- Titre --}}
-                        <div class="mb-3">
-                            <label class="form-label">Titre de l'activité <span class="text-danger">*</span></label>
-                            <input type="text" name="titre"
-                                class="form-control form-control-sm @error('titre') is-invalid @enderror"
-                                value="{{ old('titre') }}" placeholder="Ex : Préparer rapport formation">
-                            @error('titre')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        {{-- Description --}}
-                        <div class="mb-3">
-                            <label class="form-label">Description</label>
-                            <textarea name="description" class="form-control form-control-sm @error('description') is-invalid @enderror"
-                                rows="3" placeholder="Description de l'activité">{{ old('description') }}</textarea>
-                            @error('description')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        {{-- Agent et priorité --}}
                         <div class="row mb-3">
+                            {{-- Titre --}}
+                            <div class="col-md-12 col-sm-12 mb-3">
+                                <label class="form-label">Titre de l'activité <span class="text-danger">*</span></label>
+                                <input type="text" name="titre"
+                                    class="form-control form-control-sm @error('titre') is-invalid @enderror"
+                                    value="{{ old('titre') }}" placeholder="Ex : Préparer rapport formation">
+                                @error('titre')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
 
-                            <div class="col-md-6 col-sm-12">
+                            {{-- Description --}}
+                            <div class="col-md-12 col-sm-12 mb-3">
+                                <label class="form-label">Description</label>
+                                <textarea name="description" class="form-control form-control-sm @error('description') is-invalid @enderror"
+                                    rows="3" placeholder="Description de l'activité">{{ old('description') }}</textarea>
+                                @error('description')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            {{-- Agent et priorité --}}
+
+                            <div class="col-md-6 col-sm-12 mb-3">
                                 <label class="form-label">Agent concerné <span class="text-danger">*</span></label>
                                 <select name="user_id"
                                     class="form-select form-select-sm @error('user_id') is-invalid @enderror">
                                     <option value="">-- Choisir un agent --</option>
-                                    @foreach ($users as $user)
-                                        <option value="{{ $user->id }}"
-                                            {{ old('user_id') == $user->id ? 'selected' : '' }}>
-                                            {{ $user->firstname }} {{ $user->name }}
+                                    @foreach ($employes as $employe)
+                                        <option value="{{ $employe->user->id }}"
+                                            {{ old('user_id') == $employe->user->id ? 'selected' : '' }}>
+                                            {{ $employe->user->firstname }} {{ $employe->user->name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -78,7 +78,7 @@
                                 @enderror
                             </div>
 
-                            <div class="col-md-6 col-sm-12">
+                            <div class="col-md-6 col-sm-12 mb-3">
                                 <label class="form-label">Priorité</label>
                                 <select name="priorite"
                                     class="form-select form-select-sm @error('priorite') is-invalid @enderror">
@@ -95,12 +95,9 @@
                                 @enderror
                             </div>
 
-                        </div>
+                            {{-- Date activité --}}
 
-                        {{-- Date activité --}}
-                        <div class="row mb-3">
-
-                            <div class="col-md-6 col-sm-12">
+                            <div class="col-md-6 col-sm-12 mb-3">
                                 <label class="form-label">Date de l'activité <span class="text-danger">*</span></label>
                                 <input type="date" name="date_activite"
                                     class="form-control form-control-sm @error('date_activite') is-invalid @enderror"
@@ -110,7 +107,7 @@
                                 @enderror
                             </div>
 
-                            <div class="col-md-3 col-sm-6">
+                            <div class="col-md-3 col-sm-6 mb-3">
                                 <label class="form-label">Heure début</label>
                                 <input type="time" name="heure_debut"
                                     class="form-control form-control-sm @error('heure_debut') is-invalid @enderror"
@@ -120,7 +117,7 @@
                                 @enderror
                             </div>
 
-                            <div class="col-md-3 col-sm-6">
+                            <div class="col-md-3 col-sm-6 mb-3">
                                 <label class="form-label">Heure fin</label>
                                 <input type="time" name="heure_fin"
                                     class="form-control form-control-sm @error('heure_fin') is-invalid @enderror"

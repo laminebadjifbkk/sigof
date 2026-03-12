@@ -58,7 +58,7 @@ class ActiviteQuotidienne extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function validateur()
@@ -91,5 +91,4 @@ class ActiviteQuotidienne extends Model
     {
         return $query->where('statut', '!=', self::STATUT_VALIDEE);
     }
-
 }

@@ -11,10 +11,10 @@
                     <div class="card shadow-sm text-center p-2" style="min-height:140px; border-radius:10px;">
                         <h6 class="card-title mb-2 text-truncate" title="Total activités">Activités total</h6>
                         <div class="d-flex flex-column align-items-center justify-content-center mb-2">
-                            <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-1"
+                            {{-- <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-1"
                                 style="width:36px; height:36px; font-size:1rem;">
                                 <i class="bi bi-flag"></i>
-                            </div>
+                            </div> --}}
                             <span class="h6 mb-0" style="font-size:1rem;">{{ $totalActivites }}</span>
                         </div>
                         <div class="mb-2">
@@ -36,10 +36,10 @@
                         <h6 class="card-title mb-2 text-truncate" title="Année {{ now()->year }}">Année
                             {{ now()->year }}</h6>
                         <div class="d-flex flex-column align-items-center justify-content-center mb-2">
-                            <div class="rounded-circle bg-success text-white d-flex justify-content-center align-items-center mb-1"
+                            {{-- <div class="rounded-circle bg-success text-white d-flex justify-content-center align-items-center mb-1"
                                 style="width:36px; height:36px; font-size:1rem;">
                                 <i class="bi bi-calendar"></i>
-                            </div>
+                            </div> --}}
                             <span class="h6 mb-0" style="font-size:1rem;">{{ $activitesAnnee }}</span>
                         </div>
                         @php
@@ -67,10 +67,10 @@
                                 {{ $labels[$statut_s] ?? ucfirst($statut_s) }}
                             </h6>
                             <div class="d-flex flex-column align-items-center justify-content-center mb-2">
-                                <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-1"
+                                {{-- <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-1"
                                     style="width:36px; height:36px; font-size:1rem;">
                                     <i class="bi bi-flag"></i>
-                                </div>
+                                </div> --}}
                                 <span class="h6 mb-0" style="font-size:1rem;">{{ $items->count() }}</span>
                             </div>
                             <div class="mb-2">
