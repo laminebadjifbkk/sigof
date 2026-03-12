@@ -47,6 +47,8 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('missions:send-reminders')->dailyAt('08:00');
         $schedule->command('missions:send-reminders')->dailyAt('17:00');
+
+        $schedule->command('activites:statuts')->everyMinute();
     }
 
     /**
