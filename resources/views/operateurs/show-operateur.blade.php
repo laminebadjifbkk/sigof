@@ -204,7 +204,7 @@
                                         <div class="col-12 col-md-auto">
                                             <div class="d-flex align-items-center flex-wrap">
                                                 <i class="bi bi-arrow-right-circle text-secondary me-2"></i>
-                                                <span class="fst-italic">Type de demande :</span>
+                                                <span class="fst-italic">Type :</span>
                                                 <span class="ms-2 fw-semibold {{ $operateur?->type_demande }}">
                                                     {{ $operateur?->type_demande }}
                                                 </span>
