@@ -763,6 +763,7 @@ class IndividuelleController extends Controller
             'situation_professionnelle' => $request->input('situation_professionnelle'),
             'adresse'                   => $request->input('adresse'),
             'password'                  => Hash::make($request->email),
+            'created_by'                => Auth::user()->id,
         ]);
 
         // Mise à jour du nom d'utilisateur et assignation du rôle
