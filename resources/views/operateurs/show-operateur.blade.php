@@ -383,21 +383,27 @@
                                                 <i class="bi {{ $section['icon'] }} me-2"></i>
                                                 {{ $section['label'] }}
 
-                                                <span
-                                                    class="badge {{ $section['count'] === 0 ? 'bg-danger' : 'bg-info' }}
+                                                @if (isset($section['count']))
+                                                    <span
+                                                        class="badge {{ $section['badge'] ?? ($section['count'] === 0 ? 'bg-danger' : 'bg-info') }}
             position-absolute top-50 start-50 translate-middle-y"
-                                                    style="transform: translateX(-50%);">
-                                                    {{ $section['count'] }}
-                                                </span>
+                                                        style="transform: translateX(-50%);">
+
+                                                        {{ $section['count'] }}
+
+                                                    </span>
+                                                @endif
                                             </div>
 
-                                            <div>
-                                                <a href="{{ $section['route'] }}" target="_blank"
-                                                    class="btn btn-sm btn-outline-success">
-                                                    <i class="bi bi-pencil-square me-1"></i>
-                                                    Ajouter / Modifier
-                                                </a>
-                                            </div>
+                                            @if (!empty($section['route']))
+                                                <div>
+                                                    <a href="{{ $section['route'] }}" target="_blank"
+                                                        class="btn btn-sm btn-outline-success">
+                                                        <i class="bi bi-pencil-square me-1"></i>
+                                                        Ajouter / Modifier
+                                                    </a>
+                                                </div>
+                                            @endif
 
                                         </div>
                                     @endforeach

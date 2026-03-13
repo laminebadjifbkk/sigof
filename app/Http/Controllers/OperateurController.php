@@ -1690,7 +1690,6 @@ class OperateurController extends Controller
                 }
             }
 
-
             $sections = [
                 [
                     'label' => 'Modules',
@@ -1721,6 +1720,14 @@ class OperateurController extends Controller
                     'icon' => 'bi-geo-alt text-danger',
                     'count' => $operateur->operateurlocalites->count(),
                     'route' => route('showLocalite', $operateur->uuid),
+                ],
+                
+                [
+                    'label' => 'Validité quitus',
+                    'icon' => 'bi-file-earmark-text text-dark',
+                    'count' => $diffText,
+                    'badge' => ($diff?->y ?? 0) * 12 + ($diff?->m ?? 0) > 3 ? 'bg-danger' : 'bg-info',
+                    'route' => null,
                 ],
             ];
 
