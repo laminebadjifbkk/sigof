@@ -395,9 +395,6 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::put('/agreerOperateur/{id}', [OperateurController::class, 'agreerOperateur'])->name('agreerOperateur');
         Route::get('/agrement', [OperateurController::class, 'agrement'])->name('agrement');
 
-        /* Route::get('commisionagrement/{idcommissionagrement}', [CommissionagrementController::class, 'addcommisionagrement']); */
-        Route::put('commisionagrement/{idcommissionagrement}', [CommissionagrementController::class, 'givecommisionagrement']);
-
         Route::get('/addopCommission/{id}', [CommissionagrementController::class, 'addopCommission'])->name('addopCommission');
         Route::get('/agrements/{id}', [OperateurController::class, 'agrements'])->name('agrements');
         Route::get('/showAgrement/{id}', [OperateurController::class, 'showAgrement'])->name('showAgrement');
@@ -411,9 +408,6 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::put('/retirerOperateur/{id}', [OperateurController::class, 'retirerOperateur'])->name('retirerOperateur');
         Route::put('/retirerOperateur/{idoperateur}/{idcommission}', [OperateurController::class, 'retirerOperateurCommission'])->name('retirerOperateurCommission');
         Route::put('/projets/{id}/terminer', [ProjetController::class, 'terminer'])->name('terminerProjet');
-
-        Route::delete('/operateurs/{operateur}/detach-commission/{commission}', [OperateurController::class, 'detachCommission'])
-            ->name('operateurs.detachCommission');
 
         Route::get('/devenirOperateurs', [OperateurController::class, 'devenirOperateur'])->name('devenirOperateur');
         Route::get('/mesFormations', [OperateurController::class, 'mesFormations'])->name('mesFormations');
@@ -824,6 +818,11 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/export-operateurs-all/{commissionagrement}', [OperateurController::class, 'exportAvecScansAll'])
             ->name('export.operateurs.all');
 
+        Route::delete(
+            '/operateurs/{operateur}/commissions/{commission}',
+            [OperateurController::class, 'detachCommission']
+        )->name('operateurs.detachCommission');
+
         // routes/web.php
 
         Route::post('/formations/{formation}/notify-start', [FormationStartController::class, 'send'])
@@ -913,6 +912,16 @@ Route::group(['middleware' => ['XSS']], function () {
         // routes/web.php
         Route::delete('/arrives/{arrive}/employees/{employee}/detach', [ArriveController::class, 'detachEmployee'])
             ->name('arrives.detachEmployee');
+
+        // Mise à jour des opérateurs d’une commission
+        Route::put('commisionagrement/{idcommissionagrement}', [CommissionagrementController::class, 'givecommisionagrement'])
+            ->name('commisionagrement.give');
+
+        // Détacher un opérateur (DELETE)
+        Route::delete('/commisionagrement/{commission}/detach-operateur/{operateur}', [OperateurController::class, 'detachOperateur'])
+            ->name('commisionagrement.detachOperateur');
+        // web.php
+        Route::get('/commisionagrement/{commission}/detach-operateur/{operateur}', [OperateurController::class, 'detachOperateur'])->name('commisionagrement.detachOperateur');
         /* Vues ressouces */
         Route::resource('/users', UserController::class);
         Route::resource('/permissions', PermissionController::class);

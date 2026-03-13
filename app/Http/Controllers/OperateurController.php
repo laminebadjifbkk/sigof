@@ -3574,13 +3574,12 @@ class OperateurController extends Controller
         $dompdf->stream($name, ['Attachment' => false]);
     }
 
-    public function detachCommission($operateurId, $commissionId)
+    public function detachOperateur($commission, $operateur)
     {
-        $operateur = Operateur::findOrFail($operateurId);
-        $operateur->commissionagrements()->detach($commissionId);
+        $operateur = Operateur::findOrFail($operateur);
+        $operateur->commissionagrements()->detach($commission);
+        $operateur->save();
 
-        Alert::success('Succès ', 'Opérateur détaché de la commission avec succès.');
-
-        return redirect()->back();
+        return redirect()->back()->with('status', 'Opérateur détaché avec succès !');
     }
 }
