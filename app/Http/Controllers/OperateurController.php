@@ -620,8 +620,8 @@ class OperateurController extends Controller
         $now = Carbon::now();
 
         // Vérifie que $annee_agrement est bien un objet et qu’il a une date
-        if ($annee_agrement && $annee_agrement->date) {
-            $dateAgrement = Carbon::parse($annee_agrement->date);
+        if ($annee_agrement && $annee_agrement->fin_commission) {
+            $dateAgrement = Carbon::parse($annee_agrement->fin_commission);
             $diffAnnee    = $dateAgrement->diffInYears($now);
         } else {
             $diffAnnee = null;
