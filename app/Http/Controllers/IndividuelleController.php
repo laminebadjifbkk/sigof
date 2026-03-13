@@ -1387,6 +1387,7 @@ class IndividuelleController extends Controller
     public function generateReport(Request $request)
     {
         $this->validate($request, [
+            'numero'       => 'nullable|string',
             'cin'       => 'nullable|string',
             'name'      => 'nullable|string',
             'firstname' => 'nullable|string',
@@ -1394,13 +1395,14 @@ class IndividuelleController extends Controller
             'email'     => 'nullable|email',
         ]);
 
-        if ($request?->cin == null && $request->firstname == null && $request->telephone == null && $request->name == null && $request->email == null) {
+        if ($request?->numero == null && $request?->cin == null && $request->firstname == null && $request->telephone == null && $request->name == null && $request->email == null) {
             Alert::warning('Attention', 'Veuillez renseigner au moins un champ pour effectuer une recherche.');
             return redirect()->back();
         }
 
         $individuelles = Individuelle::join('users', 'users.id', 'individuelles.users_id')
             ->select('individuelles.*')
+            ->where('numero', 'LIKE', "%{$request?->numero}%")
             ->where('users.firstname', 'LIKE', "%{$request?->firstname}%")
             ->where('users.name', 'LIKE', "%{$request?->name}%")
             ->where('users.cin', 'LIKE', "%{$request?->cin}%")

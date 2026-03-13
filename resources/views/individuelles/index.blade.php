@@ -836,6 +836,23 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group">
+                                                    <label for="numero" class="form-label">Numéro</label>
+                                                    <input type="text" name="numero" value="{{ old('numero') }}"
+                                                        class="form-control form-control-sm @error('numero') is-invalid @enderror"
+                                                        id="numero" placeholder="Numéro">
+                                                    @error('numero')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <div>{{ $message }}</div>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
                                                     <label for="firstname" class="form-label">Prénom</label>
                                                     <input type="text" name="firstname" value="{{ old('firstname') }}"
                                                         class="form-control form-control-sm @error('firstname') is-invalid @enderror"
