@@ -1764,7 +1764,7 @@ class OperateurController extends Controller
                     'dateExtension',
                     'estExtension',
                     'dateQuitus',
-                    'diff',
+                    /* 'diff', */
                     'diffText',
                     'sections',
                 )
