@@ -607,7 +607,7 @@
                             </form>
 
                             <!-- Fichiers joints -->
-                            <div class="row pt-5">
+                            <div class="row pt-2">
                                 <h5 class="card-title col-12">FICHIERS JOINTS</h5>
                                 @if ($files->isNotEmpty())
                                     <div class="col-12">
