@@ -97,7 +97,7 @@ class CollectiveController extends Controller
             $statutPourcentages[$statutKey] = [
                 'count'   => $items->count(),
                 'percent' => $totalDemandesCount
-                    ? round($items->count() * 100 / $totalDemandesCount, 1)
+                    ? round($items->count() * 200 / $totalDemandesCount, 1)
                     : 0,
             ];
         }
@@ -165,7 +165,7 @@ class CollectiveController extends Controller
             $regionPourcentages[$item->region] = [
                 'count'   => $item->total,
                 'percent' => $totalDemandesCount
-                    ? round($item->total * 100 / $totalDemandesCount, 1)
+                    ? round($item->total * 200 / $totalDemandesCount, 1)
                     : 0,
             ];
         }
@@ -248,7 +248,7 @@ class CollectiveController extends Controller
             $statutPourcentages[$statut] = [
                 'count'   => $item->total,
                 'percent' => $totalDemandesCount
-                    ? round($item->total * 100 / $totalDemandesCount, 1)
+                    ? round($item->total * 200 / $totalDemandesCount, 1)
                     : 0,
             ];
         }
@@ -293,8 +293,8 @@ class CollectiveController extends Controller
             /* "module"                =>      ["required","string"], */
             "adresse"               => ["required", "string"],
             "statut"                => ["required", "string"],
-            "description"           => ["required", "string", "min:100", "max:150"],
-            "projetprofessionnel"   => ["required", "string", "min:100", "max:150"],
+            "description"           => ["required", "string", "min:200", "max:500"],
+            "projetprofessionnel"   => ["required", "string", "min:200", "max:500"],
             "departement"           => ["required", "string"],
             "civilite"              => ["required", "string"],
             "prenom"                => ["required", "string"],
@@ -503,8 +503,8 @@ class CollectiveController extends Controller
             "adresse"               => ["required", "string"],
             "statut"                => ["required", "string"],
             "numero_courrier"       => ["nullable", "string"],
-            "description"           => ["required", "string", "min:100", "max:150"],
-            "projetprofessionnel"   => ["required", "string", "min:100", "max:150"],
+            "description"           => ["required", "string", "min:200", "max:500"],
+            "projetprofessionnel"   => ["required", "string", "min:200", "max:500"],
             "departement"           => ["required", "string"],
             "civilite"              => ["required", "string"],
             "prenom"                => ["required", "string"],
@@ -665,8 +665,8 @@ class CollectiveController extends Controller
             'date_depot'            => ['nullable', 'date', 'size:10', 'date_format:Y-m-d'],
             "adresse"               => ["required", "string"],
             "statut"                => ["required", "string"],
-            "description"           => ["required", "string", "min:100", "max:150"],
-            "projetprofessionnel"   => ["required", "string", "min:100", "max:150"],
+            "description"           => ["required", "string", "min:200", "max:500"],
+            "projetprofessionnel"   => ["required", "string", "min:200", "max:500"],
             "departement"           => ["required", "string"],
             "numero_courrier"       => ["nullable", "string"],
             "civilite"              => ["required", "string"],
@@ -1227,7 +1227,7 @@ class CollectiveController extends Controller
             $statutPourcentages[$statutKey] = [
                 'count'   => $items->count(),
                 'percent' => $totalDemandesCount
-                    ? round($items->count() * 100 / $totalDemandesCount, 1)
+                    ? round($items->count() * 200 / $totalDemandesCount, 1)
                     : 0,
             ];
         }
