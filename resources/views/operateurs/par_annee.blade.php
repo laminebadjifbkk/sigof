@@ -178,7 +178,7 @@
                             @endcan
                         @endif --}}
 
-                        <div class="card shadow-sm">
+                        {{-- <div class="card shadow-sm">
                             <div class="card-body">
 
 
@@ -226,6 +226,66 @@
                                         </tbody>
                                     </table>
                                 </div>
+                            </div>
+                        </div> --}}
+
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body">
+
+                                {{-- Header --}}
+                                <div class="d-flex flex-wrap align-items-center mb-3 gap-2">
+                                    <a href="{{ route('operateurs.index') }}" class="btn btn-outline-secondary btn-sm">
+                                        <i class="bi bi-arrow-left-circle"></i> Retour
+                                    </a>
+                                    <h6 class="mb-0 text-muted fw-semibold text-uppercase">
+                                        Total {{ $total }}
+                                    </h6>
+                                </div>
+
+                                {{-- Table responsive --}}
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-striped align-middle text-nowrap">
+                                        <thead class="table-primary">
+                                            <tr>
+                                                <th scope="col" style="width: 50px;">N°</th>
+                                                <th scope="col">Statut</th>
+                                                <th scope="col" class="text-center">Opérateurs</th>
+                                                <th scope="col" style="width: 120px;">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($groupes as $index => $items)
+                                                <tr class="align-middle">
+                                                    <td>{{ $loop->iteration }}</td>
+
+                                                    {{-- Statut avec badge --}}
+                                                    <td>
+                                                        <span class="{{ $items->statut_agrement }}">
+                                                            {{ $items->statut_agrement }}
+                                                        </span>
+                                                    </td>
+
+                                                    {{-- Nombre opérateurs --}}
+                                                    <td class="text-center fw-semibold">
+                                                        {{ number_format($items->total, 0, '', ' ') }}
+                                                    </td>
+
+                                                    {{-- Action --}}
+                                                    <td>
+                                                        <a href="{{ route('operateurs.parAnneeEtStatut', [
+                                                            'annee' => $annee,
+                                                            'statut' => $items->statut_agrement,
+                                                        ]) }}"
+                                                            class="btn btn-sm btn-outline-success">
+                                                            <i class="bi bi-eye"></i> Voir plus
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+
                             </div>
                         </div>
 
