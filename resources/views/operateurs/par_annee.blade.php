@@ -182,7 +182,7 @@
                             <div class="card-body">
 
 
-                                <div class="d-flex align-items-center gap-2">
+                                <div class="d-flex align-items-center mb-3">
                                     <a href="{{ route('operateurs.index') }}" class="btn btn-outline-secondary btn-sm">
                                         <i class="bi bi-arrow-left-circle"></i> Retour
                                     </a> |
