@@ -4482,6 +4482,28 @@
         });
     </script>
 
+    <script>
+        $('#select-field-doamine').select2({
+            theme: "bootstrap-5",
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+            closeOnSelect: true,
+            selectionCssClass: "select2--small",
+            dropdownCssClass: "select2--small",
+        });
+    </script>
+
+    <script>
+        $('#select-field-niveau_qualification').select2({
+            theme: "bootstrap-5",
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+            closeOnSelect: true,
+            selectionCssClass: "select2--small",
+            dropdownCssClass: "select2--small",
+        });
+    </script>
+
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 
     <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>

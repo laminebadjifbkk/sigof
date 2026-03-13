@@ -631,8 +631,8 @@
                                                             <option value="">
                                                                 {{ old('niveau_qualification') }}
                                                             </option>
-                                                            <option value="Initiation">
-                                                                Initiation
+                                                            <option value="Pré-qualification">
+                                                                Pré-qualification
                                                             </option>
                                                             <option value="Renforcement de capacités">
                                                                 Renforcement de capacités
@@ -1274,8 +1274,8 @@
                                         <option value="{{ $operateurmodule->niveau_qualification }}">
                                             {{ $operateurmodule->niveau_qualification ?? old('niveau_qualification') }}
                                         </option>
-                                        <option value="Initiation">
-                                            Initiation
+                                        <option value="Pré-qualification">
+                                            Pré-qualification
                                         </option>
                                         <option value="Renforcement de capacités">
                                             Renforcement de capacités
@@ -1370,9 +1370,9 @@
                                         data-live-search="true" data-placeholder="Choisir niveau qualification">
 
                                         <option value="">Choisir</option>
-                                        <option value="Initiation"
-                                            {{ old('niveau_qualification', $operateurmodule->niveau_qualification) == 'Initiation' ? 'selected' : '' }}>
-                                            Initiation
+                                        <option value="Pré-qualification"
+                                            {{ old('niveau_qualification', $operateurmodule->niveau_qualification) == 'Pré-qualification' ? 'selected' : '' }}>
+                                            Pré-qualification
                                         </option>
                                         <option value="Renforcement de capacités"
                                             {{ old('niveau_qualification', $operateurmodule->niveau_qualification) == 'Renforcement de capacités' ? 'selected' : '' }}>

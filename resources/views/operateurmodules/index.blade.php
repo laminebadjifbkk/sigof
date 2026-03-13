@@ -191,7 +191,7 @@
                                             class="form-select form-select-sm @error('niveau_qualification') is-invalid @enderror"
                                             id="select-field-niveau_qualification-update" required>
                                             <option disabled selected>Choisir un niveau</option>
-                                            @foreach (['Initiation', 'Renforcement de capacités', 'Qualification'] as $niveau)
+                                            @foreach (['Pré-qualification', 'Renforcement de capacités', 'Qualification'] as $niveau)
                                                 <option value="{{ $niveau }}"
                                                     {{ old('niveau_qualification', $operateurmodule->niveau_qualification) == $niveau ? 'selected' : '' }}>
                                                     {{ $niveau }}

@@ -1124,8 +1124,8 @@
                                         <option value="{{ $operateurmodule->niveau_qualification }}">
                                             {{ $operateurmodule->niveau_qualification ?? old('niveau_qualification') }}
                                         </option>
-                                        <option value="Initiation">
-                                            Initiation
+                                        <option value="Pré-qualification">
+                                            Pré-qualification
                                         </option>
                                         <option value="Pré-qualification">
                                             Pré-qualification
@@ -1204,7 +1204,7 @@
                                         aria-label="Choisir niveau qualification" data-live-search="true"
                                         data-placeholder="Choisir niveau qualification">
                                         <option value="" disabled>-- Sélectionner --</option>
-                                        @foreach (['Initiation', 'Renforcement de capacités', 'Qualification'] as $niveau)
+                                        @foreach (['Pré-qualification', 'Renforcement de capacités', 'Qualification'] as $niveau)
                                             <option value="{{ $niveau }}"
                                                 {{ old('niveau_qualification', $operateurmodule->niveau_qualification) == $niveau ? 'selected' : '' }}>
                                                 {{ $niveau }}

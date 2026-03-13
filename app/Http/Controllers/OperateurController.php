@@ -8,6 +8,7 @@ use App\Models\Arrive;
 use App\Models\Commissionagrement;
 use App\Models\Courrier;
 use App\Models\Departement;
+use App\Models\Domaine;
 use App\Models\File;
 use App\Models\Historiqueagrement;
 use App\Models\Operateur;
@@ -1062,6 +1063,7 @@ class OperateurController extends Controller
     public function show(Operateur $operateur)
     {
         $operateurs         = Operateur::get();
+        $domaines         = Domaine::get();
         $operateureferences = Operateureference::get();
         $user               = $operateur->user;
 
@@ -1079,7 +1081,18 @@ class OperateurController extends Controller
             ->distinct()
             ->get();
 
-        return view("operateurs.show", compact("operateur", "operateureferences", "operateurs", "user_files", 'user', 'files'));
+        return view(
+            "operateurs.show",
+            compact(
+                "operateur",
+                "operateureferences",
+                "operateurs",
+                "user_files",
+                'user',
+                'files',
+                'domaines'
+            )
+        );
     }
 
     public function showAgrement($id)

@@ -994,73 +994,73 @@
                                                 {{ __(' sauf pour les établissements publics ') }}</small>
                                         </p>
                                         @can('agrement-visible-par-op')
-                                            <form method="post" action="{{ url('operateurmodules') }}"
+                                            <form method="post" action="{{ route('operateurmodules.store') }}"
                                                 enctype="multipart/form-data" class="row g-3">
                                                 @csrf
                                                 @can('devenir-operateur-agrement-ouvert')
                                                     <div class="col-12 mb-0">
-                                                        <div class="table-responsive">
-                                                            <table class="table table-bordered table-hover" id="dynamicAddRemove">
-                                                                <tr>
-                                                                    <th>DOMAINE<span class="text-danger mx-1">*</span></th>
-                                                                    <th>MODULE OU SPECIALITE<span class="text-danger mx-1">*</span>
-                                                                    </th>
-                                                                    </th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <input type="hidden" name="operateur"
-                                                                        value="{{ $operateur?->id }}">
-                                                                    <td><input type="text" name="domaine"
-                                                                            placeholder="Domaine d'intervention"
-                                                                            class="form-control form-control-sm @error('domaine') is-invalid @enderror" />
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="text" name="module" id="module_operateur"
-                                                                            class="form-control form-control-sm @error('module') is-invalid @enderror"
-                                                                            placeholder="Module ou spécialité" />
-                                                                        <div id="moduleList"></div>
-                                                                        {{ csrf_field() }}
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>NIVEAU DE QUALIFICATION
-                                                                        <span class="text-danger mx-1">*</span>
-                                                                    </th>
-                                                                    <th>EMPLOI OU METIER<span class="text-danger mx-1">*</span>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>
-                                                                        <select name="niveau_qualification"
-                                                                            class="form-select form-select-sm @error('niveau_qualification') is-invalid @enderror"
-                                                                            aria-label="Select" id="select-field-civilite"
-                                                                            data-placeholder="Choisir qualification">
-                                                                            <option value="">
-                                                                                {{ old('niveau_qualification') }}
-                                                                            </option>
-                                                                            <option value="Initiation">
-                                                                                Initiation
-                                                                            </option>
-                                                                            <option value="Renforcement de capacités">
-                                                                                Renforcement de capacités
-                                                                            </option>
-                                                                            <option value="Qualification">
-                                                                                Qualification
-                                                                            </option>
-                                                                        </select>
-                                                                    </td>
-                                                                    <td><input type="text" name="categorie"
-                                                                            placeholder="Niveau de qualification"
-                                                                            class="form-control form-control-sm @error('categorie') is-invalid @enderror" />
-                                                                        <p class="small fst-italic">
-                                                                            <small>{{ __("Préciser l'emploi ou le métier correspondant") }}</small><br>
-                                                                        </p>
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
-                                                        </div>
-                                                        <div class="text-center">
-                                                            <button type="submit"
-                                                                class="btn btn-outline-success btn-sm">Enregistrer</button>
+                                                        <div class="row g-3">
+                                                            <input type="hidden" name="operateur" value="{{ $operateur?->id }}">
+
+                                                            <!-- DOMAINE & MODULE côte à côte -->
+                                                            <div class="col-md-6">
+                                                                <label for="domaine" class="form-label">DOMAINE <span
+                                                                        class="text-danger">*</span></label>
+                                                                <select name="domaine" id="select-field-civilite"
+                                                                    class="form-select form-select-sm @error('domaine') is-invalid @enderror">
+                                                                    <option value="">-- Sélectionnez un domaine --</option>
+                                                                    @foreach ($domaines as $domaine)
+                                                                        <option value="{{ $domaine->id }}">{{ $domaine->name }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>
+                                                                @error('domaine')
+                                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <label for="module" class="form-label">MODULE OU SPECIALITE <span
+                                                                        class="text-danger">*</span></label>
+                                                                <input type="text" name="module" id="module_operateur"
+                                                                    class="form-control form-control-sm @error('module') is-invalid @enderror"
+                                                                    placeholder="Module ou spécialité" />
+                                                                <div id="moduleList"></div>
+                                                            </div>
+
+                                                            <!-- NIVEAU QUALIFICATION & EMPLOI OU METIER côte à côte -->
+                                                            <div class="col-md-6">
+                                                                <label for="niveau_qualification" class="form-label">TITRE OU NIVEAU DE
+                                                                    QUALIFICATION <span class="text-danger">*</span></label>
+                                                                <select name="niveau_qualification"
+                                                                    class="form-select form-select-sm @error('niveau_qualification') is-invalid @enderror"
+                                                                    aria-label="Select" id="select-field-niveau_qualification"
+                                                                    data-placeholder="Choisir qualification">
+                                                                    <option value="">{{ old('niveau_qualification') }}</option>
+                                                                    <option value="Pré-qualification">Pré-qualification</option>
+                                                                    <option value="Renforcement de capacités">Renforcement de capacités
+                                                                    </option>
+                                                                    <option value="Qualification">Qualification</option>
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <label for="categorie" class="form-label">CATEGORIE PROFESSIONNELLE</label>
+                                                                <input type="text" name="categorie"
+                                                                    placeholder="Niveau de qualification"
+                                                                    class="form-control form-control-sm @error('categorie') is-invalid @enderror" />
+
+                                                                <p class="small fst-italic mb-0"
+                                                                    style="white-space: normal; word-wrap: break-word;">
+                                                                    {{ __("Préciser la catégorie professionnelle, l'emploi ou le métier correspondant lorsqu'il s'agit d'une pré-qualification ou qualification") }}
+                                                                </p>
+                                                            </div>
+
+                                                            <!-- Bouton -->
+                                                            <div class="col-12 text-center">
+                                                                <button type="submit"
+                                                                    class="btn btn-outline-success btn-sm">Enregistrer</button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 @endcan
@@ -1339,7 +1339,7 @@
                                                 class="form-select form-select-sm @error('niveau_qualification') is-invalid @enderror"
                                                 id="select-field-niveau_qualification-update" required>
                                                 <option disabled selected>Choisir un niveau</option>
-                                                @foreach (['Initiation', 'Renforcement de capacités', 'Qualification'] as $niveau)
+                                                @foreach (['Pré-qualification', 'Renforcement de capacités', 'Qualification'] as $niveau)
                                                     <option value="{{ $niveau }}"
                                                         {{ old('niveau_qualification', $operateurmodule->niveau_qualification) == $niveau ? 'selected' : '' }}>
                                                         {{ $niveau }}

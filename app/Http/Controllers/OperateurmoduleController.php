@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Moduleoperateurstatut;
@@ -38,17 +39,11 @@ class OperateurmoduleController extends Controller
 
     public function store(Request $request)
     {
-        /* $this->validate($request, [
-            'modules.*.module' => 'required|unique:operateurmodules,module',
-            'domaines.*.domaine' => 'required|unique:operateurmodules,domaine',
-            'niveau_qualifications.*.niveau_qualification' => 'required|unique:operateurmodules,niveau_qualification',
-        ]); */
-
         $this->validate($request, [
             'module'               => 'required|string',
             'domaine'              => 'required|string',
-            'categorie'            => 'required|string',
             'niveau_qualification' => 'required|string',
+            'categorie'            => 'nullable|string',
         ]);
 
         $total_module         = Operateurmodule::where('operateurs_id', $request->input('operateur'))->count();
@@ -75,15 +70,12 @@ class OperateurmoduleController extends Controller
             ]);
 
             $operateurmodule->save();
-
         } elseif ($operateur->user->categorie == 'Privé' && $total_module >= 5) {
             Alert::error('Avertissement ! ', 'Vous avez atteint le nombre de modules autorisés');
             return redirect()->back();
-
         } elseif ($total_module >= 20) {
             Alert::error('Avertissement ! ', 'Vous avez atteint le nombre de modules autorisés');
             return redirect()->back();
-
         } else {
             $operateurmodule = new Operateurmodule([
                 "module"               => $request->input("module"),
