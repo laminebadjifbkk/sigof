@@ -120,7 +120,7 @@
                             </div>
                         </div>
 
-                        @if ($operateurs->isNotEmpty())*
+                        @if ($operateurs->isNotEmpty())
                             <div class="table-responsive">
                                 <table
                                     class="table datatables table-striped table-bordered table-hover align-middle justify-content-center"
