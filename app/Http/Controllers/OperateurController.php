@@ -736,10 +736,10 @@ class OperateurController extends Controller
             return back();
         } else {
 
-            $this->authorize('view', $operateur);
+            /* $this->authorize('view', $operateur);
 
             Alert::error('Désolé !', 'Les renouvellements ne sont pas encore autorisés.');
-            return back();
+            return back(); */
 
             $dateString  = $request->input('date_quitus');
             $date_quitus = ! empty($dateString) ? Carbon::createFromFormat('d/m/Y', $dateString) : null;
@@ -1049,7 +1049,7 @@ class OperateurController extends Controller
             Alert::warning('Attention !', 'Action impossible');
             return redirect()->back();
         } */
-       
+
         $dateString = $request->input('date_quitus');
 
         $date_quitus = !empty($dateString)
