@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP | OPERATEURS')
+@section('title', 'Opérateurs' . $statut . ' en ' . $annee)
 @section('space-work')
 
     <div class="pagetitle">
@@ -192,7 +192,7 @@
                                         <i class="bi bi-arrow-left-circle"></i> Retour
                                     </a> |
                                     <h6 class="mb-0 text-muted fw-semibold text-uppercase">
-                                        Liste des opérateurs {{ $statut }} en {{ $annee }}
+                                        Opérateurs {{ $statut }} en {{ $annee }}
                                     </h6>
                                 </div>
 
@@ -327,7 +327,7 @@
                                                 @can('operateur-show')
                                                     <td>
                                                         <span class="d-flex align-items-baseline"><a
-                                                                href="{{ route('operateurs.show', $operateur) }}"
+                                                                href="{{ route('showAgrement', $operateur->id) }}"
                                                                 class="btn btn-primary btn-sm" title="voir détails"><i
                                                                     class="bi bi-eye"></i></a>
                                                             @can('operateur-update')

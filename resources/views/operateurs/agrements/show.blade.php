@@ -288,21 +288,6 @@
                                             </div>
                                         @endif
 
-                                        {{-- @if ($operateur?->debut_quitus)
-                                            <div class="col-12 col-md-4 mb-2">
-                                                <div class="label">Quitus</div>
-                                                <div>
-                                                    @if (!empty($operateur?->debut_quitus))
-                                                        <a class="btn btn-outline-secondary btn-sm"
-                                                            title="télécharger le quitus" target="_blank"
-                                                            href="{{ asset($operateur?->getQuitus()) }}">
-                                                            <i class="bi bi-file-image"></i>
-                                                        </a>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        @endif --}}
-
                                         @if ($operateur?->debut_quitus)
                                             <div class="col-12 col-md-4">
                                                 <div class="label">Date délivrance quitus</div>
@@ -392,31 +377,7 @@
                                                         <td>{{ $operateureference?->contact }}</td>
                                                         <td>{{ $operateureference?->periode }}</td>
                                                         <td>{{ $operateureference?->description }}</td>
-                                                        {{-- <td style="text-align: center;">
-                                                            <span class="d-flex mt-2 align-items-baseline"><a
-                                                                    href="#"
-                                                                    class="btn btn-warning btn-sm mx-1"
-                                                                    title="Voir détails">
-                                                                    <i class="bi bi-eye"></i></a>
-                                                                <div class="filter">
-                                                                    <a class="icon" href="#"
-                                                                        data-bs-toggle="dropdown"><i
-                                                                            class="bi bi-three-dots"></i></a>
-                                                                    <ul
-                                                                        class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                        <li>
-                                                                            <button type="button"
-                                                                                class="dropdown-item btn btn-sm mx-1"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#EditoperateureferenceModal{{ $operateureference->id }}">
-                                                                                <i class="bi bi-pencil"
-                                                                                    title="Modifier"></i> Modifier
-                                                                            </button>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </span>
-                                                        </td> --}}
+
                                                     </tr>
                                                 @endforeach
                                             </tbody>
@@ -433,12 +394,6 @@
                                             <h5 class="mb-0 fw-bold text-uppercase text-dark">
                                                 <i class="bi bi-building-gear"></i> Infrastructures / Équipements
                                             </h5>
-                                            {{--  <h5 class="card-title">
-                                                <a href="{{ route('showEquipement', ['id' => $operateur->id]) }}"
-                                                    class="btn btn-outline-primary float-end btn-rounded btn-sm"
-                                                    target="_blank">
-                                                    <i class="bi bi-plus" title="Ajouter, Modifier, Supprimer"></i> </a>
-                                            </h5> --}}
                                         </div>
                                         <table
                                             class="table table-bordered table-hover datatables align-middle justify-content-center table-borderless">
@@ -575,82 +530,9 @@
                                 </div>
                             </div>
                             {{-- Détail Modules --}}
-                            {{-- class show et active pour l'affichage par défaut --}}
                             <div class="tab-content pt-2">
                                 <div class="tab-pane fade show active profile-overview pt-3" id="module-overview">
-                                    {{-- <form method="post" action="{{ url('operateurmodules') }}"
-                                        enctype="multipart/form-data" class="row g-3">
-                                        @csrf
-                                        <div class="col-12 mb-0">
-                                            <table class="table table-bordered table-hover" id="dynamicAddRemove">
 
-                                                <tr>
-                                                    <th>MODULE OU SPECIALITE<span class="text-danger mx-1">*</span></th>
-                                                    <th>CATEGORIE PROFESSIONNELLE<span class="text-danger mx-1">*</span>
-                                                    </th>
-                                                </tr>
-                                                <tr>
-                                                    <input type="hidden" name="operateur" value="{{ $operateur->id }}">
-                                                    <td>
-                                                        <input type="text" name="module" id="module_operateur"
-                                                            class="form-control form-control-sm"
-                                                            placeholder="Module ou spécialité" />
-                                                        <div id="moduleList"></div>
-                                                        {{ csrf_field() }}
-                                                        <p class="small fst-italic">
-                                                            <small>{{ __('Le nombre de modules est limité à deux') }}</small>
-                                                            <small>
-                                                                {{ __(' sauf pour les établissements publics ') }}</small>
-                                                        </p>
-                                                    </td>
-                                                    <td><input type="text" name="categorie"
-                                                            placeholder="Catégorie professionnelle"
-                                                            class="form-control form-control-sm" />
-                                                        <p class="small fst-italic">
-                                                            <small>{{ __("Préciser la catégorie professionnelle,l'emploi ou le métier correspondant lorsqu'il s'agit") }}</small><br>
-                                                            <small>{{ __("d'une Renforcement de capacités ou qualification") }}</small>
-                                                        </p>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>DOMAINE<span class="text-danger mx-1">*</span></th>
-                                                    <th>QUALIFICATION CORRESPONDANTE
-                                                        <span class="text-danger mx-1">*</span>
-                                                    </th>
-                                                </tr>
-                                                <tr>
-                                                    <td><input type="text" name="domaine"
-                                                            placeholder="Domaine d'intervention"
-                                                            class="form-control form-control-sm" />
-                                                    </td>
-                                                    <td>
-                                                        <select name="niveau_qualification"
-                                                            class="form-select form-select-sm @error('niveau_qualification') is-invalid @enderror"
-                                                            aria-label="Select" id="select-field-civilite"
-                                                            data-placeholder="Choisir qualification">
-                                                            <option value="">
-                                                                {{ old('niveau_qualification') }}
-                                                            </option>
-                                                            <option value="Pré-qualification">
-                                                                Pré-qualification
-                                                            </option>
-                                                            <option value="Renforcement de capacités">
-                                                                Renforcement de capacités
-                                                            </option>
-                                                            <option value="Qualification">
-                                                                Qualification
-                                                            </option>
-                                                        </select>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                            <div class="text-center">
-                                                <button type="submit" class="btn btn-outline-success btn-sm"><i
-                                                        class="bi bi-printer"></i> Enregistrer</button>
-                                            </div>
-                                        </div>
-
-                                    </form> --}}
                                     <!-- End module -->
                                     <div class="card mb-4 shadow-sm border-0 w-100">
                                         <div
@@ -663,13 +545,6 @@
                                                         {{ $operateur?->commissionagrement?->date?->format('d/m/Y') ?? 'Non définie' }}
                                                     </span>
                                                 </h5>
-                                                {{-- <div class="d-flex align-items-center mt-1">
-                                                    <i class="bi bi-arrow-right-circle text-secondary me-2"></i>
-                                                    <span class="fst-italic">Type de demande :</span>
-                                                    <span class="ms-2 fw-semibold {{ $operateur?->type_demande }}">
-                                                        {{ $operateur?->type_demande }}
-                                                    </span>
-                                                </div> --}}
                                             </div>
 
                                             {{-- Statut sur une seule ligne --}}
@@ -812,13 +687,6 @@
                                                         </span>
                                                     @endif
                                                 </div>
-                                                <div>
-                                                    {{-- Bouton pour télécharger le quitus --}}
-                                                    {{-- <a href="{{ asset($operateur?->getQuitus()) }}" target="_blank"
-                                                        class="btn btn-sm btn-outline-info" title="Télécharger le Quitus">
-                                                        <i class="bi bi-download"></i> Télécharger
-                                                    </a> --}}
-                                                </div>
                                             </div>
                                             {{-- Certifier informations --}}
                                             <div
@@ -826,9 +694,6 @@
                                                 <div class="d-flex align-items-center">
                                                     <i class="bi bi-bookmark-check text-primary me-2"></i>Certifier
                                                     informations
-                                                    {{-- <span
-                                                class="badge {{ $operateur->file8 === true ? 'bg-danger' : 'bg-success' }} position-absolute top-50 start-50 translate-middle-y"
-                                                style="transform: translateX(-50%);">{{ $operateur?->file8 }}</span> --}}
                                                     @php
                                                         $estCertifie = boolval($operateur->file8);
                                                     @endphp
@@ -839,39 +704,12 @@
                                                         {!! $estCertifie ? '<i class="bi bi-check-circle"></i> Oui' : '<i class="bi bi-x-circle"></i> Non' !!}
                                                     </span>
                                                 </div>
-                                                {{-- <div>
-                                                    <button type="button" class="btn btn-sm btn-outline-primary me-1"
-                                                        data-bs-toggle="modal" data-bs-target="#certificationModal">
-                                                        <i class="bi bi-pencil-square me-1"></i> Je certifie
-                                                    </button>
-                                                </div> --}}
                                             </div>
                                         </div>
 
                                         @can('update', $operateur)
                                             <div
                                                 class="card-footer bg-light text-center py-3 border-top d-flex justify-content-center gap-3">
-                                                {{-- Bouton Modifier --}}
-                                                {{-- <button class="btn btn-warning btn-sm text-white px-4" title="Modifier"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#EditOperateurModal{{ $operateur->id }}">
-                                                    <i class="bi bi-pencil me-1"></i> Modifier
-                                                </button> --}}
-
-                                                {{-- Bouton Supprimer --}}
-                                                {{-- @can('devenir-operateur-agrement-delete')
-                                                    @can('delete', $operateur)
-                                                        <form action="{{ route('operateurs.destroy', $operateur) }}" method="post"
-                                                            class="d-inline-block show_confirm">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="btn btn-outline-danger btn-sm px-4"
-                                                                title="Supprimer">
-                                                                <i class="bi bi-trash me-1"></i> Supprimer
-                                                            </button>
-                                                        </form>
-                                                    @endcan
-                                                @endcan --}}
                                             </div>
                                         @endcan
                                     </div>
@@ -895,34 +733,6 @@
                                                         <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                                 class="bi bi-three-dots"></i></a>
                                                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-
-                                                            {{-- Validation automatique --}}
-                                                            {{-- <form
-                                                                action="{{ route('validateOperateur', ['id' => $operateur->id]) }}"
-                                                                method="post">
-                                                                @csrf
-                                                                @method('PUT')
-                                                                <button class="show_confirm_valider btn btn-sm mx-1"><i
-                                                                        class="bi bi-check2-circle"
-                                                                        title="Valider"></i>&nbsp;Retenu</button>
-                                                            </form> --}}
-                                                            {{--   <form
-                                                            action="{{ route('agreerOperateur', ['id' => $operateur->id]) }}"
-                                                            method="post">
-                                                            @csrf
-                                                            @method('PUT')
-                                                            <button class="show_confirm_valider btn btn-sm mx-1"><i
-                                                                    class="bi bi-check2-circle"
-                                                                    title="Valider"></i>&nbsp;Agréer</button>
-                                                        </form>
-                                                        <div>
-                                                            <button class="btn btn-sm mx-1" data-bs-toggle="modal"
-                                                                data-bs-target="#ReserveAgrementModal{{ $operateur->id }}"><i
-                                                                    class="bi bi-chat-square-text"
-                                                                    title="Justification"></i>&nbsp;Sous réserve
-                                                            </button>
-                                                        </div> --}}
-                                                            {{-- @isset($operateur->motif) --}}
                                                             <li>
                                                                 <button class="btn btn-sm mx-1" data-bs-toggle="modal"
                                                                     data-bs-target="#RejetAgrementModal{{ $operateur->id }}"><i
@@ -959,8 +769,6 @@
                                                 @endif
                                             </span>
                                         </div>
-                                        {{-- <form method="post" action="#" enctype="multipart/form-data"
-                                            class="row g-3"> --}}
                                         <div class="row g-3">
                                             <table
                                                 class="table table-bordered table-hover datatables align-middle justify-content-center"
@@ -1004,18 +812,7 @@
                                                                                     class="bi bi-three-dots"></i></a>
                                                                             <ul
                                                                                 class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                                {{--  <form
-                                                                                action="{{ route('validation-operateur-modules.update', $operateurmodule) }}"
-                                                                                method="post">
-                                                                                @csrf
-                                                                                @method('PUT')
-                                                                                <button
-                                                                                    class="show_confirm_valider dropdown-item btn btn-sm mx-1">Agréer</button>
-                                                                            </form> --}}
-                                                                                {{-- <button class="dropdown-item btn btn-sm mx-1"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#AddRegionModal{{ $operateurmodule->id }}">Rejeter
-                                                                            </button> --}}
+
                                                                                 <button
                                                                                     class="dropdown-item btn btn-sm mx-1"
                                                                                     data-bs-toggle="modal"
@@ -1050,10 +847,6 @@
                                     <div class="row mb-3">
                                         <h5 class="card-title col-12 col-md-4">
                                             FICHIERS JOINTS</h5>
-                                        {{-- @php
-                                            // Filtrer uniquement les fichiers qui ont une valeur non vide
-                                            $validFiles = $user?->files->filter(fn($file) => !empty($file->file));
-                                        @endphp --}}
 
                                         @php
                                             // Filtrer uniquement les fichiers qui ont une valeur non vide
@@ -1068,15 +861,6 @@
                                                     <table class="table table-bordered table-hover datatables"
                                                         id="table-iles">
                                                         <thead>
-                                                            {{-- <tr>
-                                                            <th width="5%" class="text-center">N°</th>
-                                                            <th>Légende</th>
-                                                            <th width="10%" class="text-center">File</th>
-                                                            @can('user-show-file')
-                                                                <th width="5%" class="text-center"><i
-                                                                        class="bi bi-gear"></i></th>
-                                                            @endcan
-                                                        </tr> --}}
                                                             <tr>
                                                                 <th style="width: 5%">N°</th>
                                                                 <th>Légende</th>
@@ -1199,7 +983,6 @@
                 </div>
             </div>
         </div>
-        <!-- End Edit Operateur-->
         <!-- Edit Operateur Module -->
         @foreach ($operateur->operateurmodules as $operateurmodule)
             <div class="modal fade" id="EditOperateurmoduleModal{{ $operateurmodule->id }}" tabindex="-1"
@@ -1207,95 +990,6 @@
                 aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
-                        {{-- <form method="POST" action="#">
-                            @csrf --}}
-                        {{-- <form method="post" action="{{ route('operateurmodules.update', $operateurmodule) }}"
-                            enctype="multipart/form-data" class="row g-3">
-                            @csrf
-                            @method('patch')
-                            <div class="modal-header" id="EditOperateurmoduleModalLabel{{ $operateurmodule->id }}">
-                                <h5 class="modal-title">Modification module
-                                    opérateur</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <input type="hidden" name="id" value="{{ $operateurmodule->id }}">
-
-                                <div class="col-12 mb-0">
-                                    <label for="module" class="form-label">Module<span
-                                            class="text-danger mx-1">*</span></label>
-                                    <input type="text" name="module" id="module_operateur_edit"
-                                        value="{{ $operateurmodule->module ?? old('module') }}"
-                                        class="form-control form-control-sm @error('module') is-invalid @enderror"
-                                        placeholder="module">
-                                    <div id="moduleListEdit"></div>
-                                    {{ csrf_field() }}
-                                    @error('module')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                <div class="col-12 mb-0">
-                                    <label for="domaine" class="form-label">Domaine<span
-                                            class="text-danger mx-1">*</span></label>
-                                    <input type="text" name="domaine"
-                                        value="{{ $operateurmodule->domaine ?? old('domaine') }}"
-                                        class="form-control form-control-sm @error('domaine') is-invalid @enderror"
-                                        placeholder="domaine">
-                                    @error('domaine')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="col-12 mb-0">
-                                    <label for="categorie" class="form-label">Catégorie<span
-                                            class="text-danger mx-1">*</span></label>
-                                    <input type="text" name="categorie"
-                                        value="{{ $operateurmodule->categorie ?? old('categorie') }}"
-                                        class="form-control form-control-sm @error('categorie') is-invalid @enderror"
-                                        placeholder="categorie">
-                                    @error('categorie')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="col-12 mb-0">
-                                    <label for="niveau_qualification" class="form-label">Niveau de qualification<span
-                                            class="text-danger mx-1">*</span></label>
-                                    <select name="niveau_qualification" class="form-select selectpicker"
-                                        data-live-search="true @error('niveau_qualification') is-invalid @enderror"
-                                        aria-label="Select" id="select-field-niveau_qualification-update"
-                                        data-placeholder="Choisir niveau qualification">
-                                        <option value="{{ $operateurmodule->niveau_qualification }}">
-                                            {{ $operateurmodule->niveau_qualification ?? old('niveau_qualification') }}
-                                        </option>
-                                        <option value="Pré-qualification">
-                                            Pré-qualification
-                                        </option>
-                                        <option value="Renforcement de capacités">
-                                            Renforcement de capacités
-                                        </option>
-                                        <option value="Qualification">
-                                            Qualification
-                                        </option>
-                                    </select>
-                                    @error('niveau_qualification')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fermer</button>
-                                <button type="submit" class="btn btn-primary btn-sm">Modifier</button>
-                            </div>
-                        </form> --}}
                         <form method="post" action="{{ route('operateurmodules.update', $operateurmodule) }}"
                             enctype="multipart/form-data" class="row g-3">
                             @csrf
@@ -1401,8 +1095,7 @@
                 </div>
             </div>
         @endforeach
-        <!-- End Edit Operateur Module-->
-        <!-- The Modal Delete -->
+
         @foreach ($operateur->operateurmodules as $operateurmodule)
             <div class="modal" id="myModal{{ $operateurmodule->id }}">
                 <div class="modal-dialog">
@@ -1436,121 +1129,12 @@
                 </div>
             </div>
         @endforeach
-        {{-- @foreach ($operateur->operateurmodules as $operateurmodule)
-            <div class="modal fade" id="AddRegionModal{{ $operateurmodule->id }}" tabindex="-1">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <form method="post"
-                            action="{{ route('validation-operateur-modules.destroy', $operateurmodule) }}"
-                            enctype="multipart/form-data" class="row">
-                            @csrf
-                            @method('DELETE')
-                            <div class="modal-header">
-                                <h5 class="modal-title">Rejet module</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <label for="motif" class="form-label">Motifs du rejet<span
-                                        class="text-danger mx-1">*</span></label>
-                                <textarea name="motif" id="motif" rows="5"
-                                    class="form-control form-control-sm @error('motif') is-invalid @enderror"
-                                    placeholder="Enumérer les motifs du rejet">{{ $operateurmodule?->motif ?? old('motif') }}</textarea>
-                                @error('motif')
-                                    <span class="invalid-feedback" role="alert">
-                                        <div>{{ $message }}</div>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                                <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-printer"></i>
-                                    Rejeter</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        @endforeach --}}
-        {{-- Agrément sous réserve --}}
-        {{--  @foreach ($operateurs as $operateur)
-            <div class="modal fade" id="ReserveAgrementModal{{ $operateur->id }}" tabindex="-1">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <form method="post" action="{{ route('validation-operateur.update', $operateur->id) }}"
-                            enctype="multipart/form-data" class="row">
-                            @csrf
-                            @method('PUT')
-                            <div class="modal-header">
-                                <h5 class="modal-title">Rejet opérateur</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <label for="motif" class="form-label">Motifs de la réserve<span
-                                        class="text-danger mx-1">*</span></label>
-                                <textarea name="motif" id="motif" rows="5"
-                                    class="form-control form-control-sm @error('motif') is-invalid @enderror"
-                                    placeholder="Enumérer les motifs de l'agrément sous réserve">{{ $operateur?->motif ?? old('motif') }}</textarea>
-                                @error('motif')
-                                    <span class="invalid-feedback" role="alert">
-                                        <div>{{ $message }}</div>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                                <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-printer"></i>
-                                    Rejeter</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        @endforeach --}}
-        {{-- Agrément rejeter --}}
-        {{-- @foreach ($operateurs as $operateur)
-            <div class="modal fade" id="RejetAgrementModal{{ $operateur->id }}" tabindex="-1">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <form method="post" action="{{ route('nonRetenu', ['id' => $operateur->id]) }}"
-                            enctype="multipart/form-data" class="row">
-                            @csrf
-                            @method('PUT')
-                            <div class="modal-header">
-                                <h5 class="modal-title">Rejet demande agrément</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <label for="motif" class="form-label">Motifs...<span
-                                        class="text-danger mx-1">*</span></label>
-                                <textarea name="motif" id="motif" rows="5"
-                                    class="form-control form-control-sm @error('motif') is-invalid @enderror"
-                                    placeholder="Enumérer les motifs du rejet">{{ $operateur?->motif ?? old('motif') }}</textarea>
-                                @error('motif')
-                                    <span class="invalid-feedback" role="alert">
-                                        <div>{{ $message }}</div>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fermer</button>
-                                <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-printer"></i>
-                                    Rejeter</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        @endforeach --}}
 
         <div class="modal fade" id="RejetAgrementModal{{ $operateur->id }}" tabindex="-1"
             aria-labelledby="RejetAgrementModalLabel{{ $operateur->id }}" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content shadow-lg rounded-3">
 
-                    {{-- <form method="POST" action="{{ route('nonRetenu', ['id' => $operateur->id]) }}"> --}}
                     <form method="POST" action="{{ route('validationAgrement', ['id' => $operateur->id]) }}">
                         @csrf
                         @method('PUT')
@@ -1577,9 +1161,6 @@
                                     <option value="" disabled {{ !$selectedStatut ? 'selected' : '' }}>
                                         Sélectionner
                                     </option>
-                                    {{-- <option value="Attente" {{ $selectedStatut === 'Attente' ? 'selected' : '' }}>
-                                        En attente
-                                    </option> --}}
                                     <option value="À corriger" {{ $selectedStatut === 'À corriger' ? 'selected' : '' }}>
                                         À corriger
                                     </option>
@@ -1603,16 +1184,7 @@
                                     <option value="Injoignable"
                                         {{ $selectedStatut === 'Injoignable' ? 'selected' : '' }}>
                                         Injoignable</option>
-                                    {{-- <option value="Retenue" {{ $selectedStatut === 'Retenue' ? 'selected' : '' }}>
-                                        Retenue
-                                    </option>
-                                    <option value="Non retenue"
-                                        {{ $selectedStatut === 'Non retenue' ? 'selected' : '' }}>
-                                        Non retenue
-                                    </option>
-                                    <option value="Validée" {{ $selectedStatut === 'Validée' ? 'selected' : '' }}>
-                                        Validée
-                                    </option> --}}
+
                                 </select>
                                 @error('statut')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -1651,153 +1223,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Add References -->
-        {{-- <div class="modal fade" id="AddRefModal" tabindex="-1">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <form method="post" action="{{ url('operateureferences') }}" enctype="multipart/form-data"
-                        class="row g-3">
-                        @csrf
-                        <div class="modal-header">
-                            <h5 class="modal-title"> EXPERIENCES ET REFERENCES PROFESSIONNELLES </h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
-                        <input type="hidden" name="operateur" value="{{ $operateur->id }}">
-                        <div class="modal-body">
-                            <div class="form-floating mb-3">
-                                <input type="text" name="organisme" value="{{ old('organisme') }}"
-                                    class="form-control form-control-sm @error('organisme') is-invalid @enderror"
-                                    id="organisme" placeholder="Dénomination de l'organisme" autofocus>
-                                @error('organisme')
-                                    <span class="invalid-feedback" role="alert">
-                                        <div>{{ $message }}</div>
-                                    </span>
-                                @enderror
-                                <label for="floatingInput">Dénomination de l'organisme<span
-                                        class="text-danger mx-1">*</span></label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="number" min="0" name="contact" value="{{ old('contact') }}"
-                                    class="form-control form-control-sm @error('contact') is-invalid @enderror"
-                                    id="contact" placeholder="Contact">
-                                @error('contact')
-                                    <span class="invalid-feedback" role="alert">
-                                        <div>{{ $message }}</div>
-                                    </span>
-                                @enderror
-                                <label for="floatingInput">Contact<span class="text-danger mx-1">*</span></label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="text" name="periode" value="{{ old('periode') }}"
-                                    class="form-control form-control-sm @error('periode') is-invalid @enderror"
-                                    id="periode" placeholder="Période">
-                                @error('periode')
-                                    <span class="invalid-feedback" role="alert">
-                                        <div>{{ $message }}</div>
-                                    </span>
-                                @enderror
-                                <label for="floatingInput">Période<span class="text-danger mx-1">*</span></label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <textarea name="description" id="description" cols="30" rows="5"
-                                    class="form-control form-control-sm @error('description') is-invalid @enderror"
-                                    placeholder="Ajouter les membres du jury">{{ old('description') }}</textarea>
-                                @error('description')
-                                    <span class="invalid-feedback" role="alert">
-                                        <div>{{ $message }}</div>
-                                    </span>
-                                @enderror
-                                <label for="floatingInput">Description<span class="text-danger mx-1">*</span></label>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                            <button type="submit" class="btn btn-primary"><i class="bi bi-printer"></i>
-                                Ajouter</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div> --}}
-        <!-- End Add References-->
-        <!-- Edit References -->
-        {{-- @foreach ($operateureferences as $operateureference)
-            <div class="modal fade" id="EditoperateureferenceModal{{ $operateureference->id }}" tabindex="-1">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <form method="post" action="{{ route('operateureferences.update', $operateureference->id) }}"
-                            enctype="multipart/form-data" class="row g-3">
-                            @csrf
-                            @method('patch')
-                            <div class="modal-header">
-                                <h5 class="modal-title"> EXPERIENCES ET REFERENCES PROFESSIONNELLES </h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <input type="hidden" name="operateur" value="{{ $operateur->id }}">
-                            <div class="modal-body">
-                                <div class="form-floating mb-3">
-                                    <input type="text" name="organisme"
-                                        value="{{ $operateureference->organisme ?? old('organisme') }}"
-                                        class="form-control form-control-sm @error('organisme') is-invalid @enderror"
-                                        id="organisme" placeholder="Dénomination de l'organisme" autofocus>
-                                    @error('organisme')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
-                                    <label for="floatingInput">Dénomination de l'organisme<span
-                                            class="text-danger mx-1">*</span></label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="number" min="0" name="contact"
-                                        value="{{ $operateureference->contact ?? old('contact') }}"
-                                        class="form-control form-control-sm @error('contact') is-invalid @enderror"
-                                        id="contact" placeholder="Contact">
-                                    @error('contact')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
-                                    <label for="floatingInput">Contact<span class="text-danger mx-1">*</span></label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="text" name="periode"
-                                        value="{{ $operateureference->periode ?? old('periode') }}"
-                                        class="form-control form-control-sm @error('periode') is-invalid @enderror"
-                                        id="periode" placeholder="Période">
-                                    @error('periode')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
-                                    <label for="floatingInput">Période<span class="text-danger mx-1">*</span></label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <textarea name="description" id="description" cols="30" rows="5"
-                                        class="form-control form-control-sm @error('description') is-invalid @enderror"
-                                        placeholder="Ajouter les membres du jury">{{ $operateureference->description ?? old('description') }}</textarea>
-                                    @error('description')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
-                                    <label for="floatingInput">Description<span class="text-danger mx-1">*</span></label>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                                <button type="submit" class="btn btn-primary"><i class="bi bi-printer"></i>
-                                    Modifier</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        @endforeach --}}
-        <!-- End Edit References-->
 
         <div class="modal fade" id="addobservations" tabindex="-1" role="dialog"
             aria-labelledby="addobservationsLabel" aria-hidden="true">
@@ -1906,23 +1331,6 @@
 
                                             Non
                                         </option>
-                                        {{-- <option value="Conforme" {{ $selectedStatut === 'Conforme' ? 'selected' : '' }}>
-                                            Conforme
-                                        </option>
-                                        <option value="Non conforme"
-                                            {{ $selectedStatut === 'Non conforme' ? 'selected' : '' }}>
-                                            Non conforme
-                                        </option>
-                                        <option value="Retenue" {{ $selectedStatut === 'Retenue' ? 'selected' : '' }}>
-                                            Retenue
-                                        </option>
-                                        <option value="Non retenue"
-                                            {{ $selectedStatut === 'Non retenue' ? 'selected' : '' }}>
-                                            Non retenue
-                                        </option>
-                                        <option value="Validée" {{ $selectedStatut === 'Validée' ? 'selected' : '' }}>
-                                            Validée
-                                        </option> --}}
                                     </select>
                                     @error('statut')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -2005,33 +1413,7 @@
 
                                             Non
                                         </option>
-                                        {{-- <option value="" disabled {{ !$selectedStatut ? 'selected' : '' }}>
-                                            -- Sélectionner un statut --
-                                        </option>
-                                        <option value="Attente" {{ $selectedStatut === 'Attente' ? 'selected' : '' }}>
-                                            En attente
-                                        </option>
-                                        <option value="À corriger"
-                                            {{ $selectedStatut === 'À corriger' ? 'selected' : '' }}>
-                                            À corriger
-                                        </option>
-                                        <option value="Conforme" {{ $selectedStatut === 'Conforme' ? 'selected' : '' }}>
-                                            Conforme
-                                        </option>
-                                        <option value="Non conforme"
-                                            {{ $selectedStatut === 'Non conforme' ? 'selected' : '' }}>
-                                            Non conforme
-                                        </option>
-                                        <option value="Retenue" {{ $selectedStatut === 'Retenue' ? 'selected' : '' }}>
-                                            Retenue
-                                        </option>
-                                        <option value="Non retenue"
-                                            {{ $selectedStatut === 'Non retenue' ? 'selected' : '' }}>
-                                            Non retenue
-                                        </option>
-                                        <option value="Validée" {{ $selectedStatut === 'Validée' ? 'selected' : '' }}>
-                                            Validée
-                                        </option> --}}
+
                                     </select>
                                     @error('statut')
                                         <div class="invalid-feedback">{{ $message }}</div>
