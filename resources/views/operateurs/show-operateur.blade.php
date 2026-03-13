@@ -632,7 +632,7 @@
                                                     @foreach ($files as $file)
                                                         <tr class="text-center align-middle">
                                                             <td>{{ $i++ }}</td>
-                                                            <td>{{ $file->legende }}</td>
+                                                            <td>{{ $labels[$file?->legende] ?? $file?->legende }}</td>
                                                             <td>
                                                                 <a class="btn btn-outline-secondary btn-sm"
                                                                     title="Télécharger" target="_blank"

@@ -1074,9 +1074,33 @@ class OperateurController extends Controller
             ->distinct()
             ->get();
 
+        $labels = [
+            'Ninea ou registre de commerce' => 'Registre de commerce',
+        ];
+
         $user_files = File::whereNull('file')
             ->whereNull('users_id')
-            ->whereNotIn('sigle', ['CIN', 'DAC', 'DP', 'CR', 'AD', 'Bulletins', 'Permis', 'Attestation', 'Casier', 'Extrait', 'Lettre', 'CV', 'RIB', 'Stage'])
+            ->whereIn(
+                'sigle',
+                [
+                    'Ninea/RC',
+                    'Ninea',
+                    'AC',
+                    'Quitus',
+                    'Arrêté',
+                    'Non-fonctionnaire',
+                    'Organigramme',
+                    'Contrat',
+                    'Titre',
+                    'Justificatif',
+                    'ADEDGI',
+                    'ABE',
+                    'CME',
+                    'CP',
+                    'DENO',
+                    'Bail',
+                ]
+            )
             ->orderBy('sigle', 'asc')
             ->distinct()
             ->get();
@@ -1090,6 +1114,7 @@ class OperateurController extends Controller
                 "user_files",
                 'user',
                 'files',
+                'labels',
                 'domaines'
             )
         );

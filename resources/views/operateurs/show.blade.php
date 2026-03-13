@@ -670,7 +670,7 @@
 
                                         @can('upload-file-view')
 
-                                            <h5 class="card-title">📁 JOINDRE VOS SCANS DE DOSSIERS</h5>
+                                            <h5 class="card-title">JOINDRE VOS SCANS DE DOSSIERS</h5>
                                             <form method="post" action="{{ route('files.update', $operateur?->user) }}"
                                                 enctype="multipart/form-data" class="row g-3">
                                                 @csrf
@@ -745,7 +745,7 @@
                                                                         </option>
                                                                         @foreach ($user_files as $file)
                                                                             <option value="{{ $file?->id }}">
-                                                                                {{ $file?->legende }}
+                                                                                {{ $labels[$file?->legende] ?? $file?->legende }}
                                                                             </option>
                                                                         @endforeach
                                                                     </select>
@@ -815,7 +815,8 @@
                                                                     @foreach ($files as $file)
                                                                         <tr class="text-center align-middle">
                                                                             <td>{{ $i++ }}</td>
-                                                                            <td>{{ $file->legende }}</td>
+                                                                            <td>{{ $labels[$file?->legende] ?? $file?->legende }}
+                                                                            </td>
                                                                             <td>
                                                                                 <a class="btn btn-outline-secondary btn-sm"
                                                                                     title="Télécharger" target="_blank"

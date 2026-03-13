@@ -1176,7 +1176,7 @@
                                                     <thead>
                                                         <tr class="text-center">
                                                             <th style="width: 5%">N°</th>
-                                                            <th>Légende</th>
+                                                            <th>Sigle</th>
                                                             <th style="width: 10%">Fichier</th>
                                                             <th style="width: 10%">Statut</th>
                                                             <th style="width: 10%">Supprimer</th>
@@ -1221,7 +1221,7 @@
                                                         @foreach ($files as $file)
                                                             <tr class="text-center align-middle">
                                                                 <td>{{ $i++ }}</td>
-                                                                <td>{{ $file->legende }}</td>
+                                                                <td>{{ $file->sigle }}</td>
                                                                 <td>
                                                                     <a class="btn btn-outline-secondary btn-sm"
                                                                         title="Télécharger" target="_blank"
