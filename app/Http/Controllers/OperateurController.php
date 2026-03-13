@@ -1673,7 +1673,7 @@ class OperateurController extends Controller
                 ? Carbon::parse($operateur->debut_quitus)
                 : null;
 
-            $diff = $dateQuitus?->diff(now());
+            /* $diff = $dateQuitus?->diff(now());
 
             $diffText = '';
 
@@ -1688,7 +1688,17 @@ class OperateurController extends Controller
                 } else {
                     $diffText = $diff->d . ' jours';
                 }
-            }
+            } */
+
+            $dateQuitus = $operateur?->debut_quitus
+                ? Carbon::parse($operateur->debut_quitus)
+                : null;
+
+            // Calcul de la différence pour le texte
+            $diffText = $dateQuitus?->locale('fr')->diffForHumans(now(), true);
+
+            // Calcul de la différence en mois pour le badge
+            $diffInMonths = $dateQuitus ? ($dateQuitus->diffInYears(now()) * 12 + $dateQuitus->diffInMonths(now()) % 12) : 0;
 
             $sections = [
                 [
@@ -1721,12 +1731,12 @@ class OperateurController extends Controller
                     'count' => $operateur->operateurlocalites->count(),
                     'route' => route('showLocalite', $operateur->uuid),
                 ],
-                
+
                 [
                     'label' => 'Validité quitus',
                     'icon' => 'bi-file-earmark-text text-dark',
                     'count' => $diffText,
-                    'badge' => ($diff?->y ?? 0) * 12 + ($diff?->m ?? 0) > 3 ? 'bg-danger' : 'bg-info',
+                    'badge' => $diffInMonths > 3 ? 'bg-danger' : 'bg-info',
                     'route' => null,
                 ],
             ];
