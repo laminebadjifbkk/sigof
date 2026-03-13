@@ -238,7 +238,7 @@
                                         <i class="bi bi-arrow-left-circle"></i> Retour
                                     </a>
                                     <h6 class="mb-0 text-muted fw-semibold text-uppercase">
-                                        Total {{ $total }}
+                                        Total : {{ $total }}
                                     </h6>
                                 </div>
 
