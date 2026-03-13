@@ -220,7 +220,7 @@
 
                                                     <span class="ms-2 text-primary">
                                                         @foreach ($operateur->commissionagrements as $commission)
-                                                            {{ optional($commission->fin_commission)->format('d/m/Y') ?? 'Non définie' }}
+                                                            {{ optional($commission->fin_commission)->format('d/m/Y') ?? '' }}
                                                         @endforeach
                                                     </span>
                                                 </div>
