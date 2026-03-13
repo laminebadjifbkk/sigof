@@ -1070,7 +1070,7 @@ class OperateurController extends Controller
         $this->authorize('show', $operateur);
 
         $files = File::where('users_id', $user?->id)
-            ->whereNotNull('file') // Utilisation de whereNotNull pour plus de clarté
+            ->whereNotNull('file')
             ->distinct()
             ->get();
 
@@ -1609,7 +1609,7 @@ class OperateurController extends Controller
 
         $user_files = File::whereNull('file')
             ->whereNull('users_id')
-            ->whereNotIn('sigle', ['CIN', 'DAC', 'DP', 'CR', 'AD', 'Bulletins', 'Permis', 'Attestation', 'Casier', 'Extrait', 'Lettre', 'CV', 'RIB', 'Stage'])
+            ->whereIn('sigle', ['Ninea/RC', 'AC', 'Quitus', 'Arrêté', 'Non-fonctionnaire', 'Carte', 'Organigramme', 'Contrat', 'Titre', 'Justificatif', 'RIB'])
             ->orderBy('sigle', 'asc')
             ->distinct()
             ->get();
