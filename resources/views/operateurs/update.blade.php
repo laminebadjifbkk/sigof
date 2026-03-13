@@ -310,6 +310,9 @@
                                                 <option value="{{ old('type_demande', $operateur?->type_demande) }}">
                                                     {{ old('type_demande', $operateur?->type_demande) }}
                                                 </option>
+                                                <option value="Extension">
+                                                    Extension
+                                                </option>
                                                 <option value="Nouvelle">
                                                     Nouvelle
                                                 </option>
