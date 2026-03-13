@@ -216,7 +216,20 @@
                                             </span>
                                         </div>
                                     </div>
+                                    @if ($operateur->commissionagrements->isNotEmpty())
+                                        <div>
+                                            <h5 class="mb-1 text-dark fw-bold d-flex align-items-center">
+                                                <i class="bi bi-building text-primary me-2 fs-5"></i>
+                                                <span>Date agrément :</span>
 
+                                                <span class="ms-2 text-primary">
+                                                    @foreach ($operateur->commissionagrements as $commission)
+                                                        {{ optional($commission->fin_commission)->format('d/m/Y') ?? 'Non définie' }}<br>
+                                                    @endforeach
+                                                </span>
+                                            </h5>
+                                        </div>
+                                    @endif
                                     {{-- Statut sur une seule ligne --}}
                                     <div class="d-flex align-items-center">
                                         <span class="fw-semibold text-muted me-2">Statut :</span>
