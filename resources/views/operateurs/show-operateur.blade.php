@@ -494,7 +494,7 @@
                         @endforeach
 
                         @can('upload-file-view')
-                            <!-- Section des liens utiles avec style Bootstrap -->
+                            <!-- Liens utiles -->
                             <div class="card border-info mb-4">
                                 <div class="card-body">
                                     <h5 class="card-title text-info">Les liens utiles</h5>
@@ -502,7 +502,7 @@
                                         <li>
                                             <a href="https://demarche.mfprsp.com/#/connexion" target="_blank"
                                                 class="text-decoration-none">
-                                                🔗 Attestation de non fonctionnaire
+                                                Attestation de non fonctionnaire
                                             </a>
                                         </li>
                                     </ul>
@@ -510,23 +510,22 @@
                             </div>
 
                             <hr>
-                            <h5 class="card-title">JOINDRE VOS SCANS DE DOSSIERS</h5>
+
+                            <!-- Section formulaire upload -->
+                            <h5 class="card-title mb-3">JOINDRE VOS SCANS DE DOSSIERS</h5>
                             <form method="post" action="{{ route('files.update', $operateur?->user) }}"
                                 enctype="multipart/form-data" class="row g-3">
                                 @csrf
                                 @method('patch')
                                 <input type="hidden" name="idUser" value="{{ $operateur?->user->id }}">
-                                {{-- <span style="color:red;">NB:</span>
-                                <span>Télécharger toutes les pièces justificatives</span>
-                                <span style="color:red;">exigées</span>. --}}
+
+                                <!-- Liste des documents à fournir -->
                                 <div class="col-12 col-lg-6">
                                     <div class="card border-info shadow-sm mb-4">
                                         <div class="card-body">
-                                            <h5 class="card-title text-info mb-3">
-                                                🔗 Veuillez fournir les documents suivants
-                                            </h5>
+                                            <h5 class="card-title text-info mb-3">Veuillez fournir les documents suivants</h5>
 
-                                            <!-- Section Privé -->
+                                            <!-- Privé -->
                                             <h6 class="fw-bold text-primary mt-2">Pour le privé :</h6>
                                             <ul class="list-unstyled ps-3 mb-3">
                                                 <li><i class="bi bi-check-circle text-success me-2"></i>Quitus fiscal <span
@@ -536,94 +535,82 @@
                                                 <li><i class="bi bi-check-circle text-success me-2"></i>Attestation de non
                                                     fonctionnaire ou carte de retraite <span class="text-danger">*</span></li>
                                                 <li><i class="bi bi-check-circle text-success me-2"></i>Convention de
-                                                    partenariat
-                                                    ou contrat de location à usage professionnel <span
-                                                        class="text-danger">*</span>
-                                                </li>
+                                                    partenariat ou contrat de location à usage professionnel <span
+                                                        class="text-danger">*</span></li>
                                                 <li><i class="bi bi-check-circle text-muted me-2"></i>Acte de création, arrêté
-                                                    de
-                                                    création ou récépissé de déclaration <small class="text-muted">(si
-                                                        disponible)</small></li>
+                                                    de création ou récépissé <small class="text-muted">(si disponible)</small>
+                                                </li>
                                             </ul>
 
-                                            <!-- Section Public -->
+                                            <!-- Public -->
                                             <h6 class="fw-bold text-primary mt-2">Pour le public :</h6>
                                             <ul class="list-unstyled ps-3 mb-0">
                                                 <li><i class="bi bi-check-circle text-success me-2"></i>Acte de création ou
-                                                    arrêté de
-                                                    création<span class="text-danger">*</span></li>
+                                                    arrêté de création <span class="text-danger">*</span></li>
                                                 <li><i class="bi bi-check-circle text-muted me-2"></i>Ninéa ou registre de
-                                                    commerce <small class="text-muted">(si
-                                                        disponible)</small></li>
+                                                    commerce <small class="text-muted">(si disponible)</small></li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- Profile Edit Form -->
+                                <!-- Upload Formulaire -->
                                 <div class="col-12 col-lg-6">
                                     <div class="card border-primary shadow-sm mb-4">
                                         <div class="card-body">
+
+                                            <!-- Sélection légende -->
                                             <div class="row mb-3 mt-3">
-                                                <label for="legende" class="col-12 col-form-label">LEGENDE<span
-                                                        class="text-danger mx-1">*</span></label>
-                                                <div class="col-12 col-lg-12 col-sm-12 col-xs-12">
+                                                <label for="legende" class="col-12 col-form-label">LEGENDE <span
+                                                        class="text-danger">*</span></label>
+                                                <div class="col-12">
                                                     <select name="legende"
-                                                        class="form-select  @error('legende') is-invalid @enderror"
-                                                        aria-label="Select" id="select-field-file"
-                                                        data-placeholder="Choisir">
-                                                        <option value="{{ old('legende') }}">
-                                                            {{ old('legende') }}
-                                                        </option>
+                                                        class="form-select @error('legende') is-invalid @enderror"
+                                                        id="select-field-file" data-placeholder="Choisir">
+                                                        <option value="{{ old('legende') }}">{{ old('legende') }}</option>
                                                         @foreach ($user_files as $file)
-                                                            <option value="{{ $file?->id }}">
-                                                                {{ $file?->legende }}
+                                                            <option value="{{ $file?->id }}">{{ $file?->legende }}
                                                             </option>
                                                         @endforeach
                                                     </select>
                                                     @error('legende')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <div>{{ $message }}</div>
-                                                        </span>
+                                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                                     @enderror
                                                 </div>
                                             </div>
 
+                                            <!-- Choisir fichier -->
                                             <div class="row mb-3 mt-3">
-                                                <label for="file" class="col-12 col-form-label">CHOISIR FICHIER<span
-                                                        class="text-danger mx-1">*</span></label>
-                                                <div class="col-12 col-lg-12 col-sm-12 col-xs-12">
-                                                    <div class="pt-2">
-                                                        <input type="file" name="file" id="file"
-                                                            class="form-control @error('file') is-invalid @enderror btn btn-info btn-sm">
-                                                        @error('file')
-                                                            <span class="text-danger">{{ $message }}</span>
-                                                        @enderror
-                                                    </div>
+                                                <label for="file" class="col-12 col-form-label">CHOISIR FICHIER <span
+                                                        class="text-danger">*</span></label>
+                                                <div class="col-12">
+                                                    <input type="file" name="file" id="file"
+                                                        class="form-control @error('file') is-invalid @enderror btn btn-info btn-sm">
+                                                    @error('file')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                             </div>
 
+                                            <!-- Bouton téléverser -->
                                             <div class="row mb-3">
-                                                <label for="file" class="col-12 col-form-label">
-                                                    Téléverser un fichier <span class="text-danger mx-1">*</span>
-                                                </label>
                                                 <div class="col-12">
-                                                    <div class="pt-2">
-                                                        <button type="submit" class="btn btn-primary btn-sm text-white">
-                                                            <i class="bi bi-upload me-1"></i> Téléverser
-                                                        </button>
-                                                    </div>
+                                                    <button type="submit" class="btn btn-primary btn-sm text-white">
+                                                        <i class="bi bi-upload me-1"></i> Téléverser
+                                                    </button>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
                             </form>
+
+                            <!-- Fichiers joints -->
                             <div class="row pt-5">
-                                <h5 class="card-title col-12">
-                                    FICHIERS JOINTS</h5>
+                                <h5 class="card-title col-12">FICHIERS JOINTS</h5>
                                 @if ($files->isNotEmpty())
-                                    <div class="col-12 col-lg-12 col-sm-12 col-xs-12">
+                                    <div class="col-12">
                                         <div class="table-responsive">
                                             <table class="table table-bordered table-hover datatables" id="table-files">
                                                 <thead>
@@ -637,7 +624,6 @@
                                                             <th style="width: 10%">Valider</th>
                                                             <th style="width: 10%">Rejeter</th>
                                                         @endhasanyrole
-                                                        </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -665,7 +651,8 @@
                                                                 <span
                                                                     class="badge bg-{{ $badgeClass }}">{{ $statut }}</span>
                                                             </td>
-                                                            {{-- Supprimer --}}
+
+                                                            <!-- Supprimer -->
                                                             <td>
                                                                 @if ($file->statut !== 'Validé')
                                                                     <form action="{{ route('fileDestroy') }}" method="post"
@@ -684,7 +671,7 @@
                                                             </td>
 
                                                             @hasanyrole('super-admin|admin|DIOF')
-                                                                {{-- Valider --}}
+                                                                <!-- Valider -->
                                                                 <td>
                                                                     <form action="{{ route('fileValidate') }}" method="post"
                                                                         class="d-inline">
@@ -699,7 +686,7 @@
                                                                         </button>
                                                                     </form>
                                                                 </td>
-                                                                {{-- Invalider --}}
+                                                                <!-- Rejeter -->
                                                                 <td>
                                                                     <form action="{{ route('fileInvalide') }}" method="post"
                                                                         class="d-inline">
