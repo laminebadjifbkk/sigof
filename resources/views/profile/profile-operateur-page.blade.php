@@ -816,7 +816,7 @@
                                                         class="form-control form-control-sm @error('cin') is-invalid @enderror"
                                                         id="cin" value="{{ $user?->cin ?? old('cin') }}"
                                                         autocomplete="off" placeholder="Ex: 1099200500012"
-                                                        minlength="13" maxlength="14">
+                                                        minlength="9" maxlength="14">
                                                 </div>
                                                 @error('cin')
                                                     <span class="text-danger">{{ $message }}</span>

@@ -651,7 +651,7 @@ class IndividuelleController extends Controller
         // 🔹 Validation conditionnelle selon type_piece
         $validator->sometimes('cin', ['regex:/^[A-Z0-9]{13,14}$/i'], fn($input) => $input->type_piece === 'cni');
         $validator->sometimes('cin', ['regex:/^[0-9\/]{10}$/'], fn($input) => $input->type_piece === 'extrait');
-        $validator->sometimes('cin', ['digits:9'], fn($input) => $input->type_piece === 'passeport');
+        $validator->sometimes('cin', ['regex:/^[A-Z0-9]{9}$/i'], fn($input) => $input->type_piece === 'passeport');
 
         // Validation finale
         $data = $validator->validate();
@@ -952,7 +952,7 @@ class IndividuelleController extends Controller
         // 🔹 Validation conditionnelle selon type_piece
         $validator->sometimes('cin', ['regex:/^[A-Z0-9]{13,14}$/i'], fn($input) => $input->type_piece === 'cni'); // CNI avec lettres/chiffres
         $validator->sometimes('cin', ['regex:/^[0-9\/]{10}$/'], fn($input) => $input->type_piece === 'extrait');
-        $validator->sometimes('cin', ['digits:9'], fn($input) => $input->type_piece === 'passeport');
+        $validator->sometimes('cin', ['regex:/^[A-Z0-9]{9}$/i'], fn($input) => $input->type_piece === 'passeport');
 
         $data = $validator->validate();
 

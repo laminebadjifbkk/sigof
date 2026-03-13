@@ -2124,7 +2124,7 @@
                                     style="{{ old('personne') === 'autre' ? '' : 'display: none;' }}">
                                     <div class="mb-3">
                                         <label for="cin" class="form-label">N° CIN</label>
-                                        <input type="text" name="cin" minlength="13" maxlength="14"
+                                        <input type="text" name="cin" minlength="9" maxlength="14"
                                             value="{{ old('cin') }}"
                                             class="form-control form-control-sm @error('cin') is-invalid @enderror"
                                             placeholder="Numéro carte d'identité nationale">

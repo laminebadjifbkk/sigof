@@ -126,12 +126,12 @@
                     <div class="col-md-6 mb-3">
                         <label>N° CIN <span class="text-danger">*</span></label>
                         {{-- <input type="text" name="cin" class="form-control form-control-sm"
-                            value="{{ old('cin') }}" required minlength="13" maxlength="14"> --}}
+                            value="{{ old('cin') }}" required minlength="9" maxlength="14"> --}}
 
                         <input name="cin" type="text"
                             class="form-control form-control-sm @error('cin') is-invalid @enderror" id="cin"
                             value="{{ old('cin') }}" autocomplete="off" placeholder="Ex: 1099200500012"
-                            minlength="13" maxlength="14" required>
+                            minlength="9" maxlength="14" required>
                         @error('cin')
                             <span class="invalid-feedback" role="alert">
                                 <div>{{ $message }}</div>

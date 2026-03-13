@@ -226,7 +226,7 @@
                                         <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                             <label for="cin" class="form-label">N° CIN<span
                                                     class="text-danger mx-1">*</span></label>
-                                            <input minlength="13" maxlength="14" type="text" name="cin"
+                                            <input minlength="9" maxlength="14" type="text" name="cin"
                                                 value="{{ old('cin') }}"
                                                 class="form-control form-control-sm @error('cin') is-invalid @enderror"
                                                 id="cin" placeholder="Numéro carte d'identité nationale">
@@ -788,7 +788,7 @@
                                                     <input name="cin" type="text"
                                                         class="form-control form-control-sm @error('cin') is-invalid @enderror"
                                                         id="cin2" value="{{ old('cin') }}" autocomplete="off"
-                                                        placeholder="Ex: 1099200500012" minlength="13" maxlength="14">
+                                                        placeholder="Ex: 1099200500012" minlength="9" maxlength="14">
                                                     @error('cin')
                                                         <span class="invalid-feedback" role="alert">
                                                             <div>{{ $message }}</div>
