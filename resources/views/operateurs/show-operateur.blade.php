@@ -468,13 +468,6 @@
                                 @can('update', $operateur)
                                     <div
                                         class="card-footer bg-light text-center py-3 border-top d-flex justify-content-center gap-3">
-                                        {{-- Bouton Modifier --}}
-                                        {{-- <button class="btn btn-warning btn-sm text-white px-4" title="Modifier"
-                                            data-bs-toggle="modal" data-bs-target="#EditOperateurModal{{ $operateur->id }}">
-                                            <i class="bi bi-pencil me-1"></i> Modifier
-                                        </button> --}}
-
-                                        {{-- Bouton Supprimer --}}
                                         @can('devenir-operateur-agrement-delete')
                                             @can('delete', $operateur)
                                                 <form action="{{ route('operateurs.destroy', $operateur) }}" method="post"
@@ -911,23 +904,6 @@
                                 <input type="hidden" name="id" value="{{ $operateur->id }}">
 
                                 <div class="row g-4">
-                                    {{-- Type de demande --}}
-                                    {{-- <div class="col-12">
-                                    <label for="type_demande" class="form-label fw-semibold">Type de demande <span
-                                            class="text-danger">*</span></label>
-                                    <select name="type_demande" id="select-field-registre"
-                                        class="form-select form-select-sm @error('type_demande') is-invalid @enderror">
-                                        <option value="{{ $operateur?->type_demande }}">
-                                            {{ $operateur?->type_demande }}</option>
-                                        <option value="Nouvelle">Nouvelle</option>
-                                        <option value="Renouvellement">Renouvellement</option>
-                                        <option value="Extension">Extension</option>
-                                    </select>
-                                    @error('type_demande')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div> --}}
-
                                     <input name="type_demande" type="hidden" value="Nouvelle">
 
                                     {{-- Département --}}
@@ -946,37 +922,12 @@
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
-
-                                    {{-- Quitus --}}
-                                    {{-- <div class="col-12 col-lg-11">
-                                        <label for="quitus" class="form-label fw-semibold">Quitus fiscal <span
-                                                class="text-danger">*</span></label>
-                                        <input type="file" name="quitus" id="quitus"
-                                            class="form-control form-control-sm @error('quitus') is-invalid @enderror"
-                                            accept=".jpg, .jpeg, .png, .svg, .gif">
-                                        @error('quitus')
-                                            <div class="text-danger small mt-1">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="col-lg-1 d-flex align-items-end">
-                                        <a href="{{ asset($operateur?->getQuitus()) }}"
-                                            class="btn btn-outline-secondary btn-sm" target="_blank"
-                                            title="Télécharger le quitus">
-                                            <i class="bi bi-file-image"></i>
-                                        </a>
-                                    </div> --}}
-
-                                    {{-- Date visa quitus --}}
                                     <div class="col-12">
                                         <label for="date_quitus" class="form-label fw-semibold">Date visa quitus</label>
-                                        {{--  <input type="date" name="date_quitus" id="date_quitus"
-                                            value="{{ $operateur?->debut_quitus?->format('Y-m-d') ?? old('date_quitus') }}"
-                                            class="form-control form-control-sm @error('date_quitus') is-invalid @enderror"> --}}
-                                        <input type="text" name="date_quitus"
+                                        <input type="date" name="date_quitus"
                                             value="{{ old('date_quitus', optional($operateur?->debut_quitus)->format('d/m/Y')) }}"
                                             class="form-control form-control-sm @error('date_quitus') is-invalid @enderror"
-                                            id="datepicker" placeholder="JJ/MM/AAAA" autocomplete="bday">
+                                            placeholder="JJ/MM/AAAA" autocomplete="bday">
 
                                         @error('date_quitus')
                                             <div class="invalid-feedback">{{ $message }}</div>

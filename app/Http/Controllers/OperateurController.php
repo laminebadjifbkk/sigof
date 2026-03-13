@@ -337,6 +337,7 @@ class OperateurController extends Controller
                 'dateQuitus',
                 'diffInMonths',
                 'diffText',
+                'sections',
             )
         );
     }
@@ -356,12 +357,12 @@ class OperateurController extends Controller
             "departement"  => "required|string",
             "type_demande" => "required|in:Nouvelle,Renouvellement,Extension",
             // Appliquer la règle conditionnellement
-            "date_quitus"  => [
+            'date_quitus' => [
+                'nullable',
                 Rule::requiredIf(function () use ($user) {
                     return $user->categorie !== 'Public' || $user->statut !== 'Etablissement public';
                 }),
-                'nullable', // Permet de ne rien mettre si ce n'est pas requis
-                'date_format:d/m/Y',
+                'date',
             ],
         ]);
 
@@ -1007,10 +1008,10 @@ class OperateurController extends Controller
     public function updated(Request $request, $uuid)
     {
         $operateur = Operateur::findOrFail($request->id);
-        if (strtolower($operateur->file8) === 'oui') {
+        /* if (strtolower($operateur->file8) === 'oui') {
             Alert::error('Attention !', 'Impossible de modifier car les informations ont déjà certifiés.');
             return redirect()->back();
-        }
+        } */
         $user        = $operateur->user;
         $departement = Departement::where('nom', $request->input("departement"))->firstOrFail();
 
@@ -1018,12 +1019,12 @@ class OperateurController extends Controller
             "departement"  => "required|string",
             "type_demande" => "required|in:Nouvelle,Renouvellement,Extension",
             // Appliquer la règle conditionnellement
-            "date_quitus"  => [
+            'date_quitus' => [
+                'nullable',
                 Rule::requiredIf(function () use ($user) {
                     return $user->categorie !== 'Public' || $user->statut !== 'Etablissement public';
                 }),
-                'nullable', // Permet de ne rien mettre si ce n'est pas requis
-                'date_format:d/m/Y',
+                'date',
             ],
         ]);
 
@@ -1048,9 +1049,12 @@ class OperateurController extends Controller
             Alert::warning('Attention !', 'Action impossible');
             return redirect()->back();
         } */
+       
+        $dateString = $request->input('date_quitus');
 
-        $dateString  = $request->input('date_quitus');
-        $date_quitus = ! empty($dateString) ? Carbon::createFromFormat('d/m/Y', $dateString) : null;
+        $date_quitus = !empty($dateString)
+            ? Carbon::createFromFormat('Y-m-d', $dateString)
+            : null;
 
         $operateur->update([
             "type_demande"    => $request->input("type_demande"),
@@ -1229,6 +1233,40 @@ class OperateurController extends Controller
         $dateQuitus = $operateur?->debut_quitus;
         $diff       = $dateQuitus?->diff(now()); */
 
+
+        $departements = Departement::orderBy("nom", "asc")->get();
+
+        $labels = [
+            'Ninea ou registre de commerce' => 'Registre de commerce',
+        ];
+
+        $user_files = File::whereNull('file')
+            ->whereNull('users_id')
+            ->whereIn(
+                'sigle',
+                [
+                    'Ninea/RC',
+                    'Ninea',
+                    'AC',
+                    'Quitus',
+                    'Arrêté',
+                    'Non-fonctionnaire',
+                    'Organigramme',
+                    'Contrat',
+                    'Titre',
+                    'Justificatif',
+                    'ADEDGI',
+                    'ABE',
+                    'CME',
+                    'CP',
+                    'DENO',
+                    'Bail',
+                ]
+            )
+            ->orderBy('sigle', 'asc')
+            ->distinct()
+            ->get();
+
         $dateAgrement = $operateur->commissionagrements()
             ->orderByDesc('date')
             ->first();
@@ -1243,7 +1281,8 @@ class OperateurController extends Controller
             : null;
         $estExtension = $dateExtension?->isPast();
 
-        $dateQuitus = $operateur?->debut_quitus
+
+        /* $dateQuitus = $operateur?->debut_quitus
             ? Carbon::parse($operateur?->debut_quitus)
             : null;
         $diff = $dateQuitus?->diff(now());
@@ -1261,7 +1300,60 @@ class OperateurController extends Controller
             } else {
                 $diffText = $diff->d . ' jours';
             }
-        }
+        } */
+
+
+        $dateQuitus = $operateur?->debut_quitus
+            ? Carbon::parse($operateur->debut_quitus)
+            : null;
+
+        // Calcul de la différence pour le texte
+        $diffText = $dateQuitus?->locale('fr')->diffForHumans(now(), true);
+
+        // Calcul de la différence en mois pour le badge
+        $diffInMonths = $dateQuitus ? ($dateQuitus->diffInYears(now()) * 12 + $dateQuitus->diffInMonths(now()) % 12) : 0;
+
+        $sections = [
+            [
+                'label' => 'Modules',
+                'icon' => 'bi-journal-code text-info',
+                'count' => $operateur->operateurmodules->count(),
+                'route' => route('operateurs.show', $operateur),
+            ],
+            [
+                'label' => 'Références',
+                'icon' => 'bi-bookmark-check text-primary',
+                'count' => $operateur->operateureferences->count(),
+                'route' => route('showReference', $operateur->uuid),
+            ],
+            [
+                'label' => 'Équipements & Infrastructures',
+                'icon' => 'bi-hdd-network text-warning',
+                'count' => $operateur->operateurequipements->count(),
+                'route' => route('showEquipement', $operateur->uuid),
+            ],
+            [
+                'label' => 'Formateurs',
+                'icon' => 'bi-person-workspace text-success',
+                'count' => $operateur->operateurformateurs->count(),
+                'route' => route('showFormateur', $operateur->uuid),
+            ],
+            [
+                'label' => 'Localités',
+                'icon' => 'bi-geo-alt text-danger',
+                'count' => $operateur->operateurlocalites->count(),
+                'route' => route('showLocalite', $operateur->uuid),
+            ],
+
+            [
+                'label' => 'Validité quitus',
+                'icon' => 'bi-file-earmark-text text-dark',
+                'count' => $diffText,
+                'badge' => $diffInMonths > 3 ? 'bg-danger' : 'bg-info',
+                /* 'route' => null, */
+                'modal' => "EditOperateurModal{$operateur->id}",
+            ],
+        ];
 
         return view(
             "operateurs.agrements.show",
@@ -1282,8 +1374,11 @@ class OperateurController extends Controller
                 'dateExtension',
                 'estExtension',
                 'dateQuitus',
-                'diff',
+                'diffInMonths',
                 'diffText',
+                'sections',
+                'departements',
+                'labels',
             )
         );
     }
@@ -1668,8 +1763,6 @@ class OperateurController extends Controller
         $operateurA = Operateur::where('users_id', $user->id)->orderBy("created_at", "desc")->get();
         $operateurs = Operateur::all();
 
-        $departements = Departement::orderBy("nom", "asc")->get();
-
         $operateur_total = $operateurs->count();
 
         // Récupérer les fichiers associés à l'utilisateur
@@ -1683,6 +1776,8 @@ class OperateurController extends Controller
             ->whereNotIn('sigle', ['CIN', 'DAC', 'DP', 'CR', 'AD', 'Bulletins', 'Permis'])
             ->distinct()
             ->get(); */
+
+        $departements = Departement::orderBy("nom", "asc")->get();
 
         $labels = [
             'Ninea ou registre de commerce' => 'Registre de commerce',

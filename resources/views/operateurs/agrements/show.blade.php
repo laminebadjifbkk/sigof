@@ -557,9 +557,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="card-body px-4">
-
-                                            {{-- MODULES --}}
+                                        {{-- <div class="card-body px-4">
                                             <div
                                                 class="d-flex justify-content-between align-items-center border-bottom py-1 position-relative">
                                                 <div class="d-flex align-items-center">
@@ -584,7 +582,6 @@
                                             </div>
 
 
-                                            {{-- REFERENCES --}}
                                             <div
                                                 class="d-flex justify-content-between align-items-center border-bottom py-1 position-relative">
                                                 <div class="d-flex align-items-center">
@@ -603,7 +600,6 @@
                                                 </div>
                                             </div>
 
-                                            {{-- EQUIPEMENTS --}}
                                             <div
                                                 class="d-flex justify-content-between align-items-center border-bottom py-1 position-relative">
                                                 <div class="d-flex align-items-center">
@@ -623,7 +619,6 @@
                                                 </div>
                                             </div>
 
-                                            {{-- FORMATEURS --}}
                                             <div
                                                 class="d-flex justify-content-between align-items-center border-bottom py-1 position-relative">
                                                 <div class="d-flex align-items-center">
@@ -642,7 +637,6 @@
                                                 </div>
                                             </div>
 
-                                            {{-- LOCALITES --}}
                                             <div
                                                 class="d-flex justify-content-between align-items-center border-bottom py-1 position-relative">
                                                 <div class="d-flex align-items-center">
@@ -661,19 +655,7 @@
                                                 </div>
                                             </div>
 
-                                            {{-- ÉTAT (sans bouton) --}}
-                                            <div
-                                                class="d-flex justify-content-between align-items-center border-bottom py-1 position-relative">
-                                                <div class="d-flex align-items-center">
-                                                    <i class="bi bi-info-circle text-secondary me-2"></i>État
-                                                    de la demande
-                                                    <span
-                                                        class="badge {{ $statut_demande === 'incomplète' ? 'bg-danger' : 'bg-success' }} position-absolute top-50 start-50 translate-middle-y"
-                                                        style="transform: translateX(-50%);">{{ $statut_demande }}</span>
-                                                </div>
-                                            </div>
 
-                                            {{-- QUITUS --}}
                                             <div
                                                 class="d-flex justify-content-between align-items-center border-bottom py-1 position-relative">
                                                 <div class="d-flex align-items-center">
@@ -688,7 +670,18 @@
                                                     @endif
                                                 </div>
                                             </div>
-                                            {{-- Certifier informations --}}
+
+                                            <div
+                                                class="d-flex justify-content-between align-items-center border-bottom py-1 position-relative">
+                                                <div class="d-flex align-items-center">
+                                                    <i class="bi bi-info-circle text-secondary me-2"></i>État
+                                                    de la demande
+                                                    <span
+                                                        class="badge {{ $statut_demande === 'incomplète' ? 'bg-danger' : 'bg-success' }} position-absolute top-50 start-50 translate-middle-y"
+                                                        style="transform: translateX(-50%);">{{ $statut_demande }}</span>
+                                                </div>
+                                            </div>
+
                                             <div
                                                 class="d-flex justify-content-between align-items-center border-bottom py-1 position-relative">
                                                 <div class="d-flex align-items-center">
@@ -705,14 +698,122 @@
                                                     </span>
                                                 </div>
                                             </div>
+                                        </div> --}}
+
+                                        <div class="card-body px-4">
+
+                                            @foreach ($sections as $section)
+                                                <div
+                                                    class="d-flex justify-content-between align-items-center border-bottom py-1 position-relative">
+
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="bi {{ $section['icon'] }} me-2"></i>
+                                                        {{ $section['label'] }}
+
+                                                        @if (isset($section['count']))
+                                                            <span
+                                                                class="badge {{ $section['badge'] ?? ($section['count'] === 0 ? 'bg-danger' : 'bg-info') }}
+            position-absolute top-50 start-50 translate-middle-y"
+                                                                style="transform: translateX(-50%);">
+                                                                {{ $section['count'] }}
+                                                            </span>
+                                                        @endif
+                                                    </div>
+
+                                                    <div>
+                                                        @if (!empty($section['route']))
+                                                            <a href="{{ $section['route'] }}" target="_blank"
+                                                                class="btn btn-sm btn-outline-success">
+                                                                <i class="bi bi-pencil-square me-1"></i> Ajouter / Modifier
+                                                            </a>
+                                                        @elseif(!empty($section['modal']))
+                                                            <button class="btn btn-sm btn-outline-success"
+                                                                title="Modifier" data-bs-toggle="modal"
+                                                                data-bs-target="#{{ $section['modal'] }}">
+                                                                <i class="bi bi-pencil-square me-1"></i> Ajouter / Modifier
+                                                            </button>
+                                                        @endif
+                                                    </div>
+
+                                                </div>
+                                            @endforeach
+
+                                            {{-- ETAT DEMANDE --}}
+                                            <div
+                                                class="d-flex justify-content-between align-items-center border-bottom py-1 position-relative">
+                                                <div class="d-flex align-items-center">
+                                                    <i class="bi bi-info-circle text-secondary me-2"></i>
+                                                    État de la demande
+
+                                                    <span
+                                                        class="badge {{ $statut_demande === 'incomplète' ? 'bg-danger' : 'bg-success' }}
+            position-absolute top-50 start-50 translate-middle-y"
+                                                        style="transform: translateX(-50%);">
+                                                        {{ $statut_demande }}
+                                                    </span>
+                                                </div>
+                                            </div>
+
+
+                                            {{-- CERTIFICATION --}}
+                                            @php $estCertifie = boolval($operateur->file8); @endphp
+
+                                            <div
+                                                class="d-flex justify-content-between align-items-center border-bottom py-1 position-relative">
+
+                                                <div class="d-flex align-items-center">
+                                                    <i class="bi bi-bookmark-check text-primary me-2"></i>
+                                                    Certifier informations
+
+                                                    <span
+                                                        class="badge {{ $estCertifie ? 'bg-success' : 'bg-danger' }}
+            position-absolute top-50 start-50 translate-middle-y"
+                                                        style="transform: translateX(-50%);">
+                                                        {!! $estCertifie ? '<i class="bi bi-check-circle"></i> Oui' : '<i class="bi bi-x-circle"></i> Non' !!}
+                                                    </span>
+                                                </div>
+
+                                                <div>
+                                                    @if ($statut_demande === 'complète')
+                                                        <button type="button" class="btn btn-sm btn-outline-primary"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#certificationModal{{ $operateur->id }}">
+                                                            <i class="bi bi-pencil-square me-1"></i>
+                                                            Je certifie
+                                                        </button>
+                                                    @else
+                                                        <span class="badge bg-warning text-dark p-2">
+                                                            <i class="bi bi-exclamation-triangle-fill me-1"></i>
+                                                            Demande incomplète
+                                                        </span>
+                                                    @endif
+                                                </div>
+
+                                            </div>
+
                                         </div>
 
                                         @can('update', $operateur)
                                             <div
                                                 class="card-footer bg-light text-center py-3 border-top d-flex justify-content-center gap-3">
+                                                @can('devenir-operateur-agrement-delete')
+                                                    @can('delete', $operateur)
+                                                        <form action="{{ route('operateurs.destroy', $operateur) }}" method="post"
+                                                            class="d-inline-block show_confirm">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-outline-danger btn-sm px-4"
+                                                                title="Supprimer">
+                                                                <i class="bi bi-trash me-1"></i> Supprimer
+                                                            </button>
+                                                        </form>
+                                                    @endcan
+                                                @endcan
                                             </div>
                                         @endcan
+
                                     </div>
+
                                     <div class="col-12 mb-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div
@@ -983,6 +1084,78 @@
                 </div>
             </div>
         </div>
+        @foreach ($operateurs as $operateur)
+            <div class="modal fade" id="EditOperateurModal{{ $operateur->id }}" tabindex="-1"
+                aria-labelledby="EditOperateurModalLabel{{ $operateur->id }}" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <form method="POST" action="{{ route('operateurs.updated', $operateur->uuid) }}"
+                            enctype="multipart/form-data">
+                            @csrf
+                            @method('PATCH')
+
+                            {{-- En-tête --}}
+                            <div class="card-header text-center bg-white border-bottom py-3">
+                                <h4 class="text-primary fw-bold mb-0">
+                                    <i class="bi bi-pencil-square me-2 text-dark"></i> Modification opérateur
+                                </h4>
+                            </div>
+
+                            {{-- Corps --}}
+                            <div class="modal-body px-4 pt-4">
+                                <input type="hidden" name="id" value="{{ $operateur->id }}">
+
+                                <div class="row g-4">
+
+                                    <input name="type_demande" type="hidden" value="Nouvelle">
+
+                                    {{-- Département --}}
+                                    <div class="col-12">
+                                        <label for="departement" class="form-label fw-semibold">Département <span
+                                                class="text-danger">*</span></label>
+                                        <select name="departement" id="select-field-departement-update"
+                                            class="form-select form-select-sm @error('departement') is-invalid @enderror">
+                                            <option value="{{ $operateur->departement?->nom }}">
+                                                {{ $operateur->departement?->nom }}</option>
+                                            @foreach ($departements as $departement)
+                                                <option value="{{ $departement->nom }}">{{ $departement->nom }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('departement')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    {{-- Date visa quitus --}}
+                                    <div class="col-12">
+                                        <label for="date_quitus" class="form-label fw-semibold">Date visa quitus</label>
+                                        <input type="date" name="date_quitus"
+                                            value="{{ old('date_quitus', optional($operateur?->debut_quitus)->format('d/m/Y')) }}"
+                                            class="form-control form-control-sm @error('date_quitus') is-invalid @enderror"
+                                            placeholder="JJ/MM/AAAA" autocomplete="bday">
+
+                                        @error('date_quitus')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- Pied de formulaire --}}
+                            <div class="modal-footer bg-light py-3 px-4 mt-4">
+                                <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">
+                                    <i class="bi bi-x-circle me-1"></i> Fermer
+                                </button>
+                                <button type="submit" class="btn btn-primary btn-sm">
+                                    <i class="bi bi-save me-1"></i> Enregistrer les modifications
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @endforeach
         <!-- Edit Operateur Module -->
         @foreach ($operateur->operateurmodules as $operateurmodule)
             <div class="modal fade" id="EditOperateurmoduleModal{{ $operateurmodule->id }}" tabindex="-1"
@@ -1320,7 +1493,8 @@
                                         $selectedStatut = old('statut', $operateurformateur?->statut);
                                     @endphp
                                     <select name="statut" id="statut-{{ $operateurformateur->id }}"
-                                        class="form-select form-select-sm @error('statut') is-invalid @enderror" autofocus>
+                                        class="form-select form-select-sm @error('statut') is-invalid @enderror"
+                                        autofocus>
                                         <option value="" {{ !$selectedStatut ? 'selected' : '' }}>
                                             Choisir
                                         </option>

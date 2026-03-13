@@ -36,7 +36,7 @@
                                     @method('PUT')
                                     <input type="hidden" name="id" value="{{ $operateur->id }}">
                                     <div class="row g-3">
-                                        <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="numero_dossier" class="form-label">Numéro dossier</label>
                                             <div class="input-group has-validation">
                                                 <input type="number" min="0" name="numero_dossier"
@@ -51,7 +51,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="numero_arrive" class="form-label">Numéro courrier</label>
                                             <div class="input-group has-validation">
                                                 <input type="number" min="0" name="numero_arrive"
@@ -66,7 +66,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="numero_agrement" class="form-label">Numéro agrément</label>
                                             <input type="text" name="numero_agrement"
                                                 value="{{ old('numero_agrement', $operateur->numero_agrement) }}"
@@ -79,91 +79,10 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12">
-                                            <label for="operateur" class="form-label">Raison sociale opérateur<span
-                                                    class="text-danger mx-1">*</span></label>
-                                            <textarea name="operateur" id="operateur" rows="1"
-                                                class="form-control form-control-sm @error('operateur') is-invalid @enderror"
-                                                placeholder="La raison sociale de l'opérateur">{{ old('operateur', $operateur?->user?->operateur) }}</textarea>
-                                            @error('operateur')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <div>{{ $message }}</div>
-                                                </span>
-                                            @enderror
-                                        </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
-                                            <label for="username" class="form-label">Sigle<span
-                                                    class="text-danger mx-1">*</span></label>
-                                            <input type="text" name="username"
-                                                value="{{ old('username', $operateur?->user?->username) }}"
-                                                class="form-control form-control-sm @error('username') is-invalid @enderror"
-                                                id="username" placeholder="Sigle">
-                                            @error('username')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <div>{{ $message }}</div>
-                                                </span>
-                                            @enderror
-                                        </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
-                                            <label for="email" class="form-label">Email<span
-                                                    class="text-danger mx-1">*</span></label>
-                                            <input type="text" name="email"
-                                                value="{{ old('email', $operateur?->user?->email) }}"
-                                                class="form-control form-control-sm @error('email') is-invalid @enderror"
-                                                id="email" placeholder="Adresse email">
-                                            @error('email')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <div>{{ $message }}</div>
-                                                </span>
-                                            @enderror
-                                        </div>
-
-                                        <div class="col-12 col-md-6 col-lg-4">
-                                            <label for="fixe" class="form-label">Téléphone fixe<span
-                                                    class="text-danger mx-1">*</span></label>
-                                            <input name="fixe" type="text" maxlength="12"
-                                                class="form-control form-control-sm @error('fixe') is-invalid @enderror"
-                                                id="fixe" value="{{ old('fixe', $operateur?->user?->fixe ?? '') }}"
-                                                autocomplete="tel" placeholder="XX:XXX:XX:XX">
-                                            @error('fixe')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <div>{{ $message }}</div>
-                                                </span>
-                                            @enderror
-                                        </div>
-
-                                        <div class="col-12 col-md-6 col-lg-4">
-                                            <label for="telephone" class="form-label">Téléphone<span
-                                                    class="text-danger mx-1">*</span></label>
-                                            <input name="telephone" type="text" maxlength="12"
-                                                class="form-control form-control-sm @error('telephone') is-invalid @enderror"
-                                                id="telephone"
-                                                value="{{ old('telephone', $operateur?->user?->telephone ?? '') }}"
-                                                autocomplete="tel" placeholder="XX:XXX:XX:XX">
-                                            @error('telephone')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <div>{{ $message }}</div>
-                                                </span>
-                                            @enderror
-                                        </div>
-
-                                        <div class="col-12 col-md-6 col-lg-4">
-                                            <label for="bp" class="form-label">Boite postal</label>
-                                            <input type="text" name="bp"
-                                                value="{{ old('bp', $operateur->user?->bp) }}"
-                                                class="form-control form-control-sm @error('bp') is-invalid @enderror"
-                                                id="bp" placeholder="Boite postal">
-                                            @error('bp')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <div>{{ $message }}</div>
-                                                </span>
-                                            @enderror
-                                        </div>
-
-                                        <div class="col-12 col-md-6 col-lg-4">
-                                            <label for="categorie" class="form-label">Statut<span
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
+                                            <label for="categorie" class="form-label">Type établissment<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="categorie"
                                                 class="form-select  @error('categorie') is-invalid @enderror"
@@ -189,7 +108,90 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12">
+                                            <label for="operateur" class="form-label">Raison sociale opérateur<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <textarea name="operateur" id="operateur" rows="1"
+                                                class="form-control form-control-sm @error('operateur') is-invalid @enderror"
+                                                placeholder="La raison sociale de l'opérateur">{{ old('operateur', $operateur?->user?->operateur) }}</textarea>
+                                            @error('operateur')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
+                                            <label for="username" class="form-label">Sigle<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <input type="text" name="username"
+                                                value="{{ old('username', $operateur?->user?->username) }}"
+                                                class="form-control form-control-sm @error('username') is-invalid @enderror"
+                                                id="username" placeholder="Sigle">
+                                            @error('username')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
+                                            <label for="email" class="form-label">Email<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <input type="text" name="email"
+                                                value="{{ old('email', $operateur?->user?->email) }}"
+                                                class="form-control form-control-sm @error('email') is-invalid @enderror"
+                                                id="email" placeholder="Adresse email">
+                                            @error('email')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
+                                            <label for="fixe" class="form-label">Téléphone fixe<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <input name="fixe" type="text" maxlength="12"
+                                                class="form-control form-control-sm @error('fixe') is-invalid @enderror"
+                                                id="fixe" value="{{ old('fixe', $operateur?->user?->fixe ?? '') }}"
+                                                autocomplete="tel" placeholder="XX:XXX:XX:XX">
+                                            @error('fixe')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
+                                            <label for="telephone" class="form-label">Téléphone<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <input name="telephone" type="text" maxlength="12"
+                                                class="form-control form-control-sm @error('telephone') is-invalid @enderror"
+                                                id="telephone"
+                                                value="{{ old('telephone', $operateur?->user?->telephone ?? '') }}"
+                                                autocomplete="tel" placeholder="XX:XXX:XX:XX">
+                                            @error('telephone')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
+                                            <label for="bp" class="form-label">Boite postal</label>
+                                            <input type="text" name="bp"
+                                                value="{{ old('bp', $operateur->user?->bp) }}"
+                                                class="form-control form-control-sm @error('bp') is-invalid @enderror"
+                                                id="bp" placeholder="Boite postal">
+                                            @error('bp')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="statut" class="form-label">Statut juridique<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="statut" class="form-select  @error('statut') is-invalid @enderror"
@@ -239,7 +241,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="autre_statut" class="form-label">Si autre ?
                                                 précisez</label>
                                             <input type="text" name="autre_statut"
@@ -253,7 +255,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="demande_signe" class="form-label">Demande signée</label>
                                             <select name="demande_signe"
                                                 class="form-select  @error('demande_signe') is-invalid @enderror"
@@ -276,7 +278,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="departement" class="form-label">Siège social<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="departement"
@@ -299,7 +301,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="type_demande" class="form-label">Type demande<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="type_demande"
@@ -322,7 +324,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="web" class="form-label">Site web</label>
                                             <input type="text" name="web"
                                                 value="{{ old('web', $operateur?->user?->web) }}"
@@ -335,7 +337,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-4 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="operateurcategorie" class="form-label">Catégorie</label>
                                             <select name="operateurcategorie"
                                                 class="form-select form-select-sm @error('operateurcategorie') is-invalid @enderror"
@@ -358,7 +360,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-8">
+                                        <div class="col-12">
                                             <label for="adresse" class="form-label">Adresse<span
                                                     class="text-danger mx-1">*</span></label>
                                             <textarea name="adresse" id="adresse" rows="1"
@@ -371,7 +373,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="registre_commerce" class="form-label">RCCM / Ninéa</label>
                                             <select name="registre_commerce"
                                                 class="form-select form-select-sm @error('registre_commerce') is-invalid @enderror"
@@ -400,7 +402,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="ninea" class="form-label">Numéro RCCM / Ninéa</label>
                                             <input type="text" name="ninea"
                                                 value="{{ old('ninea', $operateur?->user?->ninea) }}"
@@ -413,7 +415,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="quitusfiscal" class="form-label">Quitus fiscal</label>
                                             <select name="quitusfiscal"
                                                 class="form-select  @error('quitusfiscal') is-invalid @enderror"
@@ -436,7 +438,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
+                                        <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                             <label for="quitus" class="form-label">Scan quitus fiscal</label>
                                             <input type="file" name="quitus" id="quitus"
                                                 accept=".jpg, .jpeg, .png, .svg, .gif"
@@ -446,7 +448,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-12 col-lg-1 col-sm-12 col-xs-12 col-xxl-1">
+                                        <div class="col-12 col-md-12 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
                                             <label for="file_convention" class="form-label">Fichier</label>
                                             @if (!empty($operateur?->quitus))
                                                 <div>
@@ -461,7 +463,7 @@
                                             @endif
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="date_quitus" class="form-label">Date délivrance </label>
                                             <input type="text" name="date_quitus"
                                                 value="{{ old('date_quitus', optional($operateur?->debut_quitus)->format('d/m/Y')) }}"
@@ -474,7 +476,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="arrete_creation" class="form-label">Arrêté création</label>
                                             <select name="arrete_creation"
                                                 class="form-select  @error('arrete_creation') is-invalid @enderror"
@@ -506,7 +508,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
+                                        <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                             <label for="file_arrete_creation" class="form-label">Scan</label>
                                             <input type="file" name="file_arrete_creation" id="file_arrete_creation"
                                                 value="{{ old('file_arrete_creation') }}"
@@ -518,7 +520,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-12 col-lg-1 col-sm-12 col-xs-12 col-xxl-1">
+                                        <div class="col-12 col-md-12 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
                                             <label for="file_convention" class="form-label">Fichier</label>
                                             @if (!empty($operateur?->file_arrete_creation))
                                                 <div>
@@ -533,7 +535,7 @@
                                             @endif
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="formulaire_signe" class="form-label">Formulaire signée</label>
                                             <select name="formulaire_signe"
                                                 class="form-select  @error('formulaire_signe') is-invalid @enderror"
@@ -556,7 +558,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="cvsigne" class="form-label">CV signés</label>
                                             <select name="cvsigne"
                                                 class="form-select  @error('cvsigne') is-invalid @enderror"
@@ -580,7 +582,7 @@
 
                                         <hr class="dropdown-divider mt-5">
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="civilite" class="form-label">Civilité<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="civilite"
@@ -604,7 +606,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="prenom" class="form-label">Prénom responsable<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" name="prenom"
@@ -618,7 +620,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="nom" class="form-label">Nom responsable<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" name="nom"
@@ -632,7 +634,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="fonction_responsable" class="form-label">Fonction responsable<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" name="fonction_responsable"
@@ -646,7 +648,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="email_responsable" class="form-label">Adresse e-mail</label>
                                             <input type="email" name="email_responsable"
                                                 value="{{ old('email_responsable', $operateur?->user?->email_responsable) }}"
@@ -659,7 +661,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="telephone_parent" class="form-label">Téléphone responsable</label>
                                             <input name="telephone_parent" type="text" maxlength="12"
                                                 class="form-control form-control-sm @error('telephone_parent') is-invalid @enderror"
@@ -688,7 +690,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="username" class="form-label">Sigle<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" name="username"
@@ -702,7 +704,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="numero_agrement" class="form-label">Numéro agrément</label>
                                             <input type="text" name="numero_agrement"
                                                 value="{{ $operateur->numero_agrement ?? old('numero_agrement') }}"
@@ -715,7 +717,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="email" class="form-label">Email<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" name="email"
@@ -729,7 +731,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="fixe" class="form-label">Téléphone fixe<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="number" min="0" name="fixe"
@@ -743,7 +745,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="telephone" class="form-label">Téléphone<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="number" min="0" name="telephone"
@@ -757,7 +759,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="bp" class="form-label">Boite postal</label>
                                             <input type="text" name="bp"
                                                 value="{{ $operateur->user?->bp ?? old('bp') }}"
@@ -769,7 +771,7 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="categorie" class="form-label">Catégorie<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="categorie" class="form-select selectpicker"
@@ -796,7 +798,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="statut" class="form-label">Statut juridique<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="statut" class="form-select  @error('statut') is-invalid @enderror"
@@ -828,7 +830,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="autre_statut" class="form-label">Si autre ?
                                                 précisez</label>
                                             <input type="text" name="autre_statut"
@@ -855,7 +857,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="departement" class="form-label">Siège social<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="departement"
@@ -878,7 +880,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="registre_commerce" class="form-label">RCCM / Ninéa<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="registre_commerce"
@@ -902,7 +904,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="ninea" class="form-label">Numéro RCCM / Ninéa<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" name="ninea"
@@ -916,7 +918,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
+                                        <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                             <label for="quitus" class="form-label">N° quitus fiscal<span
                                                     class="text-danger mx-1">*</span></label>
 
@@ -926,7 +928,7 @@
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
-                                        <div class="col-12 col-md-12 col-lg-1 col-sm-12 col-xs-12 col-xxl-1">
+                                        <div class="col-12 col-md-12 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
                                             <label for="file_convention" class="form-label">Fichier</label>
                                             @if (!empty($operateur?->quitus))
                                                 <div>
@@ -939,7 +941,7 @@
                                                 <div class="badge bg-warning">Aucun</div>
                                             @endif
                                         </div>
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="date_quitus" class="form-label">Date délivrance<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="date" name="date_quitus"
@@ -953,7 +955,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="type_demande" class="form-label">TYPE<span
                                                     class="text-danger mx-1">*</span></label>
                                             <select name="type_demande"
