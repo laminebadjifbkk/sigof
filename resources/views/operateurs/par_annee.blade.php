@@ -181,8 +181,14 @@
                         <div class="card shadow-sm">
                             <div class="card-body">
 
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    {{ $total }}
+
+                                <div class="d-flex align-items-center gap-2">
+                                    <a href="{{ route('operateurs.index') }}" class="btn btn-outline-secondary btn-sm">
+                                        <i class="bi bi-arrow-left-circle"></i> Retour
+                                    </a> |
+                                    <h6 class="mb-0 text-muted fw-semibold text-uppercase">
+                                        Total {{ $total }}
+                                    </h6>
                                 </div>
 
                                 <div class="table-responsive">
