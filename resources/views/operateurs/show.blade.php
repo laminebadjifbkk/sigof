@@ -1030,7 +1030,8 @@
 
                                                             <!-- NIVEAU QUALIFICATION & EMPLOI OU METIER côte à côte -->
                                                             <div class="col-md-6">
-                                                                <label for="niveau_qualification" class="form-label">TITRE OU NIVEAU DE
+                                                                <label for="niveau_qualification" class="form-label">TITRE OU NIVEAU
+                                                                    DE
                                                                     QUALIFICATION <span class="text-danger">*</span></label>
                                                                 <select name="niveau_qualification"
                                                                     class="form-select form-select-sm @error('niveau_qualification') is-invalid @enderror"
@@ -1045,7 +1046,8 @@
                                                             </div>
 
                                                             <div class="col-md-6">
-                                                                <label for="categorie" class="form-label">CATEGORIE PROFESSIONNELLE</label>
+                                                                <label for="categorie" class="form-label">CATEGORIE
+                                                                    PROFESSIONNELLE</label>
                                                                 <input type="text" name="categorie"
                                                                     placeholder="Niveau de qualification"
                                                                     class="form-control form-control-sm @error('categorie') is-invalid @enderror" />

@@ -1607,22 +1607,31 @@ class OperateurController extends Controller
             ->distinct()
             ->get(); */
 
+        $labels = [
+            'Ninea ou registre de commerce' => 'Registre de commerce',
+        ];
+
         $user_files = File::whereNull('file')
             ->whereNull('users_id')
             ->whereIn(
                 'sigle',
                 [
                     'Ninea/RC',
+                    'Ninea',
                     'AC',
                     'Quitus',
                     'Arrêté',
                     'Non-fonctionnaire',
-                    'Carte',
                     'Organigramme',
                     'Contrat',
                     'Titre',
                     'Justificatif',
-                    'RIB'
+                    'ADEDGI',
+                    'ABE',
+                    'CME',
+                    'CP',
+                    'DENO',
+                    'Bail',
                 ]
             )
             ->orderBy('sigle', 'asc')
@@ -1793,6 +1802,7 @@ class OperateurController extends Controller
                     'dateExtension',
                     'estExtension',
                     'dateQuitus',
+                    'labels',
                     /* 'diff', */
                     'diffText',
                     'sections',

@@ -569,7 +569,8 @@
                                                         id="select-field-file" data-placeholder="Choisir">
                                                         <option value="{{ old('legende') }}">{{ old('legende') }}</option>
                                                         @foreach ($user_files as $file)
-                                                            <option value="{{ $file?->id }}">{{ $file?->legende }}
+                                                            <option value="{{ $file?->id }}">
+                                                                {{ $labels[$file?->legende] ?? $file?->legende }}
                                                             </option>
                                                         @endforeach
                                                     </select>
