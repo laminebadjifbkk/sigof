@@ -256,7 +256,7 @@ class OperateurController extends Controller
         $statut_demande = ($module_count === "complète" && $reference_count === "complète" && $equipement_count === "complète" &&
             $formateur_count === "complète" && $localite_count === "complète") ? "complète" : "incomplète";
 
-        $dateQuitus = $operateur?->debut_quitus;
+        /*  $dateQuitus = $operateur?->debut_quitus;
         $diff       = $dateQuitus?->diff(now());
 
         $diffText = '';
@@ -272,7 +272,59 @@ class OperateurController extends Controller
             } else {
                 $diffText = $diff->d . ' jours';
             }
-        }
+        } */
+
+        $dateQuitus = $operateur?->debut_quitus
+            ? Carbon::parse($operateur->debut_quitus)
+            : null;
+
+        // Calcul de la différence pour le texte
+        $diffText = $dateQuitus?->locale('fr')->diffForHumans(now(), true);
+
+        // Calcul de la différence en mois pour le badge
+        $diffInMonths = $dateQuitus ? ($dateQuitus->diffInYears(now()) * 12 + $dateQuitus->diffInMonths(now()) % 12) : 0;
+
+        $sections = [
+            [
+                'label' => 'Modules',
+                'icon' => 'bi-journal-code text-info',
+                'count' => $operateur->operateurmodules->count(),
+                'route' => route('operateurs.show', $operateur),
+            ],
+            [
+                'label' => 'Références',
+                'icon' => 'bi-bookmark-check text-primary',
+                'count' => $operateur->operateureferences->count(),
+                'route' => route('showReference', $operateur->uuid),
+            ],
+            [
+                'label' => 'Équipements & Infrastructures',
+                'icon' => 'bi-hdd-network text-warning',
+                'count' => $operateur->operateurequipements->count(),
+                'route' => route('showEquipement', $operateur->uuid),
+            ],
+            [
+                'label' => 'Formateurs',
+                'icon' => 'bi-person-workspace text-success',
+                'count' => $operateur->operateurformateurs->count(),
+                'route' => route('showFormateur', $operateur->uuid),
+            ],
+            [
+                'label' => 'Localités',
+                'icon' => 'bi-geo-alt text-danger',
+                'count' => $operateur->operateurlocalites->count(),
+                'route' => route('showLocalite', $operateur->uuid),
+            ],
+
+            [
+                'label' => 'Validité quitus',
+                'icon' => 'bi-file-earmark-text text-dark',
+                'count' => $diffText,
+                'badge' => $diffInMonths > 3 ? 'bg-danger' : 'bg-info',
+                /* 'route' => null, */
+                'modal' => "EditOperateurModal{$operateur->id}",
+            ],
+        ];
 
         return view(
             "operateurs.agrement",
@@ -283,7 +335,7 @@ class OperateurController extends Controller
                 "formateur_count",
                 "operateureferences",
                 'dateQuitus',
-                'diff',
+                'diffInMonths',
                 'diffText',
             )
         );

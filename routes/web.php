@@ -696,9 +696,6 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/operateurs/annee/{annee}', [OperateurController::class, 'parAnnee'])
             ->name('operateurs.parAnnee');
 
-        Route::get('/operateurs/statut/{statut}', [OperateurController::class, 'parStatutAgrement'])
-            ->name('operateurs.parStatutAgrement');
-
         Route::get('/operateurs/annee/{annee}/statut/{statut}', [OperateurController::class, 'parAnneeEtStatut'])
             ->name('operateurs.parAnneeEtStatut');
 
