@@ -610,7 +610,7 @@ class OperateurController extends Controller
         : null;*/
 
         $annee_agrement = $operateur->commissionagrements()
-            ->orderByDesc('date')
+            ->orderByDesc('fin_commission')
             ->first();
 
         /* $dateExpiration = $annee_agrement?->copy()->addYears(2);
