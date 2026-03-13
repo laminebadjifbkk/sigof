@@ -380,13 +380,12 @@
                                                     <i class="bi bi-pencil-square me-1"></i> Je certifie
                                                 </button>
                                             @else
-                                                <div
-                                                    class="alert alert-warning p-2 mb-0 d-flex align-items-start flex-wrap">
-                                                    <i class="bi bi-exclamation-triangle-fill text-warning me-2 mt-1"></i>
-                                                    <span>
+                                                <div class="alert alert-warning p-2 mb-0 d-flex gap-2">
+                                                    <i class="bi bi-exclamation-triangle-fill text-warning"></i>
+                                                    <div>
                                                         L'état de la demande doit être <strong>complète</strong> avant de
                                                         certifier.
-                                                    </span>
+                                                    </div>
                                                 </div>
                                             @endif
                                         </div>
