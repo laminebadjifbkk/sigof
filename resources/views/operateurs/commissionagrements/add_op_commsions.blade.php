@@ -132,6 +132,21 @@
                                                                                     Modifier
                                                                                 </button>
                                                                             </li>
+                                                                            {{-- Détacher --}}
+                                                                            <li>
+                                                                                <form
+                                                                                    action="{{ route('operateurs.detachCommission', ['operateur' => $operateur->id, 'commission' => $commissionagrement->id]) }}"
+                                                                                    method="POST"
+                                                                                    onsubmit="return confirm('Voulez-vous vraiment détacher cet opérateur de la commission ?');">
+                                                                                    @csrf
+                                                                                    @method('DELETE')
+                                                                                    <button type="submit"
+                                                                                        class="dropdown-item btn btn-sm mx-1">
+                                                                                        <i class="bi bi-x-circle"
+                                                                                            title="Détacher"></i> Détacher
+                                                                                    </button>
+                                                                                </form>
+                                                                            </li>
                                                                             {{-- <li>
                                                                                 <form
                                                                                     action="{{ route('operateurs.destroy', $operateur->id) }}"

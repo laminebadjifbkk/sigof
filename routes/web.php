@@ -412,6 +412,9 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::put('/retirerOperateur/{idoperateur}/{idcommission}', [OperateurController::class, 'retirerOperateurCommission'])->name('retirerOperateurCommission');
         Route::put('/projets/{id}/terminer', [ProjetController::class, 'terminer'])->name('terminerProjet');
 
+        Route::delete('/operateurs/{operateur}/detach-commission/{commission}', [OperateurController::class, 'detachCommission'])
+            ->name('operateurs.detachCommission');
+
         Route::get('/devenirOperateurs', [OperateurController::class, 'devenirOperateur'])->name('devenirOperateur');
         Route::get('/mesFormations', [OperateurController::class, 'mesFormations'])->name('mesFormations');
         Route::post('/addOperateur', [OperateurController::class, 'addOperateur'])->name('addOperateur');
@@ -820,11 +823,6 @@ Route::group(['middleware' => ['XSS']], function () {
 
         Route::get('/export-operateurs-all/{commissionagrement}', [OperateurController::class, 'exportAvecScansAll'])
             ->name('export.operateurs.all');
-
-        Route::delete(
-            '/operateurs/{operateur}/commissions/{commission}',
-            [OperateurController::class, 'detachCommission']
-        )->name('operateurs.detachCommission');
 
         // routes/web.php
 
