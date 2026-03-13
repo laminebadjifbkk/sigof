@@ -197,46 +197,47 @@
 
                         @foreach ($operateurA as $operateur)
                             <div class="card mb-4 shadow-sm border-0 w-100">
-                                <div
-                                    class="card-header bg-white border-bottom py-3 px-4 d-flex justify-content-between align-items-center">
-                                    <div>
-                                        {{-- @isset($operateur?->commissionagrement?->date)
-                                            <h5 class="mb-1 text-dark fw-bold d-flex align-items-center">
-                                                <i class="bi bi-building text-primary me-2 fs-5"></i>
-                                                <span>Date agrément :</span>
-                                                <span
-                                                    class="ms-2 text-primary">{{ $operateur?->commissionagrement?->date?->format('d/m/Y') ?? 'Non définie' }}</span>
-                                            </h5>
-                                        @endisset --}}
-                                        <div class="d-flex align-items-center mt-1">
-                                            <i class="bi bi-arrow-right-circle text-secondary me-2"></i>
-                                            <span class="fst-italic">Type de demande :</span>
-                                            <span class="ms-2 fw-semibold {{ $operateur?->type_demande }}">
-                                                {{ $operateur?->type_demande }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    @if ($operateur->commissionagrements->isNotEmpty())
-                                        <div>
-                                            <h5 class="mb-1 text-dark fw-bold d-flex align-items-center">
-                                                <i class="bi bi-building text-primary me-2 fs-5"></i>
-                                                <span>Date agrément :</span>
+                                <div class="card-header bg-white border-bottom py-3 px-4">
+                                    <div class="row align-items-center gy-2">
 
-                                                <span class="ms-2 text-primary">
-                                                    @foreach ($operateur->commissionagrements as $commission)
-                                                        {{ optional($commission->fin_commission)->format('d/m/Y') ?? 'Non définie' }}<br>
-                                                    @endforeach
+                                        {{-- Type de demande --}}
+                                        <div class="col-12 col-md-auto">
+                                            <div class="d-flex align-items-center flex-wrap">
+                                                <i class="bi bi-arrow-right-circle text-secondary me-2"></i>
+                                                <span class="fst-italic">Type de demande :</span>
+                                                <span class="ms-2 fw-semibold {{ $operateur?->type_demande }}">
+                                                    {{ $operateur?->type_demande }}
                                                 </span>
-                                            </h5>
+                                            </div>
                                         </div>
-                                    @endif
-                                    {{-- Statut sur une seule ligne --}}
-                                    <div class="d-flex align-items-center">
-                                        <span class="fw-semibold text-muted me-2">Statut :</span>
-                                        <span
-                                            class="badge {{ $operateur?->statut_agrement }} px-3 py-2 fs-6 shadow-sm rounded-pill">
-                                            {{ $operateur?->statut_agrement }}
-                                        </span>
+
+                                        {{-- Date agrément --}}
+                                        @if ($operateur->commissionagrements->isNotEmpty())
+                                            <div class="col-12 col-md text-md-center">
+                                                <div class="d-flex flex-wrap align-items-center justify-content-md-center">
+                                                    <i class="bi bi-building text-primary me-2"></i>
+                                                    <span class="fw-bold">Date agrément :</span>
+
+                                                    <span class="ms-2 text-primary">
+                                                        @foreach ($operateur->commissionagrements as $commission)
+                                                            {{ optional($commission->fin_commission)->format('d/m/Y') ?? 'Non définie' }}
+                                                        @endforeach
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        @endif
+
+                                        {{-- Statut --}}
+                                        <div class="col-12 col-md-auto text-md-end">
+                                            <div class="d-flex align-items-center justify-content-md-end">
+                                                <span class="fw-semibold text-muted me-2">Statut :</span>
+                                                <span
+                                                    class="badge {{ $operateur?->statut_agrement }} px-3 py-2 fs-6 shadow-sm rounded-pill">
+                                                    {{ $operateur?->statut_agrement }}
+                                                </span>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
 
