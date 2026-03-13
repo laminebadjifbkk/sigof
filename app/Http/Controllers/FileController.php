@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\File;
@@ -16,10 +17,11 @@ class FileController extends Controller
         $this->middleware(['role:super-admin|admin|DIOF|DEC|DPP|Operateur|Demandeur|courrier|a-courrier|Ingenieur']);
         $this->middleware("permission:file-update", ["only" => ["update"]]);
     }
+
     public function index()
     {
-        $files = File::get();
-        $users = User::get();
+        $files = File::latest()->limit(500)->get(); // Limite à 500 fichiers
+        $users = User::limit(500)->get(); // Limite à 500 utilisateurs
 
         return view('files.index', compact('files', 'users'));
     }
@@ -217,12 +219,16 @@ class FileController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
+        /* $this->validate($request, [
             'legende' => 'required|string',
             'user'    => 'required|string',
+        ]); */
+        $this->validate($request, [
+            'legende' => 'required|string',
+            'sigle'    => 'required|string',
         ]);
 
-        $file = File::where('legende', $request?->legende)?->first();
+        /* $file = File::where('legende', $request?->legende)?->first();
 
         $sigle = $file?->sigle;
 
@@ -230,9 +236,12 @@ class FileController extends Controller
             'legende'  => $request?->legende,
             'sigle'    => $sigle,
             'users_id' => $request?->user,
-        ]);
+        ]); */
 
-        $file?->save();
+        File::create([
+            'legende'  => $request?->legende,
+            'sigle'    => $request?->sigle,
+        ]);
 
         Alert::success('Succès !', 'fichier ajouté avec succès');
         return redirect()->back();

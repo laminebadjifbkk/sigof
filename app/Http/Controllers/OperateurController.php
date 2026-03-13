@@ -1609,7 +1609,22 @@ class OperateurController extends Controller
 
         $user_files = File::whereNull('file')
             ->whereNull('users_id')
-            ->whereIn('sigle', ['Ninea/RC', 'AC', 'Quitus', 'Arrêté', 'Non-fonctionnaire', 'Carte', 'Organigramme', 'Contrat', 'Titre', 'Justificatif', 'RIB'])
+            ->whereIn(
+                'sigle',
+                [
+                    'Ninea/RC',
+                    'AC',
+                    'Quitus',
+                    'Arrêté',
+                    'Non-fonctionnaire',
+                    'Carte',
+                    'Organigramme',
+                    'Contrat',
+                    'Titre',
+                    'Justificatif',
+                    'RIB'
+                ]
+            )
             ->orderBy('sigle', 'asc')
             ->distinct()
             ->get();

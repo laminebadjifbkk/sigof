@@ -127,7 +127,7 @@
         <div class="modal fade" id="AddFileModal" tabindex="-1">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <form method="post" action="{{ url('files') }}" enctype="multipart/form-data" class="row g-3">
+                    <form method="post" action="{{ route('files.store') }}" enctype="multipart/form-data" class="row g-3">
                         @csrf
                         <div class="modal-header">
                             <h5 class="modal-title"><i class="bi bi-plus" title="Ajouter"></i> Ajouter un file</h5>
@@ -136,6 +136,28 @@
                         <div class="modal-body">
                             <div class="row g-3">
                                 <div class="col-12">
+                                    <label for="legende" class="form-label">Légende<span
+                                            class="text-danger mx-1">*</span></label>
+                                    <input type="text" name="legende" value="{{ old('legende') }}" placeholder="Ajouter une légende"
+                                        class="form-control form-control-sm @error('legende') is-invalid @enderror">
+                                    @error('legende')
+                                        <span class="invalid-feedback" role="alert">
+                                            <div>{{ $message }}</div>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-12">
+                                    <label for="sigle" class="form-label">Sigle<span
+                                            class="text-danger mx-1">*</span></label>
+                                    <input type="text" name="sigle" value="{{ old('sigle') }}" placeholder="Ajouter le sigle"
+                                        class="form-control form-control-sm @error('sigle') is-invalid @enderror">
+                                    @error('sigle')
+                                        <span class="invalid-feedback" role="alert">
+                                            <div>{{ $message }}</div>
+                                        </span>
+                                    @enderror
+                                </div>
+                                {{-- <div class="col-12">
                                     <label for="legende" class="form-label">Légende<span
                                             class="text-danger mx-1">*</span></label>
                                     <select name="legende" class="form-select  @error('legende') is-invalid @enderror"
@@ -173,7 +195,7 @@
                                             <div>{{ $message }}</div>
                                         </span>
                                     @enderror
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -192,8 +214,8 @@
                 aria-labelledby="EditFileModalLabel{{ $file->id }}" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <form method="post" action="{{ route('files.update', $file->id) }}"
-                            enctype="multipart/form-data" class="row g-3">
+                        <form method="post" action="{{ route('files.update', $file->id) }}" enctype="multipart/form-data"
+                            class="row g-3">
                             @csrf
                             @method('patch')
                             <div class="modal-header" id="EditFileModalLabel{{ $file->id }}">
