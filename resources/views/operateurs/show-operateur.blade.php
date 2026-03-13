@@ -483,7 +483,7 @@
                                                     Je certifie
                                                 </button>
                                             @else
-                                                <span class="badge bg-warning text-dark p-2">
+                                                <span class="badge bg-warning text-white p-2">
                                                     <i class="bi bi-exclamation-triangle-fill me-1"></i>
                                                     Demande incomplète
                                                 </span>
