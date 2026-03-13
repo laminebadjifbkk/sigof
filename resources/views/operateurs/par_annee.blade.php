@@ -233,7 +233,7 @@
                             <div class="card-body">
 
                                 {{-- Header --}}
-                                <div class="d-flex flex-wrap align-items-center mb-3 gap-2">
+                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
                                     <a href="{{ route('operateurs.index') }}" class="btn btn-outline-secondary btn-sm">
                                         <i class="bi bi-arrow-left-circle"></i> Retour
                                     </a>
