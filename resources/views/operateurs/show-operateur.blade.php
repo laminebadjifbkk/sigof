@@ -388,26 +388,27 @@
                                                         class="badge {{ $section['badge'] ?? ($section['count'] === 0 ? 'bg-danger' : 'bg-info') }}
             position-absolute top-50 start-50 translate-middle-y"
                                                         style="transform: translateX(-50%);">
-
                                                         {{ $section['count'] }}
-
                                                     </span>
                                                 @endif
                                             </div>
 
-                                            @if (!empty($section['route']))
-                                                <div>
+                                            <div>
+                                                @if (!empty($section['route']))
                                                     <a href="{{ $section['route'] }}" target="_blank"
                                                         class="btn btn-sm btn-outline-success">
-                                                        <i class="bi bi-pencil-square me-1"></i>
-                                                        Ajouter / Modifier
+                                                        <i class="bi bi-pencil-square me-1"></i> Ajouter / Modifier
                                                     </a>
-                                                </div>
-                                            @endif
+                                                @elseif(!empty($section['modal']))
+                                                    <button class="btn btn-sm btn-outline-success" title="Modifier"
+                                                        data-bs-toggle="modal" data-bs-target="#{{ $section['modal'] }}">
+                                                        <i class="bi bi-pencil-square me-1"></i> Ajouter / Modifier
+                                                    </button>
+                                                @endif
+                                            </div>
 
                                         </div>
                                     @endforeach
-
 
                                     {{-- ETAT DEMANDE --}}
                                     <div
@@ -468,10 +469,10 @@
                                     <div
                                         class="card-footer bg-light text-center py-3 border-top d-flex justify-content-center gap-3">
                                         {{-- Bouton Modifier --}}
-                                        <button class="btn btn-warning btn-sm text-white px-4" title="Modifier"
+                                        {{-- <button class="btn btn-warning btn-sm text-white px-4" title="Modifier"
                                             data-bs-toggle="modal" data-bs-target="#EditOperateurModal{{ $operateur->id }}">
                                             <i class="bi bi-pencil me-1"></i> Modifier
-                                        </button>
+                                        </button> --}}
 
                                         {{-- Bouton Supprimer --}}
                                         @can('devenir-operateur-agrement-delete')
@@ -496,7 +497,7 @@
                             <!-- Section des liens utiles avec style Bootstrap -->
                             <div class="card border-info mb-4">
                                 <div class="card-body">
-                                    <h5 class="card-title text-info">📌 Les liens utiles</h5>
+                                    <h5 class="card-title text-info">Les liens utiles</h5>
                                     <ul class="list-unstyled ps-3 mb-0">
                                         <li>
                                             <a href="https://demarche.mfprsp.com/#/connexion" target="_blank"
@@ -509,7 +510,7 @@
                             </div>
 
                             <hr>
-                            <h5 class="card-title">📁 JOINDRE VOS SCANS DE DOSSIERS</h5>
+                            <h5 class="card-title">JOINDRE VOS SCANS DE DOSSIERS</h5>
                             <form method="post" action="{{ route('files.update', $operateur?->user) }}"
                                 enctype="multipart/form-data" class="row g-3">
                                 @csrf

@@ -1737,7 +1737,8 @@ class OperateurController extends Controller
                     'icon' => 'bi-file-earmark-text text-dark',
                     'count' => $diffText,
                     'badge' => $diffInMonths > 3 ? 'bg-danger' : 'bg-info',
-                    'route' => null,
+                    /* 'route' => null, */
+                    'modal' => "EditOperateurModal{$operateur->id}",
                 ],
             ];
 
