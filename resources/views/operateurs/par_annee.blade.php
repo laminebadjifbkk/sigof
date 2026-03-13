@@ -181,12 +181,9 @@
                         <div class="card shadow-sm">
                             <div class="card-body">
 
-                                {{-- <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h1 class="mb-0">ANNEE : {{ $annee }}</h1>
-                                    <a href="{{ route('operateurs.index') }}" class="btn btn-outline-secondary btn-sm">
-                                        <i class="bi bi-arrow-left-circle"></i> Retour à la liste
-                                    </a>
-                                </div> --}}
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    {{ $total }}
+                                </div>
 
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-striped align-middle">
