@@ -375,42 +375,6 @@
 
                                 <div class="card-body px-4">
 
-                                    @php
-                                        $sections = [
-                                            [
-                                                'label' => 'Modules',
-                                                'icon' => 'bi-journal-code text-info',
-                                                'count' => count($operateur->operateurmodules),
-                                                'route' => route('operateurs.show', $operateur),
-                                            ],
-                                            [
-                                                'label' => 'Références',
-                                                'icon' => 'bi-bookmark-check text-primary',
-                                                'count' => count($operateur->operateureferences),
-                                                'route' => route('showReference', $operateur->uuid),
-                                            ],
-                                            [
-                                                'label' => 'Équipements & Infrastructures',
-                                                'icon' => 'bi-hdd-network text-warning',
-                                                'count' => count($operateur->operateurequipements),
-                                                'route' => route('showEquipement', $operateur->uuid),
-                                            ],
-                                            [
-                                                'label' => 'Formateurs',
-                                                'icon' => 'bi-person-workspace text-success',
-                                                'count' => count($operateur->operateurformateurs),
-                                                'route' => route('showFormateur', $operateur->uuid),
-                                            ],
-                                            [
-                                                'label' => 'Localités',
-                                                'icon' => 'bi-geo-alt text-danger',
-                                                'count' => count($operateur->operateurlocalites),
-                                                'route' => route('showLocalite', $operateur->uuid),
-                                            ],
-                                        ];
-                                    @endphp
-
-
                                     @foreach ($sections as $section)
                                         <div
                                             class="d-flex justify-content-between align-items-center border-bottom py-1 position-relative">
@@ -483,7 +447,7 @@
                                                     Je certifie
                                                 </button>
                                             @else
-                                                <span class="badge bg-warning text-white p-2">
+                                                <span class="badge bg-warning text-dark p-2">
                                                     <i class="bi bi-exclamation-triangle-fill me-1"></i>
                                                     Demande incomplète
                                                 </span>

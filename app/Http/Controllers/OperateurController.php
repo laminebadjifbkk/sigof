@@ -1690,6 +1690,40 @@ class OperateurController extends Controller
                 }
             }
 
+
+            $sections = [
+                [
+                    'label' => 'Modules',
+                    'icon' => 'bi-journal-code text-info',
+                    'count' => $operateur->operateurmodules->count(),
+                    'route' => route('operateurs.show', $operateur),
+                ],
+                [
+                    'label' => 'Références',
+                    'icon' => 'bi-bookmark-check text-primary',
+                    'count' => $operateur->operateureferences->count(),
+                    'route' => route('showReference', $operateur->uuid),
+                ],
+                [
+                    'label' => 'Équipements & Infrastructures',
+                    'icon' => 'bi-hdd-network text-warning',
+                    'count' => $operateur->operateurequipements->count(),
+                    'route' => route('showEquipement', $operateur->uuid),
+                ],
+                [
+                    'label' => 'Formateurs',
+                    'icon' => 'bi-person-workspace text-success',
+                    'count' => $operateur->operateurformateurs->count(),
+                    'route' => route('showFormateur', $operateur->uuid),
+                ],
+                [
+                    'label' => 'Localités',
+                    'icon' => 'bi-geo-alt text-danger',
+                    'count' => $operateur->operateurlocalites->count(),
+                    'route' => route('showLocalite', $operateur->uuid),
+                ],
+            ];
+
             // Retourner la vue avec les données
             return view(
                 'operateurs.show-operateur',
@@ -1715,6 +1749,7 @@ class OperateurController extends Controller
                     'dateQuitus',
                     'diff',
                     'diffText',
+                    'sections',
                 )
             );
         } else {
