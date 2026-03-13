@@ -210,23 +210,6 @@ class CommissionagrementController extends Controller
         $commission        = Commissionagrement::findOrFail($idcommissionagrement);
         $operateursActuels = $commission->operateurs->pluck('id')->toArray();
 
-        // ➤ Détacher ceux qui ne sont plus sélectionnés
-        /* $operateursADetacher = array_diff($operateursActuels, $operateursSelectionnes);
-        foreach ($operateursADetacher as $operateurId) {
-            $operateur = Operateur::find($operateurId);
-            if ($operateur) {
-                $operateur->commissionagrements()->detach($idcommissionagrement);
-
-                // Enregistrer historique (facultatif)
-                Historiqueagrement::create([
-                    'operateurs_id'          => $operateur->id,
-                    'commissionagrements_id' => $idcommissionagrement,
-                    'statut'                 => 'Retiré de la commission',
-                    'validated_id'           => Auth::id(),
-                ]);
-            }
-        } */
-
         // ➤ Attacher ou mettre à jour ceux qui sont sélectionnés
         foreach ($operateursSelectionnes as $operateurId) {
             $operateur = Operateur::findOrFail($operateurId);

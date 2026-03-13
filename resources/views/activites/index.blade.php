@@ -216,7 +216,6 @@
     </section>
 @endsection
 
-
 @push('scripts')
     <script>
         new DataTable('#table-activite', {

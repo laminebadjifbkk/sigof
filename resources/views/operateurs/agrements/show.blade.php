@@ -542,7 +542,11 @@
                                                     <i class="bi bi-building text-primary me-2 fs-5"></i>
                                                     <span>Date agrément :</span>
                                                     <span class="ms-2 text-primary">
-                                                        {{ $operateur?->commissionagrement?->date?->format('d/m/Y') ?? 'Non définie' }}
+                                                        @forelse($operateur->commissionagrements as $commission)
+                                                            {{ $commission->fin_commission->format('d/m/Y') }}<br>
+                                                        @empty
+                                                            Non définie
+                                                        @endforelse
                                                     </span>
                                                 </h5>
                                             </div>
@@ -1624,6 +1628,76 @@
                         </form>
 
                     </div>
+                </div>
+            </div>
+        @endforeach
+        @foreach ($operateurs as $operateur)
+            <div class="modal fade" id="certificationModal{{ $operateur->id }}" tabindex="-1"
+                aria-labelledby="certificationModalLabel{{ $operateur->id }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <form method="POST" action="{{ route('certifierOperateur', $operateur->uuid) }}">
+                        @csrf
+                        <div class="modal-content">
+                            <div class="modal-header bg-warning text-white">
+                                <h5 class="modal-title" id="certificationModalLabel{{ $operateur->id }}">Certification
+                                    des informations</h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                    aria-label="Fermer"></button>
+                            </div>
+                            {{-- <div class="modal-body">
+                            <p>Veuillez écrire exactement cette phrase pour certifier :</p>
+                            <blockquote class="fst-italic border-start ps-3 text-muted">
+                                Je certifie que les informations que j'ai fournies sont correctes.
+                            </blockquote>
+
+                            <div class="mb-3">
+                                <label for="certification_phrase" class="form-label">Votre phrase :</label>
+                                <input type="text" class="form-control" id="certification_phrase"
+                                    name="certification_phrase" placeholder="Tapez la phrase de certification ici..."
+                                    required>
+                            </div>
+                        </div> --}}
+                            {{-- <div class="modal-body">
+                                <p>Veuillez cocher la case suivante pour certifier :</p>
+                                <div class="form-check border rounded p-3 bg-light">
+                                    <input class="form-check-input @error('certification_phrase') is-invalid @enderror"
+                                        type="checkbox" id="certification_checkbox" name="certification_phrase"
+                                        value="Je certifie que les informations que j'ai fournies sont correctes.">
+                                    <label class="form-check-label fst-italic text-muted" for="certification_checkbox">
+                                        @error('certification_phrase')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                        Je certifie que les informations que j'ai fournies sont correctes.
+                                    </label>
+                                </div>
+                            </div> --}}
+                            <div class="modal-body">
+                                <p class="mb-2">Veuillez cocher la case suivante pour certifier :</p>
+
+                                <div class="alert alert-warning py-2 small">
+                                    Une fois certifiée, vous ne pourrez plus modifier ni supprimer cette demande.
+                                </div>
+
+                                <div class="form-check border rounded p-3 bg-light">
+                                    <input class="form-check-input @error('certification_phrase') is-invalid @enderror"
+                                        type="checkbox" id="certification_checkbox" name="certification_phrase"
+                                        value="Je certifie que les informations que j'ai fournies sont correctes.">
+                                    <label class="form-check-label fst-italic text-muted" for="certification_checkbox">
+                                        Je certifie que les informations que j'ai fournies sont correctes.
+                                    </label>
+                                    @error('certification_phrase')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm"
+                                    data-bs-dismiss="modal">Fermer</button>
+                                <button type="submit" class="btn btn-success btn-sm">Certifier</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         @endforeach

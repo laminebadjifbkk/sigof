@@ -996,7 +996,7 @@
                                 <p class="mb-2">Veuillez cocher la case suivante pour certifier :</p>
 
                                 <div class="alert alert-warning py-2 small">
-                                    ⚠️ Une fois certifiée, vous ne pourrez plus modifier ni supprimer cette demande.
+                                    Une fois certifiée, vous ne pourrez plus modifier ni supprimer cette demande.
                                 </div>
 
                                 <div class="form-check border rounded p-3 bg-light">

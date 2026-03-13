@@ -37,7 +37,7 @@
                             <div class="p-1 mb-4 border rounded bg-light shadow-sm">
                                 <div class="row text-center fw-semibold">
                                     <div class="col-md-12 mb-2">
-                                        <span class="text-secondary">👥 Opérateurs choisis</span><br>
+                                        <span class="text-secondary">Opérateurs choisis</span><br>
                                         <span
                                             class="fs-5 text-dark">{{ count($commissionagrement?->operateurs) ?? 'Aucun' }}</span>
                                     </div>
@@ -58,17 +58,15 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="row mb-0">
-                                    {{-- <div class="form-check col-md-2 pt-3">
-                                    <label for="#">Choisir tout</label>
-                                    <input type="checkbox" class="form-check-input" id="checkAll">
-                                </div> --}}
-                                    <div class="form-check col-md-12 pt-3">
+                                    <div class="col-md-12 pt-3">
                                         <div class="table-responsive">
                                             <table class="table datatables align-middle" id="table-operateurs">
                                                 <thead>
                                                     <tr>
-                                                        <th><input type="checkbox" class="form-check-input"
-                                                                id="checkAll">N°</th>
+                                                        <th width="3%">
+                                                            <input type="checkbox" class="form-check-input" id="checkAll">
+                                                        </th>
+                                                        <th>N°</th>
                                                         <th>N° agrément</th>
                                                         <th>Opérateurs</th>
                                                         <th>Sigle</th>
@@ -83,18 +81,14 @@
                                                     @foreach ($operateurs as $operateur)
                                                         {{-- @isset($operateur?->numero_agrement) --}}
                                                         <tr>
-                                                            <td>{{ $i++ }}
+                                                            <td>
                                                                 <input type="checkbox" name="operateurs[]"
                                                                     value="{{ $operateur->id }}"
-                                                                    class="form-check-input @error('operateurs') is-invalid @enderror"
+                                                                    class="form-check-input operateur-checkbox"
                                                                     {{ in_array($operateur->id, $operateursSelectionnes ?? []) ? 'checked' : '' }}>
-
-                                                                @error('operateurs')
-                                                                    <span class="invalid-feedback" role="alert">
-                                                                        <div>{{ $message }}</div>
-                                                                    </span>
-                                                                @enderror
                                                             </td>
+
+                                                            <td>{{ $i++ }}</td>
                                                             <td>
                                                                 {{ $operateur->numero_agrement }}
                                                             </td>
@@ -173,45 +167,17 @@
         </div>
     </section>
 @endsection
-{{-- @push('scripts')
+
+@push('scripts')
     <script>
-        new DataTable('#table-operateurs', {
-            "lengthMenu": [
-                [10, 25, 50, 100, -1],
-                [10, 25, 50, 100, "Tout"]
-            ],
-            "order": [
-                [2, 'desc']
-            ],
-            language: {
-                "sProcessing": "Traitement en cours...",
-                "sSearch": "Rechercher&nbsp;:",
-                "sLengthMenu": "Afficher _MENU_ &eacute;l&eacute;ments",
-                "sInfo": "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
-                "sInfoEmpty": "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
-                "sInfoFiltered": "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
-                "sInfoPostFix": "",
-                "sLoadingRecords": "Chargement en cours...",
-                "sZeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",
-                "sEmptyTable": "Aucune donn&eacute;e disponible dans le tableau",
-                "oPaginate": {
-                    "sFirst": "Premier",
-                    "sPrevious": "Pr&eacute;c&eacute;dent",
-                    "sNext": "Suivant",
-                    "sLast": "Dernier"
-                },
-                "oAria": {
-                    "sSortAscending": ": activer pour trier la colonne par ordre croissant",
-                    "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
-                },
-                "select": {
-                    "rows": {
-                        _: "%d lignes sÃ©lÃ©ctionnÃ©es",
-                        0: "Aucune ligne sÃ©lÃ©ctionnÃ©e",
-                        1: "1 ligne sÃ©lÃ©ctionnÃ©e"
-                    }
-                }
-            }
+        document.getElementById('checkAll').addEventListener('click', function(e) {
+
+            let checkboxes = document.querySelectorAll('.operateur-checkbox');
+
+            checkboxes.forEach(function(checkbox) {
+                checkbox.checked = e.target.checked;
+            });
+
         });
     </script>
-@endpush --}}
+@endpush
