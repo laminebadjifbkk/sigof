@@ -384,7 +384,7 @@ class OperateurController extends Controller
         $type_demande = $request->input("type_demande");
         /* $numero_agrement = "/ONFP/DG/DEC/$anneeEnCours"; */
 
-        $operateur = Operateur::create([
+        Operateur::create([
             /* 'numero_agrement' => $numero_agrement, */
             'type_demande'    => $type_demande,
             'debut_quitus'    => $date_quitus,
@@ -951,6 +951,7 @@ class OperateurController extends Controller
             "formulaire_signe"       => $request->input("formulaire_signe"),
             "quitusfiscal"           => $request->input("quitusfiscal"),
             "cvsigne"                => $request->input("cvsigne"),
+            "annee_agrement"         => $request->input("annee_agrement"),
         ]);
 
         // Gestion des fichiers

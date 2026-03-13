@@ -480,6 +480,19 @@
                                         </div>
 
                                         <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
+                                            <label for="annee_agrement" class="form-label">annee_agrement </label>
+                                            <input type="text" name="annee_agrement"
+                                                value="{{ old('annee_agrement', optional($operateur?->annee_agrement)->format('d/m/Y')) }}"
+                                                class="form-control form-control-sm @error('annee_agrement') is-invalid @enderror"
+                                                id="datepicker" placeholder="JJ/MM/AAAA" autocomplete="bday">
+                                            @error('annee_agrement')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="arrete_creation" class="form-label">Arrêté création</label>
                                             <select name="arrete_creation"
                                                 class="form-select  @error('arrete_creation') is-invalid @enderror"
