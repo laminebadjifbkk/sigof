@@ -267,7 +267,7 @@
                                 </div>
 
                                 <div class="col-6">
-                                    <label for="date_agrement" class="form-label">Date agrément<span
+                                    <label for="date_agrement" class="form-label">Date commission<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="date" name="date_agrement" value="{{ old('date_agrement') }}"
                                         class="form-control form-control-sm @error('date_agrement') is-invalid @enderror"

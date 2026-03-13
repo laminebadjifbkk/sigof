@@ -211,12 +211,12 @@
                                             </div>
                                         </div>
 
-                                        {{-- Date agrément --}}
+                                        {{-- Date commission --}}
                                         @if ($operateur->commissionagrements->isNotEmpty())
                                             <div class="col-12 col-md text-md-center">
                                                 <div class="d-flex flex-wrap align-items-center justify-content-md-center">
                                                     <i class="bi bi-building text-primary me-2"></i>
-                                                    <span class="fw-bold">Date agrément :</span>
+                                                    <span class="fw-bold">Date commission :</span>
 
                                                     <span class="ms-2 text-primary">
                                                         @foreach ($operateur->commissionagrements as $commission)

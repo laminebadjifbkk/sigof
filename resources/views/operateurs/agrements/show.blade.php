@@ -540,7 +540,7 @@
                                             <div>
                                                 <h5 class="mb-1 text-dark fw-bold d-flex align-items-center">
                                                     <i class="bi bi-building text-primary me-2 fs-5"></i>
-                                                    <span>Date agrément :</span>
+                                                    <span>Date commission :</span>
                                                     <span class="ms-2 text-primary">
                                                         @forelse($operateur->commissionagrements as $commission)
                                                             {{ $commission->fin_commission->format('d/m/Y') }}<br>
