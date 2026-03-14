@@ -1599,7 +1599,7 @@ class OperateurController extends Controller
         return redirect()->back();
     }
 
-    public function devenirOperateur()
+    /*  public function devenirOperateur()
     {
         $user = Auth::user();
         // Si l'utilisateur N'EST PAS un opérateur, on stoppe avec une exception 403
@@ -1753,7 +1753,6 @@ class OperateurController extends Controller
                     'icon' => 'bi-file-earmark-text text-dark',
                     'count' => $diffText,
                     'badge' => $diffInMonths > 3 ? 'bg-danger' : 'bg-info',
-                    /* 'route' => null, */
                     'modal' => "EditOperateurModal{$operateur->id}",
                 ],
             ];
@@ -1782,7 +1781,6 @@ class OperateurController extends Controller
                     'estExtension',
                     'dateQuitus',
                     'labels',
-                    /* 'diff', */
                     'diffText',
                     'sections',
                 )
@@ -1799,7 +1797,138 @@ class OperateurController extends Controller
                 )
             );
         }
+    } */
+
+    public function devenirOperateur()
+    {
+        $user = Auth::user();
+
+        // Vérifier le rôle
+        if (! $user->hasRole('Operateur')) {
+            abort(403, 'Accès refusé.');
+        }
+
+        // Charger l'opérateur avec toutes les relations nécessaires
+        $operateur = Operateur::with([
+            'operateurmodules',
+            'operateureferences',
+            'operateurequipements',
+            'operateurformateurs',
+            'operateurlocalites',
+            'commissionagrements',
+            'user.files'
+        ])->where('users_id', $user->id)
+            ->orderByDesc('id')
+            ->first();
+
+        $operateurA = Operateur::where('users_id', $user->id)->orderByDesc('id')->get();
+        $operateurs = Operateur::all();
+        $operateur_total = $operateurs->count();
+
+        $departements = Departement::orderBy('nom', 'asc')->get();
+
+        $labels = [
+            'Ninea ou registre de commerce' => 'Registre de commerce',
+        ];
+
+        $user_files = File::whereNull('file')
+            ->whereNull('users_id')
+            ->whereIn('sigle', [
+                'Ninea/RC',
+                'Ninea',
+                'AC',
+                'Quitus',
+                'Arrêté',
+                'Non-fonctionnaire',
+                'Organigramme',
+                'Contrat',
+                'Titre',
+                'Justificatif',
+                'ADEDGI',
+                'ABE',
+                'CME',
+                'CP',
+                'DENO',
+                'Bail'
+            ])
+            ->orderBy('sigle', 'asc')
+            ->distinct()
+            ->get();
+
+        if ($operateur_total >= 1 && $operateur) {
+
+            // Statuts des relations
+            $module_count     = $operateur->operateurmodules->isNotEmpty() ? 'complète' : 'incomplète';
+            $reference_count  = $operateur->operateureferences->isNotEmpty() ? 'complète' : 'incomplète';
+            $equipement_count = $operateur->operateurequipements->isNotEmpty() ? 'complète' : 'incomplète';
+            $formateur_count  = $operateur->operateurformateurs->isNotEmpty() ? 'complète' : 'incomplète';
+            $localite_count   = $operateur->operateurlocalites->isNotEmpty() ? 'complète' : 'incomplète';
+
+            // Statut des fichiers
+            $fichiers_total = $operateur->user->files->whereNotNull('file')->count();
+            $fichier_count = $operateur->user->categorie !== 'Public'
+                ? ($fichiers_total >= 4 ? 'complète' : 'incomplète')
+                : ($fichiers_total >= 1 ? 'complète' : 'incomplète');
+
+            // Statut global
+            $statut_demande = collect([$module_count, $reference_count, $equipement_count, $formateur_count, $localite_count, $fichier_count])
+                ->every(fn($s) => $s === 'complète') ? 'complète' : 'incomplète';
+
+            // Dernier agrément et dates
+            $dernierAgrement = $operateur->commissionagrements->sortByDesc('fin_commission')->first();
+            $dateAgrement    = $dernierAgrement ? Carbon::parse($dernierAgrement->fin_commission) : null;
+
+            $dateExpiration  = $dateAgrement?->copy()->addYears(4);
+            $estExpire       = $dateExpiration?->isPast();
+
+            $dateExtension   = $dateAgrement?->copy()->addYears(2);
+            $estExtension    = $dateExtension?->isPast();
+
+            $dateQuitus = $operateur?->debut_quitus ? Carbon::parse($operateur->debut_quitus) : null;
+            $diffText   = $dateQuitus?->locale('fr')->diffForHumans(now(), true);
+            $diffInMonths = $dateQuitus ? $dateQuitus->diffInMonths(now()) : 0;
+
+            // Sections pour la vue
+            $sections = [
+                ['label' => 'Modules', 'icon' => 'bi-journal-code text-info', 'count' => $operateur->operateurmodules->count(), 'route' => route('operateurs.show', $operateur)],
+                ['label' => 'Références', 'icon' => 'bi-bookmark-check text-primary', 'count' => $operateur->operateureferences->count(), 'route' => route('showReference', $operateur->uuid)],
+                ['label' => 'Équipements & Infrastructures', 'icon' => 'bi-hdd-network text-warning', 'count' => $operateur->operateurequipements->count(), 'route' => route('showEquipement', $operateur->uuid)],
+                ['label' => 'Formateurs', 'icon' => 'bi-person-workspace text-success', 'count' => $operateur->operateurformateurs->count(), 'route' => route('showFormateur', $operateur->uuid)],
+                ['label' => 'Localités', 'icon' => 'bi-geo-alt text-danger', 'count' => $operateur->operateurlocalites->count(), 'route' => route('showLocalite', $operateur->uuid)],
+                ['label' => 'Validité quitus', 'icon' => 'bi-file-earmark-text text-dark', 'count' => $diffText, 'badge' => $diffInMonths > 3 ? 'bg-danger' : 'bg-info', 'modal' => "EditOperateurModal{$operateur->id}"]
+            ];
+
+            // Retourner la vue principale
+            return view('operateurs.show-operateur', compact(
+                'operateur_total',
+                'user_files',
+                'files',
+                'departements',
+                'operateur',
+                'operateurA',
+                'operateurs',
+                'statut_demande',
+                'module_count',
+                'reference_count',
+                'equipement_count',
+                'formateur_count',
+                'localite_count',
+                'dateAgrement',
+                'dateExpiration',
+                'estExpire',
+                'dateExtension',
+                'estExtension',
+                'dateQuitus',
+                'labels',
+                'diffText',
+                'sections'
+            ));
+        } else {
+            // Pas d'opérateur existant
+            return view('operateurs.show-operateur-aucun', compact('departements', 'operateur', 'operateurs', 'user'));
+        }
     }
+
 
     public function mesFormations()
     {
