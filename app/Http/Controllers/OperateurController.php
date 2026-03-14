@@ -1855,6 +1855,12 @@ class OperateurController extends Controller
             ->distinct()
             ->get();
 
+        // Récupérer les fichiers associés à l'utilisateur
+        $files = File::where('users_id', $user->id)
+            ->whereNotNull('file')
+            ->distinct()
+            ->get();
+
         if ($operateur_total >= 1 && $operateur) {
 
             // Statuts des relations
