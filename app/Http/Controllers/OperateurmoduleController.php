@@ -52,6 +52,11 @@ class OperateurmoduleController extends Controller
 
         $operateur = Operateur::findOrFail($request->input('operateur'));
 
+        if ($operateur->statut_agrement != "Nouveau") {
+            Alert::warning('Action impossible ! ', 'Opérateur déja traité');
+            return redirect()->back();
+        }
+
         if (isset($operateurmodule_find)) {
             foreach ($operateur_find as $key => $value) {
                 if ($value->module == $operateurmodule_find->module) {
@@ -102,81 +107,6 @@ class OperateurmoduleController extends Controller
         return redirect()->back();
     }
 
-    /* public function update(Request $request, Operateurmodule $operateurmodule)
-    {
-        $request->validate([
-            'module'               => 'required|string',
-            'domaine'              => 'required|string',
-            'categorie'            => 'required|string',
-            'niveau_qualification' => 'required|string',
-        ]);
-
-        $roleNames       = Auth::user()->roles->pluck('name')->toArray();
-        $restrictedRoles = ['super-admin', 'Employe', 'admin', 'DIOF', 'ADIOF', 'Ingenieur', 'DEC', 'ADEC', 'Operateur'];
-
-        // Si l'utilisateur possède au moins un rôle restreint
-        if (! empty(array_intersect($roleNames, $restrictedRoles))) {
-
-            // Vérifie si l'opérateur peut être modifié
-            if (! in_array($operateurmodule?->operateur?->statut_agrement, ['Nouveau', 'Extension', 'Renouvellement'], true)) {
-                Alert::warning('Action impossible !', 'Module déjà traité');
-                return redirect()->back();
-            }
-
-            // Si le module est déjà traité (agréé, rejeté ou sous réserve) => blocage
-            if (in_array($operateurmodule?->statut, ['agréé', 'rejeté', 'sous réserve'], true)) {
-                Alert::warning('Action impossible !', 'Module déjà traité');
-                return redirect()->back();
-            }
-        }
-
-        $operateurmodule_find = DB::table('operateurmodules')->where('module', $request->input("module"))->first();
-
-        $operateur_find = Operateurmodule::where('operateurs_id', $operateurmodule->operateurs_id)->get();
-
-        if (! empty($operateurmodule_find) && $operateurmodule_find->module == $operateurmodule->module) {
-            $operateurmodule->update([
-                "module"               => $request->input("module"),
-                "domaine"              => $request->input("domaine"),
-                "categorie"            => $request->input("categorie"),
-                'niveau_qualification' => $request->input('niveau_qualification'),
-                'operateurs_id'        => $operateurmodule->operateurs_id,
-            ]);
-            Alert::success('Succès !', 'Le module ' . $operateurmodule->module . ' a été mis à jour avec succès');
-            $operateurmodule->save();
-        } elseif (! empty($operateurmodule_find)) {
-            foreach ($operateur_find as $value) {
-                if (($value->module == $operateurmodule_find->module)) {
-                    Alert::warning('Attention ! ' . $value->module, 'a déjà été choisi');
-                    return redirect()->back();
-                } else {
-                    $operateurmodule->update([
-                        "module"               => $request->input("module"),
-                        "domaine"              => $request->input("domaine"),
-                        "categorie"            => $request->input("categorie"),
-                        'niveau_qualification' => $request->input('niveau_qualification'),
-                        'operateurs_id'        => $operateurmodule->operateurs_id,
-                    ]);
-                    Alert::success($operateurmodule->module, 'mis à jour');
-                    $operateurmodule->save();
-                    return redirect()->back();
-                }
-            }
-        } else {
-            $operateurmodule->update([
-                "module"               => $request->input("module"),
-                "domaine"              => $request->input("domaine"),
-                "categorie"            => $request->input("categorie"),
-                'niveau_qualification' => $request->input('niveau_qualification'),
-                'operateurs_id'        => $operateurmodule->operateurs_id,
-            ]);
-
-            Alert::success($operateurmodule->module, 'mis à jour');
-            $operateurmodule->save();
-        }
-        return redirect()->back();
-    } */
-
     public function update(Request $request, Operateurmodule $operateurmodule)
     {
         $request->validate([
@@ -191,7 +121,7 @@ class OperateurmoduleController extends Controller
         // Vérification uniquement si l'utilisateur N'EST PAS super-admin ou DEC
         if (! in_array('super-admin', $roleNames, true) && ! in_array('DEC', $roleNames, true)) {
             if (! in_array($operateurmodule?->operateur?->statut_agrement, ['Nouveau', 'Extension', 'Renouvellement'], true)) {
-                Alert::warning('Action impossible !', 'Module déjà traité');
+                Alert::warning('Action impossible !', 'Opérateur déjà traité');
                 return redirect()->back();
             }
 
