@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Commissionagrement;
@@ -174,27 +175,31 @@ class CommissionagrementController extends Controller
         ->pluck('id', 'id')
         ->all(); */
 
-        return view('operateurs.commissionagrements.show',
-            compact('commissionagrement',
+        return view(
+            'operateurs.commissionagrements.show',
+            compact(
+                'commissionagrement',
                 /* 'operateurs', */
                 'groupesStatutAgrement',
                 /* 'decoupage',
                 'operateurs_agreer_count',
                 'operateurs_reserve_count',
                 'operateurs_rejeter_count' */
-            ));
+            )
+        );
     }
 
     public function destroy($id)
     {
         $commissionagrement = Commissionagrement::findOrFail($id);
 
-        if (! empty($commissionagrement?->operateurs)) {
+        if ($commissionagrement->operateurs()->exists()) {
             Alert::warning('Attention !', 'Impossible de supprimer cette commission');
         } else {
             $commissionagrement->delete();
             Alert::success('Succès !', 'Commission supprimée avec succès');
         }
+
         return redirect()->back();
     }
 
@@ -305,8 +310,8 @@ class CommissionagrementController extends Controller
 
         $commissionagrement = Commissionagrement::findOrFail($id);
 
-        /* $statutsVoulus = ['Conforme', 'Extension', 'Renouvellement', 'Nouveau', 'À corriger', 'agréé', 'sous réserve', 'Rejeté']; */
-        $statutsVoulus = ['Nouveau', 'Conforme', 'Non conforme'];
+        /* $statutsVoulus = ['Conforme', 'Extension', 'Renouvellement', 'Nouveau', 'À corriger', 'agréé', 'sous réserve', 'Rejeté', 'Retiré']; */
+        $statutsVoulus = ['Nouveau', 'Conforme'];
 
         /* $operateurs = Operateur::whereNull('commissionagrements_id')
             ->whereIn('statut_agrement', $statutsVoulus)
@@ -331,12 +336,16 @@ class CommissionagrementController extends Controller
 
         $operateursSelectionnes = $commissionagrement->operateurs->pluck('id')->toArray();
 
-        return view('operateurs.commissionagrements.add_op_commsions',
-            compact('commissionagrement',
+        return view(
+            'operateurs.commissionagrements.add_op_commsions',
+            compact(
+                'commissionagrement',
                 'operateurs',
                 'operateurAgrement',
                 'operateursSelectionnes',
-                'operateurAgrementCheck'));
+                'operateurAgrementCheck'
+            )
+        );
     }
 
     public function showAgreer($id)
@@ -362,12 +371,15 @@ class CommissionagrementController extends Controller
             ->distinct('module')
             ->count('module');
 
-        return view('operateurs.agrements.show_agreer',
-            compact('operateurs',
+        return view(
+            'operateurs.agrements.show_agreer',
+            compact(
+                'operateurs',
                 'commissionagrement',
                 'operateurmodules',
                 'count_operateurmodules_distinct'
-            ));
+            )
+        );
     }
 
     public function showReserve($id)
@@ -385,10 +397,14 @@ class CommissionagrementController extends Controller
             ->where('operateurmodules.statut', "sous réserve")
             ->get();
 
-        return view('operateurs.agrements.show_reserve',
-            compact('operateurs',
+        return view(
+            'operateurs.agrements.show_reserve',
+            compact(
+                'operateurs',
                 'commissionagrement',
-                'operateurmodules'));
+                'operateurmodules'
+            )
+        );
     }
 
     public function showRejeter($id)
@@ -399,9 +415,13 @@ class CommissionagrementController extends Controller
             ->where('statut_agrement', 'Rejeté')
             ->get();
 
-        return view('operateurs.agrements.show_rejeter',
-            compact('operateurs',
-                'commissionagrement'));
+        return view(
+            'operateurs.agrements.show_rejeter',
+            compact(
+                'operateurs',
+                'commissionagrement'
+            )
+        );
     }
 
     public function jury($id)
@@ -412,8 +432,10 @@ class CommissionagrementController extends Controller
 
         $membreJury = $commissionagrement->commissionmembres->pluck('id', 'id')->all();
 
-        return view('operateurs.commissionagrements.add_membres_commsions',
-            compact('commissionagrement', 'membres', 'membreJury'));
+        return view(
+            'operateurs.commissionagrements.add_membres_commsions',
+            compact('commissionagrement', 'membres', 'membreJury')
+        );
     }
 
     public function addMembreJury(Request $request, $id)
@@ -432,7 +454,7 @@ class CommissionagrementController extends Controller
         return redirect()->back();
     }
 
-/*     public function exportPV(Commissionagrement $commissionagrement)
+    /*     public function exportPV(Commissionagrement $commissionagrement)
     {
         // Ton code PDF ici
 

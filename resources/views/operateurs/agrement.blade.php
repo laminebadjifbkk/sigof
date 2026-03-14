@@ -530,26 +530,18 @@
                                     <div class="card mb-4 shadow-sm border-0 w-100">
                                         <div
                                             class="card-header bg-white border-bottom py-3 px-4 d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <h5 class="mb-1 text-dark fw-bold d-flex align-items-center">
-                                                    <i class="bi bi-building text-primary me-2 fs-5"></i>
-                                                    <span>Date commission :</span>
-                                                    <span class="ms-2 text-primary">
-                                                        {{-- {{ $operateur?->commissionagrement?->date?->format('d/m/Y') ?? 'Non définie' }} --}}
-                                                    </span>
-                                                </h5>
-                                                {{-- <div class="d-flex align-items-center mt-1">
-                                                    <i class="bi bi-arrow-right-circle text-secondary me-2"></i>
-                                                    <span class="fst-italic">Type de demande :</span>
-                                                    <span class="ms-2 fw-semibold {{ $operateur?->type_demande }}">
-                                                        {{ $operateur?->type_demande }}
-                                                    </span>
-                                                </div> --}}
+                                            <div class="d-flex flex-wrap align-items-center justify-content-md-center">
+                                                <i class="bi bi-building text-primary me-2"></i>
+                                                <span class="fw-bold">Date commission :</span>
+
+                                                <span class="ms-2 text-primary">
+                                                    {{ $operateur->commissionagrements->pluck('fin_commission')->filter()->map(fn($date) => \Carbon\Carbon::parse($date)->format('d/m/Y'))->implode(' - ') }}
+                                                </span>
                                             </div>
 
                                             {{-- Statut sur une seule ligne --}}
                                             <div class="d-flex align-items-center">
-                                                <span class="fw-semibold text-muted me-2">Type de demande :</span>
+                                                <span class="fw-semibold text-muted me-2">Type :</span>
                                                 <span
                                                     class="badge {{ $operateur?->type_demande }} px-3 py-2 fs-6 shadow-sm rounded-pill">
                                                     {{ $operateur?->type_demande }}

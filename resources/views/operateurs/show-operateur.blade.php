@@ -27,31 +27,8 @@
                 @endif
                 <div class="card">
                     <div class="card-body">
-                        {{-- <div class="d-flex justify-content-between align-items-center mt-0">
-                            <span class="d-flex mt-0 align-items-baseline"><a href="{{ url('/profil') }}"
-                                    class="btn btn-success btn-sm" title="retour"><i
-                                        class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
-                                <p> | Profil</p>
-                            </span>
-                            <button class="btn btn-info btn-sm">
-                                <span class="badge bg-white text-info">{{ $operateurA->count() }}</span>
-                            </button>
-                            @can('devenir-operateur-agrement-ouvert')
-                                @can('devenir-operateur-agrement-create')
-                                    @can('agrement-ouvert')
-                                        <button type="button" class="btn btn-warning btn-sm float-end btn-rounded"
-                                            data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
-                                            Renouveler agrément
-                                        </button>
-                                    @elsecan('agrement-fermer')
-                                        <span class="text-danger small fw-bold">Les agréments sont actuellement
-                                            <span class="text-uppercase">fermés</span></span>
-                                    @endcan
-                                @endcan
-                            @endcan
-                        </div> --}}
 
-                        <div class="shadow rounded-3">
+                        {{-- <div class="shadow rounded-3">
                             <div class="card-header bg-light d-flex justify-content-between align-items-center px-4 py-2">
 
                                 <!-- Gauche -->
@@ -77,44 +54,6 @@
                                     @can('devenir-operateur-agrement-ouvert')
                                         @can('devenir-operateur-agrement-create')
                                             @can('agrement-ouvert')
-                                                {{-- <button type="button" class="btn btn-warning btn-sm fw-bold btn-rounded"
-                                                    data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
-                                                    <i class="bi bi-arrow-repeat me-1"></i> Renouveler agrément
-                                                </button> --}}
-                                                {{-- @if ($diffYears !== null && $diffYears > 2)
-                                                    <button type="button" class="btn btn-warning btn-sm fw-bold btn-rounded"
-                                                        data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
-                                                        <i class="bi bi-arrow-repeat me-1"></i> Renouveler agrément
-                                                    </button>
-                                                @else
-                                                    <button type="button" class="btn btn-success fw-bold small btn-sm fw-bold btn-rounded">
-                                                        Votre agrément expire le {{ $dateExpiration }}
-                                                    </button>
-                                                @endif
-                                            @elsecan('agrement-fermer')
-                                                <span class="text-danger small fw-bold">
-                                                    Les agréments sont actuellement <span class="text-uppercase">fermés</span>
-                                                </span> --}}
-                                                {{-- @if ($estExpire)
-                                                    <div class="d-flex flex-column align-items-start gap-1">
-                                                        <button type="button"
-                                                            class="btn btn-danger fw-bold small btn-sm fw-bold btn-rounded">
-                                                            Votre agrément est <strong>expiré</strong> depuis le
-                                                            {{ $dateExpiration?->format('d/m/Y') }}
-                                                        </button>
-                                                        <button type="button" class="btn btn-warning btn-sm fw-bold btn-rounded"
-                                                            data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
-                                                            <i class="bi bi-arrow-repeat me-1"></i> Renouveler agrément
-                                                        </button>
-                                                    </div>
-                                                @else
-                                                    @can('agrement-view-op')
-                                                        <span class="text-success fw-bold small">
-                                                            Votre agrément est encore valide jusqu'au
-                                                            {{ $dateExpiration?->format('d/m/Y') }}
-                                                        </span>
-                                                    @endcan
-                                                @endif --}}
                                                 @if ($estExpire)
                                                     <div
                                                         class="alert alert-danger border-1 d-flex flex-column gap-2 p-3 shadow-sm rounded-3">
@@ -147,11 +86,6 @@
                                                             <i class="bi bi-exclamation-triangle-fill me-2 fs-4 text-info"></i>
                                                             <div>
                                                                 <strong>Agrément toujours valide : </strong>
-                                                                {{-- <span class="d-block small">
-                                                                    Votre agrément est arrivée à échéance depuis le
-                                                                    <span
-                                                                        class="fw-bold">{{ $dateExpiration?->format('d/m/Y') }}</span>.
-                                                                </span> --}}
                                                             </div>
                                                         </div>
                                                         <div class="text-end">
@@ -168,20 +102,11 @@
                                                 @else
                                                     @can('agrement-view-op')
                                                         @if ($dateExpiration)
-                                                            {{-- <div
-                                                                class="alert alert-success d-flex align-items-center p-2 small rounded-2 shadow-sm">
-                                                                <i class="bi bi-check-circle-fill me-2 fs-5 text-success"></i>
-                                                                <span>
-                                                                    Votre agrément est encore valide jusqu’au
-                                                                    <strong>{{ $dateExpiration?->format('d/m/Y') }}</strong>.
-                                                                </span>
-                                                            </div> --}}
                                                             <div
-                                                                class="alert alert-success d-flex align-items-center p-2 small rounded-2 shadow-sm">
-                                                                <i class="bi bi-check-circle-fill me-2 fs-5 text-success"></i>
-                                                                <span>
+                                                                class="alert alert-success d-flex align-items-start gap-2 p-2 p-md-3 small rounded-2 shadow-sm flex-wrap">
+                                                                <i class="bi bi-check-circle-fill fs-5 text-success flex-shrink-0"></i>
+                                                                <span class="flex-grow-1">
                                                                     Votre demande d’agrément a été soumise avec succès.
-                                                                    {{-- <strong>{{ $dateExpiration?->format('d/m/Y') }}</strong> --}}
                                                                 </span>
                                                             </div>
                                                         @endif
@@ -192,6 +117,117 @@
                                     @endcan
                                 </div>
 
+                            </div>
+                        </div> --}}
+
+                        <div class="shadow rounded-3">
+                            <div class="card-header bg-light px-3 px-md-4 py-2">
+                                <div class="row align-items-center g-2">
+
+                                    <!-- Gauche -->
+                                    <div class="col-12 col-md-4">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <a href="{{ url('/profil') }}" class="btn btn-outline-success btn-sm"
+                                                title="Retour">
+                                                <i class="bi bi-arrow-counterclockwise"></i>
+                                            </a>
+                                            <span class="fw-bold">| Profil</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Centre -->
+                                    <div class="col-12 col-md-4 text-md-center">
+                                        <button class="btn btn-info btn-sm position-relative">
+                                            <i class="bi bi-person-badge"></i>
+                                            <span
+                                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-white text-info">
+                                                {{ $operateurA?->count() }}
+                                            </span>
+                                        </button>
+                                    </div>
+
+                                    <!-- Droite -->
+                                    <div class="col-12 col-md-4">
+                                        <div class="d-flex flex-column align-items-start align-items-md-end gap-2">
+
+                                            @can('devenir-operateur-agrement-ouvert')
+                                                @can('devenir-operateur-agrement-create')
+                                                    @can('agrement-ouvert')
+
+                                                        @if ($estExpire)
+                                                            <div
+                                                                class="alert alert-danger border-1 d-flex flex-column gap-2 p-2 p-md-3 shadow-sm rounded-3 w-100">
+                                                                <div class="d-flex align-items-start gap-2">
+                                                                    <i
+                                                                        class="bi bi-exclamation-triangle-fill fs-4 text-danger flex-shrink-0"></i>
+                                                                    <div>
+                                                                        <strong>Agrément expiré :</strong>
+                                                                        <span class="d-block small">
+                                                                            La validité de votre agrément est arrivée à échéance depuis
+                                                                            le
+                                                                            <span
+                                                                                class="fw-bold">{{ $dateExpiration?->format('d/m/Y') }}</span>.
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="text-md-end">
+                                                                    <button type="button"
+                                                                        class="btn btn-success btn-sm fw-semibold rounded-pill shadow-sm px-3"
+                                                                        data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
+                                                                        <div
+                                                                            class="d-flex align-items-center justify-content-center gap-1">
+                                                                            <i class="bi bi-arrow-repeat"></i>
+                                                                            <span>Cliquez ici pour déposer</span>
+                                                                        </div>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        @elseif($estExtension)
+                                                            <div
+                                                                class="alert alert-info border-1 d-flex flex-column gap-2 p-2 p-md-3 shadow-sm rounded-3 w-100">
+                                                                <div class="d-flex align-items-start gap-2">
+                                                                    <i
+                                                                        class="bi bi-exclamation-triangle-fill fs-4 text-info flex-shrink-0"></i>
+                                                                    <div>
+                                                                        <strong>Agrément toujours valide :</strong>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="text-md-end">
+                                                                    <button type="button"
+                                                                        class="btn btn-primary btn-sm fw-semibold rounded-pill shadow-sm px-3"
+                                                                        data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
+                                                                        <div
+                                                                            class="d-flex align-items-center justify-content-center gap-1">
+                                                                            <i class="bi bi-arrow-repeat"></i>
+                                                                            <span>Cliquez ici pour une extension</span>
+                                                                        </div>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        @else
+                                                            @can('agrement-view-op')
+                                                                @if ($dateExpiration)
+                                                                    <div
+                                                                        class="alert alert-success d-flex align-items-start gap-1 p-1 p-md-1 small rounded-2 shadow-sm flex-wrap w-100">
+                                                                        
+                                                                        <span class="flex-grow-1">
+                                                                            Votre demande d’agrément a été soumise avec succès.
+                                                                        </span>
+                                                                    </div>
+                                                                @endif
+                                                            @endcan
+                                                        @endif
+
+                                                    @endcan
+                                                @endcan
+                                            @endcan
+
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
 
@@ -218,10 +254,9 @@
                                                     <i class="bi bi-building text-primary me-2"></i>
                                                     <span class="fw-bold">Date commission :</span>
 
+
                                                     <span class="ms-2 text-primary">
-                                                        @foreach ($operateur->commissionagrements as $commission)
-                                                            {{ optional($commission->fin_commission)->format('d/m/Y') ?? '' }}
-                                                        @endforeach
+                                                        {{ $operateur->commissionagrements->pluck('fin_commission')->filter()->map(fn($date) => \Carbon\Carbon::parse($date)->format('d/m/Y'))->implode(' - ') }}
                                                     </span>
                                                 </div>
                                             </div>
