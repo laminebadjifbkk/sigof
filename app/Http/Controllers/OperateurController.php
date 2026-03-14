@@ -585,11 +585,6 @@ class OperateurController extends Controller
             return back();
         }
 
-        /* $this->validate($request, [
-            "quitus"      => ['image', 'required', 'mimes:jpeg,png,jpg,gif,svg', 'max:1024'],
-            "date_quitus" => ['required', 'date_format:d/m/Y'],
-        ]); */
-
         $this->validate($request, [
             // Appliquer la règle conditionnellement
             "date_quitus"  => [
@@ -602,19 +597,9 @@ class OperateurController extends Controller
             "type_demande" => "required|in:Nouvelle,Renouvellement,Extension",
         ]);
 
-        // Date d'agrément (extrait, peut être Carbon)
-        /* $annee_agrement = $operateur->annee_agrement; */ // supposé être une instance Carbon
-
-        /* $annee_agrement = $operateur?->commissionagrement?->date
-        ? Carbon::parse($operateur->commissionagrement?->date)
-        : null;*/
-
         $annee_agrement = $operateur->commissionagrements()
             ->orderByDesc('fin_commission')
             ->first();
-
-        /* $dateExpiration = $annee_agrement?->copy()->addYears(2);
-        $estExpire      = $dateExpiration?->isPast(); */
 
         // Date actuelle
         $now = Carbon::now();
@@ -1217,24 +1202,6 @@ class OperateurController extends Controller
             $fichier_count === "complète"
         ) ? "complète" : "incomplète";
 
-        /* $dateAgrement = $operateur?->commissionagrement?->date
-        ? Carbon::parse($operateur->commissionagrement?->date)
-        : null; */
-
-        /* $dateAgrement = $operateur->commissionagrements()
-            ->orderByDesc('date')
-            ->first();
-
-        $dateExpiration = $dateAgrement?->copy()?->addYears(2);
-        $estExpire      = $dateExpiration?->isPast();
-
-        $dateExtension = $dateAgrement?->copy()?->addYears(1);
-        $estExtension  = $dateExtension?->isPast();
-
-        $dateQuitus = $operateur?->debut_quitus;
-        $diff       = $dateQuitus?->diff(now()); */
-
-
         $departements = Departement::orderBy("nom", "asc")->get();
 
         $labels = [
@@ -1269,40 +1236,18 @@ class OperateurController extends Controller
             ->get();
 
         $dateAgrement = $operateur->commissionagrements()
-            ->orderByDesc('date')
+            ->orderByDesc('fin_commission')
             ->first();
 
         $dateExpiration = $dateAgrement
-            ? Carbon::parse($dateAgrement?->date)->addYears(2)
+            ? Carbon::parse($dateAgrement?->fin_commission)->addYears(4)
             : null;
         $estExpire = $dateExpiration?->isPast();
 
         $dateExtension = $dateAgrement
-            ? Carbon::parse($dateAgrement?->date)->addYears(1)
+            ? Carbon::parse($dateAgrement?->fin_commission)->addYears(2)
             : null;
         $estExtension = $dateExtension?->isPast();
-
-
-        /* $dateQuitus = $operateur?->debut_quitus
-            ? Carbon::parse($operateur?->debut_quitus)
-            : null;
-        $diff = $dateQuitus?->diff(now());
-
-        $diffText = '';
-
-        if ($diff) {
-            if ($diff->y > 0) {
-                $diffText = $diff->y . ' an' . ($diff->y > 1 ? 's' : '');
-                if ($diff->m > 0) {
-                    $diffText .= ' et ' . $diff->m . ' mois';
-                }
-            } elseif ($diff->m > 0) {
-                $diffText = $diff->m . ' mois';
-            } else {
-                $diffText = $diff->d . ' jours';
-            }
-        } */
-
 
         $dateQuitus = $operateur?->debut_quitus
             ? Carbon::parse($operateur->debut_quitus)
@@ -1772,12 +1717,6 @@ class OperateurController extends Controller
             ->distinct()
             ->get();
 
-        /* $user_files = File::where('users_id', $user?->id)
-            ->whereNull('file')
-            ->whereNotIn('sigle', ['CIN', 'DAC', 'DP', 'CR', 'AD', 'Bulletins', 'Permis'])
-            ->distinct()
-            ->get(); */
-
         $departements = Departement::orderBy("nom", "asc")->get();
 
         $labels = [
@@ -1846,59 +1785,23 @@ class OperateurController extends Controller
                 $fichier_count === "complète"
             ) ? "complète" : "incomplète";
 
-            /* $dateAgrement = $operateur?->commissionagrement?->date
-            ? Carbon::parse($operateur->commissionagrement?->date)
-            : null; */
-
-            /* $dernierAgrement = $operateur->commissionagrements()
-                ->orderByDesc('date')
-                ->first();
-
-            $dateAgrement = $dernierAgrement ? Carbon::parse($dernierAgrement->date) : null;
-
-            $dateExpiration = $dateAgrement?->copy()->addYears(2);
-            $estExpire      = $dateExpiration?->isPast();
-
-            $dateExtension = $dateAgrement?->copy()->addYears(1);
-            $estExtension  = $dateExtension?->isPast();
-
-            $dateQuitus = $operateur?->debut_quitus;
-            $diff       = $dateQuitus?->diff(now()); */
-
             $dernierAgrement = $operateur->commissionagrements()
-                ->orderByDesc('date')
+                ->orderByDesc('fin_commission')
                 ->first();
 
             $dateAgrement = $dernierAgrement
-                ? Carbon::parse($dernierAgrement->date)
+                ? Carbon::parse($dernierAgrement->fin_commission)
                 : null;
 
-            $dateExpiration = $dateAgrement?->copy()->addYears(2);
+            $dateExpiration = $dateAgrement?->copy()->addYears(4);
             $estExpire      = $dateExpiration?->isPast();
 
-            $dateExtension = $dateAgrement?->copy()->addYears(1);
+            $dateExtension = $dateAgrement?->copy()->addYears(2);
             $estExtension  = $dateExtension?->isPast();
 
             $dateQuitus = $operateur?->debut_quitus
                 ? Carbon::parse($operateur->debut_quitus)
                 : null;
-
-            /* $diff = $dateQuitus?->diff(now());
-
-            $diffText = '';
-
-            if ($diff) {
-                if ($diff->y > 0) {
-                    $diffText = $diff->y . ' an' . ($diff->y > 1 ? 's' : '');
-                    if ($diff->m > 0) {
-                        $diffText .= ' et ' . $diff->m . ' mois';
-                    }
-                } elseif ($diff->m > 0) {
-                    $diffText = $diff->m . ' mois';
-                } else {
-                    $diffText = $diff->d . ' jours';
-                }
-            } */
 
             $dateQuitus = $operateur?->debut_quitus
                 ? Carbon::parse($operateur->debut_quitus)
@@ -1951,7 +1854,7 @@ class OperateurController extends Controller
                     'modal' => "EditOperateurModal{$operateur->id}",
                 ],
             ];
-
+            
             // Retourner la vue avec les données
             return view(
                 'operateurs.show-operateur',
