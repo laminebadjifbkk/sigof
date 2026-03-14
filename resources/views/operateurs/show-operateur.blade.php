@@ -230,6 +230,6 @@
         </div>
 
         {{-- Modals --}}
-        @include('operateurs.modals') {{-- ici on peut inclure tous les modals regroupés dans un fichier à part pour alléger la page --}}
+        @include('operateurs.modals')
     </section>
 @endsection

@@ -7,11 +7,46 @@
                 @csrf
                 <div class="card-header bg-white border-bottom text-center py-4">
                     <h4 class="text-primary fw-bold mb-0">
-                        <i class="bi bi-arrow-repeat me-2 text-dark"></i> Extension
+                        <i class="bi bi-arrow-repeat me-2 text-dark"></i> AGREMENT
                     </h4>
                 </div>
                 <div class="modal-body px-4 pt-4">
-                    <div class="row g-4">
+
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label for="type_demande" class="form-label">Type demande<span
+                                    class="text-danger mx-1">*</span></label>
+                            <select name="type_demande"
+                                class="form-select form-select-sm @error('type_demande') is-invalid @enderror"
+                                aria-label="Select" id="select-field_type_demande" data-placeholder="Choisir">
+                                <option value="{{ old('type_demande') }}">
+                                    {{ old('type_demande') }}
+                                </option>
+                                <option value="Renouvellement">
+                                    Renouvellement
+                                </option>
+                                <option value="Extension">
+                                    Extension
+                                </option>
+                                <option value="Nouvelle">
+                                    Nouvelle
+                                </option>
+                            </select>
+                            @error('type_demande')
+                                <span class="invalid-feedback" role="alert">
+                                    <div>{{ $message }}</div>
+                                </span>
+                            @enderror
+                            {{-- <div class="form-text text-muted mt-2">
+                            <i class="bi bi-info-circle me-1"></i>
+                            Sélectionnez <strong>Nouvelle</strong> si votre dernier agrément remonte à plus
+                            de 4 ans. <br>
+                            <i class="bi bi-info-circle me-1"></i>
+                            Sélectionnez <strong>Extension</strong> si votre dernier agrément remonte à
+                            moins
+                            de 4 ans.
+                        </div> --}}
+                        </div>
                         <div class="col-12">
                             <label for="date_quitus" class="form-label fw-semibold">Date du visa quitus</label>
                             <input type="text" name="date_quitus" id="datepicker" value="{{ old('date_quitus') }}"
@@ -28,7 +63,7 @@
                         <i class="bi bi-x-circle me-1"></i> Fermer
                     </button>
                     <button type="submit" class="btn btn-primary btn-sm">
-                        <i class="bi bi-check2-circle me-1"></i> Extension
+                        <i class="bi bi-check2-circle me-1"></i> Enregistrer
                     </button>
                 </div>
             </form>

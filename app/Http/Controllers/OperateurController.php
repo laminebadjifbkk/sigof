@@ -615,30 +615,35 @@ class OperateurController extends Controller
         $dateString  = $request->input('date_quitus');
         $date_quitus = ! empty($dateString) ? Carbon::createFromFormat('d/m/Y', $dateString) : null;
 
-        if ($diffAnnee < 1) {
+        if ($diffAnnee < 2) {
+
             Alert::warning('Désolé !', 'Vous ne pouvez pas renouveler votre agrément pour le moment car il est toujours valable.');
+
             return back();
-        } elseif ($diffAnnee >= 1 && $diffAnnee < 3 && $request->input("type_demande") === 'Extension') {
-            $operateur->update([
-                "statut_agrement" => 'Extension',
-                "type_demande"    => $request->input("type_demande"),
-                "debut_quitus"    => $date_quitus,
-            ]);
+        } elseif ($diffAnnee >= 2 && $diffAnnee < 4) {
 
             $commissionagrement = Commissionagrement::where('statut', 'Ouvert')->first();
 
             if (! $commissionagrement) {
+
                 Alert::error('Désolé', 'Aucun agrément n\'est lancé pour le moment.');
+
                 return redirect()->back();
             }
+
+            $operateur->update([
+                "statut_agrement" => 'Nouveau',
+                "type_demande"    => $request->input("type_demande"),
+                "debut_quitus"    => $date_quitus,
+            ]);
 
             $operateur->commissionagrements()->syncWithoutDetaching([$commissionagrement?->id]);
 
             Alert::success('Succès !', 'Votre demande d\'extension a été prise en compte.');
             return back();
-        } elseif ($diffAnnee >= 3) {
+        } elseif ($diffAnnee >= 4) {
+
             $op = Operateur::create([
-                /* "numero_agrement" => '/ONFP/DG/DEC/' . now()->format('Y'), */
                 "categorie"       => $operateur?->categorie,
                 "statut"          => $operateur?->statut,
                 "statut_agrement" => 'Nouveau',
@@ -721,118 +726,16 @@ class OperateurController extends Controller
             return back();
         } else {
 
-            /* $this->authorize('view', $operateur);
-
-            Alert::error('Désolé !', 'Les renouvellements ne sont pas encore autorisés.');
-            return back(); */
-
-            $dateString  = $request->input('date_quitus');
+            /* $dateString  = $request->input('date_quitus');
             $date_quitus = ! empty($dateString) ? Carbon::createFromFormat('d/m/Y', $dateString) : null;
 
             $operateur->update([
                 "statut_agrement" => 'Nouveau',
                 "type_demande"    => 'Renouvellement',
                 "debut_quitus"    => $date_quitus,
-            ]);
-
-            /* $dateString  = $request->input('date_quitus');
-            $date_quitus = ! empty($dateString) ? Carbon::createFromFormat('d/m/Y', $dateString) : null; */
-
-            /* $op = Operateur::create([
-                "numero_agrement" => $operateur?->numero_agrement,
-                "categorie"       => $operateur?->categorie,
-                "statut"          => $operateur?->statut,
-                "statut_agrement" => 'Nouveau',
-                "type_demande"    => 'Renouvellement',
-                "autre_statut"    => $operateur?->autre_statut,
-                "annee_agrement"  => now()->format('Y-m-d'),
-                "rccm"            => $operateur?->registre_commerce,
-                "ninea"           => $operateur?->ninea,
-                "debut_quitus"    => $date_quitus,
-                "departements_id" => $operateur?->departements_id,
-                "regions_id"      => $operateur?->departement?->region?->id,
-                "users_id"        => $operateur?->users_id,
             ]); */
 
-            // Gestion du fichier quitus
-            /*  if ($request->hasFile('quitus')) {
-                $quitusPath = $request->file('quitus')->store('quitus', 'public');
-                $op->update(['quitus' => $quitusPath]);
-            } */
-
-            /* if ($request->hasFile('quitus')) {
-
-                // Récupérer le fichier uploadé
-                $uploadedFile = $request->file('quitus');
-
-                $filename = preg_replace("/[^A-Za-z0-9]/", '', pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME));
-                $filename = time() . '_' . str_replace(' ', '-', $filename) . '.' . $uploadedFile->getClientOriginalExtension();
-
-                // Stocker le fichier
-                $filePath = $uploadedFile->storeAs('quitus', $filename, 'public');
-
-                // Mettre à jour le modèle en base de données
-                $op->update([
-                    'quitus' => $filePath,
-                ]);
-
-            } */
-
-            // Clonage des modules de l'opérateur
-            /* foreach ($operateur->operateurmodules as $operateurmodule) {
-                Operateurmodule::create([
-                    "module"               => $operateurmodule->module,
-                    "domaine"              => $operateurmodule->domaine,
-                    "categorie"            => $operateurmodule->categorie,
-                    "niveau_qualification" => $operateurmodule->niveau_qualification,
-                    "statut"               => $operateurmodule->statut,
-                    "operateurs_id"        => $op->id,
-                ]);
-            } */
-
-            // Clonage des références
-            /*  foreach ($operateur->operateureferences as $operateureference) {
-                Operateureference::create([
-                    "organisme"     => $operateureference->organisme,
-                    "contact"       => $operateureference->contact,
-                    "periode"       => $operateureference->periode,
-                    "description"   => $operateureference->description,
-                    "operateurs_id" => $op->id,
-                ]);
-            } */
-
-            // Clonage des formateurs
-            /* foreach ($operateur->operateurformateurs as $operateurformateur) {
-                Operateurformateur::create([
-                    "name"                   => $operateurformateur->name,
-                    "domaine"                => $operateurformateur->domaine,
-                    "nbre_annees_experience" => $operateurformateur->nbre_annees_experience,
-                    "references"             => $operateurformateur->references,
-                    "operateurs_id"          => $op->id,
-                ]);
-            } */
-
-            // Clonage des équipements
-            /* foreach ($operateur->operateurequipements as $operateurequipement) {
-                Operateurequipement::create([
-                    "designation"   => $operateurequipement->designation,
-                    "quantite"      => $operateurequipement->quantite,
-                    "etat"          => $operateurequipement->etat,
-                    "type"          => $operateurequipement->type,
-                    "operateurs_id" => $op->id,
-                ]);
-            } */
-
-            // Clonage des localités
-            /* foreach ($operateur->operateurlocalites as $operateurlocalite) {
-                Operateurlocalite::create([
-                    "name"          => $operateurlocalite->name,
-                    "region"        => $operateurlocalite->region,
-                    "operateurs_id" => $op->id,
-                ]);
-            } */
-
-            Alert::success("Succès !", "Votre renouvellement a été pris en compte");
+            Alert::warning("Désolez !", "Impossible de réaliser cette opération pour le moment !");
 
             return redirect()->back();
         }
@@ -1854,7 +1757,7 @@ class OperateurController extends Controller
                     'modal' => "EditOperateurModal{$operateur->id}",
                 ],
             ];
-            
+
             // Retourner la vue avec les données
             return view(
                 'operateurs.show-operateur',
