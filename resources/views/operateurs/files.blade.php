@@ -23,8 +23,7 @@
                                 class="text-danger">*</span></li>
                         <li><i class="bi bi-check-circle text-success me-2"></i>NINEA <span class="text-danger">*</span>
                         </li>
-                        <li><i class="bi bi-check-circle text-success me-2"></i>Autorisation d'ouverture ministérielle <span
-                                class="text-danger">*</span></li>
+                        <li><i class="bi bi-check-circle text-success me-2"></i>Autorisation d'ouverture ministérielle (pour établissements et écoles de formation)<span class="text-danger">*</span></li>
                         <li><i class="bi bi-check-circle text-success me-2"></i>Quitus fiscal <span
                                 class="text-danger">*</span></li>
                         <li><i class="bi bi-check-circle text-success me-2"></i>Organigramme <span
