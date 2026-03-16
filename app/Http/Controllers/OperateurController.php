@@ -1873,13 +1873,28 @@ class OperateurController extends Controller
             fn($file) => $file->sigle === 'Autorisation',
         );
 
+        $hasNinea = $files->contains(
+            fn($file) => $file->sigle === 'Ninea',
+        );
+
+        $hasOrganigramme = $files->contains(
+            fn($file) => $file->sigle === 'Organigramme',
+        );
+
+        $hasQuitus = $files->contains(
+            fn($file) => $file->sigle === 'Quitus',
+        );
+
         $hasRC = $files->contains(
+            fn($file) => $file->sigle === 'Ninea/RC',
+        );
+
+        /* $hasRC = $files->contains(
             fn($file) => in_array($file->sigle, [
                 'Ninea/RC',
-                'Ninea',
                 'AC',
             ]),
-        );
+        ); */
 
         if ($operateur_total >= 1 && $operateur) {
 
@@ -1944,6 +1959,11 @@ class OperateurController extends Controller
                 'dateQuitus',
                 'labels',
                 'diffText',
+                'hasAuto',
+                'hasNinea',
+                'hasOrganigramme',
+                'hasQuitus',
+                'hasRC',
                 'sections'
             ));
         } else {

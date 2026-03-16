@@ -71,90 +71,131 @@
 
     </div>
 
+    <div class="row">
+        {{-- ================= FORMULAIRE UPLOAD ================= --}}
 
-    {{-- ================= FORMULAIRE UPLOAD ================= --}}
+        <div class="col-12 col-lg-6">
 
-    <div class="col-12 col-lg-6">
+            <div class="card border-primary shadow-sm mb-4">
 
-        <div class="card border-primary shadow-sm mb-4">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0 text-primary">
+                        <i class="bi bi-upload me-2"></i>
+                        Joindre un document
+                    </h5>
+                </div>
 
-            <div class="card-header bg-light">
-                <h5 class="mb-0 text-primary">
-                    <i class="bi bi-upload me-2"></i>
-                    Joindre un document
-                </h5>
+                <div class="card-body">
+
+                    <form method="POST" action="{{ route('files.update', $operateur?->user) }}"
+                        enctype="multipart/form-data" class="row g-3">
+
+                        @csrf
+                        @method('patch')
+
+                        <input type="hidden" name="idUser" value="{{ $operateur?->user->id }}">
+
+                        {{-- LEGENDE --}}
+                        <div class="col-12">
+
+                            <label class="form-label fw-semibold">
+                                Légende <span class="text-danger">*</span>
+                            </label>
+
+                            <select name="legende" class="form-select @error('legende') is-invalid @enderror"
+                                id="select-field-file">
+
+                                <option value="">Choisir un document</option>
+
+                                @foreach ($user_files as $file)
+                                    <option value="{{ $file->id }}">
+                                        {{ $labels[$file->legende] ?? $file->legende }}
+                                    </option>
+                                @endforeach
+
+                            </select>
+
+                            @error('legende')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+
+                        </div>
+
+
+                        {{-- FICHIER --}}
+                        <div class="col-12">
+
+                            <label class="form-label fw-semibold">
+                                Choisir un fichier <span class="text-danger">*</span>
+                            </label>
+
+                            <input type="file" name="file" class="form-control @error('file') is-invalid @enderror">
+
+                            @error('file')
+                                <div class="text-danger small">{{ $message }}</div>
+                            @enderror
+
+                        </div>
+
+
+                        {{-- BOUTON --}}
+                        <div class="col-12">
+
+                            <button type="submit" class="btn btn-primary w-100">
+
+                                <i class="bi bi-upload me-1"></i>
+                                Téléverser le fichier
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
             </div>
 
-            <div class="card-body">
+        </div>
 
-                <form method="POST" action="{{ route('files.update', $operateur?->user) }}" enctype="multipart/form-data"
-                    class="row g-3">
+        <div class="col-12 col-lg-6">
+            <div class="my-2 p-3 border rounded text-center">
 
-                    @csrf
-                    @method('patch')
+                @if ($hasAuto && $hasNinea && $hasOrganigramme && $hasQuitus)
+                    <span class="text-success fw-bold fs-5">
+                        Dossier complet
+                    </span>
+                @else
+                    <span class="text-danger fw-bold fs-5 d-block">
+                        Dossier incomplet !
+                    </span>
 
-                    <input type="hidden" name="idUser" value="{{ $operateur?->user->id }}">
+                    <div class="text-danger fs-6 mt-2">
 
-                    {{-- LEGENDE --}}
-                    <div class="col-12">
+                        @if (!$hasAuto)
+                            Veuillez téléverser l'autorisation d'ouverture ministérielle.<br>
+                        @endif
 
-                        <label class="form-label fw-semibold">
-                            Légende <span class="text-danger">*</span>
-                        </label>
+                        @if (!$hasNinea)
+                            Veuillez téléverser le NINEA.<br>
+                        @endif
 
-                        <select name="legende" class="form-select @error('legende') is-invalid @enderror"
-                            id="select-field-file">
+                        @if (!$hasRC)
+                            Registre de commerce.<br>
+                        @endif
 
-                            <option value="">Choisir un document</option>
+                        @if (!$hasOrganigramme)
+                            Veuillez téléverser l'organigramme.<br>
+                        @endif
 
-                            @foreach ($user_files as $file)
-                                <option value="{{ $file->id }}">
-                                    {{ $labels[$file->legende] ?? $file->legende }}
-                                </option>
-                            @endforeach
-
-                        </select>
-
-                        @error('legende')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-
-                    </div>
-
-
-                    {{-- FICHIER --}}
-                    <div class="col-12">
-
-                        <label class="form-label fw-semibold">
-                            Choisir un fichier <span class="text-danger">*</span>
-                        </label>
-
-                        <input type="file" name="file" class="form-control @error('file') is-invalid @enderror">
-
-                        @error('file')
-                            <div class="text-danger small">{{ $message }}</div>
-                        @enderror
+                        @if (!$hasQuitus)
+                            Veuillez téléverser le quitus fiscal.<br>
+                        @endif
 
                     </div>
-
-
-                    {{-- BOUTON --}}
-                    <div class="col-12">
-
-                        <button type="submit" class="btn btn-primary w-100">
-
-                            <i class="bi bi-upload me-1"></i>
-                            Téléverser le fichier
-
-                        </button>
-
-                    </div>
-
-                </form>
+                @endif
 
             </div>
         </div>
-
     </div>
 
 
