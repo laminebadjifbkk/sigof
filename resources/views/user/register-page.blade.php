@@ -119,12 +119,9 @@
                                         <a href="{{ url('auth/google') }}"
                                             class="btn btn-light d-flex align-items-center gap-2 border shadow-sm px-3 py-2"
                                             style="background-color:#fff;" title="Se connecter avec Google">
-
                                             <img src="https://www.gstatic.com/images/branding/product/1x/gsa_64dp.png"
                                                 alt="Google" style="width:20px; height:20px;">
-
-                                            <span>Se connecter avec Google</span>
-
+                                            <span>Utiliser Google pour s'inscrire </span>
                                         </a>
                                     </div>
                                     <div class="tab-content">
