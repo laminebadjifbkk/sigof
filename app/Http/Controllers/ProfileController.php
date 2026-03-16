@@ -25,9 +25,14 @@ class ProfileController extends Controller
     /**
      * Display the user's profile show.
      */
-    public function profilePage(Request $request): View
+    public function profilePage(Request $request): View|RedirectResponse
     {
-        $user  = Auth::user();
+        $user = Auth::user();
+
+        if (auth()->check() && auth()->user()->hasanyrole('Google')) {
+            return redirect()->route('profil.choisir');
+        }
+
         $email = $user->email;
 
         // Récupérer le formulaire lié à l'utilisateur
@@ -470,5 +475,30 @@ class ProfileController extends Controller
         }
 
         return back(); // Redirige vers la page précédente
+    }
+
+    public function choisir()
+    {
+        return view('auth.choisir-profil');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'profil' => 'required'
+        ]);
+
+        $user = Auth::user();
+
+        if ($request->profil == 'demandeur') {
+            $user->syncRoles('Demandeur');
+        }
+
+        if ($request->profil == 'operateur') {
+            $user->syncRoles('Operateur');
+        }
+
+        return redirect()->route('profil')
+            ->with('success', 'Profil activé avec succès.');
     }
 }

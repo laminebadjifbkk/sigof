@@ -2641,6 +2641,52 @@
                 });
         });
     </script>
+
+    <style>
+        .profile-card {
+            cursor: pointer;
+            transition: all 0.25s ease;
+            border-radius: 12px;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+    </style>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        function confirmProfil(profil) {
+
+            let message = profil === 'demandeur' ?
+                "Vous allez activer le profil Demandeur de formation." :
+                "Vous allez activer le profil Opérateur de formation.";
+
+            Swal.fire({
+                title: "Confirmer votre choix",
+                text: message,
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonText: "Oui, activer",
+                cancelButtonText: "Annuler",
+                confirmButtonColor: "#3085d6"
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+
+                    document.getElementById('profilInput').value = profil;
+                    document.getElementById('profilForm').submit();
+
+                }
+
+            });
+
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     {{-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.slim.min.js"></script> --}}
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>

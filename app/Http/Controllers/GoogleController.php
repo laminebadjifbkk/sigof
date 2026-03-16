@@ -92,7 +92,13 @@ class GoogleController extends Controller
 
             Auth::login($user);
 
-            return redirect()->intended('dashboard');
+            if (auth()->check() && auth()->user()->hasanyrole('Google')) {
+                return redirect()->route('profil.choisir');
+            }
+
+            return redirect()->route('profil');
+
+            /* return redirect()->intended('dashboard'); */
         } catch (Exception $e) {
             dd($e->getMessage());
         }

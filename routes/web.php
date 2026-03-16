@@ -922,6 +922,10 @@ Route::group(['middleware' => ['XSS']], function () {
             ->name('commisionagrement.detachOperateur');
         // web.php
         Route::get('/commisionagrement/{commission}/detach-operateur/{operateur}', [OperateurController::class, 'detachOperateur'])->name('commisionagrement.detachOperateur');
+
+        Route::get('/choisir-profil', [ProfileController::class, 'choisir'])->name('profil.choisir');
+        Route::post('/choisir-profil', [ProfileController::class, 'store'])->name('profil.store');
+
         /* Vues ressouces */
         Route::resource('/users', UserController::class);
         Route::resource('/permissions', PermissionController::class);
