@@ -854,7 +854,7 @@
         </section>
 
         {{-- Connexion --}}
-        <div class="col-12 d-flex flex-column align-items-center justify-content-center">
+        {{-- <div class="col-12 d-flex flex-column align-items-center justify-content-center">
             <div class="modal fade" id="loginModal" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -942,10 +942,10 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         {{-- Inscription Demandeur --}}
-        <div class="col-12 d-flex flex-column align-items-center justify-content-center">
+        {{-- <div class="col-12 d-flex flex-column align-items-center justify-content-center">
             <div class="modal fade" id="registerDemandeurModal" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -960,25 +960,8 @@
 
                             <div class="modal-body">
                                 <div class="row g-3">
-                                    {{-- <input type="hidden" name="role" value="Demandeur"> --}}
 
                                     <!-- Username -->
-                                    {{-- <div class="col-12">
-                                        <label for="username" class="form-label">Username<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <div class="input-group has-validation">
-                                            <span class="input-group-text"><i class="bi bi-person"></i></span>
-                                            <input type="text" name="username"
-                                                class="form-control form-control-sm @error('username') is-invalid @enderror"
-                                                id="username" required placeholder="ex : jean221"
-                                                value="{{ old('username') }}" autocomplete="username">
-                                            <div class="invalid-feedback">
-                                                @error('username')
-                                                    {{ $message }}
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div> --}}
 
                                     <!-- Email -->
                                     <div class="col-12">
@@ -1060,30 +1043,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- Sélection du rôle -->
-                                    {{-- <div class="col-12">
-                                        <label class="form-label d-block">Type de compte<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input @error('role') is-invalid @enderror"
-                                                type="radio" name="role" id="role_demandeur" value="Demandeur"
-                                                {{ old('role') == 'Demandeur' ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="role_demandeur">Demandeur de
-                                                formation</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input @error('role') is-invalid @enderror"
-                                                type="radio" name="role" id="role_operateur" value="Operateur"
-                                                {{ old('role') == 'Operateur' ? 'checked' : '' }} disabled>
-                                            <label class="form-check-label" for="role_operateur">Opérateur de
-                                                formation</label>
-                                        </div>
-                                        <div class="invalid-feedback d-block">
-                                            @error('role')
-                                                {{ $message }}
-                                            @enderror
-                                        </div>
-                                    </div> --}}
 
                                     <div class="col-12">
                                         <div class="form-check">
@@ -1139,10 +1098,10 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         {{-- Inscription opérateur --}}
-        <div class="col-12 d-flex flex-column align-items-center justify-content-center">
+        {{-- <div class="col-12 d-flex flex-column align-items-center justify-content-center">
             <div class="modal fade" id="registerOperateurModal" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -1267,10 +1226,10 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         {{-- Mot de passe oublié --}}
-        @if (Route::has('password.request'))
+        {{-- @if (Route::has('password.request'))
             <div class="col-12 d-flex flex-column align-items-center justify-content-center">
                 <div class="modal fade" id="forgotModal" tabindex="-1">
                     <div class="modal-dialog">
@@ -1315,7 +1274,7 @@
                     </div>
                 </div>
             </div>
-        @endif
+        @endif --}}
 
         {{-- En savoir plus --}}
 
