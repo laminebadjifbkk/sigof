@@ -387,30 +387,6 @@
 
                                                                 <div class="my-2 p-3 border rounded text-center">
 
-                                                                    @php
-                                                                        // Vérification des documents
-                                                                        $hasCIN = $files->contains(
-                                                                            fn($file) => $file->sigle === 'CIN',
-                                                                        );
-                                                                        $hasRC = $files->contains(
-                                                                            fn($file) => in_array($file->sigle, [
-                                                                                'Ninea/RC',
-                                                                                'AC',
-                                                                            ]),
-                                                                        );
-
-                                                                        // Vérifie s'il y a au moins un module
-$hasModule = $collective?->collectivemodules->isNotEmpty() ?? false;
-
-// Vérifie s'il y a des bénéficiaires sur au moins un module avec effectif ≥ 10
-                                                                        $hasBeneficiaries = $collective?->collectivemodules->contains(
-                                                                            function ($module) {
-                                                                                return $module->listecollectives->count() >=
-                                                                                    10;
-                                                                            },
-                                                                        );
-                                                                    @endphp
-
                                                                     @if ($hasCIN && $hasRC && $hasModule && $hasBeneficiaries)
                                                                         <span class="text-success fw-bold fs-5">
                                                                             ✅ Demande complète

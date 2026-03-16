@@ -833,6 +833,29 @@ class CollectiveController extends Controller
             return abort(404, 'Utilisateur non trouvé');
         }
 
+
+        // Vérification des documents
+        $hasCIN = $files->contains(
+            fn($file) => $file->sigle === 'CIN',
+        );
+        $hasRC = $files->contains(
+            fn($file) => in_array($file->sigle, [
+                'Ninea/RC',
+                'AC',
+            ]),
+        );
+
+        // Vérifie s'il y a au moins un module
+        $hasModule = $collective?->collectivemodules->isNotEmpty() ?? false;
+
+        // Vérifie s'il y a des bénéficiaires sur au moins un module avec effectif ≥ 10
+        $hasBeneficiaries = $collective?->collectivemodules->contains(
+            function ($module) {
+                return $module->listecollectives->count() >=
+                    10;
+            },
+        );
+
         return view(
             'collectives.show',
             compact(
@@ -844,6 +867,10 @@ class CollectiveController extends Controller
                 'user',
                 'files',
                 'user_files',
+                'hasCIN',
+                'hasRC',
+                'hasModule',
+                'hasBeneficiaries',
             )
         );
     }
@@ -904,6 +931,20 @@ class CollectiveController extends Controller
         if (empty($user->collective)) {
             return view("collectives.show-collective-aucune", compact("departements", "modules"));
         } else {
+
+            // Vérification des documents
+            $hasCIN = $files->contains(fn($file) => $file->sigle === 'CIN');
+            $hasRC = $files->contains(
+                fn($file) => in_array($file->sigle, ['Ninea/RC', 'AC']),
+            );
+
+            // Vérifie s'il y a au moins un module
+            $hasModule = $modules->isNotEmpty() ?? false;
+
+            // Vérifie s'il y a des bénéficiaires sur au moins un module avec effectif ≥ 10
+            $hasBeneficiaries = $modules->contains(function ($module) {
+                return $module->listecollectives->count() >= 10;
+            });
             return view(
                 "collectives.show-collective",
                 compact(
@@ -916,6 +957,10 @@ class CollectiveController extends Controller
                     'modules',
                     'totalModules',
                     'totalEffectif',
+                    'hasCIN',
+                    'hasRC',
+                    'hasModule',
+                    'hasBeneficiaries',
                 )
             );
         }
