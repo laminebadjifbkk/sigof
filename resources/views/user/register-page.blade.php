@@ -115,6 +115,18 @@
                                         <p class="small mb-0">Entrez vos informations pour créer un compte</p>
                                     </div>
 
+                                    <div class="d-flex justify-content-center mt-3">
+                                        <a href="{{ url('auth/google') }}"
+                                            class="btn btn-light d-flex align-items-center gap-2 border shadow-sm px-3 py-2"
+                                            style="background-color:#fff;" title="Se connecter avec Google">
+
+                                            <img src="https://www.gstatic.com/images/branding/product/1x/gsa_64dp.png"
+                                                alt="Google" style="width:20px; height:20px;">
+
+                                            <span>Se connecter avec Google</span>
+
+                                        </a>
+                                    </div>
                                     <div class="tab-content">
                                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
                                             <form class="row g-3 needs-validation" novalidate method="POST"
@@ -188,7 +200,8 @@
                                                         <input type="password" name="password"
                                                             class="form-control form-control-sm @error('password') is-invalid @enderror"
                                                             id="password" required placeholder="Votre mot de passe"
-                                                            value="{{ old('password') }}" autocomplete="new-password">
+                                                            value="{{ old('password') }}"
+                                                            autocomplete="new-password">
                                                         <button class="btn btn-outline-secondary" type="button"
                                                             id="togglePassword">
                                                             <i class="bi bi-eye"></i>

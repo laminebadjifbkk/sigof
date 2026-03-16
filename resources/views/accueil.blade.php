@@ -1113,6 +1113,20 @@
                                             <b>S'inscrire</b>
                                         </button>
                                     </div>
+                                    <!-- Séparateur “ou” -->
+                                    <div class="col-12 text-center my-2">
+                                        <span style="color: #999;">ou</span>
+                                    </div>
+                                    <!-- OU Connexion via Google -->
+                                    <div class="col-12 text-center mt-1">
+                                        <a href="{{ url('auth/google') }}"
+                                            class="btn btn-light border shadow-sm d-flex align-items-center justify-content-center w-100"
+                                            style="padding: 0.5rem; gap: 0.5rem;" title="Se connecter avec Google">
+                                            <img src="https://www.gstatic.com/images/branding/product/1x/gsa_64dp.png"
+                                                alt="Google" style="width:24px; height:24px;">
+                                            <span>Continuer avec Google</span>
+                                        </a>
+                                    </div>
 
                                     <div class="col-12 text-center">
                                         <p class="small">Vous avez déjà un compte ? <a href="#"
