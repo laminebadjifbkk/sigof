@@ -102,7 +102,7 @@
                     @foreach ($operateurA as $operateur)
                         <div class="card mb-4 shadow-sm border-0 w-100">
                             <div class="card-header bg-white border-bottom py-3 px-4">
-                                <div class="row align-items-center gy-2">
+                                <div class="row justify-content-between align-items-center gy-2">
                                     <div class="col-12 col-md-auto">
                                         <div class="d-flex align-items-center flex-wrap">
                                             <i class="bi bi-arrow-right-circle text-secondary me-2"></i>
