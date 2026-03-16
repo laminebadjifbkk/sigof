@@ -3,7 +3,7 @@
     <div class="row">
 
         {{-- ================= DOCUMENTS A FOURNIR ================= --}}
-        <div class="col-12 col-lg-6">
+        <div class="col-12">
 
             <div class="card border-info shadow-sm mb-4">
                 <div class="card-header bg-light">
@@ -23,17 +23,21 @@
                                 class="text-danger">*</span></li>
                         <li><i class="bi bi-check-circle text-success me-2"></i>NINEA <span class="text-danger">*</span>
                         </li>
-                        <li><i class="bi bi-check-circle text-success me-2"></i>Autorisation d'ouverture ministérielle (pour établissements et écoles de formation)<span class="text-danger">*</span></li>
                         <li><i class="bi bi-check-circle text-success me-2"></i>Quitus fiscal <span
                                 class="text-danger">*</span></li>
                         <li><i class="bi bi-check-circle text-success me-2"></i>Organigramme <span
                                 class="text-danger">*</span></li>
-                        <li><i class="bi bi-check-circle text-success me-2"></i>Acte de déclaration d'existence au niveau de
-                            la Direction générale des Imôts <span class="text-danger">*</span></li>
                         <li><i class="bi bi-check-circle text-success me-2"></i>Attestation de non fonctionnaire ou carte de
                             retraite <span class="text-danger">*</span></li>
                         <li><i class="bi bi-check-circle text-success me-2"></i>Convention de partenariat ou contrat de
                             location <span class="text-danger">*</span></li>
+                        <li><i class="bi bi-check-circle text-success me-2"></i>Acte de déclaration d'existence au niveau de
+                            la Direction générale des Imôts <small class="text-muted">(pour les structures nouvellement
+                                crées)</small> <span class="text-danger">*</span></li>
+                        <li><i class="bi bi-check-circle text-success me-2"></i>Autorisation d'ouverture ministérielle
+                            <small class="text-muted">(pour
+                                établissements ou écoles de formation)</small><span class="text-danger">*</span>
+                        </li>
                         <li><i class="bi bi-check-circle text-muted me-2"></i>Attestation de bonne exécution (ABE) <small
                                 class="text-muted">(si disponible)</small></li>
                         <li><i class="bi bi-check-circle text-muted me-2"></i>Contrat de prestation <small
@@ -65,89 +69,90 @@
 
         </div>
 
-
-        {{-- ================= FORMULAIRE UPLOAD ================= --}}
-        <div class="col-12 col-lg-6">
-
-            <div class="card border-primary shadow-sm mb-4">
-
-                <div class="card-header bg-light">
-                    <h5 class="mb-0 text-primary">
-                        <i class="bi bi-upload me-2"></i>
-                        Joindre un document
-                    </h5>
-                </div>
-
-                <div class="card-body">
-
-                    <form method="POST" action="{{ route('files.update', $operateur?->user) }}"
-                        enctype="multipart/form-data" class="row g-3">
-
-                        @csrf
-                        @method('patch')
-
-                        <input type="hidden" name="idUser" value="{{ $operateur?->user->id }}">
-
-                        {{-- LEGENDE --}}
-                        <div class="col-12">
-
-                            <label class="form-label fw-semibold">
-                                Légende <span class="text-danger">*</span>
-                            </label>
-
-                            <select name="legende" class="form-select @error('legende') is-invalid @enderror"
-                                id="select-field-file">
-
-                                <option value="">Choisir un document</option>
-
-                                @foreach ($user_files as $file)
-                                    <option value="{{ $file->id }}">
-                                        {{ $labels[$file->legende] ?? $file->legende }}
-                                    </option>
-                                @endforeach
-
-                            </select>
-
-                            @error('legende')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-
-                        </div>
+    </div>
 
 
-                        {{-- FICHIER --}}
-                        <div class="col-12">
+    {{-- ================= FORMULAIRE UPLOAD ================= --}}
 
-                            <label class="form-label fw-semibold">
-                                Choisir un fichier <span class="text-danger">*</span>
-                            </label>
+    <div class="col-12 col-lg-6">
 
-                            <input type="file" name="file" class="form-control @error('file') is-invalid @enderror">
+        <div class="card border-primary shadow-sm mb-4">
 
-                            @error('file')
-                                <div class="text-danger small">{{ $message }}</div>
-                            @enderror
-
-                        </div>
-
-
-                        {{-- BOUTON --}}
-                        <div class="col-12">
-
-                            <button type="submit" class="btn btn-primary w-100">
-
-                                <i class="bi bi-upload me-1"></i>
-                                Téléverser le fichier
-
-                            </button>
-
-                        </div>
-
-                    </form>
-
-                </div>
+            <div class="card-header bg-light">
+                <h5 class="mb-0 text-primary">
+                    <i class="bi bi-upload me-2"></i>
+                    Joindre un document
+                </h5>
             </div>
 
+            <div class="card-body">
+
+                <form method="POST" action="{{ route('files.update', $operateur?->user) }}" enctype="multipart/form-data"
+                    class="row g-3">
+
+                    @csrf
+                    @method('patch')
+
+                    <input type="hidden" name="idUser" value="{{ $operateur?->user->id }}">
+
+                    {{-- LEGENDE --}}
+                    <div class="col-12">
+
+                        <label class="form-label fw-semibold">
+                            Légende <span class="text-danger">*</span>
+                        </label>
+
+                        <select name="legende" class="form-select @error('legende') is-invalid @enderror"
+                            id="select-field-file">
+
+                            <option value="">Choisir un document</option>
+
+                            @foreach ($user_files as $file)
+                                <option value="{{ $file->id }}">
+                                    {{ $labels[$file->legende] ?? $file->legende }}
+                                </option>
+                            @endforeach
+
+                        </select>
+
+                        @error('legende')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+
+                    </div>
+
+
+                    {{-- FICHIER --}}
+                    <div class="col-12">
+
+                        <label class="form-label fw-semibold">
+                            Choisir un fichier <span class="text-danger">*</span>
+                        </label>
+
+                        <input type="file" name="file" class="form-control @error('file') is-invalid @enderror">
+
+                        @error('file')
+                            <div class="text-danger small">{{ $message }}</div>
+                        @enderror
+
+                    </div>
+
+
+                    {{-- BOUTON --}}
+                    <div class="col-12">
+
+                        <button type="submit" class="btn btn-primary w-100">
+
+                            <i class="bi bi-upload me-1"></i>
+                            Téléverser le fichier
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
         </div>
 
     </div>
