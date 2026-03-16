@@ -8,8 +8,6 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Exception;
 
-use Illuminate\Http\Request;
-
 class GoogleController extends Controller
 {
     public function googlepage()
@@ -17,7 +15,7 @@ class GoogleController extends Controller
         return Socialite::driver('google')->redirect();
     }
 
-    public function googlecallback()
+    /*  public function googlecallback()
     {
         try {
 
@@ -49,6 +47,51 @@ class GoogleController extends Controller
 
                 return redirect()->intended('dashboard');
             }
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    } */
+
+    public function googlecallback()
+    {
+        try {
+
+            $googleUser = Socialite::driver('google')->user();
+
+            // 1️⃣ Chercher par google_id
+            $user = User::where('google_id', $googleUser->id)->first();
+
+            // 2️⃣ Si pas trouvé, chercher par email
+            if (!$user) {
+                $user = User::where('email', $googleUser->email)->first();
+
+                if ($user) {
+                    // Mettre à jour google_id si l'utilisateur existe déjà
+                    $user->update([
+                        'google_id' => $googleUser->id
+                    ]);
+                } else {
+
+                    // 3️⃣ Créer nouvel utilisateur
+                    $user = User::create([
+                        'name' => $googleUser->name,
+                        'email' => $googleUser->email,
+                        'google_id' => $googleUser->id,
+                        'password' => bcrypt(str()->random(16)),
+                    ]);
+
+                    // Attribution du rôle
+                    $role = Role::where('name', 'Demandeur')->first();
+                    
+                    if ($role) {
+                        $user->assignRole($role);
+                    }
+                }
+            }
+
+            Auth::login($user);
+
+            return redirect()->intended('dashboard');
         } catch (Exception $e) {
             dd($e->getMessage());
         }
