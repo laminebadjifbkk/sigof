@@ -246,15 +246,18 @@ class OperateurController extends Controller
         $this->authorize('view', $operateur);
 
         // Récupérer les counts des relations de l'opérateur
-        $module_count     = Operateurmodule::where('operateurs_id', $operateur->id)->exists() ? "complète" : "incomplète";
-        $reference_count  = Operateureference::where('operateurs_id', $operateur->id)->exists() ? "complète" : "incomplète";
-        $equipement_count = Operateurequipement::where('operateurs_id', $operateur->id)->exists() ? "complète" : "incomplète";
-        $formateur_count  = Operateurformateur::where('operateurs_id', $operateur->id)->exists() ? "complète" : "incomplète";
-        $localite_count   = Operateurlocalite::where('operateurs_id', $operateur->id)->exists() ? "complète" : "incomplète";
+        $module_count     = Operateurmodule::where('operateurs_id', $operateur->id)->exists();
+        $reference_count  = Operateureference::where('operateurs_id', $operateur->id)->exists();
+        $equipement_count = Operateurequipement::where('operateurs_id', $operateur->id)->exists();
+        $formateur_count  = Operateurformateur::where('operateurs_id', $operateur->id)->exists();
+        $localite_count   = Operateurlocalite::where('operateurs_id', $operateur->id)->exists();
 
+        /* 
         // Déterminer le statut de la demande
         $statut_demande = ($module_count === "complète" && $reference_count === "complète" && $equipement_count === "complète" &&
-            $formateur_count === "complète" && $localite_count === "complète") ? "complète" : "incomplète";
+            $formateur_count === "complète" && $localite_count === "complète"); */
+
+        $statut_demande = $operateur->profilEstComplet() ? 'complète' : 'incomplète';
 
         /*  $dateQuitus = $operateur?->debut_quitus;
         $diff       = $dateQuitus?->diff(now());
@@ -1072,38 +1075,41 @@ class OperateurController extends Controller
         $operateureferences = Operateureference::get();
 
         // Récupérer les counts des relations de l'opérateur
-        $module_count     = Operateurmodule::where('operateurs_id', $operateur->id)->exists() ? "complète" : "incomplète";
-        $reference_count  = Operateureference::where('operateurs_id', $operateur->id)->exists() ? "complète" : "incomplète";
-        $equipement_count = Operateurequipement::where('operateurs_id', $operateur->id)->exists() ? "complète" : "incomplète";
-        $formateur_count  = Operateurformateur::where('operateurs_id', $operateur->id)->exists() ? "complète" : "incomplète";
-        $localite_count   = Operateurlocalite::where('operateurs_id', $operateur->id)->exists() ? "complète" : "incomplète";
+        $module_count     = Operateurmodule::where('operateurs_id', $operateur->id)->exists();
+        $reference_count  = Operateureference::where('operateurs_id', $operateur->id)->exists();
+        $equipement_count = Operateurequipement::where('operateurs_id', $operateur->id)->exists();
+        $formateur_count  = Operateurformateur::where('operateurs_id', $operateur->id)->exists();
+        $localite_count   = Operateurlocalite::where('operateurs_id', $operateur->id)->exists();
 
         // Compter les fichiers liés à l'utilisateur (champ file non nul)
         $fichiers_total = $operateur->user?->files()
             ->whereNotNull('file')
             ->count();
 
-        function getStatutFichiers($categorie, $fichiers_total)
+        /* function getStatutFichiers($categorie, $fichiers_total)
         {
             if ($categorie !== 'Public') {
                 return $fichiers_total >= 4 ? 'complète' : 'incomplète';
             } else {
                 return $fichiers_total >= 1 ? 'complète' : 'incomplète';
             }
-        }
+        } */
 
         // Utilisation
-        $fichier_count = getStatutFichiers($operateur?->user?->categorie, $fichiers_total);
+        /* $fichier_count = getStatutFichiers($operateur?->user?->categorie, $fichiers_total); */
 
         // Statut global
-        $statut_demande = (
+        /* $statut_demande = (
             $module_count === "complète" &&
             $reference_count === "complète" &&
             $equipement_count === "complète" &&
             $formateur_count === "complète" &&
             $localite_count === "complète" &&
             $fichier_count === "complète"
-        ) ? "complète" : "incomplète";
+        ); */
+
+
+        $statut_demande = $operateur->profilEstComplet() ? 'complète' : 'incomplète';
 
         $departements = Departement::orderBy("nom", "asc")->get();
 
@@ -1216,7 +1222,7 @@ class OperateurController extends Controller
                 'equipement_count',
                 'formateur_count',
                 'localite_count',
-                'fichier_count',
+                /* 'fichier_count', */
                 'dateAgrement',
                 'dateExpiration',
                 'estExpire',
@@ -1655,11 +1661,11 @@ class OperateurController extends Controller
 
         if ($operateur_total >= 1 && $operateur) {
             // Récupérer les counts des relations de l'opérateur
-            $module_count     = Operateurmodule::where('operateurs_id', $operateur->id)->exists() ? "complète" : "incomplète";
-            $reference_count  = Operateureference::where('operateurs_id', $operateur->id)->exists() ? "complète" : "incomplète";
-            $equipement_count = Operateurequipement::where('operateurs_id', $operateur->id)->exists() ? "complète" : "incomplète";
-            $formateur_count  = Operateurformateur::where('operateurs_id', $operateur->id)->exists() ? "complète" : "incomplète";
-            $localite_count   = Operateurlocalite::where('operateurs_id', $operateur->id)->exists() ? "complète" : "incomplète";
+            $module_count     = Operateurmodule::where('operateurs_id', $operateur->id)->exists();
+            $reference_count  = Operateureference::where('operateurs_id', $operateur->id)->exists();
+            $equipement_count = Operateurequipement::where('operateurs_id', $operateur->id)->exists();
+            $formateur_count  = Operateurformateur::where('operateurs_id', $operateur->id)->exists();
+            $localite_count   = Operateurlocalite::where('operateurs_id', $operateur->id)->exists();
 
             // Compter les fichiers liés à l'utilisateur (champ file non nul)
             $fichiers_total = $operateur->user?->files()
@@ -1686,7 +1692,7 @@ class OperateurController extends Controller
                 $formateur_count === "complète" &&
                 $localite_count === "complète" &&
                 $fichier_count === "complète"
-            ) ? "complète" : "incomplète";
+            );
 
             $dernierAgrement = $operateur->commissionagrements()
                 ->orderByDesc('fin_commission')
@@ -1849,6 +1855,7 @@ class OperateurController extends Controller
                 'CME',
                 'CP',
                 'DENO',
+                'Autorisation',
                 'Bail'
             ])
             ->orderBy('sigle', 'asc')
@@ -1861,6 +1868,19 @@ class OperateurController extends Controller
             ->distinct()
             ->get();
 
+        // Vérification des documents
+        $hasAuto = $files->contains(
+            fn($file) => $file->sigle === 'Autorisation',
+        );
+
+        $hasRC = $files->contains(
+            fn($file) => in_array($file->sigle, [
+                'Ninea/RC',
+                'Ninea',
+                'AC',
+            ]),
+        );
+
         if ($operateur_total >= 1 && $operateur) {
 
             // Statuts des relations
@@ -1870,16 +1890,12 @@ class OperateurController extends Controller
             $formateur_count  = $operateur->operateurformateurs->isNotEmpty();
             $localite_count   = $operateur->operateurlocalites->isNotEmpty();
 
-            // Statut des fichiers
-            /* $fichiers_total = $operateur->user->files->whereNotNull('file')->count();
-
-            $fichier_count = $operateur->user->categorie !== 'Public'
-                ? ($fichiers_total >= 4)
-                : ($fichiers_total >= 1); */
-
+            /* 
             // Statut global
             $statut_demande = collect([$module_count, $reference_count, $equipement_count, $formateur_count, $localite_count])
-                ->every(fn($s) => $s === 'complète') ? 'complète' : 'incomplète';
+                ->every(fn($s) => $s === 'complète') ? 'complète' : 'incomplète'; */
+
+            $statut_demande = $operateur->profilEstComplet() ? 'complète' : 'incomplète';
 
             // Dernier agrément et dates
             $dernierAgrement = $operateur->commissionagrements->sortByDesc('fin_commission')->first();

@@ -265,9 +265,10 @@ class Operateur extends Model
 
         return $this->belongsToMany(
             Commissionagrement::class,
-            'commissionagrement_operateurs', 
-            'operateur_id', 
-            'commissionagrement_id')
+            'commissionagrement_operateurs',
+            'operateur_id',
+            'commissionagrement_id'
+        )
             ->withPivot('statut_agrement');
     }
 
@@ -349,5 +350,15 @@ class Operateur extends Model
     public function operateurcategorie()
     {
         return $this->belongsTo(Operateurcategorie::class, 'operateurcategories_id');
+    }
+
+    public function profilEstComplet(): bool
+    {
+        return
+            $this->operateurmodules()->exists() &&
+            $this->operateureferences()->exists() &&
+            $this->operateurequipements()->exists() &&
+            $this->operateurformateurs()->exists() &&
+            $this->operateurlocalites()->exists();
     }
 }

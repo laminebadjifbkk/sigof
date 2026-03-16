@@ -229,6 +229,9 @@
             </div>
         </div>
 
+        {{-- Fichiers --}}
+        @include('operateurs.files')
+
         {{-- Modals --}}
         @include('operateurs.modals')
     </section>

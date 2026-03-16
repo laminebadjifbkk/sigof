@@ -667,7 +667,7 @@
                                                 </div>
                                             @endif
                                         </div> --}}
-
+                                        {{-- 
                                         @can('upload-file-view')
 
                                             <h5 class="card-title">JOINDRE VOS SCANS DE DOSSIERS</h5>
@@ -676,9 +676,6 @@
                                                 @csrf
                                                 @method('patch')
                                                 <input type="hidden" name="idUser" value="{{ $operateur?->user->id }}">
-                                                {{-- <span style="color:red;">NB:</span>
-                                <span>Télécharger toutes les pièces justificatives</span>
-                                <span style="color:red;">exigées</span>. --}}
                                                 <div class="col-12 col-lg-6">
                                                     <div class="card border-info shadow-sm mb-4">
                                                         <div class="card-body">
@@ -839,7 +836,6 @@
                                                                                 <span
                                                                                     class="badge bg-{{ $badgeClass }}">{{ $statut }}</span>
                                                                             </td>
-                                                                            {{-- Supprimer --}}
                                                                             <td>
                                                                                 @if ($file->statut !== 'Validé')
                                                                                     <form action="{{ route('fileDestroy') }}"
@@ -858,7 +854,6 @@
                                                                             </td>
 
                                                                             @hasanyrole('super-admin|admin|DIOF')
-                                                                                {{-- Valider --}}
                                                                                 <td>
                                                                                     <form action="{{ route('fileValidate') }}"
                                                                                         method="post" class="d-inline">
@@ -873,7 +868,6 @@
                                                                                         </button>
                                                                                     </form>
                                                                                 </td>
-                                                                                {{-- Invalider --}}
                                                                                 <td>
                                                                                     <form action="{{ route('fileInvalide') }}"
                                                                                         method="post" class="d-inline">
@@ -899,7 +893,10 @@
                                                     <div class="alert alert-info text-center text-muted">Aucun fichier joint</div>
                                                 @endif
                                             </div>
-                                        @endcan
+                                        @endcan --}}
+
+                                        {{-- Fichiers --}}
+                                        @include('operateurs.files')
                                     </div>
                                 </div>
 
