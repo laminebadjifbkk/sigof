@@ -1864,20 +1864,21 @@ class OperateurController extends Controller
         if ($operateur_total >= 1 && $operateur) {
 
             // Statuts des relations
-            $module_count     = $operateur->operateurmodules->isNotEmpty() ? 'complète' : 'incomplète';
-            $reference_count  = $operateur->operateureferences->isNotEmpty() ? 'complète' : 'incomplète';
-            $equipement_count = $operateur->operateurequipements->isNotEmpty() ? 'complète' : 'incomplète';
-            $formateur_count  = $operateur->operateurformateurs->isNotEmpty() ? 'complète' : 'incomplète';
-            $localite_count   = $operateur->operateurlocalites->isNotEmpty() ? 'complète' : 'incomplète';
+            $module_count     = $operateur->operateurmodules->isNotEmpty();
+            $reference_count  = $operateur->operateureferences->isNotEmpty();
+            $equipement_count = $operateur->operateurequipements->isNotEmpty();
+            $formateur_count  = $operateur->operateurformateurs->isNotEmpty();
+            $localite_count   = $operateur->operateurlocalites->isNotEmpty();
 
             // Statut des fichiers
-            $fichiers_total = $operateur->user->files->whereNotNull('file')->count();
+            /* $fichiers_total = $operateur->user->files->whereNotNull('file')->count();
+
             $fichier_count = $operateur->user->categorie !== 'Public'
-                ? ($fichiers_total >= 4 ? 'complète' : 'incomplète')
-                : ($fichiers_total >= 1 ? 'complète' : 'incomplète');
+                ? ($fichiers_total >= 4)
+                : ($fichiers_total >= 1); */
 
             // Statut global
-            $statut_demande = collect([$module_count, $reference_count, $equipement_count, $formateur_count, $localite_count, $fichier_count])
+            $statut_demande = collect([$module_count, $reference_count, $equipement_count, $formateur_count, $localite_count])
                 ->every(fn($s) => $s === 'complète') ? 'complète' : 'incomplète';
 
             // Dernier agrément et dates

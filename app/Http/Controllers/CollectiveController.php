@@ -833,7 +833,6 @@ class CollectiveController extends Controller
             return abort(404, 'Utilisateur non trouvé');
         }
 
-
         // Vérification des documents
         $hasCIN = $files->contains(
             fn($file) => $file->sigle === 'CIN',
