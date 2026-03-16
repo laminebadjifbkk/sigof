@@ -81,8 +81,8 @@ class GoogleController extends Controller
                     ]);
 
                     // Attribution du rôle
-                    $role = Role::where('name', 'Demandeur')->first();
-                    
+                    $role = Role::where('name', 'Google')->first();
+
                     if ($role) {
                         $user->assignRole($role);
                     }
@@ -93,7 +93,7 @@ class GoogleController extends Controller
 
             return redirect()->intended('dashboard');
         } catch (Exception $e) {
-            dd($e->getMessage());
+            return $e->getMessage() . ' - ' . $e->getFile() . ' ligne ' . $e->getLine();
         }
     }
 }
