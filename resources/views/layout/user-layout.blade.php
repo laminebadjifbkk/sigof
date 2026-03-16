@@ -2497,6 +2497,16 @@
 
         }
     </script>
+    <style>
+        .disabled-card {
+            pointer-events: none;
+            /* Désactive les clics */
+            opacity: 0.5;
+            /* Grise la carte pour indiquer qu’elle est inactive */
+            cursor: not-allowed;
+            /* Curseur “interdit” */
+        }
+    </style>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     {{-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.slim.min.js"></script> --}}
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> --}}
