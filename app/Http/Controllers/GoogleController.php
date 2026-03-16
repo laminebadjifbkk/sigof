@@ -56,7 +56,8 @@ class GoogleController extends Controller
     {
         try {
 
-            $googleUser = Socialite::driver('google')->user();
+            /* $googleUser = Socialite::driver('google')->user(); */
+            $googleUser = Socialite::driver('google')->stateless()->user();
 
             // 1️⃣ Chercher par google_id
             $user = User::where('google_id', $googleUser->id)->first();
@@ -93,7 +94,7 @@ class GoogleController extends Controller
 
             return redirect()->intended('dashboard');
         } catch (Exception $e) {
-            return $e->getMessage() . ' - ' . $e->getFile() . ' ligne ' . $e->getLine();
+            dd($e->getMessage());
         }
     }
 }
