@@ -29,7 +29,7 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
 
-        if (auth()->check() && auth()->user()->hasanyrole('Google')) {
+        if (auth()->check() && (auth()->user()->hasAnyRole('Google') || auth()->user()->roles->isEmpty())) {
             return redirect()->route('profil.choisir');
         }
 

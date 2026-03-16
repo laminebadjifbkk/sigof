@@ -2266,381 +2266,7 @@
     <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.print.min.js"></script>
 
     {{-- Pour sweetAlert --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
-    <script type="text/javascript">
-        $('.show_confirm').click(function(event) {
-            var form = $(this).closest("form");
-            var name = $(this).data("name");
-            event.preventDefault();
-            swal({
-                    title: `Êtes-vous sûr de vouloir supprimer cet enregistrement ?`,
-                    text: "Si vous supprimez ceci, il disparaîtra pour toujours.",
-                    icon: "warning",
-                    buttons: ["Annuler", "Oui, Supprimer !"],
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        form.submit();
-                    }
-                });
-        });
-    </script>
-
-    <script type="text/javascript">
-        $('.show_confirm_detach').click(function(event) {
-            var form = $(this).closest("form");
-            var name = $(this).data("name");
-            event.preventDefault();
-            swal({
-                    title: `Êtes-vous sûr de vouloir détacher?`,
-                    text: "Si vous supprimez ceci, il disparaîtra pour toujours.",
-                    icon: "warning",
-                    buttons: ["Annuler", "Oui, Détacher !"],
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        form.submit();
-                    }
-                });
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            $('.show_confirmDeleteImage').click(function(event) {
-                event.preventDefault();
-                var url = $(this).data('url'); // Récupère l'URL de suppression
-
-                swal({
-                    title: "Êtes-vous sûr de vouloir supprimer ?",
-                    text: "Si vous supprimez, l'image disparaîtra pour toujours.",
-                    icon: "warning",
-                    buttons: ["Annuler", "Oui, Supprimer !"],
-                    dangerMode: true,
-                }).then((willDelete) => {
-                    if (willDelete) {
-                        $.ajax({
-                            url: url,
-                            type: "POST",
-                            data: {
-                                _token: "{{ csrf_token() }}",
-                                _method: "DELETE"
-                            },
-                            success: function(response) {
-                                swal("Succès", "Votre image a été supprimée.",
-                                        "success")
-                                    .then(() => location.reload());
-                            },
-                            error: function(response) {
-                                swal("Erreur", "Une erreur s'est produite.", "error");
-                            }
-                        });
-                    }
-                });
-            });
-        });
-    </script>
-
-
-    <script type="text/javascript">
-        $('.show_confirm_disconnect').click(function(event) {
-            var form = $(this).closest("form");
-            var name = $(this).data("name");
-            event.preventDefault();
-            swal({
-                    title: `Êtes-vous sûr de vouloir vous déconnecter ?`,
-                    text: "Vous pouvez cliquer sur ok pour confirmer ou cliquer sur cancel pour annuler.",
-                    icon: "warning",
-                    buttons: ["Annuler", "Oui, déconnecter !"],
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        form.submit();
-                    }
-                });
-        });
-    </script>
-
-    <script type="text/javascript">
-        $('.show_confirm_nettoyer').click(function(event) {
-            var form = $(this).closest("form");
-            var name = $(this).data("name");
-            event.preventDefault();
-            swal({
-                    title: `Êtes-vous sûr de vouloir nettoyer ?`,
-                    text: "Vous pouvez cliquer sur ok pour confirmer ou cliquer sur cancel pour annuler.",
-                    icon: "warning",
-                    buttons: ["Annuler", "Oui, nettoyer !"],
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        form.submit();
-                    }
-                });
-        });
-    </script>
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            // Délégation d'événement pour s'assurer que tous les éléments dynamiques sont pris en charge
-            $(document).on('click', '.show_confirm_restaurer', function(event) {
-                event.preventDefault(); // Empêche la soumission automatique
-
-                const form = $(this).closest("form");
-
-                swal({
-                    title: "Êtes-vous sûr de vouloir restaurer ?",
-                    text: "Vous pouvez cliquer sur OK pour confirmer ou sur Annuler pour annuler.",
-                    icon: "warning", // "warning" est plus adapté pour une action risquée
-                    buttons: {
-                        cancel: "Annuler",
-                        confirm: {
-                            text: "Oui, restaurer !",
-                            value: true,
-                            visible: true,
-                            className: "",
-                            closeModal: true
-                        }
-                    },
-                    dangerMode: true
-                }).then((willRestore) => {
-                    if (willRestore) {
-                        form.submit(); // Soumet le formulaire si confirmé
-                    }
-                });
-            });
-        });
-    </script>
-
-    <script>
-        $("#checkAll").click(function() {
-            $(".form-check-input").prop('checked', $(this).prop('checked'));
-        });
-    </script>
-    <script type="text/javascript">
-        $('.show_confirm_valider').click(function(event) {
-            var form = $(this).closest("form");
-            var name = $(this).data("name");
-            event.preventDefault();
-            swal({
-                    title: `Êtes-vous sûr ?`,
-                    text: "Si oui, cliquer sur ok.",
-                    icon: "success",
-                    buttons: ["Annuler", "Oui, valider !"],
-                })
-                .then((willValide) => {
-                    if (willValide) {
-                        form.submit();
-                    }
-                });
-        });
-    </script>
-    <script type="text/javascript">
-        $('.show_confirm_ouvrir').click(function(event) {
-            var form = $(this).closest("form");
-            var name = $(this).data("name");
-            event.preventDefault();
-            swal({
-                    title: `Êtes-vous sûr ?`,
-                    text: "Si oui, cliquer sur ok.",
-                    icon: "success",
-                    buttons: ["Annuler", "Oui, Ouvrir !"],
-                })
-                .then((willValide) => {
-                    if (willValide) {
-                        form.submit();
-                    }
-                });
-        });
-    </script>
-    <script type="text/javascript">
-        $('.show_confirm_terminer').click(function(event) {
-            var form = $(this).closest("form");
-            var name = $(this).data("name");
-            event.preventDefault();
-            swal({
-                    title: `Êtes-vous sûr ?`,
-                    text: "Si oui, cliquer sur ok.",
-                    icon: "success",
-                    buttons: ["Annuler", "Oui, Terminer !"],
-                })
-                .then((willValide) => {
-                    if (willValide) {
-                        form.submit();
-                    }
-                });
-        });
-    </script>
-    <script type="text/javascript">
-        $('.show_confirm_certifier').click(function(event) {
-            var form = $(this).closest("form");
-            var name = $(this).data("name");
-            event.preventDefault();
-            swal({
-                    title: `Êtes-vous sûr ?`,
-                    text: "Si oui, cliquer sur ok.",
-                    icon: "success",
-                    buttons: ["Annuler", "Oui, Certifier !"],
-                })
-                .then((willValide) => {
-                    if (willValide) {
-                        form.submit();
-                    }
-                });
-        });
-    </script>
-    <script type="text/javascript">
-        $('.show_confirm_fermer').click(function(event) {
-            var form = $(this).closest("form");
-            var name = $(this).data("name");
-            event.preventDefault();
-            swal({
-                    title: `Êtes-vous sûr ?`,
-                    text: "Si oui, cliquer sur ok.",
-                    icon: "success",
-                    buttons: ["Annuler", "Oui, Fermer !"],
-                    dangerMode: true,
-                })
-                .then((willValide) => {
-                    if (willValide) {
-                        form.submit();
-                    }
-                });
-        });
-    </script>
-    <script type="text/javascript">
-        $('.show_confirm_rejeter').on('click', function(event) {
-            event.preventDefault();
-            const form = $(this).closest("form");
-
-            swal({
-                title: "Êtes-vous sûr de vouloir rejeter ce fichier ?",
-                text: "Cliquez sur 'Oui, rejeter' pour confirmer.",
-                icon: "warning",
-                buttons: ["Annuler", "Oui, rejeter"],
-                dangerMode: true,
-            }).then((willReject) => {
-                if (willReject) {
-                    form.submit();
-                }
-            });
-        });
-    </script>
-    <script type="text/javascript">
-        $('.show_confirm_suivi').click(function(event) {
-            var form = $(this).closest("form");
-            var name = $(this).data("name");
-            event.preventDefault();
-            swal({
-                    title: `Êtes-vous sûr de bien vouloir suivre ce bénéficiaire ?`,
-                    text: "Si oui, cliquer sur ok.",
-                    icon: "success",
-                    buttons: ["Annuler", "Oui, suivre !"],
-                })
-                .then((willValide) => {
-                    if (willValide) {
-                        form.submit();
-                    }
-                });
-        });
-    </script>
-    <script type="text/javascript">
-        $('.show_confirm_employes').click(function(event) {
-            var form = $(this).closest("form");
-            var name = $(this).data("name");
-            event.preventDefault();
-            swal({
-                    title: `Êtes-vous sûr de vouloir ajouter à la base de données des employés ?`,
-                    text: "Si oui, cliquer sur ok.",
-                    icon: "success",
-                    buttons: ["Annuler", "Oui, ajouter !"],
-                })
-                .then((willValide) => {
-                    if (willValide) {
-                        form.submit();
-                    }
-                });
-        });
-    </script>
-    <script type="text/javascript">
-        $('.show_confirm_retirer').click(function(event) {
-            var form = $(this).closest("form");
-            var name = $(this).data("name");
-            event.preventDefault();
-            swal({
-                    title: `Êtes-vous sûr de vouloir retirer ?`,
-                    text: "Si oui, cliquer sur ok.",
-                    icon: "success",
-                    buttons: ["Annuler", "Oui, retirer !"],
-                })
-                .then((willValide) => {
-                    if (willValide) {
-                        form.submit();
-                    }
-                });
-        });
-    </script>
-    <script type="text/javascript">
-        $('.show_confirm_annuler').click(function(event) {
-            var form = $(this).closest("form");
-            var name = $(this).data("name");
-            event.preventDefault();
-            swal({
-                    title: `Êtes-vous sûr de vouloir rejeter ?`,
-                    text: "Si oui, cliquer sur ok.",
-                    icon: "error",
-                    buttons: ["Annuler", "Oui, rejeter !"],
-                    dangerMode: true,
-                })
-                .then((willValide) => {
-                    if (willValide) {
-                        form.submit();
-                    }
-                });
-        });
-    </script>
-    <script type="text/javascript">
-        $('.une_confirm').click(function(event) {
-            var form = $(this).closest("form");
-            var name = $(this).data("name");
-            event.preventDefault();
-            swal({
-                    title: `Êtes-vous sûr ?`,
-                    text: "Si oui, cliquez sur ok.",
-                    icon: "success",
-                    buttons: ["Annuler", "Oui, mettre !"],
-                    dangerMode: false,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        form.submit();
-                    }
-                });
-        });
-    </script>
-    <script type="text/javascript">
-        $('.une_confirmer').click(function(event) {
-            var form = $(this).closest("form");
-            var name = $(this).data("name");
-            event.preventDefault();
-            swal({
-                    title: `Êtes-vous sûr ?`,
-                    text: "Si oui, cliquez sur ok.",
-                    icon: "success",
-                    buttons: ["Annuler", "Oui, enlever !"],
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        form.submit();
-                    }
-                });
-        });
-    </script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script> --}}
 
     <style>
         .profile-card {
@@ -2655,7 +2281,193 @@
         }
     </style>
 
-    {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const actions = [{
+                    selector: '.show_confirm',
+                    title: 'Êtes-vous sûr de vouloir supprimer cet enregistrement ?',
+                    text: "Si vous supprimez ceci, il disparaîtra pour toujours.",
+                    icon: 'warning',
+                    confirmText: 'Oui, Supprimer !'
+                },
+                {
+                    selector: '.show_confirm_detach',
+                    title: 'Êtes-vous sûr de vouloir détacher ?',
+                    text: "Si vous supprimez ceci, il disparaîtra pour toujours.",
+                    icon: 'warning',
+                    confirmText: 'Oui, Détacher !'
+                },
+                {
+                    selector: '.show_confirm_disconnect',
+                    title: 'Êtes-vous sûr de vouloir vous déconnecter ?',
+                    text: "Cliquez sur OK pour confirmer.",
+                    icon: 'warning',
+                    confirmText: 'Oui, déconnecter !'
+                },
+                {
+                    selector: '.show_confirm_nettoyer',
+                    title: 'Êtes-vous sûr de vouloir nettoyer ?',
+                    text: "Cliquez sur OK pour confirmer.",
+                    icon: 'warning',
+                    confirmText: 'Oui, nettoyer !'
+                },
+                {
+                    selector: '.show_confirm_valider',
+                    title: 'Êtes-vous sûr ?',
+                    text: "Si oui, cliquez sur OK.",
+                    icon: 'success',
+                    confirmText: 'Oui, valider !'
+                },
+                {
+                    selector: '.show_confirm_ouvrir',
+                    title: 'Êtes-vous sûr ?',
+                    text: "Si oui, cliquez sur OK.",
+                    icon: 'success',
+                    confirmText: 'Oui, Ouvrir !'
+                },
+                {
+                    selector: '.show_confirm_terminer',
+                    title: 'Êtes-vous sûr ?',
+                    text: "Si oui, cliquez sur OK.",
+                    icon: 'success',
+                    confirmText: 'Oui, Terminer !'
+                },
+                {
+                    selector: '.show_confirm_certifier',
+                    title: 'Êtes-vous sûr ?',
+                    text: "Si oui, cliquez sur OK.",
+                    icon: 'success',
+                    confirmText: 'Oui, Certifier !'
+                },
+                {
+                    selector: '.show_confirm_fermer',
+                    title: 'Êtes-vous sûr ?',
+                    text: "Si oui, cliquez sur OK.",
+                    icon: 'success',
+                    confirmText: 'Oui, Fermer !'
+                },
+                {
+                    selector: '.show_confirm_rejeter',
+                    title: 'Êtes-vous sûr de vouloir rejeter ce fichier ?',
+                    text: "Cliquez sur OK pour confirmer.",
+                    icon: 'warning',
+                    confirmText: 'Oui, rejeter'
+                },
+                {
+                    selector: '.show_confirm_suivi',
+                    title: 'Êtes-vous sûr de bien vouloir suivre ce bénéficiaire ?',
+                    text: "Cliquez sur OK pour confirmer.",
+                    icon: 'success',
+                    confirmText: 'Oui, suivre !'
+                },
+                {
+                    selector: '.show_confirm_employes',
+                    title: 'Êtes-vous sûr de vouloir ajouter à la base de données des employés ?',
+                    text: "Cliquez sur OK pour confirmer.",
+                    icon: 'success',
+                    confirmText: 'Oui, ajouter !'
+                },
+                {
+                    selector: '.show_confirm_retirer',
+                    title: 'Êtes-vous sûr de vouloir retirer ?',
+                    text: "Cliquez sur OK pour confirmer.",
+                    icon: 'success',
+                    confirmText: 'Oui, retirer !'
+                },
+                {
+                    selector: '.show_confirm_annuler',
+                    title: 'Êtes-vous sûr de vouloir rejeter ?',
+                    text: "Cliquez sur OK pour confirmer.",
+                    icon: 'error',
+                    confirmText: 'Oui, rejeter !'
+                },
+                {
+                    selector: '.une_confirm',
+                    title: 'Êtes-vous sûr ?',
+                    text: "Cliquez sur OK pour confirmer.",
+                    icon: 'success',
+                    confirmText: 'Oui, mettre !'
+                },
+                {
+                    selector: '.une_confirmer',
+                    title: 'Êtes-vous sûr ?',
+                    text: "Cliquez sur OK pour confirmer.",
+                    icon: 'success',
+                    confirmText: 'Oui, enlever !'
+                }
+            ];
+
+            actions.forEach(({
+                selector,
+                title,
+                text,
+                icon,
+                confirmText
+            }) => {
+                document.querySelectorAll(selector).forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const form = this.closest('form');
+
+                        Swal.fire({
+                            title: title,
+                            text: text,
+                            icon: icon,
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: confirmText,
+                            cancelButtonText: 'Annuler'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                form.submit();
+                            }
+                        });
+                    });
+                });
+            });
+
+            // Gestion spécifique des suppressions par AJAX (images, fichiers)
+            document.querySelectorAll('.show_confirmDeleteImage').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const url = this.dataset.url;
+
+                    Swal.fire({
+                        title: 'Êtes-vous sûr de vouloir supprimer ?',
+                        text: "Si vous supprimez, l'image disparaîtra pour toujours.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Oui, Supprimer !',
+                        cancelButtonText: 'Annuler'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            fetch(url, {
+                                    method: 'POST',
+                                    headers: {
+                                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({
+                                        _method: 'DELETE'
+                                    })
+                                }).then(res => res.json())
+                                .then(() => {
+                                    Swal.fire('Succès', "Votre image a été supprimée.",
+                                            'success')
+                                        .then(() => location.reload());
+                                }).catch(() => {
+                                    Swal.fire('Erreur', "Une erreur s'est produite.",
+                                        'error');
+                                });
+                        }
+                    });
+                });
+            });
+
+        });
+    </script>
 
     <script>
         function confirmProfil(profil) {

@@ -50,7 +50,7 @@ class RegisteredUserController extends Controller
             'termes'          => ['required', 'accepted'], // 'accepted' est plus approprié pour un champ de type checkbox
             /* 'password' => ['required', 'confirmed', Rules\Password::defaults()], */
             'password'        => 'required|string|min:8|confirmed',
-            'role'            => ['required', 'in:Demandeur,Operateur'],
+            /* 'role'            => ['required', 'in:Demandeur,Operateur'], */
         ]);
 
         // Vérifier si l'utilisateur existe mais est supprimé
@@ -61,7 +61,7 @@ class RegisteredUserController extends Controller
             $user->restore();
 
             // Mettre à jour le role
-            $user->assignRole($request->input('role'));
+            /* $user->assignRole($request->input('role')); */
             // Mettre à jour le mot de passe (optionnel)
             $user->password = Hash::make($request->password);
             $user->save();
@@ -90,7 +90,7 @@ class RegisteredUserController extends Controller
             ]);
         } */
 
-        $user->assignRole($request->input('role'));
+        /* $user->assignRole($request->input('role')); */
 
         event(new Registered($user));
 
