@@ -83,7 +83,7 @@
                                             </a> --}}
 
                                             <a href="{{ route('accueil') }}" style="text-decoration: none">
-                                                <span class="fw-bold" style="font-size: 2rem;">SIGOF Connexion</span>
+                                                <span class="fw-bold" style="font-size: 2rem;">Connexion</span>
                                             </a>
                                         </h5>
                                         <p class="small mb-0">Entrez vos identifiants pour vous connecter</p>

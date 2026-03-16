@@ -240,7 +240,7 @@
                                                 <span>SIGOF</span>
                                             </a> --}}
                                             <a href="{{ route('accueil') }}" style="text-decoration: none">
-                                                <span class="fw-bold" style="font-size: 2rem;">SIGOF
+                                                <span class="fw-bold" style="font-size: 2rem;">
                                                     Réinitialisation</span><br>
                                             </a>
                                             {{-- <span class="fw-bold" style="font-size: 2rem;">Réinitialiser</span> --}}

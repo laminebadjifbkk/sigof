@@ -109,7 +109,7 @@
                                             </a> --}}
 
                                             <a href="{{ route('accueil') }}" style="text-decoration: none">
-                                                <span class="fw-bold" style="font-size: 2rem;">SIGOF Inscription</span>
+                                                <span class="fw-bold" style="font-size: 2rem;">Inscription</span>
                                             </a>
                                         </h5>
                                         <p class="small mb-0">Entrez vos informations pour créer un compte</p>
