@@ -164,10 +164,11 @@
                                                         <ul class="mb-0 ps-3">
                                                             @foreach ($arrive->employees as $index => $employee)
                                                                 <li>
-                                                                    {!! $employee->user->firstname . ' ' . $employee->user->name !!}
+                                                                    {{-- {!! $employee->user->firstname . ' ' . $employee->user->name !!}
                                                                     @if (!empty($employee->fonction?->sigle))
                                                                         <strong>({!! $employee->fonction?->sigle ?? '' !!})</strong>
-                                                                    @endif
+                                                                    @endif --}}
+                                                                    <strong>{!! $employee->fonction?->sigle ?? '' !!}</strong>
                                                                 </li>
                                                             @endforeach
                                                         </ul>
