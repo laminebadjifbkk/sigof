@@ -17,7 +17,8 @@
                 <li><a href="#services">Services</a></li>
                 <li><a href="{{ route('manuels.showDefault') }}" target="_blank">Manuels</a></li>
                 <li><a href="#contact">Contact</a></li>
-                <li> <a href="#" data-bs-toggle="modal" data-bs-target="#registerDemandeurModal">S'inscrire</a>
+                {{-- <li> <a href="#" data-bs-toggle="modal" data-bs-target="#registerDemandeurModal">S'inscrire</a> --}}
+                <li> <a href="{{ url(register) }}">S'inscrire</a>
                 </li>
 
                 {{-- <li class="dropdown"><a><span>S'inscrire</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
@@ -35,9 +36,9 @@
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
 
-        <a class="btn-getstarted" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Se
+        <a class="btn-getstarted" href="{{ url(login) }}">Se
             connecter</a>
-       {{--  <a class="btn-getstarted" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Se
+        {{-- <a class="btn-getstarted" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Se
             connecter</a> --}}
 
     </div>
