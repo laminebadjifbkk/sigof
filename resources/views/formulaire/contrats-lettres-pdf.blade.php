@@ -230,7 +230,7 @@
                                 <td>Date & lieu de naissance</td>
                                 <td>Spécialité</td>
                                 <td>Niveau</td>
-                                <td>Montant (CFA)</td>
+                                <td>Montant (F CFA)</td>
                             </tr>
                         </thead>
 
@@ -370,7 +370,7 @@
                                 <td>Date & lieu de naissance</td>
                                 <td>Spécialité</td>
                                 <td>Niveau</td>
-                                <td>Montant (CFA)</td>
+                                <td>Montant (F CFA)</td>
                             </tr>
                         </thead>
 

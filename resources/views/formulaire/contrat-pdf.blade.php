@@ -304,7 +304,7 @@
                             <td>Date et lieu de naissance</td>
                             <td>Spécialité</td>
                             <td width="12%">Niveau</td>
-                            <td>Montant (CFA)</td>
+                            <td>Montant (F CFA)</td>
                         </tr>
                     </thead>
 
