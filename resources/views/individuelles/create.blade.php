@@ -246,7 +246,7 @@
                         </div>
 
                         <div class="col-md-4">
-                            <label class="form-label">Email</label>
+                            <label class="form-label">Email<span class="required">*</span></label>
                             <input type="email" name="email" value="{{ old('email') }}"
                                 class="form-control form-control-sm @error('email') is-invalid @enderror" id="email"
                                 placeholder="email">
