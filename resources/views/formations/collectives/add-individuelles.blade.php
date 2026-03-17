@@ -79,7 +79,6 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php $i = 1; ?>
                                                 @foreach ($individuelles as $i => $individuelle)
                                                     <tr>
 

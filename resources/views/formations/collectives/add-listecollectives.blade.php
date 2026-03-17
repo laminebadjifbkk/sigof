@@ -63,7 +63,10 @@
                                         <table class="m-2 table datatables align-middle" id="table-individuelles">
                                             <thead>
                                                 <tr>
-                                                    <th scope="col"></th>
+                                                    <th width="3%">
+                                                        <input type="checkbox" class="form-check-input" id="checkAll">
+                                                    </th>
+                                                    <th>N°</th>
                                                     {{-- <th scope="col">CIN</th> --}}
                                                     {{-- <th scope="col">Civilité</th> --}}
                                                     {{-- <th scope="col">Prénom</th> --}}
@@ -79,14 +82,13 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($listecollectives as $listecollective)
+                                                @foreach ($listecollectives as $i => $listecollective)
                                                     <tr>
                                                         <td class="text-center">
-                                                            {{--  <label for="liste_{{ $listecollective->id }}"> --}}
                                                             <input type="checkbox" name="listecollectives[]"
                                                                 value="{{ $listecollective->id }}"
                                                                 {{ in_array($listecollective->formations_id, $listecollectiveFormation) ? 'checked' : '' }}
-                                                                class="form-check-input @error('listecollectives') is-invalid @enderror">
+                                                                class="form-check-input individuelle-checkbox @error('listecollectives') is-invalid @enderror">
 
                                                             {{ $loop->iteration }}
                                                             @error('listecollectives')
@@ -94,8 +96,8 @@
                                                                     <div>{{ $message }}</div>
                                                                 </span>
                                                             @enderror
-                                                            {{--  </label> --}}
                                                         </td>
+                                                        <td>{{ $i + 1 }}</td>
                                                         {{-- <td>{{ $listecollective?->cin }}</td>
                                                     <td>{{ $listecollective?->civilite }}</td> --}}
                                                         <td>{{ $listecollective?->civilite . ' ' . $listecollective?->prenom . ' ' . $listecollective?->nom }}
@@ -161,6 +163,17 @@
     </section>
 @endsection
 
+
+@push('scripts')
+    <script>
+        // Check / Uncheck all
+        document.getElementById('checkAll').addEventListener('click', function(e) {
+            document.querySelectorAll('.individuelle-checkbox').forEach(function(checkbox) {
+                checkbox.checked = e.target.checked;
+            });
+        });
+    </script>
+@endpush
 
 {{-- @push('scripts')
     <script>
