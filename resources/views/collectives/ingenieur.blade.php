@@ -19,7 +19,7 @@
                 @endif
                 <div class="card">
                     <div class="card-body">
-                        <div class="row">
+                        {{-- <div class="row">
                             <div class="col-sm-12 pt-0">
                                 <span class="d-flex mt-0 align-items-baseline"><a
                                         href="{{ route('collectives.show', $collectivemodule->collective) }}"
@@ -32,7 +32,49 @@
                         <h5><u><b>STRUCTURE</b>:</u> {{ $collectivemodule->collective?->name }}</h5>
                         <h5><u><b>MODULES</b>:</u>
                             {{ $collectivemodule->module }}
-                        </h5>
+                        </h5> --}}
+                        <div class="card shadow-sm border-0 mb-3">
+                            <div class="card-body py-3">
+
+                                <!-- Header -->
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <a href="{{ route('collectives.show', $collectivemodule->collective) }}"
+                                            class="btn btn-outline-success btn-sm rounded-pill" title="Retour">
+                                            <i class="bi bi-arrow-left"></i>
+                                        </a>
+
+                                        <h6 class="mb-0 fw-semibold text-muted">
+                                            Détails demande collective
+                                        </h6>
+                                    </div>
+                                </div>
+
+                                <!-- Infos -->
+                                <div class="row g-2 mt-2">
+
+                                    <div class="col-md-6">
+                                        <div class="p-2 bg-light rounded">
+                                            <small class="text-muted d-block">STRUCTURE</small>
+                                            <span class="fw-semibold text-dark">
+                                                {{ $collectivemodule->collective?->name }}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="p-2 bg-light rounded">
+                                            <small class="text-muted d-block">MODULE</small>
+                                            <span class="fw-semibold text-dark">
+                                                {{ $collectivemodule->module }}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
                         <form method="post" action="{{ route('givecollectiveingenieurs', $collectivemodule?->id) }}"
                             enctype="multipart/form-data" class="row g-3">
                             @csrf
