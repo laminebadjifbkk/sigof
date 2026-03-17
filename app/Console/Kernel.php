@@ -33,7 +33,7 @@ class Kernel extends ConsoleKernel
         }
         $schedule->command('notify:formation-start')->dailyAt('09:20'); // Informer les collègues du Démarre les formations prévues pour aujourd'hui à 08h35
 
-        $schedule->command('email:send-evaluation-reminders')->dailyAt('11:15');//Informer les collègues de l'évaluation d'une formation
+        $schedule->command('email:send-evaluation-reminders')->dailyAt('08:20');//Informer les collègues de l'évaluation d'une formation
 
         // Lancer la commande tous les jours à 08h00
         /* $schedule->command('missions:update-status')->dailyAt('08:00');
