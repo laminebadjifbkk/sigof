@@ -147,6 +147,7 @@
                                             <tr>
                                                 <th class="text-center">N°</th>
                                                 <th width="30%">Modules</th>
+                                                <th>Statut</th>
                                                 <th width="30%">Structure</th>
                                                 <th>E-mail</th>
                                                 <th>Téléphone</th>
@@ -166,46 +167,50 @@
                                                     <td>{{ $i++ }}</td>
 
                                                     <td>
-                                                        {{ $collectivemodule->module }}
+                                                        {{ $collectivemodule?->module }}
                                                     </td>
 
                                                     <td>
-                                                        {{ $collectivemodule->collective->name }}
-                                                        @if ($collectivemodule->collective->sigle)
+                                                        {{ $collectivemodule?->statut }}
+                                                    </td>
+
+                                                    <td>
+                                                        {{ $collectivemodule?->collective?->name }}
+                                                        @if ($collectivemodule?->collective?->sigle)
                                                             <small
-                                                                class="text-muted">({{ $collectivemodule->collective->sigle }})</small>
+                                                                class="text-muted">({{ $collectivemodule?->collective?->sigle }})</small>
                                                         @endif
                                                     </td>
 
                                                     <td>
                                                         <a
-                                                            href="mailto:{{ optional($collectivemodule->collective->user)->email }}">
-                                                            {{ optional($collectivemodule->collective->user)->email }}
+                                                            href="mailto:{{ optional($collectivemodule?->collective?->user)?->email }}">
+                                                            {{ optional($collectivemodule?->collective?->user)?->email }}
                                                         </a>
                                                     </td>
 
                                                     <td>
-                                                        <a href="tel:+221{{ $collectivemodule->collective->telephone }}">
-                                                            {{ $collectivemodule->collective->telephone }} <br>
-                                                            {{ $collectivemodule->collective->telephone_responsable }}
+                                                        <a href="tel:+221{{ $collectivemodule?->collective?->telephone }}">
+                                                            {{ $collectivemodule?->collective?->telephone }} <br>
+                                                            {{ $collectivemodule?->collective?->telephone_responsable }}
                                                         </a>
                                                     </td>
 
                                                     <td>
-                                                        {{ optional(optional($collectivemodule->collective->departement)->region)->nom }}
+                                                        {{ optional(optional($collectivemodule?->collective?->departement)?->region)?->nom }}
                                                     </td>
 
                                                     <td>
-                                                        {{ $collectivemodule->collective->prenom_responsable . ' ' . $collectivemodule->collective->nom_responsable }}
+                                                        {{ $collectivemodule?->collective?->prenom_responsable . ' ' . $collectivemodule?->collective?->nom_responsable }}
                                                     </td>
 
                                                     <td class="text-center">
-                                                        {{ $collectivemodule->collective->date_depot ? \Carbon\Carbon::parse($collectivemodule->collective->date_depot)->format('d/m/Y') : '-' }}
+                                                        {{ $collectivemodule?->collective?->date_depot ? \Carbon\Carbon::parse($collectivemodule?->collective?->date_depot)?->format('d/m/Y') : '-' }}
                                                     </td>
 
                                                     <td class="text-center">
                                                         <span class="badge bg-secondary">
-                                                            {{ $collectivemodule->collective->listecollectives->count() }}
+                                                            {{ $collectivemodule?->collective?->listecollectives->count() }}
                                                         </span>
                                                     </td>
 
