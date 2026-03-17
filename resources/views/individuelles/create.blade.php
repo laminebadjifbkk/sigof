@@ -808,28 +808,46 @@
         });
 
         $(document).on('click', '.submitBtn', function(event) {
-            event.preventDefault(); // Empêche la soumission automatique
+            event.preventDefault();
 
-            const form = $(this).closest("form");
+            const $btn = $(this);
+            const form = $btn.closest("form");
 
-            swal({
-                title: "Êtes-vous sûr de vouloir enregistrer cette demande ?",
-                text: "Vous pouvez cliquer sur OK pour confirmer ou sur Annuler pour annuler.",
-                icon: "warning", // "warning" est plus adapté pour une action risquée
-                buttons: {
-                    cancel: "Annuler",
-                    confirm: {
-                        text: "Oui, enregistrer !",
-                        value: true,
-                        visible: true,
-                        className: "",
-                        closeModal: true
-                    }
-                },
-                dangerMode: true
-            }).then((willRestore) => {
-                if (willRestore) {
-                    form.submit(); // Soumet le formulaire si confirmé
+            // 🔒 Empêche double clic
+            if ($btn.prop('disabled')) return;
+
+            Swal.fire({
+                title: "Confirmer l'enregistrement ?",
+                text: "Vous êtes sur le point d’enregistrer cette demande.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Oui, enregistrer",
+                cancelButtonText: "Annuler",
+                confirmButtonColor: "#004080",
+                cancelButtonColor: "#6c757d",
+                reverseButtons: true
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+
+                    // 🔒 Désactive le bouton
+                    $btn.prop('disabled', true);
+
+                    Swal.fire({
+                        title: "Enregistrement...",
+                        text: "Veuillez patienter",
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        showConfirmButton: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+
+                            // Petit délai pour laisser l'UI respirer (optionnel mais propre)
+                            setTimeout(() => {
+                                form.submit();
+                            }, 300);
+                        }
+                    });
                 }
             });
         });
