@@ -45,7 +45,7 @@ class CollectiveController extends Controller
         $totalCollectives = number_format($collectives, 0, ',', ' ');
 
         // Récupération des 500 dernières demandes
-        $collectives = Collective::latest()->limit(500)->get();
+        $collectives = Collective::latest()->limit(1000)->get();
 
         $departements = Departement::orderBy("created_at", "desc")->get();
         $communes     = Commune::orderBy("created_at", "desc")->get();
@@ -68,7 +68,7 @@ class CollectiveController extends Controller
 
         $collectives = $collectivesQuery
             ->latest()
-            ->limit(500)
+            ->limit(1000)
             ->get();
 
         $totalDemandesCount = Collective::count();
@@ -135,7 +135,7 @@ class CollectiveController extends Controller
 
         $collectives = $query
             ->latest('date_depot')
-            ->limit(500)
+            ->limit(1000)
             ->get();
 
         // 🔹 Totaux SUR L’ANNÉE
@@ -204,14 +204,14 @@ class CollectiveController extends Controller
         /* $collectives = $collectivesQuery
             ->when($statutFiltre, fn($q) => $q->where('statut_demande', $statutFiltre))
             ->latest('date_depot')
-            ->limit(500)
+            ->limit(1000)
             ->get(); */
 
         $collectives = $collectivesQuery
             ->with('collectivemodules')
             ->when($statutFiltre, fn($q) => $q->where('statut_demande', $statutFiltre))
             ->latest('date_depot')
-            ->limit(500)
+            ->limit(1000)
             ->get()
             ->flatMap(fn($collective) => $collective->collectivemodules);
 
