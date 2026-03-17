@@ -50,6 +50,8 @@
                                             <form action="{{ route('budget-labels.destroy', $label) }}" method="post">
                                                 @csrf
                                                 @method('DELETE')
+
+                                                <input type="hidden" name="label" value="{{ $label }}">
                                                 <button type="submit" class="dropdown-item show_confirm">
                                                     <i class="bi bi-trash"></i> Supprimer
                                                 </button>

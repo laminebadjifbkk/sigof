@@ -89,6 +89,9 @@
                                                                 method="post">
                                                                 @csrf
                                                                 @method('DELETE')
+
+                                                                <input type="hidden" name="id"
+                                                                    value="{{ $antenne->id }}">
                                                                 <button type="submit"
                                                                     class="dropdown-item show_confirm">Supprimer</button>
                                                             </form>

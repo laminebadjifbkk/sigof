@@ -188,6 +188,8 @@
                                                     @csrf
                                                     @method('DELETE')
 
+                                                    <input type="hidden" name="id" value="{{ $activite->id }}">
+
                                                     <button type="submit" class="btn btn-sm btn-danger show_confirm"
                                                         title="Supprimer">
                                                         <i class="bi bi-trash"></i>
