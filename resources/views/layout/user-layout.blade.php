@@ -2280,8 +2280,7 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
         }
     </style>
-
-    <script>
+    {{-- <script>
         document.addEventListener('DOMContentLoaded', function() {
 
             const actions = [{
@@ -2426,6 +2425,130 @@
                             cancelButtonText: 'Annuler'
                         }).then((result) => {
                             if (result.isConfirmed) {
+                                btn.dataset.submitting = 'true';
+                                btn.disabled = true;
+
+                                // Affiche loader avant soumission
+                                Swal.fire({
+                                    title: 'Traitement...',
+                                    text: 'Veuillez patienter',
+                                    allowOutsideClick: false,
+                                    allowEscapeKey: false,
+                                    showConfirmButton: false,
+                                    didOpen: () => {
+                                        Swal.showLoading();
+                                        setTimeout(() => form.submit(),
+                                            200
+                                            ); // léger délai pour le loader
+                                    }
+                                });
+                            }
+                        });
+                    });
+                });
+            });
+
+            // Gestion AJAX pour suppression d'images/fichiers
+            document.querySelectorAll('.show_confirmDeleteImage').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const url = this.dataset.url;
+                    if (!url) return;
+
+                    Swal.fire({
+                        title: 'Êtes-vous sûr de vouloir supprimer ?',
+                        text: "Si vous supprimez, l'image disparaîtra pour toujours.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Oui, Supprimer !',
+                        cancelButtonText: 'Annuler'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            fetch(url, {
+                                    method: 'POST',
+                                    headers: {
+                                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({
+                                        _method: 'DELETE'
+                                    })
+                                })
+                                .then(res => res.json())
+                                .then(() => {
+                                    Swal.fire('Succès', "Votre image a été supprimée.",
+                                            'success')
+                                        .then(() => location.reload());
+                                })
+                                .catch(() => {
+                                    Swal.fire('Erreur', "Une erreur s'est produite.",
+                                        'error');
+                                });
+                        }
+                    });
+                });
+            });
+
+        });
+    </script> --}}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // Tableau des actions SweetAlert2
+            const actions = [{
+                    selector: '.show_confirm',
+                    title: 'Êtes-vous sûr de vouloir supprimer cet enregistrement ?',
+                    text: "Si vous supprimez ceci, il disparaîtra pour toujours.",
+                    icon: 'warning',
+                    confirmText: 'Oui, Supprimer !'
+                },
+                {
+                    selector: '.show_confirm_detach',
+                    title: 'Êtes-vous sûr de vouloir détacher ?',
+                    text: "Si vous supprimez ceci, il disparaîtra pour toujours.",
+                    icon: 'warning',
+                    confirmText: 'Oui, Détacher !'
+                },
+                {
+                    selector: '.show_confirm_disconnect',
+                    title: 'Êtes-vous sûr de vouloir vous déconnecter ?',
+                    text: "Cliquez sur OK pour confirmer.",
+                    icon: 'warning',
+                    confirmText: 'Oui, déconnecter !'
+                },
+                // Ajoute ici toutes tes autres actions show_confirm* comme précédemment
+            ];
+
+            // Boucle sur chaque action
+            actions.forEach(({
+                selector,
+                title,
+                text,
+                icon,
+                confirmText
+            }) => {
+                document.querySelectorAll(selector).forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+
+                        const form = this.closest('form');
+                        if (!form) return;
+
+                        // Empêche double clic
+                        if (btn.dataset.submitting === 'true') return;
+
+                        Swal.fire({
+                            title: title,
+                            text: text,
+                            icon: icon,
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: confirmText,
+                            cancelButtonText: 'Annuler'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
 
                                 // Marque comme en cours et désactive le bouton
                                 btn.dataset.submitting = 'true';
@@ -2440,9 +2563,9 @@
                                     showConfirmButton: false,
                                     didOpen: () => {
                                         Swal.showLoading();
-                                        setTimeout(() => {
-                                            form.submit();
-                                        }, 200);
+
+                                        // Soumission native du formulaire
+                                        form.submit();
                                     }
                                 });
                             }
@@ -2451,7 +2574,7 @@
                 });
             });
 
-            // Gestion AJAX pour suppression d'images/fichiers
+            // Gestion spécifique des suppressions par AJAX (images, fichiers)
             document.querySelectorAll('.show_confirmDeleteImage').forEach(btn => {
                 btn.addEventListener('click', function(e) {
                     e.preventDefault();

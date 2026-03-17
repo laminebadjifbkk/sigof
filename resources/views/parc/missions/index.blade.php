@@ -210,10 +210,12 @@
                                             class="d-inline">
                                             @csrf
                                             @method('DELETE')
+                                            <input type="hidden" name="id" value="{{ $mission->id }}"> {{-- Champ caché pour forcer l’ID --}}
 
                                             <button type="submit" class="btn btn-sm btn-danger show_confirm"
                                                 {{ $mission->employees_count > 0 ? 'disabled' : '' }}
-                                                title="{{ $mission->employees_count > 0 ? 'Mission déjà assignée à des employés' : 'Supprimer la mission' }}">
+                                                title="{{ $mission->employees_count > 0 ? 'Mission déjà assignée à des employés' : 'Supprimer la mission' }}"
+                                                data-id="{{ $mission->id }}">
                                                 <i class="bi bi-trash"></i>
                                             </button>
                                         </form>

@@ -99,7 +99,7 @@ class ParcMissionController extends Controller
         $totalMissions = $total;
         $missionsAnnee = ParcMission::whereYear('date_depart', now()->year)->count();
 
-          // Vérifier si un statut est passé
+        // Vérifier si un statut est passé
         $labels = [
             'planifiee' => 'Planifiées',
             'en_cours' => 'En cours',
@@ -230,8 +230,11 @@ class ParcMissionController extends Controller
         ParcMission::destroy($id);
         return redirect()->route('parc-missions.index')->with('status', 'Mission supprimée avec succès');
     } */
-    public function destroy(ParcMission $mission)
+    public function destroy(Request $request, ParcMission $mission)
     {
+
+        $mission = ParcMission::findOrFail($request->id); // On récupère bien l'ID envoyé
+
         if ($mission->employees()->exists()) {
             return back()->with('error', 'Suppression impossible : cette mission est déjà assignée à des employés.');
         }
