@@ -129,13 +129,19 @@
                 <table width="600" cellpadding="0" cellspacing="0"
                     style="background:white;border-radius:6px;overflow:hidden;">
 
-                    <!-- HEADER -->
+                    {{-- 🔷 HEADER --}}
                     <tr>
-                        <td style="background:#F28500; padding:20px; text-align:center;">
-
+                        <td align="center" style="padding-bottom:15px;">
+                            {{-- Logo --}}
                             <img src="https://sigof.onfp.sn/images/LOGOONFPTEXTEGOOD1.jpg" alt="ONFP"
-                                style="max-width:250px; width:100%; height:auto; display:block; margin:auto;">
+                                style="max-width:250px;display:block;">
+                        </td>
+                    </tr>
 
+                    {{-- 🔷 TITRE --}}
+                    <tr>
+                        <td style="background:#F28500;color:#ffffff;padding:10px;text-align:center;border-radius:2px;">
+                            <strong>Rappel démarrage formation {{ strtolower($label) }}</strong>
                         </td>
                     </tr>
 
@@ -148,7 +154,7 @@
                             <p style="font-size:15px;">
                                 La DIOF vous informe du démarrage de la formation en
                                 <strong>{{ $formation?->module?->name ?? ($formation?->collectivemodule?->module ?? '-') }}</strong>
-                                {{ strtolower($label) }}
+                                <strong>{{ strtolower($label) }}</strong>, soit le
                                 <strong>{{ \Carbon\Carbon::parse($formation->date_debut)->format('d/m/Y') }}</strong>.
                             </p>
 
@@ -193,6 +199,13 @@
                                     <td>{{ $formation?->ingenieur?->name ?? '-' }}</td>
                                 </tr>
 
+                                <tr style="background:#f1f3f5;">
+                                    <td><strong>Opérateur</strong></td>
+                                    <td>
+                                        {{ $formation?->operateur?->user?->display_operateur }}
+                                    </td>
+                                </tr>
+
                             </table>
 
                             <!-- BOUTON -->
@@ -201,7 +214,7 @@
                                     <td align="center">
 
                                         <a href="{{ route('formations.show', $formation, true) }}"
-                                            style="background:#004080;color:white;text-decoration:none;padding:12px 25px;border-radius:4px;font-size:14px;display:inline-block;">
+                                            style="background:#F28500;color:white;text-decoration:none;padding:12px 25px;border-radius:4px;font-size:14px;display:inline-block;">
                                             Voir la fiche formation
                                         </a>
 
