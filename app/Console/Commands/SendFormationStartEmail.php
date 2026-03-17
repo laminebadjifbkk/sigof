@@ -96,8 +96,8 @@ class SendFormationStartEmail extends Command
             'Demain' => $now->copy()->addDay(),
         ];
 
-        // Entre 08h00 et 08h59 on envoie aussi pour aujourd'hui
-        if ($now->hour === 8) {
+        // Entre 08h00 et 09h59 on envoie aussi pour aujourd'hui
+        if ($now->hour === 9  && now()->minute === 20) {
             $dates["Aujourd'hui"] = $now;
         }
 

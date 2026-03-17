@@ -113,7 +113,7 @@ class SendEvaluationReminder extends Command
             'demain'       => $now->copy()->addDay(),
         ];
 
-        if ($currentTime === '08:20') {
+        if ($currentTime === 8 && now()->minute === 20) {
             $dates["Aujourd'hui"] = $now;
         }
 
