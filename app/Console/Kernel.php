@@ -22,7 +22,7 @@ class Kernel extends ConsoleKernel
         /* $schedule->command('email:send-birthday')->dailyAt('00:00'); */
         $schedule->command('email:send-finagrement')->dailyAt('08:00');
         /* $schedule->command('email:notify-end-agreements')->dailyAt('08:10'); */
-        $schedule->command('email:send-training-reminders')->dailyAt('08:15'); // Informer les collègues du Démarre les formations prévues pour aujourd'hui à 08h35
+        $schedule->command('email:send-training-reminders')->dailyAt('08:15'); // Informer les bénéficiaires du Démarre les formations prévues pour aujourd'hui à 08h35
         $schedule->command('projets:fermer-modules')
             ->twiceDaily(8, 17)
             ->withoutOverlapping()
@@ -32,8 +32,7 @@ class Kernel extends ConsoleKernel
             $schedule->command('groupes:verifier-vingt')->weeklyOn($day, '07:00'); // Lundi et Vendredi à 7h
         }
         $schedule->command('email:send-evaluation-reminders')->dailyAt('08:20');
-        $schedule->command('formation:start')->dailyAt('08:30');        // Démarre les formations prévues pour aujourd'hui à 08h30
-        //$schedule->command('notify:formation-start')->dailyAt('08:35'); // Informer les collègues du Démarre les formations prévues pour aujourd'hui à 08h35
+        $schedule->command('notify:formation-start')->dailyAt('09:00'); // Informer les collègues du Démarre les formations prévues pour aujourd'hui à 08h35
 
         // Lancer la commande tous les jours à 08h00
         $schedule->command('missions:update-status')->dailyAt('08:00');
