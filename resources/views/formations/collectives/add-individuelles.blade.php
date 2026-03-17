@@ -53,17 +53,20 @@
                             @csrf
                             @method('PUT')
                             <div class="row mb-3 border rounded bg-light shadow-sm p-3">
-                                <div class="col-md-2 pt-5">
+                                {{-- <div class="col-md-2 pt-5">
                                     <label for="#">Choisir tout</label>
                                     <input type="checkbox" class="form-check-input" id="checkAll">
                                 </div>
-                                <div></div>
+                                <div></div> --}}
                                 <div class="col-md-12">
                                     <div class="table-responsive">
                                         <table class="m-2 table datatables align-middle" id="table-individuelles">
                                             <thead>
                                                 <tr>
-                                                    <th></th>
+                                                    <th width="3%">
+                                                        <input type="checkbox" class="form-check-input" id="checkAll">
+                                                    </th>
+                                                    <th>N°</th>
                                                     <th>Civilité</th>
                                                     <th>CIN</th>
                                                     <th>Prénom</th>
@@ -77,10 +80,22 @@
                                             </thead>
                                             <tbody>
                                                 <?php $i = 1; ?>
-                                                @foreach ($individuelles as $individuelle)
-                                                    {{-- @isset($individuelle?->numero) --}}
+                                                @foreach ($individuelles as $i => $individuelle)
                                                     <tr>
+
                                                         <td>
+                                                            <input type="checkbox" name="individuelles[]"
+                                                                value="{{ $individuelle->id }}"
+                                                                {{ in_array($individuelle->formations_id, $individuelleFormation) ? 'checked' : '' }}
+                                                                class="form-check-input individuelle-checkbox @error('individuelles') is-invalid @enderror">
+                                                            @error('individuelles')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <div>{{ $message }}</div>
+                                                                </span>
+                                                            @enderror
+                                                        </td>
+                                                        <td>{{ $i + 1 }}</td>
+                                                        {{-- <td>
                                                             <input type="checkbox" name="individuelles[]"
                                                                 value="{{ $individuelle->id }}"
                                                                 {{ in_array($individuelle->formations_id, $individuelleFormation) ? 'checked' : '' }}
@@ -90,8 +105,7 @@
                                                                     <div>{{ $message }}</div>
                                                                 </span>
                                                             @enderror
-                                                            {{-- {{ $individuelle?->numero }} --}}
-                                                        </td>
+                                                        </td> --}}
                                                         <td>{{ $individuelle?->user?->civilite }}</td>
                                                         <td>{{ $individuelle?->user?->cin }}</td>
                                                         <td>{{ $individuelle?->user?->firstname }}</td>
@@ -153,3 +167,15 @@
         </div>
     </section>
 @endsection
+
+
+@push('scripts')
+    <script>
+        // Check / Uncheck all
+        document.getElementById('checkAll').addEventListener('click', function(e) {
+            document.querySelectorAll('.individuelle-checkbox').forEach(function(checkbox) {
+                checkbox.checked = e.target.checked;
+            });
+        });
+    </script>
+@endpush

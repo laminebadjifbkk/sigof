@@ -29,10 +29,10 @@
                             @csrf
                             @method('PUT')
                             <div class="row mb-3">
-                                <div class="form-check mt-2 mb-3">
+                                {{-- <div class="form-check mt-2 mb-3">
                                     <label for="#">Choisir tout</label>
                                     <input type="checkbox" class="form-check-input" id="checkAll">
-                                </div>
+                                </div> --}}
                                 @foreach ($permissions as $permission)
                                     <div class="col-12 col-md-3 col-sm-12 col-xs-12 col-xxl-3 mt-1">
                                         <label>

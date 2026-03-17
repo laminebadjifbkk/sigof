@@ -29,11 +29,11 @@
                             @csrf
                             @method('PUT')
                             <div class="row mb-3">
-                                <div class="col-md-2">
+                                {{-- <div class="col-md-2">
                                     <label for="#">Choisir tout</label>
                                     <input type="checkbox" class="form-check-input" id="checkAll">
                                 </div>
-                                <div></div>
+                                <div></div> --}}
                                 @foreach ($indemnites as $indemnite)
                                     <div class="col-12">
                                         <label>
