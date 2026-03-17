@@ -44,7 +44,7 @@
                                             <thead>
                                                 <tr>
                                                     {{-- <th>Matricule</th> --}}
-                                                    <th>Ingénieur</th>
+                                                    <th width="15%">Ingénieur</th>
                                                     <th>Initiale</th>
                                                     <th>Fonction</th>
                                                     {{-- <th>Spécialité</th> --}}
