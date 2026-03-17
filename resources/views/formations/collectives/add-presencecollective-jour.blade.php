@@ -65,12 +65,12 @@
                             @csrf
                             @method('PUT')
                             <div class="row mb-3 border rounded bg-light shadow-sm p-3">
-                                <div class="form-check col-md-2 pt-5">
+                                <div class="col-md-2 pt-5">
                                     <label for="#">Choisir tout</label>
                                     <input type="checkbox" class="form-check-input" id="checkAll">
                                 </div>
                                 <div></div>
-                                <div class="form-check col-md-12">
+                                <div class="col-md-12">
                                     <div class="table-responsive">
                                         <table class="m-2 table datatables align-middle" id="table-individuelles">
                                             <thead>

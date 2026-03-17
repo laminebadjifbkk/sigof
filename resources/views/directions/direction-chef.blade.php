@@ -38,7 +38,7 @@
                             @csrf
                             @method('PUT')
                             <div class="row mb-3">
-                                <div class="form-check col-md-12">
+                                <div class="col-md-12">
                                     <div class="table-responsive">
                                         <table class="table datatables align-middle" id="table-individuelles">
                                             <thead>

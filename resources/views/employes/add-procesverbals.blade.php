@@ -29,13 +29,13 @@
                             @csrf
                             @method('PUT')
                             <div class="row mb-3">
-                                <div class="form-check col-md-2">
+                                <div class="col-md-2">
                                     <label for="#">Choisir tout</label>
                                     <input type="checkbox" class="form-check-input" id="checkAll">
                                 </div>
                                 <div></div>
                                 @foreach ($procesverbals as $procesverbal)
-                                    <div class="form-check col-12">
+                                    <div class="col-12">
                                         <label>
                                             <input type="checkbox" name="procesverbals[]" value="{{ $procesverbal->id }}"
                                                 {{ in_array($procesverbal->id, $employesProcesverbals) ? 'checked' : '' }}

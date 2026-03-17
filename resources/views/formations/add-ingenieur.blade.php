@@ -42,11 +42,11 @@
                             @csrf
                             @method('PUT')
                             <div class="row mb-3">
-                                {{-- <div class="form-check col-md-2 pt-5">
+                                {{-- <div class="col-md-2 pt-5">
                                     <label for="#">Choisir tout</label>
                                     <input type="checkbox" class="form-check-input" id="checkAll">
                                 </div> --}}
-                                <div class="form-check col-md-12 pt-5">
+                                <div class="col-md-12 pt-5">
 
                                     <div class="table-responsive">
                                         <table class="table datatables align-middle" id="table-modules">

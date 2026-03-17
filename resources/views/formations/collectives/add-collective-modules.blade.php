@@ -58,7 +58,7 @@
                             @csrf
                             @method('PUT')
                             <div class="row mb-3 border rounded bg-light shadow-sm p-3">
-                                <div class="form-check col-md-12 pt-5">
+                                <div class="col-md-12 pt-5">
                                     <div class="table-responsive">
                                         <table class="m-2 table datatables align-middle" id="table-modules">
                                             <thead>

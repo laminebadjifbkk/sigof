@@ -158,7 +158,7 @@
                             @csrf
                             @method('PUT') --}}
                         <div class="row mb-0">
-                            <div class="form-check col-md-12 pt-5">
+                            <div class="col-md-12 pt-5">
                                 <div class="table-responsive">
                                     <table class="table datatables align-middle" id="table-operateurs">
                                         <thead>
