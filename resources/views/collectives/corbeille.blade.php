@@ -90,10 +90,7 @@
                                             <tr>
                                                 <td>{{ $collective?->numero }}</td>
                                                 <td>
-                                                    {{ $collective?->name }}
-                                                    @if ($collective?->sigle)
-                                                        ({{ $collective?->sigle }})
-                                                    @endif
+                                                    {{ $collective?->name_with_sigle }}
                                                 </td>
                                                 <td><a
                                                         href="mailto:{{ optional($collective?->user)?->email }}">{{ optional($collective?->user)?->email }}</a>

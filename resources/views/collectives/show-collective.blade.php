@@ -65,10 +65,7 @@
                                         <tr>
                                             <td>{{ $collective?->numero }}
                                             </td>
-                                            <td>{{ $collective?->name }}
-                                                @isset($collective?->sigle)
-                                                    {{ '(' . $collective?->sigle . ')' }}
-                                                @endisset
+                                            <td>{{ $collective?->name_with_sigle }}
                                             </td>
                                             <td><a href="mailto:{{ $collective->email }}">{{ $collective->email }}</a>
                                             </td>

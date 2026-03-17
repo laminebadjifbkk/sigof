@@ -46,7 +46,7 @@
                                     <div class="col-md-4 mb-2">
                                         <span class="text-secondary">Structure</span><br>
                                         <span
-                                            class="fs-5 text-dark">{{ $formation?->collectivemodule?->collective?->name ?? 'Aucun' }}</span>
+                                            class="fs-5 text-dark">{{ $formation?->collectivemodule?->collective?->name_with_sigle ?? 'Aucun' }}</span>
                                     </div>
                                 @endif
                             </div>
@@ -88,7 +88,7 @@
                                                                     <div>{{ $message }}</div>
                                                                 </span>
                                                             @enderror
-                                                            {{ $collectivemodule?->collective?->name . ' (' . $collectivemodule?->collective?->sigle . ')' }}
+                                                            {{ $collectivemodule?->collective?->name_with_sigle}}
                                                         </td>
                                                         {{--  <td><a
                                                             href="mailto:{{ $collectivemodule?->collective?->user?->email }}">{{ $collectivemodule?->collective?->user?->email }}</a>

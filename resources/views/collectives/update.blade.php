@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'Modification demande ' . $collective?->name)
+@section('title', 'Modification demande ' . $collective?->name_with_sigle)
 @section('space-work')
     <section class="section min-vh-0 d-flex flex-column align-items-center justify-content-center py-0">
         <div class="container-fluid">
@@ -57,7 +57,7 @@
                                             class="text-danger mx-1">*</span></label>
                                     <textarea name="name" id="name" rows="1"
                                         class="form-control form-control-sm @error('name') is-invalid @enderror"
-                                        placeholder="La raison sociale de l'opérateur">{{ $collective?->name ?? old('name') }}</textarea>
+                                        placeholder="La raison sociale de l'opérateur">{{ $collective?->name_with_sigle ?? old('name') }}</textarea>
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
                                             <div>{{ $message }}</div>

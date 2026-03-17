@@ -56,7 +56,7 @@ class EmailFormationController extends Controller
         $toEmailStructure   = $formation?->collectivemodule?->collective?->email;
         $toEmailResponsable = $formation?->collectivemodule?->collective?->email_responsable;
 
-        $toUserName = 'Bonjour ! ' . $formation?->collectivemodule?->collective?->name . ' (' . $formation?->collectivemodule?->collective?->sigle . ').';
+        $toUserName = 'Bonjour ! ' . $formation?->collectivemodule?->collective?->name_with_sigle;
 
         $message = $formation?->lieu . ', ' . $formation?->departement?->nom . ', du ' . $formation?->date_debut?->format('d/m/Y') .
         ' au ' . $formation?->date_fin?->format('d/m/Y') . '. La formation sera assurée par l\'opérateur : ' . $formation?->operateur?->user?->operateur .

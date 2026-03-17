@@ -123,14 +123,8 @@
                                                         {{ $collective?->statut_demande }}</span></h5>
                                                 <div class="col-12 col-md-9 mb-0">
                                                     <div class="label">Nom structure</div>
-                                                    <div>{{ $collective?->name }}</div>
+                                                    <div>{{ $collective?->name_with_sigle }}</div>
                                                 </div>
-                                                @if ($collective?->sigle)
-                                                    <div class="col-12 col-md-3 mb-0">
-                                                        <div class="label">Sigle</div>
-                                                        <div>{{ $collective?->sigle }}</div>
-                                                    </div>
-                                                @endif
                                                 <div class="col-12 col-md-3 mb-0">
                                                     <div class="label">Numéro dossier</div>
                                                     <div>{{ $collective?->numero }}</div>
@@ -1110,7 +1104,6 @@
                                             <tr>
                                                 <th>N° DEM.</th>
                                                 <th>Structure</th>
-                                                <th>Sigle</th>
                                                 <th>Téléphone</th>
                                                 <th>E-mail</th>
                                                 <th>Localité</th>
@@ -1125,8 +1118,7 @@
                                                     <tr>
                                                         <td>{{ $collective?->numero }}
                                                         </td>
-                                                        <td>{{ $collective?->name }}</td>
-                                                        <td>{{ $collective?->sigle }}</td>
+                                                        <td>{{ $collective?->name_with_sigle }}</td>
                                                         <td>{{ $collective?->user?->telephone }}</td>
                                                         <td><a
                                                                 href="mailto:{{ $collective?->user?->email }}">{{ $collective?->user?->email }}</a>

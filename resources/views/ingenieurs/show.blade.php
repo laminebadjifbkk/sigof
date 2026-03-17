@@ -213,10 +213,7 @@
                                                     {{-- <td>{{ $collectivemodule->collective?->numero }}</td> --}}
                                                     <td>{{ $collectivemodule->module }}</td>
                                                     <td>
-                                                        {{ $collectivemodule->collective?->name }}
-                                                        @if (!empty($collectivemodule->collective?->sigle))
-                                                            ({{ $collectivemodule->collective?->sigle }})
-                                                        @endif
+                                                        {{ $collectivemodule->collective?->name_with_sigle }}
                                                     </td>
                                                     {{-- <td>
                                                     <a

@@ -54,7 +54,7 @@
                                         <?php $i = 1; ?>
                                         @foreach ($collectivemodules as $collectivemodule)
                                             <tr>
-                                                <td>{{ $collectivemodule?->collective?->name }}</td>
+                                                <td>{{ $collectivemodule?->collective?->name_with_sigle }}</td>
                                                 <td>{{ $collectivemodule?->collective?->departement?->region?->nom }}</td>
                                                 <td>{{ $collectivemodule?->module }}</td>
                                                 <td style="text-align: center;">

@@ -37,11 +37,7 @@
                                     <h5 class="card-title">Détails structure</h5>
                                     <div class="col-12 col-md-9 mb-2">
                                         <div class="label mb-2">Nom structure</div>
-                                        <div>{{ $listecollective?->collective?->name }}</div>
-                                    </div>
-                                    <div class="col-12 col-md-3 mb-2">
-                                        <div class="label mb-2">Sigle</div>
-                                        <div>{{ $listecollective?->collective?->sigle }}</div>
+                                        <div>{{ $listecollective?->collective?->name_with_sigle }}</div>
                                     </div>
                                     <div class="col-12 col-md-3 mb-2">
                                         <div class="label mb-2">Numéro dossier</div>

@@ -41,7 +41,6 @@
                                                 <tr>
                                                     <th>N° DEM.</th>
                                                     <th>Structure</th>
-                                                    <th>Sigle</th>
                                                     <th>Téléphone</th>
                                                     <th>E-mail</th>
                                                     <th>Localité</th>
@@ -66,8 +65,7 @@
                                                             {{ $collective->numero }}
                                                         </td>
 
-                                                        <td>{{ $collective?->name }}</td>
-                                                        <td>{{ $collective?->sigle }}</td>
+                                                        <td>{{ $collective?->name_with_sigle }}</td>
                                                         <td>{{ $collective?->user?->telephone }}</td>
                                                         <td><a
                                                                 href="mailto:{{ $collective?->user?->email }}">{{ $collective?->user?->email }}</a>

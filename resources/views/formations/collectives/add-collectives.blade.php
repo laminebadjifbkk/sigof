@@ -28,20 +28,14 @@
                                 </span>
                             </div>
                         </div>
-                        @if (!empty($formation?->collectivemodule?->collective?->name))
-                            {{-- <h5><b><u>BENEFICIAIRES</u></b> : {{ $formation?->collectivemodule?->collective?->name }}
-                                @if ($formation?->collectivemodule?->collective?->name)
-                                    {{ '(' . $formation?->collectivemodule?->collective?->sigle . ')' }}
-                                @endif
-                            </h5>
-                            <h5><b><u>MODULE</u></b> :{{ $formation?->collectivemodule?->module }}</h5> --}}
+                        @if (!empty($formation?->collectivemodule?->collective?->name_with_sigle))
 
                             <div class="p-1 mb-4 border rounded bg-light shadow-sm">
                                 <div class="row text-center fw-semibold">
                                     <div class="col-md-6 mb-2">
                                         <span class="text-secondary">Bénéficiaires</span><br>
                                         <span
-                                            class="fs-5 text-dark">{{ $formation?->collectivemodule?->collective?->name . '(' . $formation?->collectivemodule?->collective?->sigle . ')' }}</span>
+                                            class="fs-5 text-dark">{{ $formation?->collectivemodule?->collective?->name_with_sigle }}</span>
                                     </div>
                                     <div class="col-md-6 mb-2">
                                         <span class="text-secondary">Module</span><br>
@@ -94,10 +88,7 @@
                                                             {{ $collectivemodule?->collective->numero }}
                                                         </td>
 
-                                                        <td>{{ $collectivemodule?->collective?->name }}
-                                                            @isset($collectivemodule->collective?->sigle)
-                                                                {{ '(' . $collectivemodule->collective?->sigle . ')' }}
-                                                            @endisset
+                                                        <td>{{ $collectivemodule?->collective?->name_with_sigle }}
                                                         </td>
                                                         {{-- <td>{{ $collectivemodule->collective?->sigle }}</td> --}}
                                                         <td>{{ $collectivemodule->collective?->user?->telephone }}</td>

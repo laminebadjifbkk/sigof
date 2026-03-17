@@ -185,7 +185,7 @@
 
                             <p style="margin:0;">
                                 <strong><u>Nom de la structure</u> :</strong>
-                                {{ $collectivemodule->collective?->name }}
+                                {{ $collectivemodule->collective?->name_with_sigle }}
                             </p>
                             <p style="margin:0;">
                                 <strong><u>Formation sollicitée</u> :</strong>

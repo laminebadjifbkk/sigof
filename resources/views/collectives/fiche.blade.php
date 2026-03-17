@@ -163,7 +163,7 @@
                     <tbody>
                         <tr>
                             <th>Nom de la structure</th>
-                            <td colspan="10">{{ $collective?->name }}</td>
+                            <td colspan="10">{{ $collective?->name_with_sigle }}</td>
                         </tr>
                         <tr>
                             <th>Statut</th>
@@ -253,7 +253,7 @@
                 <tbody>
                     <tr>
                         <th>Nom de la structure</th>
-                        <td colspan="10">{{ $collectivemodule?->collective?->name }}</td>
+                        <td colspan="10">{{ $collectivemodule?->collective?->name_with_sigle }}</td>
                     </tr>
                     <tr>
                         <th>Formation sollicitée</th>

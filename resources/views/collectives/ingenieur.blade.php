@@ -29,7 +29,7 @@
                                 </span>
                             </div>
                         </div>
-                        <h5><u><b>STRUCTURE</b>:</u> {{ $collectivemodule->collective?->name }}</h5>
+                        <h5><u><b>STRUCTURE</b>:</u> {{ $collectivemodule->collective?->name_with_sigle }}</h5>
                         <h5><u><b>MODULES</b>:</u>
                             {{ $collectivemodule->module }}
                         </h5> --}}

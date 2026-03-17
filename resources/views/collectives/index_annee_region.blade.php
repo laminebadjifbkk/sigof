@@ -175,11 +175,7 @@
                                                     </td>
 
                                                     <td>
-                                                        {{ $collectivemodule?->collective?->name }}
-                                                        @if ($collectivemodule?->collective?->sigle)
-                                                            <small
-                                                                class="text-muted">({{ $collectivemodule?->collective?->sigle }})</small>
-                                                        @endif
+                                                        {{ $collectivemodule?->collective?->name_with_sigle }}
                                                     </td>
 
                                                     <td>

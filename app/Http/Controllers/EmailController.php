@@ -41,7 +41,7 @@ class EmailController extends Controller
         $toEmailResponsable = $formation?->collectivemodule?->collective?->email_responsable;
         $collectivemodule   = $formation?->collectivemodule?->module;
 
-        $toUserName = 'Félicitations ! ' . $formation?->collectivemodule?->collective?->name . ' (' . $formation?->collectivemodule?->collective?->sigle . ').';
+        $toUserName = 'Félicitations ! ' . $formation?->collectivemodule?->collective?->name_with_sigle;
         $message    = 'Votre formation en ' . $collectivemodule . ' est maintenant terminée.';
         $subject    = 'Notification de fin de formation ! ';
         Mail::to($toEmailUser)->send(new WelcomeEmail($message, $subject, $toEmailUser, $toUserName, $collectivemodule));
