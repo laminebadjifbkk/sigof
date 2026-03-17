@@ -89,8 +89,6 @@
                                                                 value="{{ $listecollective->id }}"
                                                                 {{ in_array($listecollective->formations_id, $listecollectiveFormation) ? 'checked' : '' }}
                                                                 class="form-check-input individuelle-checkbox @error('listecollectives') is-invalid @enderror">
-
-                                                            {{ $loop->iteration }}
                                                             @error('listecollectives')
                                                                 <span class="invalid-feedback" role="alert">
                                                                     <div>{{ $message }}</div>
