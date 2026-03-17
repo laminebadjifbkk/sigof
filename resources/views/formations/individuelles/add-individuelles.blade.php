@@ -67,12 +67,11 @@
                                         <table class="m-2 table datatables align-middle" id="table-collectives">
                                             <thead>
                                                 <tr>
-                                                    <th><input type="checkbox" class="form-check-input" id="checkAll"> All
+                                                    <th width="3%">
+                                                        <input type="checkbox" class="form-check-input" id="checkAll">
                                                     </th>
-                                                    {{-- <th>Civilité</th> --}}
+                                                    <th>N°</th>
                                                     <th>Name</th>
-                                                    {{-- <th>Date naissance</th>
-                                                <th>Lieu naissance</th> --}}
                                                     <th>Département</th>
                                                     <th>Module</th>
                                                     <th>Note</th>
@@ -84,7 +83,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($individuelles as $individuelle)
+                                                @foreach ($individuelles as $i => $individuelle)
                                                     {{-- @if (!empty($individuelle?->numero)) --}}
                                                     <tr>
                                                         <td>
@@ -94,9 +93,7 @@
                                                                     value="{{ $individuelle->id }}"
                                                                     {{ in_array($individuelle->formations_id, $individuelleFormation) ? 'checked' : '' }}
                                                                     {{ in_array($individuelle->formations_id, $individuelleFormationCheck) ? 'disabled' : '' }}
-                                                                    class="form-check-input m-0 @error('individuelles') is-invalid @enderror">
-
-                                                                <span class="fw-semibold">{{ $loop->iteration }}</span>
+                                                                    class="form-check-input individuelle-checkbox m-0 @error('individuelles') is-invalid @enderror">
                                                             </div>
 
                                                             @error('individuelles')
@@ -106,6 +103,7 @@
                                                                 </span>
                                                             @enderror
                                                         </td>
+                                                        <td>{{ $i + 1 }}</td>
                                                         {{-- <td>{{ $individuelle?->user?->civilite }}</td> --}}
                                                         <td>
                                                             {{ $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name }}
@@ -225,6 +223,15 @@
                     }
                 }
             }
+        });
+    </script>
+
+    <script>
+        // Check / Uncheck all
+        document.getElementById('checkAll').addEventListener('click', function(e) {
+            document.querySelectorAll('.individuelle-checkbox').forEach(function(checkbox) {
+                checkbox.checked = e.target.checked;
+            });
         });
     </script>
 @endpush
