@@ -170,7 +170,7 @@ class Collective extends Model
         'modules_id',
     ];
 
-/* 	public function formations()
+    /* 	public function formations()
 	{
 		return $this->hasMany(Formation::class, 'modules_id');
 	} */
@@ -210,7 +210,7 @@ class Collective extends Model
     {
         return $this->hasMany(Listecollective::class, 'collectives_id');
     }
-    
+
     public function antenne()
     {
         return $this->belongsTo(Antenne::class, 'antennes_id');
@@ -295,5 +295,14 @@ class Collective extends Model
     public function membres()
     {
         return $this->hasMany(Membre::class, 'collectives_id');
+    }
+
+    public function getNameWithSigleAttribute()
+    {
+        if ($this->sigle) {
+            return $this->name . ' (' . $this->sigle . ')';
+        }
+
+        return $this->name;
     }
 }

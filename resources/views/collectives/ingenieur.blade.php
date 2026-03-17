@@ -45,7 +45,7 @@
                                         </a>
 
                                         <h6 class="mb-0 fw-semibold text-muted">
-                                            Détails demande collective
+                                            Retour
                                         </h6>
                                     </div>
                                 </div>
@@ -57,7 +57,7 @@
                                         <div class="p-2 bg-light rounded">
                                             <small class="text-muted d-block">STRUCTURE</small>
                                             <span class="fw-semibold text-dark">
-                                                {{ $collectivemodule->collective?->name }}
+                                                {{ $collectivemodule->collective?->name_with_sigle }}
                                             </span>
                                         </div>
                                     </div>
