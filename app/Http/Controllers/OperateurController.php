@@ -1022,6 +1022,28 @@ class OperateurController extends Controller
             ->distinct()
             ->get();
 
+
+        // Vérification des documents
+        $hasAuto = $files->contains(
+            fn($file) => $file->sigle === 'Autorisation',
+        );
+
+        $hasNinea = $files->contains(
+            fn($file) => $file->sigle === 'Ninea',
+        );
+
+        $hasOrganigramme = $files->contains(
+            fn($file) => $file->sigle === 'Organigramme',
+        );
+
+        $hasQuitus = $files->contains(
+            fn($file) => $file->sigle === 'Quitus',
+        );
+
+        $hasRC = $files->contains(
+            fn($file) => $file->sigle === 'Ninea/RC',
+        );
+
         $labels = [
             'Ninea ou registre de commerce' => 'Registre de commerce',
         ];
@@ -1063,7 +1085,12 @@ class OperateurController extends Controller
                 'user',
                 'files',
                 'labels',
-                'domaines'
+                'domaines',
+                'hasAuto',
+                'hasNinea',
+                'hasOrganigramme',
+                'hasQuitus',
+                'hasRC'
             )
         );
     }

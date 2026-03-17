@@ -2398,6 +2398,7 @@
                 }
             ];
 
+            // Boucle pour toutes les actions de formulaire
             actions.forEach(({
                 selector,
                 title,
@@ -2409,6 +2410,10 @@
                     btn.addEventListener('click', function(e) {
                         e.preventDefault();
                         const form = this.closest('form');
+                        if (!form) return;
+
+                        // Empêche double clic
+                        if (btn.dataset.submitting === 'true') return;
 
                         Swal.fire({
                             title: title,
@@ -2421,18 +2426,37 @@
                             cancelButtonText: 'Annuler'
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                form.submit();
+
+                                // Marque comme en cours et désactive le bouton
+                                btn.dataset.submitting = 'true';
+                                btn.disabled = true;
+
+                                // Affiche loader avant soumission
+                                Swal.fire({
+                                    title: 'Traitement...',
+                                    text: 'Veuillez patienter',
+                                    allowOutsideClick: false,
+                                    allowEscapeKey: false,
+                                    showConfirmButton: false,
+                                    didOpen: () => {
+                                        Swal.showLoading();
+                                        setTimeout(() => {
+                                            form.submit();
+                                        }, 200);
+                                    }
+                                });
                             }
                         });
                     });
                 });
             });
 
-            // Gestion spécifique des suppressions par AJAX (images, fichiers)
+            // Gestion AJAX pour suppression d'images/fichiers
             document.querySelectorAll('.show_confirmDeleteImage').forEach(btn => {
                 btn.addEventListener('click', function(e) {
                     e.preventDefault();
                     const url = this.dataset.url;
+                    if (!url) return;
 
                     Swal.fire({
                         title: 'Êtes-vous sûr de vouloir supprimer ?',
@@ -2452,12 +2476,14 @@
                                     body: JSON.stringify({
                                         _method: 'DELETE'
                                     })
-                                }).then(res => res.json())
+                                })
+                                .then(res => res.json())
                                 .then(() => {
                                     Swal.fire('Succès', "Votre image a été supprimée.",
                                             'success')
                                         .then(() => location.reload());
-                                }).catch(() => {
+                                })
+                                .catch(() => {
                                     Swal.fire('Erreur', "Une erreur s'est produite.",
                                         'error');
                                 });
