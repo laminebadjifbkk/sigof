@@ -1801,7 +1801,7 @@
             display: inline-block;
         }
 
-        .cours,
+        
         .Disponible,
         .formés,
         .formé,
@@ -1836,6 +1836,8 @@
         .programmer,
         .commission,
         .démarrer,
+        .Imputée,
+        .cours,
         .new,
         .retiré {
             background-color: #0DCAF0;
