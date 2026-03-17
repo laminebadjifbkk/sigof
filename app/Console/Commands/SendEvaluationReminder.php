@@ -133,7 +133,23 @@ class SendEvaluationReminder extends Command
                 // Destinataires
                 $emails = collect([
                     'lamine.badji@onfp.sn',
-                    $formation?->ingenieur?->user?->email,
+                    'ouly.toure@onfp.sn',
+                    'dado.toure@onfp.sn',
+                    'amsatou.paye@onfp.sn',
+                    //'bara.lo@onfp.sn', 
+                    'SerigneMansourSy.FALL@onfp.sn',
+                    //'aissatou.deme@tresor.gouv.sn',
+                    'MaimounaGadio.AW@onfp.sn',
+                    'ramet.ndiaye@onfp.sn',
+                    'seckseynabou27@gmail.com',
+                    'seynabou.seck@onfp.sn',
+                    'mamebigue.ciss@onfp.sn',
+                    'gorgui.ndiaye@onfp.sn',
+                    'mohamadou.soumare@onfp.sn',
+                    's.fall@onfp.sn',
+                    'a.drame@onfp.sn',
+                    'elhadjigorgui.diouf@onfp.sn',
+                    $formation?->ingenieur?->user?->email
                 ])
                     ->merge($formation?->onfpevaluateurs?->pluck('email') ?? [])
                     ->filter()

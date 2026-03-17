@@ -124,7 +124,7 @@ class SendFormationStartEmail extends Command
 
                 $emails = collect([
                     'lamine.badji@onfp.sn',
-                    /* 'ouly.toure@onfp.sn',
+                    'ouly.toure@onfp.sn',
                     'dado.toure@onfp.sn',
                     'amsatou.paye@onfp.sn',
                     //'bara.lo@onfp.sn', 
@@ -138,8 +138,9 @@ class SendFormationStartEmail extends Command
                     'gorgui.ndiaye@onfp.sn',
                     'mohamadou.soumare@onfp.sn',
                     's.fall@onfp.sn',
+                    'a.drame@onfp.sn',
                     'elhadjigorgui.diouf@onfp.sn',
-                    $formation?->ingenieur?->user?->email */
+                    $formation?->ingenieur?->user?->email
                 ])
                     ->filter()
                     ->unique()
