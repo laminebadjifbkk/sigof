@@ -75,7 +75,10 @@
                                         <table class="m-2 table datatables align-middle" id="table-individuelles">
                                             <thead>
                                                 <tr>
-                                                    <th scope="col">N°</th>
+                                                    <th width="3%">
+                                                        <input type="checkbox" class="form-check-input" id="checkAll">
+                                                    </th>
+                                                    <th>N°</th>
                                                     <th scope="col">CIN</th>
                                                     <th scope="col">Civilité</th>
                                                     <th scope="col">Prénom</th>
@@ -89,20 +92,9 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php $i = 1; ?>
-                                                @foreach ($listecollectives as $listecollective)
+                                                @foreach ($listecollectives as $i => $listecollective)
                                                     <tr>
                                                         <td>
-                                                            {{-- <input type="checkbox" name="listecollectives[]"
-                                                            value="{{ $listecollective->id }}"
-                                                            {{ in_array($listecollective->id, $listecollectiveCochees) ? 'checked' : '' }}
-                                                            class="form-check-input @error('listecollectives') is-invalid @enderror">
-                                                        @error('listecollectives')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <div>{{ $message }}</div>
-                                                            </span>
-                                                        @enderror
-                                                        {{ $i++ }} --}}
                                                             @php
                                                                 $isChecked = in_array(
                                                                     $listecollective->id,
@@ -115,10 +107,11 @@
                                                                     name="listecollectives[]"
                                                                     value="{{ $listecollective->id }}"
                                                                     {{ $isChecked ? 'checked' : '' }}
-                                                                    class="form-check-input @error('listecollectives') is-invalid @enderror">
-                                                                {{ $i++ }}
+                                                                    class="form-check-input individuelle-checkbox @error('listecollectives') is-invalid @enderror">
+
                                                             </label>
                                                         </td>
+                                                        <td>{{ $i + 1 }}</td>
                                                         <td>{{ $listecollective?->cin }}
                                                         </td>
                                                         <td>{{ $listecollective?->civilite }}</td>
@@ -182,3 +175,13 @@
         </div>
     </section>
 @endsection
+@push('scripts')
+    <script>
+        // Check / Uncheck all
+        document.getElementById('checkAll').addEventListener('click', function(e) {
+            document.querySelectorAll('.individuelle-checkbox').forEach(function(checkbox) {
+                checkbox.checked = e.target.checked;
+            });
+        });
+    </script>
+@endpush

@@ -103,6 +103,9 @@
                                         <table class="m-2 table datatables align-middle" id="table-individuelles">
                                             <thead>
                                                 <tr>
+                                                    <th width="3%">
+                                                        <input type="checkbox" class="form-check-input" id="checkAll">
+                                                    </th>
                                                     <th>N°</th>
                                                     <th>Civilité</th>
                                                     <th>Prénom et NOM</th>
@@ -120,7 +123,7 @@
                                             </thead>
                                             <tbody>
                                                 <?php $i = 1; ?>
-                                                @foreach ($individuelles as $individuelle)
+                                                @foreach ($individuelles as $i => $individuelle)
                                                     {{-- @if (!empty($individuelle?->numero)) --}}
                                                     <tr>
                                                         {{-- <td>
@@ -159,10 +162,11 @@
                                                                 <input id="liste_{{ $individuelle->id }}" type="checkbox"
                                                                     name="individuelles[]" value="{{ $individuelle->id }}"
                                                                     {{ $isChecked ? 'checked' : '' }}
-                                                                    class="form-check-input @error('individuelles') is-invalid @enderror">
-                                                                {{ $i++ }}
+                                                                    class="form-check-input individuelle-checkbox @error('individuelles') is-invalid @enderror">
+
                                                             </label>
                                                         </td>
+                                                        <td>{{ $i + 1 }}</td>
                                                         <td>{{ $individuelle?->user?->civilite }}</td>
                                                         <td>{{ $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name }}
                                                         </td>
@@ -236,3 +240,13 @@
         </div>
     </section>
 @endsection
+@push('scripts')
+    <script>
+        // Check / Uncheck all
+        document.getElementById('checkAll').addEventListener('click', function(e) {
+            document.querySelectorAll('.individuelle-checkbox').forEach(function(checkbox) {
+                checkbox.checked = e.target.checked;
+            });
+        });
+    </script>
+@endpush
