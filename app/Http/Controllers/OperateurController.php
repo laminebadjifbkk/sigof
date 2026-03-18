@@ -1270,10 +1270,10 @@ class OperateurController extends Controller
         $this->authorize('delete', $operateur);
 
         // Vérifier que le statut permet la suppression
-        if ($operateur->statut_agrement !== 'Nouveau') {
+        /* if ($operateur->statut_agrement !== 'Nouveau') {
             Alert::warning('Action refusée', 'Seuls les opérateurs avec le statut "Nouveau" peuvent être supprimés.');
             return redirect()->back();
-        }
+        } */
 
         if (strtolower($operateur->file8) === 'oui') {
             Alert::error('Attention !', 'Impossible de supprimer car les informations ont déjà certifiés.');
