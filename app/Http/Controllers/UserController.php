@@ -1133,6 +1133,9 @@ class UserController extends Controller
         if ($request->filled('firstname')) {
             $query->where('firstname', 'like', "%$request->firstname%");
         }
+        if ($request->filled('username')) {
+            $query->where('username', 'like', "%$request->username%");
+        }
         if ($request->filled('lieu_naissance')) {
             $query->where('lieu_naissance', 'like', "%$request->lieu_naissance%");
         }
