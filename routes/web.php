@@ -933,7 +933,7 @@ Route::group(['middleware' => ['XSS']], function () {
             ->name('operateurs.update-user');
 
         // API pour recherche AJAX
-        Route::get('/users/search', [UserController::class, 'search'])->name('users.search');
+        //Route::get('/users/search', [UserController::class, 'search'])->name('users.search');
 
         /* Vues ressouces */
         Route::resource('/users', UserController::class);
