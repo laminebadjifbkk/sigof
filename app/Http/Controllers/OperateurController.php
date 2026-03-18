@@ -434,7 +434,7 @@ class OperateurController extends Controller
             'email'                => ["required", "email", Rule::unique('users')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
-            'username'             => ["required", "string", Rule::unique('users')->where(function ($query) {
+            'username'             => ["nullable", "string", Rule::unique('users')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
             'fixe'                 => ["required", "string", "size:9", Rule::unique('users')->where(function ($query) {

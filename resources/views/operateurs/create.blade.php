@@ -98,8 +98,7 @@
                                         </div>
 
                                         <div class="col-12 col-md-6 col-lg-4">
-                                            <label for="username" class="form-label">Sigle<span
-                                                    class="text-danger mx-1">*</span></label>
+                                            <label for="username" class="form-label">Sigle</label>
                                             <input type="text" name="username" value="{{ old('username') }}"
                                                 class="form-control form-control-sm @error('username') is-invalid @enderror"
                                                 id="username" placeholder="username">
