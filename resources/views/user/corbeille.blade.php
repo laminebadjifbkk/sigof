@@ -73,6 +73,7 @@
                                         <tr>
                                             <th></th>
                                             <th>Username</th>
+                                            <th>Opérateur</th>
                                             <th>Name</th>
                                             <th>E-mail</th>
                                             <th>Téléphone</th>
@@ -90,6 +91,7 @@
                                                 </td>
                                                 <td>{{ $user->username }}</td>
                                                 <td>{{ $user?->firstname . ' ' . $user?->name }}</td>
+                                                <td>{{ $user?->operateur }}</td>
                                                 <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
                                                 <td>{{ $user?->fixe . ' ' . $user->telephone }}</td>
                                                 <td class="text-center">
