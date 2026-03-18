@@ -91,8 +91,7 @@
                                                 <td>{{ $user->username }}</td>
                                                 <td>{{ $user?->firstname . ' ' . $user?->name }}</td>
                                                 <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
-                                                <td><a href="tel:+221{{ $user->telephone }}">{{ $user->telephone }}</a>
-                                                </td>
+                                                <td>{{ $user?->fixe . ' ' . $user->telephone }}</td>
                                                 <td class="text-center">
                                                     @if ($user->email_verified_at)
                                                         <i class="bi bi-check-circle text-success"
