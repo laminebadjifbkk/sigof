@@ -481,7 +481,7 @@
                                         <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="annee_agrement" class="form-label">Année agrement </label>
                                             <input type="date" name="annee_agrement"
-                                                value="{{ old('annee_agrement', optional($operateur?->annee_agrement)->format('d/m/Y')) }}"
+                                                value="{{ old('annee_agrement', optional($operateur?->annee_agrement)->format('Y-m-d')) }}"
                                                 class="form-control form-control-sm @error('annee_agrement') is-invalid @enderror"
                                                 id="datepicker" placeholder="JJ/MM/AAAA" autocomplete="bday">
                                             @error('annee_agrement')
