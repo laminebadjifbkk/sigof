@@ -72,7 +72,7 @@
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            {{-- <th>Username</th> --}}
+                                            <th>Username</th>
                                             <th>E-mail</th>
                                             <th>Téléphone</th>
                                             <th class="text-center">Statut</th>
@@ -87,7 +87,7 @@
                                                     <img class="rounded-circle" src="{{ asset($user->getImage()) }}"
                                                         alt="Profil" width="40">
                                                 </td>
-                                                {{-- <td>{{ $user->username }}</td> --}}
+                                                <td>{{ $user->username }}</td>
                                                 <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
                                                 <td><a href="tel:+221{{ $user->telephone }}">{{ $user->telephone }}</a>
                                                 </td>
