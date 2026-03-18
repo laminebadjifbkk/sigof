@@ -748,14 +748,12 @@ class OperateurController extends Controller
     {
         $user = $operateur->user;
 
-        dd($request->input("username"));
-
         $this->validate($request, [
             "numero_dossier"       => ['nullable', 'string', Rule::unique(Operateur::class)->ignore($operateur?->id)->whereNull('deleted_at')],
             "numero_arrive"        => ['nullable', 'string', Rule::unique(Operateur::class)->ignore($operateur?->id)->whereNull('deleted_at')],
             "numero_agrement"      => ['nullable', 'string', Rule::unique(Operateur::class)->ignore($operateur?->id)->whereNull('deleted_at')],
             "operateur"            => ['required', 'string', Rule::unique(User::class)->ignore($user->id)->whereNull('deleted_at')],
-            "username"             => ['required', 'string', Rule::unique(User::class)->ignore($user->id)->whereNull('deleted_at')],
+            "username"             => ['required', 'string', Rule::unique('users', 'username')->ignore($user->id)->whereNull('deleted_at')],
             "email"                => ['required', 'string', Rule::unique(User::class)->ignore($user->id)->whereNull('deleted_at')],
             "fixe"                 => ['required', 'string', 'size:9', Rule::unique(User::class)->ignore($user->id)->whereNull('deleted_at')],
             "telephone"            => ['required', 'string', 'size:9', Rule::unique(User::class)->ignore($user->id)->whereNull('deleted_at')],
