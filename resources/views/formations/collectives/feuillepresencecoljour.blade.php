@@ -6,7 +6,12 @@
     <title>{{ $title }}</title>
     <style>
         @page {
-            margin: 0cm 0cm;
+            margin: 0cm 0cm 2cm 0cm;
+            /* <-- espace pour le footer */
+        }
+
+        body {
+            padding-bottom: 2cm;
         }
 
         .invoice-box {
@@ -69,7 +74,7 @@
             bottom: 0cm;
             left: 0cm;
             right: 0cm;
-            height: 1cm;
+            height: 1.5cm;
 
             background-color: #ffffff;
             color: #000;
@@ -249,14 +254,14 @@
             </table>
         </div>
     </div>
-    {{-- <footer>
+    <footer>
         <div class="page-number" id="footer">
             <div class="footer-line"></div>
             <p class="footer-text">Cité Sipres 1, Lot 2 - 2 voies liberté 6 extension VDN Tel: (+221) 33 827 92 51 -
                 Fax: (+221) 33 827 92
                 55 BP: 21013 Dakar-Ponty Email: <a href="#">onfp@onfp.sn</a></p>
         </div>
-    </footer> --}}
+    </footer>
 </body>
 
 </html>
