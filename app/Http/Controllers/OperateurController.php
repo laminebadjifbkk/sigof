@@ -842,7 +842,7 @@ class OperateurController extends Controller
             "formulaire_signe"       => $request->input("formulaire_signe"),
             "quitusfiscal"           => $request->input("quitusfiscal"),
             "cvsigne"                => $request->input("cvsigne"),
-            /* "annee_agrement"         => $request->input("annee_agrement"), */
+            "annee_agrement"         => $request->input("annee_agrement"),
         ]);
 
         // Gestion des fichiers
