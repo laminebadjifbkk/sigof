@@ -56,7 +56,6 @@
                                         <th class="text-center">Date campagne</th>
                                         <th class="text-center">Date commission</th>
                                         <th>Lieu</th>
-                                        {{-- <th>Fin agrément</th> --}}
                                         <th width="5%" class="text-center">Operateurs</th>
                                         <th width="8%" class="text-center">Statut</th>
                                         <th width="5%" class="text-center" scope="col"><i class="bi bi-gear"></i>

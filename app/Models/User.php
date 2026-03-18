@@ -381,9 +381,11 @@ class User extends Authenticatable
         return $this->hasMany(HistoriquePriseEnCharge::class);
     }
 
+    //display_operateur 
     public function getDisplayOperateurAttribute()
     {
         return $this->operateur
-            . ($this->username ? " ({$this->username})" : '');
+            ? $this->operateur . ($this->username ? " ({$this->username})" : '')
+            : null;
     }
 }

@@ -68,7 +68,7 @@
                                                 <th>N°</th>
                                                 <th>N° agrément</th>
                                                 <th>Opérateurs</th>
-                                                <th>Sigle</th>
+                                                {{-- <th>Sigle</th> --}}
                                                 <th class="text-center">Modules</th>
                                                 <th class="text-center">Type</th>
                                                 <th width="2%"><i class="bi bi-gear"></i></th>
@@ -85,8 +85,8 @@
                                                     </td>
                                                     <td>{{ $i + 1 }}</td>
                                                     <td>{{ $operateur->numero_agrement }}</td>
-                                                    <td>{{ $operateur?->user?->operateur }}</td>
-                                                    <td>{{ $operateur?->user?->username }}</td>
+                                                    <td>{{ $operateur?->user?->display_operateur  }}</td>
+                                                    {{-- <td>{{ $operateur?->user?->username }}</td> --}}
                                                     <td class="text-center">
                                                         @if ($operateur?->operateurmodules->isNotEmpty())
                                                             <span
