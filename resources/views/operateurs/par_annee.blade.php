@@ -391,7 +391,7 @@
                                                         <br>
                                                         <a
                                                             href="tel:+221{{ $operateur?->user?->telephone }}">{{ $operateur?->user?->telephone }}</a> --}}
-                                                        {{ $operateur?->user?->display_phones }}
+                                                        {!! $operateur?->user?->display_phones !!}
                                                     </td>
                                                 @endcan
                                                 <td>{{ $operateur?->region?->nom }}</td>
