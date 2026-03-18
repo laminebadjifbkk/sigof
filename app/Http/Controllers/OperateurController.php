@@ -753,7 +753,7 @@ class OperateurController extends Controller
             "numero_arrive"        => ['nullable', 'string', Rule::unique(Operateur::class)->ignore($operateur?->id)->whereNull('deleted_at')],
             "numero_agrement"      => ['nullable', 'string', Rule::unique(Operateur::class)->ignore($operateur?->id)->whereNull('deleted_at')],
             "operateur"            => ['required', 'string', Rule::unique(User::class)->ignore($user->id)->whereNull('deleted_at')],
-            "username"             => ['required', 'string', Rule::unique(User::class)->ignore($user->id)->whereNull('deleted_at')],
+            "username"             => ['nullable', 'string', Rule::unique(User::class)->ignore($user->id)->whereNull('deleted_at')],
             "email"                => ['required', 'string', Rule::unique(User::class)->ignore($user->id)->whereNull('deleted_at')],
             "fixe"                 => ['required', 'string', 'size:9', Rule::unique(User::class)->ignore($user->id)->whereNull('deleted_at')],
             "telephone"            => ['required', 'string', 'size:9', Rule::unique(User::class)->ignore($user->id)->whereNull('deleted_at')],
