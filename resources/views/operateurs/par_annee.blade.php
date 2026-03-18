@@ -386,12 +386,12 @@
                                                 @endcan
                                                 @can('afficher-operateur-telephone')
                                                     <td>
-                                                        {{--  <a
-                                                            href="tel:+221{{ $operateur?->user?->fixe }}">{{ $operateur?->user?->fixe }}</a>
-                                                        <br>
                                                         <a
-                                                            href="tel:+221{{ $operateur?->user?->telephone }}">{{ $operateur?->user?->telephone }}</a> --}}
-                                                        {!! $operateur?->user?->display_phones !!}
+                                                            href="tel:+221{{ $operateur?->user?->fixe }}">{{ $operateur?->user?->fixe }}</a>
+                                                        @if (!empty($operateur?->user?->telephone))
+                                                            <a
+                                                                href="tel:+221{{ $operateur?->user?->telephone }}">{{ ';' . $operateur?->user?->telephone }}</a>
+                                                        @endif
                                                     </td>
                                                 @endcan
                                                 <td>{{ $operateur?->region?->nom }}</td>
