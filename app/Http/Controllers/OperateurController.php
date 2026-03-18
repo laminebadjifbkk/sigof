@@ -3590,4 +3590,33 @@ class OperateurController extends Controller
 
         return redirect()->back()->with('status', 'Opérateur détaché avec succès !');
     }
+
+    public function changeUser(Operateur $operateur)
+    {
+        $this->authorize('update', $operateur);
+
+        $users = User::whereHas('operateur')->get();
+
+        return view('operateurs.change-user', compact('operateur', 'users'));
+    }
+
+    public function updateUser(Request $request, Operateur $operateur)
+    {
+        $this->authorize('update', $operateur);
+
+        $request->validate([
+            'user_id' => ['required', 'exists:users,id']
+        ]);
+
+        $user = User::findOrFail($request->user_id);
+
+        // 🔥 Mise à jour de la relation
+        $operateur->update([
+            'users_id' => $user->id,
+        ]);
+
+        Alert::success("Succès !", "Utilisateur changé avec succès");
+
+        return redirect()->back();
+    }
 }

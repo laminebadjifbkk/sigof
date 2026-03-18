@@ -134,7 +134,7 @@
                                             @can('afficher-operateur-name')
                                                 <th width="40%">Opérateurs</th>
                                             @endcan
-                                            <th>Sigle</th>
+                                            {{-- <th>Sigle</th> --}}
                                             @can('afficher-operateur-email')
                                                 <th>Email</th>
                                             @endcan
@@ -171,9 +171,9 @@
                                                 @endcan
                                                 <td>{{ $operateur?->numero_agrement }}</td>
                                                 @can('afficher-operateur-name')
-                                                    <td>{{ $operateur?->user?->operateur }}</td>
+                                                    <td>{{ $operateur?->user?->display_operateur }}</td>
                                                 @endcan
-                                                <td>{{ $operateur?->user?->username }}</td>
+                                                {{-- <td>{{ $operateur?->user?->username }}</td> --}}
                                                 @can('afficher-operateur-email')
                                                     <td><a
                                                             href="mailto:{{ $operateur?->user?->email }}">{{ $operateur?->user?->email }}</a>
@@ -254,6 +254,15 @@
                                                                                         title="Supprimer"><i
                                                                                             class="bi bi-trash"></i>Supprimer</button>
                                                                                 </form>
+                                                                            </li>
+                                                                        @endcan
+                                                                        @can('changer-utilisateur')
+                                                                            <li>
+                                                                                <a class="dropdown-item"
+                                                                                    href="{{ route('operateurs.change-user', $operateur) }}">
+                                                                                    <i class="bi bi-person-gear"></i> Changer
+                                                                                    utilisateur
+                                                                                </a>
                                                                             </li>
                                                                         @endcan
                                                                     </ul>

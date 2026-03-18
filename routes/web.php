@@ -926,6 +926,15 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/choisir-profil', [ProfileController::class, 'choisir'])->name('profil.choisir');
         Route::post('/choisir-profil', [ProfileController::class, 'store'])->name('profil.store');
 
+        Route::get('/operateurs/{operateur}/change-user', [OperateurController::class, 'changeUser'])
+            ->name('operateurs.change-user');
+
+        Route::post('/operateurs/{operateur}/change-user', [OperateurController::class, 'updateUser'])
+            ->name('operateurs.update-user');
+
+        // API pour recherche AJAX
+        Route::get('/users/search', [UserController::class, 'search'])->name('users.search');
+
         /* Vues ressouces */
         Route::resource('/users', UserController::class);
         Route::resource('/permissions', PermissionController::class);

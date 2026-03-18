@@ -365,6 +365,11 @@ class User extends Authenticatable
             ->withTimestamps();
     }
 
+    public function operateur()
+    {
+        return $this->hasOne(Operateur::class, 'users_id');
+    }
+
     public function files()
     {
         return $this->hasMany(File::class, 'users_id')->latest();
