@@ -107,7 +107,7 @@
                                                                     name="listecollectives[]"
                                                                     value="{{ $listecollective->id }}"
                                                                     {{ $isChecked ? 'checked' : '' }}
-                                                                    class="form-check-input individuelle-checkbox @error('listecollectives') is-invalid @enderror">
+                                                                    class="form-check-input choisir-tout-checkbox @error('listecollectives') is-invalid @enderror">
 
                                                             </label>
                                                         </td>
@@ -175,13 +175,4 @@
         </div>
     </section>
 @endsection
-@push('scripts')
-    <script>
-        // Check / Uncheck all
-        document.getElementById('checkAll').addEventListener('click', function(e) {
-            document.querySelectorAll('.individuelle-checkbox').forEach(function(checkbox) {
-                checkbox.checked = e.target.checked;
-            });
-        });
-    </script>
-@endpush
+

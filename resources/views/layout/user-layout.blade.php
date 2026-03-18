@@ -1801,7 +1801,7 @@
             display: inline-block;
         }
 
-        
+
         .Disponible,
         .formés,
         .formé,
@@ -3781,6 +3781,16 @@
             dropdownParent: $('#AddCollectiveModal'),
             selectionCssClass: "select2--small",
             dropdownCssClass: "select2--small",
+        });
+    </script>
+
+
+    <script>
+        // Check / Uncheck all
+        document.getElementById('checkAll').addEventListener('click', function(e) {
+            document.querySelectorAll('.choisir-tout-checkbox').forEach(function(checkbox) {
+                checkbox.checked = e.target.checked;
+            });
         });
     </script>
 

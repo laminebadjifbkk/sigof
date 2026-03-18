@@ -80,7 +80,7 @@
                                                     <td>
                                                         <input type="checkbox" name="operateurs[]"
                                                             value="{{ $operateur->id }}"
-                                                            class="form-check-input operateur-checkbox"
+                                                            class="form-check-input choisir-tout-checkbox"
                                                             {{ in_array($operateur->id, $operateursSelectionnes ?? []) ? 'checked' : '' }}>
                                                     </td>
                                                     <td>{{ $i + 1 }}</td>
@@ -144,14 +144,3 @@
         </div>
     </section>
 @endsection
-
-@push('scripts')
-    <script>
-        // Check / Uncheck all
-        document.getElementById('checkAll').addEventListener('click', function(e) {
-            document.querySelectorAll('.operateur-checkbox').forEach(function(checkbox) {
-                checkbox.checked = e.target.checked;
-            });
-        });
-    </script>
-@endpush

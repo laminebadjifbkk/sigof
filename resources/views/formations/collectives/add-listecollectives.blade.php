@@ -88,7 +88,7 @@
                                                             <input type="checkbox" name="listecollectives[]"
                                                                 value="{{ $listecollective->id }}"
                                                                 {{ in_array($listecollective->formations_id, $listecollectiveFormation) ? 'checked' : '' }}
-                                                                class="form-check-input individuelle-checkbox @error('listecollectives') is-invalid @enderror">
+                                                                class="form-check-input choisir-tout-checkbox @error('listecollectives') is-invalid @enderror">
                                                             @error('listecollectives')
                                                                 <span class="invalid-feedback" role="alert">
                                                                     <div>{{ $message }}</div>
@@ -166,7 +166,7 @@
     <script>
         // Check / Uncheck all
         document.getElementById('checkAll').addEventListener('click', function(e) {
-            document.querySelectorAll('.individuelle-checkbox').forEach(function(checkbox) {
+            document.querySelectorAll('.choisir-tout-checkbox').forEach(function(checkbox) {
                 checkbox.checked = e.target.checked;
             });
         });

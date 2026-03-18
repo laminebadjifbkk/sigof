@@ -93,7 +93,7 @@
                                                                     value="{{ $individuelle->id }}"
                                                                     {{ in_array($individuelle->formations_id, $individuelleFormation) ? 'checked' : '' }}
                                                                     {{ in_array($individuelle->formations_id, $individuelleFormationCheck) ? 'disabled' : '' }}
-                                                                    class="form-check-input individuelle-checkbox m-0 @error('individuelles') is-invalid @enderror">
+                                                                    class="form-check-input choisir-tout-checkbox m-0 @error('individuelles') is-invalid @enderror">
                                                             </div>
 
                                                             @error('individuelles')
@@ -223,15 +223,6 @@
                     }
                 }
             }
-        });
-    </script>
-
-    <script>
-        // Check / Uncheck all
-        document.getElementById('checkAll').addEventListener('click', function(e) {
-            document.querySelectorAll('.individuelle-checkbox').forEach(function(checkbox) {
-                checkbox.checked = e.target.checked;
-            });
         });
     </script>
 @endpush
