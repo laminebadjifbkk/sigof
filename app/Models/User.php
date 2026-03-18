@@ -402,6 +402,6 @@ class User extends Authenticatable
             $phones[] = '<a href="tel:+221' . $this->telephone . '">' . $this->telephone . '</a>';
         }
 
-        return implode('<br>', $phones);
+        return implode(';', $phones);
     }
 }
