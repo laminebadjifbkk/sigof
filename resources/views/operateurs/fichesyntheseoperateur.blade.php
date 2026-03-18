@@ -7,7 +7,7 @@
 
     <!-- Favicons -->
     <link href="{{ asset('assets/img/favicon-onfp.png') }}" rel="icon">
-    <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+    <link href="{{ asset('assets/img/favicon-onfp.png') }}" rel="apple-touch-icon">
     <link rel="stylesheet" href="{{ asset('css/statuts.css') }}">
     <style>
         @page {
