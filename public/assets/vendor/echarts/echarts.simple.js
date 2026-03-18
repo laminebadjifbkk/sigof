@@ -18587,7 +18587,7 @@
           // );
           // For simplicity, timeline options and media options do not support merge,
           // that is, if you `setOption` twice and both has timeline options, the latter
-          // timeline options will not be merged to the former, but just substitute them.
+          // timeline options will not be merged to the Former, but just substitute them.
           if (newParsedOption.timelineOptions.length) {
             optionBackup.timelineOptions = newParsedOption.timelineOptions;
           }

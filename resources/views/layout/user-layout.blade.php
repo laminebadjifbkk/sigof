@@ -1014,7 +1014,7 @@
             display: inline-block;
         }
 
-        .former {
+        .Former {
             background-color: #198754;
             /* couleur cyan Bootstrap (info) */
             color: #ffffff;
@@ -1807,7 +1807,7 @@
         .formé,
         .Présent,
         .Présente,
-        .former,
+        .Former,
         .ouvert,
         .Ouvert,
         .terminer,

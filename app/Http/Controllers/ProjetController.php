@@ -701,7 +701,7 @@ class ProjetController extends Controller
         $options->setDefaultFont('Formation');
         $dompdf->setOptions($options);
 
-        $dompdf->loadHtml(view('projets.liste-selectionne', compact(
+        $dompdf->loadHtml(view('projets.liste-Sélectionné', compact(
             'projet',
             'projetmodule',
             'individuelles',
@@ -763,7 +763,7 @@ class ProjetController extends Controller
         $options->setDefaultFont('Formation');
         $dompdf->setOptions($options);
 
-        $dompdf->loadHtml(view('projets.liste-selectionne-region', compact(
+        $dompdf->loadHtml(view('projets.liste-Sélectionné-region', compact(
             'projet',
             'region',
             'projetmodule',

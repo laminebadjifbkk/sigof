@@ -135,11 +135,11 @@
                                         </div>
 
                                         <div class="col-12 col-md-4">
-                                            <label for="effectif" class="form-label">Effectif à former</label>
+                                            <label for="effectif" class="form-label">Effectif à Former</label>
                                             <input type="number" name="effectif"
                                                 value="{{ $projet?->effectif ?? old('effectif') }}" min="0"
                                                 class="form-control form-control-sm @error('effectif') is-invalid @enderror"
-                                                id="effectif" placeholder="effectif total à former">
+                                                id="effectif" placeholder="effectif total à Former">
                                             @error('effectif')
                                                 <span class="invalid-feedback" role="alert">
                                                     <div>{{ $message }}</div>

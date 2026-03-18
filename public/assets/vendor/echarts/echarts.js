@@ -19295,7 +19295,7 @@
           // );
           // For simplicity, timeline options and media options do not support merge,
           // that is, if you `setOption` twice and both has timeline options, the latter
-          // timeline options will not be merged to the former, but just substitute them.
+          // timeline options will not be merged to the Former, but just substitute them.
           if (newParsedOption.timelineOptions.length) {
             optionBackup.timelineOptions = newParsedOption.timelineOptions;
           }
@@ -80120,7 +80120,7 @@
           var boundValue = opt[prop + 'Value']; // Notice: dataZoom is based either on `percentProp` ('start', 'end') or
           // on `valueProp` ('startValue', 'endValue'). (They are based on the data extent
           // but not min/max of axis, which will be calculated by data window then).
-          // The former one is suitable for cases that a dataZoom component controls multiple
+          // The Former one is suitable for cases that a dataZoom component controls multiple
           // axes with different unit or extent, and the latter one is suitable for accurate
           // zoom by pixel (e.g., in dataZoomSelect).
           // we use `getRangePropMode()` to mark which prop is used. `rangePropMode` is updated

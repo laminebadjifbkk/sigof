@@ -4927,7 +4927,7 @@ class FormationController extends Controller
         $options->setDefaultFont('DejaVu Sans');
         $dompdf->setOptions($options);
 
-        $dompdf->loadHtml(view('formations.individuelles.liste-selectionne', compact(
+        $dompdf->loadHtml(view('formations.individuelles.liste-Sélectionné', compact(
             'formation',
             'title'
         )));
@@ -4956,7 +4956,7 @@ class FormationController extends Controller
         $options->setDefaultFont('DejaVu Sans');
         $dompdf->setOptions($options);
 
-        $dompdf->loadHtml(view('formations.individuelles.liste-selectionne', compact(
+        $dompdf->loadHtml(view('formations.individuelles.liste-Sélectionné', compact(
             'formation',
             'title'
         )));

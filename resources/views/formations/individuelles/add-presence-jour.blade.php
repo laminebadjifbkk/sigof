@@ -240,13 +240,3 @@
         </div>
     </section>
 @endsection
-@push('scripts')
-    <script>
-        // Check / Uncheck all
-        document.getElementById('checkAll').addEventListener('click', function(e) {
-            document.querySelectorAll('.choisir-tout-checkbox').forEach(function(checkbox) {
-                checkbox.checked = e.target.checked;
-            });
-        });
-    </script>
-@endpush

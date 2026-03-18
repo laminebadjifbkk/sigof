@@ -291,7 +291,7 @@
                                                 attente
                                             </option>
                                             <option value='formés'>
-                                                former
+                                                Former
                                             </option>
                                             <option value='Rejetée'>
                                                 rejeter

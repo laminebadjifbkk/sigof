@@ -92,9 +92,9 @@
                                                     <option value="Non conforme"
                                                         {{ old($field, $formulaire->$field) == 'Non conforme' ? 'selected' : '' }}>
                                                         Non conforme</option>
-                                                    <option value="Sélectionnée"
-                                                        {{ old($field, $formulaire->$field) == 'Sélectionnée' ? 'selected' : '' }}>
-                                                        Sélectionnée</option>
+                                                    <option value="selectionnee"
+                                                        {{ old($field, $formulaire->$field) == 'selectionnee' ? 'selected' : '' }}>
+                                                        selectionnee</option>
                                                     <option value="Rejetée"
                                                         {{ old($field, $formulaire->$field) == 'Rejetée' ? 'selected' : '' }}>
                                                         Rejetée</option>
