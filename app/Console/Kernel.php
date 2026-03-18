@@ -20,9 +20,9 @@ class Kernel extends ConsoleKernel
         $schedule->command('backup:run')->dailyAt('02:00');   // Sauvegarde tous les jours à 2h du matin */
         $schedule->command('db:backup')->dailyAt('03:00');
         /* $schedule->command('email:send-birthday')->dailyAt('00:00'); */
-        $schedule->command('email:send-finagrement')->dailyAt('08:00');
+        //$schedule->command('email:send-finagrement')->dailyAt('08:00');
         /* $schedule->command('email:notify-end-agreements')->dailyAt('08:10'); */
-        $schedule->command('email:send-training-reminders')->dailyAt('08:15'); // Informer les bénéficiaires du Démarre les formations prévues pour aujourd'hui à 08h35
+        //$schedule->command('email:send-training-reminders')->dailyAt('08:15'); // Informer les bénéficiaires du Démarre les formations prévues pour aujourd'hui à 08h35
         $schedule->command('projets:fermer-modules')
             ->twiceDaily(8, 17)
             ->withoutOverlapping()
@@ -33,7 +33,7 @@ class Kernel extends ConsoleKernel
         }
         $schedule->command('notify:formation-start')->dailyAt('09:20'); // Informer les collègues du Démarre les formations prévues pour aujourd'hui à 08h35
 
-        $schedule->command('email:send-evaluation-reminders')->dailyAt('08:20');//Informer les collègues de l'évaluation d'une formation
+        $schedule->command('email:send-evaluation-reminders')->dailyAt('08:10');//Informer les collègues de l'évaluation d'une formation
 
         // Lancer la commande tous les jours à 08h00
         /* $schedule->command('missions:update-status')->dailyAt('08:00');
