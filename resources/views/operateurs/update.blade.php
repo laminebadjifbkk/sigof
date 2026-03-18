@@ -483,7 +483,7 @@
                                             <input type="date" name="annee_agrement"
                                                 value="{{ old('annee_agrement', optional($operateur?->annee_agrement)->format('Y-m-d')) }}"
                                                 class="form-control form-control-sm @error('annee_agrement') is-invalid @enderror"
-                                                id="datepicker" placeholder="JJ/MM/AAAA" autocomplete="bday">
+                                                autocomplete="bday">
                                             @error('annee_agrement')
                                                 <span class="invalid-feedback" role="alert">
                                                     <div>{{ $message }}</div>

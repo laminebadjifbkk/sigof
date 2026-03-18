@@ -779,6 +779,7 @@ class OperateurController extends Controller
             "demande_signe"        => ['nullable', 'string'],
             "formulaire_signe"     => ['nullable', 'string'],
             "web"                  => ['nullable', 'string'],
+            "annee_agrement" => ['nullable', 'date'],
         ]);
 
         $departement = Departement::where('nom', $request->input("departement"))->firstOrFail();

@@ -100,7 +100,7 @@ class Operateur extends Model
         'operateurcategories_id' => 'int',
         'fin_quitus'             => 'datetime',
         'debut_quitus'           => 'datetime',
-        'annee_agrement'         => 'datetime',
+        'annee_agrement'         => 'date',
     ];
 
     protected $dates = [
