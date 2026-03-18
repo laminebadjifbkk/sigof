@@ -73,6 +73,7 @@
                                         <tr>
                                             <th></th>
                                             <th>Username</th>
+                                            <th>Name</th>
                                             <th>E-mail</th>
                                             <th>Téléphone</th>
                                             <th class="text-center">Statut</th>
@@ -88,6 +89,7 @@
                                                         alt="Profil" width="40">
                                                 </td>
                                                 <td>{{ $user->username }}</td>
+                                                <td>{{ $user?->firstname . ' ' . $user?->name }}</td>
                                                 <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
                                                 <td><a href="tel:+221{{ $user->telephone }}">{{ $user->telephone }}</a>
                                                 </td>
