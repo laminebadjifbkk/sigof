@@ -779,7 +779,7 @@ class OperateurController extends Controller
             "demande_signe"        => ['nullable', 'string'],
             "formulaire_signe"     => ['nullable', 'string'],
             "web"                  => ['nullable', 'string'],
-            "annee_agrement" => ['nullable', 'date'],
+            "annee_agrement"       => ['nullable', 'date'],
         ]);
 
         $departement = Departement::where('nom', $request->input("departement"))->firstOrFail();
@@ -3596,7 +3596,8 @@ class OperateurController extends Controller
     {
         $this->authorize('update', $operateur);
 
-        $users = User::whereHas('operateur')->get();
+        /* $users = User::whereHas('operateur')->get(); */
+        $users = User::where('email', 'badarasallsall68@gmail.com')->get();
 
         return view('operateurs.change-user', compact('operateur', 'users'));
     }
