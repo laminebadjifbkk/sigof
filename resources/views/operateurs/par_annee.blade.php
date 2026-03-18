@@ -390,7 +390,7 @@
                                                             href="tel:+221{{ $operateur?->user?->fixe }}">{{ $operateur?->user?->fixe }}</a>
                                                         @if (!empty($operateur?->user?->telephone))
                                                             <a
-                                                                href="tel:+221{{ $operateur?->user?->telephone }}">{{ ';' . $operateur?->user?->telephone }}</a>
+                                                                href="tel:+221{{ $operateur?->user?->telephone }}">{{ $operateur?->user?->telephone }}</a>
                                                         @endif
                                                     </td>
                                                 @endcan

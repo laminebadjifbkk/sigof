@@ -388,20 +388,4 @@ class User extends Authenticatable
             ? $this->operateur . ($this->username ? " ({$this->username})" : '')
             : null;
     }
-
-    //display_phones
-    public function getDisplayPhonesAttribute()
-    {
-        $phones = [];
-
-        if ($this->fixe) {
-            $phones[] = '<a href="tel:+221' . $this->fixe . '">' . $this->fixe . '</a>';
-        }
-
-        if ($this->telephone) {
-            $phones[] = '<a href="tel:+221' . $this->telephone . '">' . $this->telephone . '</a>';
-        }
-
-        return implode(';', $phones);
-    }
 }
