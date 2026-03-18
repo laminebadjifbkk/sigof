@@ -365,7 +365,7 @@ class OperateurController extends Controller
                 Rule::requiredIf(function () use ($user) {
                     return $user->categorie !== 'Public' || $user->statut !== 'Etablissement public';
                 }),
-                'date',
+                'date_format:d/m/Y',
             ],
         ]);
 

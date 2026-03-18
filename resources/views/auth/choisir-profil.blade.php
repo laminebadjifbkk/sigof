@@ -40,7 +40,7 @@
             <!-- Carte Operateur -->
             {{-- disabled-card pour déctiver le bouton --}}
             <div class="col-md-5">
-                <div class="profile-card card shadow-sm h-100 border-0 text-center p-4 disabled-card"
+                <div class="profile-card card shadow-sm h-100 border-0 text-center p-4"
                     onclick="confirmProfil('operateur')">
 
                     <div class="mb-3">

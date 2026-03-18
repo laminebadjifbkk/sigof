@@ -1008,7 +1008,7 @@
                                                                     class="form-select form-select-sm @error('domaine') is-invalid @enderror">
                                                                     <option value="">-- Sélectionnez un domaine --</option>
                                                                     @foreach ($domaines as $domaine)
-                                                                        <option value="{{ $domaine->id }}">{{ $domaine->name }}
+                                                                        <option value="{{ $domaine->name }}">{{ $domaine->name }}
                                                                         </option>
                                                                     @endforeach
                                                                 </select>
