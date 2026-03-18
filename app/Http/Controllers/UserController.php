@@ -1081,7 +1081,7 @@ class UserController extends Controller
         // Validation basique
         $request->validate([
             'cin'                   => 'nullable|string',
-            /* 'username'              => 'nullable|string', */
+            'username'              => 'nullable|string',
             'name'                  => 'nullable|string',
             'firstname'             => 'nullable|string',
             'telephone_responsable' => 'nullable|string',
@@ -1097,6 +1097,7 @@ class UserController extends Controller
 
         if (
             ! $request->filled('cin') &&
+            ! $request->filled('username') &&
             ! $request->filled('firstname') &&
             ! $request->filled('name') &&
             ! $request->filled('telephone_responsable') &&

@@ -387,7 +387,7 @@
                         @csrf
                         <div class="modal-body">
                             <div class="row g-3">
-                                {{-- <div class="col-12">
+                                <div class="col-12">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group">
@@ -403,7 +403,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div> --}}
+                                </div>
                                 <div class="col-12">
                                     <div class="row">
                                         <div class="col-12">
