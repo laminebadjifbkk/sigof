@@ -905,7 +905,7 @@ class ProjetController extends Controller
         $dompdf->stream($name, ['Attachment' => false]);
     }
 
-    public function ProjetExcel($module, $statut)
+    /*  public function ProjetExcel($module, $statut)
     {
         $projetmodule = Projetmodule::findorFail($module);
         $projet = $projetmodule->projet;
@@ -926,10 +926,10 @@ class ProjetController extends Controller
         }
 
         // Copier l’Excel dans le dossier
-        copy($excelPath, $tempPath . '/' . $fileName);
+        copy($excelPath, $tempPath . '/' . $fileName); */
 
-        // === 3. Récupérer les dossiers concernés par lots de 100 ===
-        /*  Formulaire::where('statut', $statut)
+    // === 3. Récupérer les dossiers concernés par lots de 100 ===
+    /*  Formulaire::where('statut', $statut)
             ->chunk(25, function ($prises) use ($tempPath) {
                 foreach ($prises as $prise) {
                     // Nom du dossier par dossier
@@ -970,6 +970,87 @@ class ProjetController extends Controller
                 }
             }); */
 
+    // === 4. Créer le ZIP ===
+    /*  $zipPath = storage_path("app/temp/Projet_{$projet->sigle}_{$projetmodule->module}_{$statut}.zip");
+        $zip = new \ZipArchive;
+        if ($zip->open($zipPath, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) === true) {
+            $files = new \RecursiveIteratorIterator(
+                new \RecursiveDirectoryIterator($tempPath),
+                \RecursiveIteratorIterator::LEAVES_ONLY
+            );
+
+            foreach ($files as $file) {
+                if (! $file->isDir()) {
+                    $filePath     = $file->getRealPath();
+                    $relativePath = substr($filePath, strlen($tempPath) + 1);
+                    $zip->addFile($filePath, $relativePath);
+                }
+            }
+            $zip->close();
+        }
+
+        // === 5. Télécharger le ZIP ===
+        return response()->download($zipPath)->deleteFileAfterSend(true);
+    } */
+
+
+    public function ProjetExcel($module, $statut)
+    {
+        $projetmodule = Projetmodule::findorFail($module);
+        $projet = $projetmodule->projet;
+
+        $tempPath = storage_path('app/temp/projet_' . time());
+        if (! is_dir($tempPath)) {
+            mkdir($tempPath, 0777, true);
+        }
+
+        $fileName = "{$projet->sigle}_{$projetmodule->module}_{$statut}.xlsx";
+        Excel::store(new ExportProjetStatut($module, $statut), "temp/{$fileName}", 'local');
+
+        $excelPath = storage_path("app/temp/{$fileName}");
+        if (file_exists($excelPath)) {
+            copy($excelPath, $tempPath . '/' . $fileName);
+        } else {
+            \Log::error("Excel non trouvé : " . $excelPath);
+        }
+
+        // Copier l’Excel dans le dossier
+        copy($excelPath, $tempPath . '/' . $fileName);
+
+        // === 3. Récupérer les dossiers concernés par lots de 100 ===
+        Individuelle::where('statut', $statut)
+            ->where('projets_id', $projet->id)
+            ->chunk(25, function ($individuelles) use ($tempPath) {
+
+                foreach ($individuelles as $individuelle) {
+
+                    // Nom du dossier pour chaque utilisateur
+                    $dossierFolder = $tempPath . '/' . $this->sanitizeFileName(
+                        ($individuelle->user->firstname ?? '') . '_' . ($individuelle->user->name ?? '') . '_' . $individuelle->user->id
+                    );
+
+                    if (!is_dir($dossierFolder)) mkdir($dossierFolder, 0777, true);
+
+                    // --- Récupérer tous les fichiers liés à l’utilisateur ---
+                    $files = File::where('users_id', $individuelle->user->id)
+                        ->whereNotNull('file')
+                        ->get();
+
+                    foreach ($files as $file) {
+                        // Chemin correct
+                        $sourcePath = storage_path('app/public/' . $file->file);
+
+                        if (!file_exists($sourcePath)) continue;
+
+                        $filename = $this->sanitizeFileName(pathinfo($sourcePath, PATHINFO_FILENAME))
+                            . '.' . pathinfo($sourcePath, PATHINFO_EXTENSION);
+
+                        $destination = $dossierFolder . '/' . $filename;
+                        copy($sourcePath, $destination);
+                    }
+                }
+            });
+
         // === 4. Créer le ZIP ===
         $zipPath = storage_path("app/temp/Projet_{$projet->sigle}_{$projetmodule->module}_{$statut}.zip");
         $zip = new \ZipArchive;
@@ -991,5 +1072,14 @@ class ProjetController extends Controller
 
         // === 5. Télécharger le ZIP ===
         return response()->download($zipPath)->deleteFileAfterSend(true);
+    }
+
+    private function sanitizeFileName(string $filename): string
+    {
+        // Retire les caractères spéciaux, garde lettres, chiffres, tirets et underscores
+        $filename = preg_replace('/[^A-Za-z0-9_\-]/', '_', $filename);
+
+        // Limite la longueur à 100 caractères pour éviter les problèmes
+        return substr($filename, 0, 100);
     }
 }
