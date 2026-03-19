@@ -19,24 +19,23 @@
                     <h6 class="fw-bold text-primary">Pour le privé :</h6>
 
                     <ul class="list-unstyled ps-2 mb-4">
-                        <li><i class="bi bi-check-circle text-success me-2"></i>Registre de commerce <span
-                                class="text-danger">*</span></li>
                         <li><i class="bi bi-check-circle text-success me-2"></i>NINEA <span class="text-danger">*</span>
                         </li>
                         <li><i class="bi bi-check-circle text-success me-2"></i>Quitus fiscal <span
                                 class="text-danger">*</span></li>
-                        <li><i class="bi bi-check-circle text-success me-2"></i>Organigramme <span
+                        <li><i class="bi bi-check-circle text-success me-2"></i>Registre de commerce <span
                                 class="text-danger">*</span></li>
                         <li><i class="bi bi-check-circle text-success me-2"></i>Attestation de non fonctionnaire ou carte de
                             retraite <span class="text-danger">*</span></li>
                         <li><i class="bi bi-check-circle text-success me-2"></i>Convention de partenariat ou contrat de
                             location <span class="text-danger">*</span></li>
                         <li><i class="bi bi-check-circle text-success me-2"></i>Acte de déclaration d'existence au niveau de
-                            la Direction générale des Imôts <small class="text-muted">(pour les structures nouvellement
-                                crées)</small> <span class="text-danger">*</span></li>
+                            la Direction générale des Imôts <small class="text-muted"></small><span
+                                class="text-danger">*</span> (pour les structures nouvellement
+                            crées)</small></li>
                         <li><i class="bi bi-check-circle text-success me-2"></i>Autorisation d'ouverture ministérielle
-                            <small class="text-muted">(pour
-                                établissements ou écoles de formation)</small><span class="text-danger">*</span>
+                            <small class="text-muted"></small><span class="text-danger">*</span> (pour
+                            établissements ou écoles de formation)
                         </li>
                         <li><i class="bi bi-check-circle text-muted me-2"></i>Attestation de bonne exécution (ABE) <small
                                 class="text-muted">(si disponible)</small></li>
@@ -44,24 +43,26 @@
                                 class="text-muted">(si disponible)</small></li>
                         <li><i class="bi bi-check-circle text-muted me-2"></i>Acte ou arrêté de création <small
                                 class="text-muted">(si disponible)</small></li>
+                        <li><i class="bi bi-check-circle text-success me-2"></i>Organigramme <small class="text-muted">(si
+                                disponible)</small></li>
                     </ul>
 
                     {{-- PUBLIC --}}
                     <h6 class="fw-bold text-primary">Pour le public :</h6>
 
                     <ul class="list-unstyled ps-2">
-                        <li><i class="bi bi-check-circle text-success me-2"></i>Acte ou arrêté de création <span
-                                class="text-danger">*</span></li>
+                        <li><i class="bi bi-check-circle text-success me-2"></i>NINEA <span class="text-danger">*</span>
+                        </li>
                         <li><i class="bi bi-check-circle text-success me-2"></i>Quitus fiscal <span
                                 class="text-danger">*</span></li>
-                        <li><i class="bi bi-check-circle text-success me-2"></i>Organigramme <span
+                        <li><i class="bi bi-check-circle text-success me-2"></i>Acte ou arrêté de création <span
                                 class="text-danger">*</span></li>
                         <li><i class="bi bi-check-circle text-success me-2"></i>Décision de nomination <span
                                 class="text-danger">*</span></li>
                         <li><i class="bi bi-check-circle text-success me-2"></i>Registre de commerce <span
                                 class="text-danger">*</span></li>
-                        <li><i class="bi bi-check-circle text-success me-2"></i>NINEA <span class="text-danger">*</span>
-                        </li>
+                        <li><i class="bi bi-check-circle text-success me-2"></i>Organigramme <small class="text-muted">(si
+                                disponible)</small></li>
                     </ul>
 
                 </div>
@@ -160,7 +161,7 @@
         <div class="col-12 col-lg-6">
             <div class="my-2 p-3 border rounded text-center">
 
-                @if ($hasAuto && $hasNinea && $hasOrganigramme && $hasQuitus)
+                @if ($hasAuto && $hasNinea && $hasQuitus)
                     <span class="text-success fw-bold fs-5">
                         Dossier complet
                     </span>
@@ -183,9 +184,9 @@
                             Registre de commerce.<br>
                         @endif
 
-                        @if (!$hasOrganigramme)
+                        {{--  @if (!$hasOrganigramme)
                             Veuillez téléverser l'organigramme.<br>
-                        @endif
+                        @endif --}}
 
                         @if (!$hasQuitus)
                             Veuillez téléverser le quitus fiscal.<br>
