@@ -2369,6 +2369,7 @@ class IndividuelleController extends Controller
             $fileName
         );
     } */
+   
     public function exportExcel(int $annee, string $region, string $statut = 'all')
     {
         $regionModel = Region::where('nom', $region)->firstOrFail();

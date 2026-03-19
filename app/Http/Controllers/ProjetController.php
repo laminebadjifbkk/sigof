@@ -905,7 +905,7 @@ class ProjetController extends Controller
         $dompdf->stream($name, ['Attachment' => false]);
     }
 
-    /*  public function ProjetExcel($module, $statut)
+    public function ProjetExcel($module, $statut)
     {
         $projetmodule = Projetmodule::findorFail($module);
         $projet = $projetmodule->projet;
@@ -926,10 +926,10 @@ class ProjetController extends Controller
         }
 
         // Copier l’Excel dans le dossier
-        copy($excelPath, $tempPath . '/' . $fileName); */
+        copy($excelPath, $tempPath . '/' . $fileName);
 
-    // === 3. Récupérer les dossiers concernés par lots de 100 ===
-    /*  Formulaire::where('statut', $statut)
+        // === 3. Récupérer les dossiers concernés par lots de 100 ===
+        /*  Formulaire::where('statut', $statut)
             ->chunk(25, function ($prises) use ($tempPath) {
                 foreach ($prises as $prise) {
                     // Nom du dossier par dossier
@@ -970,8 +970,8 @@ class ProjetController extends Controller
                 }
             }); */
 
-    // === 4. Créer le ZIP ===
-    /*  $zipPath = storage_path("app/temp/Projet_{$projet->sigle}_{$projetmodule->module}_{$statut}.zip");
+        // === 4. Créer le ZIP ===
+        $zipPath = storage_path("app/temp/Projet_{$projet->sigle}_{$projetmodule->module}_{$statut}.zip");
         $zip = new \ZipArchive;
         if ($zip->open($zipPath, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) === true) {
             $files = new \RecursiveIteratorIterator(
@@ -991,10 +991,9 @@ class ProjetController extends Controller
 
         // === 5. Télécharger le ZIP ===
         return response()->download($zipPath)->deleteFileAfterSend(true);
-    } */
+    }
 
-
-    public function ProjetExcel($module, $statut)
+    /* public function ProjetExcel($module, $statut)
     {
         $projetmodule = Projetmodule::findorFail($module);
         $projet = $projetmodule->projet;
@@ -1081,5 +1080,5 @@ class ProjetController extends Controller
 
         // Limite la longueur à 100 caractères pour éviter les problèmes
         return substr($filename, 0, 100);
-    }
+    } */
 }
