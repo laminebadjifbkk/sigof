@@ -1746,6 +1746,18 @@
             display: inline-block;
         }
 
+        .attente {
+            background-color: #6C757D;
+            color: #ffffff;
+            padding: 6px 12px;
+            text-align: center;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+
         .rejeter,
         .Rejetée,
         .Rejet,
