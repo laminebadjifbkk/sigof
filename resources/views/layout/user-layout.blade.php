@@ -1931,6 +1931,10 @@
             color: #ffc107;
         }
 
+        .attente {
+            color: #6C757D;
+        }
+
         /* Permis */
         .permis-expire {
             color: #dc3545;
