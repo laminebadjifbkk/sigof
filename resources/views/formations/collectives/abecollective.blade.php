@@ -337,12 +337,23 @@
                                             @endif
                                         </p>
 
-                                        <p>
-                                            <span>
-                                                <b>Observations</b> :
-                                                {{ trim($formation?->recommandations) !== '' ? $formation->recommandations : 'Aucune recommandation' }}
-                                            </span>
-                                        </p>
+                                        @if (!empty($formation?->lettrevaluation->contenu))
+                                            <p>
+                                                <span>
+                                                    <b>Observations</b> :
+                                                    {{ trim($formation?->lettrevaluation->contenu) !== '' ? $formation?->lettrevaluation->contenu : 'Aucune observation' }}
+                                                </span>
+                                            </p>
+                                        @endif
+
+                                        @if (!empty($formation->recommandations))
+                                            <p>
+                                                <span>
+                                                    <b>Recommandations</b> :
+                                                    {{ trim($formation?->recommandations) !== '' ? $formation->recommandations : 'Aucune recommandation' }}
+                                                </span>
+                                            </p>
+                                        @endif
 
                                         <p style="text-align: right; font-style: italic">
                                             {{ 'Fait à ' . $formation?->departement?->nom . ' le ' . $formation?->date_pv_finale?->translatedFormat('d F Y') ?? $formation?->date_pv?->translatedFormat('l d F Y') }}

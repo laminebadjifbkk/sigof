@@ -283,10 +283,21 @@
                                         </div> --}}
 
                                         <div class="col-12">
-                                            <label for="commentaire" class="form-label">Commentaires</label>
-                                            <textarea name="commentaire" id="commentaire" rows="10"
-                                                class="form-control form-control-sm @error('commentaire') is-invalid @enderror" placeholder="Commentaires">{{ old('commentaire', $lettrevaluation?->contenu) }}</textarea>
-                                            @error('commentaire')
+                                            <label for="observations" class="form-label">Observations</label>
+                                            <textarea name="observations" id="observations" rows="5"
+                                                class="form-control form-control-sm @error('observations') is-invalid @enderror" placeholder="observationss">{{ old('observations', $lettrevaluation?->contenu) }}</textarea>
+                                            @error('observations')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label for="recommandations" class="form-label">Recommandations</label>
+                                            <textarea name="recommandations" id="recommandations" rows="5"
+                                                class="form-control form-control-sm @error('recommandations') is-invalid @enderror" placeholder="recommandationss">{{ old('recommandations', $lettrevaluation?->contenu) }}</textarea>
+                                            @error('recommandations')
                                                 <span class="invalid-feedback" role="alert">
                                                     <div>{{ $message }}</div>
                                                 </span>
