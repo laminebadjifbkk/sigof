@@ -176,30 +176,6 @@
                                             @endif
                                         </div>
                                     </div>
-
-                                    {{-- <div class="row">
-                                        <div class="col-12 col-md-4 label">
-                                            Fichiers joints
-                                        </div>
-                                        <div class="col-12 col-md-8">
-                                            @if (!empty($user_cin))
-                                                <span class="badge bg-primary text-white">Valide</span>
-                                            @else
-                                                <span class="badge bg-warning text-white">Incomplètes</span>, cliquez sur
-                                                l'onglet fichier pour télécharger
-                                            @endif
-                                        </div>
-                                    </div> --}}
-
-
-                                    {{-- @if (!empty(Auth::user()?->username))
-                                        <div class="row">
-                                            <div class="col-12 col-md-4 label">Sigle
-                                            </div>
-                                            <div class="col-12 col-md-8">
-                                                {{ Auth::user()?->username }}</div>
-                                        </div>
-                                    @endif --}}
                                     @if (!empty(Auth::user()?->operateur))
                                         <div class="row">
                                             <div class="col-12 col-md-4 label">
@@ -241,26 +217,9 @@
                                         </div>
                                     @endif
 
-                                    {{-- @if (!empty(Auth::user()?->web))
-                                        <div class="row">
-                                            <div class="col-12 col-md-4 label">Site web</div>
-                                            <div class="col-12 col-md-8"><a href="{{ 'https://'.Auth::user()?->web }}" class="web"
-                                                    target="_blank"><i class="bi bi-globe" title="site web"></i></a></div>
-                                        </div>
-                                    @endif --}}
-
                                     <hr>
 
                                     <h5 class="card-title">Responsable</h5>
-
-                                    {{-- @if (!empty(Auth::user()?->cin))
-                                        <div class="row">
-                                            <div class="col-12 col-md-4 label">CIN
-                                            </div>
-                                            <div class="col-12 col-md-8">
-                                                {{ Auth::user()?->cin }}</div>
-                                        </div>
-                                    @endif --}}
 
                                     @if (!empty(Auth::user()?->civilite))
                                         <div class="row">
@@ -288,37 +247,6 @@
                                                 {{ Auth::user()?->name }}</div>
                                         </div>
                                     @endif
-
-                                    {{-- @if (!empty(Auth::user()?->date_naissance))
-                                        <div class="row">
-                                            <div class="col-12 col-md-4 label">Date naissance</div>
-                                            <div class="col-12 col-md-8">
-                                                {{ Auth::user()?->date_naissance->format('d-m-Y') }}
-                                            </div>
-                                        </div>
-                                    @endif
-
-                                    @if (!empty(Auth::user()?->lieu_naissance))
-                                        <div class="row">
-                                            <div class="col-12 col-md-4 label">Lieu naissance</div>
-                                            <div class="col-12 col-md-8">{{ Auth::user()?->lieu_naissance }}</div>
-                                        </div>
-                                    @endif --}}
-
-                                    {{-- @if (!empty(Auth::user()?->situation_familiale))
-                                        <div class="row">
-                                            <div class="col-12 col-md-4 label">Situation familiale</div>
-                                            <div class="col-12 col-md-8">{{ Auth::user()?->situation_familiale }}</div>
-                                        </div>
-                                    @endif
-
-                                    @if (!empty(Auth::user()?->situation_professionnelle))
-                                        <div class="row">
-                                            <div class="col-12 col-md-4 label">Situation profes.</div>
-                                            <div class="col-12 col-md-8">{{ Auth::user()?->situation_professionnelle }}
-                                            </div>
-                                        </div>
-                                    @endif --}}
 
                                     @if (!empty(Auth::user()?->telephone))
                                         <div class="row">
@@ -361,25 +289,6 @@
                                         @csrf
                                         @method('patch')
                                         <h5 class="card-title">Modification du profil</h5>
-                                        <!-- Profile Edit Form -->
-                                        {{-- <div class="row mb-3">
-                                            <input type="hidden" name="idUser" value="{{ Auth::user()->id }}">
-                                            <label for="profileImage"
-                                                class="col-md-4 col-lg-3 col-form-label">LOGO</label>
-                                            <div class="col-md-8 col-lg-9">
-                                                <img class="rounded-circle w-25" alt="Profil"
-                                                    src="{{ asset(Auth::user()?->getImage()) }}" width="50"
-                                                    height="auto">
-                                                <div class="pt-2">
-                                                    <input type="file" name="image" id="image"
-                                                        accept=".jpg, .jpeg, .png, .svg, .gif"
-                                                        class="form-control @error('image') is-invalid @enderror btn btn-primary btn-sm">
-                                                    @error('image')
-                                                        <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div> --}}
 
                                         <div class="row mb-3">
                                             <label for="profileImage" class="col-12 col-md-4 col-form-label">
@@ -468,21 +377,15 @@
                                             <div class="col-md-8 col-lg-9">
                                                 <div class="pt-2">
                                                     <select name="categorie"
-                                                        class="form-select  @error('categorie') is-invalid @enderror"
-                                                        aria-label="Select" id="categorie"
-                                                        data-placeholder="Choisir catégorie">
+                                                        class="form-select @error('categorie') is-invalid @enderror"
+                                                        id="categorie" {{ !empty($user?->categorie) ? 'disabled' : '' }}>
+
                                                         <option value="{{ $user?->categorie ?? old('categorie') }}">
                                                             {{ $user?->categorie ?? old('categorie') }}
                                                         </option>
-                                                        <option value="Public">
-                                                            Public
-                                                        </option>
-                                                        <option value="Privé">
-                                                            Privé
-                                                        </option>
-                                                        <option value="Autre">
-                                                            Autre
-                                                        </option>
+
+                                                        <option value="Public">Public</option>
+                                                        <option value="Privé">Privé</option>
                                                     </select>
                                                     @error('categorie')
                                                         <span class="invalid-feedback" role="alert">
@@ -493,44 +396,10 @@
                                             </div>
                                         </div>
 
-                                        {{-- categorie --}}
-                                        {{-- <div class="row mb-3">
-                                            <label for="categorie" class="col-md-4 col-lg-3 col-form-label">RCCM /
-                                                Ninea<span class="text-danger mx-1">*</span>
-                                            </label>
-                                            <div class="col-md-8 col-lg-9">
-                                                <div class="pt-2">
-                                                    <select name="rccm"
-                                                        class="form-select form-select-sm @error('rccm') is-invalid @enderror"
-                                                        aria-label="Select" id="rccm" data-placeholder="Choisir">
-                                                        <option value="{{ $user?->rccm ?? old('rccm') }}">
-                                                            {{ $user?->rccm ?? old('rccm') }}
-                                                        </option>
-                                                        <option value="Registre de commerce">
-                                                            Registre de commerce
-                                                        </option>
-                                                        <option value="Ninea">
-                                                            Ninea
-                                                        </option>
-                                                        <option value="Aucun">
-                                                            Aucun
-                                                        </option>
-                                                        <option value="Autre">
-                                                            Autre
-                                                        </option>
-                                                    </select>
-                                                    @error('rccm')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <div>{{ $message }}</div>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div> --}}
-
                                         {{-- N° RCCM / Ninea --}}
                                         <div class="row mb-3">
-                                            <label for="ninea" class="col-md-4 col-lg-3 col-form-label">N° Ninea<span class="text-danger mx-1">*</span></label>
+                                            <label for="ninea" class="col-md-4 col-lg-3 col-form-label">N° Ninea<span
+                                                    class="text-danger mx-1">*</span></label>
                                             <div class="col-md-8 col-lg-9">
                                                 <input type="text" name="ninea"
                                                     value="{{ $user?->ninea ?? old('ninea') }}"
@@ -543,58 +412,6 @@
                                                 @enderror
                                             </div>
                                         </div>
-
-                                        {{-- Statut juridique --}}
-                                        {{-- <div class="row mb-3">
-                                            <label for="statut" class="col-md-4 col-lg-3 col-form-label">Statut
-                                                juridique<span class="text-danger mx-1">*</span>
-                                            </label>
-                                            <div class="col-md-8 col-lg-9">
-                                                <select name="statut"
-                                                    class="form-select form-select-sm @error('statut') is-invalid @enderror"
-                                                    aria-label="Select" id="statut-operateur"
-                                                    data-placeholder="Choisir statut">
-                                                    <option value="{{ $user?->statut ?? old('statut') }}">
-                                                        {{ $user?->statut ?? old('statut') }}
-                                                    </option>
-                                                    <option value="GIE">
-                                                        GIE
-                                                    </option>
-                                                    <option value="Association">
-                                                        Association
-                                                    </option>
-                                                    <option value="Entreprise individuelle">
-                                                        Entreprise individuelle
-                                                    </option>
-                                                    <option value="SA">
-                                                        SA
-                                                    </option>
-                                                    <option value="SUARL">
-                                                        SUARL
-                                                    </option>
-                                                    <option value="SARL">
-                                                        SARL
-                                                    </option>
-                                                    <option value="SNC">
-                                                        SNC
-                                                    </option>
-                                                    <option value="SCS">
-                                                        SCS
-                                                    </option>
-                                                    <option value="Etablissement public">
-                                                        Etablissement public
-                                                    </option>
-                                                    <option value="Autre">
-                                                        Autre
-                                                    </option>
-                                                    @error('statut')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <div>{{ $message }}</div>
-                                                        </span>
-                                                    @enderror
-                                            </div>
-                                        </div> --}}
-
 
                                         {{-- Statut juridique --}}
                                         <div class="row mb-3">
@@ -658,10 +475,11 @@
                                             <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email<span
                                                     class="text-danger mx-1">*</span></label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input name="email" type="email" readonly
+                                                <input name="email" type="email"
                                                     class="form-control form-control-sm @error('email') is-invalid @enderror"
                                                     id="Email" value="{{ $user->email ?? old('email') }}"
-                                                    autocomplete="email" placeholder="Adresse e-mail">
+                                                    autocomplete="email" placeholder="Adresse e-mail"
+                                                    {{ !empty($user?->email) ? 'readonly' : '' }}>
                                                 @error('email')
                                                     <span class="invalid-feedback" role="alert">
                                                         <div>{{ $message }}</div>
@@ -804,25 +622,6 @@
                                         </div>
                                         <hr>
                                         <h5 class="card-title">Personne responsable</h5>
-                                        {{-- CIN --}}
-                                        {{-- <div class="row mb-3">
-                                            <label for="cin" class="col-md-4 col-lg-3 col-form-label">CIN
-                                            </label>
-                                            <div class="col-md-8 col-lg-9">
-                                                <div class="pt-2">
-                                                    <input name="cin" type="text"
-                                                        class="form-control form-control-sm @error('cin') is-invalid @enderror"
-                                                        id="cin" value="{{ $user?->cin ?? old('cin') }}"
-                                                        autocomplete="off" placeholder="Ex: 1099200500012" minlength="9"
-                                                        maxlength="14">
-                                                </div>
-                                                @error('cin')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                        </div> --}}
-
-                                        {{-- Civilité --}}
                                         <div class="row mb-3">
                                             <label for="Civilité" class="col-md-4 col-lg-3 col-form-label">Civilité<span
                                                     class="text-danger mx-1">*</span>
@@ -942,112 +741,6 @@
                                             </div>
                                         </div>
 
-                                        {{-- Date de naissance --}}
-                                        {{-- <div class="row mb-3">
-                                            <label for="date_naissance" class="col-md-4 col-lg-3 col-form-label">Date
-                                                naissance</label>
-                                            <div class="col-md-8 col-lg-9">
-                                                <input type="text" name="date_naissance"
-                                                    value="{{ $user->date_naissance?->format('d-m-Y') ?? old('date_naissance') }}"
-                                                    class="form-control form-control-sm @error('date_naissance') is-invalid @enderror"
-                                                    id="date_naissance" placeholder="dd-mm-aaaa">
-                                                @error('date_naissance')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <div>{{ $message }}</div>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div> --}}
-                                        {{-- Lieu naissance --}}
-                                        {{-- <div class="row mb-3">
-                                            <label for="lieu naissance" class="col-md-4 col-lg-3 col-form-label">Lieu
-                                                naissance</label>
-                                            <div class="col-md-8 col-lg-9">
-                                                <input name="lieu_naissance" type="text"
-                                                    class="form-control form-control-sm @error('lieu_naissance') is-invalid @enderror"
-                                                    id="lieu_naissance"
-                                                    value="{{ $user->lieu_naissance ?? old('lieu_naissance') }}"
-                                                    autocomplete="lieu_naissance" placeholder="Votre Lieu naissance">
-                                                @error('lieu_naissance')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <div>{{ $message }}</div>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div> --}}
-                                        {{-- Situation familiale --}}
-                                        {{-- <div class="row mb-3">
-                                            <label for="adresse" class="col-md-4 col-lg-3 col-form-label">Situation
-                                                familiale</label>
-                                            <div class="col-md-8 col-lg-9">
-                                                <select name="situation_familiale"
-                                                    class="form-select form-select-sm @error('situation_familiale') is-invalid @enderror"
-                                                    aria-label="Select" id="select-field-familiale"
-                                                    data-placeholder="Choisir situation familiale">
-                                                    <option
-                                                        value="{{ $user->situation_familiale ?? old('situation_familiale') }}">
-                                                        {{ $user->situation_familiale ?? old('situation_familiale') }}
-                                                    </option>
-                                                    <option value="Marié(e)">
-                                                        Marié(e)
-                                                    </option>
-                                                    <option value="Célibataire">
-                                                        Célibataire
-                                                    </option>
-                                                    <option value="Veuf(ve)">
-                                                        Veuf(ve)
-                                                    </option>
-                                                    <option value="Divorcé(e)">
-                                                        Divorcé(e)
-                                                    </option>
-                                                </select>
-                                                @error('situation_familiale')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <div>{{ $message }}</div>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div> --}}
-                                        {{-- Situation professionnelle --}}
-                                        {{-- <div class="row mb-3">
-                                            <label for="adresse" class="col-md-4 col-lg-3 col-form-label">Situation
-                                                profes.</label>
-                                            <div class="col-md-8 col-lg-9">
-                                                <select name="situation_professionnelle"
-                                                    class="form-select  @error('situation_professionnelle') is-invalid @enderror"
-                                                    aria-label="Select" id="select-field-professionnelle"
-                                                    data-placeholder="Choisir situation professionnelle">
-                                                    <option
-                                                        value="{{ $user->situation_professionnelle ?? old('situation_professionnelle') }}">
-                                                        {{ $user->situation_professionnelle ?? old('situation_professionnelle') }}
-                                                    </option>
-                                                    <option value="Employé(e)">
-                                                        Employé(e)
-                                                    </option>
-                                                    <option value="Informel">
-                                                        Informel
-                                                    </option>
-                                                    <option value="Elève ou étudiant">
-                                                        Elève ou étudiant
-                                                    </option>
-                                                    <option value="chercheur d'emploi">
-                                                        chercheur d'emploi
-                                                    </option>
-                                                    <option value="Stage ou période essai">
-                                                        Stage ou période essai
-                                                    </option>
-                                                    <option value="Entrepreneur ou freelance">
-                                                        Entrepreneur ou freelance
-                                                    </option>
-                                                </select>
-                                                @error('situation_professionnelle')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <div>{{ $message }}</div>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div> --}}
-
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-primary btn-sm">Sauvegarder les
                                                 modifications</button>
@@ -1056,20 +749,13 @@
                                             <div>
                                                 <p class="text-sm mt-2 text-gray-800 dark:text-gray-200">
                                                     {{ __('Votre adresse e-mail n\'est pas vérifiée.') }}
-
-                                                    {{--  <button form="send-verification"
-                                                        class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
-                                                        {{ __('Cliquez ici pour renvoyer l\'e-mail de vérification.') }}
-                                                    </button> --}}
                                                 <form method="POST" action="{{ route('verification.send') }}">
                                                     @csrf
 
                                                     <div>
                                                         <button type="submit"
                                                             class="btn btn-outline-primary">{{ __('Cliquez ici pour renvoyer l\'e-mail de vérification.') }}</button>
-                                                        {{--  <x-primary-button>
-                                                                        {{ __('Renvoyer l\'e-mail de vérification') }}
-                                                                    </x-primary-button> --}}
+                                                       
                                                     </div>
                                                 </form>
                                                 </p>
@@ -1186,35 +872,6 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {{-- <?php $i = 1; ?>
-                                                    @foreach ($files as $file)
-                                                        <tr class="text-center">
-                                                            <td>{{ $i++ }}</td>
-                                                            <td>{{ $file?->legende }}</td>
-                                                            <td>
-                                                                <a class="btn btn-default btn-sm"
-                                                                    title="télécharger le fichier joint" target="_blank"
-                                                                    href="{{ asset($file->getFichier()) }}">
-                                                                    <i class="bi bi-download"></i>
-                                                                </a>
-                                                            </td>
-                                                            <td>
-                                                                <span class="{{ $file?->statut ?? 'Attente' }}">{{ $file?->statut ?? 'Attente' }}</span>
-                                                            </td>
-                                                            <td>
-                                                                <form action="{{ route('fileDestroy') }}" method="post">
-                                                                    @csrf
-                                                                    @method('put')
-                                                                    <input type="hidden" name="idFile"
-                                                                        value="{{ $file->id }}">
-                                                                    <button type="submit"
-                                                                        style="background:none;border:0px;"
-                                                                        class="show_confirm" title="retirer"><i
-                                                                            class="bi bi-trash"></i></button>
-                                                                </form>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach --}}
                                                         @php $i = 1; @endphp
                                                         @foreach ($files as $file)
                                                             <tr class="text-center align-middle">
@@ -1296,64 +953,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    {{-- <form method="post" action="{{ route('files.update', $user) }}"
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        @method('patch')
-
-                                        <h5 class="card-title">{{ __("Ajouter d'autres fichiers") }}</h5>
-                                        <span style="color:red;"><b><u>NB</u></b> : </span> <span>Seuls l'acte ou l'arrêté
-                                            de création, ainsi que le NINEA ou le registre de commerce,</span> <span
-                                            style="color:red;"> sont exigés</span>.
-                                        <div class="row mb-3 mt-3">
-                                            <label for="legende" class="col-12 col-md-4 col-form-label">Légende<span
-                                                    class="text-danger mx-1">*</span></label>
-                                            <div class="col-12 col-md-8">
-                                                <select name="legende"
-                                                    class="form-select  @error('legende') is-invalid @enderror"
-                                                    aria-label="Select" id="select-field-file"
-                                                    data-placeholder="Choisir">
-                                                    <option value="{{ old('legende') }}">
-
-                                                    </option>
-                                                    @foreach ($user_files as $file)
-                                                        <option value="{{ $file?->id }}">
-                                                            {{ $file?->legende }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                                @error('legende')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <div>{{ $message }}</div>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-3">
-                                            <label for="file" class="col-12 col-md-4 col-form-label">Fichier<span
-                                                    class="text-danger mx-1">*</span></label>
-                                            <div class="col-12 col-md-8">
-                                                <div class="pt-2">
-                                                    <input type="file" name="file" id="file"
-                                                        class="form-control @error('file') is-invalid @enderror btn btn-primary btn-sm">
-                                                    @error('file')
-                                                        <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mt-5">
-                                            <label for="file" class="col-12 col-md-4 col-form-label"></label>
-                                            <div class="col-12 col-md-8">
-                                                <button type="submit"
-                                                    class="btn btn-outline-info btn-sm">Ajouter</button>
-                                            </div>
-                                        </div>
-
-                                    </form> --}}
                                 </div>
                             </div>
 
@@ -1452,11 +1051,6 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h2 class="modal-title mx-auto">
-                            {{-- @if (!empty(Auth::user()?->operateur))
-                                {{ (Auth::user()?->operateur ?? '') . ' (' . (Auth::user()?->username ?? '') . ')' }}
-                            @else
-                                {{ Auth::user()?->username ?? '' }}
-                            @endif --}}
                             {{ Auth::user()?->username ?? '' }}
                         </h2>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -1475,201 +1069,14 @@
             </div>
         </div>
     </section>
-    {{-- <section class="section dashboard">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                        <div class="card info-card sales-card">
-                            <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                        class="bi bi-three-dots"></i></a>
-                            </div>
-                            <a href="{{ route('demandesIndividuelle') }}">
-                                <div class="card-body">
-                                    <h5 class="card-title">Demandes <span>| Individuelles</span></h5>
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-person-plus-fill"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>
-                                                @foreach (Auth::user()?->individuelles as $individuelle)
-                                                    @if (isset($individuelle->numero) && isset($individuelle->modules_id))
-                                                        @if ($loop->last)
-                                                            {!! $loop->count ?? '0' !!}
-                                                        @endif
-                                                    @else
-                                                        <span class="text-primary">0</span>
-                                                    @endif
-                                                @endforeach
-                                            </h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                        <div class="card info-card sales-card">
-                            <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                        class="bi bi-three-dots"></i></a>
-                            </div>
-                            <a href="{{ route('demandesCollective') }}">
-                                <div class="card-body">
-                                    <h5 class="card-title">Demandes <span>| collectives</span></h5>
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-person-plus-fill"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>
-                                                @foreach (Auth::user()?->collectives as $collective)
-                                                    @if (isset($collective->numero))
-                                                        @if ($loop->last)
-                                                            {!! $loop->count ?? '0' !!}
-                                                        @endif
-                                                    @else
-                                                        <span class="text-primary">0</span>
-                                                    @endif
-                                                @endforeach
-                                            </h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                        <div class="card info-card sales-card">
-                            <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                        class="bi bi-three-dots"></i></a>
-                            </div>
-                            <a href="{{ route('devenirOperateur') }}">
-                                <div class="card-body">
-                                    <h5 class="card-title">Devenir <span>| opérateur</span></h5>
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-person-plus-fill"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>
-                                                @foreach (Auth::user()?->operateurs as $operateur)
-                                                    @if (isset($operateur->sigle))
-                                                        @if ($loop->last)
-                                                            {!! $loop->count ?? '0' !!}
-                                                        @endif
-                                                    @else
-                                                        <span class="text-primary">0</span>
-                                                    @endif
-                                                @endforeach
-                                            </h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> --}}
-
-    {{-- <section class="section dashboard">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="row">
-                    <div class="list-group mt-5">
-                        @if (isset(auth::user()?->employee->courriers) && auth::user()?->employee->courriers != '[]')
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="table-courriers-emp">
-                                    <thead class="table-default">
-                                        <tr>
-                                            <th style="width:60%;">Imputations</th>
-                                            <th style="width:20%;">Instructions</th>
-                                            <th style="width:20%;">Suivi dossier</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (auth::user()?->employee->courriers as $courrier)
-                                            <tr>
-                                                <td>
-                                                    @if (isset($courrier) && $courrier->type == 'arrive')
-                                                        <h4><a href="{!! route('arrives.show', $courrier->id) !!}">{!! $courrier->objet ?? '' !!}</a>
-                                                        </h4>
-                                                    @endif
-                                                    <p>{!! $courrier->message !!}</p>
-                                                    <p><strong>Type de courrier : </strong> {!! $courrier->type ?? '' !!}</p>
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <small>Posté le {!! Carbon\Carbon::parse($courrier->created_at)->format('d/m/Y à H:i:s') !!}</small>
-                                                        <span
-                                                            class="badge badge-info">{!! $courrier->user->firstname !!}&nbsp;{!! $courrier->user->name !!}</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <p>{!! $courrier->description ?? '' !!}</p>
-                                                </td>
-                                                <td>
-
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        @foreach ($courrier->employees->unique('id') as $employee)
-                                                            {{ $employee->user->firstname . ' ' . $employee->user->name }}<br>
-                                                        @endforeach --}}
-    {{-- <a href="{!! url('courrierimputations', ['$type' => $courrier->type, '$id' => $courrier->id]) !!}" class='btn btn-warning btn-sm'
-                                                            title="changer agent suivi">
-                                                            <i class="fa fa-retweet"></i>
-                                                        </a> --}}
-    {{--      </div>
-
-
-                                                </td> --}}
-    {{--  <td>
-                                        @forelse ($courrier->comments as $comment)
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <small>Commentaire de
-                                                    {!! $comment->user->firstname !!}&nbsp;{!! $comment->user->name !!} du
-                                                    {!! Carbon\Carbon::parse($comment->created_at)->format('d/m/Y à H:i:s') !!}: <br>
-                                                    <ul>
-                                                        <li>{!! $comment->content !!}</li>
-                                                    </ul>
-                                                </small>
-                                            @foreach ($comment->comments as $replayComment)
-                                                <div class="ml-5">
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <small>Réponse de
-                                                            {!! $comment->user->firstname !!}&nbsp;{!! $comment->user->name !!} du
-                                                            {!! Carbon\Carbon::parse($replayComment->created_at)->format('d/m/Y à H:i:s') !!} : <br>
-                                                            <ul>
-                                                                <li>
-                                                                    {!! $replayComment->content !!}</li>
-                                                            </ul>
-                                                        </small>
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                            @auth
-                                            @endauth
-                                        @empty
-
-                                            <div class="alert alert-info">Aucun commentaire pour ce courrier</div>
-                                        @endforelse
-                                    </td>  --}}
-    {{--             </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        @else
-                            <div class="alert alert-info"> {{ __("Vous n'avez pas de courrier à votre nom") }} </div>
-                        @endif
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> --}}
 @endsection
+
+@push('scripts')
+    <script>
+        document.getElementById('categorie').addEventListener('change', function(e) {
+            if ("{{ $user?->categorie }}") {
+                this.value = "{{ $user?->categorie }}";
+            }
+        });
+    </script>
+@endpush
