@@ -39,144 +39,111 @@ class OperateurmoduleController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
+        // 🔹 Validation
+        $request->validate([
             'module'               => 'required|string',
             'domaine'              => 'required|string',
             'niveau_qualification' => 'required|string',
             'categorie'            => 'nullable|string',
         ]);
 
-        $total_module         = Operateurmodule::where('operateurs_id', $request->input('operateur'))->count();
-        $operateurmodule_find = DB::table('operateurmodules')->where('module', $request->input("module"))->first();
-        $operateur_find       = Operateurmodule::where('operateurs_id', $request->input('operateur'))->get();
+        $operateurId = $request->input('operateur');
+        $moduleName  = $request->input('module');
 
-        $operateur = Operateur::findOrFail($request->input('operateur'));
+        $operateur = Operateur::findOrFail($operateurId);
 
+        // 🔹 Vérifier le statut de l'opérateur
         if ($operateur->statut_agrement != "Nouveau") {
-            Alert::warning('Action impossible ! ', 'Opérateur déja traité');
+            Alert::warning('Action impossible !', 'Opérateur déjà traité');
             return redirect()->back();
         }
 
-        if (isset($operateurmodule_find)) {
-            foreach ($operateur_find as $key => $value) {
-                if ($value->module == $operateurmodule_find->module) {
-                    Alert::warning('Attention ! ' . $value->module, 'a déjà été choisi');
-                    return redirect()->back();
-                }
-            }
+        // 🔹 Total modules existants pour cet opérateur
+        $totalModules = $operateur->operateurmodules()->count();
 
-            $operateurmodule = new Operateurmodule([
-                "module"               => $request->input("module"),
-                "domaine"              => $request->input("domaine"),
-                "categorie"            => $request->input("categorie"),
-                'niveau_qualification' => $request->input('niveau_qualification'),
-                'statut'               => 'Nouveau',
-                'operateurs_id'        => $request->input('operateur'),
-            ]);
+        // 🔹 Vérifier si le module existe déjà
+        $moduleExists = $operateur->operateurmodules()
+            ->where('module', $moduleName)
+            ->exists();
 
-            $operateurmodule->save();
-        } elseif ($operateur->user->categorie == 'Privé' && $total_module >= 5) {
-            Alert::error('Avertissement ! ', 'Vous avez atteint le nombre de modules autorisés');
+        if ($moduleExists) {
+            Alert::warning('Attention !', "Le module {$moduleName} a déjà été choisi");
             return redirect()->back();
-        } elseif ($total_module >= 20) {
-            Alert::error('Avertissement ! ', 'Vous avez atteint le nombre de modules autorisés');
-            return redirect()->back();
-        } else {
-            $operateurmodule = new Operateurmodule([
-                "module"               => $request->input("module"),
-                "domaine"              => $request->input("domaine"),
-                "categorie"            => $request->input("categorie"),
-                'niveau_qualification' => $request->input('niveau_qualification'),
-                'statut'               => 'Nouveau',
-                'operateurs_id'        => $request->input('operateur'),
-            ]);
-
-            $operateurmodule->save();
-
-            $moduleoperateurstatut = new Moduleoperateurstatut([
-                'statut'              => "Nouveau",
-                'operateurmodules_id' => $operateurmodule->id,
-
-            ]);
-
-            $moduleoperateurstatut->save();
         }
 
-        Alert::success('Succès ! ', 'Le module a été ajouté avec succès');
+        // 🔹 Limite de modules
+        if (($operateur->user->categorie !== 'Public' && $totalModules >= 5) || $totalModules >= 20) {
+            Alert::error('Avertissement !', 'Vous avez atteint le nombre de modules autorisés');
+            return redirect()->back();
+        }
 
+        // 🔹 Créer le module
+        $operateurmodule = $operateur->operateurmodules()->create([
+            "module"               => $moduleName,
+            "domaine"              => $request->input("domaine"),
+            "categorie"            => $request->input("categorie"),
+            'niveau_qualification' => $request->input('niveau_qualification'),
+            'statut'               => 'Nouveau',
+        ]);
+
+        // 🔹 Créer le statut associé
+        Moduleoperateurstatut::create([
+            'statut'              => "Nouveau",
+            'operateurmodules_id' => $operateurmodule->id,
+        ]);
+
+        Alert::success('Succès !', 'Le module a été ajouté avec succès');
         return redirect()->back();
     }
 
     public function update(Request $request, Operateurmodule $operateurmodule)
     {
+        // 🔹 Validation
         $request->validate([
             'module'               => 'required|string',
             'domaine'              => 'required|string',
-            'categorie'            => 'required|string',
             'niveau_qualification' => 'required|string',
+            'categorie'            => 'nullable|string',
         ]);
 
         $roleNames = Auth::user()->roles->pluck('name')->toArray();
 
-        // Vérification uniquement si l'utilisateur N'EST PAS super-admin ou DEC
-        if (! in_array('super-admin', $roleNames, true) && ! in_array('DEC', $roleNames, true)) {
-            if (! in_array($operateurmodule?->operateur?->statut_agrement, ['Nouveau', 'Extension', 'Renouvellement'], true)) {
+        // 🔹 Vérifications pour utilisateurs non super-admin / DEC
+        if (!in_array('super-admin', $roleNames, true) && !in_array('DEC', $roleNames, true)) {
+            if (!in_array($operateurmodule->operateur?->statut_agrement, ['Nouveau', 'Extension', 'Renouvellement'], true)) {
                 Alert::warning('Action impossible !', 'Opérateur déjà traité');
                 return redirect()->back();
             }
 
-            if (in_array($operateurmodule?->statut, ['agréé', 'rejeté', 'sous réserve'], true)) {
+            if (in_array($operateurmodule->statut, ['agréé', 'rejeté', 'sous réserve'], true)) {
                 Alert::warning('Action impossible !', 'Module déjà traité');
                 return redirect()->back();
             }
         }
 
-        $operateurmodule_find = DB::table('operateurmodules')
-            ->where('module', $request->input("module"))
-            ->first();
+        $moduleName = $request->input('module');
 
-        $operateur_find = Operateurmodule::where('operateurs_id', $operateurmodule->operateurs_id)->get();
+        // 🔹 Vérifier si un autre module du même opérateur a le même nom
+        $moduleExists = Operateurmodule::where('operateurs_id', $operateurmodule->operateurs_id)
+            ->where('module', $moduleName)
+            ->where('id', '<>', $operateurmodule->id)
+            ->exists();
 
-        if (! empty($operateurmodule_find) && $operateurmodule_find->module == $operateurmodule->module) {
-            $operateurmodule->update([
-                "module"               => $request->input("module"),
-                "domaine"              => $request->input("domaine"),
-                "categorie"            => $request->input("categorie"),
-                'niveau_qualification' => $request->input('niveau_qualification'),
-                'operateurs_id'        => $operateurmodule->operateurs_id,
-            ]);
-            Alert::success('Succès !', 'Le module ' . $operateurmodule->module . ' a été mis à jour avec succès');
-            $operateurmodule->save();
-        } elseif (! empty($operateurmodule_find)) {
-            foreach ($operateur_find as $value) {
-                if (($value->module == $operateurmodule_find->module)) {
-                    Alert::warning('Attention ! ' . $value->module, 'a déjà été choisi');
-                    return redirect()->back();
-                } else {
-                    $operateurmodule->update([
-                        "module"               => $request->input("module"),
-                        "domaine"              => $request->input("domaine"),
-                        "categorie"            => $request->input("categorie"),
-                        'niveau_qualification' => $request->input('niveau_qualification'),
-                        'operateurs_id'        => $operateurmodule->operateurs_id,
-                    ]);
-                    Alert::success($operateurmodule->module, 'mis à jour');
-                    $operateurmodule->save();
-                    return redirect()->back();
-                }
-            }
-        } else {
-            $operateurmodule->update([
-                "module"               => $request->input("module"),
-                "domaine"              => $request->input("domaine"),
-                "categorie"            => $request->input("categorie"),
-                'niveau_qualification' => $request->input('niveau_qualification'),
-                'operateurs_id'        => $operateurmodule->operateurs_id,
-            ]);
-
-            Alert::success($operateurmodule->module, 'mis à jour');
-            $operateurmodule->save();
+        if ($moduleExists) {
+            Alert::warning('Attention !', "Le module {$moduleName} a déjà été choisi");
+            return redirect()->back();
         }
+
+        // 🔹 Mise à jour
+        $operateurmodule->update([
+            "module"               => $moduleName,
+            "domaine"              => $request->input("domaine"),
+            "categorie"            => $request->input("categorie"),
+            'niveau_qualification' => $request->input('niveau_qualification'),
+            'operateurs_id'        => $operateurmodule->operateurs_id,
+        ]);
+
+        Alert::success('Succès !', "Le module {$moduleName} a été mis à jour avec succès");
 
         return redirect()->back();
     }

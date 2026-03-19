@@ -137,7 +137,7 @@
                                                 Observations
                                                 @if (!empty($operateur->observations))
                                                     <span
-                                                        class="badge bg-danger position-absolute top-0 end-0 translate-middle p-1 rounded-circle">
+                                                        class="badge bg-info position-absolute top-0 end-0 translate-middle p-1 rounded-circle">
                                                         !
                                                     </span>
                                                 @endif
@@ -941,18 +941,35 @@
 
                                 {{-- Détail Observations --}}
                                 <div class="tab-content">
-                                    <div class="tab-pane fade profile-overview pt-0" id="observations-overview">
-                                        <div class="d-flex justify-content-between align-items-center mt-0">
-                                            <h5 class="card-title">Observations</h5>
-                                            <span>Visite conformité : <span
-                                                    class="{{ $operateur?->visite_conformite }}">{{ $operateur?->visite_conformite }}</span></span>
-                                            <a href="#" class="btn btn-success btn-sm float-end" data-bs-toggle="modal"
-                                                data-bs-target="#addobservations" title="Ajouter">Conformité</a>
+                                    <div class="tab-pane fade profile-overview pt-3" id="observations-overview">
+                                        <div class="card shadow-sm border-0">
+                                            <div
+                                                class="card-header d-flex justify-content-between align-items-center bg-light">
+                                                <h5 class="mb-0">Observations visite de conformité</h5>
+                                                @if (!empty($operateur?->visite_conformite))
+                                                    <span class="badge bg-info text-white">
+                                                        {{ $operateur->visite_conformite }}
+                                                    </span>
+                                                @endif
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <a href="#"
+                                                        class="btn btn-success btn-sm d-flex align-items-center gap-1"
+                                                        data-bs-toggle="modal" data-bs-target="#addobservations"
+                                                        title="Ajouter">
+                                                        <i class="bi bi-plus"></i>
+                                                        Ajouter/Modifier
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                @if (!empty($operateur?->observations))
+                                                    <textarea name="observation" id="observation" rows="8" readonly class="form-control form-control-sm"
+                                                        placeholder="Aucune observation pour le moment">{{ $operateur->observations }}</textarea>
+                                                @else
+                                                    <div class="text-muted">Aucune observation pour le moment.</div>
+                                                @endif
+                                            </div>
                                         </div>
-                                        @if (!empty($operateur?->observations))
-                                            <textarea name="observation" id="observation" rows="10" @readonly(true)
-                                                class="form-control form-control-sm @error('date_reponse') is-invalid @enderror" placeholder="Observations">{{ $operateur?->observations ?? old('observation') }}</textarea>
-                                        @endif
                                     </div>
                                 </div>
 
@@ -1154,11 +1171,11 @@
                                                             <th scope="col" width='2%'>N°</th>
                                                             <th scope="col">DOMAINE</th>
                                                             <th scope="col">MODULE</th>
-                                                            <th scope="col">NIVEAU QUALIFICATION</th>
-                                                            <th scope="col">QUALIFICATION</th>
+                                                            <th scope="col">NIVEAU DE QUALIFICATION</th>
+                                                            <th scope="col">CATEGORIE PROFESSIONNELLE</th>
                                                             <th class="text-center">STATUT</th>
                                                             @can('devenir-operateur-agrement-show')
-                                                                <th class="text-center" width='2%'><i class="bi bi-gear"></i>
+                                                                <th class="text-center" width='2%'>ACTIONS
                                                                 </th>
                                                             @endcan
                                                         </tr>
@@ -1170,8 +1187,8 @@
                                                                 <td style="text-align: center;">{{ $i++ }}</td>
                                                                 <td>{{ $operateurmodule?->domaine }}</td>
                                                                 <td>{{ $operateurmodule?->module }}</td>
-                                                                <td>{{ $operateurmodule?->categorie }}</td>
                                                                 <td>{{ $operateurmodule?->niveau_qualification }}</td>
+                                                                <td>{{ $operateurmodule?->categorie }}</td>
                                                                 <td style="text-align: center;">
                                                                     <span
                                                                         class="{{ $operateurmodule?->statut }}">{{ $operateurmodule?->statut }}</span>
@@ -1180,7 +1197,7 @@
                                                                     <td style="text-align: center;">
                                                                         <div class="d-flex justify-content-center">
                                                                             @can('devenir-operateur-agrement-update')
-                                                                                <button class="btn btn-warning text-white btn-sm"
+                                                                                <button class="btn btn-warning text-white btn-sm me-1"
                                                                                     data-bs-toggle="modal"
                                                                                     data-bs-target="#EditOperateurmoduleModal{{ $operateurmodule->id }}"
                                                                                     title="Modifier">
@@ -1321,13 +1338,33 @@
 
                                 <div class="card shadow-lg border-0">
                                     <div class="card-header bg-default text-center py-2 rounded-top">
-                                        <h4 class="mb-0">✏️ Modification</h4>
+                                        <h4 class="mb-0">Modification</h4>
                                     </div>
 
                                     <div class="card-body row g-4 px-4">
                                         <input type="hidden" name="id" value="{{ $operateurmodule->id }}">
                                         <input type="hidden" name="operateur"
                                             value="{{ $operateurmodule->operateur->id }}">
+
+                                        {{-- Domaine --}}
+                                        <div class="col-12">
+                                            <label for="domaine" class="form-label">Domaine <span
+                                                    class="text-danger">*</span></label>
+                                            <select name="domaine" id="select-field-civilite"
+                                                class="form-select form-select-sm @error('domaine') is-invalid @enderror"
+                                                required>
+                                                <option value="">-- Sélectionnez un domaine --</option>
+                                                @foreach ($domaines as $domaine)
+                                                    <option value="{{ $domaine->name }}"
+                                                        {{ old('domaine', $operateurmodule->domaine) == $domaine->name ? 'selected' : '' }}>
+                                                        {{ $domaine->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('domaine')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
 
                                         {{-- Module --}}
                                         <div class="col-12">
@@ -1339,32 +1376,6 @@
                                                 placeholder="Nom du module" required>
                                             <div id="moduleListEdit"></div>
                                             @error('module')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-
-                                        {{-- Domaine --}}
-                                        <div class="col-12">
-                                            <label for="domaine" class="form-label">Domaine <span
-                                                    class="text-danger">*</span></label>
-                                            <input type="text" name="domaine"
-                                                value="{{ old('domaine', $operateurmodule->domaine) }}"
-                                                class="form-control form-control-sm @error('domaine') is-invalid @enderror"
-                                                placeholder="Domaine du module" required>
-                                            @error('domaine')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-
-                                        {{-- Catégorie --}}
-                                        <div class="col-12">
-                                            <label for="categorie" class="form-label">Catégorie <span
-                                                    class="text-danger">*</span></label>
-                                            <input type="text" name="categorie"
-                                                value="{{ old('categorie', $operateurmodule->categorie) }}"
-                                                class="form-control form-control-sm @error('categorie') is-invalid @enderror"
-                                                placeholder="Catégorie" required>
-                                            @error('categorie')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -1388,6 +1399,19 @@
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
+
+                                        {{-- Catégorie --}}
+                                        <div class="col-12">
+                                            <label for="categorie" class="form-label">Catégorie professionnelle</label>
+                                            <input type="text" name="categorie"
+                                                value="{{ old('categorie', $operateurmodule->categorie) }}"
+                                                class="form-control form-control-sm @error('categorie') is-invalid @enderror"
+                                                placeholder="Catégorie">
+                                            @error('categorie')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
                                     </div>
 
                                     <div class="card-footer d-flex justify-content-end gap-2 p-3 bg-light border-top">
