@@ -458,6 +458,20 @@
                                                 <h5 class="mb-0 text-uppercase fw-bold">
                                                     <i class="bi bi-paperclip me-2 text-success"></i> Fichiers joints
                                                 </h5>
+
+                                                @php
+                                                    $fichiersDisponibles = $files->filter(
+                                                        fn($file) => !empty($file->file),
+                                                    );
+                                                @endphp
+
+
+                                                @if ($fichiersDisponibles->isNotEmpty())
+                                                    <a href="{{ route('files.merge', $individuelle->user->id) }}" target="_blank"
+                                                        class="btn btn-sm btn-primary">
+                                                        <i class="bi bi-file-earmark-pdf"></i> Voir tout
+                                                    </a>
+                                                @endif
                                             </div>
                                             <div class="card-body">
                                                 @if ($message = Session::get('status'))

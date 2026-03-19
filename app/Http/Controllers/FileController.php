@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use RealRashid\SweetAlert\Facades\Alert;
+use setasign\Fpdi\Fpdi;
 
 class FileController extends Controller
 {
@@ -245,5 +246,73 @@ class FileController extends Controller
 
         Alert::success('Succès !', 'fichier ajouté avec succès');
         return redirect()->back();
+    }
+
+    public function mergeFiles($id)
+    {
+        $files = File::where('users_id', $id)
+            ->whereNotNull('file')
+            ->get();
+
+        if ($files->isEmpty()) {
+            abort(404, 'Aucun fichier disponible');
+        }
+
+        $pdf = new Fpdi();
+        $tempFiles = [];
+
+        foreach ($files as $file) {
+            $path = public_path($file->getFichier());
+            $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+
+            // --------------------------
+            // PDF → utilisé directement
+            // --------------------------
+            if ($extension === 'pdf') {
+                $tempFiles[] = $path;
+            }
+
+            // --------------------------
+            // Images → convertir en PDF temporaire
+            // --------------------------
+            elseif (in_array($extension, ['jpg', 'jpeg', 'png'])) {
+                $tempPdf = storage_path('app/temp_' . uniqid() . '.pdf');
+
+                $pdfImg = new \FPDF();
+                $pdfImg->AddPage();
+                $pdfImg->Image($path, 10, 10, 190); // ajuster largeur si nécessaire
+                $pdfImg->Output($tempPdf, 'F');
+
+                $tempFiles[] = $tempPdf;
+            }
+        }
+
+        // --------------------------
+        // Fusion finale
+        // --------------------------
+        foreach ($tempFiles as $filePath) {
+            $pageCount = $pdf->setSourceFile($filePath);
+
+            for ($i = 1; $i <= $pageCount; $i++) {
+                $tpl = $pdf->importPage($i);
+                $size = $pdf->getTemplateSize($tpl);
+
+                $pdf->AddPage($size['orientation'], [$size['width'], $size['height']]);
+                $pdf->useTemplate($tpl);
+            }
+        }
+
+        // --------------------------
+        // Nettoyage fichiers temporaires
+        // --------------------------
+        foreach ($tempFiles as $temp) {
+            if (str_contains($temp, 'temp_') && file_exists($temp)) {
+                unlink($temp);
+            }
+        }
+
+        return response($pdf->Output('S'))
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'inline; filename="documents.pdf"');
     }
 }
