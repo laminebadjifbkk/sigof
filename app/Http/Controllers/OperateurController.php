@@ -1168,6 +1168,8 @@ class OperateurController extends Controller
             }
         ]);
 
+        $validations = $operateur?->validationoperateurs;
+
         return view(
             "operateurs.show",
             compact(
@@ -1179,6 +1181,7 @@ class OperateurController extends Controller
                 'files',
                 'labels',
                 'domaines',
+                'validations',
                 'hasAuto',
                 'hasNinea',
                 'hasOrganigramme',

@@ -39,7 +39,7 @@
                     <div class="flex items-center gap-4">
                         <div class="card">
                             <div class="card-body">
-                                <ul class="nav nav-tabs nav-tabs-bordered align-items-center gap-2 flex-wrap">
+                                <ul class="nav nav-tabs nav-tabs-bordered align-items-center gap-2 flex-wrap position-relative">
 
                                     @can('operateur-view')
                                         <li class="nav-item">
@@ -51,92 +51,95 @@
                                         </li>
                                     @endcan
 
-                                    <li class="nav-item">
-                                        <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab"
-                                            data-bs-target="#profile-overview">
-                                            <i class="bi bi-info-circle"></i>
-                                            <span>Détails</span>
-                                        </button>
-                                    </li>
-
-                                    <li class="nav-item">
-                                        <button class="nav-link active d-flex align-items-center gap-1" data-bs-toggle="tab"
-                                            data-bs-target="#module-overview">
-                                            <i class="bi bi-grid"></i>
-                                            <span>Modules</span>
+                                    {{-- Exemple d'onglet avec badge en haut à droite --}}
+                                    <li class="nav-item position-relative">
+                                        <button class="nav-link d-flex align-items-center justify-content-center"
+                                            data-bs-toggle="tab" data-bs-target="#module-overview">
+                                            Modules
                                             @if ($operateur->operateurmodules_count > 0)
                                                 <span
-                                                    class="badge bg-primary ms-1">{{ $operateur->operateurmodules_count }}</span>
+                                                    class="badge bg-primary position-absolute top-0 end-0 translate-middle p-1 rounded-circle">
+                                                    {{ $operateur->operateurmodules_count }}
+                                                </span>
                                             @endif
                                         </button>
                                     </li>
 
-                                    <li class="nav-item">
-                                        <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab"
-                                            data-bs-target="#references-overview">
-                                            <i class="bi bi-book"></i>
-                                            <span>Références</span>
+                                    <li class="nav-item position-relative">
+                                        <button class="nav-link d-flex align-items-center justify-content-center"
+                                            data-bs-toggle="tab" data-bs-target="#references-overview">
+                                            Références
                                             @if ($operateur->operateureferences_count > 0)
                                                 <span
-                                                    class="badge bg-secondary ms-1">{{ $operateur->operateureferences_count }}</span>
+                                                    class="badge bg-secondary position-absolute top-0 end-0 translate-middle p-1 rounded-circle">
+                                                    {{ $operateur->operateureferences_count }}
+                                                </span>
                                             @endif
                                         </button>
                                     </li>
 
-                                    <li class="nav-item">
-                                        <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab"
-                                            data-bs-target="#equipement-overview">
-                                            <i class="bi bi-tools"></i>
-                                            <span>Équipements</span>
+                                    <li class="nav-item position-relative">
+                                        <button class="nav-link d-flex align-items-center justify-content-center"
+                                            data-bs-toggle="tab" data-bs-target="#equipement-overview">
+                                            Équipements
                                             @if ($operateur->operateurequipements_count > 0)
                                                 <span
-                                                    class="badge bg-warning text-dark ms-1">{{ $operateur->operateurequipements_count }}</span>
+                                                    class="badge bg-warning text-dark position-absolute top-0 end-0 translate-middle p-1 rounded-circle">
+                                                    {{ $operateur->operateurequipements_count }}
+                                                </span>
                                             @endif
                                         </button>
                                     </li>
 
-                                    <li class="nav-item">
-                                        <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab"
-                                            data-bs-target="#formateur-overview">
-                                            <i class="bi bi-person-badge"></i>
-                                            <span>Formateurs</span>
+                                    <li class="nav-item position-relative">
+                                        <button class="nav-link d-flex align-items-center justify-content-center"
+                                            data-bs-toggle="tab" data-bs-target="#formateur-overview">
+                                            Formateurs
                                             @if ($operateur->operateurformateurs_count > 0)
                                                 <span
-                                                    class="badge bg-info text-dark ms-1">{{ $operateur->operateurformateurs_count }}</span>
+                                                    class="badge bg-info text-dark position-absolute top-0 end-0 translate-middle p-1 rounded-circle">
+                                                    {{ $operateur->operateurformateurs_count }}
+                                                </span>
                                             @endif
                                         </button>
                                     </li>
 
-                                    <li class="nav-item">
-                                        <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab"
-                                            data-bs-target="#files">
-                                            <i class="bi bi-folder"></i>
-                                            <span>Fichiers</span>
+                                    <li class="nav-item position-relative">
+                                        <button class="nav-link d-flex align-items-center justify-content-center"
+                                            data-bs-toggle="tab" data-bs-target="#files">
+                                            Fichiers
                                             @if ($operateur->user->files_count > 0)
-                                                <span class="badge bg-dark ms-1">{{ $operateur->user->files_count }}</span>
+                                                <span
+                                                    class="badge bg-dark position-absolute top-0 end-0 translate-middle p-1 rounded-circle">
+                                                    {{ $operateur->user->files_count }}
+                                                </span>
                                             @endif
                                         </button>
                                     </li>
 
                                     @if ($operateur->formations_count > 0)
-                                        <li class="nav-item">
-                                            <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab"
-                                                data-bs-target="#formation-overview">
-                                                <i class="bi bi-mortarboard"></i>
-                                                <span>Formations</span>
-                                                <span class="badge bg-success ms-1">{{ $operateur->formations_count }}</span>
+                                        <li class="nav-item position-relative">
+                                            <button class="nav-link d-flex align-items-center justify-content-center"
+                                                data-bs-toggle="tab" data-bs-target="#formation-overview">
+                                                Formations
+                                                <span
+                                                    class="badge bg-success position-absolute top-0 end-0 translate-middle p-1 rounded-circle">
+                                                    {{ $operateur->formations_count }}
+                                                </span>
                                             </button>
                                         </li>
                                     @endif
 
                                     @can('show-observations')
-                                        <li class="nav-item">
-                                            <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab"
-                                                data-bs-target="#observations-overview">
-                                                <i class="bi bi-chat-left-text"></i>
-                                                <span>Observations</span>
+                                        <li class="nav-item position-relative">
+                                            <button class="nav-link d-flex align-items-center justify-content-center"
+                                                data-bs-toggle="tab" data-bs-target="#observations-overview">
+                                                Observations
                                                 @if (!empty($operateur->observations))
-                                                    <span class="badge bg-danger ms-1">!</span>
+                                                    <span
+                                                        class="badge bg-danger position-absolute top-0 end-0 translate-middle p-1 rounded-circle">
+                                                        !
+                                                    </span>
                                                 @endif
                                             </button>
                                         </li>
@@ -147,10 +150,6 @@
                                 </div>
                                 {{-- Détail opérateur --}}
                                 <div class="tab-content pt-0">
-
-                                    @php
-                                        $validations = $operateur?->validationoperateurs;
-                                    @endphp
                                     @if ($validations && $validations->isNotEmpty())
                                         @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
                                             <span class="d-flex mt-2 align-items-baseline">
