@@ -393,4 +393,13 @@ class User extends Authenticatable
             ? $this->operateur . ($this->username ? " ({$this->username})" : '')
             : null;
     }
+
+    public function getIsCompleteAttribute()
+    {
+        return
+            !empty($this->operateur) &&
+            !empty($this->ninea) &&
+            !empty($this->fonction_responsable) &&
+            !empty($this->email);
+    }
 }

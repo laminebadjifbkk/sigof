@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\User;
@@ -100,7 +101,7 @@ class ProfileOperateurController extends Controller
             'civilite'             => ['required', 'string', 'max:8'],
             'firstname'            => ['required', 'string', 'max:150'],
             'name'                 => ['required', 'string', 'max:25'],
-            'categorie'            => ['required', 'string'],
+            'categorie'            => ['nullable', 'string'],
             /* 'rccm'                 => ['required', 'string'], */
             'ninea'                => [
                 'required',
@@ -144,7 +145,7 @@ class ProfileOperateurController extends Controller
             'civilite'             => $request->input('civilite'),
             'firstname'            => $request->input('firstname'),
             'name'                 => $request->input('name'),
-            'categorie'            => $request->input('categorie'),
+            /* 'categorie'            => $request->input('categorie'), */
             /* 'rccm'                 => $request->input('rccm'), */
             'ninea'                => $request->input('ninea'),
             'email_responsable'    => $request->input('email_responsable'),
@@ -160,6 +161,12 @@ class ProfileOperateurController extends Controller
             'fixe'                 => $request->input('fixe'),
             'statut'               => $request->input('statut'),
         ]);
+
+        if (!empty($user->categorie)) {
+            $request->merge([
+                'categorie' => $request->input('categorie')
+            ]);
+        }
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             if (! empty($user->image)) {
@@ -177,7 +184,7 @@ class ProfileOperateurController extends Controller
 
             // Utilise Intervention sur le fichier temporaire directement
             /* $image = Image::make($file->getRealPath())->fit(800, 800); */
-            
+
             // Charge simplement l’image sans la redimensionner
             $image = Image::make($file->getRealPath());
 

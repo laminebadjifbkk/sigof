@@ -20,10 +20,9 @@
                     <div class="card">
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
                             {{-- <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> --}}
-                            <a href="#" data-bs-toggle="modal"
-                                data-bs-target="#ShowProfilImage{{ $user?->id }}">
-                                <img class="rounded-circle w-100" alt="Profil"
-                                    src="{{ asset($user?->getImage()) }}" width="100" height="auto">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#ShowProfilImage{{ $user?->id }}">
+                                <img class="rounded-circle w-100" alt="Profil" src="{{ asset($user?->getImage()) }}"
+                                    width="100" height="auto">
                             </a>
                             <h2 class="pt-1 d-flex flex-column align-items-center text-center">
                                 {{ $user?->username }}
@@ -35,7 +34,7 @@
                                     ({{ \Carbon\Carbon::parse($user->last_activity)->diffForHumans() }})
                                 @endif
                             </h2>
-                            {{-- <span><a href="mailto:{{ $user?->email }}">{{ $user?->email }}</a></span> --}}
+
                             <div class="social-links mt-2">
                                 @foreach (['twitter' => 'twitter', 'facebook' => 'facebook', 'instagram' => 'instagram', 'linkedin' => 'linkedin'] as $platform => $icon)
                                     @if (!empty($user?->$platform))
@@ -52,10 +51,6 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="card info-card sales-card">
-                                {{-- <div class="filter">
-                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                            class="bi bi-three-dots"></i></a>
-                                </div> --}}
                                 <a href="{{ route('devenirOperateur') }}">
                                     <div class="card-body">
                                         <h5 class="card-title">Agréments <span>| opérateur</span></h5>
@@ -164,7 +159,7 @@
                                             Informations personnelles
                                         </div>
                                         <div class="col-12 col-md-8">
-                                            @if ($isComplete)
+                                            @if ($user->is_complete)
                                                 <span class="badge bg-success text-white">Complètes</span>
                                             @else
                                                 <span class="badge bg-warning text-white">
@@ -294,8 +289,7 @@
                                             {{-- <div class="col-md-8 col-lg-9"> --}}
                                             <div class="col-12 col-md-8">
                                                 <img class="rounded-circle w-25" alt="Profil"
-                                                    src="{{ asset($user->getImage()) }}" width="50"
-                                                    height="auto">
+                                                    src="{{ asset($user->getImage()) }}" width="50" height="auto">
 
                                                 <div class="pt-2 d-flex align-items-center gap-2">
                                                     <div class="form-group mb-0">
@@ -384,6 +378,9 @@
                                                         <option value="Public">Public</option>
                                                         <option value="Privé">Privé</option>
                                                     </select>
+                                                    @if(!empty($user?->categorie))
+    <small class="text-muted">La catégorie ne peut pas être modifié</small>
+@endif
                                                     @error('categorie')
                                                         <span class="invalid-feedback" role="alert">
                                                             <div>{{ $message }}</div>
@@ -477,6 +474,9 @@
                                                     id="Email" value="{{ $user->email ?? old('email') }}"
                                                     autocomplete="email" placeholder="Adresse e-mail"
                                                     {{ !empty($user?->email) ? 'readonly' : '' }}>
+                                                    @if(!empty($user?->email))
+    <small class="text-muted">L’email ne peut pas être modifié</small>
+@endif
                                                 @error('email')
                                                     <span class="invalid-feedback" role="alert">
                                                         <div>{{ $message }}</div>
@@ -776,7 +776,7 @@
                                         {{-- Début Modification mot de passe --}}
                                         <div class="flex items-center gap-4">
                                             <!-- Bordered Tabs -->
-                                            <div class="tab-pane fade show profile-overview" id="profile-overview">
+                                            <div class="tab-pane fade show profile-overview">
                                                 <h5 class="card-title">Modification du mot de passe</h5>
                                                 <!-- Change Password Form -->
                                                 @csrf
