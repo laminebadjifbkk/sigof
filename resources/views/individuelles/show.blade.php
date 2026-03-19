@@ -703,9 +703,9 @@
                                         <option value="Injoignable"
                                             {{ $selectedStatut === 'Injoignable' ? 'selected' : '' }}>
                                             Injoignable</option>
-                                        <option value="Séléctionné"
-                                            {{ $selectedStatut === 'Séléctionné' ? 'selected' : '' }}>
-                                            Séléctionné</option>
+                                        <option value="Retenu"
+                                            {{ $selectedStatut === 'Retenu' ? 'selected' : '' }}>
+                                            Retenu</option>
                                         {{-- <option value="Non validé"
                                             {{ $selectedStatut === 'Non validé' ? 'selected' : '' }}>Non validé</option> --}}
                                     </select>
