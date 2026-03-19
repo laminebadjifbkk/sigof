@@ -51,7 +51,7 @@
                                             <i class="bi bi-person-badge"></i>
                                             <span
                                                 class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-white text-info">
-                                                {{ $operateurA?->count() }}
+                                                {{ $operateurs?->count() }}
                                             </span>
                                         </button>
                                     </div>
@@ -99,7 +99,7 @@
                     </div>
 
                     {{-- Cartes opérateurs --}}
-                    @foreach ($operateurA as $operateur)
+                    @foreach ($operateurs as $operateur)
                         <div class="card mb-4 shadow-sm border-0 w-100">
                             <div class="card-header bg-white border-bottom py-3 px-4">
                                 <div class="row justify-content-between align-items-center gy-2">

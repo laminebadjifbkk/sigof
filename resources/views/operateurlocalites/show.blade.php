@@ -7,7 +7,7 @@
         <div class="row justify-content-center">
             <div class="col-12">
                 <div class="pagetitle">
-                    {{-- <h1>Data Tables</h1> --}}
+
                     <nav>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Accueil</a></li>
@@ -15,7 +15,8 @@
                             <li class="breadcrumb-item active">localités</li>
                         </ol>
                     </nav>
-                </div><!-- End Page Title -->
+                </div>
+
                 @if ($message = Session::get('status'))
                     <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
                         role="alert">
@@ -38,18 +39,6 @@
                 @endif
                 <div class="card">
                     <div class="card-body">
-                        {{-- <div class="d-flex justify-content-between align-items-center">
-                            <h5 class="card-title">LOCALITES</h5>
-                            @can('devenir-operateur-agrement-ouvert')
-                                @can('agrement-visible-par-op')
-                                    <h5 class="card-title">
-                                        <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
-                                            data-bs-target="#AddlocaliteModal">Ajouter
-                                        </button>
-                                    </h5>
-                                @endcan
-                            @endcan
-                        </div> --}}
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h5 class="mb-0 text-uppercase fw-bold text-primary">
                                 <i class="bi bi-person-lines-fill me-2"></i> LOCALITES
@@ -63,7 +52,7 @@
                                 @endcan
                             @endcan
                         </div>
-                        <!-- Table with stripped rows -->
+
                         <table
                             class="table table-bordered table-hover datatables align-middle justify-content-center table-borderless">
                             <thead class="table-primary text-center">
@@ -117,129 +106,103 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <!-- End Table with stripped rows -->
                     </div>
                 </div>
 
             </div>
         </div>
 
-        <!-- Add Formateur -->
-        {{-- <div class="modal fade" id="AddlocaliteModal" tabindex="-1">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <form method="post" action="{{ route('operateurlocalites.store') }}" enctype="multipart/form-data"
-                        class="row g-3">
-                        @csrf
-                        <div class="card-header text-center bg-gradient-default">
-                            <h1 class="h4 text-black mb-0">LOCALITES</h1>
-                        </div>
-                        <input type="hidden" name="operateur" value="{{ $operateur->id }}">
-                        <div class="modal-body">
-                            <div class="col-12 mb-2">
-                                <label for="name" class="form-label">Localité<span
-                                        class="text-danger mx-1">*</span></label>
-                                <input type="text" name="name" value="{{ old('name') }}"
-                                    class="form-control form-control-sm @error('name') is-invalid @enderror"
-                                    placeholder="Localités (régions, départements, communes)">
-                                <p class="small fst-italic">
-                                    <small>{{ __('NB: Ici vous pouvez mettre directement la région') }}</small>
-                                </p>
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <div>{{ $message }}</div>
-                                    </span>
-                                @enderror
-                            </div>
-
-                            <div class="col-12 mb-2">
-                                <label for="region" class="form-label">Region<span
-                                        class="text-danger mx-1">*</span></label>
-                                <select name="region" class="form-select  @error('region') is-invalid @enderror"
-                                    aria-label="Select" id="select-field-operateur-localite"
-                                    data-placeholder="Choisir la région">
-                                    <option value="">--Choisir la région--</option>
-                                    @foreach ($regions as $region)
-                                        <option value="{{ $region->nom }}">
-                                            {{ $region->nom }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('region')
-                                    <span class="invalid-feedback" role="alert">
-                                        <div>{{ $message }}</div>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary btn-sm"
-                                data-bs-dismiss="modal">Fermer</button>
-                            <button type="submit" class="btn btn-primary btn-sm">Ajouter</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div> --}}
-        <div class="modal fade" id="AddlocaliteModal" tabindex="-1" aria-labelledby="AddlocaliteModalLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="AddlocaliteModal" tabindex="-1">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content shadow-lg border-0 rounded-4 overflow-hidden">
-                    <form method="POST" action="{{ route('operateurlocalites.store') }}" enctype="multipart/form-data"
-                        class="p-3">
+
+                    <form method="POST" action="{{ route('operateurlocalites.store') }}" class="p-3">
                         @csrf
 
+                        <!-- HEADER -->
                         <div class="bg-info text-white text-center py-3">
                             <h5 class="mb-0 text-uppercase fw-bold">
-                                <i class="bi bi-geo-alt-fill me-2"></i> Ajouter une localité
+                                <i class="bi bi-geo-alt-fill me-2"></i> Zones d’intervention
                             </h5>
                         </div>
 
                         <input type="hidden" name="operateur" value="{{ $operateur->id }}">
 
                         <div class="modal-body">
+
+                            <!-- INFO -->
+                            <div class="alert alert-info py-2 small">
+                                Choisissez une région spécifique ou ajoutez toutes les régions en un seul clic.
+                            </div>
+
+                            <input type="hidden" name="all_regions" id="all_regions_input" value="">
+
+                            <!-- OPTION TOUTES LES REGIONS -->
+                            <div class="border rounded-3 p-3 bg-light">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>National</strong><br>
+                                        <small class="text-muted">
+                                            Ajouter toutes les régions comme zones d’intervention
+                                        </small>
+                                    </div>
+
+                                    {{-- <button type="submit" name="all_regions" value="1" class="btn btn-success btn-sm"
+                                        onclick="return confirmAllRegions()">
+                                        <i class="bi bi-globe"></i> Ajouter toutes les régions
+                                    </button> --}}
+                                    <button type="button" class="btn btn-success btn-sm"
+                                        onclick="confirmAllRegions(event)">
+                                        <i class="bi bi-globe"></i> Ajouter toutes les régions
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- CHAMP LOCALITE -->
                             <div class="mb-3">
-                                <label for="name" class="form-label">Zones d'interventions<span class="text-danger">*</span></label>
+                                <label class="form-label fw-semibold">
+                                    Zone d’intervention
+                                </label>
                                 <input type="text" name="name" value="{{ old('name') }}"
                                     class="form-control form-control-sm @error('name') is-invalid @enderror"
-                                    placeholder="Région, département, commune...">
-                                <div class="form-text fst-italic">
-                                    NB : Vous pouvez saisir directement une région.
-                                </div>
+                                    placeholder="Ex: Dakar, Thiès, Saint-Louis...">
+
                                 @error('name')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
 
+                            <!-- SELECT REGION -->
                             <div class="mb-3">
-                                <label for="region" class="form-label">Région<span class="text-danger">*</span></label>
-                                <select name="region" id="select-field-operateur-localite"
-                                    class="form-select form-select-sm @error('region') is-invalid @enderror"
-                                    data-placeholder="Choisir la région">
-                                    <option value="">-- Choisir la région --</option>
+                                <label class="form-label fw-semibold">
+                                    Région
+                                </label>
+                                <select name="region"
+                                    class="form-select form-select-sm @error('region') is-invalid @enderror">
+                                    <option value="">-- Choisir une région --</option>
                                     @foreach ($regions as $region)
                                         <option value="{{ $region->nom }}">{{ $region->nom }}</option>
                                     @endforeach
                                 </select>
+
                                 @error('region')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
+
                         </div>
 
-                        <div class="modal-footer d-flex justify-content-between px-4">
-                            <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill"
-                                data-bs-dismiss="modal">
-                                <i class="bi bi-x-circle me-1"></i> Fermer
+                        <!-- FOOTER -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">
+                                Fermer
                             </button>
-                            <button type="submit" class="btn btn-info btn-sm rounded-pill text-white">
-                                <i class="bi bi-save2 me-1"></i> Ajouter
+
+                            <button type="submit" class="btn btn-info btn-sm text-white">
+                                <i class="bi bi-save2"></i> Ajouter
                             </button>
                         </div>
+
                     </form>
                 </div>
             </div>
@@ -351,5 +314,31 @@
                 }
             }
         });
+    </script>
+
+    <script>
+        function confirmAllRegions(e) {
+            e.preventDefault();
+
+            Swal.fire({
+                title: 'Ajouter toutes les régions ?',
+                text: "Toutes les régions seront ajoutées comme zones d’intervention.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#198754',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Oui, ajouter',
+                cancelButtonText: 'Annuler'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    // activer le champ hidden
+                    document.getElementById('all_regions_input').value = 1;
+
+                    // soumettre le formulaire
+                    e.target.closest('form').submit();
+                }
+            });
+        }
     </script>
 @endpush

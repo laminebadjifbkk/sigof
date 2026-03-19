@@ -1857,9 +1857,8 @@ class OperateurController extends Controller
             ->orderByDesc('id')
             ->first();
 
-        $operateurA = Operateur::where('users_id', $user->id)->orderByDesc('id')->get();
-        /* $operateurs = Operateur::all(); */
-        $operateur_total = $operateurA->count();
+        $operateurs = Operateur::where('users_id', $user->id)->orderByDesc('id')->get();
+        $operateur_total = $operateurs->count();
 
         $departements = Departement::orderBy('nom', 'asc')->get();
 
@@ -1990,8 +1989,7 @@ class OperateurController extends Controller
                 'files',
                 'departements',
                 'operateur',
-                'operateurA',
-                /* 'operateurs', */
+                'operateurs',
                 'statut_demande',
                 'module_count',
                 'reference_count',
