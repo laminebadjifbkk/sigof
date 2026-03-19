@@ -117,32 +117,47 @@
                         @endif
                         <div class="card-body pt-3">
                             <!-- Bordered Tabs -->
-                            <ul class="nav nav-tabs nav-tabs-bordered">
+                            <ul class="nav nav-tabs nav-tabs-bordered align-items-center gap-2">
 
                                 <li class="nav-item">
-                                    <button class="nav-link active" data-bs-toggle="tab"
-                                        data-bs-target="#profile-overview">Profil</button>
-                                </li>
-
-                                <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Modifier
-                                        profil
+                                    <button class="nav-link active d-flex align-items-center gap-1" data-bs-toggle="tab"
+                                        data-bs-target="#profile-overview">
+                                        <i class="bi bi-person"></i>
+                                        <span>Profil</span>
                                     </button>
                                 </li>
 
                                 <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab"
-                                        data-bs-target="#profile-change-password">Mot de passe</button>
+                                    <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab"
+                                        data-bs-target="#profile-edit">
+                                        <i class="bi bi-pencil-square"></i>
+                                        <span>Modifier</span>
+                                    </button>
                                 </li>
 
                                 <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#files">Fichiers</button>
+                                    <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab"
+                                        data-bs-target="#profile-change-password">
+                                        <i class="bi bi-shield-lock"></i>
+                                        <span>Mot de passe</span>
+                                    </button>
+                                </li>
+
+                                <li class="nav-item">
+                                    <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab"
+                                        data-bs-target="#files">
+                                        <i class="bi bi-folder"></i>
+                                        <span>Fichiers</span>
+                                    </button>
                                 </li>
 
                                 @if ($user?->operateurs())
                                     <li class="nav-item">
-                                        <button class="nav-link" data-bs-toggle="tab"
-                                            data-bs-target="#agrements">Agréments</button>
+                                        <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab"
+                                            data-bs-target="#agrements">
+                                            <i class="bi bi-award"></i>
+                                            <span>Agréments</span>
+                                        </button>
                                     </li>
                                 @endif
 
@@ -378,9 +393,10 @@
                                                         <option value="Public">Public</option>
                                                         <option value="Privé">Privé</option>
                                                     </select>
-                                                    @if(!empty($user?->categorie))
-    <small class="text-muted">La catégorie ne peut pas être modifié</small>
-@endif
+                                                    @if (!empty($user?->categorie))
+                                                        <small class="text-muted">La catégorie ne peut pas être
+                                                            modifié</small>
+                                                    @endif
                                                     @error('categorie')
                                                         <span class="invalid-feedback" role="alert">
                                                             <div>{{ $message }}</div>
@@ -474,9 +490,9 @@
                                                     id="Email" value="{{ $user->email ?? old('email') }}"
                                                     autocomplete="email" placeholder="Adresse e-mail"
                                                     {{ !empty($user?->email) ? 'readonly' : '' }}>
-                                                    @if(!empty($user?->email))
-    <small class="text-muted">L’email ne peut pas être modifié</small>
-@endif
+                                                @if (!empty($user?->email))
+                                                    <small class="text-muted">L’email ne peut pas être modifié</small>
+                                                @endif
                                                 @error('email')
                                                     <span class="invalid-feedback" role="alert">
                                                         <div>{{ $message }}</div>

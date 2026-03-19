@@ -1011,7 +1011,7 @@ class OperateurController extends Controller
         return view("operateurs.update", compact("operateur", "departements", "operateurcategories"));
     }
 
-    public function show(Operateur $operateur)
+    /* public function show(Operateur $operateur)
     {
         $operateurs         = Operateur::get();
         $domaines         = Domaine::get();
@@ -1077,6 +1077,96 @@ class OperateurController extends Controller
             ->orderBy('sigle', 'asc')
             ->distinct()
             ->get();
+
+        return view(
+            "operateurs.show",
+            compact(
+                "operateur",
+                "operateureferences",
+                "operateurs",
+                "user_files",
+                'user',
+                'files',
+                'labels',
+                'domaines',
+                'hasAuto',
+                'hasNinea',
+                'hasOrganigramme',
+                'hasQuitus',
+                'hasRC'
+            )
+        );
+    } */
+
+    public function show(Operateur $operateur)
+    {
+        $operateurs          = Operateur::get();
+        $domaines            = Domaine::get();
+        $operateureferences  = Operateureference::get();
+        $user                = $operateur->user;
+
+        $this->authorize('show', $operateur);
+
+        // 🔹 Charger les fichiers avec distinction
+        $files = File::where('users_id', $user?->id)
+            ->whereNotNull('file')
+            ->distinct()
+            ->get();
+
+        // 🔹 Vérification des documents
+        $hasAuto          = $files->contains(fn($file) => $file->sigle === 'Autorisation');
+        $hasNinea         = $files->contains(fn($file) => $file->sigle === 'Ninea');
+        $hasOrganigramme  = $files->contains(fn($file) => $file->sigle === 'Organigramme');
+        $hasQuitus        = $files->contains(fn($file) => $file->sigle === 'Quitus');
+        $hasRC            = $files->contains(fn($file) => $file->sigle === 'Ninea/RC');
+
+        $labels = [
+            'Ninea ou registre de commerce' => 'Registre de commerce',
+        ];
+
+        // 🔹 Fichiers utilisateurs "templates" (sans fichier associé)
+        $user_files = File::whereNull('file')
+            ->whereNull('users_id')
+            ->whereIn(
+                'sigle',
+                [
+                    'Ninea/RC',
+                    'Ninea',
+                    'AC',
+                    'Quitus',
+                    'Arrêté',
+                    'Non-fonctionnaire',
+                    'Organigramme',
+                    'Contrat',
+                    'Titre',
+                    'Justificatif',
+                    'ADEDGI',
+                    'ABE',
+                    'CME',
+                    'CP',
+                    'DENO',
+                    'Bail'
+                ]
+            )
+            ->orderBy('sigle', 'asc')
+            ->distinct()
+            ->get();
+
+        // 🔹 Charger les counts pour les badges dynamiques (relations directes)
+        $operateur->loadCount([
+            'operateurmodules',
+            'operateureferences',
+            'operateurequipements',
+            'operateurformateurs',
+            'formations',
+        ]);
+
+        // 🔹 Charger le count des fichiers de l'utilisateur lié
+        $operateur->load([
+            'user' => function ($query) {
+                $query->withCount('files');
+            }
+        ]);
 
         return view(
             "operateurs.show",
