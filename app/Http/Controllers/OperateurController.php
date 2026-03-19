@@ -1858,8 +1858,8 @@ class OperateurController extends Controller
             ->first();
 
         $operateurA = Operateur::where('users_id', $user->id)->orderByDesc('id')->get();
-        $operateurs = Operateur::all();
-        $operateur_total = $operateurs->count();
+        /* $operateurs = Operateur::all(); */
+        $operateur_total = $operateurA->count();
 
         $departements = Departement::orderBy('nom', 'asc')->get();
 
@@ -1926,6 +1926,23 @@ class OperateurController extends Controller
             ]),
         ); */
 
+
+        $statuts = [
+            'GIE',
+            'SA',
+            'SUARL',
+            'SAS',
+            'SARL',
+            'SNC',
+            'SCS',
+            'Association',
+            'Etablissement public',
+            'Entreprise individuelle',
+            'Autre',
+        ];
+        $selected = old('statut', $user?->statut);
+
+
         if ($operateur_total >= 1 && $operateur) {
 
             // Statuts des relations
@@ -1974,7 +1991,7 @@ class OperateurController extends Controller
                 'departements',
                 'operateur',
                 'operateurA',
-                'operateurs',
+                /* 'operateurs', */
                 'statut_demande',
                 'module_count',
                 'reference_count',
@@ -1994,11 +2011,31 @@ class OperateurController extends Controller
                 'hasOrganigramme',
                 'hasQuitus',
                 'hasRC',
+                'statuts',
                 'sections'
             ));
         } else {
-            // Pas d'opérateur existant
-            return view('operateurs.show-operateur-aucun', compact('departements', 'operateur', 'operateurs', 'user'));
+            $hasRequiredFields =
+                collect([
+                    $user?->operateur,
+                    $user?->ninea,
+                    $user?->fonction_responsable,
+                    $user?->email,
+                ])
+                ->filter()
+                ->count() === 4;
+
+            return view(
+                'operateurs.show-operateur-aucun',
+                compact(
+                    'departements',
+                    'operateur',
+                    'hasRequiredFields',
+                    'statuts',
+                    /*  'operateurs', */
+                    'user'
+                )
+            );
         }
     }
 

@@ -36,20 +36,6 @@
                                         class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                                 <p> | Profil</p>
                             </span>
-                            @php
-                                $user = Auth::user();
-                                $hasRequiredFields =
-                                    collect([
-                                        $user?->operateur,
-                                        $user?->username,
-                                        $user?->ninea,
-                                        $user?->rccm,
-                                        $user?->fonction_responsable,
-                                        $user?->email,
-                                    ])
-                                        ->filter()
-                                        ->count() === 6;
-                            @endphp
 
                             @if ($hasRequiredFields)
                                 @can('agrement-ouvert')
@@ -57,7 +43,7 @@
                                         <button type="button"
                                             class="btn btn-outline-primary btn-sm rounded-pill px-4 shadow-sm d-flex align-items-center"
                                             data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
-                                            <i class="bi bi-plus-circle me-2"></i> Déposer une demande
+                                            <i class="bi bi-plus-circle me-2"></i> Formuler une nouvelle demande
                                         </button>
                                     </div>
                                     {{-- @elsecan('agrement-fermer')
@@ -203,23 +189,7 @@
                                         class="form-select form-select-sm @error('statut') is-invalid @enderror"
                                         aria-label="Sélectionnez un statut juridique" data-placeholder="Choisir">
                                         <option value="">-- Choisir --</option>
-                                        @php
-                                            $statuts = [
-                                                'GIE',
-                                                'SA',
-                                                'SUARL',
-                                                'SAS',
-                                                'SARL',
-                                                'SNC',
-                                                'SCS',
-                                                'Association',
-                                                'Etablissement public',
-                                                'Entreprise individuelle',
-                                                'Autre',
-                                            ];
-                                            $selected = old('statut', $user?->statut);
-                                        @endphp
-
+                                        
                                         @foreach ($statuts as $statut)
                                             <option value="{{ $statut }}"
                                                 {{ $selected === $statut ? 'selected' : '' }}>

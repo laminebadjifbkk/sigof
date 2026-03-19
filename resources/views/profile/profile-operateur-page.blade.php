@@ -166,9 +166,7 @@
                                         <div class="col-12 col-md-8">
                                             @if (
                                                 !empty(Auth::user()?->operateur) &&
-                                                    !empty(Auth::user()?->username) &&
                                                     !empty(Auth::user()?->ninea) &&
-                                                    !empty(Auth::user()?->rccm) &&
                                                     !empty(Auth::user()?->fonction_responsable) &&
                                                     !empty(Auth::user()?->email))
                                                 <span class="badge bg-success text-white">Complètes</span>
@@ -194,20 +192,20 @@
                                     </div> --}}
 
 
-                                    @if (!empty(Auth::user()?->username))
+                                    {{-- @if (!empty(Auth::user()?->username))
                                         <div class="row">
                                             <div class="col-12 col-md-4 label">Sigle
                                             </div>
                                             <div class="col-12 col-md-8">
                                                 {{ Auth::user()?->username }}</div>
                                         </div>
-                                    @endif
+                                    @endif --}}
                                     @if (!empty(Auth::user()?->operateur))
                                         <div class="row">
                                             <div class="col-12 col-md-4 label">
                                                 Opérateur</div>
                                             <div class="col-12 col-md-8">
-                                                {{ Auth::user()?->operateur }}</div>
+                                                {{ Auth::user()?->display_operateur }}</div>
                                         </div>
                                     @endif
 
@@ -255,14 +253,14 @@
 
                                     <h5 class="card-title">Responsable</h5>
 
-                                    @if (!empty(Auth::user()?->cin))
+                                    {{-- @if (!empty(Auth::user()?->cin))
                                         <div class="row">
                                             <div class="col-12 col-md-4 label">CIN
                                             </div>
                                             <div class="col-12 col-md-8">
                                                 {{ Auth::user()?->cin }}</div>
                                         </div>
-                                    @endif
+                                    @endif --}}
 
                                     @if (!empty(Auth::user()?->civilite))
                                         <div class="row">
@@ -425,23 +423,6 @@
                                             </div>
                                         </div>
 
-                                        {{-- Sigle --}}
-                                        <div class="row mb-3">
-                                            <label for="username" class="col-md-4 col-lg-3 col-form-label">Sigle<span
-                                                    class="text-danger mx-1">*</span>
-                                            </label>
-                                            <div class="col-md-8 col-lg-9">
-                                                <div class="pt-2">
-                                                    <input name="username" type="text"
-                                                        class="form-control form-control-sm @error('username') is-invalid @enderror"
-                                                        id="username" value="{{ $user->username ?? old('username') }}"
-                                                        autocomplete="username" placeholder="Sigle">
-                                                </div>
-                                                @error('username')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                        </div>
                                         {{-- Operateur --}}
                                         <div class="row mb-3">
                                             <label for="operateur" class="col-md-4 col-lg-3 col-form-label">Opérateur<span
@@ -456,6 +437,24 @@
                                                         autocomplete="operateur" placeholder="Operateur">
                                                 </div>
                                                 @error('operateur')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+
+                                        {{-- Sigle --}}
+                                        <div class="row mb-3">
+                                            <label for="username" class="col-md-4 col-lg-3 col-form-label">Sigle
+                                            </label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <div class="pt-2">
+                                                    <input name="username" type="text"
+                                                        class="form-control form-control-sm @error('username') is-invalid @enderror"
+                                                        id="username" value="{{ $user->username ?? old('username') }}"
+                                                        autocomplete="username" placeholder="Sigle">
+                                                </div>
+                                                @error('username')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
@@ -495,7 +494,7 @@
                                         </div>
 
                                         {{-- categorie --}}
-                                        <div class="row mb-3">
+                                        {{-- <div class="row mb-3">
                                             <label for="categorie" class="col-md-4 col-lg-3 col-form-label">RCCM /
                                                 Ninea<span class="text-danger mx-1">*</span>
                                             </label>
@@ -527,12 +526,11 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --}}
 
                                         {{-- N° RCCM / Ninea --}}
                                         <div class="row mb-3">
-                                            <label for="ninea" class="col-md-4 col-lg-3 col-form-label">N° RCCM /
-                                                Ninea<span class="text-danger mx-1">*</span></label>
+                                            <label for="ninea" class="col-md-4 col-lg-3 col-form-label">N° Ninea<span class="text-danger mx-1">*</span></label>
                                             <div class="col-md-8 col-lg-9">
                                                 <input type="text" name="ninea"
                                                     value="{{ $user?->ninea ?? old('ninea') }}"
@@ -690,8 +688,8 @@
 
                                         {{-- Telephone portable --}}
                                         <div class="row mb-3">
-                                            <label for="telephone" class="col-md-4 col-lg-3 col-form-label">Téléphone
-                                                portable<span class="text-danger mx-1">*</span></label>
+                                            <label for="telephone" class="col-md-4 col-lg-3 col-form-label">
+                                                Portable<span class="text-danger mx-1">*</span></label>
                                             <div class="col-md-8 col-lg-9">
                                                 <input name="telephone" type="text" maxlength="12"
                                                     class="form-control form-control-sm @error('telephone') is-invalid @enderror"
@@ -807,7 +805,7 @@
                                         <hr>
                                         <h5 class="card-title">Personne responsable</h5>
                                         {{-- CIN --}}
-                                        <div class="row mb-3">
+                                        {{-- <div class="row mb-3">
                                             <label for="cin" class="col-md-4 col-lg-3 col-form-label">CIN
                                             </label>
                                             <div class="col-md-8 col-lg-9">
@@ -815,14 +813,14 @@
                                                     <input name="cin" type="text"
                                                         class="form-control form-control-sm @error('cin') is-invalid @enderror"
                                                         id="cin" value="{{ $user?->cin ?? old('cin') }}"
-                                                        autocomplete="off" placeholder="Ex: 1099200500012"
-                                                        minlength="9" maxlength="14">
+                                                        autocomplete="off" placeholder="Ex: 1099200500012" minlength="9"
+                                                        maxlength="14">
                                                 </div>
                                                 @error('cin')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
-                                        </div>
+                                        </div> --}}
 
                                         {{-- Civilité --}}
                                         <div class="row mb-3">

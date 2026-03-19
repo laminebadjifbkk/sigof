@@ -94,7 +94,7 @@
                                         <thead>
                                             <tr>
                                                 <th class="text-center">N°</th>
-                                                <th class="text-center">N° CIN (NIN)</th>
+                                                <th class="text-center">NIN</th>
                                                 <th>Prénom & NOM</th>
                                                 <th>Date nais.</th>
                                                 <th>Lieu nais.</th>

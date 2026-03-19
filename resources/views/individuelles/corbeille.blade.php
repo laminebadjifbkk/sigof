@@ -72,7 +72,7 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center" width='10%'>Date sup.</th>
-                                            <th width="20%" class="text-center">N° CIN (NIN)</th>
+                                            <th width="20%" class="text-center">NIN</th>
                                             <th width="20%">Prénom & NOM</th>
                                             <th width="15%">Date nais.</th>
                                             <th width="15%">Lieu nais.</th>

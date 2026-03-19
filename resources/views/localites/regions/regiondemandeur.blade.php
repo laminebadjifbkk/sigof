@@ -110,7 +110,7 @@
                                     <thead>
                                         <tr>
                                             {{-- <th class="text-center">N°</th> --}}
-                                            <th width="15%" class="text-center">N° CIN (NIN)</th>
+                                            <th width="15%" class="text-center">NIN</th>
                                             <th width="15%">Prénom & NOM</th>
                                             <th>Date nais.</th>
                                             <th>Lieu nais.</th>
