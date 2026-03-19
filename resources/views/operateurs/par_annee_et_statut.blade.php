@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'Opérateurs' . $statut . ' en ' . $annee)
+@section('title', 'Opérateurs ' . $statut . ' en ' . $annee)
 @section('space-work')
 
     <div class="pagetitle">
