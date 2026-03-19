@@ -129,16 +129,19 @@
                                                                         <hr class="dropdown-divider">
                                                                     </li>
                                                                 @endforeach
-                                                                <li class="dropdown-footer">
-                                                                    <form action="{{ route('validationmessage') }}"
-                                                                        method="post" target="_blank">
-                                                                        @csrf
-                                                                        <input type="hidden" name="id"
-                                                                            value="{{ $individuelle?->id }}">
-                                                                        <button class="btn btn-sm mx-1">Voir
-                                                                            toutes les validations</button>
-                                                                    </form>
-                                                                </li>
+
+                                                                @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
+                                                                    <li class="dropdown-footer">
+                                                                        <form action="{{ route('validationmessage') }}"
+                                                                            method="post" target="_blank">
+                                                                            @csrf
+                                                                            <input type="hidden" name="id"
+                                                                                value="{{ $individuelle?->id }}">
+                                                                            <button class="btn btn-sm mx-1">Voir
+                                                                                toutes les validations</button>
+                                                                        </form>
+                                                                    </li>
+                                                                @endhasanyrole
                                                             </ul>
                                                         </ul>
                                                     </nav>
@@ -703,8 +706,7 @@
                                         <option value="Injoignable"
                                             {{ $selectedStatut === 'Injoignable' ? 'selected' : '' }}>
                                             Injoignable</option>
-                                        <option value="Retenu"
-                                            {{ $selectedStatut === 'Retenu' ? 'selected' : '' }}>
+                                        <option value="Retenu" {{ $selectedStatut === 'Retenu' ? 'selected' : '' }}>
                                             Retenu</option>
                                         {{-- <option value="Non validé"
                                             {{ $selectedStatut === 'Non validé' ? 'selected' : '' }}>Non validé</option> --}}
