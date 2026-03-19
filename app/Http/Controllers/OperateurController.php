@@ -72,7 +72,7 @@ class OperateurController extends Controller
         // Liste principale
         $operateurs = $query
             ->latest()
-            ->limit(200)
+            ->limit(350)
             ->get();
 
         // Départements
@@ -136,7 +136,7 @@ class OperateurController extends Controller
         // ✅ LISTE (avec tri)
         $operateurs = (clone $baseQuery)
             ->orderByDesc('created_at')
-            ->limit(200)
+            ->limit(350)
             ->get();
 
         // ✅ GROUPES (sans created_at !)
@@ -172,7 +172,7 @@ class OperateurController extends Controller
         // Liste principale (limité à 200 par exemple)
         $operateurs = $query
             ->orderByDesc('created_at')
-            ->limit(200)
+            ->limit(350)
             ->get();
 
         // Départements si nécessaire
