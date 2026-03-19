@@ -365,7 +365,7 @@
                                         <input name="telephone" type="text" maxlength="12"
                                             class="form-control form-control-sm @error('telephone') is-invalid @enderror"
                                             id="telephone" value="{{ old('telephone') }}" autocomplete="tel"
-                                            placeholder="XX:XXX:XX:XX">
+                                            placeholder="Téléphone">
                                         @error('telephone')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
@@ -379,7 +379,7 @@
                                         <input name="telephone_secondaire" type="text" maxlength="12"
                                             class="form-control form-control-sm @error('telephone_secondaire') is-invalid @enderror"
                                             id="telephone_secondaire" value="{{ old('telephone_secondaire') }}"
-                                            autocomplete="tel" placeholder="XX:XXX:XX:XX">
+                                            autocomplete="tel" placeholder="Téléphone">
                                         @error('telephone_secondaire')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
@@ -845,7 +845,7 @@
                                                 <input name="telephone" type="text" maxlength="12"
                                                     class="form-control form-control-sm @error('telephone') is-invalid @enderror"
                                                     id="telephone_responsable" value="{{ old('telephone') }}"
-                                                    autocomplete="tel" placeholder="XX:XXX:XX:XX">
+                                                    autocomplete="tel" placeholder="Téléphone">
                                                 @error('telephone')
                                                     <span class="invalid-feedback" role="alert">
                                                         <div>{{ $message }}</div>

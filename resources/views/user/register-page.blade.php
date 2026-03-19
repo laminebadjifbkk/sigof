@@ -356,7 +356,7 @@
             telephoneInput.addEventListener("input", function(e) {
                 var value = e.target.value.replace(/\D/g, ""); // Supprime tout sauf les chiffres
 
-                // Appliquer le format XX:XXX:XX:XX
+                // Appliquer le format Téléphone
                 if (value.length > 2) value = value.slice(0, 2) + " " + value.slice(2);
                 if (value.length > 6) value = value.slice(0, 6) + " " + value.slice(6);
                 if (value.length > 9) value = value.slice(0, 9) + " " + value.slice(9, 11);

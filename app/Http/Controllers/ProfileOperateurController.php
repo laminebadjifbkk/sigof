@@ -84,13 +84,11 @@ class ProfileOperateurController extends Controller
                 'max:14',
                 Rule::unique(User::class)->ignore($request->idUser ?? null)->whereNull('deleted_at'),
             ],
-            /* 'username'             => [
-                'required',
+            'username'             => [
+                'nullable',
                 'string',
-                'min:3',
-                'max:25',
                 Rule::unique('users')->ignore($request->idUser ?? null)->whereNull('deleted_at'),
-            ], */
+            ],
             'operateur'            => [
                 'required',
                 'string',
@@ -103,7 +101,7 @@ class ProfileOperateurController extends Controller
             'firstname'            => ['required', 'string', 'max:150'],
             'name'                 => ['required', 'string', 'max:25'],
             'categorie'            => ['required', 'string'],
-            'rccm'                 => ['required', 'string'],
+            /* 'rccm'                 => ['required', 'string'], */
             'ninea'                => [
                 'required',
                 'string',
@@ -147,7 +145,7 @@ class ProfileOperateurController extends Controller
             'firstname'            => $request->input('firstname'),
             'name'                 => $request->input('name'),
             'categorie'            => $request->input('categorie'),
-            'rccm'                 => $request->input('rccm'),
+            /* 'rccm'                 => $request->input('rccm'), */
             'ninea'                => $request->input('ninea'),
             'email_responsable'    => $request->input('email_responsable'),
             'telephone'            => $request->input('telephone'),
@@ -162,32 +160,6 @@ class ProfileOperateurController extends Controller
             'fixe'                 => $request->input('fixe'),
             'statut'               => $request->input('statut'),
         ]);
-
-        /* if (request('image')) {
-            Storage::disk('public')->delete($user->image);
-            $imagePath       = request('image')->store('avatars', 'public');
-            $file            = $request->file('image');
-            $filenameWithExt = $file->getClientOriginalName();
-            $filename        = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // Remove unwanted characters
-            $filename = preg_replace("/[^A-Za-z0-9 ]/", '', $filename);
-            $filename = preg_replace("/\s+/", '-', $filename);
-            // Get the original image extension
-            $extension = $file->getClientOriginalExtension();
-
-            // Create unique file name
-            $fileNameToStore = 'avatars/' . $filename . '' . time() . '.' . $extension;
-
-            // dd($fileNameToStore);
-
-            $image = Image::make(public_path("/storage/{$imagePath}"))->fit(800, 800);
-
-            $image->save();
-
-            $request->user()->update([
-                'image' => $imagePath,
-            ]);
-        } */
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             if (! empty($user->image)) {

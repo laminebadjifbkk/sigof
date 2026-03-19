@@ -796,7 +796,7 @@
                                                     class="form-control form-control-sm @error('telephone_secondaire') is-invalid @enderror"
                                                     id="telephone_secondaire"
                                                     value="{{ old('telephone_secondaire', $individuelle?->user?->telephone ?? '') }}"
-                                                    autocomplete="tel" placeholder="XX:XXX:XX:XX">
+                                                    autocomplete="tel" placeholder="Téléphone">
                                                 @error('telephone_secondaire')
                                                     <span class="invalid-feedback" role="alert">
                                                         <div>{{ $message }}</div>

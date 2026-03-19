@@ -203,7 +203,7 @@
                                     <input name="telephone" type="text" maxlength="9"
                                         class="form-control form-control-sm @error('telephone') is-invalid @enderror"
                                         id="telephone" value="{{ old('telephone', str_replace(' ', '', Auth::user()?->telephone) ?? '') }}"
-                                        autocomplete="tel" placeholder="XX:XXX:XX:XX">
+                                        autocomplete="tel" placeholder="Téléphone">
                                     @error('telephone')
                                         <span class="invalid-feedback" role="alert">
                                             <div>{{ $message }}</div>
@@ -429,7 +429,7 @@
                                             class="form-control form-control-sm @error('telephone_secondaire') is-invalid @enderror"
                                             id="telephone_secondaire"
                                             value="{{ old('telephone_secondaire') }}"
-                                            autocomplete="tel" placeholder="XX:XXX:XX:XX">
+                                            autocomplete="tel" placeholder="Téléphone">
                                         @error('telephone_secondaire')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>

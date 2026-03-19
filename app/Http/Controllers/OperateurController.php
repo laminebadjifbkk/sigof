@@ -446,7 +446,7 @@ class OperateurController extends Controller
             'bp'                   => ['nullable', 'string'],
             'categorie'            => ['required', 'string'],
             'adresse'              => ['required', 'string', 'max:255'],
-            'rccm'                 => ['nullable', 'string'],
+            /* 'rccm'                 => ['nullable', 'string'], */
             'ninea'                => ["nullable", "string", Rule::unique('users')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],

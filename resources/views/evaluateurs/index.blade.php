@@ -190,7 +190,7 @@
                                             'label' => 'Téléphone',
                                             'type' => 'text',
                                             'id' => 'telephone',
-                                            'placeholder' => 'XX:XXX:XX:XX',
+                                            'placeholder' => 'Téléphone',
                                         ],
                                         'adresse' => [
                                             'label' => 'Adresse',
@@ -326,7 +326,7 @@
                                                 'label' => 'Téléphone',
                                                 'type' => 'text',
                                                 'id' => 'telephone',
-                                                'placeholder' => 'XX:XXX:XX:XX',
+                                                'placeholder' => 'Téléphone',
                                             ],
                                             'adresse' => [
                                                 'label' => 'Adresse',

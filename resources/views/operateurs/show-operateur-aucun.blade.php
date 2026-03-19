@@ -117,8 +117,7 @@
                                 </div>
 
                                 <div class="col-12 col-lg-6 col-md-12">
-                                    <label for="username" class="form-label">Sigle<span
-                                            class="text-danger mx-1">*</span></label>
+                                    <label for="username" class="form-label">Sigle</label>
                                     <input name="username" type="text"
                                         class="form-control form-control-sm @error('username') is-invalid @enderror"
                                         id="username" value="{{ $user?->username ?? old('username') }}"
@@ -143,9 +142,9 @@
                                         <option value="Privé"
                                             {{ old('categorie', $user?->categorie) == 'Privé' ? 'selected' : '' }}>Privé
                                         </option>
-                                        <option value="Autre"
+                                        {{-- <option value="Autre"
                                             {{ old('categorie', $user?->categorie) == 'Autre' ? 'selected' : '' }}>Autre
-                                        </option>
+                                        </option> --}}
                                     </select>
                                     @error('categorie')
                                         <span class="invalid-feedback" role="alert">
@@ -154,7 +153,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-lg-6 col-md-12">
+                                {{-- <div class="col-12 col-lg-6 col-md-12">
                                     <label for="rccm" class="form-label">RCCM/Ninea<span
                                             class="text-danger mx-1">*</span></label>
                                     <select name="rccm"
@@ -181,14 +180,15 @@
                                             <div>{{ $message }}</div>
                                         </span>
                                     @enderror
-                                </div>
+                                </div> --}}
 
                                 <div class="col-12 col-lg-6 col-md-12">
-                                    <label for="ninea" class="form-label">N° RCCM/Ninea<span
+                                    <label for="ninea" class="form-label">N° Ninea<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="ninea" value="{{ $user?->ninea ?? old('ninea') }}"
+                                        min="9" max="13"
                                         class="form-control form-control-sm @error('ninea') is-invalid @enderror"
-                                        id="ninea" placeholder="Votre ninéa / Numéro RCCM">
+                                        id="ninea" placeholder="Ex : 012345678 1R1">
                                     @error('ninea')
                                         <span class="invalid-feedback" role="alert">
                                             <div>{{ $message }}</div>
@@ -206,15 +206,15 @@
                                         @php
                                             $statuts = [
                                                 'GIE',
-                                                'Association',
-                                                'Entreprise individuelle',
                                                 'SA',
                                                 'SUARL',
                                                 'SAS',
                                                 'SARL',
                                                 'SNC',
                                                 'SCS',
+                                                'Association',
                                                 'Etablissement public',
+                                                'Entreprise individuelle',
                                                 'Autre',
                                             ];
                                             $selected = old('statut', $user?->statut);
@@ -255,7 +255,7 @@
                                         <input name="fixe" type="text" maxlength="12"
                                             class="form-control form-control-sm @error('fixe') is-invalid @enderror"
                                             id="fixe" value="{{ old('fixe', $user->fixe ?? '') }}"
-                                            autocomplete="tel" placeholder="XX:XXX:XX:XX">
+                                            autocomplete="tel" placeholder="Téléphone">
                                         @error('fixe')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
@@ -270,7 +270,7 @@
                                     <input name="telephone" type="text" maxlength="12"
                                         class="form-control form-control-sm @error('telephone') is-invalid @enderror"
                                         id="telephone" value="{{ old('telephone', $user->telephone ?? '') }}"
-                                        autocomplete="tel" placeholder="XX:XXX:XX:XX">
+                                        autocomplete="tel" placeholder="Téléphone">
                                     @error('telephone')
                                         <span class="invalid-feedback" role="alert">
                                             <div>{{ $message }}</div>
@@ -431,7 +431,7 @@
                                         class="form-control form-control-sm @error('telephone_parent') is-invalid @enderror"
                                         id="telephone_parent"
                                         value="{{ old('telephone_parent', $user->telephone_parent ?? '') }}"
-                                        autocomplete="tel" placeholder="XX:XXX:XX:XX">
+                                        autocomplete="tel" placeholder="Téléphone">
                                     @error('telephone_parent')
                                         <span class="invalid-feedback" role="alert">
                                             <div>{{ $message }}</div>

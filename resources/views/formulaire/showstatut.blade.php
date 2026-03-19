@@ -274,7 +274,7 @@
                                                     <input name="telephone" type="text" maxlength="12"
                                                         class="form-control form-control-sm @error('telephone') is-invalid @enderror"
                                                         id="telephone_responsable" value="{{ old('telephone') }}"
-                                                        autocomplete="tel" placeholder="XX:XXX:XX:XX">
+                                                        autocomplete="tel" placeholder="Téléphone">
                                                     @error('telephone')
                                                         <span class="invalid-feedback" role="alert">
                                                             <div>{{ $message }}</div>

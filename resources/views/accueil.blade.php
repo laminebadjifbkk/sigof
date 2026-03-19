@@ -736,7 +736,7 @@
                                         <input name="telephone" type="text" maxlength="9"
                                             class="form-control form-control-sm @error('telephone') is-invalid @enderror"
                                             id="phone" value="{{ old('telephone') }}" autocomplete="tel"
-                                            placeholder="XX:XXX:XX:XX">
+                                            placeholder="Téléphone">
                                         <div class="invalid-feedback">
                                             @error('telephone')
                                                 {{ $message }}
@@ -990,7 +990,7 @@
                                             <input name="votre_telephone" type="text" maxlength="9"
                                                 class="form-control form-control-sm @error('votre_telephone') is-invalid @enderror"
                                                 id="votre_telephone" value="{{ old('votre_telephone') }}"
-                                                autocomplete="tel" placeholder="XX:XXX:XX:XX">
+                                                autocomplete="tel" placeholder="Téléphone">
                                             <div class="invalid-feedback">
                                                 @error('votre_telephone')
                                                     {{ $message }}

@@ -252,7 +252,7 @@
                                     class="form-control form-control-sm @error('contact') is-invalid @enderror"
                                     id="contact_secondaire"
                                     value="{{ old('contact') }}" autocomplete="tel"
-                                    placeholder="XX:XXX:XX:XX">
+                                    placeholder="Téléphone">
                                 @error('contact')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -416,7 +416,7 @@
                                         class="form-control form-control-sm @error('contact') is-invalid @enderror"
                                         id="contact_secondaire"
                                         value="{{ old('contact', $operateureference->contact ?? '') }}"
-                                        autocomplete="tel" placeholder="XX:XXX:XX:XX">
+                                        autocomplete="tel" placeholder="Téléphone">
                                     @error('contact')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror

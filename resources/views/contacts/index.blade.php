@@ -151,7 +151,7 @@
                                         <input name="telephone" type="text" maxlength="12"
                                             class="form-control form-control-sm @error('telephone') is-invalid @enderror"
                                             id="telephone" value="{{ old('telephone') }}" autocomplete="tel"
-                                            placeholder="XX:XXX:XX:XX">
+                                            placeholder="Téléphone">
                                         <div class="invalid-feedback">
                                             @error('telephone')
                                                 {{ $message }}
@@ -233,7 +233,7 @@
                                                 class="form-control form-control-sm @error('telephone') is-invalid @enderror"
                                                 id="telephone_responsable"
                                                 value="{{ old('telephone', $contact->telephone ?? '') }}"
-                                                autocomplete="telephone" placeholder="XX:XXX:XX:XX">
+                                                autocomplete="telephone" placeholder="Téléphone">
                                             <div class="invalid-feedback">
                                                 @error('telephone')
                                                     {{ $message }}

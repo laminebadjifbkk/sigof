@@ -186,7 +186,7 @@
                                                 'label' => 'Téléphone',
                                                 'type' => 'text',
                                                 'id' => 'telephone',
-                                                'placeholder' => 'XX:XXX:XX:XX',
+                                                'placeholder' => 'Téléphone',
                                             ],
                                         ];
                                     @endphp
@@ -271,7 +271,7 @@
                                                     'label' => 'Téléphone',
                                                     'type' => 'text',
                                                     'id' => 'telephone',
-                                                    'placeholder' => 'XX:XXX:XX:XX',
+                                                    'placeholder' => 'Téléphone',
                                                 ],
                                             ];
                                         @endphp

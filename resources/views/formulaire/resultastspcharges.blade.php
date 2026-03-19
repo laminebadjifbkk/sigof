@@ -178,7 +178,7 @@
 
                         <input name="telephone" type="text" maxlength="12"
                             class="form-control form-control-sm @error('telephone') is-invalid @enderror" id="phone"
-                            value="{{ old('telephone') }}" autocomplete="tel" placeholder="XX:XXX:XX:XX">
+                            value="{{ old('telephone') }}" autocomplete="tel" placeholder="Téléphone">
                         <div class="invalid-feedback">
                             @error('telephone')
                                 {{ $message }}
@@ -191,7 +191,7 @@
                             value="{{ old('telephone_secondaire') }}"> --}}
                             <input name="telephone_secondaire" type="text" maxlength="12"
                             class="form-control form-control-sm @error('telephone_secondaire') is-invalid @enderror" id="phonesecondaire"
-                            value="{{ old('telephone_secondaire') }}" autocomplete="tel" placeholder="XX:XXX:XX:XX">
+                            value="{{ old('telephone_secondaire') }}" autocomplete="tel" placeholder="Téléphone">
                         <div class="invalid-feedback">
                             @error('telephone_secondaire')
                                 {{ $message }}
@@ -590,7 +590,7 @@
             telephoneInput.addEventListener("input", function(e) {
                 var value = e.target.value.replace(/\D/g, ""); // Supprime tout sauf les chiffres
 
-                // Appliquer le format XX:XXX:XX:XX
+                // Appliquer le format Téléphone
                 if (value.length > 2) value = value.slice(0, 2) + " " + value.slice(2);
                 if (value.length > 6) value = value.slice(0, 6) + " " + value.slice(6);
                 if (value.length > 9) value = value.slice(0, 9) + " " + value.slice(9, 11);
@@ -604,7 +604,7 @@
             telephoneInput.addEventListener("input", function(e) {
                 var value = e.target.value.replace(/\D/g, ""); // Supprime tout sauf les chiffres
 
-                // Appliquer le format XX:XXX:XX:XX
+                // Appliquer le format Téléphone
                 if (value.length > 2) value = value.slice(0, 2) + " " + value.slice(2);
                 if (value.length > 6) value = value.slice(0, 6) + " " + value.slice(6);
                 if (value.length > 9) value = value.slice(0, 9) + " " + value.slice(9, 11);
