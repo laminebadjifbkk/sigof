@@ -129,7 +129,7 @@
                                                                         <hr class="dropdown-divider">
                                                                     </li>
                                                                 @endforeach
-
+                                                                {{-- tempraire --}}
                                                                 @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
                                                                     <li class="dropdown-footer">
                                                                         <form action="{{ route('validationmessage') }}"
