@@ -12,45 +12,14 @@ class GoogleController extends Controller
 {
     public function googlepage()
     {
-        return Socialite::driver('google')->redirect();
+        /* return Socialite::driver('google')->redirect(); */
+        return Socialite::driver('google')
+            ->with([
+                'prompt' => 'select_account consent',
+                'access_type' => 'offline',
+            ])
+            ->redirect();
     }
-
-    /*  public function googlecallback()
-    {
-        try {
-
-            $user = Socialite::driver('google')->user();
-
-            $finduser = User::where('google_id', $user->id)->first();
-
-            if ($finduser) {
-
-                Auth::login($finduser);
-
-                return redirect()->intended('dashboard');
-            } else {
-                $newUser = User::create([
-                    'name' => $user->name,
-                    'email' => $user->email,
-                    'google_id' => $user->id,
-                    'password' => encrypt('P@ssw0rd123')
-                ]);
-
-                Auth::login($newUser);
-
-                // Supposons que $newUser est déjà créé
-                $role = Role::where('name', 'Demandeur')->first();
-
-                if ($role) {
-                    $newUser->assignRole($role);
-                }
-
-                return redirect()->intended('dashboard');
-            }
-        } catch (Exception $e) {
-            dd($e->getMessage());
-        }
-    } */
 
     public function googlecallback()
     {
