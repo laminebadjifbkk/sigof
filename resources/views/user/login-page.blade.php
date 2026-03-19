@@ -89,23 +89,16 @@
                                         <p class="small mb-0">Entrez vos identifiants pour vous connecter</p>
                                     </div>
 
-                                    {{-- <a href="{{ url('auth/google') }}" --}}
-                                    {{-- <a href="{{ url('auth/google') }}"
-                                        class="btn btn-light w-100 d-flex align-items-center justify-content-center border shadow-sm mb-3"
-                                        style="background-color: #fff; color: #444; font-weight: 500;">
-                                        <img src="https://www.gstatic.com/images/branding/product/1x/gsa_64dp.png"
-                                            alt="Google" style="width:20px; height:20px; margin-right:8px;">
-                                        Se connecter avec Google
-                                    </a> --}}
-                                    {{-- <div class="d-flex justify-content-center mt-3">
+
+                                    <div class="d-flex justify-content-center mt-3">
                                         <a href="{{ url('auth/google') }}"
-                                            class="btn btn-light d-flex align-items-center justify-content-center border shadow-sm mb-3"
-                                            style="background-color: #fff; width: 50px; height: 50px; padding: 0;"
-                                            title="Se connecter avec Google">
+                                            class="btn btn-light d-flex align-items-center gap-2 border shadow-sm px-3 py-2"
+                                            style="background-color:#fff;" title="Se connecter avec Google">
                                             <img src="https://www.gstatic.com/images/branding/product/1x/gsa_64dp.png"
-                                                alt="Google" style="width:24px; height:24px;">
+                                                alt="Google" style="width:20px; height:20px;">
+                                            <span>Se connecter avec Google </span>
                                         </a>
-                                    </div> --}}
+                                    </div>
 
                                     <form class="row g-3 needs-validation" novalidate method="POST"
                                         action="{{ route('login') }}">
