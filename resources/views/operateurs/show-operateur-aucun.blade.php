@@ -130,7 +130,7 @@
                                 </div>
 
                                 <div class="col-12 col-lg-6 col-md-12">
-                                    <label for="categorie" class="form-label">Statut<span
+                                    <label for="categorie" class="form-label">Type de structure<span
                                             class="text-danger mx-1">*</span></label>
                                     <select name="categorie"
                                         class="form-select form-select-sm @error('categorie') is-invalid @enderror"
@@ -234,7 +234,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-lg-6 col-md-12">
+                                {{-- <div class="col-12 col-lg-6 col-md-12">
                                     <label for="email" class="form-label">E-mail<span
                                             class="text-danger mx-1">*</span></label>
                                     <input name="email" type="email" readonly
@@ -246,7 +246,7 @@
                                             <div>{{ $message }}</div>
                                         </span>
                                     @enderror
-                                </div>
+                                </div> --}}
 
                                 <div class="col-12 col-lg-6 col-md-12">
                                     <label for="fixe" class="form-label">Telephone fixe<span
@@ -359,7 +359,7 @@
 
                                 <hr class="dropdown-divider mt-4">
                                 <h5 class="text-primary">Informations du responsable</h5>
-                                <div class="col-12 col-lg-6 col-md-12">
+                                {{-- <div class="col-12 col-lg-6 col-md-12">
                                     <label for="cin" class="form-label">CIN</label>
                                     <input name="cin" type="text"
                                         class="form-control form-control-sm @error('cin') is-invalid @enderror"
@@ -370,7 +370,7 @@
                                             <div>{{ $message }}</div>
                                         </span>
                                     @enderror
-                                </div>
+                                </div> --}}
 
                                 <div class="col-12 col-lg-6 col-md-12">
                                     <label for="civilite" class="form-label">Civilité<span

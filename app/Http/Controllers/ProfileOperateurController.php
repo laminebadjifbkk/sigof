@@ -77,13 +77,13 @@ class ProfileOperateurController extends Controller
         $user = User::findOrFail($request->idUser);
 
         $this->validate($request, [
-            'cin'                  => [
+            /* 'cin'                  => [
                 'nullable',
                 'string',
                 'min:13',
                 'max:14',
                 Rule::unique(User::class)->ignore($request->idUser ?? null)->whereNull('deleted_at'),
-            ],
+            ], */
             'username'             => [
                 'nullable',
                 'string',
@@ -108,13 +108,13 @@ class ProfileOperateurController extends Controller
                 'max:20',
                 Rule::unique(User::class)->ignore($request->idUser ?? null)->whereNull('deleted_at'),
             ],
-            'email'                => [
+            /* 'email'                => [
                 'nullable',
                 'string',
                 'email',
                 'max:200',
                 Rule::unique(User::class)->ignore($request->idUser ?? null)->whereNull('deleted_at'),
-            ],
+            ], */
             'email_responsable'    => [
                 'nullable',
                 'string',
@@ -135,10 +135,10 @@ class ProfileOperateurController extends Controller
             'statut'               => ['nullable', 'string', 'max:255'],
         ]);
 
-        $cin = $request->input('cin') ?? null;
+        /* $cin = $request->input('cin') ?? null; */
 
         $user->update([
-            'cin'                  => $cin,
+            /* 'cin'                  => $cin, */
             'username'             => $request->input('username'),
             'operateur'            => $request->input('operateur'),
             'civilite'             => $request->input('civilite'),
