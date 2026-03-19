@@ -145,24 +145,24 @@
             flex-direction: column;
             justify-content: flex-end;
             align-items: center;
-            padding-bottom: 0.2cm;
+            padding-bottom: 0cm;
         }
 
-        /* La ligne est élargie pour coller au format paysage */
         .footer-line {
-            width: 25cm;
-            /* adapté au format paysage (29,7 cm - marges) */
+            width: 18cm;
             height: 2px;
             background-color: #5D4037;
-            margin: 0 auto 2mm auto;
+            margin-bottom: 0mm;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        /* Nettoyage et espacement */
+        /* Supprime tout espace automatique du paragraphe */
         .footer-text {
             margin: 0;
-            padding: 1mm 0 0 0;
-            line-height: 1.4;
-            max-width: 27cm;
+            padding: 0.5mm 0 0 0;
+            /* Légère marge haute pour l’espacement */
+            line-height: 1.5;
         }
     </style>
 </head>
@@ -374,12 +374,13 @@
             </table>
         </div>
     </div>
+
     <footer>
         <div class="page-number" id="footer">
             <div class="footer-line"></div>
             <p class="footer-text">Cité Sipres 1, Lot 2 - 2 voies liberté 6 extension VDN Tel: (+221) 33 827 92 51 -
                 Fax: (+221) 33 827 92
-                55 BP: 21013 Dakar-Ponty Email: <a href="#">onfp@onfp.sn</a></p>
+                55 <br> BP: 21013 Dakar-Ponty Email: <a href="#">onfp@onfp.sn</a></p>
         </div>
     </footer>
 </body>
