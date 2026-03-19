@@ -233,11 +233,12 @@
                                             @can('afficher-operateur-name')
                                                 <th width="40%">Opérateurs</th>
                                             @endcan
-                                            <th>Sigle</th>
+                                            {{-- <th>Sigle</th> --}}
                                             @can('afficher-operateur-email')
                                                 <th>Email</th>
                                             @endcan
                                             @can('afficher-operateur-telephone')
+                                                <th>Fixe</th>
                                                 <th>Telephone</th>
                                             @endcan
                                             <th>Région</th>
@@ -270,9 +271,9 @@
                                                 @endcan
                                                 <td>{{ $operateur?->numero_agrement }}</td>
                                                 @can('afficher-operateur-name')
-                                                    <td>{{ $operateur?->user?->operateur }}</td>
+                                                    <td>{{ $operateur?->user?->display_operateur }}</td>
                                                 @endcan
-                                                <td>{{ $operateur?->user?->username }}</td>
+                                                {{-- <td>{{ $operateur?->user?->username }}</td> --}}
                                                 @can('afficher-operateur-email')
                                                     <td><a
                                                             href="mailto:{{ $operateur?->user?->email }}">{{ $operateur?->user?->email }}</a>
@@ -282,7 +283,8 @@
                                                     <td>
                                                         <a
                                                             href="tel:+221{{ $operateur?->user?->fixe }}">{{ $operateur?->user?->fixe }}</a>
-                                                        <br>
+                                                    </td>
+                                                    <td>
                                                         <a
                                                             href="tel:+221{{ $operateur?->user?->telephone }}">{{ $operateur?->user?->telephone }}</a>
                                                     </td>
