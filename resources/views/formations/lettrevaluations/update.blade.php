@@ -284,7 +284,7 @@
 
                                         <div class="col-12">
                                             <label for="commentaire" class="form-label">Commentaires</label>
-                                            <textarea name="commentaire" id="commentaire" rows="3"
+                                            <textarea name="commentaire" id="commentaire" rows="5"
                                                 class="form-control form-control-sm @error('commentaire') is-invalid @enderror" placeholder="Commentaires">{{ old('commentaire', $lettrevaluation?->contenu) }}</textarea>
                                             @error('commentaire')
                                                 <span class="invalid-feedback" role="alert">
