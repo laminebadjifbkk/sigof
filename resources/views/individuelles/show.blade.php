@@ -459,19 +459,14 @@
                                                     <i class="bi bi-paperclip me-2 text-success"></i> Fichiers joints
                                                 </h5>
 
-                                                @php
-                                                    $fichiersDisponibles = $files->filter(
-                                                        fn($file) => !empty($file->file),
-                                                    );
-                                                @endphp
-
-
-                                                @if ($fichiersDisponibles->isNotEmpty())
-                                                    <a href="{{ route('files.merge', $individuelle->user->id) }}" target="_blank"
-                                                        class="btn btn-sm btn-primary">
-                                                        <i class="bi bi-file-earmark-pdf"></i> Voir tout
-                                                    </a>
-                                                @endif
+                                                @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
+                                                    @if ($fichiersDisponibles->isNotEmpty())
+                                                        <a href="{{ route('files.merge', $individuelle->user->id) }}"
+                                                            target="_blank" class="btn btn-sm btn-primary">
+                                                            <i class="bi bi-file-earmark-pdf"></i> Voir tout
+                                                        </a>
+                                                    @endif
+                                                @endhasanyrole
                                             </div>
                                             <div class="card-body">
                                                 @if ($message = Session::get('status'))
@@ -482,12 +477,6 @@
                                                             data-bs-dismiss="alert"></button>
                                                     </div>
                                                 @endif
-
-                                                @php
-                                                    $fichiersDisponibles = $files->filter(
-                                                        fn($file) => !empty($file->file),
-                                                    );
-                                                @endphp
 
                                                 @if ($fichiersDisponibles->isNotEmpty())
                                                     <div class="list-group">

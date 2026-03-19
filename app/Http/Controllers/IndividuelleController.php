@@ -1191,7 +1191,19 @@ class IndividuelleController extends Controller
             ->unique('sigle') // Évite les doublons sur le champ "sigle"
             ->values();       // Réindexe proprement la collection (0, 1, 2, ...)
 
-        return view("individuelles.show", compact("individuelle", "files", "user_files"));
+        $fichiersDisponibles = $files->filter(
+            fn($file) => !empty($file->file),
+        );
+
+        return view(
+            "individuelles.show",
+            compact(
+                "individuelle",
+                "files",
+                "user_files",
+                "fichiersDisponibles"
+            )
+        );
     }
 
     public function rejeterIndividuelle(Request $request)
