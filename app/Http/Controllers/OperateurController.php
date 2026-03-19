@@ -1898,17 +1898,17 @@ class OperateurController extends Controller
             ->get();
 
         // Vérification des documents
-        $hasAuto = $files->contains(
+        /* $hasAuto = $files->contains(
             fn($file) => $file->sigle === 'Autorisation',
-        );
+        ); */
 
         $hasNinea = $files->contains(
             fn($file) => $file->sigle === 'Ninea',
         );
 
-        $hasOrganigramme = $files->contains(
+        /* $hasOrganigramme = $files->contains(
             fn($file) => $file->sigle === 'Organigramme',
-        );
+        ); */
 
         $hasQuitus = $files->contains(
             fn($file) => $file->sigle === 'Quitus',
@@ -1982,6 +1982,9 @@ class OperateurController extends Controller
                 ['label' => 'Validité quitus', 'icon' => 'bi-file-earmark-text text-dark', 'count' => $diffText, 'badge' => $diffInMonths > 3 ? 'bg-danger' : 'bg-info', 'modal' => "EditOperateurModal{$operateur->id}"]
             ];
 
+
+            $estCertifie = boolval($operateur->file8);
+
             // Retourner la vue principale
             return view('operateurs.show-operateur', compact(
                 'operateur_total',
@@ -2004,12 +2007,13 @@ class OperateurController extends Controller
                 'dateQuitus',
                 'labels',
                 'diffText',
-                'hasAuto',
                 'hasNinea',
-                'hasOrganigramme',
+                /* 'hasAuto',
+                'hasOrganigramme', */
                 'hasQuitus',
                 'hasRC',
                 'statuts',
+                'estCertifie',
                 'sections'
             ));
         } else {

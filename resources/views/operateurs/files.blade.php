@@ -75,7 +75,7 @@
     <div class="row">
         {{-- ================= FORMULAIRE UPLOAD ================= --}}
 
-        <div class="col-12 col-lg-6">
+        <div class="col-12 col-lg-12 col-md-12">
 
             <div class="card border-primary shadow-sm mb-4">
 
@@ -140,9 +140,9 @@
 
 
                         {{-- BOUTON --}}
-                        <div class="col-12">
+                        <div class="col-4">
 
-                            <button type="submit" class="btn btn-primary w-100">
+                            <button type="submit" class="btn btn-success w-100">
 
                                 <i class="bi bi-upload me-1"></i>
                                 Téléverser le fichier
@@ -156,46 +156,6 @@
                 </div>
             </div>
 
-        </div>
-
-        <div class="col-12 col-lg-6">
-            <div class="my-2 p-3 border rounded text-center">
-
-                @if ($hasAuto && $hasNinea && $hasQuitus)
-                    <span class="text-success fw-bold fs-5">
-                        Dossier complet
-                    </span>
-                @else
-                    <span class="text-danger fw-bold fs-5 d-block">
-                        Dossier incomplet !
-                    </span>
-
-                    <div class="text-danger fs-6 mt-2">
-
-                        @if (!$hasAuto)
-                            Veuillez téléverser l'autorisation d'ouverture ministérielle.<br>
-                        @endif
-
-                        @if (!$hasNinea)
-                            Veuillez téléverser le NINEA.<br>
-                        @endif
-
-                        @if (!$hasRC)
-                            Registre de commerce.<br>
-                        @endif
-
-                        {{--  @if (!$hasOrganigramme)
-                            Veuillez téléverser l'organigramme.<br>
-                        @endif --}}
-
-                        @if (!$hasQuitus)
-                            Veuillez téléverser le quitus fiscal.<br>
-                        @endif
-
-                    </div>
-                @endif
-
-            </div>
         </div>
     </div>
 

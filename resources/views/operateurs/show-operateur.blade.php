@@ -178,7 +178,6 @@
                                 </div>
 
                                 {{-- Certification --}}
-                                @php $estCertifie = boolval($operateur->file8); @endphp
                                 <div
                                     class="d-flex justify-content-between align-items-center border-bottom py-1 position-relative">
                                     <div class="d-flex align-items-center">
@@ -202,6 +201,42 @@
                                             </span>
                                         @endif
                                     </div>
+                                </div>
+                            </div>
+
+                            <div class="card-body px-4">
+                                <div class="my-2 p-3 border rounded text-center">
+
+                                    @if ($hasNinea && $hasQuitus)
+                                        <span class="text-success fw-bold fs-5">
+                                            Dossier complet
+                                        </span>
+                                    @else
+                                        <span class="text-danger fw-bold fs-5 d-block">
+                                            Dossier incomplet !
+                                        </span>
+
+                                        <div class="text-danger fs-6 mt-2">
+
+                                           {{--  @if (!$hasAuto)
+                                                Veuillez téléverser l'autorisation d'ouverture ministérielle.<br>
+                                            @endif --}}
+
+                                            @if (!$hasNinea)
+                                                Veuillez téléverser le NINEA.<br>
+                                            @endif
+
+                                            @if (!$hasRC)
+                                                Registre de commerce.<br>
+                                            @endif
+
+                                            @if (!$hasQuitus)
+                                                Veuillez téléverser le quitus fiscal.<br>
+                                            @endif
+
+                                        </div>
+                                    @endif
+
                                 </div>
                             </div>
 
