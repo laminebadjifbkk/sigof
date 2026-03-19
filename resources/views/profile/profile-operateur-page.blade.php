@@ -21,25 +21,25 @@
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
                             {{-- <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> --}}
                             <a href="#" data-bs-toggle="modal"
-                                data-bs-target="#ShowProfilImage{{ Auth::user()?->id }}">
+                                data-bs-target="#ShowProfilImage{{ $user?->id }}">
                                 <img class="rounded-circle w-100" alt="Profil"
-                                    src="{{ asset(Auth::user()?->getImage()) }}" width="100" height="auto">
+                                    src="{{ asset($user?->getImage()) }}" width="100" height="auto">
                             </a>
                             <h2 class="pt-1 d-flex flex-column align-items-center text-center">
-                                {{ Auth::user()?->username }}
+                                {{ $user?->username }}
                                 <br>
-                                @if (Auth::user()?->last_activity && \Carbon\Carbon::parse($user->last_activity)->diffInMinutes(now()) < 5)
+                                @if ($user?->last_activity && \Carbon\Carbon::parse($user->last_activity)->diffInMinutes(now()) < 5)
                                     <span class="text-success">En ligne</span>
                                 @else
                                     <span class="text-danger">Hors ligne</span>
                                     ({{ \Carbon\Carbon::parse($user->last_activity)->diffForHumans() }})
                                 @endif
                             </h2>
-                            {{-- <span><a href="mailto:{{ Auth::user()?->email }}">{{ Auth::user()?->email }}</a></span> --}}
+                            {{-- <span><a href="mailto:{{ $user?->email }}">{{ $user?->email }}</a></span> --}}
                             <div class="social-links mt-2">
                                 @foreach (['twitter' => 'twitter', 'facebook' => 'facebook', 'instagram' => 'instagram', 'linkedin' => 'linkedin'] as $platform => $icon)
-                                    @if (!empty(Auth::user()?->$platform))
-                                        <a href="{{ Auth::user()->$platform }}" class="{{ $platform }}" target="_blank">
+                                    @if (!empty($user?->$platform))
+                                        <a href="{{ $user->$platform }}" class="{{ $platform }}" target="_blank">
                                             <i class="bi bi-{{ $icon }}"></i>
                                         </a>
                                     @endif
@@ -65,7 +65,7 @@
                                                 <i class="bi bi-person-plus-fill"></i>
                                             </div>
                                             <div class="ps-3">
-                                                <h6>{{ Auth::user()?->operateurs()->count() ?? 0 }}</h6>
+                                                <h6>{{ $user?->operateurs()->count() ?? 0 }}</h6>
                                                 @can('agrement-ouvert')
                                                     <span class="text-success small fw-bold">
                                                         <span class="text-uppercase">ouverts</span></span>
@@ -144,7 +144,7 @@
                                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#files">Fichiers</button>
                                 </li>
 
-                                @if (Auth::user()?->operateurs())
+                                @if ($user?->operateurs())
                                     <li class="nav-item">
                                         <button class="nav-link" data-bs-toggle="tab"
                                             data-bs-target="#agrements">Agréments</button>
@@ -156,7 +156,7 @@
                                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
                                     <h5 class="card-title">À propos</h5>
                                     <p class="small fst-italic">
-                                        créé, {{ Auth::user()?->created_at->diffForHumans() }}
+                                        créé, {{ $user?->created_at->diffForHumans() }}
                                     </p>
 
                                     <div class="row">
@@ -164,56 +164,53 @@
                                             Informations personnelles
                                         </div>
                                         <div class="col-12 col-md-8">
-                                            @if (
-                                                !empty(Auth::user()?->operateur) &&
-                                                    !empty(Auth::user()?->ninea) &&
-                                                    !empty(Auth::user()?->fonction_responsable) &&
-                                                    !empty(Auth::user()?->email))
+                                            @if ($isComplete)
                                                 <span class="badge bg-success text-white">Complètes</span>
                                             @else
-                                                <span class="badge bg-warning text-white">Incomplètes</span>, cliquez sur
-                                                modifier profil pour complèter
+                                                <span class="badge bg-warning text-white">
+                                                    Incomplètes, cliquez sur modifier profil pour compléter
+                                                </span>
                                             @endif
                                         </div>
                                     </div>
-                                    @if (!empty(Auth::user()?->operateur))
+                                    @if (!empty($user?->operateur))
                                         <div class="row">
                                             <div class="col-12 col-md-4 label">
                                                 Opérateur</div>
                                             <div class="col-12 col-md-8">
-                                                {{ Auth::user()?->display_operateur }}</div>
+                                                {{ $user?->display_operateur }}</div>
                                         </div>
                                     @endif
 
-                                    @if (!empty(Auth::user()?->email))
+                                    @if (!empty($user?->email))
                                         <div class="row">
                                             <div class="col-12 col-md-4 label">Email
                                             </div>
                                             <div class="col-12 col-md-8"><a
-                                                    href="mailto:{{ Auth::user()?->email }}">{{ Auth::user()?->email }}</a>
+                                                    href="mailto:{{ $user?->email }}">{{ $user?->email }}</a>
                                             </div>
                                         </div>
                                     @endif
 
-                                    @if (!empty(Auth::user()?->telephone))
+                                    @if (!empty($user?->telephone))
                                         <div class="row">
                                             <div class="col-12 col-md-4 label">
                                                 Téléphone</div>
                                             <div class="col-12 col-md-8"><a
-                                                    href="tel:+221{{ Auth::user()?->fixe }}">{{ Auth::user()?->fixe ?? 'Aucun fixe' }}</a>
+                                                    href="tel:+221{{ $user?->fixe }}">{{ $user?->fixe ?? 'Aucun fixe' }}</a>
                                                 <br>
                                                 <a
-                                                    href="tel:+221{{ Auth::user()?->telephone }}">{{ Auth::user()?->telephone ?? 'Aucun fixe' }}</a>
+                                                    href="tel:+221{{ $user?->telephone }}">{{ $user?->telephone ?? 'Aucun fixe' }}</a>
                                             </div>
                                         </div>
                                     @endif
 
-                                    @if (!empty(Auth::user()?->adresse))
+                                    @if (!empty($user?->adresse))
                                         <div class="row">
                                             <div class="col-12 col-md-4 label">
                                                 Adresse</div>
                                             <div class="col-12 col-md-8">
-                                                {{ Auth::user()?->adresse }}</div>
+                                                {{ $user?->adresse }}</div>
                                         </div>
                                     @endif
 
@@ -221,59 +218,59 @@
 
                                     <h5 class="card-title">Responsable</h5>
 
-                                    @if (!empty(Auth::user()?->civilite))
+                                    @if (!empty($user?->civilite))
                                         <div class="row">
                                             <div class="col-12 col-md-4 label">
                                                 Civilité</div>
                                             <div class="col-12 col-md-8">
-                                                {{ Auth::user()?->civilite }}</div>
+                                                {{ $user?->civilite }}</div>
                                         </div>
                                     @endif
 
-                                    @if (!empty(Auth::user()?->firstname))
+                                    @if (!empty($user?->firstname))
                                         <div class="row">
                                             <div class="col-12 col-md-4 label">
                                                 Prénom</div>
                                             <div class="col-12 col-md-8">
-                                                {{ Auth::user()?->firstname }}</div>
+                                                {{ $user?->firstname }}</div>
                                         </div>
                                     @endif
 
-                                    @if (!empty(Auth::user()?->name))
+                                    @if (!empty($user?->name))
                                         <div class="row">
                                             <div class="col-12 col-md-4 label">Nom
                                             </div>
                                             <div class="col-12 col-md-8">
-                                                {{ Auth::user()?->name }}</div>
+                                                {{ $user?->name }}</div>
                                         </div>
                                     @endif
 
-                                    @if (!empty(Auth::user()?->telephone))
+                                    @if (!empty($user?->telephone))
                                         <div class="row">
                                             <div class="col-12 col-md-4 label">
                                                 Téléphone</div>
                                             <div class="col-12 col-md-8"><a
-                                                    href="tel:+221{{ Auth::user()?->telephone }}">{{ Auth::user()?->telephone }}</a>
+                                                    href="tel:+221{{ $user?->telephone }}">{{ $user?->telephone }}</a>
                                             </div>
                                         </div>
                                     @endif
 
-                                    @if (!empty(Auth::user()?->email_responsable))
+                                    @if (!empty($user?->email_responsable))
                                         <div class="row">
                                             <div class="col-12 col-md-4 label">Email
                                             </div>
                                             <div class="col-12 col-md-8"><a
-                                                    href="mailto:{{ Auth::user()?->email_responsable }}">{{ Auth::user()?->email_responsable }}</a>
+                                                    href="mailto:{{ $user?->email_responsable }}">{{ $user?->email_responsable }}</a>
                                             </div>
                                         </div>
                                     @endif
 
-                                    @if (!empty(Auth::user()?->fonction_responsable))
+                                    @if (!empty($user?->fonction_responsable))
                                         <div class="row">
                                             <div class="col-12 col-md-4 label">
                                                 Fonction</div>
                                             <div class="col-12 col-md-8">
-                                                {{ Auth::user()?->fonction_responsable }}
+                                                {{ $user?->fonction_responsable }}
                                             </div>
                                         </div>
                                     @endif
@@ -284,7 +281,7 @@
                             <div class="tab-content pt-2">
                                 {{-- Début Edition --}}
                                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
-                                    <form method="post" action="{{ route('profile.updated', Auth::user()->uuid) }}"
+                                    <form method="post" action="{{ route('profile.updated', $user->uuid) }}"
                                         enctype="multipart/form-data">
                                         @csrf
                                         @method('patch')
@@ -297,13 +294,13 @@
                                             {{-- <div class="col-md-8 col-lg-9"> --}}
                                             <div class="col-12 col-md-8">
                                                 <img class="rounded-circle w-25" alt="Profil"
-                                                    src="{{ asset(Auth::user()->getImage()) }}" width="50"
+                                                    src="{{ asset($user->getImage()) }}" width="50"
                                                     height="auto">
 
                                                 <div class="pt-2 d-flex align-items-center gap-2">
                                                     <div class="form-group mb-0">
                                                         <input type="hidden" name="idUser"
-                                                            value="{{ Auth::user()->id }}">
+                                                            value="{{ $user->id }}">
                                                         <label for="image" class="btn btn-primary btn-sm text-white"
                                                             title="LOGO">
                                                             <i class="bi bi-upload"></i>
@@ -316,7 +313,7 @@
                                                         @enderror
                                                     </div>
                                                     @auth
-                                                        @if (optional(Auth::user())?->image)
+                                                        @if (optional($user)?->image)
                                                             <div class="form-group mb-0">
                                                                 <label for="delete-image"
                                                                     class="btn btn-danger btn-sm text-white show_confirmDeleteImage"
@@ -755,7 +752,7 @@
                                                     <div>
                                                         <button type="submit"
                                                             class="btn btn-outline-primary">{{ __('Cliquez ici pour renvoyer l\'e-mail de vérification.') }}</button>
-                                                       
+
                                                     </div>
                                                 </form>
                                                 </p>
@@ -960,9 +957,9 @@
                                 <div class="tab-pane fade profile-edit" id="agrements">
                                     <h5 class="card-title text-center">AGREMENTS</h5>
                                     <div class="row mb-3">
-                                        @if (Auth::user()?->operateurs?->isNotEmpty())
+                                        @if ($user?->operateurs?->isNotEmpty())
                                             <?php $i = 1; ?>
-                                            @foreach (Auth::user()?->operateurs->sortByDesc('created_at') as $operateur)
+                                            @foreach ($user?->operateurs->sortByDesc('created_at') as $operateur)
                                                 <div class="col-12">
                                                     <h5 class="card-title">Agrément : {{ $i++ }}
                                                         {{-- {{ $operateur?->annee_agrement?->format('Y') }} --}}
@@ -1051,7 +1048,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h2 class="modal-title mx-auto">
-                            {{ Auth::user()?->username ?? '' }}
+                            {{ $user?->username ?? '' }}
                         </h2>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -1059,7 +1056,7 @@
                         <div class="col-12">
                             <img src="{{ asset($user->getImage() ?? 'images/default.png') }}"
                                 class="d-block w-100 main-image rounded-4"
-                                alt="{{ Auth::user()?->legende ?? 'Photo de profil' }}">
+                                alt="{{ $user?->legende ?? 'Photo de profil' }}">
                         </div>
                     </div>
                     <div class="modal-footer">

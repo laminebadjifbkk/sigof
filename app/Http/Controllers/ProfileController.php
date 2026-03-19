@@ -9,7 +9,6 @@ use App\Models\Individuelle;
 use App\Models\Projet;
 use App\Models\User;
 use Carbon\Carbon;
-/* use Illuminate\Support\Carbon; */
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,11 +20,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class ProfileController extends Controller
 {
-
-    /**
-     * Display the user's profile show.
-     */
-    public function profilePage(Request $request): View|RedirectResponse
+    /* public function profilePage(Request $request): View|RedirectResponse
     {
         $user = Auth::user();
 
@@ -87,12 +82,6 @@ class ProfileController extends Controller
             ->distinct()
             ->get();
 
-        /* $user_files = File::where('users_id', $user?->id)
-            ->whereNull('file')
-            ->whereNotIn('sigle', ['AC', 'Arrêté', 'Ninea/RC'])
-            ->distinct()
-            ->get(); */
-
         $user_files = File::whereNull('file')
             ->whereNull('users_id')
             ->whereNotIn('sigle', ['AC', 'Arrêté', 'Ninea/RC', 'Titre', 'Contrat', 'Convention', 'Organigramme', 'Quitus', 'Carte', 'Casier', 'Assurance', 'Lettre', 'Bail'])
@@ -122,16 +111,9 @@ class ProfileController extends Controller
             ->where('individuelles.users_id', $user->id)
             ->where('formations.statut', 'Nouvelle')->count();
 
-        /* $individuelleformation = Auth::user()->individuelles()
-            ->join('formations', 'formations.id', '=', 'individuelles.formations_id')
-            ->where('formations.statut', 'Nouvelle')
-            ->select('individuelles.*')
-            ->get(); */
-
         $collectives = Collective::where('users_id', $user->id)
             ->get();
 
-        /* $count_courriers            = Auth::user()?->employee?->arrives?->count(); */
         $employee = Auth::user()?->employee;
 
         $courriers_auj = 0;
@@ -147,16 +129,12 @@ class ProfileController extends Controller
         $projet = Projet::where("statut", "ouvert")->first();
 
         if ($projet) {
-            /* $date_ouverture = $projet->date_ouverture;
-            $date_fermeture = $projet->date_fermeture; */
             $date_ouverture = Carbon::parse($projet->date_ouverture)->setTime(8, 0, 0);  // 08:00
             $date_fermeture = Carbon::parse($projet->date_fermeture)->setTime(17, 0, 0); // 17:00
         } else {
             $date_ouverture = null;
             $date_fermeture = null;
         }
-
-        /* dd($date_ouverture, $date_fermeture); */
 
         foreach (Auth::user()->roles as $role) {
             if ($role->name == 'Operateur') {
@@ -166,12 +144,6 @@ class ProfileController extends Controller
                     ->whereNotNull('file')
                     ->distinct()
                     ->get();
-
-                /* $user_files = File::where('users_id', $user?->id)
-                    ->whereNull('file')
-                    ->whereNotIn('sigle', ['CIN', 'DAC', 'DP', 'CR', 'AD', 'Bulletins'])
-                    ->distinct()
-                    ->get(); */
 
                 $user_files = File::whereNull('file')
                     ->whereNull('users_id')
@@ -192,6 +164,14 @@ class ProfileController extends Controller
                     $user_cin = null;
                 }
 
+                $user = Auth::user();
+
+                $isComplete =
+                    !empty($user?->operateur) &&
+                    !empty($user?->ninea) &&
+                    !empty($user?->fonction_responsable) &&
+                    !empty($user?->email);
+
                 return view('profile.profile-operateur-page', [
                     'user'                     => $request->user(),
                     'projets'                  => $projets,
@@ -207,6 +187,7 @@ class ProfileController extends Controller
                     'formulaire'           => $formulaire,
                     'showChangeCertificat'           => $showChangeCertificat,
                     'showButton'           => $showButton,
+                    'isComplete'           => $isComplete,
                 ]);
             } else {
                 return view('profile.profile-page', [
@@ -229,6 +210,7 @@ class ProfileController extends Controller
                     'formulaire'             => $formulaire,
                     'showChangeCertificat'           => $showChangeCertificat,
                     'showButton'           => $showButton,
+                    'isComplete'           => $isComplete,
                 ]);
             }
         }
@@ -251,6 +233,172 @@ class ProfileController extends Controller
             'showChangeCertificat'           => $showChangeCertificat,
             'showButton'           => $showButton,
         ]);
+    } */
+
+    public function profilePage(Request $request): View|RedirectResponse
+    {
+        $user = Auth::user();
+
+        if ($user && ($user->hasAnyRole('Google') || $user->roles->isEmpty())) {
+            return redirect()->route('profil.choisir');
+        }
+
+        $email = $user->email;
+
+        // Formulaire
+        $formulaire = Formulaire::where('email', $email)->first();
+
+        $statusMessage = null;
+        $showCard = false;
+        $showChangeCertificat = false;
+
+        if ($formulaire) {
+            if ($formulaire->statut === 'Sélectionné') {
+                $showCard = true;
+                $statusMessage = "Félicitations, votre demande de prise en charge a été retenue !";
+            } else {
+                $statusMessage = "Votre demande de prise en charge n'a pas été retenue.";
+            }
+
+            if ($formulaire->certificat_file && in_array($formulaire->statut_certificat, ['Nouveau', 'Rejeté'])) {
+                $showChangeCertificat = true;
+            }
+        } else {
+            $statusMessage = "Vous n'avez pas de demande de prise en charge à votre nom.";
+        }
+
+        // Dates
+        $start = Carbon::create(2025, 12, 8, 13, 30);
+        $end   = Carbon::create(2025, 12, 17, 17, 0);
+        $showButton = Carbon::now()->between($start, $end);
+
+        // Projets
+        $projets = Projet::where('statut', 'ouvert')
+            ->latest()
+            ->get();
+
+        $count_projets = Individuelle::join('projets', 'projets.id', 'individuelles.projets_id')
+            ->where('individuelles.users_id', $user->id)
+            ->whereNotNull('individuelles.projets_id')
+            ->where(function ($q) {
+                $q->where('projets.statut', 'ouvert')
+                    ->orWhere('projets.statut', 'fermer');
+            })
+            ->distinct()
+            ->get();
+
+        // Fichiers
+        $files = File::where('users_id', $user->id)
+            ->whereNotNull('file')
+            ->distinct()
+            ->get();
+
+        $user_files = File::whereNull('file')
+            ->whereNull('users_id')
+            ->whereNotIn('sigle', ['AC', 'Arrêté', 'Ninea/RC', 'Titre', 'Contrat', 'Convention', 'Organigramme', 'Quitus', 'Carte', 'Casier', 'Assurance', 'Lettre', 'Bail'])
+            ->orderBy('sigle')
+            ->get()
+            ->unique('sigle')
+            ->values();
+
+        $user_cin = File::where('users_id', $user->id)
+            ->whereNotNull('file')
+            ->where('sigle', 'CIN')
+            ->count() ?: null;
+
+        // Individuelles
+        $individuelles = Individuelle::where('users_id', $user->id)
+            ->whereNull('projets_id')
+            ->get();
+
+        $formations = $individuelles->whereNotNull('formations_id')->count();
+
+        $nouvelle_formation_count = $user->individuelles()
+            ->join('formations', 'formations.id', 'individuelles.formations_id')
+            ->where('formations.statut', 'Nouvelle')
+            ->count();
+
+        $collectives = Collective::where('users_id', $user->id)->get();
+
+        // Employee
+        $employee = $user->employee;
+
+        $courriers_auj = $employee
+            ? $employee->arrives()->whereDate('jour_imputation', Carbon::today())->count()
+            : 0;
+
+        $count_ingenieur_formations = $employee?->arrives?->count();
+
+        // Projet actif
+        $projet = Projet::where("statut", "ouvert")->first();
+
+        $date_ouverture = $projet ? Carbon::parse($projet->date_ouverture)->setTime(8, 0) : null;
+        $date_fermeture = $projet ? Carbon::parse($projet->date_fermeture)->setTime(17, 0) : null;
+
+        // Profil complet
+        $isComplete =
+            !empty($user?->operateur) &&
+            !empty($user?->ninea) &&
+            !empty($user?->fonction_responsable) &&
+            !empty($user?->email);
+
+        // 🔥 Gestion rôle (simplifiée)
+        if ($user->hasRole('Operateur')) {
+
+            $user_files = File::whereNull('file')
+                ->whereNull('users_id')
+                ->whereNotIn('sigle', ['CIN', 'DAC', 'DP', 'CR', 'AD', 'Bulletins', 'Titre', 'Contrat', 'Convention', 'Organigramme', 'Quitus', 'Carte', 'Casier', 'Assurance', 'Lettre', 'Bail', 'RIB', 'Domicile', 'Justificatif'])
+                ->orderBy('sigle')
+                ->get()
+                ->unique('sigle')
+                ->values();
+
+            $user_cin = File::where('users_id', $user->id)
+                ->whereNotNull('file')
+                ->where('sigle', 'AC')
+                ->count() ?: null;
+
+            return view('profile.profile-operateur-page', compact(
+                'user',
+                'projets',
+                'count_projets',
+                'nouvelle_formation_count',
+                'files',
+                'user_files',
+                'user_cin',
+                'date_ouverture',
+                'date_fermeture',
+                'showCard',
+                'statusMessage',
+                'formulaire',
+                'showChangeCertificat',
+                'showButton',
+                'isComplete'
+            ));
+        }
+
+        return view('profile.profile-page', compact(
+            'user',
+            'projets',
+            'count_projets',
+            'individuelles',
+            'formations',
+            'nouvelle_formation_count',
+            'collectives',
+            'files',
+            'user_files',
+            'user_cin',
+            'courriers_auj',
+            'count_ingenieur_formations',
+            'date_ouverture',
+            'date_fermeture',
+            'showCard',
+            'statusMessage',
+            'formulaire',
+            'showChangeCertificat',
+            'showButton',
+            'isComplete'
+        ));
     }
 
     /**
