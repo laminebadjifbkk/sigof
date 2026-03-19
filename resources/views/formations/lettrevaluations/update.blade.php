@@ -105,13 +105,14 @@
                                                     </option>
                                                 @endforeach
                                             </select> --}}
-                                            
+
                                             <select name="onfpevaluateur[]" id="onfpevaluateurSelected"
                                                 class="form-select form-select-sm @error('onfpevaluateur') is-invalid @enderror"
                                                 multiple aria-label="Select" data-placeholder="Choisir">
                                                 @foreach ($onfpevaluateurs as $onfpevaluateur)
                                                     <option value="{{ $onfpevaluateur->id }}"
-                                                        @if (collect(old('onfpevaluateur', $lettrevaluation?->formation?->onfpevaluateurs?->pluck('id')->toArray()))->contains($onfpevaluateur->id)) selected @endif>
+                                                        @if (collect(old('onfpevaluateur', $lettrevaluation?->formation?->onfpevaluateurs?->pluck('id')->toArray()))->contains(
+                                                                $onfpevaluateur->id)) selected @endif>
                                                         {{ $onfpevaluateur->name . ' ' . $onfpevaluateur->lastname }}
                                                     </option>
                                                 @endforeach
@@ -166,7 +167,8 @@
                                                 multiple aria-label="Select" data-placeholder="Choisir">
                                                 @foreach ($evaluateurs as $evaluateur)
                                                     <option value="{{ $evaluateur->id }}"
-                                                        @if (collect(old('evaluateur', $lettrevaluation?->formation?->evaluateurs?->pluck('id')->toArray()))->contains($evaluateur->id)) selected @endif>
+                                                        @if (collect(old('evaluateur', $lettrevaluation?->formation?->evaluateurs?->pluck('id')->toArray()))->contains(
+                                                                $evaluateur->id)) selected @endif>
                                                         {{ $evaluateur->name . ' ' . $evaluateur->lastname }}
                                                     </option>
                                                 @endforeach
@@ -281,10 +283,10 @@
                                         </div> --}}
 
                                         <div class="col-12">
-                                            <label for="contenu" class="form-label">Commentaires</label>
-                                            <textarea name="contenu" id="contenu" rows="3"
-                                                class="form-control form-control-sm @error('contenu') is-invalid @enderror" placeholder="Commentaires">{{ old('contenu') }}</textarea>
-                                            @error('contenu')
+                                            <label for="commentaire" class="form-label">Commentaires</label>
+                                            <textarea name="commentaire" id="commentaire" rows="3"
+                                                class="form-control form-control-sm @error('commentaire') is-invalid @enderror" placeholder="Commentaires">{{ old('commentaire', $lettrevaluation?->contenu) }}</textarea>
+                                            @error('commentaire')
                                                 <span class="invalid-feedback" role="alert">
                                                     <div>{{ $message }}</div>
                                                 </span>
