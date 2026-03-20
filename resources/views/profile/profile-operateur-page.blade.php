@@ -999,10 +999,10 @@
                                                             id="table-iles">
                                                             <thead>
                                                                 <tr>
-                                                                    <th width='15%' class="text-center">N° agrément
-                                                                    </th>
-                                                                    <th class="text-center">Responsable</th>
-                                                                    <th class="text-center">Contact</th>
+                                                                    {{-- <th width='15%' class="text-center">N° agrément
+                                                                    </th> --}}
+                                                                    <th>Responsable</th>
+                                                                    {{-- <th class="text-center">Contact</th> --}}
                                                                     <th class="text-center">Modules</th>
                                                                     <th class="text-center">Formations</th>
                                                                     <th width="15%" class="text-center">Statut</th>
@@ -1011,12 +1011,12 @@
                                                             </thead>
                                                             <tbody>
 
-                                                                <td style="text-align: center">
+                                                                {{-- <td style="text-align: center">
                                                                     {{ $operateur?->numero_agrement }}
+                                                                </td> --}}
+                                                                <td>{{ $operateur?->user?->civilite . ' ' . $operateur?->user?->firstname . ' ' . $operateur?->user?->name }}
                                                                 </td>
-                                                                <td>{{ $operateur?->user?->firstname . ' ' . $operateur?->user?->name }}
-                                                                </td>
-                                                                <td>
+                                                                {{-- <td>
                                                                     @if ($operateur?->user?->fixe)
                                                                         <a
                                                                             href="tel:+221{{ $operateur?->user?->fixe }}">{{ $operateur?->user?->fixe }}</a>
@@ -1024,7 +1024,7 @@
                                                                     @endif
                                                                     <a
                                                                         href="tel:+221{{ $operateur?->user?->telephone }}">{{ $operateur?->user?->telephone }}</a>
-                                                                </td>
+                                                                </td> --}}
                                                                 <td style="text-align: center;">
                                                                     {{-- @foreach ($operateur->operateurmodules as $operateurmodule)
                                                                     @if ($loop->last)
