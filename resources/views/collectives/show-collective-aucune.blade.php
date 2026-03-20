@@ -36,7 +36,7 @@
                                         class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                                 <p> | retour</p>
                             </span>
-                            {{--  @if (!empty(Auth::user()->cin))
+                            {{--  @if (!empty($user->cin))
                                 <button type="button"
                                     class="btn btn-primary btn-sm float-end rounded-pill px-4 shadow-sm d-flex align-items-center gap-2"
                                     data-bs-toggle="modal" data-bs-target="#AddCollectiveModal">
@@ -46,7 +46,7 @@
                             @endif --}}
 
                             @php
-                                $user = Auth::user();
+                                $user = $user;
                             @endphp
 
                             {{-- Si l'utilisateur est Demandeur --}}
@@ -71,13 +71,13 @@
                                 </button>
                             @endif
                         </div>
-                        @if (!empty(Auth::user()->civilite))
+                        @if (!empty($user->civilite))
                             <h5 class="card-title">
                                 Bonjour
-                                {{ Auth::user()->civilite . ' ' . Auth::user()->firstname . ' ' . Auth::user()->name }}
+                                {{ $user->civilite . ' ' . $user->firstname . ' ' . $user->name }}
                             </h5>
                         @endif
-                        @if (isset(Auth::user()->cin))
+                        @if ($user->cin)
                             <div class="alert alert-warning">Vous n'avez aucune demande collective pour le moment !
                             </div>
                             <div class="alert alert-info">
@@ -103,18 +103,18 @@
                                     de formation.</p>
                             </div>
 
-                            <form method="post" action="{{ route('profile.update', Auth::user()->uuid) }}"
+                            <form method="post" action="{{ route('profile.update', $user->uuid) }}"
                                 enctype="multipart/form-data" class="row g-3">
                                 @csrf
                                 @method('patch')
-                                <input type="hidden" name="idUser" value="{{ Auth::user()->id }}">
+                                <input type="hidden" name="idUser" value="{{ $user->id }}">
                                 <div class="col-12 col-md-6 col-lg-4 mb-0">
                                     <label for="civilite" class="form-label">Civilité<span
                                             class="text-danger mx-1">*</span></label>
                                     <select name="civilite" class="form-select  @error('civilite') is-invalid @enderror"
                                         aria-label="Select" id="select-field-civilite" data-placeholder="Choisir civilité">
-                                        <option value="{{ Auth::user()?->civilite ?? old('civilite') }}">
-                                            {{ Auth::user()?->civilite ?? old('civilite') }}
+                                        <option value="{{ $user?->civilite ?? old('civilite') }}">
+                                            {{ $user?->civilite ?? old('civilite') }}
                                         </option>
                                         <option value="M.">
                                             Monsieur
@@ -148,7 +148,7 @@
                                     <label for="username" class="form-label">Username<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="username"
-                                        value="{{ Auth::user()?->username ?? old('username') }}"
+                                        value="{{ $user?->username ?? old('username') }}"
                                         class="form-control form-control-sm @error('username') is-invalid @enderror"
                                         id="username" placeholder="username">
                                     @error('username')
@@ -162,7 +162,7 @@
                                     <label for="firstname" class="form-label">Prénom<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="firstname"
-                                        value="{{ Auth::user()?->firstname ?? old('firstname') }}"
+                                        value="{{ $user?->firstname ?? old('firstname') }}"
                                         class="form-control form-control-sm @error('firstname') is-invalid @enderror"
                                         id="firstname" placeholder="prénom">
                                     @error('firstname')
@@ -175,7 +175,7 @@
                                 <div class="col-12 col-md-6 col-lg-4 mb-0">
                                     <label for="name" class="form-label">Nom<span
                                             class="text-danger mx-1">*</span></label>
-                                    <input type="text" name="name" value="{{ Auth::user()?->name ?? old('name') }}"
+                                    <input type="text" name="name" value="{{ $user?->name ?? old('name') }}"
                                         class="form-control form-control-sm @error('name') is-invalid @enderror"
                                         id="name" placeholder="nom">
                                     @error('name')
@@ -188,7 +188,7 @@
                                 <div class="col-12 col-md-6 col-lg-4 mb-0">
                                     <label for="date naissance" class="form-label">Date naissance</label>
                                     <input type="text" name="date_naissance"
-                                        value="{{ old('date_naissance', optional(Auth::user()?->date_naissance)->format('d/m/Y')) }}"
+                                        value="{{ old('date_naissance', optional($user?->date_naissance)->format('d/m/Y')) }}"
                                         class="form-control form-control-sm @error('date_naissance') is-invalid @enderror"
                                         id="datepicker" placeholder="JJ/MM/AAAA" autocomplete="bday">
                                     @error('name')
@@ -202,7 +202,7 @@
                                     <label for="lieu_naissance" class="form-label">Lieu naissance<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="lieu_naissance"
-                                        value="{{ Auth::user()?->lieu_naissance ?? old('lieu_naissance') }}"
+                                        value="{{ $user?->lieu_naissance ?? old('lieu_naissance') }}"
                                         class="form-control form-control-sm @error('lieu_naissance') is-invalid @enderror"
                                         id="lieu_naissance" placeholder="Lieu de naissance">
                                     @error('lieu_naissance')
@@ -218,7 +218,7 @@
                                     <div class="input-group has-validation">
                                         {{-- <span class="input-group-text" id="email">@</span> --}}
                                         <input type="email" name="email"
-                                            value="{{ old('email', Auth::user()?->email ?? '') }}" readonly
+                                            value="{{ old('email', $user?->email ?? '') }}" readonly
                                             class="form-control form-control-sm @error('email') is-invalid @enderror"
                                             id="email" placeholder="email">
                                         @error('email')
@@ -235,7 +235,7 @@
                                     <input name="telephone" type="text" maxlength="9"
                                         class="form-control form-control-sm @error('telephone') is-invalid @enderror"
                                         id="telephone"
-                                        value="{{ old('telephone', str_replace(' ', '', Auth::user()?->telephone) ?? '') }}"
+                                        value="{{ old('telephone', str_replace(' ', '', $user?->telephone) ?? '') }}"
                                         autocomplete="tel" placeholder="Téléphone">
                                     @error('telephone')
                                         <span class="invalid-feedback" role="alert">
@@ -247,8 +247,7 @@
                                 <div class="col-12 col-md-6 col-lg-4 mb-0">
                                     <label for="adresse" class="form-label">Adresse<span
                                             class="text-danger mx-1">*</span></label>
-                                    <input type="text" name="adresse"
-                                        value="{{ Auth::user()?->adresse ?? old('adresse') }}"
+                                    <input type="text" name="adresse" value="{{ $user?->adresse ?? old('adresse') }}"
                                         class="form-control form-control-sm @error('adresse') is-invalid @enderror"
                                         id="adresse" placeholder="adresse">
                                     @error('adresse')
@@ -265,9 +264,8 @@
                                         class="form-select  @error('situation_familiale') is-invalid @enderror"
                                         aria-label="Select" id="select-field-familiale"
                                         data-placeholder="Choisir situation familiale">
-                                        <option
-                                            value="{{ Auth::user()?->situation_familiale ?? old('situation_familiale') }}">
-                                            {{ Auth::user()?->situation_familiale ?? old('situation_familiale') }}
+                                        <option value="{{ $user?->situation_familiale ?? old('situation_familiale') }}">
+                                            {{ $user?->situation_familiale ?? old('situation_familiale') }}
                                         </option>
                                         <option value="Marié(e)">
                                             Marié(e)
@@ -297,8 +295,8 @@
                                         aria-label="Select" id="select-field-professionnelle"
                                         data-placeholder="Choisir situation professionnelle">
                                         <option
-                                            value="{{ Auth::user()?->situation_professionnelle ?? old('situation_professionnelle') }}">
-                                            {{ Auth::user()?->situation_professionnelle ?? old('situation_professionnelle') }}
+                                            value="{{ $user?->situation_professionnelle ?? old('situation_professionnelle') }}">
+                                            {{ $user?->situation_professionnelle ?? old('situation_professionnelle') }}
                                         </option>
                                         <option value="Employé(e)">
                                             Employé(e)
@@ -378,7 +376,7 @@
                                     @enderror
                                 </div>
 
-                                <input type="hidden" name="newPassword" value="{{ Auth::user()?->password }}">
+                                <input type="hidden" name="newPassword" value="{{ $user?->password }}">
 
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-primary btn-sm">Sauvegarder les

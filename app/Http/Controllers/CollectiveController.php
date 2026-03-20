@@ -928,8 +928,16 @@ class CollectiveController extends Controller
             ->values();       // Réindexe proprement la collection (0, 1, 2, ...)
 
         if (empty($user->collective)) {
-            return view("collectives.show-collective-aucune", compact("departements", "modules"));
+            return view(
+                "collectives.show-collective-aucune",
+                compact(
+                    "departements",
+                    "modules",
+                    "user"
+                )
+            );
         } else {
+
 
             // Vérification des documents
             $hasCIN = $files->contains(fn($file) => $file->sigle === 'CIN');

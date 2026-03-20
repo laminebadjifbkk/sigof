@@ -335,15 +335,14 @@ class ProfileController extends Controller
         $date_ouverture = $projet ? Carbon::parse($projet->date_ouverture)->setTime(8, 0) : null;
         $date_fermeture = $projet ? Carbon::parse($projet->date_fermeture)->setTime(17, 0) : null;
 
-        // Profil complet
-        $isComplete =
-            !empty($user?->operateur) &&
-            !empty($user?->ninea) &&
-            !empty($user?->fonction_responsable) &&
-            !empty($user?->email);
-
         // 🔥 Gestion rôle (simplifiée)
         if ($user->hasRole('Operateur')) {
+            // Profil complet
+            $isComplete =
+                !empty($user?->operateur) &&
+                !empty($user?->ninea) &&
+                !empty($user?->fonction_responsable) &&
+                !empty($user?->email);
 
             $user_files = File::whereNull('file')
                 ->whereNull('users_id')
@@ -376,6 +375,12 @@ class ProfileController extends Controller
                 'isComplete'
             ));
         }
+
+
+        // Profil complet
+
+        $isComplete =
+            !empty($user?->cin);
 
         return view('profile.profile-page', compact(
             'user',

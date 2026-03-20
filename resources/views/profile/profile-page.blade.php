@@ -21,19 +21,19 @@
                     <div class="card">
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
                             <a href="#" data-bs-toggle="modal"
-                                data-bs-target="#ShowProfilImage{{ Auth::user()?->id }}">
+                                data-bs-target="#ShowProfilImage{{ $user?->id }}">
                                 <img class="rounded-circle w-100" alt="Profil"
-                                    src="{{ asset(Auth::user()?->getImage()) }}" width="100" height="auto">
+                                    src="{{ asset($user?->getImage()) }}" width="100" height="auto">
                             </a>
 
                             <h2 class="pt-1 d-flex flex-column align-items-center text-center">
-                                @if (!empty(Auth::user()?->name))
-                                    {{ Auth::user()?->civilite . ' ' . Auth::user()?->firstname . ' ' . Auth::user()?->name }}
+                                @if (!empty($user?->name))
+                                    {{ $user?->civilite . ' ' . $user?->firstname . ' ' . $user?->name }}
                                 @else
-                                    {{ Auth::user()?->email }}
+                                    {{ $user?->email }}
                                 @endif
                                 <br>
-                                @if (Auth::user()?->last_activity && \Carbon\Carbon::parse($user->last_activity)->diffInMinutes(now()) < 5)
+                                @if ($user?->last_activity && \Carbon\Carbon::parse($user->last_activity)->diffInMinutes(now()) < 5)
                                     <span class="text-success">En ligne</span>
                                 @else
                                     <span class="text-danger">Hors ligne</span>
@@ -43,8 +43,8 @@
 
                             <div class="social-links mt-2">
                                 @foreach (['twitter' => 'twitter', 'facebook' => 'facebook', 'instagram' => 'instagram', 'linkedin' => 'linkedin'] as $platform => $icon)
-                                    @if (!empty(Auth::user()?->$platform))
-                                        <a href="{{ Auth::user()->$platform }}" class="{{ $platform }}" target="_blank">
+                                    @if (!empty($user?->$platform))
+                                        <a href="{{ $user->$platform }}" class="{{ $platform }}" target="_blank">
                                             <i class="bi bi-{{ $icon }}"></i>
                                         </a>
                                     @endif
@@ -59,40 +59,39 @@
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
                             {{-- Photo de profil avec bordure --}}
-                            <a href="#" data-bs-toggle="modal"
-                                data-bs-target="#ShowProfilImage{{ Auth::user()?->id }}"
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#ShowProfilImage{{ $user?->id }}"
                                 class="profile-image-wrapper
-               {{ Auth::user()?->last_activity && \Carbon\Carbon::parse(Auth::user()?->last_activity)->diffInMinutes(now()) < 5
+               {{ $user?->last_activity && \Carbon\Carbon::parse($user?->last_activity)->diffInMinutes(now()) < 5
                    ? 'online'
                    : 'offline' }}">
 
-                                <img src="{{ asset(Auth::user()?->getImage()) }}" alt="Profil" class="profile-image">
+                                <img src="{{ asset($user?->getImage()) }}" alt="Profil" class="profile-image">
                             </a>
 
                             {{-- Nom utilisateur --}}
                             <h2 class="pt-2 text-center">
-                                @if (!empty(Auth::user()?->name))
-                                    {{ Auth::user()?->civilite . ' ' . Auth::user()?->firstname . ' ' . Auth::user()?->name }}
+                                @if (!empty($user?->name))
+                                    {{ $user?->civilite . ' ' . $user?->firstname . ' ' . $user?->name }}
                                 @else
-                                    {{ Auth::user()?->email }}
+                                    {{ $user?->email }}
                                 @endif
                             </h2>
 
                             {{-- Statut --}}
-                            @if (Auth::user()?->last_activity && \Carbon\Carbon::parse(Auth::user()?->last_activity)->diffInMinutes(now()) < 5)
+                            @if ($user?->last_activity && \Carbon\Carbon::parse($user?->last_activity)->diffInMinutes(now()) < 5)
                                 <span class="text-success fw-bold">En ligne</span>
                             @else
                                 <span class="text-danger fw-bold">
                                     Hors ligne
-                                    ({{ \Carbon\Carbon::parse(Auth::user()?->last_activity)->diffForHumans() }})
+                                    ({{ \Carbon\Carbon::parse($user?->last_activity)->diffForHumans() }})
                                 </span>
                             @endif
 
                             {{-- Réseaux sociaux --}}
                             <div class="social-links mt-3">
                                 @foreach (['twitter', 'facebook', 'instagram', 'linkedin'] as $platform)
-                                    @if (!empty(Auth::user()?->$platform))
-                                        <a href="{{ Auth::user()->$platform }}" target="_blank" class="mx-2">
+                                    @if (!empty($user?->$platform))
+                                        <a href="{{ $user->$platform }}" target="_blank" class="mx-2">
                                             <i class="bi bi-{{ $platform }}"></i>
                                         </a>
                                     @endif
@@ -129,22 +128,22 @@
                 @endhasanyrole
 
                 @hasanyrole('Ingenieur|DIOF')
-                    @if (Auth::user()->ingenieur)
+                    @if ($user->ingenieur)
                         <div class="col-12">
-                            <a href="{{ route('ingenieurs.show', Auth::user()?->ingenieur?->id) }}">
+                            <a href="{{ route('ingenieurs.show', $user?->ingenieur?->id) }}">
                                 <div class="card shadow-lg border-0 rounded-lg">
                                     <div class="card-body d-flex align-items-center justify-content-between">
                                         <div>
                                             <h5 class="card-title text-secondary d-flex align-items-center">
                                                 <i class="bi bi-graduation-cap me-0"></i> Mes Formations
                                                 <span class="fw-bold">&nbsp;|
-                                                    {{ Auth::user()->ingenieur?->initiale ?? '' }}</span>
+                                                    {{ $user->ingenieur?->initiale ?? '' }}</span>
                                             </h5>
                                             {{-- <p class="text-muted">Mes formations</p> --}}
                                         </div>
                                         <div class="card-icon bg-success text-white rounded-circle d-flex align-items-center justify-content-center"
                                             style="width: 30px; height: 30px; font-size: 1.2rem;">
-                                            {{ Auth::user()->ingenieur?->formations?->count() ?? 0 }}
+                                            {{ $user->ingenieur?->formations?->count() ?? 0 }}
                                         </div>
                                     </div>
                                 </div>
@@ -399,7 +398,7 @@
                                         data-bs-target="#profile-change-password">Mot de passe</button>
                                 </li>
 
-                                @if (optional(Auth::user())->individuelles->isNotEmpty() || optional(Auth::user())->collectives->isNotEmpty())
+                                @if (optional($user)->individuelles->isNotEmpty() || optional($user)->collectives->isNotEmpty())
                                     <li class="nav-item">
                                         <button class="nav-link" data-bs-toggle="tab"
                                             data-bs-target="#files">Fichiers</button>
@@ -418,19 +417,34 @@
                                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
                                     <h5 class="card-title">À propos</h5>
                                     <p class="small fst-italic">
-                                        créé, {{ Auth::user()->created_at->diffForHumans() }}
+                                        créé, {{ $user->created_at->diffForHumans() }}
                                     </p>
+
+                                    {{-- <div class="row">
+                                        <div class="col-12 col-md-4 label">
+                                            Informations personnelles
+                                        </div>
+                                        <div class="col-12 col-md-8">
+                                            @if (!empty($user->cin))
+                                                <span class="badge bg-success text-white">Complètes</span>
+                                            @else
+                                                <span class="badge bg-warning text-white">Incomplètes</span>, cliquez sur
+                                                l'onglet modifier profil pour complèter
+                                            @endif
+                                        </div>
+                                    </div> --}}
 
                                     <div class="row">
                                         <div class="col-12 col-md-4 label">
                                             Informations personnelles
                                         </div>
                                         <div class="col-12 col-md-8">
-                                            @if (!empty(Auth::user()->cin))
+                                            @if ($isComplete)
                                                 <span class="badge bg-success text-white">Complètes</span>
                                             @else
-                                                <span class="badge bg-warning text-white">Incomplètes</span>, cliquez sur
-                                                l'onglet modifier profil pour complèter
+                                                <span class="badge bg-warning text-white">
+                                                    Incomplètes, cliquez sur modifier profil pour compléter
+                                                </span>
                                             @endif
                                         </div>
                                     </div>
@@ -448,92 +462,92 @@
                                         </div>
                                     </div> --}}
 
-                                    @if (Auth::user()?->cin)
+                                    @if ($user?->cin)
                                         <div class="row">
                                             <div class="col-12 col-md-4 label">CIN
                                             </div>
                                             <div class="col-12 col-md-8">
-                                                {{ Auth::user()->cin }}</div>
+                                                {{ $user->cin }}</div>
                                         </div>
                                     @endif
 
-                                    {{-- @if (Auth::user()?->username)
+                                    {{-- @if ($user?->username)
                                         <div class="row">
                                             <div class="col-12 col-md-4 label">
                                                 Username
                                             </div>
                                             <div class="col-12 col-md-8">
-                                                {{ Auth::user()->username }}</div>
+                                                {{ $user->username }}</div>
                                         </div>
                                     @endif --}}
 
-                                    @if (Auth::user()?->firstname)
+                                    @if ($user?->firstname)
                                         <div class="row">
                                             <div class="col-12 col-md-4 label">
                                                 Prénom
                                             </div>
                                             <div class="col-12 col-md-8">
-                                                {{ format_proper_name(Auth::user()->firstname) }}</div>
+                                                {{ format_proper_name($user->firstname) }}</div>
                                         </div>
                                     @endif
 
-                                    @if (Auth::user()?->name)
+                                    @if ($user?->name)
                                         <div class="row">
                                             <div class="col-12 col-md-4 label">Nom
                                             </div>
                                             <div class="col-12 col-md-8">
-                                                {{ Auth::user()->name }}</div>
+                                                {{ $user->name }}</div>
                                         </div>
                                     @endif
 
-                                    @if (Auth::user()?->date_naissance)
+                                    @if ($user?->date_naissance)
                                         <div class="row">
                                             <div class="col-12 col-md-4 label">Date
                                                 naissance
                                             </div>
                                             <div class="col-12 col-md-8">
-                                                {{ Auth::user()->date_naissance->translatedFormat('l jS F Y') }}</div>
+                                                {{ $user->date_naissance->translatedFormat('l jS F Y') }}</div>
                                         </div>
                                     @endif
 
-                                    @if (Auth::user()?->lieu_naissance)
+                                    @if ($user?->lieu_naissance)
                                         <div class="row">
                                             <div class="col-12 col-md-4 label">Lieu
                                                 naissance
                                             </div>
                                             <div class="col-12 col-md-8">
-                                                {{ Auth::user()->lieu_naissance }}</div>
+                                                {{ $user->lieu_naissance }}</div>
                                         </div>
                                     @endif
 
-                                    @if (Auth::user()?->email)
+                                    @if ($user?->email)
                                         <div class="row">
                                             <div class="col-12 col-md-4 label">Email
                                             </div>
                                             <div class="col-12 col-md-8"><a
-                                                    href="mailto:{{ Auth::user()->email }}">{{ Auth::user()->email }}</a>
+                                                    href="mailto:{{ $user->email }}">{{ $user->email }}</a>
                                             </div>
                                         </div>
                                     @endif
 
-                                    @if (Auth::user()?->telephone)
+                                    @if ($user?->telephone)
                                         <div class="row">
                                             <div class="col-12 col-md-4 label">
                                                 Téléphone
                                             </div>
                                             <div class="col-12 col-md-8"><a
-                                                    href="tel:+221{{ Auth::user()->telephone }}">{{ Auth::user()->telephone }}</a>
+                                                    href="tel:+221{{ $user->telephone }}">{{ $user->telephone }}</a>
                                             </div>
                                         </div>
                                     @endif
 
-                                    @if (Auth::user()?->adresse)
+                                    @if ($user?->adresse)
                                         <div class="row">
                                             <div class="col-12 col-md-4 label">
                                                 Adresse
                                             </div>
                                             <div class="col-12 col-md-8">
-                                                {{ remove_accents_uppercase(Auth::user()->adresse) }}</div>
+                                                {{ remove_accents_uppercase($user->adresse) }}</div>
                                         </div>
                                     @endif
                                 </div>
@@ -542,7 +556,7 @@
                             <div class="tab-content pt-2">
                                 {{-- Début Edition --}}
                                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
-                                    <form method="post" action="{{ route('profile.update', Auth::user()?->uuid) }}"
+                                    <form method="post" action="{{ route('profile.update', $user?->uuid) }}"
                                         enctype="multipart/form-data">
                                         @csrf
                                         @method('patch')
@@ -556,8 +570,7 @@
                                             {{-- <div class="col-md-8 col-lg-9"> --}}
                                             <div class="col-12 col-md-8">
                                                 <img class="rounded-circle w-25" alt="Profil"
-                                                    src="{{ asset(Auth::user()->getImage()) }}" width="50"
-                                                    height="auto">
+                                                    src="{{ asset($user->getImage()) }}" width="50" height="auto">
 
                                                 <div class="pt-2 d-flex align-items-center gap-2">
                                                     <div class="form-group mb-0">
@@ -573,7 +586,7 @@
                                                         @enderror
                                                     </div>
                                                     @auth
-                                                        @if (optional(Auth::user())?->image)
+                                                        @if (optional($user)?->image)
                                                             <div class="form-group mb-0">
                                                                 <label for="delete-image"
                                                                     class="btn btn-danger btn-sm text-white show_confirmDeleteImage"
@@ -599,8 +612,8 @@
                                                     <input name="cin" type="text"
                                                         class="form-control form-control-sm @error('cin') is-invalid @enderror"
                                                         id="cin" value="{{ $user?->cin ?? old('cin') }}"
-                                                        autocomplete="off" placeholder="Ex: 1099200500012"
-                                                        minlength="9" maxlength="14" required>
+                                                        autocomplete="off" placeholder="Ex: 1099200500012" minlength="9"
+                                                        maxlength="14" required>
                                                 </div>
                                                 @error('cin')
                                                     <span class="text-danger">{{ $message }}</span>
@@ -1310,7 +1323,7 @@
                             </div>
                         @endforeach
                         @php
-                            $count = Auth::user()->individuelles->whereNotNull('projets_id')->count();
+                            $count = $user->individuelles->whereNotNull('projets_id')->count();
                         @endphp
                         @if ($count > 0)
                             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
@@ -1330,8 +1343,8 @@
                                                     class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                                     <i class="bi bi-person-plus-fill"></i>
                                                     @php
-                                                        $count = Auth::user()
-                                                            ->individuelles->whereNotNull('projets_id')
+                                                        $count = $user->individuelles
+                                                            ->whereNotNull('projets_id')
                                                             ->count();
                                                     @endphp
                                                     <span class="ms-2">{{ $count }}</span>
@@ -1363,7 +1376,7 @@
                                             </div>
                                             <div class="ps-3">
                                                 <h6>
-                                                    {{-- @foreach (Auth::user()->individuelles as $individuelle)
+                                                    {{-- @foreach ($user->individuelles as $individuelle)
                                                 @if (isset($individuelle->numero) && isset($individuelle->modules_id))
                                                     @if ($loop->last)
                                                         {!! $loop->count ?? '0' !!}
@@ -1397,7 +1410,7 @@
                                             </div>
                                             <div class="ps-3">
                                                 <h6>
-                                                    {{-- @foreach (Auth::user()->collectives as $collective)
+                                                    {{-- @foreach ($user->collectives as $collective)
                                                 @if (isset($collective->numero))
                                                     @if ($loop->last)
                                                         {!! $loop->count ?? '0' !!}
@@ -1562,13 +1575,13 @@
 
                     <!-- Titre -->
                     <h2 class="fs-3 fw-bold text-dark mb-4 mt-2">
-                        {{ (Auth::user()?->civilite ?? '') . ' ' . (Auth::user()?->firstname ?? '') . ' ' . (Auth::user()?->name ?? '') }}
+                        {{ ($user?->civilite ?? '') . ' ' . ($user?->firstname ?? '') . ' ' . ($user?->name ?? '') }}
                     </h2>
 
                     <!-- Image -->
                     <img src="{{ asset($user->getImage() ?? 'images/default.png') }}"
                         class="img-fluid rounded-4 shadow-sm animated-image mb-4"
-                        alt="{{ Auth::user()?->legende ?? 'Photo de profil' }}"
+                        alt="{{ $user?->legende ?? 'Photo de profil' }}"
                         style="max-height: 400px; object-fit: cover; border: 4px solid rgba(255,255,255,0.6);">
 
                     <!-- Bouton Fermer -->
