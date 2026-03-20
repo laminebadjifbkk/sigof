@@ -484,21 +484,21 @@
                                     @if ($user?->firstname)
                                         <div class="row">
                                             <div class="col-12 col-md-4 label">
-                                                Prénom
+                                                Name
                                             </div>
                                             <div class="col-12 col-md-8">
-                                                {{ format_proper_name($user->firstname) }}</div>
+                                                {{ $user?->firstname . ' ' . $user?->name }}</div>
                                         </div>
                                     @endif
 
-                                    @if ($user?->name)
+                                    {{-- @if ($user?->name)
                                         <div class="row">
                                             <div class="col-12 col-md-4 label">Nom
                                             </div>
                                             <div class="col-12 col-md-8">
                                                 {{ $user->name }}</div>
                                         </div>
-                                    @endif
+                                    @endif --}}
 
                                     @if ($user?->date_naissance)
                                         <div class="row">
