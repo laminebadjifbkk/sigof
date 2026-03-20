@@ -1238,7 +1238,7 @@
                                             id="table-formations">
                                             <thead>
                                                 <tr>
-                                                    <th width="5%">Code</th>
+                                                    <th width="5%">Convention</th>
                                                     <th width="8%">Type</th>
                                                     <th>Intitulé formation</th>
                                                     <th>Localité</th>
@@ -1254,7 +1254,7 @@
                                                 <?php $i = 1; ?>
                                                 @foreach ($operateur?->formations as $formation)
                                                     <tr>
-                                                        <td>{{ $formation?->code }}</td>
+                                                        <td>{{ $formation?->numero_convention }}</td>
                                                         <td>{{ $formation->types_formation?->name }}</td>
                                                         <td>{{ $formation?->intitule }}</td>
                                                         <td>{{ $formation->departement?->region?->nom }}</td>
