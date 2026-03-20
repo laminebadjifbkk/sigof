@@ -82,6 +82,10 @@
                                             </h5>
                                             <div class="col-12 mb-0">
                                                 <div class="label">Intitulé formation</div>
+                                                <div>{{ $formation?->intitule }}</div>
+                                            </div>
+                                            <div class="col-12 mb-0">
+                                                <div class="label">Bénéficiaires</div>
                                                 <div>{{ $formation?->name }}</div>
                                             </div>
                                             <div class="col-12 col-md-3 mb-0">
