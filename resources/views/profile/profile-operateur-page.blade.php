@@ -208,13 +208,23 @@
 
                                     @if (!empty($user?->telephone))
                                         <div class="row">
-                                            <div class="col-12 col-md-4 label">
-                                                Téléphone</div>
-                                            <div class="col-12 col-md-8"><a
-                                                    href="tel:+221{{ $user?->fixe }}">{{ $user?->fixe ?? 'Aucun fixe' }}</a>
-                                                <br>
-                                                <a
-                                                    href="tel:+221{{ $user?->telephone }}">{{ $user?->telephone ?? 'Aucun fixe' }}</a>
+                                            <div class="col-12 col-md-4 label">Téléphone</div>
+                                            <div class="col-12 col-md-8">
+                                                @if ($user?->fixe)
+                                                    <a href="tel:+221{{ $user->fixe }}">{{ $user->fixe }}</a>
+                                                @endif
+
+                                                @if ($user?->fixe && $user?->telephone)
+                                                    &nbsp;|&nbsp;
+                                                @endif
+
+                                                @if ($user?->telephone)
+                                                    <a href="tel:+221{{ $user->telephone }}">{{ $user->telephone }}</a>
+                                                @endif
+
+                                                @if (!$user?->fixe && !$user?->telephone)
+                                                    <span>Aucun numéro disponible</span>
+                                                @endif
                                             </div>
                                         </div>
                                     @endif
@@ -507,12 +517,12 @@
                                         {{-- Telephone fixe --}}
                                         <div class="row mb-3">
                                             <label for="fixe" class="col-md-4 col-lg-3 col-form-label">Téléphone
-                                                fixe<span class="text-danger mx-1">*</span></label>
+                                                fixe</label>
                                             <div class="col-md-8 col-lg-9">
                                                 <input name="fixe" type="text" maxlength="12"
                                                     class="form-control form-control-sm @error('fixe') is-invalid @enderror"
                                                     id="fixe" value="{{ old('fixe', $user->fixe ?? '') }}"
-                                                    autocomplete="tel" placeholder="Téléphone">
+                                                    autocomplete="tel" placeholder="Téléphone fixe">
                                                 @error('fixe')
                                                     <span class="invalid-feedback" role="alert">
                                                         <div>{{ $message }}</div>
@@ -529,7 +539,7 @@
                                                 <input name="telephone" type="text" maxlength="12"
                                                     class="form-control form-control-sm @error('telephone') is-invalid @enderror"
                                                     id="telephone" value="{{ old('telephone', $user->telephone ?? '') }}"
-                                                    autocomplete="tel" placeholder="Téléphone">
+                                                    autocomplete="tel" placeholder="Téléphone portable">
                                                 @error('telephone')
                                                     <span class="invalid-feedback" role="alert">
                                                         <div>{{ $message }}</div>
@@ -712,7 +722,7 @@
                                                     class="form-control form-control-sm @error('telephone_parent') is-invalid @enderror"
                                                     id="telephone_parent"
                                                     value="{{ old('telephone_parent', $user->telephone_parent ?? '') }}"
-                                                    autocomplete="tel" placeholder="Téléphone">
+                                                    autocomplete="tel" placeholder="Téléphone responsable">
                                                 @error('telephone_parent')
                                                     <span class="invalid-feedback" role="alert">
                                                         <div>{{ $message }}</div>
