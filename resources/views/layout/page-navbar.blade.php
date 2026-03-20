@@ -1,6 +1,7 @@
 <nav class="header-nav ms-auto">
     <ul class="d-flex align-items-center">
         @php
+            $user = Auth::user();
             $unreadNotifications = $user->unReadNotifications;
             $notificationCount = $unreadNotifications->count();
         @endphp
@@ -122,12 +123,16 @@
                         $displayName = '';
 
                         if ($user->operateur) {
-                            $displayName = !empty($user->username) ? $user->username : $user->civilite . ' ' . $user->name;
+                            $displayName = !empty($user->username)
+                                ? $user->username
+                                : $user->civilite . ' ' . $user->name;
                         } else {
                             if (!empty($user->name)) {
                                 $displayName = $user->civilite . ' ' . $user->name;
                             } else {
-                                $displayName = !empty($user->username) ? $user->username : $user->civilite . ' ' . $user->name;
+                                $displayName = !empty($user->username)
+                                    ? $user->username
+                                    : $user->civilite . ' ' . $user->name;
                             }
                         }
                     @endphp
