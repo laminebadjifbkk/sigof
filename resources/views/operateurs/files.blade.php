@@ -23,12 +23,12 @@
                         </li>
                         <li><i class="bi bi-check-circle text-success me-2"></i>Quitus fiscal <span
                                 class="text-danger">*</span></li>
-                        <li><i class="bi bi-check-circle text-success me-2"></i>Registre de commerce <span
+                        <li><i class="bi bi-check-circle text-success me-2"></i>Acte ou arrêté de création <span
                                 class="text-danger">*</span></li>
-                        <li><i class="bi bi-check-circle text-success me-2"></i>Attestation de non fonctionnaire ou carte de
-                            retraite <span class="text-danger">*</span></li>
                         <li><i class="bi bi-check-circle text-success me-2"></i>Convention de partenariat ou contrat de
-                            location <span class="text-danger">*</span></li>
+                            location à usage professionel<span class="text-danger">*</span></li>
+                        <li><i class="bi bi-check-circle text-success me-2"></i>Attestation de non appartenance à la
+                            fonction publique (non fonctionnaire) <span class="text-danger">*</span></li>
                         <li><i class="bi bi-check-circle text-success me-2"></i>Acte de déclaration d'existence au niveau de
                             la Direction générale des Imôts <small class="text-muted"></small><span
                                 class="text-danger">*</span> (pour les structures nouvellement
@@ -39,11 +39,13 @@
                         </li>
                         <li><i class="bi bi-check-circle text-muted me-2"></i>Attestation de bonne exécution (ABE) <small
                                 class="text-muted">(si disponible)</small></li>
+                        <li><i class="bi bi-check-circle  text-muted me-2"></i>Registre de commerce <small
+                                class="text-muted">(si disponible)</small></li>
                         <li><i class="bi bi-check-circle text-muted me-2"></i>Contrat de prestation <small
                                 class="text-muted">(si disponible)</small></li>
                         <li><i class="bi bi-check-circle text-muted me-2"></i>Acte ou arrêté de création <small
                                 class="text-muted">(si disponible)</small></li>
-                        <li><i class="bi bi-check-circle text-success me-2"></i>Organigramme <small class="text-muted">(si
+                        <li><i class="bi bi-check-circle  text-muted me-2"></i>Organigramme <small class="text-muted">(si
                                 disponible)</small></li>
                     </ul>
 
@@ -57,11 +59,13 @@
                                 class="text-danger">*</span></li>
                         <li><i class="bi bi-check-circle text-success me-2"></i>Acte ou arrêté de création <span
                                 class="text-danger">*</span></li>
-                        <li><i class="bi bi-check-circle text-success me-2"></i>Décision de nomination <span
-                                class="text-danger">*</span></li>
-                        <li><i class="bi bi-check-circle text-success me-2"></i>Registre de commerce <span
-                                class="text-danger">*</span></li>
-                        <li><i class="bi bi-check-circle text-success me-2"></i>Organigramme <small class="text-muted">(si
+                        <li><i class="bi bi-check-circle  text-muted me-2"></i>Décision de nomination <small
+                                class="text-muted">(si
+                                disponible)</small></li>
+                        <li><i class="bi bi-check-circle  text-muted me-2"></i>Registre de commerce <small
+                                class="text-muted">(si
+                                disponible)</small></li>
+                        <li><i class="bi bi-check-circle  text-muted me-2"></i>Organigramme <small class="text-muted">(si
                                 disponible)</small></li>
                     </ul>
 
@@ -110,7 +114,7 @@
 
                                 @foreach ($user_files as $file)
                                     <option value="{{ $file->id }}">
-                                        {{ $labels[$file->legende] ?? $file->legende }}
+                                        {{ $labels[$file->legende] ?? $file->legende }} ({{ $file->sigle }})
                                     </option>
                                 @endforeach
 

@@ -175,28 +175,33 @@
                                             {{ $statut_demande }}
                                         </span>
                                     </div>
+                                    <div>
+                                        <span
+                                            class="badge {{ $estCertifie ? 'bg-success' : 'bg-danger' }} d-flex align-items-center">
+                                            {!! $estCertifie
+                                                ? '<i class="bi bi-check-circle me-1"></i> Dossier soumis'
+                                                : '<i class="bi bi-x-circle me-1"></i> Dossier pas encore soumis' !!}
+                                        </span>
+                                    </div>
                                 </div>
 
                                 {{-- Certification --}}
                                 <div
-                                    class="d-flex justify-content-between align-items-center border-bottom py-1 position-relative">
-                                    <div class="d-flex align-items-center">
-                                        <i class="bi bi-bookmark-check text-primary me-2"></i> Certifier informations
-                                        <span
-                                            class="badge {{ $estCertifie ? 'bg-success' : 'bg-danger' }} position-absolute top-50 start-50 translate-middle-y"
-                                            style="transform: translateX(-50%);">
-                                            {!! $estCertifie ? '<i class="bi bi-check-circle"></i> Oui' : '<i class="bi bi-x-circle"></i> Non' !!}
-                                        </span>
+                                    class="d-flex flex-wrap justify-content-between align-items-center border-bottom py-2 gap-2">
+                                    <div class="d-flex align-items-center gap-2 flex-grow-1 flex-wrap">
+                                        <i class="bi bi-bookmark-check text-primary"></i>
+                                        <span class="fw-semibold">Certifier pour soumettre</span>
                                     </div>
-                                    <div>
+
+                                    <div class="flex-shrink-0">
                                         @if ($statut_demande === 'complète')
-                                            <button type="button" class="btn btn-sm btn-outline-primary"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#certificationModal{{ $operateur->id }}">
-                                                <i class="bi bi-pencil-square me-1"></i> Je certifie
+                                            <button type="button" class="btn btn-sm btn-outline-primary">
+                                                <i class="bi bi-pencil-square me-1"></i> Cliquez ici pour soumettre votre
+                                                dossier
                                             </button>
                                         @else
-                                            <span class="badge bg-warning text-dark p-2">
+                                            <span
+                                                class="badge bg-warning text-dark d-inline-flex align-items-center px-2 py-1">
                                                 <i class="bi bi-exclamation-triangle-fill me-1"></i> Demande incomplète
                                             </span>
                                         @endif
@@ -204,7 +209,7 @@
                                 </div>
                             </div>
 
-                            <div class="card-body px-4">
+                            {{-- <div class="card-body px-4">
                                 <div class="my-2 p-3 border rounded text-center">
 
                                     @if ($hasNinea && $hasQuitus)
@@ -218,10 +223,6 @@
 
                                         <div class="text-danger fs-6 mt-2">
 
-                                           {{--  @if (!$hasAuto)
-                                                Veuillez téléverser l'autorisation d'ouverture ministérielle.<br>
-                                            @endif --}}
-
                                             @if (!$hasNinea)
                                                 Veuillez téléverser le NINEA.<br>
                                             @endif
@@ -234,6 +235,43 @@
                                                 Veuillez téléverser le quitus fiscal.<br>
                                             @endif
 
+                                        </div>
+                                    @endif
+
+                                </div>
+                            </div> --}}
+
+                            <div class="card-body px-4">
+                                <div class="my-2 p-3 border rounded text-center">
+
+                                    {{-- Dossier complet ou incomplet --}}
+                                    @if (
+                                        ($operateur->user->categorie === 'Public' && $hasNinea && $hasQuitus) ||
+                                            ($operateur->user->categorie !== 'Public' && $hasNinea && $hasQuitus && $hasAC && $hasContrat && $hasNF))
+                                        <span class="text-success fw-bold fs-5">Dossier complet</span>
+                                    @else
+                                        <span class="text-danger fw-bold fs-5 d-block">Dossier incomplet !</span>
+
+                                        <div class="text-danger fs-6 mt-2">
+                                            @if (!$hasNinea)
+                                                Veuillez téléverser le NINEA.<br>
+                                            @endif
+                                            @if (!$hasQuitus)
+                                                Veuillez téléverser le quitus fiscal.<br>
+                                            @endif
+
+                                            {{-- Pour les privés uniquement --}}
+                                            @if ($operateur->user->categorie !== 'Public')
+                                                @if (!$hasAC)
+                                                    Acte de création est requis.<br>
+                                                @endif
+                                                @if (!$hasContrat)
+                                                    Contrat de location requis.<br>
+                                                @endif
+                                                @if (!$hasNF)
+                                                    Attestation de non fonctionnaire requise.<br>
+                                                @endif
+                                            @endif
                                         </div>
                                     @endif
 

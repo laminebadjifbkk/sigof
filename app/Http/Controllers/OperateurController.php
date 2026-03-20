@@ -1990,26 +1990,40 @@ class OperateurController extends Controller
             ->distinct()
             ->get();
 
-        // Vérification des documents
-        /* $hasAuto = $files->contains(
-            fn($file) => $file->sigle === 'Autorisation',
-        ); */
-
+        //Pour les établissements Publics
+        //Pour les établissements Privés
         $hasNinea = $files->contains(
             fn($file) => $file->sigle === 'Ninea',
         );
 
-        /* $hasOrganigramme = $files->contains(
-            fn($file) => $file->sigle === 'Organigramme',
-        ); */
-
+        //Pour les établissements Publics
+        //Pour les établissements Privés
         $hasQuitus = $files->contains(
             fn($file) => $file->sigle === 'Quitus',
         );
 
-        $hasRC = $files->contains(
-            fn($file) => $file->sigle === 'Ninea/RC',
+        //Pour les établissements Publics
+        //Pour les établissements Privés
+        $hasAC = $files->contains(
+            fn($file) => $file->sigle === 'AC',
         );
+
+        //Pour les établissements Privés
+        $hasContrat = $files->contains(
+            fn($file) => $file->sigle === 'Contrat',
+        );
+
+        //Pour les établissements Privés
+        $hasNF = $files->contains(
+            fn($file) => $file->sigle === 'Non-fonctionnaire',
+        );
+
+        //Pour les établissements Privés
+
+        /* $hasRC = $files->contains(
+            fn($file) => $file->sigle === 'Ninea/RC',
+        ); */
+
 
         /* $hasRC = $files->contains(
             fn($file) => in_array($file->sigle, [
@@ -2018,6 +2032,39 @@ class OperateurController extends Controller
             ]),
         ); */
 
+        // Vérification des documents
+        /* $hasAuto = $files->contains(
+            fn($file) => $file->sigle === 'Autorisation',
+        ); */
+
+        /* $hasOrganigramme = $files->contains(
+            fn($file) => $file->sigle === 'Organigramme',
+        ); */
+
+
+        // Catégorie de l'utilisateur
+        $cat = $operateur->user?->categorie;
+
+        // Initialiser les booléens
+        $hasNinea = false;
+        $hasQuitus = false;
+        $hasAC = false;
+        $hasContrat = false;
+        $hasNF = false;
+
+        if ($cat === 'Public') {
+            $hasNinea = $files->contains(fn($file) => $file->sigle === 'Ninea');
+            $hasAC    = $files->contains(fn($file) => $file->sigle === 'AC');
+            $hasQuitus = $files->contains(fn($file) => $file->sigle === 'Quitus');
+            // Publics ne nécessitent pas AC, Contrat, NF
+        } else {
+            // Privés
+            $hasNinea    = $files->contains(fn($file) => $file->sigle === 'Ninea');
+            $hasQuitus   = $files->contains(fn($file) => $file->sigle === 'Quitus');
+            $hasAC       = $files->contains(fn($file) => $file->sigle === 'AC');
+            $hasContrat  = $files->contains(fn($file) => $file->sigle === 'Contrat');
+            $hasNF       = $files->contains(fn($file) => $file->sigle === 'Non-fonctionnaire');
+        }
 
         $statuts = [
             'GIE',
@@ -2101,10 +2148,10 @@ class OperateurController extends Controller
                 'labels',
                 'diffText',
                 'hasNinea',
-                /* 'hasAuto',
-                'hasOrganigramme', */
+                'hasAC',
+                'hasContrat',
                 'hasQuitus',
-                'hasRC',
+                'hasNF',
                 'statuts',
                 'estCertifie',
                 'sections'
