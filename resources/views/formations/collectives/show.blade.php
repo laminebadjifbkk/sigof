@@ -107,6 +107,11 @@
 
                                         <div class="col-12 mb-1">
                                             <div class="label">Intitulé formation</div>
+                                            <div>{{ $formation?->intitule }}</div>
+                                        </div>
+
+                                        <div class="col-12 mb-1">
+                                            <div class="label">Bénéficiaires</div>
                                             <div>{{ $formation?->name }}</div>
                                         </div>
 
