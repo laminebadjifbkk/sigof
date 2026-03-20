@@ -1256,7 +1256,7 @@
                                                     <tr>
                                                         <td>{{ $formation?->code }}</td>
                                                         <td>{{ $formation->types_formation?->name }}</td>
-                                                        <td>{{ $formation?->name }}</td>
+                                                        <td>{{ $formation?->intitule }}</td>
                                                         <td>{{ $formation->departement?->region?->nom }}</td>
                                                         @if (!empty($formation?->collectivemodule?->module))
                                                             <td>{{ $formation->collectivemodule->module }}</td>
