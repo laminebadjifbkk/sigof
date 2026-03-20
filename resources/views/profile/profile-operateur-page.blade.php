@@ -232,32 +232,32 @@
 
                                     <h5 class="card-title">Responsable</h5>
 
-                                    @if (!empty($user?->civilite))
+                                    {{-- @if (!empty($user?->civilite))
                                         <div class="row">
                                             <div class="col-12 col-md-4 label">
                                                 Civilité</div>
                                             <div class="col-12 col-md-8">
                                                 {{ $user?->civilite }}</div>
                                         </div>
-                                    @endif
+                                    @endif --}}
 
                                     @if (!empty($user?->firstname))
                                         <div class="row">
                                             <div class="col-12 col-md-4 label">
-                                                Prénom</div>
+                                                Nom</div>
                                             <div class="col-12 col-md-8">
-                                                {{ $user?->firstname }}</div>
+                                                {{ $user?->civilite . ' ' . $user?->firstname . ' ' . $user?->name }}</div>
                                         </div>
                                     @endif
 
-                                    @if (!empty($user?->name))
+                                    {{-- @if (!empty($user?->name))
                                         <div class="row">
                                             <div class="col-12 col-md-4 label">Nom
                                             </div>
                                             <div class="col-12 col-md-8">
                                                 {{ $user?->name }}</div>
                                         </div>
-                                    @endif
+                                    @endif --}}
 
                                     @if (!empty($user?->telephone))
                                         <div class="row">

@@ -484,10 +484,10 @@
                                     @if ($user?->firstname)
                                         <div class="row">
                                             <div class="col-12 col-md-4 label">
-                                                Name
+                                                Nom
                                             </div>
                                             <div class="col-12 col-md-8">
-                                                {{ $user?->firstname . ' ' . $user?->name }}</div>
+                                                {{ $user?->civilite . ' ' . $user?->firstname . ' ' . $user?->name }}</div>
                                         </div>
                                     @endif
 
