@@ -4,13 +4,17 @@ namespace App\Providers;
 
 use App\Models\ActiviteQuotidienne;
 use App\Models\Antenne;
+use App\Models\Formation;
 use App\Models\ParcMission;
+use App\Models\Projet;
 use Carbon\Carbon;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use App\Models\Direction;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -53,6 +57,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use App\Models\ActiviteQuotidienne;
+use Illuminate\Support\Facades\Auth;
 
 class AppServiceProvider extends ServiceProvider
 {

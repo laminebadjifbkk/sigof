@@ -1,7 +1,6 @@
 <nav class="header-nav ms-auto">
     <ul class="d-flex align-items-center">
         @php
-            $user = auth()->user();
             $unreadNotifications = $user->unReadNotifications;
             $notificationCount = $unreadNotifications->count();
         @endphp
@@ -54,14 +53,14 @@
         <li class="nav-item dropdown pe-3">
 
             <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                <img class="rounded-circle" alt="Profil" src="{{ asset(Auth::user()->getImage()) }}">
+                <img class="rounded-circle" alt="Profil" src="{{ asset($user->getImage()) }}">
                 <span class="d-none d-md-block dropdown-toggle ps-2">
-                    @if (Auth::user()->operateur)
-                        {{ Auth::user()->username }}
-                    @elseif (Auth::user()->name)
-                        {{ Auth::user()->civilite . ' ' . Auth::user()->name }}
+                    @if ($user->operateur)
+                        {{ $user->username }}
+                    @elseif ($user->name)
+                        {{ $user->civilite . ' ' . $user->name }}
                     @else
-                        {{ Auth::user()->username }}
+                        {{ $user->username }}
                     @endif
                 </span>
             </a>
@@ -69,15 +68,15 @@
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                 <li class="dropdown-header">
                     <h6>
-                        @if (Auth::user()->operateur)
-                            {{ Auth::user()->username }}
-                        @elseif (Auth::user()->name)
-                            {{ Auth::user()->civilite . ' ' . Auth::user()->firstname . ' ' . Auth::user()->name }}
+                        @if ($user->operateur)
+                            {{ $user->username }}
+                        @elseif ($user->name)
+                            {{ $user->civilite . ' ' . $user->firstname . ' ' . $user->name }}
                         @else
-                            {{ Auth::user()->username }}
+                            {{ $user->username }}
                         @endif
                     </h6>
-                    <span><a href="mailto:{{ Auth::user()->email }}">{{ Auth::user()->email }}</a></span>
+                    <span><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></span>
                 </li>
                 <li>
                     <hr class="dropdown-divider">
@@ -112,20 +111,27 @@
                 {{-- Photo profil avec statut --}}
                 <span
                     class="nav-profile-image-wrapper
-            {{ Auth::user()?->last_activity && \Carbon\Carbon::parse(Auth::user()?->last_activity)->diffInMinutes(now()) < 5
+            {{ $user?->last_activity && \Carbon\Carbon::parse($user?->last_activity)->diffInMinutes(now()) < 5
                 ? 'online'
                 : 'offline' }}">
 
-                    <img src="{{ asset(Auth::user()->getImage()) }}" alt="Profil" class="nav-profile-image">
+                    <img src="{{ asset($user->getImage()) }}" alt="Profil" class="nav-profile-image">
                 </span>
                 <span class="d-none d-md-block dropdown-toggle ps-2">
-                    @if (Auth::user()->operateur)
-                        {{ Auth::user()->username }}
-                    @elseif (Auth::user()->name)
-                        {{ Auth::user()->civilite . ' ' . Auth::user()->name }}
-                    @else
-                        {{ Auth::user()->username }}
-                    @endif
+                    @php
+                        $displayName = '';
+
+                        if ($user->operateur) {
+                            $displayName = !empty($user->username) ? $user->username : $user->civilite . ' ' . $user->name;
+                        } else {
+                            if (!empty($user->name)) {
+                                $displayName = $user->civilite . ' ' . $user->name;
+                            } else {
+                                $displayName = !empty($user->username) ? $user->username : $user->civilite . ' ' . $user->name;
+                            }
+                        }
+                    @endphp
+                    {{ $displayName }}
                 </span>
             </a>
 
@@ -134,17 +140,17 @@
 
                 <li class="dropdown-header text-center">
                     <h6>
-                        @if (Auth::user()->operateur)
-                            {{ Auth::user()->username }}
-                        @elseif (Auth::user()->name)
-                            {{ Auth::user()->civilite . ' ' . Auth::user()->firstname . ' ' . Auth::user()->name }}
+                        @if ($user->operateur)
+                            {{ $user->username }}
+                        @elseif ($user->name)
+                            {{ $user->civilite . ' ' . $user->firstname . ' ' . $user->name }}
                         @else
-                            {{ Auth::user()->username }}
+                            {{ $user->username }}
                         @endif
                     </h6>
 
                     {{-- Statut --}}
-                    @if (Auth::user()?->last_activity && \Carbon\Carbon::parse(Auth::user()?->last_activity)->diffInMinutes(now()) < 5)
+                    @if ($user?->last_activity && \Carbon\Carbon::parse($user?->last_activity)->diffInMinutes(now()) < 5)
                         <span class="text-success fw-bold">En ligne</span>
                     @else
                         <span class="text-danger fw-bold">Hors ligne</span>
@@ -152,7 +158,7 @@
 
                     <br>
                     <span>
-                        <a href="mailto:{{ Auth::user()->email }}">{{ Auth::user()->email }}</a>
+                        <a href="mailto:{{ $user->email }}">{{ $user->email }}</a>
                     </span>
                 </li>
 
