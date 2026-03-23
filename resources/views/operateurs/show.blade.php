@@ -58,7 +58,7 @@
 
                                     {{-- Exemple d'onglet avec badge en haut à droite --}}
                                     <li class="nav-item position-relative">
-                                        <button class="nav-link active d-flex align-items-center justify-content-center"
+                                        <button class="nav-link d-flex align-items-center justify-content-center"
                                             data-bs-toggle="tab" data-bs-target="#module-overview">
                                             Modules
                                             @if ($operateur->operateurmodules_count > 0)
@@ -867,7 +867,7 @@
                                 {{-- Détail Modules --}}
                                 {{-- class show et active pour l'affichage par défaut --}}
                                 <div class="tab-content pt-2">
-                                    <div class="tab-pane fade profile-overview pt-3" id="module-overview">
+                                    <div class="tab-pane show active fade profile-overview pt-3" id="module-overview">
                                         <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
                                             <h5 class="mb-0 text-uppercase fw-bold text-primary">
                                                 <i class="bi bi-briefcase-fill me-2"></i> Modules de formation
