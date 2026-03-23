@@ -690,14 +690,12 @@
 @push('scripts')
     <script>
         new DataTable('#table-formations', {
+            ordering: false,
             layout: {
                 topStart: {
                     buttons: ['excel', 'pdf', 'print'],
                 }
             },
-            "order": [
-                [0, 'desc']
-            ],
             language: {
                 "sProcessing": "Traitement en cours...",
                 "sSearch": "Rechercher&nbsp;:",
