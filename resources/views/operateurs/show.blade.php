@@ -52,7 +52,7 @@
 
                                         <li class="nav-item">
                                             <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-overview">Détails
-                                                opérateur</button>
+                                            </button>
                                         </li>
                                     @endcan
 
