@@ -2041,31 +2041,6 @@ class OperateurController extends Controller
             fn($file) => $file->sigle === 'Organigramme',
         ); */
 
-
-        // Catégorie de l'utilisateur
-        $cat = $operateur->user?->categorie;
-
-        // Initialiser les booléens
-        $hasNinea = false;
-        $hasQuitus = false;
-        $hasAC = false;
-        $hasContrat = false;
-        $hasNF = false;
-
-        if ($cat === 'Public') {
-            $hasNinea = $files->contains(fn($file) => $file->sigle === 'Ninea');
-            $hasAC    = $files->contains(fn($file) => $file->sigle === 'AC');
-            $hasQuitus = $files->contains(fn($file) => $file->sigle === 'Quitus');
-            // Publics ne nécessitent pas AC, Contrat, NF
-        } else {
-            // Privés
-            $hasNinea    = $files->contains(fn($file) => $file->sigle === 'Ninea');
-            $hasQuitus   = $files->contains(fn($file) => $file->sigle === 'Quitus');
-            $hasAC       = $files->contains(fn($file) => $file->sigle === 'AC');
-            $hasContrat  = $files->contains(fn($file) => $file->sigle === 'Contrat');
-            $hasNF       = $files->contains(fn($file) => $file->sigle === 'Non-fonctionnaire');
-        }
-
         $statuts = [
             'GIE',
             'SA',
@@ -2079,10 +2054,34 @@ class OperateurController extends Controller
             'Entreprise individuelle',
             'Autre',
         ];
+
         $selected = old('statut', $user?->statut);
 
-
         if ($operateur_total >= 1 && $operateur) {
+
+            // Catégorie de l'utilisateur
+            $cat = $operateur->user?->categorie;
+
+            // Initialiser les booléens
+            $hasNinea = false;
+            $hasQuitus = false;
+            $hasAC = false;
+            $hasContrat = false;
+            $hasNF = false;
+
+            if ($cat === 'Public') {
+                $hasNinea = $files->contains(fn($file) => $file->sigle === 'Ninea');
+                $hasAC    = $files->contains(fn($file) => $file->sigle === 'AC');
+                $hasQuitus = $files->contains(fn($file) => $file->sigle === 'Quitus');
+                // Publics ne nécessitent pas AC, Contrat, NF
+            } else {
+                // Privés
+                $hasNinea    = $files->contains(fn($file) => $file->sigle === 'Ninea');
+                $hasQuitus   = $files->contains(fn($file) => $file->sigle === 'Quitus');
+                $hasAC       = $files->contains(fn($file) => $file->sigle === 'AC');
+                $hasContrat  = $files->contains(fn($file) => $file->sigle === 'Contrat');
+                $hasNF       = $files->contains(fn($file) => $file->sigle === 'Non-fonctionnaire');
+            }
 
             // Statuts des relations
             $module_count     = $operateur->operateurmodules->isNotEmpty();
@@ -2174,6 +2173,7 @@ class OperateurController extends Controller
                     'operateur',
                     'hasRequiredFields',
                     'statuts',
+                    'selected',
                     /*  'operateurs', */
                     'user'
                 )
