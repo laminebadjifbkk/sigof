@@ -5081,7 +5081,7 @@
         }
     </style> --}}
 
-    <style>
+    {{-- <style>
         .ck-editor {
             width: 100% !important;
             max-width: 100%;
@@ -5102,7 +5102,7 @@
         body {
             overflow-x: hidden;
         }
-    </style>
+    </style> --}}
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NGJKZ3DD" height="0" width="0"
             style="display:none;visibility:hidden"></iframe>
