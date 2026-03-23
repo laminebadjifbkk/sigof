@@ -130,6 +130,29 @@
             padding-bottom: 30px;
             /* hauteur approximative du footer */
         }
+
+        .table-responsive table {
+            table-layout: fixed;
+            width: 100%;
+        }
+
+        .table-responsive th,
+        .table-responsive td {
+            word-break: break-word;
+            overflow-wrap: break-word;
+            white-space: normal;
+            vertical-align: top;
+        }
+
+        /* 🔥 très important pour les emails longs */
+        .table-responsive a {
+            word-break: break-all;
+        }
+
+        /* 🔥 corrige spécifiquement tes colonnes problématiques */
+        .table-responsive td[colspan] {
+            word-break: break-word;
+        }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
