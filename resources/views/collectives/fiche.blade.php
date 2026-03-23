@@ -147,12 +147,6 @@
             padding: 8px;
             vertical-align: top;
         }
-
-        .section th {
-            width: 25%;
-            /* largeur fixe pour les titres */
-        }
-
         .section a {
             word-break: break-all;
         }
