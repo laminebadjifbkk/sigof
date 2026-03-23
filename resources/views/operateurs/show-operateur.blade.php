@@ -85,7 +85,19 @@
                                                                     <i class="bi bi-arrow-repeat"></i>
                                                                     <span>Demander une extension</span>
                                                                 </button>
-                                                                <small class="text-muted">Agrément toujours valide</small>
+                                                                <small class="text-muted">Votre agrément toujours valide</small>
+                                                            </div>
+                                                        @endif
+                                                        @elseif($estRenouvellement)
+                                                            <div
+                                                                class="alert alert-info d-flex flex-column align-items-start gap-1 p-2 shadow-sm rounded-2 w-100">
+                                                                <button type="button"
+                                                                    class="btn btn-primary btn-sm fw-semibold rounded-pill px-3 d-inline-flex align-items-center justify-content-center gap-1"
+                                                                    data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
+                                                                    <i class="bi bi-arrow-repeat"></i>
+                                                                    <span>Demander un renouvellement</span>
+                                                                </button>
+                                                                <small class="text-muted">Votre agrément toujours valide</small>
                                                             </div>
                                                         @endif
                                                     </div>
