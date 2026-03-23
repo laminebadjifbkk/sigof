@@ -1064,20 +1064,38 @@
                                     </div>
                                 </div>
                             </div>
+
                             {{-- Détail Observations --}}
                             <div class="tab-content">
-                                <div class="tab-pane fade profile-overview pt-0" id="observations-overview">
-                                    <div class="d-flex justify-content-between align-items-center mt-0">
-                                        <h5 class="card-title">Observations</h5>
-                                        <span>Visite conformité : <span
-                                                class="{{ $operateur?->visite_conformite }}">{{ $operateur?->visite_conformite }}</span></span>
-                                        <a href="#" class="btn btn-success btn-sm float-end" data-bs-toggle="modal"
-                                            data-bs-target="#addobservations" title="Ajouter">Conformité</a>
+                                <div class="tab-pane fade profile-overview pt-3" id="observations-overview">
+                                    <div class="card shadow-sm border-0">
+                                        <div
+                                            class="card-header d-flex justify-content-between align-items-center bg-light">
+                                            <h5 class="mb-0">Observations visite de conformité</h5>
+                                            @if (!empty($operateur?->visite_conformite))
+                                                <span class="badge bg-info text-white">
+                                                    {{ $operateur->visite_conformite }}
+                                                </span>
+                                            @endif
+                                            <div class="d-flex align-items-center gap-2">
+                                                <a href="#"
+                                                    class="btn btn-success btn-sm d-flex align-items-center gap-1"
+                                                    data-bs-toggle="modal" data-bs-target="#addobservations"
+                                                    title="Ajouter">
+                                                    <i class="bi bi-plus"></i>
+                                                    Ajouter/Modifier
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            @if (!empty($operateur?->observations))
+                                                <textarea name="observation" id="observation" rows="8" readonly class="form-control form-control-sm"
+                                                    placeholder="Aucune observation pour le moment">{{ $operateur->observations }}</textarea>
+                                            @else
+                                                <div class="text-muted">Aucune observation pour le moment.</div>
+                                            @endif
+                                        </div>
                                     </div>
-                                    @if (!empty($operateur?->observations))
-                                        <textarea name="observation" id="observation" rows="10" @readonly(true)
-                                            class="form-control form-control-sm @error('date_reponse') is-invalid @enderror" placeholder="Observations">{{ $operateur?->observations ?? old('observation') }}</textarea>
-                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -1092,14 +1110,12 @@
 @push('scripts')
     <script>
         new DataTable('#table-operateurModules', {
+            ordering: false,
             layout: {
                 topStart: {
                     buttons: ['csv', 'excel', 'print'],
                 }
             },
-            "order": [
-                [0, 'asc']
-            ],
             language: {
                 "sProcessing": "Traitement en cours...",
                 "sSearch": "Rechercher&nbsp;:",
