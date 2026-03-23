@@ -279,12 +279,12 @@
                                 </div>
 
                                 <div class="col-6">
-                                    <label for="description" class="form-label">Région<span
+                                    <label for="region" class="form-label">Région<span
                                             class="text-danger mx-1">*</span></label>
-                                    <input type="text" name="description" value="{{ old('description') }}"
-                                        class="form-control form-control-sm @error('description') is-invalid @enderror"
-                                        id="description" placeholder="Ex: Dakar">
-                                    @error('description')
+                                    <input type="text" name="region" value="{{ old('region') }}"
+                                        class="form-control form-control-sm @error('region') is-invalid @enderror"
+                                        id="region" placeholder="Ex: Dakar">
+                                    @error('region')
                                         <span class="invalid-feedback" role="alert">
                                             <div>{{ $message }}</div>
                                         </span>

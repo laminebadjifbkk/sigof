@@ -34,7 +34,7 @@ class CommissionagrementController extends Controller
             'date_fermeture' => "required|date|size:10|date_format:Y-m-d",
             'session'        => 'required|string',
             'annee'          => 'required|string',
-            'description'    => 'nullable|string',
+            'region'         => 'nullable|string',
             'lieu'           => 'nullable|string',
 
         ]);
@@ -49,7 +49,7 @@ class CommissionagrementController extends Controller
 
             'commission'     => $request->input('commission'),
             'session'        => $request->input('session'),
-            'description'    => $request->input('description'),
+            'description'    => $request->input('region'),
             'lieu'           => $request->input('lieu'),
             'annee'          => $request->input('annee'),
             'date_ouverture' => $request->input('date_ouverture'),
@@ -79,6 +79,7 @@ class CommissionagrementController extends Controller
             'lieu'             => 'nullable|string',
             'statut'           => 'nullable|string',
             'annee'            => 'required|string',
+            'region'           => 'nullable|string',
 
         ]);
 
@@ -111,7 +112,7 @@ class CommissionagrementController extends Controller
         $commissionagrement->update([
             'commission'       => $request->input('commission'),
             'session'          => $request->input('session'),
-            'description'      => $request->input('description'),
+            'description'      => $request->input('region'),
             'lieu'             => $request->input('lieu'),
             'statut'           => $request->input('statut'),
             'annee'            => $request->input('annee'),

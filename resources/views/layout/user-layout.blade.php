@@ -5025,7 +5025,7 @@
         });
     </script>
 
-    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+    {{-- <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
 
     <script>
         ClassicEditor
@@ -5070,7 +5070,7 @@
             .catch(error => {
                 console.error(error);
             });
-    </script>
+    </script> --}}
     {{-- <style>
         #projetprofessionnel+.ck-editor .ck-editor__editable {
             min-height: 200px;
