@@ -177,8 +177,8 @@
                     <tr>
                         <th>Adresse de la structure</th>
                         <td colspan="4">{{ $collective?->adresse }}</td>
-                        <td colspan="3">{{ $collective?->departement?->nom }}</td>
-                        <td colspan="3">{{ $collective?->departement?->region?->nom }}</td>
+                        <td colspan="4">{{ $collective?->departement?->nom }}</td>
+                        <td colspan="2">{{ $collective?->departement?->region?->nom }}</td>
                     </tr>
                     <tr>
                         <th>Contact</th>
