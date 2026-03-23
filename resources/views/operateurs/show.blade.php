@@ -58,7 +58,7 @@
 
                                     {{-- Exemple d'onglet avec badge en haut à droite --}}
                                     <li class="nav-item position-relative">
-                                        <button class="nav-link d-flex align-items-center justify-content-center"
+                                        <button class="nav-link active d-flex align-items-center justify-content-center"
                                             data-bs-toggle="tab" data-bs-target="#module-overview">
                                             Modules
                                             @if ($operateur->operateurmodules_count > 0)
