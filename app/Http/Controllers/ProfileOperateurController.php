@@ -123,6 +123,7 @@ class ProfileOperateurController extends Controller
                 'max:255',
                 Rule::unique(User::class)->ignore($request->idUser ?? null)->whereNull('deleted_at'),
             ],
+            'fixe'                 => ['required', 'string', 'size:9'],
             'telephone'            => ['required', 'string', 'size:9'],
             'telephone_parent'     => ['required', 'string', 'size:9'],
             'adresse'              => ['required', 'string', 'max:255'],
@@ -132,7 +133,6 @@ class ProfileOperateurController extends Controller
             'instagram'            => ['nullable', 'string', 'max:255'],
             'linkedin'             => ['nullable', 'string', 'max:255'],
             'web'                  => ['nullable', 'string', 'max:255'],
-            'fixe'                 => ['nullable', 'string', 'max:255'],
             'statut'               => ['nullable', 'string', 'max:255'],
         ]);
 

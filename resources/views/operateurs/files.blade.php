@@ -28,14 +28,16 @@
                         <li><i class="bi bi-check-circle text-success me-2"></i>Convention de partenariat ou contrat de
                             location à usage professionel<span class="text-danger">*</span></li>
                         <li><i class="bi bi-check-circle text-success me-2"></i>Attestation de non appartenance à la
-                            fonction publique (non fonctionnaire) <span class="text-danger">*</span></li>
+                            fonction publique <small class="text-muted">(non fonctionnaire)</small> <span
+                                class="text-danger">*</span></li>
                         <li><i class="bi bi-check-circle text-success me-2"></i>Acte de déclaration d'existence au niveau de
                             la Direction générale des Imôts <small class="text-muted"></small><span
-                                class="text-danger">*</span> (pour les structures nouvellement
-                            crées)</small></li>
+                                class="text-danger">*</span> <small class="text-muted">(pour les structures nouvellement
+                                crées)</small></li>
                         <li><i class="bi bi-check-circle text-success me-2"></i>Autorisation d'ouverture ministérielle
-                            <small class="text-muted"></small><span class="text-danger">*</span> (pour
-                            établissements ou écoles de formation)
+                            <small class="text-muted"></small><span class="text-danger">*</span> <small
+                                class="text-muted">(pour
+                                établissements ou écoles de formation)</small>
                         </li>
                         <li><i class="bi bi-check-circle text-muted me-2"></i>Attestation de bonne exécution (ABE) <small
                                 class="text-muted">(si disponible)</small></li>

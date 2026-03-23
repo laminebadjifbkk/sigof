@@ -222,7 +222,7 @@
                                     <label for="fixe" class="form-label">Telephone fixe<span
                                             class="text-danger mx-1">*</span></label>
                                     <div class="input-group has-validation">
-                                        <input name="fixe" type="text" maxlength="12"
+                                        <input name="fixe" type="text" size="9"
                                             class="form-control form-control-sm @error('fixe') is-invalid @enderror"
                                             id="fixe" value="{{ old('fixe', $user->fixe ?? '') }}"
                                             autocomplete="tel" placeholder="Téléphone">
@@ -237,7 +237,7 @@
                                 <div class="col-12 col-lg-6 col-md-12">
                                     <label for="telephone" class="form-label">Téléphone portable<span
                                             class="text-danger mx-1">*</span></label>
-                                    <input name="telephone" type="text" maxlength="12"
+                                    <input name="telephone" type="text" size="9"
                                         class="form-control form-control-sm @error('telephone') is-invalid @enderror"
                                         id="telephone" value="{{ old('telephone', $user->telephone ?? '') }}"
                                         autocomplete="tel" placeholder="Téléphone">
@@ -397,7 +397,7 @@
                                 <div class="col-12 col-lg-6 col-md-12">
                                     <label for="telephone_parent" class="form-label">Téléphone<span
                                             class="text-danger mx-1">*</span></label>
-                                    <input name="telephone_parent" type="text" maxlength="12"
+                                    <input name="telephone_parent" type="text" size="9"
                                         class="form-control form-control-sm @error('telephone_parent') is-invalid @enderror"
                                         id="telephone_parent"
                                         value="{{ old('telephone_parent', $user->telephone_parent ?? '') }}"
