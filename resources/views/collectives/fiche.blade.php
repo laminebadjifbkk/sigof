@@ -133,20 +133,25 @@
 
         .section table {
             width: 100%;
-            table-layout: fixed;
-            /* force les colonnes à respecter la largeur */
             border-collapse: collapse;
+            table-layout: auto;
+            /* adaptatif */
         }
 
         .section th,
         .section td {
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            white-space: normal;
-            /* autorise le retour à la ligne */
             padding: 8px;
             vertical-align: top;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            white-space: normal;
         }
+
+        .section th {
+            white-space: nowrap;
+            /* évite que le titre se casse en 2 lignes */
+        }
+
         .section a {
             word-break: break-all;
         }
