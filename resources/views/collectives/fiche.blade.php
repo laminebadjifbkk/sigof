@@ -130,6 +130,32 @@
             padding-bottom: 30px;
             /* hauteur approximative du footer */
         }
+
+        .section table {
+            width: 100%;
+            table-layout: fixed;
+            /* force les colonnes à respecter la largeur */
+            border-collapse: collapse;
+        }
+
+        .section th,
+        .section td {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: normal;
+            /* autorise le retour à la ligne */
+            padding: 8px;
+            vertical-align: top;
+        }
+
+        .section th {
+            width: 25%;
+            /* largeur fixe pour les titres */
+        }
+
+        .section a {
+            word-break: break-all;
+        }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -182,11 +208,15 @@
                     </tr>
                     <tr>
                         <th>Contact</th>
-                        <td colspan="5"><a
-                                href="mailto:{{ $collective?->user?->email }}">{{ $collective?->user?->email }}</a>
+                        <td colspan="5">
+                            <a href="mailto:{{ $collective?->user?->email }}">
+                                {{ $collective?->user?->email }}
+                            </a>
                         </td>
-                        <td colspan="5"><a
-                                href="tel:+221{{ $collective?->user?->telephone }}">{{ $collective?->user?->telephone }}</a>
+                        <td colspan="5">
+                            <a href="tel:+221{{ $collective?->user?->telephone }}">
+                                {{ $collective?->user?->telephone }}
+                            </a>
                         </td>
                     </tr>
                 </tbody>
