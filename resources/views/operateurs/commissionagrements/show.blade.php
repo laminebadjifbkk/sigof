@@ -1,9 +1,8 @@
 @extends('layout.user-layout')
 @section('title', $commissionagrement?->commission)
 @section('space-work')
-    <section class="section dashboard">
+    {{-- <section class="section dashboard">
         <div class="pagetitle">
-            {{-- <h1>Data Tables</h1> --}}
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ url('/home') }}">Accueil</a></li>
@@ -11,9 +10,8 @@
                     <li class="breadcrumb-item active">{{ $commissionagrement?->commission }}</li>
                 </ol>
             </nav>
-        </div><!-- End Page Title -->
+        </div>
         <div class="row">
-            <!-- Left side columns -->
             <div class="col-lg-12">
                 <div class="row">
                     <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
@@ -74,7 +72,8 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
+
     <section class="section">
         <div class="row justify-content-center">
             <div class="col-lg-12">
@@ -93,7 +92,70 @@
                 @endif
                 <div class="card">
                     <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
+
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body">
+
+                                {{-- Header --}}
+                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+                                    <a href="{{ route('commissionagrements.index') }}"
+                                        class="btn btn-outline-secondary btn-sm">
+                                        <i class="bi bi-arrow-left-circle"></i> Retour
+                                    </a>
+                                    <h6 class="mb-0 text-muted fw-semibold text-uppercase">
+                                        Effectif : {{ number_format(count($commissionagrement?->operateurs), 0, '', ' ') }}
+                                    </h6>
+                                    <h6>
+                                        <a href="{{ route('addopCommission', ['id' => $commissionagrement->id]) }}"
+                                            class="btn btn-success btn-sm" title="ajouter">intégrer opérateurs</a>
+                                    </h6>
+                                </div>
+
+                                {{-- Table responsive --}}
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-striped align-middle text-nowrap">
+                                        <thead class="table-primary">
+                                            <tr>
+                                                <th scope="col" style="width: 50px;">N°</th>
+                                                <th scope="col">Statut</th>
+                                                <th scope="col" class="text-center">Opérateurs</th>
+                                                <th scope="col" style="width: 120px;">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($groupesStatutAgrement as $statut => $operateurs)
+                                                <tr class="align-middle">
+                                                    <td>{{ $loop->iteration }}</td>
+
+                                                    {{-- Statut --}}
+                                                    <td>
+                                                        <span class="{{ $statut }}">
+                                                            {{ $statut }}
+                                                        </span>
+                                                    </td>
+
+                                                    {{-- Nombre opérateurs --}}
+                                                    <td class="text-center fw-semibold">
+                                                        {{ number_format($operateurs->count(), 0, '', ' ') }}
+                                                    </td>
+
+                                                    {{-- Action --}}
+                                                    <td>
+                                                        <a href="{{ route('operateurs.parStatutCommission', ['statut' => $statut, 'commission' => $commissionagrement->id]) }}"
+                                                            class="btn btn-sm btn-outline-success">
+                                                            <i class="bi bi-eye"></i> Voir plus
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        {{-- <div class="d-flex justify-content-between align-items-center">
                             <span class="d-flex mt-0 align-items-baseline"><a
                                     href="{{ route('commissionagrements.index', $commissionagrement->id) }}"
                                     class="btn btn-success btn-sm" title="retour"><i
@@ -104,9 +166,13 @@
                                 <a href="{{ route('addopCommission', ['id' => $commissionagrement->id]) }}"
                                     class="btn btn-success btn-sm" title="ajouter">intégrer opérateurs</a>
                             </h5>
-                        </div>
+                        </div> --}}
+
+                        <h6 class="mb-0 text-muted fw-semibold text-uppercase">
+                            Liste des opérateurs : {{ $commissionagrement?->commission }}
+                        </h6>
                         <div class="row mb-0">
-                            <div class="col-md-12 pt-5">
+                            <div class="col-md-12 pt-2">
                                 <div class="table-responsive">
                                     <table class="table datatables align-middle" id="table-operateurs">
                                         <thead>

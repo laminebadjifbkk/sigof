@@ -135,12 +135,15 @@ class CommissionagrementController extends Controller
 
     public function show($id)
     {
-        $commissionagrement = Commissionagrement::findOrFail($id);
-
-        /* $operateurs = Operateur::where('commissionagrements_id', $id)
-            ->get(); */
+        /* $commissionagrement = Commissionagrement::findOrFail($id);
 
         $groupesStatutAgrement = $commissionagrement?->operateurs->groupBy(function ($item) {
+            return $item->statut_agrement ?? 'Aucun statut agrement';
+        }); */
+
+        $commissionagrement = Commissionagrement::with('operateurs')->findOrFail($id);
+
+        $groupesStatutAgrement = $commissionagrement->operateurs->groupBy(function ($item) {
             return $item->statut_agrement ?? 'Aucun statut agrement';
         });
 
