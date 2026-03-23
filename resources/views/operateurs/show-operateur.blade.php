@@ -195,7 +195,13 @@
 
                                     <div class="flex-shrink-0">
                                         @if ($statut_demande === 'complète')
-                                            <button type="button" class="btn btn-sm btn-outline-primary">
+                                            {{-- <button type="button" class="btn btn-sm btn-outline-primary">
+                                                <i class="bi bi-pencil-square me-1"></i> Cliquez ici pour soumettre votre
+                                                dossier
+                                            </button> --}}
+                                            <button type="button" class="btn btn-sm btn-outline-primary me-1"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#certificationModal{{ $operateur->id }}">
                                                 <i class="bi bi-pencil-square me-1"></i> Cliquez ici pour soumettre votre
                                                 dossier
                                             </button>
