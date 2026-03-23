@@ -203,6 +203,7 @@
                         <th>N°</th>
                         <th>Module</th>
                         <th>Niveau qualification</th>
+                        <th>Statut</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -217,6 +218,7 @@
                             <td>{{ $i++ }}</td>
                             <td>{{ $collectivemodule?->module }}</td>
                             <td>{{ $collectivemodule?->niveau_qualification }}</td>
+                            <td>{{ $collectivemodule?->statut }}</td>
                         </tr>
                     @empty
                         <tr>
