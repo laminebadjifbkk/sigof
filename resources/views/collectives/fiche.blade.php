@@ -158,41 +158,39 @@
 
         <div class="section">
             <p class="subtitle">I. <u>Identification de l'organisation</u></p>
-            <div class="table-responsive">
-                <table>
-                    <tbody>
-                        <tr>
-                            <th>Nom de la structure</th>
-                            <td colspan="10">{{ $collective?->name_with_sigle }}</td>
-                        </tr>
-                        <tr>
-                            <th>Statut</th>
-                            <td colspan="10">{{ $collective?->statut_juridique }}</td>
-                        </tr>
-                        <tr>
-                            <th>Personne responsable</th>
-                            <td colspan="10">
-                                {{ $collective?->prenom_responsable . ' ' . $collective?->nom_responsable }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Adresse de la structure</th>
-                            <td colspan="4">{{ $collective?->adresse }}</td>
-                            <td colspan="3">{{ $collective?->departement?->nom }}</td>
-                            <td colspan="3">{{ $collective?->departement?->region?->nom }}</td>
-                        </tr>
-                        <tr>
-                            <th>Contact</th>
-                            <td colspan="5"><a
-                                    href="mailto:{{ $collective?->user?->email }}">{{ $collective?->user?->email }}</a>
-                            </td>
-                            <td colspan="5"><a
-                                    href="tel:+221{{ $collective?->user?->telephone }}">{{ $collective?->user?->telephone }}</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <table class="table-responsive">
+                <tbody>
+                    <tr>
+                        <th>Nom de la structure</th>
+                        <td colspan="10">{{ $collective?->name_with_sigle }}</td>
+                    </tr>
+                    <tr>
+                        <th>Statut</th>
+                        <td colspan="10">{{ $collective?->statut_juridique }}</td>
+                    </tr>
+                    <tr>
+                        <th>Personne responsable</th>
+                        <td colspan="10">
+                            {{ $collective?->prenom_responsable . ' ' . $collective?->nom_responsable }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Adresse de la structure</th>
+                        <td colspan="4">{{ $collective?->adresse }}</td>
+                        <td colspan="3">{{ $collective?->departement?->nom }}</td>
+                        <td colspan="3">{{ $collective?->departement?->region?->nom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Contact</th>
+                        <td colspan="5"><a
+                                href="mailto:{{ $collective?->user?->email }}">{{ $collective?->user?->email }}</a>
+                        </td>
+                        <td colspan="5"><a
+                                href="tel:+221{{ $collective?->user?->telephone }}">{{ $collective?->user?->telephone }}</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <div class="section">
             <p class="subtitle">II. <u>Formation sollicitée</u></p>
