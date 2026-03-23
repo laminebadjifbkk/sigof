@@ -74,8 +74,8 @@ class CommissionagrementController extends Controller
             /* 'date'             => "nullable|date|size:10|date_format:Y-m-d", */
             'date_ouverture'   => "required|date|size:10|date_format:Y-m-d",
             'date_fermeture'   => "required|date|size:10|date_format:Y-m-d",
-            'debut_commission' => "required|date|size:10|date_format:Y-m-d",
-            'fin_commission'   => "required|date|size:10|date_format:Y-m-d",
+            'debut_commission' => "nullable|date|size:10|date_format:Y-m-d",
+            'fin_commission'   => "nullable|date|size:10|date_format:Y-m-d",
             'lieu'             => 'nullable|string',
             'statut'           => 'nullable|string',
             'annee'            => 'required|string',
