@@ -47,8 +47,13 @@ class FermerModulesProjet extends Command
         $maintenant = Carbon::now(); // date et heure actuelles
 
         // Récupérer tous les projets dont l'ouverture ou la fermeture concerne aujourd'hui ou avant
+        /* $projets = Projet::with('projetmodules')
+            ->get(); // on traite tous les projets pour vérifier date_ouverture et date_fermeture */
+
         $projets = Projet::with('projetmodules')
-            ->get(); // on traite tous les projets pour vérifier date_ouverture et date_fermeture
+            ->whereDate('date_ouverture', '<=', now())
+            ->orWhereDate('date_fermeture', '<=', now())
+            ->get();
 
         if ($projets->isEmpty()) {
             $this->info("Aucun projet à traiter.");
@@ -58,6 +63,10 @@ class FermerModulesProjet extends Command
         foreach ($projets as $projet) {
             $ouverture = $projet->date_ouverture;
             $fermeture = $projet->date_fermeture;
+
+            if ($maintenant->lt($ouverture)) {
+                $projet->statut = 'à venir';
+            }
 
             // 1️⃣ Entre ouverture et fermeture → statut 'ouvert'
             if ($maintenant->gte($ouverture) && $maintenant->lt($fermeture)) {
