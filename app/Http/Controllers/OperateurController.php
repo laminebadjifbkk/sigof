@@ -3495,7 +3495,7 @@ class OperateurController extends Controller
                 continue;
             }
 
-            $operateurFolder = $tempPath . '/' . $this->sanitizeFileName($operateur?->user?->operateur . ' (' . ($operateur?->user?->username ?? '') . ')');
+            $operateurFolder = $tempPath . '/' . $this->sanitizeFileName($operateur?->user?->operateur . ' (' . $operateur?->user?->display_operateur ?? '') . ')');
             if (! is_dir($operateurFolder)) {
                 mkdir($operateurFolder, 0777, true);
             }

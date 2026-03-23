@@ -1,6 +1,6 @@
 @extends('layout.user-layout')
 @section('title',
-    remove_accents_uppercase($operateur?->user?->username) .
+    $operateur?->user?->display_operateur .
     ' | ' .
     remove_accents_uppercase('références
     et expériences professionnelles'))

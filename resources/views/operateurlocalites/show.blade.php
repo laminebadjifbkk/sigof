@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', remove_accents_uppercase($operateur?->user?->username) . ' | ' .
+@section('title', $operateur?->user?->display_operateur . ' | ' .
     remove_accents_uppercase('localités'))
 @section('space-work')
 

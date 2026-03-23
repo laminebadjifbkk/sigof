@@ -182,7 +182,7 @@
                         <tr class="item">
                             <td><b>{{ __("DENOMINATION DE L'OPERATEUR") }}</b></td>
                             <td colspan="8">{{ $operateur?->user?->operateur }}
-                                @if (!empty($operateur?->user?->username))
+                                @if (!empty$operateur?->user?->display_operateur))
                                     {{ '(' . $operateur?->user?->username . ')' }}
                                 @endif
                             </td>
