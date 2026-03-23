@@ -163,30 +163,30 @@
                     <tbody>
                         <tr>
                             <th>Nom de la structure</th>
-                            <td colspan="10">{{ $collective?->name_with_sigle }}</td>
+                            <td colspan="12">{{ $collective?->name_with_sigle }}</td>
                         </tr>
                         <tr>
                             <th>Statut</th>
-                            <td colspan="10">{{ $collective?->statut_juridique }}</td>
+                            <td colspan="12">{{ $collective?->statut_juridique }}</td>
                         </tr>
                         <tr>
                             <th>Personne responsable</th>
-                            <td colspan="10">
+                            <td colspan="12">
                                 {{ $collective?->prenom_responsable . ' ' . $collective?->nom_responsable }}
                             </td>
                         </tr>
                         <tr>
                             <th>Adresse de la structure</th>
                             <td colspan="4">{{ $collective?->adresse }}</td>
-                            <td colspan="3">{{ $collective?->departement?->nom }}</td>
-                            <td colspan="3">{{ $collective?->departement?->region?->nom }}</td>
+                            <td colspan="4">{{ $collective?->departement?->nom }}</td>
+                            <td colspan="4">{{ $collective?->departement?->region?->nom }}</td>
                         </tr>
                         <tr>
                             <th>Contact</th>
-                            <td colspan="5"><a
+                            <td colspan="8"><a
                                     href="mailto:{{ $collective?->user?->email }}">{{ $collective?->user?->email }}</a>
                             </td>
-                            <td colspan="5"><a
+                            <td colspan="4"><a
                                     href="tel:+221{{ $collective?->user?->telephone }}">{{ $collective?->user?->telephone }}</a>
                             </td>
                         </tr>
@@ -236,11 +236,11 @@
                 <tbody>
                     <tr>
                         <th>Description de l'organisation, de ses activités et de ses réalisations</th>
-                        <td colspan="10">{{ $collective?->description }}</td>
+                        <td colspan="12">{{ $collective?->description }}</td>
                     </tr>
                     <tr>
                         <th>Description du projet professionnel et de l'effet attendu de la formation</th>
-                        <td colspan="10">{{ $collective?->projetprofessionnel }}</td>
+                        <td colspan="12">{{ $collective?->projetprofessionnel }}</td>
                     </tr>
                 </tbody>
             </table>
