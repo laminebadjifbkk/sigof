@@ -1282,7 +1282,7 @@ class OperateurController extends Controller
             : null;
 
         $estExtension = $dateExtension?->isPast();
-        
+
         $dateRenouvellement = $dateAgrement
             ? Carbon::parse($dateAgrement?->fin_commission)->addYears(1)
             : null;
@@ -2117,6 +2117,9 @@ class OperateurController extends Controller
             $dateExtension   = $dateAgrement?->copy()->addYears(2);
             $estExtension    = $dateExtension?->isPast();
 
+            $dateRenouvellement   = $dateAgrement?->copy()->addYears(1);
+            $estRenouvellement    = $dateRenouvellement?->isPast();
+
             $dateQuitus = $operateur?->debut_quitus ? Carbon::parse($operateur->debut_quitus) : null;
             $diffText   = $dateQuitus?->locale('fr')->diffForHumans(now(), true);
             $diffInMonths = $dateQuitus ? $dateQuitus->diffInMonths(now()) : 0;
@@ -2153,6 +2156,8 @@ class OperateurController extends Controller
                 'estExpire',
                 'dateExtension',
                 'estExtension',
+                'dateRenouvellement',
+                'estRenouvellement',
                 'dateQuitus',
                 'labels',
                 'diffText',

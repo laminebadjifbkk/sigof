@@ -87,7 +87,6 @@
                                                                 </button>
                                                                 <small class="text-muted">Votre agrément toujours valide</small>
                                                             </div>
-                                                        @endif
                                                         @elseif($estRenouvellement)
                                                             <div
                                                                 class="alert alert-info d-flex flex-column align-items-start gap-1 p-2 shadow-sm rounded-2 w-100">
