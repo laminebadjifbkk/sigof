@@ -3200,7 +3200,7 @@ class OperateurController extends Controller
         return redirect()->back();
     }
 
-    public function certifierOperateur(Request $request, $uuid)
+    /* public function certifierOperateur(Request $request, $uuid)
     {
         $request->validate([
             'certification_phrase' => ['required', 'string'],
@@ -3215,43 +3215,142 @@ class OperateurController extends Controller
 
         $operateur = Operateur::where('uuid', $uuid)->firstOrFail();
 
+        if ($operateur->statut_agrement == 'Nouveau') {
+
+            if (strtolower($operateur->file8) === 'oui') {
+                Alert::error('Déjà certifié', 'Vous avez déjà certifié vos informations.');
+                return redirect()->back();
+            }
+
+            $commissionagrement = Commissionagrement::where('statut', 'Ouvert')->first();
+
+            if (! $commissionagrement) {
+                Alert::error('Désolé', 'Aucun agrément n\'est lancé pour le moment.');
+                return redirect()->back();
+            }
+
+            // Exemple d'action : marquer comme certifié
+            $operateur->file8 = 'Oui';
+            $operateur->save();
+
+            $operateur->commissionagrements()->syncWithoutDetaching([$commissionagrement?->id]);
+
+            $anneeEnCours = date('Y');
+            $an           = date('y');
+
+            // Récupération du dernier numéro de courrier pour l'année en cours
+            $numCourrier = Arrive::join('courriers', 'courriers.id', 'arrives.courriers_id')
+                ->select('arrives.*')
+                ->where('courriers.annee', $anneeEnCours)
+                ->get()->last();
+
+            if ($numCourrier) {
+                // Si un courrier existe, incrémenter son numéro
+                $numCourrier = ++$numCourrier->numero_arrive;
+            } else {
+                // Si aucun courrier n'existe, initialiser avec l'année et le numéro 0001
+                $numCourrier = $an . "0001";
+            }
+
+            // Mise en forme du numéro de courrier en ajoutant des zéros au début
+            $numCourrier = str_pad($numCourrier, 6, '0', STR_PAD_LEFT);
+
+            $courrier = Courrier::create([
+                'numero_courrier' => $numCourrier,
+                'date_recep'      => now(),
+                'date_cores'      => now(),
+                'annee'           => $anneeEnCours,
+                'objet'           => 'DEMANDE AGREMENT OPERATEUR',
+                'expediteur'      => $operateur?->user?->operateur,
+                'type'            => 'operateur',
+                "user_create_id"  => Auth::user()->id,
+                "user_update_id"  => Auth::user()->id,
+                'users_id'        => Auth::user()->id,
+            ]);
+
+            $arrive = Arrive::create([
+                'numero_arrive' => $numCourrier,
+                'type'          => 'operateur',
+                'courriers_id'  => $courrier?->id,
+            ]);
+
+            // Récupération du dernier numéro de courrier pour l'année en cours
+            // Récupère le dernier numéro de dossier commençant par l'année en cours
+            $dernier = Operateur::where('numero_dossier', 'like', $an . '%')
+                ->orderByDesc('numero_dossier')
+                ->first();
+
+            if ($dernier) {
+                // Extraire les 3 derniers chiffres et incrémenter
+                $lastNumber = (int) substr($dernier->numero_dossier, -3);
+                $numDossier = $an . str_pad($lastNumber + 1, 3, '0', STR_PAD_LEFT);
+            } else {
+                // Premier dossier de l'année
+                $numDossier = $an . '001';
+            }
+
+            $operateur->update([
+                'numero_arrive'   => $numCourrier,
+                "numero_dossier"  => $numDossier,
+                "numero_agrement" => $numCourrier . '/ONFP/DG/DEC/' . $anneeEnCours,
+            ]);
+
+            Alert::success('Succès ', 'Informations certifiées avec succès.');
+
+            return redirect()->back();
+        } else {
+
+            Alert::error('Désolez ', 'Vous ne pouvez pas certifiées pour le moment.');
+            return redirect()->back();
+        }
+    } */
+
+    public function certifierOperateur(Request $request, $uuid)
+    {
+        $request->validate([
+            'certification_phrase' => ['required', 'string'],
+        ]);
+
+        $phraseAttendue = "Je certifie que les informations que j'ai fournies sont correctes.";
+
+        if (trim($request->certification_phrase) !== $phraseAttendue) {
+            Alert::error('Erreur', 'La phrase de certification est incorrecte.');
+            return redirect()->back();
+        }
+
+        $operateur = Operateur::where('uuid', $uuid)->firstOrFail();
+
+        if ($operateur->statut_agrement !== 'Nouveau') {
+            Alert::error('Désolé', 'Vous ne pouvez pas certifier pour le moment.');
+            return redirect()->back();
+        }
+
         if (strtolower($operateur->file8) === 'oui') {
             Alert::error('Déjà certifié', 'Vous avez déjà certifié vos informations.');
             return redirect()->back();
         }
 
         $commissionagrement = Commissionagrement::where('statut', 'Ouvert')->first();
-
         if (! $commissionagrement) {
             Alert::error('Désolé', 'Aucun agrément n\'est lancé pour le moment.');
             return redirect()->back();
         }
 
-        // Exemple d'action : marquer comme certifié
+        // Marquer comme certifié
         $operateur->file8 = 'Oui';
-        /* $operateur->commissionagrements_id = $commissionagrement->id; */
         $operateur->save();
-
-        $operateur->commissionagrements()->syncWithoutDetaching([$commissionagrement?->id]);
+        $operateur->commissionagrements()->syncWithoutDetaching([$commissionagrement->id]);
 
         $anneeEnCours = date('Y');
-        $an           = date('y');
+        $an = date('y');
 
-        // Récupération du dernier numéro de courrier pour l'année en cours
-        $numCourrier = Arrive::join('courriers', 'courriers.id', 'arrives.courriers_id')
-            ->select('arrives.*')
+        // Numéro de courrier
+        $dernierArrive = Arrive::join('courriers', 'courriers.id', 'arrives.courriers_id')
             ->where('courriers.annee', $anneeEnCours)
-            ->get()->last();
+            ->orderByDesc('arrives.numero_arrive')
+            ->first();
 
-        if ($numCourrier) {
-            // Si un courrier existe, incrémenter son numéro
-            $numCourrier = ++$numCourrier->numero_arrive;
-        } else {
-            // Si aucun courrier n'existe, initialiser avec l'année et le numéro 0001
-            $numCourrier = $an . "0001";
-        }
-
-        // Mise en forme du numéro de courrier en ajoutant des zéros au début
+        $numCourrier = $dernierArrive ? $dernierArrive->numero_arrive + 1 : (int)($an . '0001');
         $numCourrier = str_pad($numCourrier, 6, '0', STR_PAD_LEFT);
 
         $courrier = Courrier::create([
@@ -3260,56 +3359,44 @@ class OperateurController extends Controller
             'date_cores'      => now(),
             'annee'           => $anneeEnCours,
             'objet'           => 'DEMANDE AGREMENT OPERATEUR',
-            'expediteur'      => $operateur?->user?->operateur,
-            /* 'reference'       => strtoupper($request->input('reference')),
-            'numero_reponse'  => $request->input('numero_reponse'),
-            'date_reponse'    => $date_reponse,
-            'observation'     => strtoupper($request->input('observation')), */
+            'expediteur'      => $operateur->user?->operateur,
             'type'            => 'operateur',
             "user_create_id"  => Auth::user()->id,
             "user_update_id"  => Auth::user()->id,
             'users_id'        => Auth::user()->id,
         ]);
 
-        $arrive = Arrive::create([
+        Arrive::create([
             'numero_arrive' => $numCourrier,
             'type'          => 'operateur',
-            'courriers_id'  => $courrier?->id,
+            'courriers_id'  => $courrier->id,
         ]);
 
-        // Récupération du dernier numéro de courrier pour l'année en cours
-        // Récupère le dernier numéro de dossier commençant par l'année en cours
-        $dernier = Operateur::where('numero_dossier', 'like', $an . '%')
+        // Numéro de dossier
+        $dernierDossier = Operateur::where('numero_dossier', 'like', $an . '%')
             ->orderByDesc('numero_dossier')
             ->first();
 
-        if ($dernier) {
-            // Extraire les 3 derniers chiffres et incrémenter
-            $lastNumber = (int) substr($dernier->numero_dossier, -3);
-            $numDossier = $an . str_pad($lastNumber + 1, 3, '0', STR_PAD_LEFT);
-        } else {
-            // Premier dossier de l'année
-            $numDossier = $an . '001';
-        }
+        $numDossier = $dernierDossier
+            ? $an . str_pad((int)substr($dernierDossier->numero_dossier, -3) + 1, 3, '0', STR_PAD_LEFT)
+            : $an . '001';
 
+        // Mise à jour de l'opérateur
         $operateur->update([
             'numero_arrive'   => $numCourrier,
-            "numero_dossier"  => $numDossier,
-            "numero_agrement" => $numCourrier . '/ONFP/DG/DEC/' . $anneeEnCours,
+            'numero_dossier'  => $numDossier,
+            'numero_agrement' => $numCourrier . '/ONFP/DG/DEC/' . $anneeEnCours,
         ]);
 
-        Alert::success('Succès ', 'Informations certifiées avec succès.');
-
+        Alert::success('Succès', 'Informations certifiées avec succès.');
         return redirect()->back();
     }
 
-    public function certificationOperateur(Request $request, $uuid)
+    /* public function certificationOperateur(Request $request, $uuid)
     {
 
         $operateur = Operateur::where('uuid', $uuid)->firstOrFail();
 
-        /* if (strtolower($operateur->file8) === 'oui') { */
-
         $anneeEnCours = date('Y');
         $an           = date('y');
 
@@ -3374,12 +3461,70 @@ class OperateurController extends Controller
 
         return redirect()->back();
 
-        /* } else {
+    } */
 
-            Alert::error('Erreur', 'Informations non certifiées.');
+    public function certificationOperateur(Request $request, $uuid)
+    {
+        $request->validate([
+            'certification_phrase' => ['required', 'string'],
+        ]);
 
+        $operateur = Operateur::where('uuid', $uuid)->firstOrFail();
+
+        if ($operateur->statut_agrement !== 'Nouveau') {
+            Alert::error('Désolé', 'Vous ne pouvez pas certifier pour le moment.');
             return redirect()->back();
-        } */
+        }
+
+        $anneeEnCours = date('Y');
+        $an = date('y');
+
+        // Numéro de courrier
+        $dernierArrive = Arrive::join('courriers', 'courriers.id', 'arrives.courriers_id')
+            ->where('courriers.annee', $anneeEnCours)
+            ->orderByDesc('arrives.numero_arrive')
+            ->first();
+
+        $numCourrier = $dernierArrive ? $dernierArrive->numero_arrive + 1 : (int)($an . '0001');
+        $numCourrier = str_pad($numCourrier, 6, '0', STR_PAD_LEFT);
+
+        $courrier = Courrier::create([
+            'numero_courrier' => $numCourrier,
+            'date_recep'      => now(),
+            'date_cores'      => now(),
+            'annee'           => $anneeEnCours,
+            'objet'           => 'DEMANDE AGREMENT OPERATEUR',
+            'expediteur'      => $operateur->user?->operateur,
+            'type'            => 'operateur',
+            'user_create_id'  => Auth::user()->id,
+            'user_update_id'  => Auth::user()->id,
+            'users_id'        => Auth::user()->id,
+        ]);
+
+        Arrive::create([
+            'numero_arrive' => $numCourrier,
+            'type'          => 'operateur',
+            'courriers_id'  => $courrier->id,
+        ]);
+
+        // Numéro de dossier
+        $dernierDossier = Operateur::where('numero_dossier', 'like', $an . '%')
+            ->orderByDesc('numero_dossier')
+            ->first();
+
+        $numDossier = $dernierDossier
+            ? $an . str_pad((int)substr($dernierDossier->numero_dossier, -3) + 1, 3, '0', STR_PAD_LEFT)
+            : $an . '001';
+
+        $operateur->update([
+            'numero_arrive'   => $numCourrier,
+            'numero_dossier'  => $numDossier,
+            'numero_agrement' => $numCourrier . '/ONFP/DG/DEC/' . $anneeEnCours,
+        ]);
+
+        Alert::success('Succès', 'Informations certifiées avec succès.');
+
+        return redirect()->back();
     }
 
     public function exportAvecScansAll(Request $request)
