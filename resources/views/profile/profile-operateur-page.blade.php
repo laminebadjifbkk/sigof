@@ -407,15 +407,16 @@
                                                         <option value="Public">Public</option>
                                                         <option value="Privé">Privé</option>
                                                     </select>
+
                                                     @if (!empty($user?->categorie))
-                                                        <small class="text-muted">La catégorie ne peut pas être
-                                                            modifié</small>
+                                                        <small class="text-muted">La catégorie n’est pas
+                                                            modifiable.</small>
                                                     @endif
-                                                    @error('categorie')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <div>{{ $message }}</div>
-                                                        </span>
-                                                    @enderror
+
+                                                    @if (!empty($user?->categorie))
+                                                        <input type="hidden" name="categorie"
+                                                            value="{{ $user->categorie }}">
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -505,7 +506,8 @@
                                                     autocomplete="email" placeholder="Adresse e-mail"
                                                     {{ !empty($user?->email) ? 'readonly' : '' }}>
                                                 @if (!empty($user?->email))
-                                                    <small class="text-muted">L’email ne peut pas être modifié</small>
+                                                    <small class="text-muted">L’adresse e-mail n’est pas
+                                                        modifiable.</small>
                                                 @endif
                                                 @error('email')
                                                     <span class="invalid-feedback" role="alert">

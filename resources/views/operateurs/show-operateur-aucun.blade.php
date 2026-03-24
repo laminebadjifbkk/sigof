@@ -189,7 +189,7 @@
                                         class="form-select form-select-sm @error('statut') is-invalid @enderror"
                                         aria-label="Sélectionnez un statut juridique" data-placeholder="Choisir">
                                         <option value="">-- Choisir --</option>
-                                        
+
                                         @foreach ($statuts as $statut)
                                             <option value="{{ $statut }}"
                                                 {{ $selected === $statut ? 'selected' : '' }}>
@@ -219,7 +219,7 @@
                                 </div> --}}
 
                                 <div class="col-12 col-lg-6 col-md-12">
-                                    <label for="fixe" class="form-label">Telephone fixe<span
+                                    <label for="fixe" class="form-label">Telephone fixe (ou principal)<span
                                             class="text-danger mx-1">*</span></label>
                                     <div class="input-group has-validation">
                                         <input name="fixe" type="text" size="9"
@@ -235,7 +235,7 @@
                                 </div>
 
                                 <div class="col-12 col-lg-6 col-md-12">
-                                    <label for="telephone" class="form-label">Téléphone portable<span
+                                    <label for="telephone" class="form-label">Téléphone portable (ou secondaire)<span
                                             class="text-danger mx-1">*</span></label>
                                     <input name="telephone" type="text" size="9"
                                         class="form-control form-control-sm @error('telephone') is-invalid @enderror"

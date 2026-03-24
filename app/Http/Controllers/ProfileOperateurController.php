@@ -101,7 +101,8 @@ class ProfileOperateurController extends Controller
             'civilite'             => ['required', 'string', 'max:8'],
             'firstname'            => ['required', 'string', 'max:150'],
             'name'                 => ['required', 'string', 'max:25'],
-            'categorie'            => ['nullable', 'string'],
+            'categorie'            => ['required', 'string'],
+            'statut'               => ['required', 'string', 'max:50'],
             /* 'rccm'                 => ['required', 'string'], */
             'ninea'                => [
                 'required',
@@ -127,13 +128,12 @@ class ProfileOperateurController extends Controller
             'telephone'            => ['required', 'string', 'size:9'],
             'telephone_parent'     => ['required', 'string', 'size:9'],
             'adresse'              => ['required', 'string', 'max:255'],
-            'fonction_responsable' => ['required', 'string', 'max:250'],
-            'twitter'              => ['nullable', 'string', 'max:255'],
-            'facebook'             => ['nullable', 'string', 'max:255'],
-            'instagram'            => ['nullable', 'string', 'max:255'],
-            'linkedin'             => ['nullable', 'string', 'max:255'],
-            'web'                  => ['nullable', 'string', 'max:255'],
-            'statut'               => ['nullable', 'string', 'max:255'],
+            'fonction_responsable' => ['required', 'string', 'max:50'],
+            'twitter'              => ['nullable', 'string', 'max:50'],
+            'facebook'             => ['nullable', 'string', 'max:50'],
+            'instagram'            => ['nullable', 'string', 'max:50'],
+            'linkedin'             => ['nullable', 'string', 'max:50'],
+            'web'                  => ['nullable', 'string', 'max:50'],
         ]);
 
         /* $cin = $request->input('cin') ?? null; */
@@ -145,7 +145,7 @@ class ProfileOperateurController extends Controller
             'civilite'             => $request->input('civilite'),
             'firstname'            => $request->input('firstname'),
             'name'                 => $request->input('name'),
-            /* 'categorie'            => $request->input('categorie'), */
+            'categorie'            => $request->input('categorie'),
             /* 'rccm'                 => $request->input('rccm'), */
             'ninea'                => $request->input('ninea'),
             'email_responsable'    => $request->input('email_responsable'),
