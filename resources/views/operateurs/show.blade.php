@@ -17,14 +17,14 @@
                 </div><!-- End Page Title -->
                 <div class="row justify-content-center">
                     @if ($message = Session::get('status'))
-                        <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
+                        <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade profile-overview show"
                             role="alert">
                             <strong>{{ $message }}</strong>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     @endif
                     @if ($message = Session::get('danger'))
-                        <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show"
+                        <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade profile-overview show"
                             role="alert">
                             <strong>{{ $message }}</strong>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -32,7 +32,7 @@
                     @endif
                     @if ($errors->any())
                         @foreach ($errors->all() as $error)
-                            <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show"
+                            <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade profile-overview show"
                                 role="alert"><strong>{{ $error }}</strong></div>
                         @endforeach
                     @endif
@@ -58,7 +58,7 @@
 
                                     {{-- Exemple d'onglet avec badge en haut à droite --}}
                                     <li class="nav-item position-relative">
-                                        <button class="nav-link d-flex align-items-center justify-content-center"
+                                        <button class="nav-link d-flex align-items-center justify-content-center active"
                                             data-bs-toggle="tab" data-bs-target="#module-overview">
                                             Modules
                                             @if ($operateur->operateurmodules_count > 0)
@@ -262,7 +262,7 @@
                                 </div>
                                 {{-- Détail représentant --}}
                                 <div class="tab-content pt-2">
-                                    <div class="tab-pane fade" id="references-overview">
+                                    <div class="tab-pane fade profile-overview" id="references-overview">
                                         <form method="post" action="#" enctype="multipart/form-data" class="row g-3">
                                             @csrf
                                             @method('PUT')
@@ -324,7 +324,7 @@
                                     </div>
                                 </div>
                                 <div class="tab-content pt-2">
-                                    <div class="tab-pane fade" id="equipement-overview">
+                                    <div class="tab-pane fade profile-overview" id="equipement-overview">
                                         <form method="post" action="#" enctype="multipart/form-data" class="row g-3">
                                             @csrf
                                             @method('PUT')
@@ -375,7 +375,7 @@
                                     </div>
                                 </div>
                                 <div class="tab-content pt-2">
-                                    <div class="tab-pane fade" id="formateur-overview">
+                                    <div class="tab-pane fade profile-overview" id="formateur-overview">
                                         <form method="post" action="#" enctype="multipart/form-data" class="row g-3">
                                             @csrf
                                             @method('PUT')
@@ -477,7 +477,7 @@
 
                                 <div class="tab-content pt-2">
                                     {{-- Début Edition --}}
-                                    <div class="tab-pane fade files" id="files">
+                                    <div class="tab-pane fade profile-overview files" id="files">
 
                                         {{-- Fichiers --}}
                                         @include('operateurs.files')
@@ -487,7 +487,7 @@
 
                                 {{-- Détail Observations --}}
                                 <div class="tab-content">
-                                    <div class="tab-pane fade pt-2" id="observations-overview">
+                                    <div class="tab-pane fade profile-overview pt-2" id="observations-overview">
                                         <div class="card shadow-sm border-0">
                                             <div
                                                 class="card-header d-flex justify-content-between align-items-center bg-light">
@@ -520,7 +520,7 @@
                                 </div>
 
                                 <div class="tab-content pt-2">
-                                    <div class="tab-pane fade" id="localites-overview">
+                                    <div class="tab-pane fade profile-overview" id="localites-overview">
                                         <form method="post" action="#" enctype="multipart/form-data" class="row g-3">
                                             @csrf
                                             @method('PUT')
@@ -578,96 +578,97 @@
                                     </div>
                                 </div>
 
-                                <div class="tab-pane fade pt-2" id="details-overview">
-                                    <form method="post" action="#" enctype="multipart/form-data" class="row g-3">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <h5 class="card-title">Opérateur</h5>
-                                        </div>
-                                        <div class="col-12 mb-0">
-                                            <div class="label">Raison sociale</div>
-                                            <div>{{ $operateur?->user?->display_operateur }}</div>
-                                        </div>
-                                        {{-- <div class="col-12 col-md-4 mb-0">
+                                <div class="tab-content pt-2">
+                                    <div class="tab-pane fade profile-overview pt-2" id="details-overview">
+                                        <form method="post" action="#" enctype="multipart/form-data" class="row g-3">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h5 class="card-title">Opérateur</h5>
+                                            </div>
+                                            <div class="col-12 mb-0">
+                                                <div class="label">Raison sociale</div>
+                                                <div>{{ $operateur?->user?->display_operateur }}</div>
+                                            </div>
+                                            {{-- <div class="col-12 col-md-4 mb-0">
                                             <div class="label">Sigle</div>
                                             <div>{{ $operateur?->user?->username }}</div>
                                         </div> --}}
-                                        <div class="col-12 col-md-4 mb-0">
-                                            <div class="label">Région</div>
-                                            <div>{{ $operateur?->region?->nom }}</div>
-                                        </div>
-
-                                        @if (!empty($operateur?->departement?->nom))
                                             <div class="col-12 col-md-4 mb-0">
-                                                <div class="label">Département</div>
-                                                <div>{{ $operateur?->departement?->nom }}</div>
+                                                <div class="label">Région</div>
+                                                <div>{{ $operateur?->region?->nom }}</div>
                                             </div>
-                                        @endif
 
-                                        <div class="col-12 col-md-4 mb-0">
-                                            <div class="label">Numéro agrément</div>
-                                            <div>{{ $operateur?->numero_agrement }}</div>
-                                        </div>
-                                        <div class="col-12 col-md-4 mb-0">
-                                            <div class="label">Adresse email</div>
-                                            <div><a
-                                                    href="mailto:{{ $operateur?->user?->email }}">{{ $operateur?->user?->email }}</a>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-md-4 mb-0">
-                                            <div class="label">Téléphone fixe</div>
-                                            <div><a
-                                                    href="tel:+221{{ $operateur?->user?->fixe }}">{{ $operateur?->user?->fixe }}</a>
-                                            </div>
-                                        </div>
-                                        @if (!empty($operateur?->user?->bp))
-                                            <div class="col-12 col-md-4 mb-0">
-                                                <div class="label">Boite postale</div>
-                                                <div>{{ $operateur?->user?->bp }}</div>
-                                            </div>
-                                        @endif
-                                        @if (!empty($operateur?->user?->categorie))
-                                            <div class="col-12 col-md-4 mb-0">
-                                                <div class="label">Catégorie</div>
-                                                <div>{{ $operateur?->user?->categorie }}</div>
-                                            </div>
-                                        @endif
+                                            @if (!empty($operateur?->departement?->nom))
+                                                <div class="col-12 col-md-4 mb-0">
+                                                    <div class="label">Département</div>
+                                                    <div>{{ $operateur?->departement?->nom }}</div>
+                                                </div>
+                                            @endif
 
-                                        @if (!empty($operateur?->statut))
                                             <div class="col-12 col-md-4 mb-0">
-                                                <div class="label">Statut juridique</div>
-                                                <div>{{ $operateur?->statut }}</div>
+                                                <div class="label">Numéro agrément</div>
+                                                <div>{{ $operateur?->numero_agrement }}</div>
                                             </div>
-                                        @endif
-
-                                        @if (!empty($operateur?->autre_statut))
                                             <div class="col-12 col-md-4 mb-0">
-                                                <div class="label">Autre statut</div>
-                                                <div>{{ $operateur?->autre_statut }}</div>
+                                                <div class="label">Adresse email</div>
+                                                <div><a
+                                                        href="mailto:{{ $operateur?->user?->email }}">{{ $operateur?->user?->email }}</a>
+                                                </div>
                                             </div>
-                                        @endif
-
-                                        @if (!empty($operateur?->user?->adresse))
                                             <div class="col-12 col-md-4 mb-0">
-                                                <div class="label">Adrese</div>
-                                                <div>{{ $operateur?->user?->adresse }}</div>
+                                                <div class="label">Téléphone fixe</div>
+                                                <div><a
+                                                        href="tel:+221{{ $operateur?->user?->fixe }}">{{ $operateur?->user?->fixe }}</a>
+                                                </div>
                                             </div>
-                                        @endif
+                                            @if (!empty($operateur?->user?->bp))
+                                                <div class="col-12 col-md-4 mb-0">
+                                                    <div class="label">Boite postale</div>
+                                                    <div>{{ $operateur?->user?->bp }}</div>
+                                                </div>
+                                            @endif
+                                            @if (!empty($operateur?->user?->categorie))
+                                                <div class="col-12 col-md-4 mb-0">
+                                                    <div class="label">Catégorie</div>
+                                                    <div>{{ $operateur?->user?->categorie }}</div>
+                                                </div>
+                                            @endif
 
-                                        @if (!empty($operateur?->user?->rccm))
-                                            <div class="col-12 col-md-4 mb-0">
-                                                <div class="label">RCCM/Ninea</div>
-                                                <div>{{ $operateur?->user?->rccm }}</div>
-                                            </div>
-                                        @endif
+                                            @if (!empty($operateur?->statut))
+                                                <div class="col-12 col-md-4 mb-0">
+                                                    <div class="label">Statut juridique</div>
+                                                    <div>{{ $operateur?->statut }}</div>
+                                                </div>
+                                            @endif
 
-                                        @if (!empty($operateur?->user?->ninea))
-                                            <div class="col-12 col-md-4 mb-0">
-                                                <div class="label">N° RCCM/Ninea</div>
-                                                <div>{{ $operateur?->user?->ninea }}</div>
-                                            </div>
-                                        @endif
+                                            @if (!empty($operateur?->autre_statut))
+                                                <div class="col-12 col-md-4 mb-0">
+                                                    <div class="label">Autre statut</div>
+                                                    <div>{{ $operateur?->autre_statut }}</div>
+                                                </div>
+                                            @endif
 
-                                        {{-- @if (!empty($operateur?->debut_quitus))
+                                            @if (!empty($operateur?->user?->adresse))
+                                                <div class="col-12 col-md-4 mb-0">
+                                                    <div class="label">Adrese</div>
+                                                    <div>{{ $operateur?->user?->adresse }}</div>
+                                                </div>
+                                            @endif
+
+                                            @if (!empty($operateur?->user?->rccm))
+                                                <div class="col-12 col-md-4 mb-0">
+                                                    <div class="label">RCCM/Ninea</div>
+                                                    <div>{{ $operateur?->user?->rccm }}</div>
+                                                </div>
+                                            @endif
+
+                                            @if (!empty($operateur?->user?->ninea))
+                                                <div class="col-12 col-md-4 mb-0">
+                                                    <div class="label">N° RCCM/Ninea</div>
+                                                    <div>{{ $operateur?->user?->ninea }}</div>
+                                                </div>
+                                            @endif
+
+                                            {{-- @if (!empty($operateur?->debut_quitus))
                                                 <div class="col-12 col-md-4 mb-0">
                                                     <div class="label">Quitus</div>
                                                     <div>
@@ -682,78 +683,79 @@
                                                 </div>
                                             @endif --}}
 
-                                        @if (!empty($operateur?->debut_quitus))
-                                            <div class="col-12 col-md-4">
-                                                <div class="label">Durée quitus</div>
-                                                <div>
-                                                    {{ $operateur?->debut_quitus?->diffForHumans(['parts' => 3, 'join' => ', ']) }}
+                                            @if (!empty($operateur?->debut_quitus))
+                                                <div class="col-12 col-md-4">
+                                                    <div class="label">Durée quitus</div>
+                                                    <div>
+                                                        {{ $operateur?->debut_quitus?->diffForHumans(['parts' => 3, 'join' => ', ']) }}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        @endif
+                                            @endif
 
-                                        <h5 class="card-title">Personne morale</h5>
+                                            <h5 class="card-title">Personne morale</h5>
 
-                                        @if (!empty($operateur?->user?->civilite))
-                                            <div class="col-12 col-md-4">
-                                                <div class="label">Civilité</div>
-                                                <div>{{ $operateur?->user?->civilite }}</div>
-                                            </div>
-                                        @endif
-
-                                        @if (!empty($operateur?->user?->firstname))
-                                            <div class="col-12 col-md-4 mb-0">
-                                                <div class="label">Prénom</div>
-                                                <div>{{ $operateur?->user?->firstname }}</div>
-                                            </div>
-                                        @endif
-
-                                        @if (!empty($operateur?->user?->name))
-                                            <div class="col-12 col-md-4 mb-0">
-                                                <div class="label">Nom</div>
-                                                <div>{{ $operateur?->user?->name }}</div>
-                                            </div>
-                                        @endif
-
-                                        @if (!empty($operateur?->user?->email_responsable))
-                                            <div class="col-12 col-md-4 mb-0">
-                                                <div class="label">Email</div>
-                                                <div><a
-                                                        href="mailto:{{ $operateur?->user?->email_responsable }}">{{ $operateur?->user?->email_responsable }}</a>
+                                            @if (!empty($operateur?->user?->civilite))
+                                                <div class="col-12 col-md-4">
+                                                    <div class="label">Civilité</div>
+                                                    <div>{{ $operateur?->user?->civilite }}</div>
                                                 </div>
-                                            </div>
-                                        @endif
+                                            @endif
 
-                                        @if (!empty($operateur?->user?->fonction_responsable))
-                                            <div class="col-12 col-md-4 mb-0">
-                                                <div class="label">Téléphone</div>
-                                                <div><a
-                                                        href="tel:+221{{ $operateur?->user?->fonction_responsable }}">{{ $operateur?->user?->telephone }}</a>
+                                            @if (!empty($operateur?->user?->firstname))
+                                                <div class="col-12 col-md-4 mb-0">
+                                                    <div class="label">Prénom</div>
+                                                    <div>{{ $operateur?->user?->firstname }}</div>
                                                 </div>
-                                            </div>
-                                        @endif
+                                            @endif
 
-                                        @if (!empty($operateur?->user?->fonction_responsable))
-                                            <div class="col-12 col-md-4 mb-0">
-                                                <div class="label">Fonction</div>
-                                                <div>{{ $operateur?->user?->fonction_responsable }}
+                                            @if (!empty($operateur?->user?->name))
+                                                <div class="col-12 col-md-4 mb-0">
+                                                    <div class="label">Nom</div>
+                                                    <div>{{ $operateur?->user?->name }}</div>
                                                 </div>
-                                            </div>
-                                        @endif
+                                            @endif
 
-                                        @can('operateur-update')
-                                            <div class="text-center">
-                                                <a href="{{ route('operateurs.edit', $operateur) }}"
-                                                    class="btn btn-outline-primary btn-sm" title="Modifier">Modifier cet
-                                                    opérateur</a>
-                                            </div>
-                                        @endcan
-                                    </form>
+                                            @if (!empty($operateur?->user?->email_responsable))
+                                                <div class="col-12 col-md-4 mb-0">
+                                                    <div class="label">Email</div>
+                                                    <div><a
+                                                            href="mailto:{{ $operateur?->user?->email_responsable }}">{{ $operateur?->user?->email_responsable }}</a>
+                                                    </div>
+                                                </div>
+                                            @endif
+
+                                            @if (!empty($operateur?->user?->fonction_responsable))
+                                                <div class="col-12 col-md-4 mb-0">
+                                                    <div class="label">Téléphone</div>
+                                                    <div><a
+                                                            href="tel:+221{{ $operateur?->user?->fonction_responsable }}">{{ $operateur?->user?->telephone }}</a>
+                                                    </div>
+                                                </div>
+                                            @endif
+
+                                            @if (!empty($operateur?->user?->fonction_responsable))
+                                                <div class="col-12 col-md-4 mb-0">
+                                                    <div class="label">Fonction</div>
+                                                    <div>{{ $operateur?->user?->fonction_responsable }}
+                                                    </div>
+                                                </div>
+                                            @endif
+
+                                            @can('operateur-update')
+                                                <div class="text-center">
+                                                    <a href="{{ route('operateurs.edit', $operateur) }}"
+                                                        class="btn btn-outline-primary btn-sm" title="Modifier">Modifier cet
+                                                        opérateur</a>
+                                                </div>
+                                            @endcan
+                                        </form>
+                                    </div>
                                 </div>
 
                                 {{-- Détail Modules --}}
                                 {{-- class show et active pour l'affichage par défaut --}}
                                 <div class="tab-content pt-2">
-                                    <div class="tab-pane show active fade" id="module-overview">
+                                    <div class="tab-pane show active fade profile-overview" id="module-overview">
                                         <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
                                             <h5 class="mb-0 text-uppercase fw-bold text-primary">
                                                 <i class="bi bi-briefcase-fill me-2"></i> Modules de formation
@@ -950,8 +952,8 @@
                                     </div>
                                 </div>
 
-                                <div class="tab-content">
-                                    <div class="tab-pane fade pt-0" id="formation-overview">
+                                <div class="tab-content pt-2">
+                                    <div class="tab-pane fade profile-overview pt-0" id="formation-overview">
                                         <h5 class="card-title">FORMATIONS</h5>
                                         <table
                                             class="table table-bordered table-hover datatables  align-middle justify-content-center"
