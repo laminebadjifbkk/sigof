@@ -180,12 +180,13 @@
                                                     </td>
                                                 @endcan
                                                 @can('afficher-operateur-telephone')
-                                                    <td>
-                                                        {{-- <a
+                                                    {{-- <td>
+                                                        <a
                                                             href="tel:+221{{ $operateur?->user?->fixe }}">{{ $operateur?->user?->fixe }}</a>
                                                         <br>
                                                         <a
-                                                            href="tel:+221{{ $operateur?->user?->telephone }}">{{ $operateur?->user?->telephone }}</a> --}}
+                                                            href="tel:+221{{ $operateur?->user?->telephone }}">{{ $operateur?->user?->telephone }}</a>
+                                                    </td> --}}
                                                     <td>
                                                         <div class="d-flex flex-column gap-1">
 
@@ -217,7 +218,6 @@
                                                             @endif
 
                                                         </div>
-                                                    </td>
                                                     </td>
                                                 @endcan
                                                 <td>{{ $operateur?->region?->nom }}</td>
