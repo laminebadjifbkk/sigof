@@ -357,6 +357,12 @@ class ProfileController extends Controller
                 ->where('sigle', 'AC')
                 ->count() ?: null;
 
+            $labels = [
+                'Ninea ou registre de commerce' => 'Registre de commerce',
+                'Ninea/RC' => 'RC',
+                'Non-fonctionnaire' => 'NF',
+            ];
+
             return view('profile.profile-operateur-page', compact(
                 'user',
                 'projets',
@@ -372,7 +378,8 @@ class ProfileController extends Controller
                 'formulaire',
                 'showChangeCertificat',
                 'showButton',
-                'isComplete'
+                'isComplete',
+                'labels'
             ));
         }
 
