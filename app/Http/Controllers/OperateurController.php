@@ -1320,6 +1320,8 @@ class OperateurController extends Controller
             ],
         ];
 
+        $validations = $operateur?->validationoperateurs;
+
         return view(
             "operateurs.agrements.show",
             compact(
@@ -1332,6 +1334,7 @@ class OperateurController extends Controller
                 'equipement_count',
                 'formateur_count',
                 'localite_count',
+                'validations',
                 /* 'fichier_count', */
                 'dateAgrement',
                 'dateExpiration',
