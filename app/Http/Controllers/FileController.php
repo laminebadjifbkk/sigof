@@ -106,7 +106,7 @@ class FileController extends Controller
     {
         $this->validate($request, [
             'legende' => 'required|string',
-            'file'    => 'required|file|mimes:jpeg,png,jpg,gif,svg,pdf|max:1024',
+            'file'    => 'required|file|mimes:jpeg,png,jpg,gif,svg,pdf|max:2048',
         ]);
 
         $user = User::findOrFail($request->idUser);
