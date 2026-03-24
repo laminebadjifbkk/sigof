@@ -315,7 +315,7 @@ class CommissionagrementController extends Controller
         $commissionagrement = Commissionagrement::findOrFail($id);
 
         /* $statutsVoulus = ['Conforme', 'Extension', 'Renouvellement', 'Nouveau', 'À corriger', 'agréé', 'sous réserve', 'Rejeté', 'Retiré']; */
-        $statutsVoulus = ['Nouveau', 'Conforme'];
+        $statutsVoulus = ['Nouveau', 'Conforme', 'agréé'];
 
         /* $operateurs = Operateur::whereNull('commissionagrements_id')
             ->whereIn('statut_agrement', $statutsVoulus)
