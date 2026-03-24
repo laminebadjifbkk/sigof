@@ -281,7 +281,8 @@
                                                 @can('afficher-operateur-telephone')
                                                     <td>
                                                         <div class="d-flex flex-column gap-1">
-                                                            @forelse ($operateur->numeros as $numero)
+
+                                                            @forelse ($operateur->numeros ?? [] as $numero)
                                                                 <div>
                                                                     <a href="tel:+221{{ preg_replace('/[^0-9]/', '', $numero) }}"
                                                                         class="text-decoration-none">
@@ -291,6 +292,7 @@
                                                             @empty
                                                                 <span class="text-muted fst-italic">Aucun numéro</span>
                                                             @endforelse
+
                                                         </div>
                                                     </td>
                                                 @endcan

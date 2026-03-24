@@ -57,20 +57,8 @@ class OperateurController extends Controller
         // Base query
         $query = Operateur::query();
 
-        // Filtre dynamique si besoin plus tard
-        /* if ($statut = $request->query('statut_agrement')) {
-            $query->where('statut_agrement', $statut);
-        } else {
-            $query->whereIn('statut_agrement', [
-                'agréé',
-                'sous réserve',
-                'Extension',
-                'Renouvellement'
-            ]);
-        } */
-
         // Liste principale
-        $operateurs = $query
+        /* $operateurs = $query
             ->latest()
             ->limit(350)
             ->get()
@@ -98,7 +86,23 @@ class OperateurController extends Controller
                 $operateur->numeros = array_values($numeros);
 
                 return $operateur;
-            });
+            }); */
+
+        $operateurs = $query
+            ->latest()
+            ->limit(350)
+            ->get()
+            ->map(function ($operateur) {
+                $fixeClean = $operateur->user?->fixe ? preg_replace('/[^0-9]/', '', $operateur->user?->fixe) : null;
+                $mobileClean = $operateur->user?->telephone ? preg_replace('/[^0-9]/', '', $operateur->user?->telephone) : null;
+
+                $numeros = [];
+                if ($fixeClean) $numeros[$fixeClean] = $operateur->user?->fixe;
+                if ($mobileClean) $numeros[$mobileClean] = $operateur->user?->telephone;
+
+                $operateur->numeros = array_values($numeros);
+                return $operateur;
+            }) ?? collect(); // ← garantit que ce soit une collection même si null
 
         // Départements
         $departements = Departement::orderBy('nom')->get(['id', 'nom']);
@@ -130,15 +134,6 @@ class OperateurController extends Controller
                 "commissionagrements",
                 "affichees",
                 "total",
-                /* "operateur_agreer",
-                "operateur_rejeter",
-                "pourcentage_agreer",
-                "pourcentage_rejeter",
-                "operateur_nouveau",
-                "operateur_expirer",
-                "pourcentage_nouveau",
-                "pourcentage_expirer" */
-                /* "title", */
                 "totalOperateurs",
                 "recherche",
             )
@@ -164,30 +159,16 @@ class OperateurController extends Controller
             ->limit(350)
             ->get()
             ->map(function ($operateur) {
-
-                $fixe = $operateur->user?->fixe;
-                $mobile = $operateur->user?->telephone;
-
-                // Nettoyage (garde uniquement les chiffres)
-                $fixeClean = $fixe ? preg_replace('/[^0-9]/', '', $fixe) : null;
-                $mobileClean = $mobile ? preg_replace('/[^0-9]/', '', $mobile) : null;
+                $fixeClean = $operateur->user?->fixe ? preg_replace('/[^0-9]/', '', $operateur->user?->fixe) : null;
+                $mobileClean = $operateur->user?->telephone ? preg_replace('/[^0-9]/', '', $operateur->user?->telephone) : null;
 
                 $numeros = [];
+                if ($fixeClean) $numeros[$fixeClean] = $operateur->user?->fixe;
+                if ($mobileClean) $numeros[$mobileClean] = $operateur->user?->telephone;
 
-                // Ajout sans doublon (clé = numéro nettoyé)
-                if ($fixeClean) {
-                    $numeros[$fixeClean] = $fixe;
-                }
-
-                if ($mobileClean) {
-                    $numeros[$mobileClean] = $mobile;
-                }
-
-                // Injection dans l'objet
                 $operateur->numeros = array_values($numeros);
-
                 return $operateur;
-            });
+            }) ?? collect(); // ← garantit que ce soit une collection même si null
 
         // ✅ GROUPES (sans created_at !)
         $groupes = Operateur::whereYear('annee_agrement', $annee)
@@ -225,30 +206,16 @@ class OperateurController extends Controller
             ->limit(350)
             ->get()
             ->map(function ($operateur) {
-
-                $fixe = $operateur->user?->fixe;
-                $mobile = $operateur->user?->telephone;
-
-                // Nettoyage (garde uniquement les chiffres)
-                $fixeClean = $fixe ? preg_replace('/[^0-9]/', '', $fixe) : null;
-                $mobileClean = $mobile ? preg_replace('/[^0-9]/', '', $mobile) : null;
+                $fixeClean = $operateur->user?->fixe ? preg_replace('/[^0-9]/', '', $operateur->user?->fixe) : null;
+                $mobileClean = $operateur->user?->telephone ? preg_replace('/[^0-9]/', '', $operateur->user?->telephone) : null;
 
                 $numeros = [];
+                if ($fixeClean) $numeros[$fixeClean] = $operateur->user?->fixe;
+                if ($mobileClean) $numeros[$mobileClean] = $operateur->user?->telephone;
 
-                // Ajout sans doublon (clé = numéro nettoyé)
-                if ($fixeClean) {
-                    $numeros[$fixeClean] = $fixe;
-                }
-
-                if ($mobileClean) {
-                    $numeros[$mobileClean] = $mobile;
-                }
-
-                // Injection dans l'objet
                 $operateur->numeros = array_values($numeros);
-
                 return $operateur;
-            });
+            }) ?? collect(); // ← garantit que ce soit une collection même si null
 
         // Départements si nécessaire
         $departements = Departement::orderBy('nom')->get(['id', 'nom']);
