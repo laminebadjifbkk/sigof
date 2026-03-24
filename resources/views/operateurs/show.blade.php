@@ -150,116 +150,122 @@
                                         </li>
                                     @endcan
 
-                                </ul>
-                                <div class="d-flex justify-content-between align-items-center">
-                                </div>
-                                {{-- Détail opérateur --}}
-                                <div class="tab-content pt-0">
-                                    @if ($validations && $validations->isNotEmpty())
-                                        @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
-                                            <span class="d-flex mt-2 align-items-baseline">
-                                                <nav class="header-nav ms-auto">
-                                                    <ul class="d-flex align-items-center list-unstyled mb-0 pt-2">
-                                                        <li class="me-3 fw-semibold text-uppercase text-muted"
-                                                            style="letter-spacing: 1px;">
-                                                            Historique
-                                                        </li>
-                                                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-                                                            <i class="bi bi-chat-left-text m-1"></i>
-                                                            <span class="badge bg-success badge-number"
-                                                                title="{{ $operateur?->statut }}">
-                                                                {{ $operateur?->validationoperateurs->count() }}
-                                                            </span>
-                                                        </a>
-                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-                                                            <li class="dropdown-header">
-                                                                Vous avez
-                                                                {{ $operateur?->validationoperateurs->count() }}
-                                                                validation(s)
-                                                            </li>
-                                                            <li>
-                                                                <hr class="dropdown-divider">
-                                                            </li>
-                                                            @foreach ($operateur?->validationoperateurs->sortByDesc('created_at')->take(2) as $validationoperateur)
-                                                                <li class="message-item">
-                                                                    <div>
-                                                                        <p><span
-                                                                                class="{{ $validationoperateur->action }}">{{ $validationoperateur->action }}</span>
-                                                                        </p>
-                                                                        <p>
-                                                                            {{ $validationoperateur->user->firstname . ' ' . $validationoperateur->user->name }}
-                                                                        </p>
-                                                                        <p>{!! $validationoperateur->created_at->diffForHumans() !!}</p>
-                                                                    </div>
+                                    <li class="nav-item position-relative">
+                                        {{-- Détail opérateur --}}
+                                        <div class="tab-content pt-0">
+                                            @if ($validations && $validations->isNotEmpty())
+                                                @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
+                                                    <span class="d-flex mt-2 align-items-baseline">
+                                                        <nav class="header-nav ms-auto">
+                                                            <ul class="d-flex align-items-center list-unstyled mb-0 pt-2">
+                                                                <li class="me-3 fw-semibold text-uppercase text-muted"
+                                                                    style="letter-spacing: 1px;">
+                                                                    Historique
+                                                                </li>
+                                                                <a class="nav-link nav-icon" href="#"
+                                                                    data-bs-toggle="dropdown">
+                                                                    <i class="bi bi-chat-left-text m-1"></i>
+                                                                    <span class="badge bg-success badge-number"
+                                                                        title="{{ $operateur?->statut }}">
+                                                                        {{ $operateur?->validationoperateurs->count() }}
+                                                                    </span>
+                                                                </a>
+                                                                <ul
+                                                                    class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+                                                                    <li class="dropdown-header">
+                                                                        Vous avez
+                                                                        {{ $operateur?->validationoperateurs->count() }}
+                                                                        validation(s)
+                                                                    </li>
+                                                                    <li>
+                                                                        <hr class="dropdown-divider">
+                                                                    </li>
+                                                                    @foreach ($operateur?->validationoperateurs->sortByDesc('created_at')->take(2) as $validationoperateur)
+                                                                        <li class="message-item">
+                                                                            <div>
+                                                                                <p><span
+                                                                                        class="{{ $validationoperateur->action }}">{{ $validationoperateur->action }}</span>
+                                                                                </p>
+                                                                                <p>
+                                                                                    {{ $validationoperateur->user->firstname . ' ' . $validationoperateur->user->name }}
+                                                                                </p>
+                                                                                <p>{!! $validationoperateur->created_at->diffForHumans() !!}</p>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li>
+                                                                            <hr class="dropdown-divider">
+                                                                        </li>
+                                                                    @endforeach
+                                                                    <li class="dropdown-footer">
+                                                                        <form action="{{ route('validationmessageop') }}"
+                                                                            method="post" target="_blank">
+                                                                            @csrf
+                                                                            <input type="hidden" name="id"
+                                                                                value="{{ $operateur?->id }}">
+                                                                            <button class="btn btn-sm mx-1">Voir
+                                                                                toutes les validations</button>
+                                                                        </form>
+                                                                    </li>
+                                                                </ul>
+                                                            </ul>
+                                                        </nav>
+                                                    </span>
+                                                @endhasanyrole
+                                            @else
+                                                <span class="d-flex mt-2 align-items-baseline">
+                                                    <nav class="header-nav ms-auto">
+                                                        <ul class="d-flex align-items-center">
+                                                            <a class="nav-link nav-icon" href="#"
+                                                                data-bs-toggle="dropdown">
+                                                                <i class="bi bi-chat-left-text m-1"></i>
+                                                                <span class="badge bg-success badge-number"
+                                                                    title="{{ $operateur?->statut }}">
+                                                                    {{ $operateur?->validationoperateurs->count() }}
+                                                                </span>
+                                                            </a>
+                                                            <ul
+                                                                class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+                                                                <li class="dropdown-header">
+                                                                    Vous avez
+                                                                    {{ $operateur?->validationoperateurs->count() }}
+                                                                    validation(s)
                                                                 </li>
                                                                 <li>
                                                                     <hr class="dropdown-divider">
                                                                 </li>
-                                                            @endforeach
-                                                            <li class="dropdown-footer">
-                                                                <form action="{{ route('validationmessageop') }}" method="post"
-                                                                    target="_blank">
-                                                                    @csrf
-                                                                    <input type="hidden" name="id"
-                                                                        value="{{ $operateur?->id }}">
-                                                                    <button class="btn btn-sm mx-1">Voir
-                                                                        toutes les validations</button>
-                                                                </form>
-                                                            </li>
+                                                                @foreach ($operateur?->validationoperateurs->sortByDesc('created_at')->take(2) as $validationoperateur)
+                                                                    <li class="message-item">
+                                                                        <div>
+                                                                            <p><span
+                                                                                    class="{{ $validationoperateur->action }}">{{ $validationoperateur->action }}</span>
+                                                                            </p>
+                                                                            <p>{!! $validationoperateur->created_at->diffForHumans() !!}</p>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li>
+                                                                        <hr class="dropdown-divider">
+                                                                    </li>
+                                                                @endforeach
+                                                                <li class="dropdown-footer">
+                                                                    <form action="{{ route('validationmessageop') }}"
+                                                                        method="post" target="_blank">
+                                                                        @csrf
+                                                                        <input type="hidden" name="id"
+                                                                            value="{{ $operateur?->id }}">
+                                                                        <button class="btn btn-sm mx-1">Voir
+                                                                            toutes les validations</button>
+                                                                    </form>
+                                                                </li>
+                                                            </ul>
                                                         </ul>
-                                                    </ul>
-                                                </nav>
-                                            </span>
-                                        @endhasanyrole
-                                    @else
-                                        <span class="d-flex mt-2 align-items-baseline">
-                                            <nav class="header-nav ms-auto">
-                                                <ul class="d-flex align-items-center">
-                                                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-                                                        <i class="bi bi-chat-left-text m-1"></i>
-                                                        <span class="badge bg-success badge-number"
-                                                            title="{{ $operateur?->statut }}">
-                                                            {{ $operateur?->validationoperateurs->count() }}
-                                                        </span>
-                                                    </a>
-                                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-                                                        <li class="dropdown-header">
-                                                            Vous avez
-                                                            {{ $operateur?->validationoperateurs->count() }}
-                                                            validation(s)
-                                                        </li>
-                                                        <li>
-                                                            <hr class="dropdown-divider">
-                                                        </li>
-                                                        @foreach ($operateur?->validationoperateurs->sortByDesc('created_at')->take(2) as $validationoperateur)
-                                                            <li class="message-item">
-                                                                <div>
-                                                                    <p><span
-                                                                            class="{{ $validationoperateur->action }}">{{ $validationoperateur->action }}</span>
-                                                                    </p>
-                                                                    <p>{!! $validationoperateur->created_at->diffForHumans() !!}</p>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <hr class="dropdown-divider">
-                                                            </li>
-                                                        @endforeach
-                                                        <li class="dropdown-footer">
-                                                            <form action="{{ route('validationmessageop') }}" method="post"
-                                                                target="_blank">
-                                                                @csrf
-                                                                <input type="hidden" name="id"
-                                                                    value="{{ $operateur?->id }}">
-                                                                <button class="btn btn-sm mx-1">Voir
-                                                                    toutes les validations</button>
-                                                            </form>
-                                                        </li>
-                                                    </ul>
-                                                </ul>
-                                            </nav>
-                                        </span>
-                                    @endif
-                                </div>
+                                                    </nav>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </li>
+
+                                </ul>
+
                                 {{-- Détail représentant --}}
                                 <div class="tab-content pt-2">
                                     <div class="tab-pane fade profile-overview" id="references-overview">
