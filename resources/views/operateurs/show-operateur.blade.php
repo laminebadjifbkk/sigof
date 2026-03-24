@@ -278,44 +278,9 @@
                             @endcan
                         </div>
                     @endforeach
-
-
-                    <div class="card-body px-4">
-                        <div class="my-2 p-3 border rounded text-center">
-
-                            {{-- Dossier complet ou incomplet --}}
-                            @if (
-                                ($operateur->user->categorie === 'Public' && $hasNinea && $hasQuitus) ||
-                                    ($operateur->user->categorie !== 'Public' && $hasNinea && $hasQuitus && $hasAC && $hasContrat && $hasNF))
-                                <span class="text-success fw-bold fs-5">Dossier complet</span>
-                            @else
-                                <span class="text-danger fw-bold fs-5 d-block">Dossier incomplet !</span>
-
-                                <div class="text-danger fs-6 mt-2">
-                                    @if (!$hasNinea)
-                                        Veuillez téléverser le NINEA.<br>
-                                    @endif
-                                    @if (!$hasQuitus)
-                                        Veuillez téléverser le quitus fiscal.<br>
-                                    @endif
-
-                                    {{-- Pour les privés uniquement --}}
-                                    @if ($operateur->user->categorie !== 'Public')
-                                        @if (!$hasAC)
-                                            Acte de création est requis.<br>
-                                        @endif
-                                        @if (!$hasContrat)
-                                            Contrat de location requis.<br>
-                                        @endif
-                                        @if (!$hasNF)
-                                            Attestation de non fonctionnaire requise.<br>
-                                        @endif
-                                    @endif
-                                </div>
-                            @endif
-
-                        </div>
-                    </div>
+                    
+                    @include('operateurs.files-uploads')
+                    
                 </div>
             </div>
         </div>

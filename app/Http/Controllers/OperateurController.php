@@ -1174,6 +1174,8 @@ class OperateurController extends Controller
 
         $labels = [
             'Ninea ou registre de commerce' => 'Registre de commerce',
+            'Ninea/RC' => 'RC',
+            'Non-fonctionnaire' => 'NF',
         ];
 
         // 🔹 Fichiers utilisateurs "templates" (sans fichier associé)
@@ -1291,6 +1293,8 @@ class OperateurController extends Controller
 
         $labels = [
             'Ninea ou registre de commerce' => 'Registre de commerce',
+            'Ninea/RC' => 'RC',
+            'Non-fonctionnaire' => 'NF',
         ];
 
         $user_files = File::whereNull('file')
@@ -2041,6 +2045,8 @@ class OperateurController extends Controller
 
         $labels = [
             'Ninea ou registre de commerce' => 'Registre de commerce',
+            'Ninea/RC' => 'RC',
+            'Non-fonctionnaire' => 'NF',
         ];
 
         $user_files = File::whereNull('file')
