@@ -55,54 +55,13 @@ class OperateurController extends Controller
         $totalOperateurs = number_format(Operateur::count(), 0, ',', ' ');
 
         // Base query
-        $query = Operateur::query();
+        $query = Operateur::with('user')->query();
 
         // Liste principale
-        /* $operateurs = $query
-            ->latest()
-            ->limit(350)
-            ->get()
-            ->map(function ($operateur) {
-
-                $fixe = $operateur->user?->fixe;
-                $mobile = $operateur->user?->telephone;
-
-                // Nettoyage (garde uniquement les chiffres)
-                $fixeClean = $fixe ? preg_replace('/[^0-9]/', '', $fixe) : null;
-                $mobileClean = $mobile ? preg_replace('/[^0-9]/', '', $mobile) : null;
-
-                $numeros = [];
-
-                // Ajout sans doublon (clé = numéro nettoyé)
-                if ($fixeClean) {
-                    $numeros[$fixeClean] = $fixe;
-                }
-
-                if ($mobileClean) {
-                    $numeros[$mobileClean] = $mobile;
-                }
-
-                // Injection dans l'objet
-                $operateur->numeros = array_values($numeros);
-
-                return $operateur;
-            }); */
-
         $operateurs = $query
             ->latest()
             ->limit(350)
-            ->get()
-            ->map(function ($operateur) {
-                $fixeClean = $operateur->user?->fixe ? preg_replace('/[^0-9]/', '', $operateur->user?->fixe) : null;
-                $mobileClean = $operateur->user?->telephone ? preg_replace('/[^0-9]/', '', $operateur->user?->telephone) : null;
-
-                $numeros = [];
-                if ($fixeClean) $numeros[$fixeClean] = $operateur->user?->fixe;
-                if ($mobileClean) $numeros[$mobileClean] = $operateur->user?->telephone;
-
-                $operateur->numeros = array_values($numeros);
-                return $operateur;
-            }) ?? collect(); // ← garantit que ce soit une collection même si null
+            ->get();
 
         // Départements
         $departements = Departement::orderBy('nom')->get(['id', 'nom']);
@@ -143,7 +102,7 @@ class OperateurController extends Controller
     public function parAnnee(Request $request, $annee)
     {
         // Base filtrée
-        $baseQuery = Operateur::whereYear('annee_agrement', $annee);
+        $baseQuery = Operateur::with('user')->whereYear('annee_agrement', $annee);
 
         // ✅ TOTAL (année filtrée)
         $totalOperateurs = number_format(
@@ -157,18 +116,7 @@ class OperateurController extends Controller
         $operateurs = (clone $baseQuery)
             ->orderByDesc('created_at')
             ->limit(350)
-            ->get()
-            ->map(function ($operateur) {
-                $fixeClean = $operateur->user?->fixe ? preg_replace('/[^0-9]/', '', $operateur->user?->fixe) : null;
-                $mobileClean = $operateur->user?->telephone ? preg_replace('/[^0-9]/', '', $operateur->user?->telephone) : null;
-
-                $numeros = [];
-                if ($fixeClean) $numeros[$fixeClean] = $operateur->user?->fixe;
-                if ($mobileClean) $numeros[$mobileClean] = $operateur->user?->telephone;
-
-                $operateur->numeros = array_values($numeros);
-                return $operateur;
-            }) ?? collect(); // ← garantit que ce soit une collection même si null
+            ->get();
 
         // ✅ GROUPES (sans created_at !)
         $groupes = Operateur::whereYear('annee_agrement', $annee)
@@ -194,7 +142,7 @@ class OperateurController extends Controller
     public function parAnneeEtStatut(Request $request, $annee, $statut)
     {
         // Base query filtrée par année ET statut
-        $query = Operateur::whereYear('annee_agrement', $annee)
+        $query = Operateur::with('user')->whereYear('annee_agrement', $annee)
             ->where('statut_agrement', $statut);
 
         // Total pour cette combinaison
@@ -204,18 +152,7 @@ class OperateurController extends Controller
         $operateurs = $query
             ->orderByDesc('created_at')
             ->limit(350)
-            ->get()
-            ->map(function ($operateur) {
-                $fixeClean = $operateur->user?->fixe ? preg_replace('/[^0-9]/', '', $operateur->user?->fixe) : null;
-                $mobileClean = $operateur->user?->telephone ? preg_replace('/[^0-9]/', '', $operateur->user?->telephone) : null;
-
-                $numeros = [];
-                if ($fixeClean) $numeros[$fixeClean] = $operateur->user?->fixe;
-                if ($mobileClean) $numeros[$mobileClean] = $operateur->user?->telephone;
-
-                $operateur->numeros = array_values($numeros);
-                return $operateur;
-            }) ?? collect(); // ← garantit que ce soit une collection même si null
+            ->get();
 
         // Départements si nécessaire
         $departements = Departement::orderBy('nom')->get(['id', 'nom']);

@@ -361,4 +361,25 @@ class Operateur extends Model
             $this->operateurformateurs()->exists() &&
             $this->operateurlocalites()->exists();
     }
+
+    public function getNumerosAttribute()
+    {
+        $fixe = $this->user?->fixe;
+        $mobile = $this->user?->telephone;
+
+        $fixeClean = $fixe ? preg_replace('/[^0-9]/', '', $fixe) : null;
+        $mobileClean = $mobile ? preg_replace('/[^0-9]/', '', $mobile) : null;
+
+        $numeros = [];
+
+        if ($fixeClean) {
+            $numeros[$fixeClean] = $fixe;
+        }
+
+        if ($mobileClean) {
+            $numeros[$mobileClean] = $mobile;
+        }
+
+        return array_values($numeros);
+    }
 }
