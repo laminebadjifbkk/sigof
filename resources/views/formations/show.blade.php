@@ -70,8 +70,7 @@
                                     </li>
 
                                 </ul>
-                                <div class="d-flex justify-content-between align-items-center">
-                                </div>
+                                
                                 <div class="tab-content pt-0">
                                     <div class="tab-pane fade profile-overview pt-3" id="profile-overview">
                                         <form method="post" action="#" enctype="multipart/form-data" class="row g-3">
