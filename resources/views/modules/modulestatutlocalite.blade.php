@@ -52,7 +52,6 @@
                             <table class="table datatables align-middle" id="table-individuelles">
                                 <thead>
                                     <tr>
-                                        {{-- <th class="text-center">N°</th> --}}
                                         <th class="text-center">CIN</th>
                                         <th>Prénom</th>
                                         <th>NOM</th>
@@ -62,6 +61,7 @@
                                         <th>Diplôme pro.</th>
                                         <th>Adresse</th>
                                         <th>Telephone</th>
+                                        <th>Fichiers</th>
                                         <th class="text-center">#</th>
                                     </tr>
                                 </thead>
@@ -82,6 +82,22 @@
                                             <td>{{ $individuelle?->user?->adresse }}</td>
                                             <td><a
                                                     href="tel:+221{{ $individuelle?->user?->telephone }}">{{ $individuelle?->user?->telephone }}</a>
+                                            </td>
+                                            <td>
+                                                @php
+                                                    // On récupère tous les fichiers de l'utilisateur qui ne sont pas vides
+                                                    $userFiles = $individuelle->user->files->filter(
+                                                        fn($file) => !empty($file->file),
+                                                    );
+                                                @endphp
+
+                                                @forelse ($userFiles as $file)
+                                                    <span class="me-1" title="{{ $file->legende }}">
+                                                        {{ $file->legende }};
+                                                    </span>
+                                                @empty
+                                                    <span class="text-muted">Aucun</span>
+                                                @endforelse
                                             </td>
                                             <td>
                                                 @can('individuelle-show')

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Domaine;
+use App\Models\File;
 use App\Models\Individuelle;
 use App\Models\Module;
 use App\Models\Region;
@@ -174,11 +175,28 @@ class ModuleController extends Controller
         $localite = Region::findOrFail($idlocalite);
         $module   = Module::findOrFail($idmodule);
 
-        $individuelles = Individuelle::where('regions_id', $idlocalite)
+        $individuelles = Individuelle::with('user')
+            ->where('regions_id', $idlocalite)
             ->where('modules_id', $idmodule)
-            ->where('statut', $statut)->get();
+            ->where('statut', $statut)
+            ->get();
 
-        return view("modules.modulelocalitestatut", compact("module", "localite", "individuelles", "statut"));
+        // Récupérer tous les user_id
+        $userIds = $individuelles->pluck('user.id')->filter();
+
+        // Tous les fichiers liés à ces users
+        $files = File::whereIn('users_id', $userIds)
+            ->whereNotNull('file')
+            ->get()
+            ->groupBy('users_id'); // 🔥 important
+
+        return view("modules.modulelocalitestatut", compact(
+            "module",
+            "localite",
+            "individuelles",
+            "statut",
+            "files"
+        ));
     }
 
     public function modulestatut($statut, $idmodule)
@@ -195,9 +213,14 @@ class ModuleController extends Controller
         $localite = Region::findOrFail($idlocalite);
         $module   = Module::findOrFail($idmodule);
 
-        $individuelles = Individuelle::where('regions_id', $idlocalite)
+        // On charge les individuelles avec leurs users et les fichiers liés
+        $individuelles = Individuelle::with(['user.files' => function ($query) {
+            $query->whereNotNull('file'); // on ne garde que les fichiers non vides
+        }])
+            ->where('regions_id', $idlocalite)
             ->where('modules_id', $idmodule)
-            ->where('statut', $statut)->get();
+            ->where('statut', $statut)
+            ->get();
 
         return view(
             "modules.modulestatutlocalite",
