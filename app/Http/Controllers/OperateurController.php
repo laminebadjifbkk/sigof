@@ -55,7 +55,7 @@ class OperateurController extends Controller
         $totalOperateurs = number_format(Operateur::count(), 0, ',', ' ');
 
         // Base query
-        $query = Operateur::with('user')->query();
+        $query = Operateur::with('user');
 
         // Liste principale
         $operateurs = $query
