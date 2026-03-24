@@ -16,7 +16,7 @@ class OperateurformateurController extends Controller
             "domaine"                => ["required", "string"],
             "nbre_annees_experience" => ["required", "string"],
             "reference"              => ["nullable", "string"],
-            "cv"                     => ['file', 'sometimes', 'mimes:jpeg,png,jpg,gif,svg,pdf', 'max:1024'],
+            "cv"                     => ['file', 'sometimes', 'mimes:jpeg,png,jpg,gif,svg,pdf', 'max:2048'],
         ]);
 
         $operateurformateur = Operateurformateur::create([
@@ -57,7 +57,7 @@ class OperateurformateurController extends Controller
             "domaine"                => ["required", "string"],
             "nbre_annees_experience" => ["required", "string"],
             "reference"              => ["nullable", "string"],
-            "cv"                     => ['file', 'sometimes', 'mimes:jpeg,png,jpg,gif,svg,pdf', 'max:1024'],
+            "cv"                     => ['file', 'sometimes', 'mimes:jpeg,png,jpg,gif,svg,pdf', 'max:2048'],
         ]);
 
         $operateurformateur = Operateurformateur::findOrFail($id);
