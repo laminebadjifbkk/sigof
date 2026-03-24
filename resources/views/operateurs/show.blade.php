@@ -11,7 +11,7 @@
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ url('/home') }}">Accueil</a></li>
                             <li class="breadcrumb-item">Tables</li>
-                            <li class="breadcrumb-item active">{{ $operateur?->user?->username }}</li>
+                            <li class="breadcrumb-item active">{{ $operateur?->user?->display_operateur }}</li>
                         </ol>
                     </nav>
                 </div><!-- End Page Title -->
@@ -1071,12 +1071,12 @@
                                         </div>
                                         <div class="col-12 mb-0">
                                             <div class="label">Raison sociale</div>
-                                            <div>{{ $operateur?->user?->operateur }}</div>
+                                            <div>{{ $operateur?->user?->display_operateur }}</div>
                                         </div>
-                                        <div class="col-12 col-md-4 mb-0">
+                                        {{-- <div class="col-12 col-md-4 mb-0">
                                             <div class="label">Sigle</div>
                                             <div>{{ $operateur?->user?->username }}</div>
-                                        </div>
+                                        </div> --}}
                                         <div class="col-12 col-md-4 mb-0">
                                             <div class="label">Région</div>
                                             <div>{{ $operateur?->region?->nom }}</div>

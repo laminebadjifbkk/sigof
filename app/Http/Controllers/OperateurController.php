@@ -580,7 +580,7 @@ class OperateurController extends Controller
 
         $user = Auth::user();
 
-        $operateur = $user->operateurs()->orderByDesc('id')->first();
+        $operateur = $user->operateurs()->latest('id')->first();
 
         // Vérifier s'il existe un opérateur
         if (! $operateur || ! $operateur->annee_agrement) {
