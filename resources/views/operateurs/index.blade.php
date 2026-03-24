@@ -193,7 +193,7 @@
                                                             {{-- Téléphone fixe --}}
                                                             @if ($operateur?->user?->fixe)
                                                                 <div class="d-flex align-items-center">
-                                                                    <i class="bi bi-telephone-fill text-secondary me-2"></i>
+                                                                    {{-- <i class="bi bi-telephone-fill text-secondary me-2"></i> --}}
                                                                     <a href="tel:+221{{ $operateur->user->fixe }}"
                                                                         class="text-decoration-none">
                                                                         {{ $operateur->user->fixe }}
@@ -204,7 +204,7 @@
                                                             {{-- Téléphone mobile --}}
                                                             @if ($operateur?->user?->telephone)
                                                                 <div class="d-flex align-items-center">
-                                                                    <i class="bi bi-phone-fill text-success me-2"></i>
+                                                                    {{-- <i class="bi bi-phone-fill text-success me-2"></i> --}}
                                                                     <a href="tel:+221{{ $operateur->user->telephone }}"
                                                                         class="text-decoration-none">
                                                                         {{ $operateur->user->telephone }}
