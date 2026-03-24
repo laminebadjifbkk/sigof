@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', remove_accents_uppercase('DOSSIER | AGREMENT'))
+@section('title', $operateur?->user?->display_operateur)
 @section('space-work')
     <section class="section">
         <div class="row justify-content-center">
@@ -76,7 +76,7 @@
                                                                         class="fw-bold">{{ $dateExpiration?->format('d/m/Y') }}</span>.
                                                                 </small>
                                                             </div>
-                                                        @elseif($estExtension)
+                                                            {{-- @elseif($estExtension)
                                                             <div
                                                                 class="alert alert-info d-flex flex-column align-items-start gap-1 p-2 shadow-sm rounded-2 w-100">
                                                                 <button type="button"
@@ -86,7 +86,7 @@
                                                                     <span>Demander une extension</span>
                                                                 </button>
                                                                 <small class="text-muted">Votre agrément toujours valide</small>
-                                                            </div>
+                                                            </div> --}}
                                                         @elseif($estRenouvellement)
                                                             <div
                                                                 class="alert alert-info d-flex flex-column align-items-start gap-1 p-2 shadow-sm rounded-2 w-100">
@@ -110,7 +110,7 @@
                     </div>
 
                     {{-- Cartes opérateurs --}}
-                    @foreach ($operateurs as $operateur)
+                    @foreach ($operateurs as $op)
                         <div class="card mb-4 shadow-sm border-0 w-100">
                             <div class="card-header bg-white border-bottom py-3 px-4">
                                 <div class="row justify-content-between align-items-center gy-2">
@@ -119,16 +119,16 @@
                                             <i class="bi bi-arrow-right-circle text-secondary me-2"></i>
                                             <span class="fst-italic">Type :</span>
                                             <span
-                                                class="ms-2 fw-semibold {{ $operateur?->type_demande }}">{{ $operateur?->type_demande }}</span>
+                                                class="ms-2 fw-semibold {{ $op?->type_demande }}">{{ $op?->type_demande }}</span>
                                         </div>
                                     </div>
-                                    @if ($operateur->commissionagrements->isNotEmpty())
+                                    @if ($op->commissionagrements->isNotEmpty())
                                         <div class="col-12 col-md text-md-center">
                                             <div class="d-flex flex-wrap align-items-center justify-content-md-center">
                                                 <i class="bi bi-building text-primary me-2"></i>
                                                 <span class="fw-bold">Date commission :</span>
                                                 <span class="ms-2 text-primary">
-                                                    {{ $operateur->commissionagrements->pluck('fin_commission')->filter()->map(fn($date) => \Carbon\Carbon::parse($date)->format('d/m/Y'))->implode(' - ') }}
+                                                    {{ $op->commissionagrements->pluck('fin_commission')->filter()->map(fn($date) => \Carbon\Carbon::parse($date)->format('d/m/Y'))->implode(' - ') }}
                                                 </span>
                                             </div>
                                         </div>
@@ -137,7 +137,7 @@
                                         <div class="d-flex align-items-center justify-content-md-end">
                                             <span class="fw-semibold text-muted me-2">Statut :</span>
                                             <span
-                                                class="badge {{ $operateur?->statut_agrement }} px-3 py-2 fs-6 shadow-sm rounded-pill">{{ $operateur?->statut_agrement }}</span>
+                                                class="badge {{ $op?->statut_agrement }} px-3 py-2 fs-6 shadow-sm rounded-pill">{{ $op?->statut_agrement }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -212,8 +212,9 @@
                                             </button> --}}
                                             <button type="button" class="btn btn-sm btn-outline-primary me-1"
                                                 data-bs-toggle="modal"
-                                                data-bs-target="#certificationModal{{ $operateur->id }}">
-                                                <i class="bi bi-pencil-square me-1"></i> Cliquez ici pour certifier et soumettre votre
+                                                data-bs-target="#certificationModal{{ $op->id }}">
+                                                <i class="bi bi-pencil-square me-1"></i> Cliquez ici pour certifier et
+                                                soumettre votre
                                                 dossier
                                             </button>
                                         @else
@@ -258,49 +259,12 @@
                                 </div>
                             </div> --}}
 
-                            <div class="card-body px-4">
-                                <div class="my-2 p-3 border rounded text-center">
-
-                                    {{-- Dossier complet ou incomplet --}}
-                                    @if (
-                                        ($operateur->user->categorie === 'Public' && $hasNinea && $hasQuitus) ||
-                                            ($operateur->user->categorie !== 'Public' && $hasNinea && $hasQuitus && $hasAC && $hasContrat && $hasNF))
-                                        <span class="text-success fw-bold fs-5">Dossier complet</span>
-                                    @else
-                                        <span class="text-danger fw-bold fs-5 d-block">Dossier incomplet !</span>
-
-                                        <div class="text-danger fs-6 mt-2">
-                                            @if (!$hasNinea)
-                                                Veuillez téléverser le NINEA.<br>
-                                            @endif
-                                            @if (!$hasQuitus)
-                                                Veuillez téléverser le quitus fiscal.<br>
-                                            @endif
-
-                                            {{-- Pour les privés uniquement --}}
-                                            @if ($operateur->user->categorie !== 'Public')
-                                                @if (!$hasAC)
-                                                    Acte de création est requis.<br>
-                                                @endif
-                                                @if (!$hasContrat)
-                                                    Contrat de location requis.<br>
-                                                @endif
-                                                @if (!$hasNF)
-                                                    Attestation de non fonctionnaire requise.<br>
-                                                @endif
-                                            @endif
-                                        </div>
-                                    @endif
-
-                                </div>
-                            </div>
-
-                            @can('update', $operateur)
+                            @can('update', $op)
                                 <div
                                     class="card-footer bg-light text-center py-3 border-top d-flex justify-content-center gap-3">
                                     @can('devenir-operateur-agrement-delete')
-                                        @can('delete', $operateur)
-                                            <form action="{{ route('operateurs.destroy', $operateur) }}" method="post"
+                                        @can('delete', $op)
+                                            <form action="{{ route('operateurs.destroy', $op) }}" method="post"
                                                 class="d-inline-block show_confirm">
                                                 @csrf
                                                 @method('DELETE')
@@ -315,6 +279,43 @@
                         </div>
                     @endforeach
 
+
+                    <div class="card-body px-4">
+                        <div class="my-2 p-3 border rounded text-center">
+
+                            {{-- Dossier complet ou incomplet --}}
+                            @if (
+                                ($operateur->user->categorie === 'Public' && $hasNinea && $hasQuitus) ||
+                                    ($operateur->user->categorie !== 'Public' && $hasNinea && $hasQuitus && $hasAC && $hasContrat && $hasNF))
+                                <span class="text-success fw-bold fs-5">Dossier complet</span>
+                            @else
+                                <span class="text-danger fw-bold fs-5 d-block">Dossier incomplet !</span>
+
+                                <div class="text-danger fs-6 mt-2">
+                                    @if (!$hasNinea)
+                                        Veuillez téléverser le NINEA.<br>
+                                    @endif
+                                    @if (!$hasQuitus)
+                                        Veuillez téléverser le quitus fiscal.<br>
+                                    @endif
+
+                                    {{-- Pour les privés uniquement --}}
+                                    @if ($operateur->user->categorie !== 'Public')
+                                        @if (!$hasAC)
+                                            Acte de création est requis.<br>
+                                        @endif
+                                        @if (!$hasContrat)
+                                            Contrat de location requis.<br>
+                                        @endif
+                                        @if (!$hasNF)
+                                            Attestation de non fonctionnaire requise.<br>
+                                        @endif
+                                    @endif
+                                </div>
+                            @endif
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

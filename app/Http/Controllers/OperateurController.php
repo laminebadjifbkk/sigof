@@ -613,15 +613,88 @@ class OperateurController extends Controller
                 return redirect()->back();
             }
 
-            $operateur->update([
+            $op = Operateur::create([
+                "categorie"       => $operateur?->categorie,
+                "statut"          => $operateur?->statut,
                 "statut_agrement" => 'Nouveau',
-                "type_demande"    => $request->input("type_demande"),
+                "type_demande"    => $request?->type_demande,
+                "autre_statut"    => $operateur?->autre_statut,
+                "annee_agrement"  => now()->format('Y-m-d'),
+                "rccm"            => $operateur?->registre_commerce,
+                "ninea"           => $operateur?->ninea,
                 "debut_quitus"    => $date_quitus,
+                "departements_id" => $operateur?->departements_id,
+                "regions_id"      => $operateur?->departement?->region?->id,
+                "users_id"        => $operateur?->users_id,
             ]);
+
+            // Clonage des modules de l'opérateur
+            foreach ($operateur?->operateurmodules as $operateurmodule) {
+                Operateurmodule::create([
+                    "module"               => $operateurmodule?->module,
+                    "domaine"              => $operateurmodule?->domaine,
+                    "categorie"            => $operateurmodule?->categorie,
+                    "niveau_qualification" => $operateurmodule?->niveau_qualification,
+                    "statut"               => $operateurmodule?->statut,
+                    "operateurs_id"        => $op?->id,
+                ]);
+            }
+
+            // Clonage des références
+            foreach ($operateur?->operateureferences as $operateureference) {
+                Operateureference::create([
+                    "organisme"     => $operateureference?->organisme,
+                    "contact"       => $operateureference?->contact,
+                    "periode"       => $operateureference?->periode,
+                    "description"   => $operateureference?->description,
+                    "operateurs_id" => $op?->id,
+                ]);
+            }
+
+            // Clonage des formateurs
+            foreach ($operateur?->operateurformateurs as $operateurformateur) {
+                Operateurformateur::create([
+                    "name"                   => $operateurformateur?->name,
+                    "domaine"                => $operateurformateur?->domaine,
+                    "nbre_annees_experience" => $operateurformateur?->nbre_annees_experience,
+                    "references"             => $operateurformateur?->references,
+                    "operateurs_id"          => $op?->id,
+                ]);
+            }
+
+            // Clonage des équipements
+            foreach ($operateur->operateurequipements as $operateurequipement) {
+                Operateurequipement::create([
+                    "designation"   => $operateurequipement?->designation,
+                    "quantite"      => $operateurequipement?->quantite,
+                    "etat"          => $operateurequipement?->etat,
+                    "type"          => $operateurequipement?->type,
+                    "operateurs_id" => $op?->id,
+                ]);
+            }
+
+            // Clonage des localités
+            foreach ($operateur?->operateurlocalites as $operateurlocalite) {
+                Operateurlocalite::create([
+                    "name"          => $operateurlocalite?->name,
+                    "region"        => $operateurlocalite?->region,
+                    "operateurs_id" => $op?->id,
+                ]);
+            }
+
+            $commissionagrement = Commissionagrement::where('statut', 'Ouvert')->first();
+
+            if (! $commissionagrement) {
+                Alert::error('Désolé', 'Aucun agrément n\'est lancé pour le moment.');
+                return redirect()->back();
+            }
+
+            $operateur->commissionagrements()->syncWithoutDetaching([$commissionagrement?->id]);
 
             $operateur->commissionagrements()->syncWithoutDetaching([$commissionagrement?->id]);
 
             Alert::success('Succès !', 'Votre demande d\'extension a été prise en compte.');
+
             return back();
         } elseif ($diffAnnee >= 4) {
 
