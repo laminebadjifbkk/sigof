@@ -51,7 +51,7 @@
                                         </li>
 
                                         <li class="nav-item">
-                                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-overview">Détails
+                                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#details-overview">Détails
                                             </button>
                                         </li>
                                     @endcan
@@ -262,7 +262,7 @@
                                 </div>
                                 {{-- Détail représentant --}}
                                 <div class="tab-content pt-2">
-                                    <div class="tab-pane fade profile-overview" id="references-overview">
+                                    <div class="tab-pane fade" id="references-overview">
                                         <form method="post" action="#" enctype="multipart/form-data" class="row g-3">
                                             @csrf
                                             @method('PUT')
@@ -324,7 +324,7 @@
                                     </div>
                                 </div>
                                 <div class="tab-content pt-2">
-                                    <div class="tab-pane fade profile-overview" id="equipement-overview">
+                                    <div class="tab-pane fade" id="equipement-overview">
                                         <form method="post" action="#" enctype="multipart/form-data" class="row g-3">
                                             @csrf
                                             @method('PUT')
@@ -375,7 +375,7 @@
                                     </div>
                                 </div>
                                 <div class="tab-content pt-2">
-                                    <div class="tab-pane fade profile-overview" id="formateur-overview">
+                                    <div class="tab-pane fade" id="formateur-overview">
                                         <form method="post" action="#" enctype="multipart/form-data" class="row g-3">
                                             @csrf
                                             @method('PUT')
@@ -774,7 +774,7 @@
 
                                 {{-- Détail Observations --}}
                                 <div class="tab-content">
-                                    <div class="tab-pane fade profile-overview pt-2" id="observations-overview">
+                                    <div class="tab-pane fade pt-2" id="observations-overview">
                                         <div class="card shadow-sm border-0">
                                             <div
                                                 class="card-header d-flex justify-content-between align-items-center bg-light">
@@ -807,7 +807,7 @@
                                 </div>
 
                                 <div class="tab-content pt-2">
-                                    <div class="tab-pane fade profile-overview" id="localites-overview">
+                                    <div class="tab-pane fade" id="localites-overview">
                                         <form method="post" action="#" enctype="multipart/form-data" class="row g-3">
                                             @csrf
                                             @method('PUT')
@@ -867,7 +867,7 @@
                                 {{-- Détail Modules --}}
                                 {{-- class show et active pour l'affichage par défaut --}}
                                 <div class="tab-content pt-2">
-                                    <div class="tab-pane show active fade profile-overview" id="module-overview">
+                                    <div class="tab-pane show active fade" id="module-overview">
                                         <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
                                             <h5 class="mb-0 text-uppercase fw-bold text-primary">
                                                 <i class="bi bi-briefcase-fill me-2"></i> Modules de formation
@@ -1064,7 +1064,7 @@
                                     </div>
                                 </div>
 
-                                <div class="tab-pane fade profile-overview pt-2" id="profile-overview">
+                                <div class="tab-pane fade pt-2" id="details-overview">
                                     <form method="post" action="#" enctype="multipart/form-data" class="row g-3">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <h5 class="card-title">Opérateur</h5>
@@ -1237,7 +1237,7 @@
                                 </div>
 
                                 <div class="tab-content">
-                                    <div class="tab-pane fade profile-overview pt-0" id="formation-overview">
+                                    <div class="tab-pane fade pt-0" id="formation-overview">
                                         <h5 class="card-title">FORMATIONS</h5>
                                         <table
                                             class="table table-bordered table-hover datatables  align-middle justify-content-center"
