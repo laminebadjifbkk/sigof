@@ -106,9 +106,9 @@ class SendEvaluationReminder extends Command
 
         // Dates pour rappel
         $dates = [
-            'dans 5 jours' => $now->copy()->addDays(5),
+            /* 'dans 5 jours' => $now->copy()->addDays(5),
             'dans 4 jours' => $now->copy()->addDays(4),
-            'dans 3 jours' => $now->copy()->addDays(3),
+            'dans 3 jours' => $now->copy()->addDays(3), */
             'dans 2 jours' => $now->copy()->addDays(2),
             'demain'       => $now->copy()->addDay(),
         ];

@@ -82,7 +82,7 @@ namespace App\Console\Commands;
 use App\Models\Formation;
 use App\Services\BrevoMailer;
 use Illuminate\Console\Command;
-
+/* 
 class SendFormationStartEmail extends Command
 {
     protected $signature = 'notify:formation-start';
@@ -177,6 +177,121 @@ class SendFormationStartEmail extends Command
                     } catch (\Exception $e) {
 
                         $this->error("✖ Erreur envoi {$email} : " . $e->getMessage());
+                    }
+                }
+            }
+
+            $this->line(
+                "Notifications traitées pour "
+                    . $targetDate->format('d/m/Y')
+                    . " ({$label})"
+            );
+        }
+
+        $this->info("Commande terminée.");
+
+        return Command::SUCCESS;
+    }
+} */
+
+class SendFormationStartEmail extends Command
+{
+    protected $signature = 'notify:formation-start';
+    protected $description = 'Notifier le démarrage des formations';
+
+    public function handle()
+    {
+        $now = now();
+
+        // Dates à traiter : veille + aujourd'hui
+        $dates = [
+            'Demain' => $now->copy()->addDay(),
+        ];
+
+        // Entre 08h et 09h59 → ajouter aujourd'hui
+        if ($now->hour >= 8 && $now->hour <= 9) {
+            $dates["Aujourd'hui"] = $now;
+        }
+
+        $mailer = app(BrevoMailer::class);
+
+        foreach ($dates as $label => $targetDate) {
+
+            $formations = Formation::with([
+                'ingenieur.user',
+                'module',
+                'collectivemodule'
+            ])
+                ->whereDate('date_debut', $targetDate->toDateString())
+                ->get();
+
+            if ($formations->isEmpty()) {
+                $this->warn(
+                    "Aucune formation ne démarre le "
+                        . $targetDate->format('d/m/Y')
+                        . " ({$label})"
+                );
+                continue;
+            }
+
+            foreach ($formations as $formation) {
+
+                // Emails fixes
+                $defaultEmails = [
+                    'lamine.badji@onfp.sn',
+                    'ouly.toure@onfp.sn',
+                    'dado.toure@onfp.sn',
+                    'amsatou.paye@onfp.sn',
+                    //'bara.lo@onfp.sn',
+                    'SerigneMansourSy.FALL@onfp.sn',
+                    //'aissatou.deme@tresor.gouv.sn',
+                    'MaimounaGadio.AW@onfp.sn',
+                    'ramet.ndiaye@onfp.sn',
+                    'seckseynabou27@gmail.com',
+                    'seynabou.seck@onfp.sn',
+                    'mamebigue.ciss@onfp.sn',
+                    'gorgui.ndiaye@onfp.sn',
+                    'mohamadou.soumare@onfp.sn',
+                    's.fall@onfp.sn',
+                    'a.drame@onfp.sn',
+                    'elhadjigorgui.diouf@onfp.sn',
+                ];
+
+                $emails = collect($defaultEmails)
+                    ->push($formation?->ingenieur?->user?->email)
+                    ->filter()
+                    ->unique()
+                    ->values();
+
+                $moduleName = data_get($formation, 'module.name')
+                    ?? data_get($formation, 'collectivemodule.module')
+                    ?? 'Module non défini';
+
+                $htmlContent = view(
+                    'emails.formation-start',
+                    [
+                        'formation' => $formation,
+                        'label' => $label
+                    ]
+                )->render();
+
+                foreach ($emails as $email) {
+
+                    try {
+                        $subject = "Démarrage formation : {$moduleName} ({$label})";
+
+                        $mailer->sendEmail(
+                            [
+                                'email' => $email,
+                                'name' => 'Destinataire'
+                            ],
+                            $subject,
+                            $htmlContent
+                        );
+
+                        $this->info("✔ Email envoyé à {$email} pour {$moduleName}");
+                    } catch (\Exception $e) {
+                        $this->error("✖ {$email} | {$moduleName} : " . $e->getMessage());
                     }
                 }
             }
