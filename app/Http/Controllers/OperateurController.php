@@ -1137,6 +1137,7 @@ class OperateurController extends Controller
             'operateureferences',
             'operateurequipements',
             'operateurformateurs',
+            'operateurlocalites',
             'formations',
         ]);
 
@@ -1319,6 +1320,24 @@ class OperateurController extends Controller
                 'modal' => "EditOperateurModal{$operateur->id}",
             ],
         ];
+
+        // 🔹 Charger les counts pour les badges dynamiques (relations directes)
+        $operateur->loadCount([
+            'operateurmodules',
+            'operateureferences',
+            'operateurequipements',
+            'operateurformateurs',
+            'operateurlocalites',
+            'formations',
+        ]);
+
+        // 🔹 Charger le count des fichiers de l'utilisateur lié
+        $operateur->load([
+            'user' => function ($query) {
+                $query->withCount('files');
+            }
+        ]);
+
 
         $validations = $operateur?->validationoperateurs;
 

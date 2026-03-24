@@ -51,7 +51,8 @@
                                         </li>
 
                                         <li class="nav-item">
-                                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#details-overview">Opérateur
+                                            <button class="nav-link" data-bs-toggle="tab"
+                                                data-bs-target="#details-overview">Opérateur
                                             </button>
                                         </li>
                                     @endcan
@@ -104,6 +105,19 @@
                                                 <span
                                                     class="badge bg-info text-dark position-absolute top-0 end-0 translate-middle p-1 rounded-circle">
                                                     {{ $operateur->operateurformateurs_count }}
+                                                </span>
+                                            @endif
+                                        </button>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <button class="nav-link position-relative" data-bs-toggle="tab"
+                                            data-bs-target="#localites-overview">Localités
+
+                                            @if ($operateur->operateurlocalites_count > 0)
+                                                <span
+                                                    class="badge bg-secondary text-white position-absolute top-0 end-0 translate-middle p-1 rounded-circle">
+                                                    {{ $operateur->operateurlocalites_count }}
                                                 </span>
                                             @endif
                                         </button>
@@ -587,7 +601,8 @@
                                 <div class="tab-content pt-2">
                                     <div class="tab-pane fade profile-overview" id="details-overview">
                                         <form method="post" action="#" enctype="multipart/form-data" class="row g-3">
-                                            <div class="col-12 mb-0">
+
+                                            <div class="col-12 mb-2 pt-3">
                                                 <div class="label">Raison sociale</div>
                                                 <div>{{ $operateur?->user?->display_operateur }}</div>
                                             </div>

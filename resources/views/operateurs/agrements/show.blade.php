@@ -53,12 +53,13 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <button class="nav-link active" data-bs-toggle="tab"
-                                        data-bs-target="#module-overview">Modules
+                                    <button class="nav-link active position-relative" data-bs-toggle="tab"
+                                        data-bs-target="#module-overview">
+                                        Modules
 
                                         @if ($operateur->operateurmodules_count > 0)
                                             <span
-                                                class="badge bg-primary position-absolute top-0 end-0 translate-middle p-1 rounded-circle">
+                                                class="badge bg-primary position-absolute top-0 start-100 translate-middle p-1 rounded-circle">
                                                 {{ $operateur->operateurmodules_count }}
                                             </span>
                                         @endif
@@ -66,7 +67,7 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab"
+                                    <button class="nav-link position-relative" data-bs-toggle="tab"
                                         data-bs-target="#references-overview">Références
                                         @if ($operateur->operateureferences_count > 0)
                                             <span
@@ -78,7 +79,7 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab"
+                                    <button class="nav-link position-relative" data-bs-toggle="tab"
                                         data-bs-target="#equipement-overview">Equipements
                                         @if ($operateur->operateurequipements_count > 0)
                                             <span
@@ -90,7 +91,7 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab"
+                                    <button class="nav-link position-relative" data-bs-toggle="tab"
                                         data-bs-target="#formateur-overview">Formateurs
                                         @if ($operateur->operateurformateurs_count > 0)
                                             <span
@@ -102,14 +103,21 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab"
+                                    <button class="nav-link position-relative" data-bs-toggle="tab"
                                         data-bs-target="#localites-overview">Localités
+                                        
+                                        @if ($operateur->operateurlocalites_count > 0)
+                                            <span
+                                                class="badge bg-secondary text-white position-absolute top-0 end-0 translate-middle p-1 rounded-circle">
+                                                {{ $operateur->operateurlocalites_count }}
+                                            </span>
+                                        @endif
                                     </button>
                                 </li>
 
                                 @can('operateur-show-files')
                                     <li class="nav-item">
-                                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#files">Fichiers
+                                        <button class="nav-link position-relative" data-bs-toggle="tab" data-bs-target="#files">Fichiers
                                             @if ($operateur->user->files_count > 0)
                                                 <span
                                                     class="badge bg-dark position-absolute top-0 end-0 translate-middle p-1 rounded-circle">
@@ -121,7 +129,7 @@
                                 @endcan
 
                                 <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab"
+                                    <button class="nav-link position-relative" data-bs-toggle="tab"
                                         data-bs-target="#observations-overview">Observations</button>
                                 </li>
 
@@ -233,7 +241,6 @@
                                         </span>
                                     @endif
                                 </li>
-
                             </ul>
                             {{-- Détail opérateur --}}
                             <div class="tab-content pt-0">
@@ -244,8 +251,7 @@
                                         {{-- <div class="d-flex justify-content-between align-items-center">
                                             <h5 class="card-title">Opérateur</h5>
                                         </div> --}}
-                                        <h5 class="text-primary fw-semibold mb-3">Opérateur</h5>
-                                        <div class="col-12 mb-2">
+                                        <div class="col-12 mb-2 pt-3">
                                             <div class="label">Raison sociale</div>
                                             <div>{{ $operateur?->user?->display_operateur }}</div>
                                         </div>

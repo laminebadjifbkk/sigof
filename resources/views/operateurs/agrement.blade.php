@@ -206,8 +206,9 @@
                                         {{-- <div class="d-flex justify-content-between align-items-center">
                                             <h5 class="card-title">Opérateur</h5>
                                         </div> --}}
-                                        <h5 class="text-primary fw-semibold mb-3">Opérateur</h5>
-                                        <div class="col-12 mb-2">
+                                        {{-- <h5 class="text-primary fw-semibold mb-3">Opérateur</h5> --}}
+
+                                        <div class="col-12 mb-2 pt-3">
                                             <div class="label">Raison sociale</div>
                                             <div>{{ $operateur?->user?->operateur }}</div>
                                         </div>
