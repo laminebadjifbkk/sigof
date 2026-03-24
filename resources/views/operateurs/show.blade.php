@@ -579,11 +579,8 @@
                                 </div>
 
                                 <div class="tab-content pt-2">
-                                    <div class="tab-pane fade profile-overview pt-2" id="details-overview">
+                                    <div class="tab-pane fade profile-overview" id="details-overview">
                                         <form method="post" action="#" enctype="multipart/form-data" class="row g-3">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <h5 class="card-title">Opérateur</h5>
-                                            </div>
                                             <div class="col-12 mb-0">
                                                 <div class="label">Raison sociale</div>
                                                 <div>{{ $operateur?->user?->display_operateur }}</div>
