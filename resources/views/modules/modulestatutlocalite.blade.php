@@ -53,6 +53,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">CIN</th>
+                                        <th>Civilité</th>
                                         <th>Prénom</th>
                                         <th>NOM</th>
                                         <th>Date naissance</th>
@@ -73,6 +74,7 @@
                                             {{-- <td>{{ $individuelle?->numero }}
                                             </td> --}}
                                             <td>{{ $individuelle?->user?->cin }}</td>
+                                            <td>{{ $individuelle?->user?->civilite }}</td>
                                             <td>{{ $individuelle?->user?->firstname }}</td>
                                             <td>{{ $individuelle?->user?->name }}</td>
                                             <td>{{ $individuelle?->user->date_naissance?->format('d/m/Y') }}</td>
