@@ -162,7 +162,32 @@ class OperateurController extends Controller
         $operateurs = (clone $baseQuery)
             ->orderByDesc('created_at')
             ->limit(350)
-            ->get();
+            ->get()
+            ->map(function ($operateur) {
+
+                $fixe = $operateur->user?->fixe;
+                $mobile = $operateur->user?->telephone;
+
+                // Nettoyage (garde uniquement les chiffres)
+                $fixeClean = $fixe ? preg_replace('/[^0-9]/', '', $fixe) : null;
+                $mobileClean = $mobile ? preg_replace('/[^0-9]/', '', $mobile) : null;
+
+                $numeros = [];
+
+                // Ajout sans doublon (clé = numéro nettoyé)
+                if ($fixeClean) {
+                    $numeros[$fixeClean] = $fixe;
+                }
+
+                if ($mobileClean) {
+                    $numeros[$mobileClean] = $mobile;
+                }
+
+                // Injection dans l'objet
+                $operateur->numeros = array_values($numeros);
+
+                return $operateur;
+            });
 
         // ✅ GROUPES (sans created_at !)
         $groupes = Operateur::whereYear('annee_agrement', $annee)
@@ -198,7 +223,32 @@ class OperateurController extends Controller
         $operateurs = $query
             ->orderByDesc('created_at')
             ->limit(350)
-            ->get();
+            ->get()
+            ->map(function ($operateur) {
+
+                $fixe = $operateur->user?->fixe;
+                $mobile = $operateur->user?->telephone;
+
+                // Nettoyage (garde uniquement les chiffres)
+                $fixeClean = $fixe ? preg_replace('/[^0-9]/', '', $fixe) : null;
+                $mobileClean = $mobile ? preg_replace('/[^0-9]/', '', $mobile) : null;
+
+                $numeros = [];
+
+                // Ajout sans doublon (clé = numéro nettoyé)
+                if ($fixeClean) {
+                    $numeros[$fixeClean] = $fixe;
+                }
+
+                if ($mobileClean) {
+                    $numeros[$mobileClean] = $mobile;
+                }
+
+                // Injection dans l'objet
+                $operateur->numeros = array_values($numeros);
+
+                return $operateur;
+            });
 
         // Départements si nécessaire
         $departements = Departement::orderBy('nom')->get(['id', 'nom']);

@@ -344,7 +344,6 @@
                                                 <th>Email</th>
                                             @endcan
                                             @can('afficher-operateur-telephone')
-                                                <th>Fixe</th>
                                                 <th>Telephone</th>
                                             @endcan
                                             <th>Région</th>
@@ -387,13 +386,18 @@
                                                 @endcan
                                                 @can('afficher-operateur-telephone')
                                                     <td>
-                                                        <a
-                                                            href="tel:+221{{ $operateur?->user?->fixe }}">{{ $operateur?->user?->fixe }}</a>
-                                                    </td>
-                                                    <td>
-                                                        <a
-                                                            href="tel:+221{{ $operateur?->user?->telephone }}">{{ $operateur?->user?->telephone }}</a>
-
+                                                        <div class="d-flex flex-column gap-1">
+                                                            @forelse ($operateur->numeros as $numero)
+                                                                <div>
+                                                                    <a href="tel:+221{{ preg_replace('/[^0-9]/', '', $numero) }}"
+                                                                        class="text-decoration-none">
+                                                                        {{ $numero }}
+                                                                    </a>
+                                                                </div>
+                                                            @empty
+                                                                <span class="text-muted fst-italic">Aucun numéro</span>
+                                                            @endforelse
+                                                        </div>
                                                     </td>
                                                 @endcan
                                                 <td>{{ $operateur?->region?->nom }}</td>
@@ -443,7 +447,8 @@
                                                                 <div class="filter">
                                                                     <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                                             class="bi bi-three-dots"></i></a>
-                                                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                    <ul
+                                                                        class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                                         <li>
                                                                             <a class="dropdown-item btn btn-sm"
                                                                                 href="{{ route('operateurs.edit', $operateur) }}"

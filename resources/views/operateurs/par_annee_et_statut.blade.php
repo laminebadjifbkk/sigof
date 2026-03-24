@@ -238,7 +238,6 @@
                                                 <th>Email</th>
                                             @endcan
                                             @can('afficher-operateur-telephone')
-                                                <th>Fixe</th>
                                                 <th>Telephone</th>
                                             @endcan
                                             <th>Région</th>
@@ -281,12 +280,18 @@
                                                 @endcan
                                                 @can('afficher-operateur-telephone')
                                                     <td>
-                                                        <a
-                                                            href="tel:+221{{ $operateur?->user?->fixe }}">{{ $operateur?->user?->fixe }}</a>
-                                                    </td>
-                                                    <td>
-                                                        <a
-                                                            href="tel:+221{{ $operateur?->user?->telephone }}">{{ $operateur?->user?->telephone }}</a>
+                                                        <div class="d-flex flex-column gap-1">
+                                                            @forelse ($operateur->numeros as $numero)
+                                                                <div>
+                                                                    <a href="tel:+221{{ preg_replace('/[^0-9]/', '', $numero) }}"
+                                                                        class="text-decoration-none">
+                                                                        {{ $numero }}
+                                                                    </a>
+                                                                </div>
+                                                            @empty
+                                                                <span class="text-muted fst-italic">Aucun numéro</span>
+                                                            @endforelse
+                                                        </div>
                                                     </td>
                                                 @endcan
                                                 <td>{{ $operateur?->region?->nom }}</td>
