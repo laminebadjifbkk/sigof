@@ -51,7 +51,7 @@
                                         </li>
 
                                         <li class="nav-item">
-                                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#details-overview">Détails
+                                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#details-overview">Opérateur
                                             </button>
                                         </li>
                                     @endcan
