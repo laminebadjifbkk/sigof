@@ -190,32 +190,16 @@
                                                     <td>
                                                         <div class="d-flex flex-column gap-1">
 
-                                                            {{-- Téléphone fixe --}}
-                                                            @if ($operateur?->user?->fixe)
-                                                                <div class="d-flex align-items-center">
-                                                                    {{-- <i class="bi bi-telephone-fill text-secondary me-2"></i> --}}
-                                                                    <a href="tel:+221{{ $operateur->user->fixe }}"
+                                                            @forelse ($operateur->numeros as $numero)
+                                                                <div>
+                                                                    <a href="tel:+221{{ preg_replace('/[^0-9]/', '', $numero) }}"
                                                                         class="text-decoration-none">
-                                                                        {{ $operateur->user->fixe }}
+                                                                        {{ $numero }}
                                                                     </a>
                                                                 </div>
-                                                            @endif
-
-                                                            {{-- Téléphone mobile --}}
-                                                            @if ($operateur?->user?->telephone)
-                                                                <div class="d-flex align-items-center">
-                                                                    {{-- <i class="bi bi-phone-fill text-success me-2"></i> --}}
-                                                                    <a href="tel:+221{{ $operateur->user->telephone }}"
-                                                                        class="text-decoration-none">
-                                                                        {{ $operateur->user->telephone }}
-                                                                    </a>
-                                                                </div>
-                                                            @endif
-
-                                                            {{-- Aucun numéro --}}
-                                                            @if (!$operateur?->user?->fixe && !$operateur?->user?->telephone)
+                                                            @empty
                                                                 <span class="text-muted fst-italic">Aucun numéro</span>
-                                                            @endif
+                                                            @endforelse
 
                                                         </div>
                                                     </td>
@@ -267,8 +251,7 @@
                                                                 <div class="filter">
                                                                     <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                                             class="bi bi-three-dots"></i></a>
-                                                                    <ul
-                                                                        class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                                         <li>
                                                                             <a class="dropdown-item btn btn-sm"
                                                                                 href="{{ route('operateurs.edit', $operateur) }}"

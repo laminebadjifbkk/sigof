@@ -73,7 +73,32 @@ class OperateurController extends Controller
         $operateurs = $query
             ->latest()
             ->limit(350)
-            ->get();
+            ->get()
+            ->map(function ($operateur) {
+
+                $fixe = $operateur->user?->fixe;
+                $mobile = $operateur->user?->telephone;
+
+                // Nettoyage (garde uniquement les chiffres)
+                $fixeClean = $fixe ? preg_replace('/[^0-9]/', '', $fixe) : null;
+                $mobileClean = $mobile ? preg_replace('/[^0-9]/', '', $mobile) : null;
+
+                $numeros = [];
+
+                // Ajout sans doublon (clé = numéro nettoyé)
+                if ($fixeClean) {
+                    $numeros[$fixeClean] = $fixe;
+                }
+
+                if ($mobileClean) {
+                    $numeros[$mobileClean] = $mobile;
+                }
+
+                // Injection dans l'objet
+                $operateur->numeros = array_values($numeros);
+
+                return $operateur;
+            });
 
         // Départements
         $departements = Departement::orderBy('nom')->get(['id', 'nom']);
