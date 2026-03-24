@@ -2219,6 +2219,11 @@
             transform: scale(1.05);
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
         }
+
+        .nav-link {
+            display: inline-flex;
+            align-items: center;
+        }
     </style>
 
 </head>
