@@ -99,7 +99,7 @@
                                                             class="{{ $operateur->type_demande }}">{{ $operateur->type_demande }}</span>
                                                     </td>
                                                     <td>
-                                                        {{ $operateur->operateurcategorie?->name }}
+                                                        {{ $operateur?->user?->categorie }}
                                                     </td>
                                                     <td>
                                                         <div class="d-flex align-items-center gap-1">
