@@ -71,6 +71,7 @@
                                                 {{-- <th>Sigle</th> --}}
                                                 <th class="text-center">Modules</th>
                                                 <th class="text-center">Type</th>
+                                                <th class="text-center">Catégorie</th>
                                                 <th width="2%"><i class="bi bi-gear"></i></th>
                                             </tr>
                                         </thead>
@@ -85,7 +86,7 @@
                                                     </td>
                                                     <td>{{ $i + 1 }}</td>
                                                     <td>{{ $operateur->numero_agrement }}</td>
-                                                    <td>{{ $operateur?->user?->display_operateur  }}</td>
+                                                    <td>{{ $operateur?->user?->display_operateur }}</td>
                                                     {{-- <td>{{ $operateur?->user?->username }}</td> --}}
                                                     <td class="text-center">
                                                         @if ($operateur?->operateurmodules->isNotEmpty())
@@ -96,6 +97,9 @@
                                                     <td class="text-center">
                                                         <span
                                                             class="{{ $operateur->type_demande }}">{{ $operateur->type_demande }}</span>
+                                                    </td>
+                                                    <td>
+                                                        {{ $operateur->operateurcategorie?->name }}
                                                     </td>
                                                     <td>
                                                         <div class="d-flex align-items-center gap-1">
