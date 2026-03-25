@@ -382,4 +382,10 @@ class Operateur extends Model
 
         return array_values($numeros);
     }
+
+    public function scopeAvecNumeroAgrement($query)
+    {
+        return $query->whereNotNull('numero_agrement')
+            ->where('numero_agrement', '!=', '');
+    }
 }
