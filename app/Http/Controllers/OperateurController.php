@@ -597,12 +597,12 @@ class OperateurController extends Controller
         $dateString  = $request->input('date_quitus');
         $date_quitus = ! empty($dateString) ? Carbon::createFromFormat('d/m/Y', $dateString) : null;
 
-        if ($diffAnnee < 2) {
+        if ($diffAnnee < 1) {
 
             Alert::warning('Désolé !', 'Vous ne pouvez pas renouveler votre agrément pour le moment car il est toujours valable.');
 
             return back();
-        } elseif ($diffAnnee >= 2 && $diffAnnee < 4) {
+        } elseif ($diffAnnee > 1 && $diffAnnee < 4) {
 
             $commissionagrement = Commissionagrement::where('statut', 'Ouvert')->first();
 
