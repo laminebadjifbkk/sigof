@@ -71,7 +71,7 @@
                                                 {{-- <th>Sigle</th> --}}
                                                 <th class="text-center">Modules</th>
                                                 <th class="text-center">Type</th>
-                                                <th class="text-center">Catégorie</th>
+                                                {{-- <th class="text-center">Catégorie</th> --}}
                                                 <th width="2%"><i class="bi bi-gear"></i></th>
                                             </tr>
                                         </thead>
@@ -98,9 +98,9 @@
                                                         <span
                                                             class="{{ $operateur->type_demande }}">{{ $operateur->type_demande }}</span>
                                                     </td>
-                                                    <td>
+                                                    {{-- <td>
                                                         {{ $operateur?->user?->categorie }}
-                                                    </td>
+                                                    </td> --}}
                                                     <td>
                                                         <div class="d-flex align-items-center gap-1">
                                                             {{-- Voir détails --}}
