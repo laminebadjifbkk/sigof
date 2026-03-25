@@ -1435,9 +1435,9 @@
                                         <option value="rejeté" {{ $selectedStatut === 'rejeté' ? 'selected' : '' }}>
                                             rejeté
                                         </option>
-                                        {{-- <option value="expiré" {{ $selectedStatut === 'expiré' ? 'selected' : '' }}>
+                                        <option value="expiré" {{ $selectedStatut === 'expiré' ? 'selected' : '' }}>
                                             expiré
-                                        </option> --}}
+                                        </option>
                                     </select>
                                     @error('statut')
                                         <div class="invalid-feedback">{{ $message }}</div>
