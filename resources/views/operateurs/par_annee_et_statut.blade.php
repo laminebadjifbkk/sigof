@@ -59,6 +59,7 @@
                                         <th scope="col" style="width: 50px;">N°</th>
                                         <th scope="col">Régions</th>
                                         <th scope="col" class="text-center">Opérateurs</th>
+                                        <th scope="col" class="text-center">%</th>
                                         <th scope="col" style="width: 120px;">Actions</th>
                                     </tr>
                                 </thead>
@@ -79,6 +80,10 @@
                                                 {{ number_format($items->total, 0, '', ' ') }}
                                             </td>
 
+                                            <td class="text-center fw-semibold">
+                                                {{ $items->percent }} %
+                                            </td>
+
                                             {{-- Action --}}
                                             <td>
                                                 {{-- <a
@@ -86,13 +91,13 @@
                                                     {{ $items->region_nom }}
                                                 </a> --}}
                                                 <a href="{{ route('operateurs.parAnneeEtStatut', [
-                                                            'annee' => $annee,
-                                                            'statut' => $statut,
-                                                            'region' => $items->region_id
-                                                        ]) }}"
-                                                            class="btn btn-sm btn-outline-success">
-                                                            <i class="bi bi-eye"></i> Afficher
-                                                        </a>
+                                                    'annee' => $annee,
+                                                    'statut' => $statut,
+                                                    'region' => $items->region_id,
+                                                ]) }}"
+                                                    class="btn btn-sm btn-outline-success">
+                                                    <i class="bi bi-eye"></i> Afficher
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -261,7 +266,8 @@
                                                                 <div class="filter">
                                                                     <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                                             class="bi bi-three-dots"></i></a>
-                                                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                    <ul
+                                                                        class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                                         <li>
                                                                             <a class="dropdown-item btn btn-sm"
                                                                                 href="{{ route('operateurs.edit', $operateur) }}"

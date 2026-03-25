@@ -209,8 +209,15 @@ class OperateurController extends Controller
             ->orderByDesc('total')
             ->get();
 
-        $groupes->transform(function ($item) use ($totalOperateurs) {
+        /* $groupes->transform(function ($item) use ($totalOperateurs) {
             $item->percent = $totalOperateurs ? round(($item->total / $totalOperateurs) * 100, 2) : 0;
+            return $item;
+        }); */
+
+        $totalFiltered = $groupes->sum('total'); // total des opérateurs affichés par groupe
+
+        $groupes->transform(function ($item) use ($totalFiltered) {
+            $item->percent = $totalFiltered ? round(($item->total / $totalFiltered) * 100, 2) : 0;
             return $item;
         });
 
