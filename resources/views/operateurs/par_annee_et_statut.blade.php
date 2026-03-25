@@ -44,7 +44,10 @@
                         {{-- Header --}}
                         <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
                             <a href="{{ route('operateurs.index') }}" class="btn btn-outline-secondary btn-sm">
-                                <i class="bi bi-arrow-left-circle"></i> Retour
+                                <i class="bi bi-arrow-left-circle"></i> Retour|
+                                <h6 class="mb-0 text-muted fw-semibold text-uppercase">
+                                    Tableau des opérateurs par région : {{ $statut }} en {{ $annee }}
+                                </h6>
                             </a>
                             <h6 class="mb-0 text-muted fw-semibold text-uppercase">
                                 Total : {{ $totalOperateurs }}
