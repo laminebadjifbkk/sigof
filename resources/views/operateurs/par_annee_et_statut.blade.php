@@ -38,151 +38,69 @@
                 @endif
                 <div class="card">
                     <div class="card-body">
-                        {{-- @if (auth()->user()->hasRole('super-admin|admin|DEC|DIOF|Ingenieur'))
 
-                            @can('commission-show')
-                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-3">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <h6 class="mb-0 text-muted fw-semibold text-uppercase">
-                                            COMMISSIONS D'AGRÉMENT
-                                        </h6>
-                                    </div>
-                                </div>
 
-                                <div class="col-12">
-                                    <div class="row">
-                                        @foreach ($commissionagrements as $statut => $item)
-                                            <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
-                                                <div class="card info-card sales-card shadow-sm" style="max-width: 220px;">
-                                                    <div class="card-body">
-                                                        <div class="text-truncate mb-4" style="font-size: 1rem;"><span
-                                                                class="{{ $item->statut }}">
-                                                                {{ ucfirst($item->statut) }}
-                                                            </span><span> |
-                                                                {{ $item?->annee }} </span>
-                                                        </div>
-                                                        <div class="d-flex align-items-center mb-2">
-                                                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
-                                                                style="width: 32px; height: 32px; font-size: 1.25rem;">
-                                                                <i class="bi bi-people"></i>
-                                                            </div>
-                                                            <div class="ps-2">
-                                                                <h6 class="mb-0" style="font-size: 0.9rem;">
-                                                                    {{ number_format($item->operateurs->count(), 0, '', ' ') }}
-                                                                </h6>
-                                                                <span class="text-muted small">Opérateur(s)</span>
-                                                            </div>
-                                                        </div>
-                                                        <a href="{{ route('operateurs.filtrerOperateurParCAL', ['calid' => $item->id]) }}"
-                                                            target="_blank"
-                                                            class="btn btn-outline-primary btn-sm w-100 d-flex align-items-center justify-content-center gap-1">
-                                                            Voir plus <i class="bi bi-arrow-right-short"></i>
+
+                        {{-- Header --}}
+                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+                            <a href="{{ route('operateurs.index') }}" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-arrow-left-circle"></i> Retour
+                            </a>
+                            <h6 class="mb-0 text-muted fw-semibold text-uppercase">
+                                Total : {{ $totalOperateurs }}
+                            </h6>
+                        </div>
+
+                        {{-- Table responsive --}}
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped align-middle text-nowrap">
+                                <thead class="table-primary">
+                                    <tr>
+                                        <th scope="col" style="width: 50px;">N°</th>
+                                        <th scope="col">Régions</th>
+                                        <th scope="col" class="text-center">Opérateurs</th>
+                                        <th scope="col" style="width: 120px;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($groupes as $index => $items)
+                                        <tr class="align-middle">
+                                            <td>{{ $loop->iteration }}</td>
+
+                                            {{-- Statut avec badge --}}
+                                            <td>
+
+                                                {{ $items?->region_nom }}
+
+                                            </td>
+
+                                            {{-- Nombre opérateurs --}}
+                                            <td class="text-center fw-semibold">
+                                                {{ number_format($items->total, 0, '', ' ') }}
+                                            </td>
+
+                                            {{-- Action --}}
+                                            <td>
+                                                {{-- <a
+                                                    href="{{ route('operateurs.parAnneeEtStatut', ['annee' => $annee, 'statut' => $statut, 'region' => $items->region_id]) }}">
+                                                    {{ $items->region_nom }}
+                                                </a> --}}
+                                                <a href="{{ route('operateurs.parAnneeEtStatut', [
+                                                            'annee' => $annee,
+                                                            'statut' => $statut,
+                                                            'region' => $items->region_id
+                                                        ]) }}"
+                                                            class="btn btn-sm btn-outline-success">
+                                                            <i class="bi bi-eye"></i> Afficher
                                                         </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                        <hr class="my-3">
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
 
-                                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-3">
-                                            <div class="d-flex align-items-center gap-2">
-                                                <h6 class="mb-0 text-muted fw-semibold text-uppercase">
-                                                    STATUT AGRÉMENT
-                                                </h6>
-                                            </div>
-                                        </div>
-                                        @foreach ($groupes as $statut => $items)
-                                            <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
-                                                <div class="card info-card sales-card shadow-sm" style="max-width: 220px;">
-                                                    <div class="card-body">
-                                                        
-
-                                                        <div class="text-truncate mb-4" style="font-size: 1rem;">
-                                                            <span class="{{ $statut }}">
-                                                                {{ $statut }}
-                                                            </span>
-                                                        </div>
-                                                        <div class="d-flex align-items-center mb-2">
-                                                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
-                                                                style="width: 32px; height: 32px; font-size: 1.25rem;">
-                                                                <i class="bi bi-people"></i>
-                                                            </div>
-                                                            <div class="ps-2">
-                                                                <h6 class="mb-0" style="font-size: 0.9rem;">
-                                                                    {{ number_format($items->count(), 0, '', ' ') }}</h6>
-                                                                <span class="text-muted small">opérateur(s)</span>
-                                                            </div>
-                                                        </div>
-                                                        <a href="{{ route('operateurs.parStatut', ['statut' => $statut]) }}"
-                                                            target="_blank"
-                                                            class="btn btn-outline-primary btn-sm w-100 d-flex align-items-center justify-content-center py-1"
-                                                            style="font-size: 0.85rem; gap: 6px;">
-                                                            Voir plus <i class="bi bi-arrow-right-short"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforeach
-
-                                    </div>
-                                </div>
-
-                                <hr class="my-3">
-                            @endcan
-
-                            @can('operateur-show')
-                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
-                                    
-                                    <div class="d-flex align-items-center gap-2">
-                                        <h6 class="mb-0 text-muted fw-semibold text-uppercase">
-                                            Liste des opérateurs
-                                        </h6>
-                                    </div>
-
-                                    <div class="d-flex align-items-center gap-2 text-info fw-semibold">
-                                        <i class="bi bi-list-ul me-1"></i>
-                                        <span>
-                                            Affichage :
-                                            <span class="text-dark">{{ $affichees }}</span>
-                                            sur
-                                            <span class="text-dark">{{ $total }}</span> demandes
-                                        </span>
-                                    </div>
-                                    <span class="d-flex align-items-baseline">
-                                        
-                                        <div class="d-flex align-items-center gap-2">
-                                            @can('operateur-create')
-                                                <a href="{{ route('operateurs.create') }}"
-                                                    class="btn btn-primary btn-sm btn-rounded">Ajouter</a>
-                                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                    
-                                                    @hasrole('admin|super-admin')
-                                                        <li>
-                                                            <form action="{{ route('importO') }}" method="get">
-                                                                <button type="submit"
-                                                                    class="dropdown-item btn btn-sm">Importer</button>
-                                                            </form>
-                                                        </li>
-                                                    @endhasrole
-                                                </ul>
-                                            @endcan
-                                            @can('operateur-show')
-                                                <button class="btn btn-sm btn-outline-secondary" type="button"
-                                                    data-bs-toggle="modal" data-bs-target="#generate_rapport">
-                                                    Rechercher plus
-                                                </button>
-                                            </div>
-                                        @endcan
-                                    </span>
-                                </div>
-                            @endcan
-                        @endif --}}
-
-                        {{-- <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h1 class="mb-0">ANNEE : {{ $annee }} / Statut : {{ $statut }}</h1>
-                        </div> --}}
-
-                        <div class="pt-1">
+                        <div class="pt-5">
                             <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
 
                                 {{-- Titre à gauche --}}
@@ -202,7 +120,7 @@
                                         Affichage :
                                         <span class="text-dark">{{ $affichees }}</span>
                                         sur
-                                        <span class="text-dark">{{ $total }}</span> demandes
+                                        <span class="text-dark">{{ $totalOperateurs }}</span> demandes
                                     </span>
                                 </div>
 

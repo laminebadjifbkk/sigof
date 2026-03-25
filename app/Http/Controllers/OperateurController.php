@@ -138,7 +138,7 @@ class OperateurController extends Controller
             'annee'
         ));
     }
-
+    /* 
     public function parAnneeEtStatut(Request $request, $annee, $statut)
     {
         // Base query filtrée par année ET statut
@@ -157,10 +157,14 @@ class OperateurController extends Controller
         // Départements si nécessaire
         $departements = Departement::orderBy('nom')->get(['id', 'nom']);
 
-        // Groupement éventuel (par exemple pour afficher d’autres statuts dans la même année)
         $groupes = Operateur::whereYear('annee_agrement', $annee)
-            ->select('statut_agrement', DB::raw('COUNT(*) as total'))
-            ->groupBy('statut_agrement')
+            ->join('regions', 'operateurs.regions_id', '=', 'regions.id')
+            ->select(
+                'regions.nom as region_nom', // ✅ nom de la région
+                'operateurs.statut_agrement',
+                DB::raw('COUNT(*) as total')
+            )
+            ->groupBy('regions.nom', 'operateurs.statut_agrement') // ✅ obligatoire
             ->orderByDesc('total')
             ->get();
 
@@ -178,6 +182,49 @@ class OperateurController extends Controller
             'annee',
             'statut',
             'departements'
+        ));
+    } */
+
+    public function parAnneeEtStatut(Request $request, $annee, $statut, $region = null)
+    {
+        $query = Operateur::with('user', 'region')
+            ->whereYear('annee_agrement', $annee)
+            ->where('statut_agrement', $statut);
+
+        if ($region) {
+            $query->where('regions_id', $region);
+        }
+
+        $totalOperateurs = $query->count();
+
+        $operateurs = $query->orderByDesc('created_at')->limit(350)->get();
+
+        $departements = Departement::orderBy('nom')->get(['id', 'nom']);
+
+        $groupes = Operateur::whereYear('annee_agrement', $annee)
+            ->where('statut_agrement', $statut)
+            ->join('regions', 'operateurs.regions_id', '=', 'regions.id')
+            ->select('regions.id as region_id', 'regions.nom as region_nom', DB::raw('COUNT(*) as total'))
+            ->groupBy('regions.id', 'regions.nom')
+            ->orderByDesc('total')
+            ->get();
+
+        $groupes->transform(function ($item) use ($totalOperateurs) {
+            $item->percent = $totalOperateurs ? round(($item->total / $totalOperateurs) * 100, 2) : 0;
+            return $item;
+        });
+
+        $affichees = $operateurs->count();
+
+        return view('operateurs.par_annee_et_statut', compact(
+            'operateurs',
+            'groupes',
+            'totalOperateurs',
+            'affichees',
+            'annee',
+            'statut',
+            'departements',
+            'region'
         ));
     }
 
