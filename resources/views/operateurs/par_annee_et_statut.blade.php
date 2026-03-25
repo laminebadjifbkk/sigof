@@ -163,7 +163,7 @@
                                             @can('afficher-operateur-telephone')
                                                 <th>Telephone</th>
                                             @endcan
-                                            <th>Région</th>
+                                            {{-- <th>Région</th> --}}
                                             @can('afficher-operateur-adresse')
                                                 <th>Adresse</th>
                                             @endcan
@@ -219,7 +219,7 @@
                                                         </div>
                                                     </td>
                                                 @endcan
-                                                <td>{{ $operateur?->region?->nom }}</td>
+                                                {{-- <td>{{ $operateur?->region?->nom }}</td> --}}
                                                 @can('afficher-operateur-adresse')
                                                     <td>{{ $operateur?->user?->adresse }}</td>
                                                 @endcan
