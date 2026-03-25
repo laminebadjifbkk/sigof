@@ -38,23 +38,55 @@
                 @endif
                 <div class="card">
                     <div class="card-body">
-
-
-
                         {{-- Header --}}
-                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
-                            <div class="d-flex align-items-center gap-2">
-                                <a href="{{ route('operateurs.index') }}" class="btn btn-outline-secondary btn-sm">
-                                    <i class="bi bi-arrow-left-circle"></i> Retour
-                                </a>|
-                                <h6 class="mb-0 text-muted fw-semibold text-uppercase">
-                                    Tableau des opérateurs par région avec le statut : {{ $statut }}, année :
-                                    {{ $annee }}
-                                </h6>
+                        <div class="card shadow-sm border-0 mb-4">
+                            <div class="card-body py-3">
+
+                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+
+                                    {{-- 🔹 Bloc gauche --}}
+                                    <div class="d-flex align-items-center gap-3 flex-wrap">
+
+                                        <a href="{{ route('operateurs.index') }}" class="btn btn-sm btn-outline-secondary">
+                                            <i class="bi bi-arrow-left"></i>
+                                        </a>
+
+                                        <div>
+                                            <div class="fw-bold text-dark">
+                                                Liste des opérateurs
+                                            </div>
+
+                                            <div class="small text-muted">
+
+                                                <span class="badge bg-primary-subtle text-primary">
+                                                    Statut : {{ $statut }}
+                                                </span>
+
+                                                <span class="badge bg-success-subtle text-success">
+                                                    Année : {{ $annee }}
+                                                </span>
+
+                                                @if ($nomRegion)
+                                                    <span class="badge bg-info-subtle text-dark">
+                                                        Région : {{ $nomRegion->nom }}
+                                                    </span>
+                                                @endif
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {{-- 🔹 Bloc droite --}}
+                                    <div class="text-end">
+                                        <div class="small text-muted">Total opérateurs</div>
+                                        <div class="fw-bold fs-5 text-primary">
+                                            {{ number_format($totalOperateurs, 0, '', ' ') }}
+                                        </div>
+                                    </div>
+
+                                </div>
+
                             </div>
-                            <h6 class="mb-0 text-muted fw-semibold text-uppercase">
-                                Total : {{ $totalOperateurs }}
-                            </h6>
                         </div>
 
                         {{-- Table responsive --}}
@@ -182,9 +214,9 @@
                                             @can('afficher-operateur-formation')
                                                 <th class="text-center">Formations</th>
                                             @endcan
-                                            @can('afficher-operateur-statut')
+                                            {{-- @can('afficher-operateur-statut')
                                                 <th width="15%" class="text-center">Statut</th>
-                                            @endcan
+                                            @endcan --}}
                                             @can('operateur-show')
                                                 <th width="2%"><i class="bi bi-gear"></i></th>
                                             @endcan
@@ -257,11 +289,11 @@
                                                             class="badge bg-info">{{ $operateur?->operateurmodules->count() }}</span>
                                                     </td>
                                                 @endcan
-                                                @can('afficher-operateur-statut')
+                                                {{-- @can('afficher-operateur-statut')
                                                     <td style="text-align: center;"><span
                                                             class="{{ $operateur?->statut_agrement }}">
                                                             {{ $operateur?->statut_agrement }}</span></td>
-                                                @endcan
+                                                @endcan --}}
                                                 @can('operateur-show')
                                                     <td>
                                                         <span class="d-flex align-items-baseline"><a

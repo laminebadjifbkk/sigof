@@ -39,8 +39,56 @@
                         <div
                             class="card-title d-flex flex-wrap justify-content-between align-items-center mb-4 p-3 bg-light rounded shadow-sm">
                             <span>{{ $commissionagrement?->commission }}</span>
+                            @if ($nomRegion)
+                                <span>{{ $nomRegion->nom }}</span>
+                            @endif
                             <span class="d-flex align-items-baseline">
                                 <span class="{{ $statut }} text-white">{{ $statut }}</span></span>
+                        </div>
+                        {{-- Table responsive --}}
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped align-middle text-nowrap">
+                                <thead class="table-primary">
+                                    <tr>
+                                        <th scope="col" style="width: 50px;">N°</th>
+                                        <th scope="col">Régions</th>
+                                        <th scope="col" class="text-center">Opérateurs</th>
+                                        <th scope="col" class="text-center">%</th>
+                                        <th scope="col" style="width: 120px;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($groupes as $index => $items)
+                                        <tr class="align-middle">
+                                            <td>{{ $loop->iteration }}</td>
+
+                                            {{-- Statut avec badge --}}
+                                            <td>
+
+                                                {{ $items?->region_nom }}
+
+                                            </td>
+
+                                            {{-- Nombre opérateurs --}}
+                                            <td class="text-center fw-semibold">
+                                                {{ number_format($items->total, 0, '', ' ') }}
+                                            </td>
+
+                                            <td class="text-center fw-semibold">
+                                                {{ $items->percent }} %
+                                            </td>
+
+                                            {{-- Action --}}
+                                            <td>
+                                                <a href="{{ route('operateurs.parStatutCommission', [$statut, $commissionagrement->id, $items->region_id]) }}"
+                                                    class="btn btn-sm btn-outline-primary">
+                                                    Afficher
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                         <div class="row mb-0">
                             <div class="col-md-12">

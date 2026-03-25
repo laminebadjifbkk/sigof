@@ -191,8 +191,11 @@ class OperateurController extends Controller
             ->whereYear('annee_agrement', $annee)
             ->where('statut_agrement', $statut);
 
+        $nomRegion = null;
+
         if ($region) {
             $query->where('regions_id', $region);
+            $nomRegion = Region::findOrFail($region);
         }
 
         $totalOperateurs = $query->count();
@@ -231,7 +234,8 @@ class OperateurController extends Controller
             'annee',
             'statut',
             'departements',
-            'region'
+            'region',
+            'nomRegion'
         ));
     }
 
@@ -2814,7 +2818,7 @@ class OperateurController extends Controller
         );
     }
 
-    public function filtrerOperateurParStatutCommission($statut, $commission)
+    /* public function filtrerOperateurParStatutCommission($statut, $commission)
     {
         $commissionagrement = Commissionagrement::findOrFail($commission);
 
@@ -2852,6 +2856,122 @@ class OperateurController extends Controller
                 )
             );
         }
+    } */
+
+    public function filtrerOperateurParStatutCommission($statut, $commission, $region = null)
+    {
+        $commissionagrement = Commissionagrement::findOrFail($commission);
+        $nomRegion = null;
+
+        // 🔹 Query principale
+        $query = Operateur::with('region')
+            ->where('statut_agrement', $statut)
+            ->whereHas('commissionagrements', function ($q) use ($commission) {
+                $q->where('commissionagrement_id', $commission);
+            });
+
+        // 🔹 Filtre région (optionnel)
+        if ($region) {
+            $query->where('regions_id', $region);
+            $nomRegion = Region::findOrFail($region);
+        }
+
+        // 🔹 Total global filtré
+        $totalOperateurs = $query->count();
+
+        // 🔹 Liste des opérateurs (limit)
+        $operateurs = $query->orderByDesc('created_at')
+            ->limit(350)
+            ->get();
+
+        // 🔹 Groupement SQL par région
+        $groupes = Operateur::where('statut_agrement', $statut)
+            ->whereHas('commissionagrements', function ($q) use ($commission) {
+                $q->where('commissionagrement_id', $commission);
+            })
+            ->join('regions', 'operateurs.regions_id', '=', 'regions.id')
+            ->select(
+                'regions.id as region_id',
+                'regions.nom as region_nom',
+                DB::raw('COUNT(*) as total')
+            )
+            ->groupBy('regions.id', 'regions.nom')
+            ->orderByDesc('total')
+            ->get();
+
+        // 🔹 Groupement SQL par région avec le filtre de region
+        /* $groupes = Operateur::where('statut_agrement', $statut)
+            ->whereHas('commissionagrements', function ($q) use ($commission) {
+                $q->where('commissionagrement_id', $commission);
+            })
+            ->when($region, function ($q) use ($region) {
+                $q->where('operateurs.regions_id', $region);
+            })
+            ->join('regions', 'operateurs.regions_id', '=', 'regions.id')
+            ->select(
+                'regions.id as region_id',
+                'regions.nom as region_nom',
+                DB::raw('COUNT(*) as total')
+            )
+            ->groupBy('regions.id', 'regions.nom')
+            ->orderByDesc('total')
+            ->get(); */
+
+        // 🔹 IMPORTANT : recalcul basé sur les groupes affichés
+        $totalFiltered = $groupes->sum('total');
+
+        $groupes->transform(function ($item) use ($totalFiltered) {
+            $item->percent = $totalFiltered
+                ? round(($item->total / $totalFiltered) * 100, 2)
+                : 0;
+            return $item;
+        });
+
+        $affichees = $operateurs->count();
+
+        // 🔹 Vues selon statut
+        /* if ($statut === 'sous réserve') {
+            return view('operateurs.commissionagrements.statutsousreserve', compact(
+                'operateurs',
+                'groupes',
+                'totalOperateurs',
+                'affichees',
+                'statut',
+                'commissionagrement',
+                'region'
+            ));
+        } elseif ($statut === 'rejeté') {
+            return view('operateurs.commissionagrements.statutrejete', compact(
+                'operateurs',
+                'groupes',
+                'totalOperateurs',
+                'affichees',
+                'statut',
+                'commissionagrement',
+                'region'
+            ));
+        } else {
+            return view('operateurs.commissionagrements.statut', compact(
+                'operateurs',
+                'groupes',
+                'totalOperateurs',
+                'affichees',
+                'statut',
+                'commissionagrement',
+                'region',
+                'nomRegion'
+            ));
+        } */
+        return view('operateurs.commissionagrements.statut', compact(
+            'operateurs',
+            'groupes',
+            'totalOperateurs',
+            'affichees',
+            'statut',
+            'commissionagrement',
+            'region',
+            'nomRegion'
+        ));
     }
 
     public function exporterOperateursPDF($statut, $commission)

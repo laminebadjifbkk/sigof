@@ -597,9 +597,14 @@ Route::group(['middleware' => ['XSS']], function () {
 
         Route::get('/operateur/{statut}', [OperateurController::class, 'filtrerOperateurParStatut'])
             ->name('operateurs.parStatut');
-
+        /* 
         Route::get('/operateurscommission/{statut}/{commission}', [OperateurController::class, 'filtrerOperateurParStatutCommission'])
-            ->name('operateurs.parStatutCommission');
+            ->name('operateurs.parStatutCommission'); */
+
+        Route::get(
+            '/operateurscommission/{statut}/{commission}/{region?}',
+            [OperateurController::class, 'filtrerOperateurParStatutCommission']
+        )->name('operateurs.parStatutCommission');
 
         Route::get(
             '/operateurscommission/{statut}/{commission}/pdf',
