@@ -48,7 +48,8 @@
                                     <i class="bi bi-arrow-left-circle"></i> Retour
                                 </a>|
                                 <h6 class="mb-0 text-muted fw-semibold text-uppercase">
-                                    Tableau des opérateurs par région : {{ $statut }} en {{ $annee }}
+                                    Tableau des opérateurs par région avec le statut : {{ $statut }}, année :
+                                    {{ $annee }}
                                 </h6>
                             </div>
                             <h6 class="mb-0 text-muted fw-semibold text-uppercase">
