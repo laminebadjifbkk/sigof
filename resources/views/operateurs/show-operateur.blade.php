@@ -158,7 +158,7 @@
                                                 </span>
                                             @endif
                                         </div>
-                                        <div>
+                                        {{-- <div>
                                             @if (!empty($section['route']))
                                                 <a href="{{ $section['route'] }}" target="_blank"
                                                     class="btn btn-sm btn-outline-success">
@@ -167,6 +167,20 @@
                                             @elseif(!empty($section['modal']))
                                                 <button class="btn btn-sm btn-outline-success" title="Modifier"
                                                     data-bs-toggle="modal" data-bs-target="#{{ $section['modal'] }}">
+                                                    <i class="bi bi-pencil-square me-1"></i> Ajouter / Modifier
+                                                </button>
+                                            @endif
+                                        </div> --}}
+                                        <div>
+                                            @if (!empty($section['route']))
+                                                <a href="{{ $section['route'] }}" target="_blank"
+                                                    class="btn btn-sm btn-outline-success {{ $op?->statut_agrement === 'agréé' ? 'disabled' : '' }}">
+                                                    <i class="bi bi-pencil-square me-1"></i> Ajouter / Modifier
+                                                </a>
+                                            @elseif(!empty($section['modal']))
+                                                <button class="btn btn-sm btn-outline-success" title="Modifier"
+                                                    data-bs-toggle="modal" data-bs-target="#{{ $section['modal'] }}"
+                                                    {{ $op?->statut_agrement === 'agréé' ? 'disabled' : '' }}>
                                                     <i class="bi bi-pencil-square me-1"></i> Ajouter / Modifier
                                                 </button>
                                             @endif
