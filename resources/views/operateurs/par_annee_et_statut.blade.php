@@ -43,7 +43,7 @@
 
                         {{-- Header --}}
                         <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
-                            <div>
+                            <div class="d-flex align-items-center gap-2">
                                 <a href="{{ route('operateurs.index') }}" class="btn btn-outline-secondary btn-sm">
                                     <i class="bi bi-arrow-left-circle"></i> Retour
                                 </a>|
