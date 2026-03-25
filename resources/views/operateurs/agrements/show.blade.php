@@ -139,10 +139,10 @@
                                             <span class="d-flex mt-2 align-items-baseline">
                                                 <nav class="header-nav ms-auto">
                                                     <ul class="d-flex align-items-center list-unstyled mb-0 pt-2">
-                                                        <li class="me-3 fw-semibold text-uppercase text-muted"
+                                                        {{-- <li class="me-3 fw-semibold text-uppercase text-muted"
                                                             style="letter-spacing: 1px;">
                                                             Historique
-                                                        </li>
+                                                        </li> --}}
                                                         <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                                                             <i class="bi bi-chat-left-text m-1"></i>
                                                             <span class="badge bg-success badge-number"

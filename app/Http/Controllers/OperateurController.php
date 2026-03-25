@@ -308,6 +308,8 @@ class OperateurController extends Controller
             ],
         ];
 
+        $validations = $operateur?->validationoperateurs;
+
         return view(
             "operateurs.agrement",
             compact(
@@ -320,6 +322,7 @@ class OperateurController extends Controller
                 'diffInMonths',
                 'diffText',
                 'sections',
+                'validations',
             )
         );
     }
@@ -602,7 +605,6 @@ class OperateurController extends Controller
             Alert::warning('Désolé !', 'Vous ne pouvez pas renouveler votre agrément pour le moment car il est toujours valable.');
 
             return back();
-            
         } elseif ($diffAnnee >= 1 && $diffAnnee < 4) {
 
             $commissionagrement = Commissionagrement::where('statut', 'Ouvert')->first();
