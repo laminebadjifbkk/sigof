@@ -205,11 +205,7 @@
                                     </div>
 
                                     <div class="flex-shrink-0">
-                                        @if ($statut_demande === 'complète')
-                                            {{-- <button type="button" class="btn btn-sm btn-outline-primary">
-                                                <i class="bi bi-pencil-square me-1"></i> Cliquez ici pour soumettre votre
-                                                dossier
-                                            </button> --}}
+                                        @if ($statut_demande === 'complète' && !in_array($op?->statut_agrement, ['agréé', 'rejeté', 'sous réserve']))
                                             <button type="button" class="btn btn-sm btn-outline-primary me-1"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#certificationModal{{ $op->id }}">
@@ -278,9 +274,9 @@
                             @endcan
                         </div>
                     @endforeach
-                    
+
                     @include('operateurs.files-uploads')
-                    
+
                 </div>
             </div>
         </div>
