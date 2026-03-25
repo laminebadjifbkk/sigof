@@ -41,50 +41,50 @@
                         <div class="card-body">
                             <ul class="nav nav-tabs nav-tabs-bordered align-items-center gap-2 flex-wrap position-relative">
                                 <li class="nav-item">
-                                    <span class="nav-link"><a href="{{ route('operateurs.show', $operateur) }}"
+                                    <span class="nav-link d-flex align-items-center gap-1"><a href="{{ route('operateurs.show', $operateur) }}"
                                             class="btn btn-secondary btn-sm" title="retour"><i
                                                 class="bi bi-arrow-counterclockwise"></i></a>
                                     </span>
                                 </li>
                                 <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab"
+                                    <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab"
                                         data-bs-target="#profile-overview">Opérateur</button>
                                 </li>
 
                                 <li class="nav-item">
-                                    <button class="nav-link active" data-bs-toggle="tab"
+                                    <button class="nav-link d-flex align-items-center gap-1 active" data-bs-toggle="tab"
                                         data-bs-target="#module-overview">Module
                                     </button>
                                 </li>
 
                                 <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab"
+                                    <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab"
                                         data-bs-target="#references-overview">Références</button>
                                 </li>
 
                                 <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab"
+                                    <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab"
                                         data-bs-target="#equipement-overview">Equipements</button>
                                 </li>
 
                                 <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab"
+                                    <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab"
                                         data-bs-target="#formateur-overview">Formateurs</button>
                                 </li>
 
                                 <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab"
+                                    <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab"
                                         data-bs-target="#localites-overview">Localités</button>
                                 </li>
 
                                 @can('operateur-show-files')
                                     <li class="nav-item">
-                                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#files">Fichiers</button>
+                                        <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab" data-bs-target="#files">Fichiers</button>
                                     </li>
                                 @endcan
 
                                 <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab"
+                                    <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab"
                                         data-bs-target="#observations-overview">Observations</button>
                                 </li>
                                 <li class="nav-item">
@@ -97,7 +97,7 @@
                                                             style="letter-spacing: 1px;">
                                                             Historique
                                                         </li> --}}
-                                                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                                                        <a class="nav-link d-flex align-items-center gap-1 nav-icon" href="#" data-bs-toggle="dropdown">
                                                             <i class="bi bi-chat-left-text m-1"></i>
                                                             <span class="badge bg-success badge-number"
                                                                 title="{{ $operateur?->statut }}">
