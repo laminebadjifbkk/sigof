@@ -137,7 +137,7 @@
                                         FIL D'ACTUALITE
                                     </div>
                                 </h2>
-                                <h2 class="mb-4 text-center">
+                                <h2 class="mb-4 pt-3 text-center">
                                     {{ $une->titre1 }}<br>
                                     <span class="accent-text">{{ $une->titre2 }}</span><br>
                                 </h2>
