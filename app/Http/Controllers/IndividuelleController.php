@@ -82,6 +82,33 @@ class IndividuelleController extends Controller
 
     public function index(Request $request)
     {
+        $userRoles = Auth::user()->roles->pluck('name')->toArray();
+
+        $allowedRoles = [
+            'super-admin',
+            'Employe',
+            'admin',
+            'DIOF',
+            'ADIOF',
+            'Ingenieur',
+            'DEC',
+            'Antenne',
+            'AntKD',
+            'AntKL',
+            'AntSL',
+            'AntKG',
+            'AntMT',
+            'AntDL',
+            'AntZG',
+            'AntTH',
+            'CAR',
+            'DG'
+        ];
+
+        // Vérifie si l'utilisateur a AU MOINS un rôle autorisé
+        if (empty(array_intersect($userRoles, $allowedRoles))) {
+            abort(403, 'Accès non autorisé');
+        }
         // Total global
         $total = Individuelle::count();
         $totalIndividuelles = number_format($total, 0, ',', ' ');
@@ -159,6 +186,33 @@ class IndividuelleController extends Controller
 
     public function parAnnee(Request $request, $annee)
     {
+        $userRoles = Auth::user()->roles->pluck('name')->toArray();
+
+        $allowedRoles = [
+            'super-admin',
+            'Employe',
+            'admin',
+            'DIOF',
+            'ADIOF',
+            'Ingenieur',
+            'DEC',
+            'Antenne',
+            'AntKD',
+            'AntKL',
+            'AntSL',
+            'AntKG',
+            'AntMT',
+            'AntDL',
+            'AntZG',
+            'AntTH',
+            'CAR',
+            'DG'
+        ];
+
+        // Vérifie si l'utilisateur a AU MOINS un rôle autorisé
+        if (empty(array_intersect($userRoles, $allowedRoles))) {
+            abort(403, 'Accès non autorisé');
+        }
         $query = Individuelle::whereYear('date_depot', $annee);
 
         // Filtre par région si fourni
@@ -253,6 +307,33 @@ class IndividuelleController extends Controller
 
     public function parAnneeRegion(Request $request, $annee, $region)
     {
+        $userRoles = Auth::user()->roles->pluck('name')->toArray();
+
+        $allowedRoles = [
+            'super-admin',
+            'Employe',
+            'admin',
+            'DIOF',
+            'ADIOF',
+            'Ingenieur',
+            'DEC',
+            'Antenne',
+            'AntKD',
+            'AntKL',
+            'AntSL',
+            'AntKG',
+            'AntMT',
+            'AntDL',
+            'AntZG',
+            'AntTH',
+            'CAR',
+            'DG'
+        ];
+
+        // Vérifie si l'utilisateur a AU MOINS un rôle autorisé
+        if (empty(array_intersect($userRoles, $allowedRoles))) {
+            abort(403, 'Accès non autorisé');
+        }
         // Statut optionnel
         $statutFiltre = $request->query('statut');
 
@@ -2369,7 +2450,7 @@ class IndividuelleController extends Controller
             $fileName
         );
     } */
-   
+
     public function exportExcel(int $annee, string $region, string $statut = 'all')
     {
         $regionModel = Region::where('nom', $region)->firstOrFail();

@@ -47,7 +47,7 @@
                                     {{-- 🔹 Bloc gauche --}}
                                     <div class="d-flex align-items-center gap-3 flex-wrap">
 
-                                        <a href="{{ route('operateurs.index') }}" class="btn btn-sm btn-outline-secondary">
+                                        <a href="{{ route('operateurs.parAnnee', ['annee' => $annee]) }}" class="btn btn-sm btn-outline-secondary">
                                             <i class="bi bi-arrow-left"></i>
                                         </a>
 
