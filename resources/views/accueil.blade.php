@@ -130,6 +130,25 @@
                                     class="btn btn-danger btn-lg fw-bold shadow pulse-animation mx-1">
                                     Postuler maintenant
                                 </a>
+                            @elseif (!empty($une))
+                                <h2 class="company-badge d-flex align-items-center overflow-hidden"
+                                    style="height: 2rem;">
+                                    <div class="scrolling-text">
+                                        FIL D'ACTUALITE
+                                    </div>
+                                </h2>
+                                <h1 class="mb-4 text-center">
+                                    {{ $une->titre1 }}<br>
+                                    <span class="accent-text">{{ $une->titre2 }}</span><br>
+                                </h1>
+                                @if (!empty($une->image))
+                                    <h3 class="mb-4 text-center">
+                                        <a id="partenaire" href="{{ route('login') }}"
+                                            class="btn btn-danger btn-lg fw-bold shadow pulse-animation mx-1">
+                                            Postuler maintenant
+                                        </a>
+                                    </h3>
+                                @endif
                             @else
                                 {{-- <div class="company-badge mb-4">
                                     <i class="bi bi-gear-fill me-2"></i>
@@ -322,7 +341,8 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="date_naissance" class="form-label">Date de naissance</label>
-                                            <input type="date" name="date_naissance" class="form-control" required>
+                                            <input type="date" name="date_naissance" class="form-control"
+                                                required>
                                         </div>
                                         <div class="mb-3">
                                             <label for="email" class="form-label">Email</label>

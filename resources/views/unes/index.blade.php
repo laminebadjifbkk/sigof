@@ -333,14 +333,7 @@
 @push('scripts')
     <script>
         new DataTable('#table-unes', {
-            /* layout: {
-                topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
-                }
-            }, */
-            "order": [
-                [0, 'asc']
-            ],
+            ordering: false,
             "lengthMenu": [
                 [5, 10, 25, 50, 100, -1],
                 [5, 10, 25, 50, 100, "Tout"]

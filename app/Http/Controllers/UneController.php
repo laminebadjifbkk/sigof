@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Une;
@@ -22,7 +23,7 @@ class UneController extends Controller
     }
     public function index()
     {
-        $unes = Une::orderBy("created_at", "desc")->get();
+        $unes = Une::latest()->get();
         return view('unes.index', compact('unes'));
     }
     public function store(Request $request)
@@ -172,7 +173,7 @@ class UneController extends Controller
             return redirect()->back();
         }
     }
-    
+
     public function suprimeralaUne(Request $request)
     {
 
