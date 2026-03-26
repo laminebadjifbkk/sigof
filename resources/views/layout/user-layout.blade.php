@@ -2226,6 +2226,33 @@
         }
     </style>
 
+
+
+    <style>
+        /* Wrapper pour le défilement */
+        .scrolling-message-wrapper {
+            white-space: nowrap;
+        }
+
+        /* Texte qui défile */
+        .scrolling-message {
+            display: inline-block;
+            padding-left: 100%;
+            animation: scroll-left 12s linear infinite;
+        }
+
+        /* Animation */
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+    </style>
+
 </head>
 
 <body>

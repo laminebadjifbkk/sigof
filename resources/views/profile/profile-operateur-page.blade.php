@@ -84,13 +84,24 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="card info-card sales-card hover-shadow cursor-pointer position-relative">
+
+                                <!-- Message défilant si aucune demande -->
+                                @if (($user?->operateurs()->count() ?? 0) == 0)
+                                    <div class="scrolling-message-wrapper position-relative w-100 overflow-hidden p-2 mb-2"
+                                        style="background-color: #fff3f3; border: 1px solid #ff4d4f; border-radius: 5px;">
+                                        <span class="scrolling-message text-danger fw-bold">
+                                            ⚠️ Vous n'avez pas encore fait de demande d'agrément ! Cliquez sur "Agréments" pour
+                                            postuler.
+                                        </span>
+                                    </div>
+                                @endif
+
                                 <a href="{{ route('devenirOperateur') }}" class="text-decoration-none">
                                     <div class="card-body">
                                         <h5 class="card-title">
                                             Agréments <span>| opérateur</span>
                                         </h5>
                                         <div class="d-flex align-items-center">
-                                            <!-- Icône circulaire -->
                                             <div
                                                 class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary text-white">
                                                 <i class="bi bi-person-plus-fill fs-3"></i>
@@ -104,50 +115,12 @@
                                                 @endcan
                                             </div>
                                         </div>
-
-                                        <!-- Message défilant si aucune demande -->
-                                        @if (($user?->operateurs()->count() ?? 0) == 0)
-                                            <div class="scrolling-message text-danger fw-bold mt-2">
-                                                Vous n'avez pas encore fait de demande d'agrément ! Cliquez ici pour
-                                                postuler.
-                                            </div>
-                                        @endif
                                     </div>
                                 </a>
                             </div>
                         </div>
                     </div>
                 </section>
-
-                <!-- Ajouter ce style CSS dans votre Blade ou fichier CSS -->
-                <style>
-                    .scrolling-message {
-                        white-space: nowrap;
-                        overflow: hidden;
-                        box-sizing: border-box;
-                    }
-
-                    .scrolling-message::before {
-                        content: '';
-                        display: inline-block;
-                        padding-right: 100%;
-                    }
-
-                    .scrolling-message {
-                        display: inline-block;
-                        animation: scroll-left 10s linear infinite;
-                    }
-
-                    @keyframes scroll-left {
-                        0% {
-                            transform: translateX(100%);
-                        }
-
-                        100% {
-                            transform: translateX(-100%);
-                        }
-                    }
-                </style>
 
             </div>
             {{-- Fin Photo de profil --}}
