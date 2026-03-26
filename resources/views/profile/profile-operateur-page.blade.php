@@ -51,7 +51,7 @@
                         </div>
                     </div>
                 </div>
-                <section class="section dashboard">
+                {{-- <section class="section dashboard">
                     <div class="row">
                         <div class="col-12">
                             <div class="card info-card sales-card">
@@ -79,8 +79,46 @@
                             </div>
                         </div>
                     </div>
+                </section> --}}
+                <section class="section dashboard">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card info-card sales-card hover-shadow cursor-pointer">
+                                <a href="{{ route('devenirOperateur') }}" class="text-decoration-none">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            Agréments <span>| opérateur</span>
+                                        </h5>
+                                        <div class="d-flex align-items-center">
+                                            <!-- Icône circulaire -->
+                                            <div
+                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary text-white">
+                                                <i class="bi bi-person-plus-fill fs-3"></i>
+                                            </div>
+                                            <div class="ps-3">
+                                                <!-- Nombre d’agréments -->
+                                                <h6 class="mb-1">{{ $user?->operateurs()->count() ?? 0 }}</h6>
+                                                <!-- Statut ouvert/fermé -->
+                                                @can('agrement-ouvert')
+                                                    <span class="text-success small fw-bold text-uppercase">ouverts</span>
+                                                @elsecan('agrement-fermer')
+                                                    <span class="text-danger small fw-bold text-uppercase">fermés</span>
+                                                @endcan
+                                            </div>
+                                        </div>
+                                        <!-- Badge pour attirer l’attention si 0 demandes -->
+                                        @if (($user?->operateurs()->count() ?? 0) == 0)
+                                            <span
+                                                class="badge bg-danger position-absolute top-0 start-100 translate-middle">
+                                                0
+                                            </span>
+                                        @endif
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </section>
-
 
             </div>
             {{-- Fin Photo de profil --}}
@@ -883,7 +921,8 @@
                                         {{-- MESSAGE D'ALERTE --}}
                                         <div class="alert alert-warning text-center mb-3">
                                             ⚠️ Cet onglet ne sert pas à déposer des fichiers. Veuillez aller dans
-                                            <strong>Agréments</strong> ou dans <strong>Devenir opérateur</strong> pour téléverser vos documents.
+                                            <strong>Agréments</strong> ou dans <strong>Devenir opérateur</strong> pour
+                                            téléverser vos documents.
                                         </div>
 
                                         <div class="card-header bg-light">
