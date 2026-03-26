@@ -137,7 +137,54 @@
         }
     </style>
 
+    <style>
+        .company-badge {
+            height: 2.5rem;
+            border-radius: 6px;
+            padding: 0 12px;
+            position: relative;
+            overflow: hidden;
+            background: #fff;
+            /* fond clair pour ton orange */
+            display: flex;
+            align-items: center;
+        }
 
+        /* Wrapper pour éviter les coupures */
+        .scrolling-wrapper {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        /* Texte amélioré */
+        .scrolling-text {
+            display: inline-block;
+            white-space: nowrap;
+
+            color: #e36c2f;
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+
+            animation: scrollText 12s linear infinite;
+        }
+
+        /* Animation plus fluide */
+        @keyframes scrollText {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Pause au survol (effet pro) */
+        .company-badge:hover .scrolling-text {
+            animation-play-state: paused;
+        }
+    </style>
     {{-- Pour sweetAlert --}}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 

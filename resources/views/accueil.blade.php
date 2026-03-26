@@ -131,10 +131,11 @@
                                     Postuler maintenant
                                 </a>
                             @elseif (!empty($une))
-                                <h2 class="company-badge d-flex align-items-center overflow-hidden"
-                                    style="height: 2rem;">
-                                    <div class="scrolling-text">
-                                        FIL D'ACTUALITE
+                                <h2 class="company-badge d-flex align-items-center overflow-hidden">
+                                    <div class="scrolling-wrapper">
+                                        <div class="scrolling-text">
+                                            FIL D'ACTUALITÉ - FIL D'ACTUALITÉ - FIL D'ACTUALITÉ
+                                        </div>
                                     </div>
                                 </h2>
                                 <h2 class="mb-4 pt-3 text-center">
