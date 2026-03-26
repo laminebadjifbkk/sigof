@@ -137,10 +137,10 @@
                                         FIL D'ACTUALITE
                                     </div>
                                 </h2>
-                                <h1 class="mb-4 text-center">
+                                <h2 class="mb-4 text-center">
                                     {{ $une->titre1 }}<br>
                                     <span class="accent-text">{{ $une->titre2 }}</span><br>
-                                </h1>
+                                </h2>
                                 @if (!empty($une->image))
                                     <h3 class="mb-4 text-center">
                                         <a id="partenaire" href="{{ route('login') }}"
