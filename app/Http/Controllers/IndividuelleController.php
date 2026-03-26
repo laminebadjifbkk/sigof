@@ -42,6 +42,7 @@ class IndividuelleController extends Controller
 
     public function create()
     {
+        $this->checkAccess();
 
         // Optimisation des requêtes pour les départements et modules
         $departements = Departement::select('id', 'nom')->orderBy('nom', 'ASC')->get();
@@ -80,7 +81,7 @@ class IndividuelleController extends Controller
         );
     } */
 
-    public function index(Request $request)
+    private function checkAccess()
     {
         $userRoles = Auth::user()->roles->pluck('name')->toArray();
 
@@ -105,10 +106,14 @@ class IndividuelleController extends Controller
             'DG'
         ];
 
-        // Vérifie si l'utilisateur a AU MOINS un rôle autorisé
         if (empty(array_intersect($userRoles, $allowedRoles))) {
             abort(403, 'Accès non autorisé');
         }
+    }
+
+    public function index(Request $request)
+    {
+        $this->checkAccess();
         // Total global
         $total = Individuelle::count();
         $totalIndividuelles = number_format($total, 0, ',', ' ');
@@ -186,33 +191,7 @@ class IndividuelleController extends Controller
 
     public function parAnnee(Request $request, $annee)
     {
-        $userRoles = Auth::user()->roles->pluck('name')->toArray();
-
-        $allowedRoles = [
-            'super-admin',
-            'Employe',
-            'admin',
-            'DIOF',
-            'ADIOF',
-            'Ingenieur',
-            'DEC',
-            'Antenne',
-            'AntKD',
-            'AntKL',
-            'AntSL',
-            'AntKG',
-            'AntMT',
-            'AntDL',
-            'AntZG',
-            'AntTH',
-            'CAR',
-            'DG'
-        ];
-
-        // Vérifie si l'utilisateur a AU MOINS un rôle autorisé
-        if (empty(array_intersect($userRoles, $allowedRoles))) {
-            abort(403, 'Accès non autorisé');
-        }
+        $this->checkAccess();
         $query = Individuelle::whereYear('date_depot', $annee);
 
         // Filtre par région si fourni
@@ -307,33 +286,7 @@ class IndividuelleController extends Controller
 
     public function parAnneeRegion(Request $request, $annee, $region)
     {
-        $userRoles = Auth::user()->roles->pluck('name')->toArray();
-
-        $allowedRoles = [
-            'super-admin',
-            'Employe',
-            'admin',
-            'DIOF',
-            'ADIOF',
-            'Ingenieur',
-            'DEC',
-            'Antenne',
-            'AntKD',
-            'AntKL',
-            'AntSL',
-            'AntKG',
-            'AntMT',
-            'AntDL',
-            'AntZG',
-            'AntTH',
-            'CAR',
-            'DG'
-        ];
-
-        // Vérifie si l'utilisateur a AU MOINS un rôle autorisé
-        if (empty(array_intersect($userRoles, $allowedRoles))) {
-            abort(403, 'Accès non autorisé');
-        }
+        $this->checkAccess();
         // Statut optionnel
         $statutFiltre = $request->query('statut');
 
@@ -411,6 +364,7 @@ class IndividuelleController extends Controller
 
     public function store(Request $request)
     {
+        $this->checkAccess();
         $this->validate($request, [
             'module'                 => ['required', 'string', 'max:250'],
             'telephone_secondaire'   => ['required', 'string', 'size:9'],
