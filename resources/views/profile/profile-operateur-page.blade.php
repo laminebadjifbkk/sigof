@@ -80,10 +80,10 @@
                         </div>
                     </div>
                 </section> --}}
-                <section class="section dashboard">
+                <section class="section dashboard position-relative">
                     <div class="row">
                         <div class="col-12">
-                            <div class="card info-card sales-card hover-shadow cursor-pointer">
+                            <div class="card info-card sales-card hover-shadow cursor-pointer position-relative">
                                 <a href="{{ route('devenirOperateur') }}" class="text-decoration-none">
                                     <div class="card-body">
                                         <h5 class="card-title">
@@ -96,9 +96,7 @@
                                                 <i class="bi bi-person-plus-fill fs-3"></i>
                                             </div>
                                             <div class="ps-3">
-                                                <!-- Nombre d’agréments -->
                                                 <h6 class="mb-1">{{ $user?->operateurs()->count() ?? 0 }}</h6>
-                                                <!-- Statut ouvert/fermé -->
                                                 @can('agrement-ouvert')
                                                     <span class="text-success small fw-bold text-uppercase">ouverts</span>
                                                 @elsecan('agrement-fermer')
@@ -106,12 +104,13 @@
                                                 @endcan
                                             </div>
                                         </div>
-                                        <!-- Badge pour attirer l’attention si 0 demandes -->
+
+                                        <!-- Message défilant si aucune demande -->
                                         @if (($user?->operateurs()->count() ?? 0) == 0)
-                                            <span
-                                                class="badge bg-danger position-absolute top-0 start-100 translate-middle">
-                                                0
-                                            </span>
+                                            <div class="scrolling-message text-danger fw-bold mt-2">
+                                                Vous n'avez pas encore fait de demande d'agrément ! Cliquez ici pour
+                                                postuler.
+                                            </div>
                                         @endif
                                     </div>
                                 </a>
@@ -119,6 +118,36 @@
                         </div>
                     </div>
                 </section>
+
+                <!-- Ajouter ce style CSS dans votre Blade ou fichier CSS -->
+                <style>
+                    .scrolling-message {
+                        white-space: nowrap;
+                        overflow: hidden;
+                        box-sizing: border-box;
+                    }
+
+                    .scrolling-message::before {
+                        content: '';
+                        display: inline-block;
+                        padding-right: 100%;
+                    }
+
+                    .scrolling-message {
+                        display: inline-block;
+                        animation: scroll-left 10s linear infinite;
+                    }
+
+                    @keyframes scroll-left {
+                        0% {
+                            transform: translateX(100%);
+                        }
+
+                        100% {
+                            transform: translateX(-100%);
+                        }
+                    }
+                </style>
 
             </div>
             {{-- Fin Photo de profil --}}
