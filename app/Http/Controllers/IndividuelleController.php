@@ -1388,7 +1388,7 @@ class IndividuelleController extends Controller
 
     public function generateRapport(Request $request)
     {
-
+        $this->checkAccess();
         $this->validate($request, [
             'from_date' => 'required|date',
             'to_date'   => 'required|date',
@@ -1432,6 +1432,7 @@ class IndividuelleController extends Controller
 
     public function generateReport(Request $request)
     {
+        $this->checkAccess();
         $this->validate($request, [
             'numero'       => 'nullable|string',
             'cin'       => 'nullable|string',
@@ -1484,6 +1485,7 @@ class IndividuelleController extends Controller
 
     public function showIndividuelleProjet(Request $request)
     {
+        $this->checkAccess();
         $projet = Projet::findOrFail($request->idprojet);
         $user   = Auth::user();
 
@@ -1647,6 +1649,7 @@ class IndividuelleController extends Controller
 
     public function showMasculin()
     {
+        $this->checkAccess();
         $individuelles = Individuelle::join('users', 'users.id', 'individuelles.users_id')
             ->select('individuelles.*')
             ->where('users.civilite', 'M.')
@@ -1678,6 +1681,7 @@ class IndividuelleController extends Controller
 
     public function showFeminin()
     {
+        $this->checkAccess();
         $individuelles = Individuelle::join('users', 'users.id', 'individuelles.users_id')
             ->select('individuelles.*')
             ->where('users.civilite', 'Mme')
@@ -2172,6 +2176,7 @@ class IndividuelleController extends Controller
 
         return redirect()->back();
     }
+
     public function decliner(Request $request, $id)
     {
         $this->validate($request, [
@@ -2192,6 +2197,7 @@ class IndividuelleController extends Controller
 
     public function corbeille()
     {
+        $this->checkAccess();
         $total_count = Individuelle::onlyTrashed()->count();
         $total_count = number_format($total_count, 0, ',', ' ');
 
@@ -2215,6 +2221,8 @@ class IndividuelleController extends Controller
 
     public function validationIndividuelle(Request $request, Individuelle $individuelle)
     {
+        $this->checkAccess();
+
         $individuelle = Individuelle::findOrFail($request->id);
 
         // Si l'utilisateur n'est pas super-admin
@@ -2276,6 +2284,7 @@ class IndividuelleController extends Controller
 
     public function updateNote(Request $request, $id)
     {
+        $this->checkAccess();
         $request->validate([
             'note' => 'required|string|max:4',
         ]);
@@ -2291,6 +2300,7 @@ class IndividuelleController extends Controller
 
     public function rechercherDemandeur(Request $request)
     {
+        $this->checkAccess();
         // Validation basique
         $request->validate([
             'cin'                   => 'nullable|string',
@@ -2379,6 +2389,7 @@ class IndividuelleController extends Controller
 
     public function forceDelete($uuid)
     {
+        $this->checkAccess();
         $individuelle = Individuelle::withTrashed()->where('uuid', $uuid)->firstOrFail();
         // Supprimer
         $individuelle->forceDelete();
@@ -2386,8 +2397,10 @@ class IndividuelleController extends Controller
         Alert::success('Succès ', 'Demande supprimé définitivement.');
         return redirect()->back();
     }
+
     public function restore($uuid)
     {
+        $this->checkAccess();
         $individuelle = Individuelle::onlyTrashed()->where('uuid', $uuid)->firstOrFail();
         $individuelle->restore();
 
@@ -2406,6 +2419,7 @@ class IndividuelleController extends Controller
 
     public function exportExcel(int $annee, string $region, string $statut = 'all')
     {
+        $this->checkAccess();
         $regionModel = Region::where('nom', $region)->firstOrFail();
 
         $chunkSize = 1000;
