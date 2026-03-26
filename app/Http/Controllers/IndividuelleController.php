@@ -364,7 +364,6 @@ class IndividuelleController extends Controller
 
     public function store(Request $request)
     {
-        $this->checkAccess();
         $this->validate($request, [
             'module'                 => ['required', 'string', 'max:250'],
             'telephone_secondaire'   => ['required', 'string', 'size:9'],
