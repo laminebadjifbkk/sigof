@@ -368,6 +368,15 @@ class OperateurController extends Controller
 
         $validations = $operateur?->validationoperateurs;
 
+        $operateur->loadCount([
+            'operateurmodules',
+            'operateureferences',
+            'operateurequipements',
+            'operateurformateurs',
+            'operateurlocalites',
+            'formations',
+        ]);
+
         return view(
             "operateurs.agrement",
             compact(

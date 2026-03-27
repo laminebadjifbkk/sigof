@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'AGREMENT | ' . $operateur?->user?->username)
+@section('title', 'AGREMENT | ' . $operateur?->user?->display_operateur)
 @section('space-work')
 
     <section
@@ -11,7 +11,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ url('/home') }}">Accueil</a></li>
                         <li class="breadcrumb-item">Tables</li>
-                        <li class="breadcrumb-item active">{{ $operateur?->user?->username }}</li>
+                        <li class="breadcrumb-item active">{{ $operateur?->user?->display_operateur }}</li>
                     </ol>
                 </nav>
             </div><!-- End Page Title -->
@@ -41,7 +41,8 @@
                         <div class="card-body">
                             <ul class="nav nav-tabs nav-tabs-bordered align-items-center gap-2 flex-wrap position-relative">
                                 <li class="nav-item">
-                                    <span class="nav-link d-flex align-items-center gap-1"><a href="{{ route('operateurs.show', $operateur) }}"
+                                    <span class="nav-link d-flex align-items-center gap-1"><a
+                                            href="{{ route('operateurs.show', $operateur) }}"
                                             class="btn btn-secondary btn-sm" title="retour"><i
                                                 class="bi bi-arrow-counterclockwise"></i></a>
                                     </span>
@@ -52,34 +53,80 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <button class="nav-link d-flex align-items-center gap-1 active" data-bs-toggle="tab"
+                                    <button class="nav-link d-flex position-relative gap-1 active" data-bs-toggle="tab"
                                         data-bs-target="#module-overview">Module
+
+                                        @if ($operateur->operateurmodules_count > 0)
+                                            <span
+                                                class="badge bg-primary position-absolute top-0 start-100 translate-middle p-1 rounded-circle">
+                                                {{ $operateur->operateurmodules_count }}
+                                            </span>
+                                        @endif
                                     </button>
                                 </li>
 
                                 <li class="nav-item">
                                     <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab"
-                                        data-bs-target="#references-overview">Références</button>
+                                        data-bs-target="#references-overview">Références
+
+                                        @if ($operateur->operateureferences_count > 0)
+                                            <span
+                                                class="badge bg-secondary position-absolute top-0 end-0 translate-middle p-1 rounded-circle">
+                                                {{ $operateur->operateureferences_count }}
+                                            </span>
+                                        @endif
+                                    </button>
                                 </li>
 
                                 <li class="nav-item">
                                     <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab"
-                                        data-bs-target="#equipement-overview">Equipements</button>
+                                        data-bs-target="#equipement-overview">Equipements
+
+                                        @if ($operateur->operateurequipements_count > 0)
+                                            <span
+                                                class="badge bg-warning text-dark position-absolute top-0 end-0 translate-middle p-1 rounded-circle">
+                                                {{ $operateur->operateurequipements_count }}
+                                            </span>
+                                        @endif
+                                    </button>
                                 </li>
 
                                 <li class="nav-item">
                                     <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab"
-                                        data-bs-target="#formateur-overview">Formateurs</button>
+                                        data-bs-target="#formateur-overview">Formateurs
+                                        @if ($operateur->operateurformateurs_count > 0)
+                                            <span
+                                                class="badge bg-info text-dark position-absolute top-0 end-0 translate-middle p-1 rounded-circle">
+                                                {{ $operateur->operateurformateurs_count }}
+                                            </span>
+                                        @endif
+                                    </button>
                                 </li>
 
                                 <li class="nav-item">
                                     <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab"
-                                        data-bs-target="#localites-overview">Localités</button>
+                                        data-bs-target="#localites-overview">Localités
+
+                                        @if ($operateur->operateurlocalites_count > 0)
+                                            <span
+                                                class="badge bg-secondary text-white position-absolute top-0 end-0 translate-middle p-1 rounded-circle">
+                                                {{ $operateur->operateurlocalites_count }}
+                                            </span>
+                                        @endif
+                                    </button>
                                 </li>
 
                                 @can('operateur-show-files')
                                     <li class="nav-item">
-                                        <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab" data-bs-target="#files">Fichiers</button>
+                                        <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab"
+                                            data-bs-target="#files">Fichiers
+                                            @if ($operateur->user->files_count > 0)
+                                                <span
+                                                    class="badge bg-dark position-absolute top-0 end-0 translate-middle p-1 rounded-circle">
+                                                    {{ $operateur->user->files_count }}
+                                                </span>
+                                            @endif
+                                        </button>
                                     </li>
                                 @endcan
 
@@ -97,7 +144,8 @@
                                                             style="letter-spacing: 1px;">
                                                             Historique
                                                         </li> --}}
-                                                        <a class="nav-link d-flex align-items-center gap-1 nav-icon" href="#" data-bs-toggle="dropdown">
+                                                        <a class="nav-link d-flex align-items-center gap-1 nav-icon"
+                                                            href="#" data-bs-toggle="dropdown">
                                                             <i class="bi bi-chat-left-text m-1"></i>
                                                             <span class="badge bg-success badge-number"
                                                                 title="{{ $operateur?->statut }}">
@@ -312,12 +360,12 @@
 
                                         <div class="col-12 mb-2 pt-3">
                                             <div class="label">Raison sociale</div>
-                                            <div>{{ $operateur?->user?->operateur }}</div>
+                                            <div>{{ $operateur?->user?->display_operateur }}</div>
                                         </div>
-                                        <div class="col-12 col-md-4 mb-2">
+                                        {{-- <div class="col-12 col-md-4 mb-2">
                                             <div class="label">Sigle</div>
-                                            <div>{{ $operateur?->user?->username }}</div>
-                                        </div>
+                                            <div>{{ $operateur?->user?->display_operateur }}</div>
+                                        </div> --}}
                                         <div class="col-12 col-md-4 mb-2">
                                             <div class="label">Numéro agrément</div>
                                             <div>{{ $operateur?->numero_agrement }}</div>
