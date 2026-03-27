@@ -46,7 +46,7 @@
                                         <th width="10%">Téléphone</th>
                                         <th>Réponse</th>
                                         <th width="5%" class="text-center">Statut</th>
-                                        <th width="5%" class="text-center">Date dépôt</th>
+                                        <th width="5%" class="text-center">Date</th>
                                         <th width="5%" class="text-center">#</th>
                                     </tr>
                                 </thead>
