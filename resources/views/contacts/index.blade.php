@@ -46,6 +46,7 @@
                                         <th width="10%">Téléphone</th>
                                         <th>Réponse</th>
                                         <th width="5%" class="text-center">Statut</th>
+                                        <th width="5%" class="text-center">Date dépôt</th>
                                         <th width="5%" class="text-center">#</th>
                                     </tr>
                                 </thead>
@@ -60,6 +61,7 @@
                                             </td>
                                             <td>{{ $contact?->reponse }}</td>
                                             <td>{{ $contact?->statut }}</td>
+                                            <td>{{ $contact?->created_at->format('d/m/Y') }}</td>
                                             <td>
                                                 <span class="d-flex mt-2 align-items-baseline"><a href="#"
                                                         class="btn btn-warning btn-sm mx-1" title="Voir"><i
