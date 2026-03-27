@@ -12,7 +12,7 @@
                 </h6>
             </div>
 
-            @if ($operateur->formations->isNotEmpty())
+            @if ($formations->isNotEmpty())
                 <div class="d-flex align-items-center gap-2 text-info fw-semibold">
 
                     <a href="{{ url('/note_de_frais') }}"
