@@ -2359,9 +2359,14 @@ class OperateurController extends Controller
         // Récupérer l'opérateur lié à l'utilisateur
         /* $operateur = Operateur::where('users_id', $user->id)->orderBy("created_at", "desc")->first(); */
 
-        $formations = Formation::whereHas('operateur', function ($query) use ($user) {
-            $query->where('users_id', $user->id);
-        })->get();
+        $formations = Formation::with('operateur')
+            ->whereHas('operateur', function ($query) use ($user) {
+                $query->where('users_id', $user->id);
+            })
+            ->latest() // optionnel : trier par date de création
+            ->get();
+
+        dd($formations);
 
         // Si aucun opérateur n'est trouvé, afficher une vue différente
         return view(
