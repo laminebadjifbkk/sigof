@@ -45,7 +45,7 @@
                             <div class="col-12">
                                 <label for="date_quitus" class="form-label fw-semibold">Date visa quitus</label>
                                 <input type="date" name="date_quitus"
-                                    value="{{ old('date_quitus', optional($operateur?->debut_quitus)->format('d/m/Y')) }}"
+                                    value="{{ old('date_quitus', optional($operateur?->debut_quitus)->format('Y-m-d')) }}"
                                     class="form-control form-control-sm @error('date_quitus') is-invalid @enderror"
                                     placeholder="JJ/MM/AAAA" autocomplete="bday">
 
