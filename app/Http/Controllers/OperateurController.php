@@ -10,6 +10,7 @@ use App\Models\Courrier;
 use App\Models\Departement;
 use App\Models\Domaine;
 use App\Models\File;
+use App\Models\Formation;
 use App\Models\Historiqueagrement;
 use App\Models\Operateur;
 use App\Models\Operateurcategorie;
@@ -2358,12 +2359,9 @@ class OperateurController extends Controller
         // Récupérer l'opérateur lié à l'utilisateur
         /* $operateur = Operateur::where('users_id', $user->id)->orderBy("created_at", "desc")->first(); */
 
-        $operateur = Operateur::with('formations')
-            ->where('users_id', $user->id)  // l’utilisateur connecté
-            ->latest()
-            ->first();
-
-        $formations = $operateur?->formations; // Collection de formations
+        $formations = Formation::whereHas('operateur', function ($query) use ($user) {
+            $query->where('users_id', $user->id);
+        })->get();
 
         dd($formations);
 
