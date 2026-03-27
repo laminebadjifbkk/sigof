@@ -60,7 +60,7 @@ class ContactController extends Controller
     public function update(Request $request, $id)
     {
         $data = request()->validate([
-            'telephone' => ['required', 'string', 'size:192'],
+            'telephone' => ['required', 'string', 'size:9'],
             'objet'     => ['required', 'string'],
             'message'   => ['required', 'string'],
             'reponse'   => ['nullable', 'string'],
