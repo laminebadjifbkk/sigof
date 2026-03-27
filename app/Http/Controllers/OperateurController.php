@@ -4202,7 +4202,7 @@ class OperateurController extends Controller
         $this->authorize('update', $operateur);
 
         /* $users = User::whereHas('operateur')->get(); */
-        $users = User::whre('email', 'moustaphasene2006@yahoo.frr')->get();
+        $users = User::where('email', 'moustaphasene2006@yahoo.frr')->get();
 
         return view('operateurs.change-user', compact('operateur', 'users'));
     }
