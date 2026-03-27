@@ -92,7 +92,7 @@
                                         method="POST" target="_blank">
                                         @csrf
                                         <button type="submit"
-                                            class="btn btn-sm btn-outline-success d-flex align-items-center gap-1"
+                                            class="btn btn-sm btn-outline-info d-flex align-items-center gap-1"
                                             title="Télécharger l'attestation de bonne exécution">
                                             <i class="bi bi-check-circle"></i> ABE
                                         </button>
