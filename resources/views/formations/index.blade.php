@@ -256,9 +256,9 @@
                                             {{-- <th width='15%'>Type formation</th> --}}
                                             {{--  <th width='15%'>Localité</th> --}}
                                             <th width='25%'>Bénéficiaires</th>
-                                            <th width='15%'>Modules</th>
-                                            <th width='15%'>Niveau qualif.</th>
-                                            <th width='10%' class="text-center">Opérateurs</th>
+                                            <th>Modules</th>
+                                            <th>Niveau qualif.</th>
+                                            <th width='15%'>Opérateurs</th>
                                             <th width='5%' class="text-center">Statut</th>
                                             @can('formation-show')
                                                 <th width='3%'><i class="bi bi-gear"></i></th>
@@ -284,7 +284,7 @@
                                                 </td>
                                                 {{-- <td>{{ $formation->type_certification }}</td> --}}
                                                 <td>{{ $formation?->titre ?? $formation?->referentiel?->titre }}</td>
-                                                <td class="text-center">
+                                                <td>
                                                     {{ $formation?->operateur?->user?->display_operateur ?? ' ' }}
                                                 </td>
                                                 <td class="text-center">
