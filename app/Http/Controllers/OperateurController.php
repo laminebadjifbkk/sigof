@@ -4201,7 +4201,8 @@ class OperateurController extends Controller
     {
         $this->authorize('update', $operateur);
 
-        $users = User::whereHas('operateur')->get();
+        /* $users = User::whereHas('operateur')->get(); */
+        $users = User::latest()->limit(500)->get();
 
         return view('operateurs.change-user', compact('operateur', 'users'));
     }
