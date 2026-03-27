@@ -2367,7 +2367,6 @@ class OperateurController extends Controller
         return view(
             'operateurs.mesformation',
             compact(
-                'operateur',
                 'formations'
             )
         );
