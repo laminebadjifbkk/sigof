@@ -603,7 +603,7 @@
                                         <form method="post" action="#" enctype="multipart/form-data" class="row g-3">
 
                                             <div class="col-12 mb-2 pt-3">
-                                                <div class="label">Raison sociale</div>
+                                                <div class="label">Dénomination</div>
                                                 <div>{{ $operateur?->user?->display_operateur }}</div>
                                             </div>
                                             {{-- <div class="col-12 col-md-4 mb-0">

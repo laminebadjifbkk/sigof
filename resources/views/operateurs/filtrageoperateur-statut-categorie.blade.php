@@ -275,11 +275,11 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="operateur_name" class="form-label">Raison sociale</label>
+                                                <label for="operateur_name" class="form-label">Dénomination</label>
                                                 <input type="text" name="operateur_name"
                                                     value="{{ old('operateur_name') }}"
                                                     class="form-control form-control-sm @error('operateur_name') is-invalid @enderror"
-                                                    id="operateur_name" placeholder="Raison sociale">
+                                                    id="operateur_name" placeholder="Dénomination">
                                                 @error('operateur_name')
                                                     <span class="invalid-feedback" role="alert">
                                                         <div>{{ $message }}</div>

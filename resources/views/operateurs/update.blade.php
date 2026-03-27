@@ -109,7 +109,7 @@
                                         </div>
 
                                         <div class="col-12">
-                                            <label for="operateur" class="form-label">Raison sociale opérateur<span
+                                            <label for="operateur" class="form-label">Dénomination opérateur<span
                                                     class="text-danger mx-1">*</span></label>
                                             <textarea name="operateur" id="operateur" rows="1"
                                                 class="form-control form-control-sm @error('operateur') is-invalid @enderror"
@@ -693,7 +693,7 @@
 
 
                                         {{-- <div class="col-12">
-                                            <label for="operateur" class="form-label">Raison sociale opérateur<span
+                                            <label for="operateur" class="form-label">Dénomination opérateur<span
                                                     class="text-danger mx-1">*</span></label>
                                             <textarea name="operateur" id="operateur" rows="1"
                                                 class="form-control form-control-sm @error('operateur') is-invalid @enderror"
