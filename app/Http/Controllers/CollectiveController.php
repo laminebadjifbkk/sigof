@@ -67,7 +67,7 @@ class CollectiveController extends Controller
         $collectivesQuery = Collective::query();
 
         $collectives = $collectivesQuery
-            ->latest()
+            ->orderBy('created_at', 'desc') // explicite
             ->limit(1000)
             ->get();
 
