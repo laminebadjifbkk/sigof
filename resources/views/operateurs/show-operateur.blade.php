@@ -103,18 +103,18 @@
 
                         $sections = [
                         ['label' => 'Modules', 'icon' => 'bi-journal-code text-info', 'count' =>
-                        $operateur->operateurmodules->count(), 'route' => route('operateurs.show', $operateur)],
+                        $op->operateurmodules->count(), 'route' => route('operateurs.show', $op)],
                         ['label' => 'Références', 'icon' => 'bi-bookmark-check text-primary', 'count' =>
-                        $operateur->operateureferences->count(), 'route' => route('showReference', $operateur->uuid)],
+                        $op->operateureferences->count(), 'route' => route('showReference', $op->uuid)],
                         ['label' => 'Équipements & Infrastructures', 'icon' => 'bi-hdd-network text-warning', 'count' =>
-                        $operateur->operateurequipements->count(), 'route' => route('showEquipement', $operateur->uuid)],
+                        $op->operateurequipements->count(), 'route' => route('showEquipement', $op->uuid)],
                         ['label' => 'Formateurs', 'icon' => 'bi-person-workspace text-success', 'count' =>
-                        $operateur->operateurformateurs->count(), 'route' => route('showFormateur', $operateur->uuid)],
+                        $op->operateurformateurs->count(), 'route' => route('showFormateur', $op->uuid)],
                         ['label' => 'Localités', 'icon' => 'bi-geo-alt text-danger', 'count' =>
-                        $operateur->operateurlocalites->count(), 'route' => route('showLocalite', $operateur->uuid)],
+                        $op->operateurlocalites->count(), 'route' => route('showLocalite', $op->uuid)],
                         ['label' => 'Validité quitus', 'icon' => 'bi-file-earmark-text text-dark', 'count' => $diffText,
                         'badge' => $diffInMonths > 3 ? 'bg-danger' : 'bg-info', 'modal' =>
-                        "EditOperateurModal{$operateur->id}"]
+                        "EditOperateurModal{$op->id}"]
                         ];
 
                         <div class="card mb-4 shadow-sm border-0 w-100">
