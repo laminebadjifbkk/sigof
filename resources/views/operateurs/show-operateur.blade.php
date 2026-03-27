@@ -101,21 +101,47 @@
                     {{-- Cartes opérateurs --}}
                     @foreach ($operateurs as $op)
 
-                        $sections = [
-                        ['label' => 'Modules', 'icon' => 'bi-journal-code text-info', 'count' =>
-                        $op->operateurmodules->count(), 'route' => route('operateurs.show', $op)],
-                        ['label' => 'Références', 'icon' => 'bi-bookmark-check text-primary', 'count' =>
-                        $op->operateureferences->count(), 'route' => route('showReference', $op->uuid)],
-                        ['label' => 'Équipements & Infrastructures', 'icon' => 'bi-hdd-network text-warning', 'count' =>
-                        $op->operateurequipements->count(), 'route' => route('showEquipement', $op->uuid)],
-                        ['label' => 'Formateurs', 'icon' => 'bi-person-workspace text-success', 'count' =>
-                        $op->operateurformateurs->count(), 'route' => route('showFormateur', $op->uuid)],
-                        ['label' => 'Localités', 'icon' => 'bi-geo-alt text-danger', 'count' =>
-                        $op->operateurlocalites->count(), 'route' => route('showLocalite', $op->uuid)],
-                        ['label' => 'Validité quitus', 'icon' => 'bi-file-earmark-text text-dark', 'count' => $diffText,
-                        'badge' => $diffInMonths > 3 ? 'bg-danger' : 'bg-info', 'modal' =>
-                        "EditOperateurModal{$op->id}"]
-                        ];
+                        @php
+                            $sections = [
+                                [
+                                    'label' => 'Modules',
+                                    'icon' => 'bi-journal-code text-info',
+                                    'count' => $op->operateurmodules->count(),
+                                    'route' => route('operateurs.show', $op),
+                                ],
+                                [
+                                    'label' => 'Références',
+                                    'icon' => 'bi-bookmark-check text-primary',
+                                    'count' => $op->operateureferences->count(),
+                                    'route' => route('showReference', $op->uuid),
+                                ],
+                                [
+                                    'label' => 'Équipements & Infrastructures',
+                                    'icon' => 'bi-hdd-network text-warning',
+                                    'count' => $op->operateurequipements->count(),
+                                    'route' => route('showEquipement', $op->uuid),
+                                ],
+                                [
+                                    'label' => 'Formateurs',
+                                    'icon' => 'bi-person-workspace text-success',
+                                    'count' => $op->operateurformateurs->count(),
+                                    'route' => route('showFormateur', $op->uuid),
+                                ],
+                                [
+                                    'label' => 'Localités',
+                                    'icon' => 'bi-geo-alt text-danger',
+                                    'count' => $op->operateurlocalites->count(),
+                                    'route' => route('showLocalite', $op->uuid),
+                                ],
+                                [
+                                    'label' => 'Validité quitus',
+                                    'icon' => 'bi-file-earmark-text text-dark',
+                                    'count' => $diffText,
+                                    'badge' => $diffInMonths > 3 ? 'bg-danger' : 'bg-info',
+                                    'modal' => "EditOperateurModal{$op->id}",
+                                ],
+                            ];
+                        @endphp
 
                         <div class="card mb-4 shadow-sm border-0 w-100">
                             <div class="card-header bg-white border-bottom py-3 px-4">
