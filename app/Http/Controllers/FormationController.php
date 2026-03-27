@@ -3993,7 +3993,14 @@ class FormationController extends Controller
             $name = 'Attestation de bonne execution ' . $formation?->operateur?->user?->operateur . ' en ' . $formation?->module?->name . '.pdf';
 
             // Output the generated PDF to Browser
-            return $dompdf->stream($name, ['Attachment' => true]);
+            /* return $dompdf->stream($name, ['Attachment' => true]); */
+
+            $pdfContent = $dompdf->output(); // Génère le contenu du PDF
+
+            return response()->streamDownload(
+                fn() => print($pdfContent),
+                $name
+            );
         } else {
             Alert::warning('Désolé !', "La formation n'est pas encore terminée.");
             return redirect()->back();
@@ -4093,7 +4100,14 @@ class FormationController extends Controller
             $name = 'Attestation de bonne execution ' . $formation?->operateur?->user?->operateur . ' en ' . $formation?->collectivemodule?->module . '.pdf';
 
             // Output the generated PDF to Browser
-            $dompdf->stream($name, ['Attachment' => true]);
+            /* $dompdf->stream($name, ['Attachment' => true]); */
+
+            $pdfContent = $dompdf->output(); // Génère le contenu du PDF
+
+            return response()->streamDownload(
+                fn() => print($pdfContent),
+                $name
+            );
         } else {
             Alert::warning('Désolé !', "La formation n'est pas encore terminée.");
             return redirect()->back();
