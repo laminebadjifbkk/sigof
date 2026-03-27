@@ -60,7 +60,7 @@ class OperateurController extends Controller
         // Liste principale
         $operateurs = $query
             ->latest()
-            ->limit(350)
+            ->limit(500)
             ->get();
 
         // Départements
