@@ -49,7 +49,8 @@
                         <th class="text-center">Conv.</th>
                         <th>Bénéficiaires</th>
                         <th>Modules</th>
-                        <th>Niveau qualif.</th>
+                        <th>Type</th>
+                        {{-- <th>Niveau qualif.</th> --}}
                         <th width='5%' class="text-center">Effectif</th>
                         <th width='5%' class="text-center">Statut</th>
                         @can('formation-show')
@@ -70,7 +71,8 @@
                             <td>
                                 {{ $formation?->module?->name ?? ($formation?->collectivemodule?->module ?? '') }}
                             </td>
-                            <td>{{ $formation?->titre ?? $formation?->referentiel?->titre }}</td>
+                            {{-- <td>{{ $formation?->titre ?? $formation?->referentiel?->titre }}</td> --}}
+                            <td>{{ $formation?->type_certification }}</td>
                             <td class="text-center">
                                 {{ $formation?->effectif_prevu }}
                             </td>
