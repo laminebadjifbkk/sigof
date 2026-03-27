@@ -45,11 +45,11 @@
                 <thead class="table-success text-center">
                     <tr>
                         {{-- <th width='6%' class="text-center">Code</th> --}}
-                        <th width='8%' class="text-center">N° conv.</th>
-                        <th width='25%'>Bénéficiaires</th>
-                        <th width='15%'>Modules</th>
-                        <th width='15%'>Niveau qualif.</th>
-                        <th width='10%' class="text-center">Responsable</th>
+                        <th class="text-center">N° conv.</th>
+                        <th>Bénéficiaires</th>
+                        <th>Modules</th>
+                        <th>Niveau qualif.</th>
+                        <th>N° agrément</th>
                         <th width='5%' class="text-center">Effectif</th>
                         <th width='5%' class="text-center">Statut</th>
                         @can('formation-show')
@@ -67,8 +67,9 @@
                                 {{ $formation?->module?->name ?? ($formation?->collectivemodule?->module ?? '') }}
                             </td>
                             <td>{{ $formation?->titre ?? $formation?->referentiel?->titre }}</td>
-                            <td class="text-center">
-                                {{ $formation?->ingenieur?->user?->firstname . ' ' . $formation?->ingenieur?->user?->name ?? ' ' }}
+                            <td>
+                                {{-- {{ $formation?->ingenieur?->user?->firstname . ' ' . $formation?->ingenieur?->user?->name ?? ' ' }} --}}
+                                {{ $formation?->operateur?->numero_agrement }}
                             </td>
                             <td class="text-center">
                                 {{ $formation?->effectif_prevu }}
