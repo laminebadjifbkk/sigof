@@ -76,17 +76,6 @@
                                                                         class="fw-bold">{{ $dateExpiration?->format('d/m/Y') }}</span>.
                                                                 </small>
                                                             </div>
-                                                            {{-- @elseif($estExtension)
-                                                            <div
-                                                                class="alert alert-info d-flex flex-column align-items-start gap-1 p-2 shadow-sm rounded-2 w-100">
-                                                                <button type="button"
-                                                                    class="btn btn-primary btn-sm fw-semibold rounded-pill px-3 d-inline-flex align-items-center justify-content-center gap-1"
-                                                                    data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
-                                                                    <i class="bi bi-arrow-repeat"></i>
-                                                                    <span>Demander une extension</span>
-                                                                </button>
-                                                                <small class="text-muted">Votre agrément toujours valide</small>
-                                                            </div> --}}
                                                         @elseif($estRenouvellement)
                                                             <div
                                                                 class="alert alert-info d-flex flex-column align-items-start gap-1 p-2 shadow-sm rounded-2 w-100">
@@ -111,6 +100,23 @@
 
                     {{-- Cartes opérateurs --}}
                     @foreach ($operateurs as $op)
+
+                        $sections = [
+                        ['label' => 'Modules', 'icon' => 'bi-journal-code text-info', 'count' =>
+                        $operateur->operateurmodules->count(), 'route' => route('operateurs.show', $operateur)],
+                        ['label' => 'Références', 'icon' => 'bi-bookmark-check text-primary', 'count' =>
+                        $operateur->operateureferences->count(), 'route' => route('showReference', $operateur->uuid)],
+                        ['label' => 'Équipements & Infrastructures', 'icon' => 'bi-hdd-network text-warning', 'count' =>
+                        $operateur->operateurequipements->count(), 'route' => route('showEquipement', $operateur->uuid)],
+                        ['label' => 'Formateurs', 'icon' => 'bi-person-workspace text-success', 'count' =>
+                        $operateur->operateurformateurs->count(), 'route' => route('showFormateur', $operateur->uuid)],
+                        ['label' => 'Localités', 'icon' => 'bi-geo-alt text-danger', 'count' =>
+                        $operateur->operateurlocalites->count(), 'route' => route('showLocalite', $operateur->uuid)],
+                        ['label' => 'Validité quitus', 'icon' => 'bi-file-earmark-text text-dark', 'count' => $diffText,
+                        'badge' => $diffInMonths > 3 ? 'bg-danger' : 'bg-info', 'modal' =>
+                        "EditOperateurModal{$operateur->id}"]
+                        ];
+
                         <div class="card mb-4 shadow-sm border-0 w-100">
                             <div class="card-header bg-white border-bottom py-3 px-4">
                                 <div class="row justify-content-between align-items-center gy-2">
@@ -158,32 +164,7 @@
                                                 </span>
                                             @endif
                                         </div>
-                                        {{-- <div>
-                                            @if (!empty($section['route']))
-                                                <a href="{{ $section['route'] }}" target="_blank"
-                                                    class="btn btn-sm btn-outline-success">
-                                                    <i class="bi bi-pencil-square me-1"></i> Ajouter / Modifier
-                                                </a>
-                                            @elseif(!empty($section['modal']))
-                                                <button class="btn btn-sm btn-outline-success" title="Modifier"
-                                                    data-bs-toggle="modal" data-bs-target="#{{ $section['modal'] }}">
-                                                    <i class="bi bi-pencil-square me-1"></i> Ajouter / Modifier
-                                                </button>
-                                            @endif
-                                        </div> --}}
                                         <div>
-                                            {{-- @if (!empty($section['route']))
-                                                <a href="{{ $section['route'] }}" target="_blank"
-                                                    class="btn btn-sm btn-outline-success {{ $op?->statut_agrement != 'Nouveau' ? 'disabled' : '' }}">
-                                                    <i class="bi bi-pencil-square me-1"></i> Ajouter / Modifier
-                                                </a>
-                                            @elseif(!empty($section['modal']))
-                                                <button class="btn btn-sm btn-outline-success" title="Modifier"
-                                                    data-bs-toggle="modal" data-bs-target="#{{ $section['modal'] }}"
-                                                    {{ $op?->statut_agrement === 'agréé' ? 'disabled' : '' }}>
-                                                    <i class="bi bi-pencil-square me-1"></i> Ajouter / Modifier
-                                                </button>
-                                            @endif --}}
                                             @if (!empty($section['route']) && in_array($op?->statut_agrement, ['Nouveau', 'À corriger']))
                                                 <a href="{{ $section['route'] }}" target="_blank"
                                                     class="btn btn-sm btn-outline-success">
@@ -248,38 +229,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            {{-- <div class="card-body px-4">
-                                <div class="my-2 p-3 border rounded text-center">
-
-                                    @if ($hasNinea && $hasQuitus)
-                                        <span class="text-success fw-bold fs-5">
-                                            Dossier complet
-                                        </span>
-                                    @else
-                                        <span class="text-danger fw-bold fs-5 d-block">
-                                            Dossier incomplet !
-                                        </span>
-
-                                        <div class="text-danger fs-6 mt-2">
-
-                                            @if (!$hasNinea)
-                                                Veuillez téléverser le NINEA.<br>
-                                            @endif
-
-                                            @if (!$hasRC)
-                                                Registre de commerce.<br>
-                                            @endif
-
-                                            @if (!$hasQuitus)
-                                                Veuillez téléverser le quitus fiscal.<br>
-                                            @endif
-
-                                        </div>
-                                    @endif
-
-                                </div>
-                            </div> --}}
 
                             @can('update', $op)
                                 <div
