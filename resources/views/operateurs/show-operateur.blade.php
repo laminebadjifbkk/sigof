@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', $operateur?->user?->display_operateur)
+@section('title', $user?->display_operateur)
 @section('space-work')
     <section class="section">
         <div class="row justify-content-center">
@@ -56,43 +56,7 @@
                                         </button>
                                     </div>
                                     {{-- Droite --}}
-                                    @can('devenir-operateur-agrement-ouvert')
-                                        @can('devenir-operateur-agrement-create')
-                                            @can('agrement-ouvert')
-                                                <div class="col-12 col-md-4">
-                                                    <div class="d-flex flex-column align-items-start align-items-md-end gap-2">
-                                                        @if ($estExpire)
-                                                            <div
-                                                                class="alert alert-danger d-flex flex-column align-items-start gap-1 p-2 shadow-sm rounded-2 w-100">
-                                                                <button type="button"
-                                                                    class="btn btn-success btn-sm fw-semibold rounded-pill px-3 d-inline-flex align-items-center justify-content-center gap-1"
-                                                                    data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
-                                                                    <i class="bi bi-arrow-repeat"></i>
-                                                                    <span>Faire une nouvelle demande</span>
-                                                                </button>
-                                                                <small class="text-muted">
-                                                                    Votre agrément est arrivé a expiration depuis le
-                                                                    <span
-                                                                        class="fw-bold">{{ $dateExpiration?->format('d/m/Y') }}</span>.
-                                                                </small>
-                                                            </div>
-                                                        @elseif($estRenouvellement)
-                                                            <div
-                                                                class="alert alert-info d-flex flex-column align-items-start gap-1 p-2 shadow-sm rounded-2 w-100">
-                                                                <button type="button"
-                                                                    class="btn btn-primary btn-sm fw-semibold rounded-pill px-3 d-inline-flex align-items-center justify-content-center gap-1"
-                                                                    data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
-                                                                    <i class="bi bi-arrow-repeat"></i>
-                                                                    <span>Demander un renouvellement</span>
-                                                                </button>
-                                                                <small class="text-muted">Votre agrément toujours valide</small>
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            @endcan
-                                        @endcan
-                                    @endcan
+
                                 </div>
                             </div>
                         </div>
@@ -100,37 +64,174 @@
 
                     {{-- Cartes opérateurs --}}
                     @foreach ($operateurs as $op)
+                        @php
+                            // Catégorie
+                            $cat = $op->user?->categorie;
+
+                            // Documents
+                            $hasNinea = $files->contains(fn($file) => $file->sigle === 'Ninea');
+                            $hasQuitus = $files->contains(fn($file) => $file->sigle === 'Quitus');
+                            $hasAC = $files->contains(fn($file) => $file->sigle === 'AC');
+                            $hasContrat = $files->contains(fn($file) => $file->sigle === 'Contrat');
+                            $hasNF = $files->contains(fn($file) => $file->sigle === 'Non-fonctionnaire');
+
+                            // Statut demande
+                            $statut_demande = $op->profilEstComplet() ? 'complète' : 'incomplète';
+
+                            // Dates agrément
+                            $dernierAgrement = $op->commissionagrements->sortByDesc('fin_commission')->first();
+                            $dateAgrement = $dernierAgrement
+                                ? \Carbon\Carbon::parse($dernierAgrement->fin_commission)
+                                : null;
+
+                            $dateExpiration = $dateAgrement?->copy()->addYears(4);
+                            $estExpire = $dateExpiration?->isPast();
+
+                            // Quitus
+                            $dateQuitus = $op->debut_quitus ? \Carbon\Carbon::parse($op->debut_quitus) : null;
+
+                            $diffText = $dateQuitus ? $dateQuitus->locale('fr')->diffForHumans(now(), true) : 'N/A';
+
+                            $diffInMonths = $dateQuitus ? $dateQuitus->diffInMonths(now()) : 0;
+
+                            // Certification
+                            $estCertifie = !empty($op->file8);
+
+                            // Sections dynamiques
+                            $sections = [
+                                [
+                                    'label' => 'Modules',
+                                    'icon' => 'bi-journal-code text-info',
+                                    'count' => $op->operateurmodules->count(),
+                                    'route' => route('operateurs.show', $op),
+                                ],
+                                [
+                                    'label' => 'Références',
+                                    'icon' => 'bi-bookmark-check text-primary',
+                                    'count' => $op->operateureferences->count(),
+                                    'route' => route('showReference', $op->uuid),
+                                ],
+                                [
+                                    'label' => 'Équipements & Infrastructures',
+                                    'icon' => 'bi-hdd-network text-warning',
+                                    'count' => $op->operateurequipements->count(),
+                                    'route' => route('showEquipement', $op->uuid),
+                                ],
+                                [
+                                    'label' => 'Formateurs',
+                                    'icon' => 'bi-person-workspace text-success',
+                                    'count' => $op->operateurformateurs->count(),
+                                    'route' => route('showFormateur', $op->uuid),
+                                ],
+                                [
+                                    'label' => 'Localités',
+                                    'icon' => 'bi-geo-alt text-danger',
+                                    'count' => $op->operateurlocalites->count(),
+                                    'route' => route('showLocalite', $op->uuid),
+                                ],
+                                [
+                                    'label' => 'Validité quitus',
+                                    'icon' => 'bi-file-earmark-text text-dark',
+                                    'count' => $diffText,
+                                    'badge' => $diffInMonths > 3 ? 'bg-danger' : 'bg-info',
+                                    'modal' => "EditOperateurModal{$op->id}",
+                                ],
+                            ];
+                            $dernierAgrement = $op->commissionagrements->sortByDesc('fin_commission')->first();
+                            $dateAgrement = $dernierAgrement
+                                ? \Carbon\Carbon::parse($dernierAgrement->fin_commission)
+                                : null;
+
+                            $dateExpiration = $dateAgrement?->copy()->addYears(4);
+                            $estExpire = $dateExpiration?->isPast();
+
+                            $dateExtension = $dateAgrement?->copy()->addYears(2);
+                            $estExtension = $dateExtension?->isPast();
+
+                            $dateRenouvellement = $dateAgrement?->copy()->addYears(1);
+                            $estRenouvellement = $dateRenouvellement?->isPast();
+                        @endphp
                         <div class="card mb-4 shadow-sm border-0 w-100">
                             <div class="card-header bg-white border-bottom py-3 px-4">
-                                <div class="row justify-content-between align-items-center gy-2">
-                                    <div class="col-12 col-md-auto">
-                                        <div class="d-flex align-items-center flex-wrap">
-                                            <i class="bi bi-arrow-right-circle text-secondary me-2"></i>
-                                            <span class="fst-italic">Type :</span>
-                                            <span
-                                                class="ms-2 fw-semibold {{ $op?->type_demande }}">{{ $op?->type_demande }}</span>
-                                        </div>
-                                    </div>
-                                    @if ($op->commissionagrements->isNotEmpty())
-                                        <div class="col-12 col-md text-md-center">
-                                            <div class="d-flex flex-wrap align-items-center justify-content-md-center">
-                                                <i class="bi bi-building text-primary me-2"></i>
-                                                <span class="fw-bold">Date commission :</span>
-                                                <span class="ms-2 text-primary">
-                                                    {{ $op->commissionagrements->pluck('fin_commission')->filter()->map(fn($date) => \Carbon\Carbon::parse($date)->format('d/m/Y'))->implode(' - ') }}
+                                <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+
+                                    {{-- PARTIE GAUCHE --}}
+                                    <div class="flex-grow-1">
+                                        <div class="row align-items-center gy-2">
+
+                                            <div class="col-12 col-md-auto">
+                                                <div class="d-flex align-items-center flex-wrap">
+                                                    <i class="bi bi-arrow-right-circle text-secondary me-2"></i>
+                                                    <span class="fst-italic">Type :</span>
+                                                    <span class="ms-2 fw-semibold {{ $op?->type_demande }}">
+                                                        {{ $op?->type_demande }}
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            @if ($op->commissionagrements->isNotEmpty())
+                                                <div class="col-12 col-md text-md-center">
+                                                    <div
+                                                        class="d-flex flex-wrap align-items-center justify-content-md-center">
+                                                        <i class="bi bi-building text-primary me-2"></i>
+                                                        <span class="fw-bold">Date commission :</span>
+                                                        <span class="ms-2 text-primary">
+                                                            {{ $op->commissionagrements->pluck('fin_commission')->filter()->map(fn($date) => \Carbon\Carbon::parse($date)->format('d/m/Y'))->implode(' - ') }}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            @endif
+
+                                            <div class="col-12 col-md-auto text-md-end">
+                                                <span class="fw-semibold text-muted me-2">Statut :</span>
+                                                <span
+                                                    class="badge {{ $op?->statut_agrement }} px-3 py-2 fs-6 shadow-sm rounded-pill">
+                                                    {{ $op?->statut_agrement }}
                                                 </span>
                                             </div>
-                                        </div>
-                                    @endif
-                                    <div class="col-12 col-md-auto text-md-end">
-                                        <div class="d-flex align-items-center justify-content-md-end">
-                                            <span class="fw-semibold text-muted me-2">Statut :</span>
-                                            <span
-                                                class="badge {{ $op?->statut_agrement }} px-3 py-2 fs-6 shadow-sm rounded-pill">{{ $op?->statut_agrement }}</span>
+
                                         </div>
                                     </div>
+
+                                    {{-- PARTIE DROITE 🔥 --}}
+                                    @can('devenir-operateur-agrement-ouvert')
+                                        @can('devenir-operateur-agrement-create')
+                                            @can('agrement-ouvert')
+                                                <div style="min-width: 280px; max-width: 320px;">
+                                                    @if ($estExpire)
+                                                        <div class="alert alert-danger p-2 shadow-sm rounded-2 mb-0">
+                                                            <button type="button" class="btn btn-success btn-sm w-100 mb-1"
+                                                                data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
+                                                                <i class="bi bi-arrow-repeat"></i>
+                                                                Faire une nouvelle demande
+                                                            </button>
+
+                                                            <small class="text-muted">
+                                                                Expiré depuis le
+                                                                <strong>{{ $dateExpiration?->format('d/m/Y') }}</strong>
+                                                            </small>
+                                                        </div>
+                                                    @elseif($estRenouvellement)
+                                                        <div class="alert alert-info p-2 shadow-sm rounded-2 mb-0">
+                                                            <button type="button" class="btn btn-primary btn-sm w-100 mb-1"
+                                                                data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
+                                                                <i class="bi bi-arrow-repeat"></i>
+                                                                Renouvellement
+                                                            </button>
+
+                                                            <small class="text-muted">
+                                                                Agrément toujours valide
+                                                            </small>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            @endcan
+                                        @endcan
+                                    @endcan
+
                                 </div>
                             </div>
+                            
 
                             <div class="card-body px-4">
                                 @foreach ($sections as $section)

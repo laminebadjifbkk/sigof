@@ -2097,7 +2097,7 @@ class OperateurController extends Controller
         }
 
         // Charger l'opérateur avec toutes les relations nécessaires
-        $operateur = Operateur::with([
+        /*   $operateur = Operateur::with([
             'operateurmodules',
             'operateureferences',
             'operateurequipements',
@@ -2107,7 +2107,20 @@ class OperateurController extends Controller
             'user.files'
         ])->where('users_id', $user->id)
             ->orderByDesc('id')
-            ->first();
+            ->first(); */
+
+        $operateurs = Operateur::with([
+            'operateurmodules',
+            'operateureferences',
+            'operateurequipements',
+            'operateurformateurs',
+            'operateurlocalites',
+            'commissionagrements',
+            'user.files'
+        ])
+            ->where('users_id', $user->id)
+            ->orderByDesc('id')
+            ->get();
 
         $operateurs = Operateur::where('users_id', $user->id)->orderByDesc('id')->get();
         $operateur_total = $operateurs->count();
@@ -2218,10 +2231,10 @@ class OperateurController extends Controller
 
         $selected = old('statut', $user?->statut);
 
-        if ($operateur_total >= 1 && $operateur) {
+        if ($operateur_total >= 1) {
 
             // Catégorie de l'utilisateur
-            $cat = $operateur->user?->categorie;
+            /* $cat = $operateur->user?->categorie;
 
             // Initialiser les booléens
             $hasNinea = false;
@@ -2250,11 +2263,6 @@ class OperateurController extends Controller
             $equipement_count = $operateur->operateurequipements->isNotEmpty();
             $formateur_count  = $operateur->operateurformateurs->isNotEmpty();
             $localite_count   = $operateur->operateurlocalites->isNotEmpty();
-
-            /* 
-            // Statut global
-            $statut_demande = collect([$module_count, $reference_count, $equipement_count, $formateur_count, $localite_count])
-                ->every(fn($s) => $s === 'complète') ? 'complète' : 'incomplète'; */
 
             $statut_demande = $operateur->profilEstComplet() ? 'complète' : 'incomplète';
 
@@ -2286,10 +2294,10 @@ class OperateurController extends Controller
             ];
 
 
-            $estCertifie = boolval($operateur->file8);
+            $estCertifie = boolval($operateur->file8); */
 
             // Retourner la vue principale
-            return view('operateurs.show-operateur', compact(
+            /*  return view('operateurs.show-operateur', compact(
                 'operateur_total',
                 'user_files',
                 'files',
@@ -2320,6 +2328,16 @@ class OperateurController extends Controller
                 'statuts',
                 'estCertifie',
                 'sections'
+            )); */
+            return view('operateurs.show-operateur', compact(
+                'operateur_total',
+                'user_files',
+                'user',
+                'files',
+                'departements',
+                'operateurs',
+                'labels',
+                'statuts'
             ));
         } else {
             $hasRequiredFields =
@@ -2336,7 +2354,6 @@ class OperateurController extends Controller
                 'operateurs.show-operateur-aucun',
                 compact(
                     'departements',
-                    'operateur',
                     'hasRequiredFields',
                     'statuts',
                     'selected',
