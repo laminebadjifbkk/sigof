@@ -45,11 +45,11 @@
                 <thead class="table-success text-center">
                     <tr>
                         {{-- <th width='6%' class="text-center">Code</th> --}}
-                        <th class="text-center">N° conv.</th>
+                        <th>N° agrément</th>
+                        <th class="text-center">Conv.</th>
                         <th>Bénéficiaires</th>
                         <th>Modules</th>
                         <th>Niveau qualif.</th>
-                        <th>N° agrément</th>
                         <th width='5%' class="text-center">Effectif</th>
                         <th width='5%' class="text-center">Statut</th>
                         @can('formation-show')
@@ -60,6 +60,10 @@
                 <tbody>
                     @foreach ($formations as $formation)
                         <tr>
+                            <td>
+                                {{-- {{ $formation?->ingenieur?->user?->firstname . ' ' . $formation?->ingenieur?->user?->name ?? ' ' }} --}}
+                                {{ $formation?->operateur?->numero_agrement }}
+                            </td>
                             {{-- <td style="text-align: center">{{ $formation?->code }}</td> --}}
                             <td style="text-align: center">{{ $formation?->numero_convention }}</td>
                             <td>{{ $formation?->name ?? ' ' }}</td>
@@ -67,10 +71,6 @@
                                 {{ $formation?->module?->name ?? ($formation?->collectivemodule?->module ?? '') }}
                             </td>
                             <td>{{ $formation?->titre ?? $formation?->referentiel?->titre }}</td>
-                            <td>
-                                {{-- {{ $formation?->ingenieur?->user?->firstname . ' ' . $formation?->ingenieur?->user?->name ?? ' ' }} --}}
-                                {{ $formation?->operateur?->numero_agrement }}
-                            </td>
                             <td class="text-center">
                                 {{ $formation?->effectif_prevu }}
                             </td>
