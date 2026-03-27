@@ -2359,11 +2359,13 @@ class OperateurController extends Controller
         /* $operateur = Operateur::where('users_id', $user->id)->orderBy("created_at", "desc")->first(); */
 
         $operateur = Operateur::with('formations')
-            ->where('users_id', $user->id)
+            ->where('users_id', $user->id)  // l’utilisateur connecté
             ->latest()
             ->first();
 
-        $formations = $operateur?->formations;
+        $formations = $operateur?->formations; // Collection de formations
+
+        dd($formations);
 
         // Si aucun opérateur n'est trouvé, afficher une vue différente
         return view(
