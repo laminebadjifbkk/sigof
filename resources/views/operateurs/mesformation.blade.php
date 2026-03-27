@@ -38,7 +38,7 @@
         </div>
     </div>
 
-    @if ($operateur->formations->isNotEmpty())
+    @if ($formations->isNotEmpty())
         <div class="table-responsive">
             <table class="table datatables table-bordered table-hover align-middle justify-content-center"
                 id="table-formations">
@@ -58,7 +58,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($operateur->formations as $formation)
+                    @foreach ($formations as $formation)
                         <tr>
                             {{-- <td style="text-align: center">{{ $formation?->code }}</td> --}}
                             <td style="text-align: center">{{ $formation?->numero_convention }}</td>
