@@ -2356,14 +2356,22 @@ class OperateurController extends Controller
         }
 
         // Récupérer l'opérateur lié à l'utilisateur
-        $operateur = Operateur::where('users_id', $user->id)->orderBy("created_at", "desc")->first();
+        /* $operateur = Operateur::where('users_id', $user->id)->orderBy("created_at", "desc")->first(); */
 
-        dd($operateur);
+        $operateur = Operateur::with('formations')
+            ->where('users_id', $user->id)
+            ->latest()
+            ->first();
+
+        $formations = $operateur?->formations;
 
         // Si aucun opérateur n'est trouvé, afficher une vue différente
         return view(
             'operateurs.mesformation',
-            compact('operateur')
+            compact(
+                'operateur',
+                'formations'
+            )
         );
     }
 
