@@ -32,7 +32,7 @@
                         <h5><u><b>REGION</b>:</u> {{ $localite->nom }}</h5>
                         <h5><u><b>OPERATEUR</b>:</u>
                             @if (!empty($formation?->operateur?->user?->username))
-                                {{ $formation?->operateur?->user?->operateur . ' (' . $formation?->operateur?->user?->username . ')' }}
+                                {{ $formation?->operateur?->user?->display_operateur }}
                             @endif
                         </h5> --}}
 

@@ -373,7 +373,7 @@
                                     @if (!empty($operateur))
                                         <div class="d-flex justify-content-between align-items-center">
                                             <h5 class="card-title">
-                                                {{ $formation?->operateur?->user?->operateur . '(' . $formation?->operateur?->user?->username . ')' }}
+                                                {{ $formation?->operateur?->user?->display_operateur }}
                                                 @can('operateur-check')
                                                     <a class="btn btn-info btn-sm" title=""
                                                         href="{{ route('operateurs.show', $formation?->operateur) }}"><i

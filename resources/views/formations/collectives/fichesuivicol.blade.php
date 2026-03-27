@@ -122,7 +122,7 @@
                         </td>
                         <td colspan="4"><b>{{ __('Opérateur : ') }}</b>
                             @if (!empty($formation?->operateur?->user?->operateur))
-                                {{ $formation?->operateur?->user?->operateur . ' (' . $formation?->operateur?->user?->username . ')' }}
+                                {{ $formation?->operateur?->user?->display_operateur }}
                             @else
                             @endif
                         </td>

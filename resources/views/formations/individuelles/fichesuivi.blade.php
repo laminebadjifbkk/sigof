@@ -121,7 +121,7 @@
                             {{ $formation?->intitule }}
                         </td>
                         <td colspan="4"><b>{{ __('Opérateur : ') }}</b>
-                            {{ $formation?->operateur?->user?->operateur . ' (' . $formation?->operateur?->user?->username . ')' }}
+                            {{ $formation?->operateur?->user?->display_operateur }}
                         </td>
                     </tr>
                     <tr class="heading">
