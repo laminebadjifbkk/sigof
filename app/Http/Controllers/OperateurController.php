@@ -2366,8 +2366,6 @@ class OperateurController extends Controller
             ->latest() // optionnel : trier par date de création
             ->get();
 
-        dd($formations);
-
         // Si aucun opérateur n'est trouvé, afficher une vue différente
         return view(
             'operateurs.mesformation',
