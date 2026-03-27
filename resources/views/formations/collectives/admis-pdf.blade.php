@@ -159,12 +159,13 @@
                     </tr>
                     <tr class="heading">
                         <td colspan="4"><b>{{ __('Période: ') }}</b>
-                            @isset($formation?->date_debut)
-                                {{ 'du ' . $formation?->date_debut?->format('d/m/Y') }}
-                            @endisset
-                            @isset($formation?->date_fin)
-                                {{ ' au ' . $formation?->date_fin?->format('d/m/Y') }}
-                            @endisset
+                            @if ($formation?->date_debut)
+                                {{ 'du ' . $formation->date_debut->format('d/m/Y') }}
+                            @endif
+
+                            @if ($formation?->date_fin)
+                                {{ ' au ' . $formation->date_fin->format('d/m/Y') }}
+                            @endif
                         </td>
                         <td colspan="4"><b>{{ __('Intitulé formation: ') }}</b> {{ $formation?->intitule }}</td>
                     </tr>
