@@ -388,4 +388,31 @@ class Operateur extends Model
         return $query->whereNotNull('numero_agrement')
             ->where('numero_agrement', '!=', '');
     }
+
+    public function getStatutDemandeAttribute()
+    {
+        return $this->profilEstComplet() ? 'complète' : 'incomplète';
+    }
+
+    public function getEstCertifieAttribute()
+    {
+        return !empty($this->file8);
+    }
+
+    public function getDiffQuitusAttribute()
+    {
+        if (!$this->debut_quitus) return 'N/A';
+
+        return \Carbon\Carbon::parse($this->debut_quitus)
+            ->locale('fr')
+            ->diffForHumans(now(), true);
+    }
+
+    public function getQuitusMonthsAttribute()
+    {
+        if (!$this->debut_quitus) return 0;
+
+        return \Carbon\Carbon::parse($this->debut_quitus)
+            ->diffInMonths(now());
+    }
 }
