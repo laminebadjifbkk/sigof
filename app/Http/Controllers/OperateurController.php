@@ -2363,8 +2363,6 @@ class OperateurController extends Controller
             $query->where('users_id', $user->id);
         })->get();
 
-        dd($formations);
-
         // Si aucun opérateur n'est trouvé, afficher une vue différente
         return view(
             'operateurs.mesformation',
