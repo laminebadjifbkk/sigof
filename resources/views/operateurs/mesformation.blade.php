@@ -53,6 +53,7 @@
                         {{-- <th>Niveau qualif.</th> --}}
                         <th width='5%' class="text-center">Effectif</th>
                         <th width='5%' class="text-center">Statut</th>
+                        <th width='5%' class="text-center">ABE</th>
                         @can('formation-show')
                             <th width='3%'><i class="bi bi-gear"></i></th>
                         @endcan
@@ -77,7 +78,26 @@
                                 {{ $formation?->effectif_prevu }}
                             </td>
                             <td class="text-center">
-                                <a><span class="{{ $formation->statut }}">{{ $formation->statut }}</span></a>
+                                <span class="{{ $formation->statut }}">{{ $formation->statut }}</span>
+                            </td>
+                            <td class="text-center">
+                                @php
+                                    $isIndividuel = optional($formation->module)->name !== null;
+                                    $isCollectif = optional($formation->collectivemodule)->module !== null;
+                                @endphp
+                                @if ($isIndividuel || $isCollectif)
+                                    {{-- Bouton ABE --}}
+                                    <form
+                                        action="{{ route($isIndividuel ? 'abeEvaluationlettre' : 'abeEvaluationCollettre', ['idformation' => $formation->id]) }}"
+                                        method="POST" target="_blank">
+                                        @csrf
+                                        <button type="submit"
+                                            class="btn btn-sm btn-outline-success d-flex align-items-center gap-1"
+                                            title="Télécharger l'attestation de bonne exécution">
+                                            <i class="bi bi-check-circle"></i> ABE
+                                        </button>
+                                    </form>
+                                @endif
                             </td>
                             @can('formation-show')
                                 <td>
