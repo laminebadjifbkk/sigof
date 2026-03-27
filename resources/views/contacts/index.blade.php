@@ -61,7 +61,7 @@
                                             </td>
                                             <td>{{ $contact?->reponse }}</td>
                                             <td>{{ $contact?->statut }}</td>
-                                            <td>{{ $contact?->created_at->format('d/m/Y') }}</td>
+                                            <td>{{ $contact?->created_at->format('d/m/Y H:i:s') }}</td>
                                             <td>
                                                 <span class="d-flex mt-2 align-items-baseline"><a href="#"
                                                         class="btn btn-warning btn-sm mx-1" title="Voir"><i
