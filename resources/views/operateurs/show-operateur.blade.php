@@ -62,6 +62,11 @@
                         </div>
                     </div>
 
+                    @php
+                        // Identifier le dernier opérateur pour ce user
+                        $dernierOperateur = $operateurs->first();
+                    @endphp
+
                     {{-- Cartes opérateurs --}}
                     @foreach ($operateurs as $op)
                         @php
@@ -128,8 +133,11 @@
                                     'modal' => "EditOperateurModal{$op->id}",
                                 ],
                             ];
+
+                            $showButton = $op->id === $dernierOperateur->id; // bouton seulement pour le dernier
+
                         @endphp
-                        
+
                         <div class="card mb-4 shadow-sm border-0 w-100">
                             <div class="card-header bg-white border-bottom py-3 px-4">
                                 <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
@@ -177,31 +185,36 @@
                                         @can('devenir-operateur-agrement-create')
                                             @can('agrement-ouvert')
                                                 <div style="min-width: 280px; max-width: 320px;">
-                                                    @if ($op->est_expire)
-                                                        <div class="alert alert-danger p-2 shadow-sm rounded-2 mb-0">
-                                                            <button type="button" class="btn btn-success btn-sm w-100 mb-1"
-                                                                data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
-                                                                <i class="bi bi-arrow-repeat"></i>
-                                                                Faire une nouvelle demande
-                                                            </button>
+                                                    {{-- Afficher uniquement si l'opérateur a des agréments --}}
+                                                    @if ($op->commissionagrements->isNotEmpty())
+                                                        @if ($showButton)
+                                                            @if ($op->est_expire)
+                                                                <div class="alert alert-danger p-2 shadow-sm rounded-2 mb-0">
+                                                                    <button type="button" class="btn btn-success btn-sm w-100 mb-1"
+                                                                        data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
+                                                                        <i class="bi bi-arrow-repeat"></i>
+                                                                        Faire une nouvelle demande
+                                                                    </button>
 
-                                                            <small class="text-muted">
-                                                                Expiré depuis le
-                                                                <strong>{{ $op->date_agrement?->copy()->addYears(4)->format('d/m/Y') }}</strong>
-                                                            </small>
-                                                        </div>
-                                                    @elseif($op->est_renouvellement)
-                                                        <div class="alert alert-info p-2 shadow-sm rounded-2 mb-0">
-                                                            <button type="button" class="btn btn-primary btn-sm w-100 mb-1"
-                                                                data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
-                                                                <i class="bi bi-arrow-repeat"></i>
-                                                                Renouvellement
-                                                            </button>
+                                                                    <small class="text-muted">
+                                                                        Expiré depuis le
+                                                                        <strong>{{ $op->date_expiration?->format('d/m/Y') }}</strong>
+                                                                    </small>
+                                                                </div>
+                                                            @elseif($op->est_renouvellement)
+                                                                <div class="alert alert-info p-2 shadow-sm rounded-2 mb-0">
+                                                                    <button type="button" class="btn btn-primary btn-sm w-100 mb-1"
+                                                                        data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
+                                                                        <i class="bi bi-arrow-repeat"></i>
+                                                                        Renouvellement
+                                                                    </button>
 
-                                                            <small class="text-muted">
-                                                                Agrément toujours valide
-                                                            </small>
-                                                        </div>
+                                                                    <small class="text-muted">
+                                                                        Agrément toujours valide
+                                                                    </small>
+                                                                </div>
+                                                            @endif
+                                                        @endif
                                                     @endif
                                                 </div>
                                             @endcan
