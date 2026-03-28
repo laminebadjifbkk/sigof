@@ -766,6 +766,10 @@ class OperateurController extends Controller
 
             Alert::success('Succès !', 'Votre demande d\'extension a été prise en compte.');
 
+            // Recharge l'opérateur pour que ses relations soient à jour
+            $operateur->refresh(); // recharge toutes les relations si elles sont déjà chargées
+            $operateur->load('commissionagrements'); // ou recharge explicitement la relation
+
             return back();
         } elseif ($diffAnnee >= 4) {
 
@@ -848,6 +852,10 @@ class OperateurController extends Controller
             $operateur->commissionagrements()->syncWithoutDetaching([$commissionagrement?->id]);
 
             Alert::success('Succès !', 'Votre nouvelle agrément a été créé avec succès.');
+
+            // Recharge l'opérateur pour que ses relations soient à jour
+            $op->refresh(); // recharge toutes les relations si elles sont déjà chargées
+            $op->load('commissionagrements'); // ou recharge explicitement la relation
 
             return back();
         } else {
