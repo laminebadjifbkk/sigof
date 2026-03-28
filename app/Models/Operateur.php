@@ -399,20 +399,33 @@ class Operateur extends Model
         return !empty($this->file8);
     }
 
-    public function getDiffQuitusAttribute()
+    public function getDateAgrementAttribute()
     {
-        if (!$this->debut_quitus) return 'N/A';
+        $date = $this->commissionagrements
+            ->pluck('fin_commission')
+            ->filter()
+            ->max();
 
-        return \Carbon\Carbon::parse($this->debut_quitus)
-            ->locale('fr')
-            ->diffForHumans(now(), true);
+        return $date ? \Carbon\Carbon::parse($date) : null;
     }
 
-    public function getQuitusMonthsAttribute()
+    public function getEstExpireAttribute()
     {
-        if (!$this->debut_quitus) return 0;
+        return $this->date_agrement?->copy()->addYears(4)->isPast();
+    }
 
-        return \Carbon\Carbon::parse($this->debut_quitus)
-            ->diffInMonths(now());
+    public function getEstExtensionAttribute()
+    {
+        return $this->date_agrement?->copy()->addYears(2)->isPast();
+    }
+
+    public function getEstRenouvellementAttribute()
+    {
+        return $this->date_agrement?->copy()->addYears(1)->isPast();
+    }
+
+    public function getDateExpirationAttribute()
+    {
+        return $this->date_agrement?->copy()->addYears(4);
     }
 }

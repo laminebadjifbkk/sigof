@@ -80,12 +80,12 @@
 
                             // Dates agrément
                             $dernierAgrement = $op->commissionagrements->sortByDesc('fin_commission')->first();
-                            $dateAgrement = $dernierAgrement
+                            /* $dateAgrement = $dernierAgrement
                                 ? \Carbon\Carbon::parse($dernierAgrement->fin_commission)
-                                : null;
+                                : null; */
 
-                            $dateExpiration = $dateAgrement?->copy()->addYears(4);
-                            $estExpire = $dateExpiration?->isPast();
+                            /* $dateExpiration = $dateAgrement?->copy()->addYears(4); */
+                            /* $estExpire = $dateExpiration?->isPast(); */
 
                             // Quitus
                             $dateQuitus = $op->debut_quitus ? \Carbon\Carbon::parse($op->debut_quitus) : null;
@@ -137,19 +137,20 @@
                                     'modal' => "EditOperateurModal{$op->id}",
                                 ],
                             ];
+
                             $dernierAgrement = $op->commissionagrements->sortByDesc('fin_commission')->first();
-                            $dateAgrement = $dernierAgrement
+                            /* $dateAgrement = $dernierAgrement
                                 ? \Carbon\Carbon::parse($dernierAgrement->fin_commission)
-                                : null;
+                                : null; */
 
-                            $dateExpiration = $dateAgrement?->copy()->addYears(4);
-                            $estExpire = $dateExpiration?->isPast();
+                           /*  $dateExpiration = $dateAgrement?->copy()->addYears(4); */
+                            /* $estExpire = $dateExpiration?->isPast(); */
 
-                            $dateExtension = $dateAgrement?->copy()->addYears(2);
-                            $estExtension = $dateExtension?->isPast();
+                            /* $dateExtension = $dateAgrement?->copy()->addYears(2); */
+                            /* $estExtension = $dateExtension?->isPast(); */
 
-                            $dateRenouvellement = $dateAgrement?->copy()->addYears(1);
-                            $estRenouvellement = $dateRenouvellement?->isPast();
+                            /* $dateRenouvellement = $dateAgrement?->copy()->addYears(1);
+                            $estRenouvellement = $dateRenouvellement?->isPast(); */
                         @endphp
                         <div class="card mb-4 shadow-sm border-0 w-100">
                             <div class="card-header bg-white border-bottom py-3 px-4">
@@ -198,7 +199,7 @@
                                         @can('devenir-operateur-agrement-create')
                                             @can('agrement-ouvert')
                                                 <div style="min-width: 280px; max-width: 320px;">
-                                                    @if ($estExpire)
+                                                    @if ($op->est_expire)
                                                         <div class="alert alert-danger p-2 shadow-sm rounded-2 mb-0">
                                                             <button type="button" class="btn btn-success btn-sm w-100 mb-1"
                                                                 data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
@@ -208,10 +209,10 @@
 
                                                             <small class="text-muted">
                                                                 Expiré depuis le
-                                                                <strong>{{ $dateExpiration?->format('d/m/Y') }}</strong>
+                                                                <strong>{{ $op->date_agrement?->copy()->addYears(4)->format('d/m/Y') }}</strong>
                                                             </small>
                                                         </div>
-                                                    @elseif($estRenouvellement)
+                                                    @elseif($op->est_renouvellement)
                                                         <div class="alert alert-info p-2 shadow-sm rounded-2 mb-0">
                                                             <button type="button" class="btn btn-primary btn-sm w-100 mb-1"
                                                                 data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
@@ -231,7 +232,7 @@
 
                                 </div>
                             </div>
-                            
+
 
                             <div class="card-body px-4">
                                 @foreach ($sections as $section)
