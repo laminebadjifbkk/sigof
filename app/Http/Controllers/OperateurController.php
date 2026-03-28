@@ -2122,7 +2122,12 @@ class OperateurController extends Controller
             ->orderByDesc('id')
             ->get();
 
-        $operateurs = Operateur::where('users_id', $user->id)->orderByDesc('id')->get();
+        /* $operateurs = Operateur::where('users_id', $user->id)->orderByDesc('id')->get(); */
+        $operateurs = Operateur::with('commissionagrements') // ⚡ charger la relation
+            ->where('users_id', $user->id)
+            ->orderByDesc('id')
+            ->get();
+
         $operateur_total = $operateurs->count();
 
         $departements = Departement::orderBy('nom', 'asc')->get();

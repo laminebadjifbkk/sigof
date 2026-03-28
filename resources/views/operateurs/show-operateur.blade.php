@@ -78,15 +78,6 @@
                             // Statut demande
                             $statut_demande = $op->profilEstComplet() ? 'complète' : 'incomplète';
 
-                            // Dates agrément
-                            $dernierAgrement = $op->commissionagrements->sortByDesc('fin_commission')->first();
-                            /* $dateAgrement = $dernierAgrement
-                                ? \Carbon\Carbon::parse($dernierAgrement->fin_commission)
-                                : null; */
-
-                            /* $dateExpiration = $dateAgrement?->copy()->addYears(4); */
-                            /* $estExpire = $dateExpiration?->isPast(); */
-
                             // Quitus
                             $dateQuitus = $op->debut_quitus ? \Carbon\Carbon::parse($op->debut_quitus) : null;
 
@@ -137,21 +128,8 @@
                                     'modal' => "EditOperateurModal{$op->id}",
                                 ],
                             ];
-
-                            $dernierAgrement = $op->commissionagrements->sortByDesc('fin_commission')->first();
-                            /* $dateAgrement = $dernierAgrement
-                                ? \Carbon\Carbon::parse($dernierAgrement->fin_commission)
-                                : null; */
-
-                           /*  $dateExpiration = $dateAgrement?->copy()->addYears(4); */
-                            /* $estExpire = $dateExpiration?->isPast(); */
-
-                            /* $dateExtension = $dateAgrement?->copy()->addYears(2); */
-                            /* $estExtension = $dateExtension?->isPast(); */
-
-                            /* $dateRenouvellement = $dateAgrement?->copy()->addYears(1);
-                            $estRenouvellement = $dateRenouvellement?->isPast(); */
                         @endphp
+                        
                         <div class="card mb-4 shadow-sm border-0 w-100">
                             <div class="card-header bg-white border-bottom py-3 px-4">
                                 <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
