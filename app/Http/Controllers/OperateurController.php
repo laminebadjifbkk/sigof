@@ -760,9 +760,7 @@ class OperateurController extends Controller
                 return redirect()->back();
             }
 
-            $operateur->commissionagrements()->syncWithoutDetaching([$commissionagrement?->id]);
-
-            $operateur->commissionagrements()->syncWithoutDetaching([$commissionagrement?->id]);
+            /* $operateur->commissionagrements()->syncWithoutDetaching([$commissionagrement?->id]); */
 
             Alert::success('Succès !', 'Votre demande d\'extension a été prise en compte.');
 
@@ -771,6 +769,7 @@ class OperateurController extends Controller
             $operateur->load('commissionagrements'); // ou recharge explicitement la relation
 
             return back();
+
         } elseif ($diffAnnee >= 4) {
 
             $op = Operateur::create([
@@ -849,7 +848,7 @@ class OperateurController extends Controller
                 return redirect()->back();
             }
 
-            $operateur->commissionagrements()->syncWithoutDetaching([$commissionagrement?->id]);
+            /* $operateur->commissionagrements()->syncWithoutDetaching([$commissionagrement?->id]); */
 
             Alert::success('Succès !', 'Votre nouvelle agrément a été créé avec succès.');
 
@@ -3565,6 +3564,7 @@ class OperateurController extends Controller
         // Marquer comme certifié
         $operateur->file8 = 'Oui';
         $operateur->save();
+
         $operateur->commissionagrements()->syncWithoutDetaching([$commissionagrement->id]);
 
         $anneeEnCours = date('Y');
@@ -3615,6 +3615,7 @@ class OperateurController extends Controller
         ]);
 
         Alert::success('Succès', 'Informations certifiées avec succès.');
+        
         return redirect()->back();
     }
 

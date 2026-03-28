@@ -224,7 +224,6 @@
                                 </div>
                             </div>
 
-
                             <div class="card-body px-4">
                                 @foreach ($sections as $section)
                                     <div
