@@ -1419,7 +1419,7 @@ class OperateurController extends Controller
             "hasRC"
         ));
     }
-
+    /* 
     public function showAgrement($id)
     {
         $operateur          = Operateur::findOrFail($id);
@@ -1437,29 +1437,6 @@ class OperateurController extends Controller
         $fichiers_total = $operateur->user?->files()
             ->whereNotNull('file')
             ->count();
-
-        /* function getStatutFichiers($categorie, $fichiers_total)
-        {
-            if ($categorie !== 'Public') {
-                return $fichiers_total >= 4 ? 'complète' : 'incomplète';
-            } else {
-                return $fichiers_total >= 1 ? 'complète' : 'incomplète';
-            }
-        } */
-
-        // Utilisation
-        /* $fichier_count = getStatutFichiers($operateur?->user?->categorie, $fichiers_total); */
-
-        // Statut global
-        /* $statut_demande = (
-            $module_count === "complète" &&
-            $reference_count === "complète" &&
-            $equipement_count === "complète" &&
-            $formateur_count === "complète" &&
-            $localite_count === "complète" &&
-            $fichier_count === "complète"
-        ); */
-
 
         $statut_demande = $operateur->profilEstComplet() ? 'complète' : 'incomplète';
 
@@ -1567,7 +1544,6 @@ class OperateurController extends Controller
                 'icon' => 'bi-file-earmark-text text-dark',
                 'count' => $diffText,
                 'badge' => $diffInMonths > 3 ? 'bg-danger' : 'bg-info',
-                /* 'route' => null, */
                 'modal' => "EditOperateurModal{$operateur->id}",
             ],
         ];
@@ -1605,7 +1581,179 @@ class OperateurController extends Controller
                 'formateur_count',
                 'localite_count',
                 'validations',
-                /* 'fichier_count', */
+                'dateAgrement',
+                'dateExpiration',
+                'estExpire',
+                'dateExtension',
+                'estExtension',
+                'dateRenouvellement',
+                'estRenouvellement',
+                'dateQuitus',
+                'diffInMonths',
+                'diffText',
+                'sections',
+                'departements',
+                'labels',
+            )
+        );
+    } */
+
+    public function showAgrement($id)
+    {
+        // 🔥 Chargement optimisé (relations + counts en une seule fois)
+        $operateur = Operateur::with([
+            'user' => fn($q) => $q->withCount('files'),
+            'commissionagrements' => fn($q) => $q->orderByDesc('fin_commission'),
+            'operateurmodules',
+            'operateureferences',
+            'operateurequipements',
+            'operateurformateurs',
+            'operateurlocalites',
+            'validationoperateurs'
+        ])->withCount([
+            'operateurmodules',
+            'operateureferences',
+            'operateurequipements',
+            'operateurformateurs',
+            'operateurlocalites',
+            'formations',
+        ])->findOrFail($id);
+
+        $operateurs         = Operateur::get();
+        $operateureferences = Operateureference::get();
+
+        // ✅ Remplacement des requêtes EXISTS par les relations déjà chargées
+        $module_count     = $operateur->operateurmodules_count > 0;
+        $reference_count  = $operateur->operateureferences_count > 0;
+        $equipement_count = $operateur->operateurequipements_count > 0;
+        $formateur_count  = $operateur->operateurformateurs_count > 0;
+        $localite_count   = $operateur->operateurlocalites_count > 0;
+
+        // ✅ Fichiers utilisateur (optimisé via relation)
+        $fichiers_total = $operateur->user?->files()
+            ->whereNotNull('file')
+            ->count();
+
+        $statut_demande = $operateur->profilEstComplet() ? 'complète' : 'incomplète';
+
+        $departements = Departement::orderBy("nom", "asc")->get();
+
+        $labels = [
+            'Ninea ou registre de commerce' => 'Registre de commerce',
+            'Ninea/RC' => 'RC',
+            'Non-fonctionnaire' => 'NF',
+        ];
+
+        $user_files = File::whereNull('file')
+            ->whereNull('users_id')
+            ->whereIn('sigle', [
+                'Ninea/RC',
+                'Ninea',
+                'AC',
+                'Quitus',
+                'Arrêté',
+                'Non-fonctionnaire',
+                'Organigramme',
+                'Contrat',
+                'Titre',
+                'Justificatif',
+                'ADEDGI',
+                'ABE',
+                'CME',
+                'CP',
+                'DENO',
+                'Bail',
+            ])
+            ->orderBy('sigle', 'asc')
+            ->distinct()
+            ->get();
+
+        // ✅ Déjà chargé (pas de requête supplémentaire)
+        $dateAgrement = $operateur->commissionagrements->first();
+
+        $dateExpiration = $dateAgrement
+            ? Carbon::parse($dateAgrement->fin_commission)->addYears(4)
+            : null;
+
+        $estExpire = $dateExpiration?->isPast();
+
+        $dateExtension = $dateAgrement
+            ? Carbon::parse($dateAgrement->fin_commission)->addYears(2)
+            : null;
+
+        $estExtension = $dateExtension?->isPast();
+
+        $dateRenouvellement = $dateAgrement
+            ? Carbon::parse($dateAgrement->fin_commission)->addYears(1)
+            : null;
+
+        $estRenouvellement = $dateRenouvellement?->isPast();
+
+        $dateQuitus = $operateur?->debut_quitus
+            ? Carbon::parse($operateur->debut_quitus)
+            : null;
+
+        $diffText = $dateQuitus?->locale('fr')->diffForHumans(now(), true);
+
+        $diffInMonths = $dateQuitus
+            ? ($dateQuitus->diffInYears(now()) * 12 + $dateQuitus->diffInMonths(now()) % 12)
+            : 0;
+
+        $sections = [
+            [
+                'label' => 'Modules',
+                'icon' => 'bi-journal-code text-info',
+                'count' => $operateur->operateurmodules_count,
+                'route' => route('operateurs.show', $operateur),
+            ],
+            [
+                'label' => 'Références',
+                'icon' => 'bi-bookmark-check text-primary',
+                'count' => $operateur->operateureferences_count,
+                'route' => route('showReference', $operateur->uuid),
+            ],
+            [
+                'label' => 'Équipements & Infrastructures',
+                'icon' => 'bi-hdd-network text-warning',
+                'count' => $operateur->operateurequipements_count,
+                'route' => route('showEquipement', $operateur->uuid),
+            ],
+            [
+                'label' => 'Formateurs',
+                'icon' => 'bi-person-workspace text-success',
+                'count' => $operateur->operateurformateurs_count,
+                'route' => route('showFormateur', $operateur->uuid),
+            ],
+            [
+                'label' => 'Localités',
+                'icon' => 'bi-geo-alt text-danger',
+                'count' => $operateur->operateurlocalites_count,
+                'route' => route('showLocalite', $operateur->uuid),
+            ],
+            [
+                'label' => 'Validité quitus',
+                'icon' => 'bi-file-earmark-text text-dark',
+                'count' => $diffText,
+                'badge' => $diffInMonths > 3 ? 'bg-danger' : 'bg-info',
+                'modal' => "EditOperateurModal{$operateur->id}",
+            ],
+        ];
+
+        $validations = $operateur->validationoperateurs;
+
+        return view(
+            "operateurs.agrements.show",
+            compact(
+                "operateur",
+                "operateureferences",
+                "operateurs",
+                'statut_demande',
+                'module_count',
+                'reference_count',
+                'equipement_count',
+                'formateur_count',
+                'localite_count',
+                'validations',
                 'dateAgrement',
                 'dateExpiration',
                 'estExpire',
