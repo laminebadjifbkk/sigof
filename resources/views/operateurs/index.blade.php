@@ -480,10 +480,10 @@
                     buttons: ['csv', 'excel', 'print'],
                 }
             },
-            /* "lengthMenu": [
+            "lengthMenu": [
                 [5, 10, 25, 50, 100, -1],
                 [5, 10, 25, 50, 100, "Tout"]
-            ], */
+            ],
             language: {
                 "sProcessing": "Traitement en cours...",
                 "sSearch": "Rechercher&nbsp;:",
