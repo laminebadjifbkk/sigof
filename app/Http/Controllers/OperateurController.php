@@ -1290,7 +1290,7 @@ class OperateurController extends Controller
         );
     } */
 
-    public function show(Operateur $operateur)
+    /* public function show(Operateur $operateur)
     {
         $operateurs          = Operateur::get();
         $domaines            = Domaine::get();
@@ -1383,6 +1383,90 @@ class OperateurController extends Controller
                 'hasRC'
             )
         );
+    } */
+
+    public function show(Operateur $operateur)
+    {
+        $operateurs         = Operateur::all();
+        $domaines           = Domaine::all();
+        $operateureferences = Operateureference::all();
+        $user               = $operateur->user;
+
+        $this->authorize('show', $operateur);
+
+        $files = File::where('users_id', $user?->id)
+            ->whereNotNull('file')
+            ->get(); // récupérer les fichiers complets pour la vue
+
+        // 🔹 Charger uniquement les sigles des fichiers utilisateurs
+        $userFileSigles = $files->pluck('sigle');
+
+        // 🔹 Vérification des documents
+        $hasAuto         = $userFileSigles->contains('Autorisation');
+        $hasNinea        = $userFileSigles->contains('Ninea');
+        $hasOrganigramme = $userFileSigles->contains('Organigramme');
+        $hasQuitus       = $userFileSigles->contains('Quitus');
+        $hasRC           = $userFileSigles->contains('Ninea/RC');
+
+        $labels = [
+            'Ninea ou registre de commerce' => 'Registre de commerce',
+            'Ninea/RC' => 'RC',
+            'Non-fonctionnaire' => 'NF',
+        ];
+
+        // 🔹 Fichiers utilisateurs "templates" (sans fichier associé)
+        $user_files = File::whereNull('file')
+            ->whereNull('users_id')
+            ->whereIn('sigle', [
+                'Ninea/RC',
+                'Ninea',
+                'AC',
+                'Quitus',
+                'Arrêté',
+                'Non-fonctionnaire',
+                'Organigramme',
+                'Contrat',
+                'Titre',
+                'Justificatif',
+                'ADEDGI',
+                'ABE',
+                'CME',
+                'CP',
+                'DENO',
+                'Bail'
+            ])
+            ->orderBy('sigle')
+            ->distinct()
+            ->get();
+
+        // 🔹 Charger counts et relation user en un seul appel
+        $operateur->loadCount([
+            'operateurmodules',
+            'operateureferences',
+            'operateurequipements',
+            'operateurformateurs',
+            'operateurlocalites',
+            'formations',
+        ])->load(['user' => fn($q) => $q->withCount('files')]);
+
+        $validations = $operateur?->validationoperateurs;
+
+        return view('operateurs.show', compact(
+            'operateur',
+            'operateureferences',
+            'operateurs',
+            'user_files',
+            'user',
+            'files',
+            'labels',
+            'domaines',
+            'validations',
+            'hasAuto',
+            'hasNinea',
+            'hasOrganigramme',
+            'hasQuitus',
+            'hasRC'
+        ));
     }
 
     /* public function show(Operateur $operateur)
