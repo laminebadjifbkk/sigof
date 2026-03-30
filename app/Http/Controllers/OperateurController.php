@@ -110,7 +110,7 @@ class OperateurController extends Controller
             'formations'
         ])
             ->latest()
-            ->limit(500)
+            ->limit(300)
             ->get([
                 'id',
                 'user_id',
@@ -169,7 +169,7 @@ class OperateurController extends Controller
         // ✅ LISTE (avec tri)
         $operateurs = (clone $baseQuery)
             ->orderByDesc('created_at')
-            ->limit(350)
+            ->limit(300)
             ->get();
 
         // ✅ GROUPES (sans created_at !)
@@ -254,7 +254,7 @@ class OperateurController extends Controller
 
         $totalOperateurs = $query->count();
 
-        $operateurs = $query->orderByDesc('created_at')->limit(350)->get();
+        $operateurs = $query->orderByDesc('created_at')->limit(300)->get();
 
         $departements = Departement::orderBy('nom')->get(['id', 'nom']);
 
