@@ -50,7 +50,7 @@ class OperateurController extends Controller
         $this->middleware('operateur')->only(['create', 'destroy', 'store', 'update']); */
     }
 
-    public function index(Request $request)
+    /* public function index(Request $request)
     {
         // Total global
         $totalOperateurs = number_format(Operateur::count(), 0, ',', ' ');
@@ -66,9 +66,6 @@ class OperateurController extends Controller
 
         // Départements
         $departements = Departement::orderBy('nom')->get(['id', 'nom']);
-        /*  $groupesStatutAgrement = $allOperateurs->groupBy(function ($item) {
-            return $item->statut_agrement ?? 'Aucun';
-        }); */
 
         $groupes = Operateur::select(DB::raw('YEAR(annee_agrement) as annee'))
             ->selectRaw('COUNT(*) as total')
@@ -83,6 +80,66 @@ class OperateurController extends Controller
             ? $operateurs->total()
             : $operateurs?->count());
 
+        $recherche = null;
+
+        return view(
+            "operateurs.index",
+            compact(
+                "operateurs",
+                "groupes",
+                "departements",
+                "commissionagrements",
+                "affichees",
+                "total",
+                "totalOperateurs",
+                "recherche",
+            )
+        );
+    } */
+
+    public function index(Request $request)
+    {
+        // 🔥 Total global
+        $totalOperateurs = number_format(Operateur::count(), 0, ',', ' ');
+
+        // 🔥 Query ultra optimisée (SEULEMENT les champs utiles)
+        $operateurs = Operateur::with([
+            // User (seulement champs utilisés)
+            'user:id,display_operateur,email,adresse,firstname,name',
+
+            // Relations utilisées
+            'numeros:id,operateurs_id,numero',
+            'region:id,nom',
+
+        ])->withCount([
+            'operateurmodules',
+            'formations' // ⚠️ tu l’utilises (mais bug dans ta vue)
+        ])
+            ->latest()
+            ->limit(500)
+            ->get([
+                'id',
+                'user_id',
+                'numero_dossier',
+                'numero_agrement',
+                'region_id',
+                'statut_agrement'
+            ]);
+
+        // 🔥 Départements
+        $departements = Departement::orderBy('nom')->get(['id', 'nom']);
+
+        // 🔥 Groupes
+        $groupes = Operateur::selectRaw('YEAR(annee_agrement) as annee, COUNT(*) as total')
+            ->groupBy('annee')
+            ->orderByDesc('annee')
+            ->paginate(1);
+
+        // 🔥 Commission
+        $commissionagrements = Commissionagrement::orderByDesc('commission')->get();
+
+        $affichees = $operateurs->count();
+        $total     = $totalOperateurs;
         $recherche = null;
 
         return view(

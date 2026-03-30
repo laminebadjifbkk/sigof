@@ -221,7 +221,7 @@
                                                             @endif
                                                         @endforeach --}}
                                                         <span
-                                                            class="badge bg-info">{{ $operateur?->operateurmodules->count() }}</span>
+                                                            class="badge bg-info">{{ $operateur?->operateurmodules_count }}</span>
                                                     </td>
                                                 @endcan
                                                 @can('afficher-operateur-formation')
@@ -232,8 +232,7 @@
                                                                         class="badge bg-info">{{ $loop->count }}</span></a>
                                                             @endif
                                                         @endforeach --}}
-                                                        <span
-                                                            class="badge bg-info">{{ $operateur?->operateurmodules->count() }}</span>
+                                                        <span class="badge bg-info">{{ $operateur?->formations_count }}</span>
                                                     </td>
                                                 @endcan
                                                 @can('afficher-operateur-statut')
@@ -315,7 +314,8 @@
                                             <div class="row">
                                                 <div class="col-12">
                                                     <div class="form-group">
-                                                        <label for="operateur_name" class="form-label">Dénomination</label>
+                                                        <label for="operateur_name"
+                                                            class="form-label">Dénomination</label>
                                                         <input type="text" name="operateur_name"
                                                             value="{{ old('operateur_name') }}"
                                                             class="form-control form-control-sm @error('operateur_name') is-invalid @enderror"
