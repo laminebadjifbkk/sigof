@@ -103,7 +103,7 @@ class OperateurController extends Controller
         $totalOperateurs = number_format(Operateur::count(), 0, ',', ' ');
 
         $operateurs = Operateur::with([
-            'user:id,email,adresse,firstname,name,fixe,telephone',
+            'user:id,email,adresse,firstname,name,fixe,telephone,operateur,username',
             'region:id,nom',
         ])->withCount([
             'operateurmodules',

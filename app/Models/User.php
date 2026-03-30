@@ -387,8 +387,17 @@ class User extends Authenticatable
     }
 
     //display_operateur 
+    /*  public function getDisplayOperateurAttribute()
+    {
+        return $this->operateur
+            ? $this->operateur . ($this->username ? " ({$this->username})" : '')
+            : null;
+    } */
+
     public function getDisplayOperateurAttribute()
     {
+        // 'operateur' = nom
+        // 'username' = sigle, optionnel
         return $this->operateur
             ? $this->operateur . ($this->username ? " ({$this->username})" : '')
             : null;
