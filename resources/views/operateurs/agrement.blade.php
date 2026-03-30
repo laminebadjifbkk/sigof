@@ -67,8 +67,8 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <button class="nav-link d-flex align-items-center gap-1 position-relative" data-bs-toggle="tab"
-                                        data-bs-target="#references-overview">Références
+                                    <button class="nav-link d-flex align-items-center gap-1 position-relative"
+                                        data-bs-toggle="tab" data-bs-target="#references-overview">Références
 
                                         @if ($operateur->operateureferences_count > 0)
                                             <span
@@ -80,8 +80,8 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <button class="nav-link d-flex align-items-center gap-1 position-relative" data-bs-toggle="tab"
-                                        data-bs-target="#equipement-overview">Equipements
+                                    <button class="nav-link d-flex align-items-center gap-1 position-relative"
+                                        data-bs-toggle="tab" data-bs-target="#equipement-overview">Equipements
 
                                         @if ($operateur->operateurequipements_count > 0)
                                             <span
@@ -93,8 +93,8 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <button class="nav-link d-flex align-items-center gap-1 position-relative" data-bs-toggle="tab"
-                                        data-bs-target="#formateur-overview">Formateurs
+                                    <button class="nav-link d-flex align-items-center gap-1 position-relative"
+                                        data-bs-toggle="tab" data-bs-target="#formateur-overview">Formateurs
                                         @if ($operateur->operateurformateurs_count > 0)
                                             <span
                                                 class="badge bg-info text-dark position-absolute top-0 end-0 translate-middle p-1 rounded-circle">
@@ -105,8 +105,8 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <button class="nav-link d-flex align-items-center gap-1 position-relative" data-bs-toggle="tab"
-                                        data-bs-target="#localites-overview">Localités
+                                    <button class="nav-link d-flex align-items-center gap-1 position-relative"
+                                        data-bs-toggle="tab" data-bs-target="#localites-overview">Localités
 
                                         @if ($operateur->operateurlocalites_count > 0)
                                             <span
@@ -119,8 +119,8 @@
 
                                 @can('operateur-show-files')
                                     <li class="nav-item">
-                                        <button class="nav-link d-flex align-items-center gap-1 position-relative" data-bs-toggle="tab"
-                                            data-bs-target="#files">Fichiers
+                                        <button class="nav-link d-flex align-items-center gap-1 position-relative"
+                                            data-bs-toggle="tab" data-bs-target="#files">Fichiers
                                             @if ($operateur->user->files_count > 0)
                                                 <span
                                                     class="badge bg-dark position-absolute top-0 end-0 translate-middle p-1 rounded-circle">
@@ -132,8 +132,8 @@
                                 @endcan
 
                                 <li class="nav-item">
-                                    <button class="nav-link d-flex align-items-center gap-1 position-relative" data-bs-toggle="tab"
-                                        data-bs-target="#observations-overview">Observations</button>
+                                    <button class="nav-link d-flex align-items-center gap-1 position-relative"
+                                        data-bs-toggle="tab" data-bs-target="#observations-overview">Observations</button>
                                 </li>
                                 <li class="nav-item">
                                     @if ($validations && $validations->isNotEmpty())
