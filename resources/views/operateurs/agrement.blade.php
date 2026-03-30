@@ -103,7 +103,7 @@
                                     </button>
                                 </li>
 
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab"
                                         data-bs-target="#localites-overview">Localités
 
@@ -114,7 +114,7 @@
                                             </span>
                                         @endif
                                     </button>
-                                </li>
+                                </li> --}}
 
                                 @can('operateur-show-files')
                                     <li class="nav-item">
