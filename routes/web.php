@@ -835,11 +835,11 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::post('/formations/{formation}/notify-start', [FormationStartController::class, 'send'])
             ->name('formations.notifyStart');
 
-        Route::get('/inscriptioncontacts/{id}/details', [InscriptionContactController::class, 'showAjax'])
+        /* Route::get('/inscriptioncontacts/{id}/details', [InscriptionContactController::class, 'showAjax'])
             ->name('inscriptioncontacts.details');
 
         Route::put('/inscriptioncontacts/{id}', [InscriptionContactController::class, 'update'])
-            ->name('inscriptioncontacts.update');
+            ->name('inscriptioncontacts.update'); */
 
         Route::get('/formulaires/{id}', [FormulaireController::class, 'show'])
             ->name('formulaires.show')
