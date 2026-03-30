@@ -1153,9 +1153,8 @@
                                     </div>
                                 </div>
                             </div>
+                            @include('operateurs.agrements.modals')
                         </div>
-
-                        @include('operateurs.agrements.modals')
                     </div>
                 </div>
             </div>
