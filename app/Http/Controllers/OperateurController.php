@@ -270,7 +270,17 @@ class OperateurController extends Controller
     //cette fonction permet de valider l'agrement des operateurs
     public function agrements($id)
     {
-        $operateur          = Operateur::findOrFail($id);
+        $operateur = Operateur::with([
+            'user' => fn($q) => $q->withCount('files')
+        ])->withCount([
+            'operateurmodules',
+            'operateureferences',
+            'operateurequipements',
+            'operateurformateurs',
+            'operateurlocalites',
+            'formations',
+        ])->findOrFail($id);
+
         $operateurs         = Operateur::all();
         $operateureferences = Operateureference::all();
 
@@ -369,14 +379,14 @@ class OperateurController extends Controller
 
         $validations = $operateur?->validationoperateurs;
 
-        $operateur->loadCount([
+        /* $operateur->loadCount([
             'operateurmodules',
             'operateureferences',
             'operateurequipements',
             'operateurformateurs',
             'operateurlocalites',
             'formations',
-        ]);
+        ]); */
 
         return view(
             "operateurs.agrement",
@@ -769,7 +779,6 @@ class OperateurController extends Controller
             $operateur->load('commissionagrements'); // ou recharge explicitement la relation
 
             return back();
-
         } elseif ($diffAnnee >= 4) {
 
             $op = Operateur::create([
@@ -3615,7 +3624,7 @@ class OperateurController extends Controller
         ]);
 
         Alert::success('Succès', 'Informations certifiées avec succès.');
-        
+
         return redirect()->back();
     }
 

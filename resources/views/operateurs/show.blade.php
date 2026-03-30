@@ -130,7 +130,7 @@
                                             @if ($operateur->user->files_count > 0)
                                                 <span
                                                     class="badge bg-dark position-absolute top-0 end-0 translate-middle p-1 rounded-circle">
-                                                    {{ $operateur->user->files_count }}
+                                                    {{ $operateur->user->files_count ?? 0 }}
                                                 </span>
                                             @endif
                                         </button>

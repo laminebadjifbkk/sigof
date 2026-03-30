@@ -105,7 +105,7 @@
                                 <li class="nav-item">
                                     <button class="nav-link position-relative" data-bs-toggle="tab"
                                         data-bs-target="#localites-overview">Localités
-                                        
+
                                         @if ($operateur->operateurlocalites_count > 0)
                                             <span
                                                 class="badge bg-secondary text-white position-absolute top-0 end-0 translate-middle p-1 rounded-circle">
@@ -117,11 +117,12 @@
 
                                 @can('operateur-show-files')
                                     <li class="nav-item">
-                                        <button class="nav-link position-relative" data-bs-toggle="tab" data-bs-target="#files">Fichiers
+                                        <button class="nav-link position-relative" data-bs-toggle="tab"
+                                            data-bs-target="#files">Fichiers
                                             @if ($operateur->user->files_count > 0)
                                                 <span
                                                     class="badge bg-dark position-absolute top-0 end-0 translate-middle p-1 rounded-circle">
-                                                    {{ $operateur->user->files_count }}
+                                                    {{ $operateur->user->files_count ?? 0 }}
                                                 </span>
                                             @endif
                                         </button>
