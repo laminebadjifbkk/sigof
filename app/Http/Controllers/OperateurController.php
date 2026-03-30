@@ -1237,7 +1237,7 @@ class OperateurController extends Controller
         );
     } */
 
-    public function show(Operateur $operateur)
+    /* public function show(Operateur $operateur)
     {
         $operateurs          = Operateur::get();
         $domaines            = Domaine::get();
@@ -1303,7 +1303,6 @@ class OperateurController extends Controller
             'formations',
         ]);
 
-        // 🔹 Charger le count des fichiers de l'utilisateur lié
         $operateur->load([
             'user' => function ($query) {
                 $query->withCount('files');
@@ -1331,6 +1330,94 @@ class OperateurController extends Controller
                 'hasRC'
             )
         );
+    } */
+
+    public function show(Operateur $operateur)
+    {
+        $this->authorize('show', $operateur);
+
+        // 🔥 Chargement optimisé (relations + counts en une fois)
+        $operateur->load([
+            'user' => fn($q) => $q->withCount('files'),
+            'operateurmodules',
+            'operateureferences',
+            'operateurequipements',
+            'operateurformateurs',
+            'operateurlocalites',
+            'validationoperateurs' => fn($q) => $q->latest()
+        ])->loadCount([
+            'operateurmodules',
+            'operateureferences',
+            'operateurequipements',
+            'operateurformateurs',
+            'operateurlocalites',
+            'formations',
+        ]);
+
+        $user = $operateur->user;
+
+        // 🔹 Fichiers utilisateur (optimisé)
+        $files = $user?->files()
+            ->whereNotNull('file')
+            ->distinct()
+            ->get() ?? collect();
+
+        // 🔹 Vérification des documents
+        $hasAuto         = $files->contains(fn($f) => $f->sigle === 'Autorisation');
+        $hasNinea        = $files->contains(fn($f) => $f->sigle === 'Ninea');
+        $hasOrganigramme = $files->contains(fn($f) => $f->sigle === 'Organigramme');
+        $hasQuitus       = $files->contains(fn($f) => $f->sigle === 'Quitus');
+        $hasRC           = $files->contains(fn($f) => $f->sigle === 'Ninea/RC');
+
+        $labels = [
+            'Ninea ou registre de commerce' => 'Registre de commerce',
+            'Ninea/RC' => 'RC',
+            'Non-fonctionnaire' => 'NF',
+        ];
+
+        // 🔹 Templates fichiers
+        $user_files = File::whereNull('file')
+            ->whereNull('users_id')
+            ->whereIn('sigle', [
+                'Ninea/RC',
+                'Ninea',
+                'AC',
+                'Quitus',
+                'Arrêté',
+                'Non-fonctionnaire',
+                'Organigramme',
+                'Contrat',
+                'Titre',
+                'Justificatif',
+                'ADEDGI',
+                'ABE',
+                'CME',
+                'CP',
+                'DENO',
+                'Bail'
+            ])
+            ->orderBy('sigle')
+            ->distinct()
+            ->get();
+
+        $validations = $operateur->validationoperateurs;
+
+        return view("operateurs.show", compact(
+            "operateur",
+            "operateureferences",
+            "operateurs",
+            "user_files",
+            "user",
+            "files",
+            "labels",
+            "domaines",
+            "validations",
+            "hasAuto",
+            "hasNinea",
+            "hasOrganigramme",
+            "hasQuitus",
+            "hasRC"
+        ));
     }
 
     public function showAgrement($id)
