@@ -102,18 +102,12 @@ class OperateurController extends Controller
         // 🔥 Total global
         $totalOperateurs = number_format(Operateur::count(), 0, ',', ' ');
 
-        // 🔥 Query ultra optimisée (SEULEMENT les champs utiles)
         $operateurs = Operateur::with([
-            // User (seulement champs utilisés)
-            'user:id,display_operateur,email,adresse,firstname,name',
-
-            // Relations utilisées
-            'numeros:id,operateurs_id,numero',
+            'user:id,email,adresse,firstname,name,fixe,telephone',
             'region:id,nom',
-
         ])->withCount([
             'operateurmodules',
-            'formations' // ⚠️ tu l’utilises (mais bug dans ta vue)
+            'formations'
         ])
             ->latest()
             ->limit(500)
@@ -123,7 +117,9 @@ class OperateurController extends Controller
                 'numero_dossier',
                 'numero_agrement',
                 'region_id',
-                'statut_agrement'
+                'statut_agrement',
+                'telephone',
+                'fixe'
             ]);
 
         // 🔥 Départements
