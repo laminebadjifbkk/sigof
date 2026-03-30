@@ -576,7 +576,7 @@
                                         <div class="col-12  mb-0">
                                             <label for="description" class="form-label">Description de l'organisation<span
                                                     class="text-danger mx-1">*</span></label>
-                                            <textarea name="description" id="description" rows="2" minlength="100" maxlength="200"
+                                            <textarea name="description" id="description" rows="2" minlength="200" maxlength="500"
                                                 class="form-control form-control-sm @error('description') is-invalid @enderror"
                                                 placeholder="Faire un résumé de la description de l'organisation, de ses activités et de ses réalisations">{{ old('description') }}</textarea>
 
@@ -590,7 +590,7 @@
                                         <div class="col-12  mb-0">
                                             <label for="projetprofessionnel" class="form-label">Projet professionnel<span
                                                     class="text-danger mx-1">*</span></label>
-                                            <textarea name="projetprofessionnel" id="projetprofessionnel" rows="2" minlength="100" maxlength="200"
+                                            <textarea name="projetprofessionnel" id="projetprofessionnel" rows="2" minlength="200" maxlength="500"
                                                 class="form-control form-control-sm @error('projetprofessionnel') is-invalid @enderror"
                                                 placeholder="Faire un résumé de la description détaillée du projet professionnel et de l'effet attendu après la formation">{{ old('projetprofessionnel') }}</textarea>
 
