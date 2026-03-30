@@ -145,9 +145,9 @@
                                             @can('afficher-operateur-adresse')
                                                 <th>Adresse</th>
                                             @endcan
-                                            @can('afficher-operateur-responsable')
+                                            {{-- @can('afficher-operateur-responsable')
                                                 <th>Responsable</th>
-                                            @endcan
+                                            @endcan --}}
                                             @can('afficher-operateur-module')
                                                 <th class="text-center">Modules</th>
                                             @endcan
@@ -208,10 +208,10 @@
                                                 @can('afficher-operateur-adresse')
                                                     <td>{{ $operateur?->user?->adresse }}</td>
                                                 @endcan
-                                                @can('afficher-operateur-responsable')
+                                               {{--  @can('afficher-operateur-responsable')
                                                     <td>{{ $operateur?->user?->firstname . ' ' . $operateur?->user?->name }}
                                                     </td>
-                                                @endcan
+                                                @endcan --}}
                                                 @can('afficher-operateur-module')
                                                     <td style="text-align: center;">
                                                         {{-- @foreach ($operateur->operateurmodules as $operateurmodule)
