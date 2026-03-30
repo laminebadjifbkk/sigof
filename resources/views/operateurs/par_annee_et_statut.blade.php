@@ -47,7 +47,8 @@
                                     {{-- 🔹 Bloc gauche --}}
                                     <div class="d-flex align-items-center gap-3 flex-wrap">
 
-                                        <a href="{{ route('operateurs.parAnnee', ['annee' => $annee]) }}" class="btn btn-sm btn-outline-secondary">
+                                        <a href="{{ route('operateurs.parAnnee', ['annee' => $annee]) }}"
+                                            class="btn btn-sm btn-outline-secondary">
                                             <i class="bi bi-arrow-left"></i>
                                         </a>
 
@@ -360,7 +361,8 @@
                                             <div class="row">
                                                 <div class="col-12">
                                                     <div class="form-group">
-                                                        <label for="operateur_name" class="form-label">Dénomination</label>
+                                                        <label for="operateur_name"
+                                                            class="form-label">Dénomination</label>
                                                         <input type="text" name="operateur_name"
                                                             value="{{ old('operateur_name') }}"
                                                             class="form-control form-control-sm @error('operateur_name') is-invalid @enderror"
@@ -525,6 +527,10 @@
                     buttons: ['csv', 'excel', 'print'],
                 }
             },
+            "lengthMenu": [
+                [5, 10, 25, 50, 100, -1],
+                [5, 10, 25, 50, 100, "Tout"]
+            ],
             language: {
                 "sProcessing": "Traitement en cours...",
                 "sSearch": "Rechercher&nbsp;:",
