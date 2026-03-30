@@ -53,12 +53,13 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <button class="nav-link d-flex position-relative gap-1 active" data-bs-toggle="tab"
-                                        data-bs-target="#module-overview">Module
+                                    <button class="nav-link d-flex align-items-center gap-1 position-relative active"
+                                        data-bs-toggle="tab" data-bs-target="#module-overview">
+                                        Module
 
                                         @if ($operateur->operateurmodules_count > 0)
                                             <span
-                                                class="badge bg-primary position-absolute top-0 start-100 translate-middle p-1 rounded-circle">
+                                                class="badge bg-primary position-absolute top-0 end-0 translate-middle p-1 rounded-circle">
                                                 {{ $operateur->operateurmodules_count }}
                                             </span>
                                         @endif
@@ -66,7 +67,7 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab"
+                                    <button class="nav-link d-flex align-items-center gap-1 position-relative" data-bs-toggle="tab"
                                         data-bs-target="#references-overview">Références
 
                                         @if ($operateur->operateureferences_count > 0)
@@ -79,7 +80,7 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab"
+                                    <button class="nav-link d-flex align-items-center gap-1 position-relative" data-bs-toggle="tab"
                                         data-bs-target="#equipement-overview">Equipements
 
                                         @if ($operateur->operateurequipements_count > 0)
@@ -92,7 +93,7 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab"
+                                    <button class="nav-link d-flex align-items-center gap-1 position-relative" data-bs-toggle="tab"
                                         data-bs-target="#formateur-overview">Formateurs
                                         @if ($operateur->operateurformateurs_count > 0)
                                             <span
@@ -103,8 +104,8 @@
                                     </button>
                                 </li>
 
-                                {{-- <li class="nav-item">
-                                    <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab"
+                                <li class="nav-item">
+                                    <button class="nav-link d-flex align-items-center gap-1 position-relative" data-bs-toggle="tab"
                                         data-bs-target="#localites-overview">Localités
 
                                         @if ($operateur->operateurlocalites_count > 0)
@@ -114,11 +115,11 @@
                                             </span>
                                         @endif
                                     </button>
-                                </li> --}}
+                                </li>
 
                                 @can('operateur-show-files')
                                     <li class="nav-item">
-                                        <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab"
+                                        <button class="nav-link d-flex align-items-center gap-1 position-relative" data-bs-toggle="tab"
                                             data-bs-target="#files">Fichiers
                                             @if ($operateur->user->files_count > 0)
                                                 <span
@@ -131,7 +132,7 @@
                                 @endcan
 
                                 <li class="nav-item">
-                                    <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab"
+                                    <button class="nav-link d-flex align-items-center gap-1 position-relative" data-bs-toggle="tab"
                                         data-bs-target="#observations-overview">Observations</button>
                                 </li>
                                 <li class="nav-item">
@@ -144,7 +145,7 @@
                                                             style="letter-spacing: 1px;">
                                                             Historique
                                                         </li> --}}
-                                                        <a class="nav-link d-flex align-items-center gap-1 nav-icon"
+                                                        <a class="nav-link d-flex align-items-center gap-1 position-relative nav-icon"
                                                             href="#" data-bs-toggle="dropdown">
                                                             <i class="bi bi-chat-left-text m-1"></i>
                                                             <span class="badge bg-success badge-number"
