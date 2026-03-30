@@ -506,6 +506,7 @@
                                                     <th>CHAMPS PROFESSIONNELS</th>
                                                     <th class="text-center">ANNEES EXPERIENCE</th>
                                                     <th>REFERENCES</th>
+                                                    <th>CV</th>
                                                     <th>STATUT</th>
                                                     <th class="text-center">VALIDATION</th>
                                                 </tr>
@@ -519,6 +520,17 @@
                                                         <td style="text-align: center;">
                                                             {{ $operateurformateur->nbre_annees_experience }}</td>
                                                         <td>{{ $operateurformateur->references }}</td>
+                                                        <td class="text-center">
+                                                            @if ($operateurformateur?->file)
+                                                                <a class="btn btn-outline-secondary btn-sm"
+                                                                    title="Convention" target="_blank"
+                                                                    href="{{ asset($operateurformateur?->getCVFormateurs()) }}">
+                                                                    <i class="bi bi-file-earmark-pdf"></i>
+                                                                </a>
+                                                            @else
+                                                                <span class="text-muted small">Aucun</span>
+                                                            @endif
+                                                        </td>
                                                         <td style="text-align: center;">
                                                             <span
                                                                 class="{{ $operateurformateur?->statut }}">{{ $operateurformateur?->statut }}</span>

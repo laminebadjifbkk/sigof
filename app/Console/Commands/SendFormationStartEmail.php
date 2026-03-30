@@ -275,8 +275,6 @@ class SendFormationStartEmail extends Command
                     ]
                 )->render();
 
-                $sentCount = 0;
-
                 foreach ($emails as $email) {
 
                     try {
@@ -291,19 +289,10 @@ class SendFormationStartEmail extends Command
                             $htmlContent
                         );
 
-                        $sentCount++;
-
                         $this->info("✔ Email envoyé à {$email} pour {$moduleName}");
                     } catch (\Exception $e) {
                         $this->error("✖ {$email} | {$moduleName} : " . $e->getMessage());
                     }
-                }
-                
-                // Mise à jour seulement si au moins 1 succès
-                if ($sentCount > 0) {
-                    $formation->update([
-                        'statut' => 'En cours'
-                    ]);
                 }
             }
 
