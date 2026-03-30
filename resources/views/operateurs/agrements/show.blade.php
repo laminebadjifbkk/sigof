@@ -1154,13 +1154,13 @@
                                 </div>
                             </div>
                         </div>
+
+                        @include('operateurs.agrements.modals')
                     </div>
                 </div>
             </div>
         </div>
-        @include('operateurs.agrements.modals')
     </section>
-
 @endsection
 @push('scripts')
     <script>
