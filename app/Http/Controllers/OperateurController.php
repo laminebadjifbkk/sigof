@@ -1290,7 +1290,7 @@ class OperateurController extends Controller
         );
     } */
 
-    /* public function show(Operateur $operateur)
+    public function show(Operateur $operateur)
     {
         $operateurs          = Operateur::get();
         $domaines            = Domaine::get();
@@ -1383,9 +1383,9 @@ class OperateurController extends Controller
                 'hasRC'
             )
         );
-    } */
+    }
 
-    public function show(Operateur $operateur)
+    /* public function show(Operateur $operateur)
     {
         $this->authorize('show', $operateur);
 
@@ -1471,7 +1471,8 @@ class OperateurController extends Controller
             "hasQuitus",
             "hasRC"
         ));
-    }
+    } */
+
     /* 
     public function showAgrement($id)
     {
