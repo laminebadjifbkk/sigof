@@ -257,12 +257,22 @@ class SendFormationStartEmail extends Command
                     'elhadjigorgui.diouf@onfp.sn',
                 ];
 
-                $emails = collect($defaultEmails)
+                /* $emails = collect($defaultEmails)
                     ->merge([
                         $formation?->ingenieur?->user?->email,
                         $formation?->ingenieur?->user?->employee?->chef?->user?->email,
                     ])
                     ->filter()
+                    ->unique()
+                    ->values(); */
+
+                $emails = collect($defaultEmails)
+                    ->merge(array_filter([
+                        data_get($formation, 'ingenieur.user.email'),
+                        data_get($formation, 'ingenieur.user.employee.chef.user.email'),
+                    ]))
+                    ->map(fn($email) => strtolower(trim($email)))
+                    ->filter(fn($email) => filter_var($email, FILTER_VALIDATE_EMAIL))
                     ->unique()
                     ->values();
 

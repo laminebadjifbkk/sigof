@@ -2,7 +2,7 @@
 
 // app/Http/Controllers/FormationStartController.php
 
-namespace App\Http\Controllers;
+/* namespace App\Http\Controllers;
 
 use App\Mail\FormationStartNotification;
 use App\Models\Formation;
@@ -11,9 +11,6 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class FormationStartController extends Controller
 {
-    /**
-     * Envoie la notification de démarrage d’une formation
-     */
     public function send(Formation $formation)
     {
         Alert::warning("En raison de soucis techniques auprès de SENUM SA, l’envoi automatique des mails de démarrage est temporairement indisponible. 
@@ -27,9 +24,9 @@ Nous vous prions de bien vouloir les transmettre directement via votre messageri
             'dado.toure@onfp.sn',
             'amsatou.paye@onfp.sn',
             'lamine.badji@onfp.sn',
-            /* 'bara.lo@onfp.sn', */
+            // 'bara.lo@onfp.sn',
             'SerigneMansourSy.FALL@onfp.sn',
-            /* 'aissatou.deme@tresor.gouv.sn', */
+            // 'aissatou.deme@tresor.gouv.sn',
             'MaimounaGadio.AW@onfp.sn',
             'ramet.ndiaye@onfp.sn',
             'seckseynabou27@gmail.com',
@@ -52,5 +49,80 @@ Nous vous prions de bien vouloir les transmettre directement via votre messageri
         $formation->save();
 
         return back()->with('success', 'Mails envoyés avec succès aux bénéficiaires.');
+    }
+} */
+
+namespace App\Http\Controllers;
+
+use App\Models\Formation;
+use App\Services\BrevoMailer;
+use RealRashid\SweetAlert\Facades\Alert;
+
+class FormationStartController extends Controller
+{
+    public function send(Formation $formation)
+    {
+        $mailer = app(BrevoMailer::class);
+
+        $label = "";
+
+        $defaultEmails = [
+            'lamine.badji@onfp.sn',
+            /* 'ouly.toure@onfp.sn',
+            'dado.toure@onfp.sn',
+            'amsatou.paye@onfp.sn',
+            'SerigneMansourSy.FALL@onfp.sn',
+            'MaimounaGadio.AW@onfp.sn',
+            'ramet.ndiaye@onfp.sn',
+            'seckseynabou27@gmail.com',
+            'seynabou.seck@onfp.sn',
+            'mamebigue.ciss@onfp.sn',
+            'gorgui.ndiaye@onfp.sn',
+            'mohamadou.soumare@onfp.sn',
+            's.fall@onfp.sn',
+            'elhadjigorgui.diouf@onfp.sn', */
+        ];
+
+        $emails = collect($defaultEmails)
+            ->merge([
+                data_get($formation, 'ingenieur.user.email'),
+                data_get($formation, 'ingenieur.user.employee.chef.user.email'),
+            ])
+            ->filter()
+            ->map(fn($email) => strtolower(trim($email)))
+            ->unique()
+            ->values();
+
+        $moduleName = data_get($formation, 'module.name')
+            ?? data_get($formation, 'collectivemodule.module')
+            ?? 'Module non défini';
+
+        $htmlContent = view('emails.formation-start', [
+            'formation' => $formation,
+            'label' => $label
+        ])->render();
+
+        foreach ($emails as $email) {
+            try {
+
+                $subject = "Démarrage formation : {$moduleName} {$label}";
+
+                $mailer->sendEmail(
+                    [
+                        'email' => $email,
+                        'name' => 'Destinataire'
+                    ],
+                    $subject,
+                    $htmlContent
+                );
+            } catch (\Exception $e) {
+                logger()->error("Erreur envoi mail {$email} : " . $e->getMessage());
+            }
+        }
+
+        $formation->update(['statut' => 'En cours']);
+
+        Alert::success('Succès', 'Mails envoyés avec succès aux bénéficiaires.');
+        return redirect()->back();
     }
 }

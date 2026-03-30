@@ -154,8 +154,7 @@
                             <p style="font-size:15px;">
                                 La DIOF vous informe du démarrage de la formation en
                                 <strong>{{ $formation?->module?->name ?? ($formation?->collectivemodule?->module ?? '-') }}</strong>
-                                <strong>{{ strtolower($label) }}</strong>, soit le
-                                <strong>{{ \Carbon\Carbon::parse($formation->date_debut)->format('d/m/Y') }}</strong>.
+                                <strong>{{ strtolower($label) }}</strong>
                             </p>
 
                             <!-- TABLE DETAILS -->
@@ -178,11 +177,16 @@
                                 </tr>
 
                                 <tr>
+                                    <td><strong>Date début</strong></td>
+                                    <td>{{ $formation->date_debut->format('d/m/Y') ?? '' }}</td>
+                                </tr>
+
+                                <tr style="background:#f1f3f5;">
                                     <td><strong>Lieu</strong></td>
                                     <td>{{ $formation?->lieu ?? '-' }}</td>
                                 </tr>
 
-                                <tr style="background:#f1f3f5;">
+                                <tr>
                                     <td><strong>Durée</strong></td>
                                     <td>
                                         @if ($formation?->duree_formation)
@@ -194,12 +198,12 @@
                                     </td>
                                 </tr>
 
-                                <tr>
+                                <tr style="background:#f1f3f5;">
                                     <td><strong>Ingénieur en charge</strong></td>
                                     <td>{{ $formation?->ingenieur?->name ?? '-' }}</td>
                                 </tr>
 
-                                <tr style="background:#f1f3f5;">
+                                <tr>
                                     <td><strong>Opérateur</strong></td>
                                     <td>
                                         {{ $formation?->operateur?->user?->display_operateur }}
