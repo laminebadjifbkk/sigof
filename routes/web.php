@@ -841,9 +841,9 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::put('/inscriptioncontacts/{id}', [InscriptionContactController::class, 'update'])
             ->name('inscriptioncontacts.update'); */
 
-        Route::get('/formulaires/{id}', [FormulaireController::class, 'show'])
+        /* Route::get('/formulaires/{id}', [FormulaireController::class, 'show'])
             ->name('formulaires.show')
-            ->middleware('can:formulaire-view');
+            ->middleware('can:formulaire-view'); */
 
 
         Route::get('/formulairesregion/{region}', [FormulaireController::class, 'showregion'])
