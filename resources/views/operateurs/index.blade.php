@@ -127,12 +127,12 @@
                                     id="table-operateurs">
                                     <thead class="table-success">
                                         <tr>
-                                            @can('afficher-dossier-operateur')
+                                            {{-- @can('afficher-dossier-operateur')
                                                 <th width="3%" class="text-center">Dossier</th>
-                                            @endcan
-                                            <th width="15%" class="text-center">N° agrément</th>
+                                            @endcan --}}
+                                            <th class="text-center">N° agrément</th>
                                             @can('afficher-operateur-name')
-                                                <th width="40%">Opérateurs</th>
+                                                <th>Opérateurs</th>
                                             @endcan
                                             {{-- <th>Sigle</th> --}}
                                             @can('afficher-operateur-email')
@@ -141,7 +141,7 @@
                                             @can('afficher-operateur-telephone')
                                                 <th>Telephone</th>
                                             @endcan
-                                            <th>Région</th>
+                                            {{-- <th>Région</th> --}}
                                             @can('afficher-operateur-adresse')
                                                 <th>Adresse</th>
                                             @endcan
@@ -166,9 +166,9 @@
                                         <?php $i = 1; ?>
                                         @foreach ($operateurs as $operateur)
                                             <tr>
-                                                @can('afficher-dossier-operateur')
+                                                {{-- @can('afficher-dossier-operateur')
                                                     <td class="text-center">{{ $operateur?->numero_dossier }}</td>
-                                                @endcan
+                                                @endcan --}}
                                                 <td>{{ $operateur?->numero_agrement }}</td>
                                                 @can('afficher-operateur-name')
                                                     <td>{{ $operateur?->user?->display_operateur }}</td>
@@ -204,7 +204,7 @@
                                                         </div>
                                                     </td>
                                                 @endcan
-                                                <td>{{ $operateur?->region?->nom }}</td>
+                                                {{-- <td>{{ $operateur?->region?->nom }}</td> --}}
                                                 @can('afficher-operateur-adresse')
                                                     <td>{{ $operateur?->user?->adresse }}</td>
                                                 @endcan
