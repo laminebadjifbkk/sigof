@@ -91,6 +91,7 @@ class Ingenieur extends Model
 			->withPivot('id', 'deleted_at')
 			->withTimestamps();
 	}
+	
 	public function user()
 	{
 		return $this->belongsTo(User::class, 'users_id');

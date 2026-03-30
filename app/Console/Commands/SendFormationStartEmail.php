@@ -239,7 +239,7 @@ class SendFormationStartEmail extends Command
                 // Emails fixes
                 $defaultEmails = [
                     'lamine.badji@onfp.sn',
-                    'ouly.toure@onfp.sn',
+                    /* 'ouly.toure@onfp.sn',
                     'dado.toure@onfp.sn',
                     'amsatou.paye@onfp.sn',
                     //'bara.lo@onfp.sn',
@@ -254,11 +254,14 @@ class SendFormationStartEmail extends Command
                     'mohamadou.soumare@onfp.sn',
                     's.fall@onfp.sn',
                     'a.drame@onfp.sn',
-                    'elhadjigorgui.diouf@onfp.sn',
+                    'elhadjigorgui.diouf@onfp.sn', */
                 ];
 
                 $emails = collect($defaultEmails)
-                    ->push($formation?->ingenieur?->user?->email)
+                    ->merge([
+                        $formation?->ingenieur?->user?->email,
+                        $formation?->ingenieur?->user?->employee?->chef?->user?->email,
+                    ])
                     ->filter()
                     ->unique()
                     ->values();
