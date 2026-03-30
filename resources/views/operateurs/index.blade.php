@@ -208,7 +208,7 @@
                                                 @can('afficher-operateur-adresse')
                                                     <td>{{ $operateur?->user?->adresse }}</td>
                                                 @endcan
-                                               {{--  @can('afficher-operateur-responsable')
+                                                {{--  @can('afficher-operateur-responsable')
                                                     <td>{{ $operateur?->user?->firstname . ' ' . $operateur?->user?->name }}
                                                     </td>
                                                 @endcan --}}
@@ -480,6 +480,10 @@
                     buttons: ['csv', 'excel', 'print'],
                 }
             },
+            "lengthMenu": [
+                [5, 10, 25, 50, 100, -1],
+                [5, 10, 25, 50, 100, "Tout"]
+            ],
             language: {
                 "sProcessing": "Traitement en cours...",
                 "sSearch": "Rechercher&nbsp;:",
