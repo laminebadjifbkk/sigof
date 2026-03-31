@@ -16,7 +16,7 @@ class UpdateMissionStatus extends Command
         $now = Carbon::now();
         $hour = $now->format('H');
 
-        if (in_array($hour, [8, 13])) {
+        if (in_array($hour, [8, 13, 15, 17])) {
 
             // 08h00 ou 13h00 -> Démarrer les missions
             $missions = ParcMission::where('statut', '!=', 'en_cours')
@@ -43,7 +43,7 @@ class UpdateMissionStatus extends Command
                 }
             }
 
-            $this->info("Missions démarrées et statuts mis à jour à {$hour}h00.");
+            $this->info("Missions démarrées et statuts mis à jour à {$hour}h 00.");
         }
 
         if ($hour == 17) {

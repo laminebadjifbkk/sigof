@@ -37,11 +37,12 @@ class Kernel extends ConsoleKernel
         $schedule->command('email:send-evaluation-reminders')->dailyAt('08:10');//Informer les collègues de l'évaluation d'une formation
 
         // Lancer la commande tous les jours à 08h00
-        /* $schedule->command('missions:update-status')->dailyAt('08:00');
-        $schedule->command('missions:update-status')->dailyAt('13:00'); */
+        $schedule->command('missions:update-status')->dailyAt('08:00');
+        $schedule->command('missions:update-status')->dailyAt('13:00');
+        $schedule->command('missions:update-status')->dailyAt('15:00');
 
         // Lancer la commande tous les jours à 17h00
-        /* $schedule->command('missions:update-status')->dailyAt('17:00'); */
+        $schedule->command('missions:update-status')->dailyAt('17:00');
 
         /* $schedule->command('missions:send-reminders')
             ->everyMinute(); // recommandé pour précision */
