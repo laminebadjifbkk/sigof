@@ -18,7 +18,7 @@ class BrevoMailer
     public function __construct()
     {
         $apiKey = config('brevo.api_key');
-        $this->senderName  = config('brevo.sender_name', 'SIGOF');
+        $this->senderName  = config('brevo.sender_name', 'ONFP');
         $this->senderEmail = config('brevo.sender_email', 'no-reply@onfp.sn');
 
         if (!$apiKey) {

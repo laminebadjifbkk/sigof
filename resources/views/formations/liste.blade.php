@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'SIGOF | Formations ' . $libelle)
+@section('title', 'ONFP | Formations ' . $libelle)
 @section('space-work')
 
     <div class="pagetitle">

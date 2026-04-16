@@ -3,7 +3,7 @@
     <div class="d-flex align-items-center justify-content-between">
         <a href="{{ route('home') }}" class="logo d-flex align-items-center">
             <img src="assets/img/logo_sigle.png" alt="">
-            <span class="d-none d-lg-block">SIGOF</span>
+            <span class="d-none d-lg-block">ONFP</span>
             {{-- Système d'information et de gestion des opérations de formation --}}
         </a>
     </div>

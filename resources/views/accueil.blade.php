@@ -482,7 +482,7 @@
 
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
-                <h2>À PROPOS DU SIGOF</h2>
+                <h2>À PROPOS DU ONFP</h2>
                 <p>Le Système Intégré de Gestion des Opérations de Formation de l’ONFP</p>
             </div><!-- End Section Title -->
 
@@ -494,9 +494,9 @@
                         <div class="row">
                             <div
                                 class="col-12 order-2 order-lg-1 mt-3 mt-lg-0 d-flex flex-column justify-content-center">
-                                {{-- <h3>SIGOF</h3> --}}
+                                {{-- <h3>ONFP</h3> --}}
                                 <p class="fst-italic">
-                                    Le Système Intégré de Gestion des Opérations de Formation (SIGOF) de l’ONFP (Office
+                                    Le Système Intégré de Gestion des Opérations de Formation (ONFP) de l’ONFP (Office
                                     National de Formation Professionnelle) est une plateforme numérique conçue pour
                                     centraliser et automatiser la gestion des activités liées à la formation
                                     professionnelle.
@@ -519,7 +519,7 @@
                                             en ligne.</span></li>
                                 </ul>
                                 <p>
-                                    En résumé, le SIGOF est un outil stratégique qui modernise et professionnalise la
+                                    En résumé, le ONFP est un outil stratégique qui modernise et professionnalise la
                                     gestion des activités de formation de l'ONFP, améliorant ainsi l'efficacité et la
                                     qualité des services offerts.
                                 </p>

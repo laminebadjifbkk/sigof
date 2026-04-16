@@ -27,7 +27,7 @@
 
     <p>Si vous n'avez pas demandé de réinitialisation de mot de passe, aucune autre action n'est requise.</p>
 
-    <p>Cordialement,<br>L’équipe SIGOF</p>
+    <p>Cordialement,<br>L’équipe ONFP</p>
 </body>
 
 </html>

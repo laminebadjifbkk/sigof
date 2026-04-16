@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'SIGOF | AJOUTER PERMISSIONS')
+@section('title', 'ONFP | AJOUTER PERMISSIONS')
 @section('space-work')
     <section class="section">
         <div class="row justify-content-center">

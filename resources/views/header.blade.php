@@ -6,7 +6,7 @@
             <!-- Uncomment the line below if you also wish to use an image logo -->
             <!-- <img src="{{ asset('asset/img/logo.png') }}" alt=""> -->
             {{-- <img src="{{ asset('assets/img/logo_sigle.png') }}" alt=""> --}}
-            <h1 class="sitename"><b>SIGOF</b></h1>
+            <h1 class="sitename"><b>ONFP</b></h1>
         </a>
 
         <nav id="navmenu" class="navmenu">

@@ -2269,8 +2269,8 @@
                 @else
                     <a href="{{ url('/profil') }}" class="logo d-flex align-items-center">
             @endif
-            <img src="{{ asset('assets/img/logo_sigle.png') }}" alt="Logo SIGOF">
-            <span class="d-none d-lg-block">SIGOF</span>
+            <img src="{{ asset('assets/img/logo_sigle.png') }}" alt="Logo ONFP">
+            <span class="d-none d-lg-block">ONFP</span>
             {{-- Système d'information et de gestion des opérations de formation --}}
             </a>
 

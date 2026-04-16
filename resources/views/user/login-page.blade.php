@@ -29,7 +29,7 @@
         'callback_then' => 'callbackThen',
         'callback_catch' => 'callbackCatch',
     ]) !!}
-    <title>Connexion SOGOF</title>
+    <title>Connexion ONFP</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -79,7 +79,7 @@
                                             {{-- <a href="{{ route('accueil') }}"
                                                 class="logo d-flex align-items-center justify-content-center w-auto"
                                                 target="_blank">
-                                                <span class="d-none d-lg-block">SIGOF</span>
+                                                <span class="d-none d-lg-block">ONFP</span>
                                             </a> --}}
 
                                             <a href="{{ route('accueil') }}" style="text-decoration: none">

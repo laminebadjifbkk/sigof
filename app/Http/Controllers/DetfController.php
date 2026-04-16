@@ -183,7 +183,7 @@ class DetfController extends Controller
         /* // Footer pour cette section
         $footer1 = $section1->addFooter();
         $footer1->firstPage(); // appliquer aussi sur première page
-        $footer1->addText("SIGOF - Document confidentiel", ['italic' => true, 'size' => 10], ['align' => Jc::CENTER]);
+        $footer1->addText("ONFP - Document confidentiel", ['italic' => true, 'size' => 10], ['align' => Jc::CENTER]);
         $footer1->addPreserveText('Page {PAGE} / {NUMPAGES}', ['size' => 10], ['align' => Jc::CENTER]); */
         // Footer pour la première section
         $footer1 = $section1->addFooter();

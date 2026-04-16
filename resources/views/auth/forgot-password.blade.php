@@ -237,7 +237,7 @@
                                             {{-- <a href="{{ route('accueil') }}"
                                                 class="logo d-flex align-items-center justify-content-center w-auto"
                                                 target="_blank">
-                                                <span>SIGOF</span>
+                                                <span>ONFP</span>
                                             </a> --}}
                                             <a href="{{ route('accueil') }}" style="text-decoration: none">
                                                 <span class="fw-bold" style="font-size: 2rem;">
