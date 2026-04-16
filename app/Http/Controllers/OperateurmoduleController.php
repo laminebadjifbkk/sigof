@@ -53,7 +53,7 @@ class OperateurmoduleController extends Controller
         $operateur = Operateur::findOrFail($operateurId);
 
         // 🔹 Vérifier le statut de l'opérateur
-        if ($operateur->statut_agrement != "Nouveau") {
+        if (!in_array($operateur->statut_agrement, ["Nouveau", "À corriger"])) {
             Alert::warning('Action impossible !', 'Opérateur déjà traité');
             return redirect()->back();
         }
