@@ -193,6 +193,13 @@
                                                     {{ $op?->statut_agrement }}
                                                 </span>
                                             </div>
+                                            <div class="col-12 col-md-auto text-md-end">
+                                                <span class="fw-semibold text-muted me-2">Statut :</span>
+                                                <span
+                                                    class="badge {{ $op?->statut_agrement }} px-3 py-2 fs-6 shadow-sm rounded-pill">
+                                                    {{ $op?->statut_agrement }}
+                                                </span>
+                                            </div>
 
                                         </div>
                                     </div>
