@@ -139,10 +139,9 @@
                         @endphp
 
                         <div class="card mb-4 shadow-sm border-0 w-100">
-                            <div class="card-header bg-white border-bottom py-3 px-4">
+                            {{-- <div class="card-header bg-white border-bottom py-3 px-4">
                                 <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
 
-                                    {{-- PARTIE GAUCHE --}}
                                     <div class="flex-grow-1">
                                         <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
 
@@ -155,19 +154,6 @@
                                                     </span>
                                                 </div>
                                             </div>
-
-                                            {{-- @if ($op->commissionagrements->isNotEmpty())
-                                                <div class="col-12 col-md text-md-center">
-                                                    <div
-                                                        class="d-flex flex-wrap align-items-center justify-content-md-center">
-                                                        <i class="bi bi-building text-primary me-2"></i>
-                                                        <span class="fw-bold">Date commission :</span>
-                                                        <span class="ms-2 text-primary">
-                                                            {{ $op->commissionagrements->pluck('fin_commission')->filter()->map(fn($date) => \Carbon\Carbon::parse($date)->format('d/m/Y'))->implode(' - ') }}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            @endif --}}
 
                                             @php
                                                 $dates = $op->commissionagrements->pluck('fin_commission')->filter();
@@ -192,127 +178,15 @@
                                                     class="badge {{ $op?->statut_agrement }} px-3 py-2 fs-6 shadow-sm rounded-pill">
                                                     {{ $op?->statut_agrement }}
                                                 </span>
-                                                <div class="tab-content pt-0">
-                                                    @if ($op?->validations && $op?->validations->isNotEmpty())
-                                                        @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur|Operateur')
-                                                            <span class="d-flex mt-2 align-items-baseline">
-                                                                <nav class="header-nav ms-auto">
-                                                                    <ul
-                                                                        class="d-flex align-items-center list-unstyled mb-0 pt-2">
-                                                                        <a class="nav-link nav-icon" href="#"
-                                                                            data-bs-toggle="dropdown">
-                                                                            <i class="bi bi-chat-left-text m-1"></i>
-                                                                            <span class="badge bg-success badge-number"
-                                                                                title="{{ $op?->statut }}">
-                                                                                {{ $op?->validationoperateurs->count() }}
-                                                                            </span>
-                                                                        </a>
-                                                                        <ul
-                                                                            class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-                                                                            <li class="dropdown-header">
-                                                                                Vous avez
-                                                                                {{ $op?->validationoperateurs->count() }}
-                                                                                validation(s)
-                                                                            </li>
-                                                                            <li>
-                                                                                <hr class="dropdown-divider">
-                                                                            </li>
-                                                                            @foreach ($op?->validationoperateurs->sortByDesc('created_at')->take(2) as $validationoperateur)
-                                                                                <li class="message-item">
-                                                                                    <div>
-                                                                                        <p><span
-                                                                                                class="{{ $validationoperateur->action }}">{{ $validationoperateur->action }}</span>
-                                                                                        </p>
-                                                                                        @can('show-observations')
-                                                                                            <p>
-                                                                                                {{ $validationoperateur->user->firstname . ' ' . $validationoperateur->user->name }}
-                                                                                            </p>
-                                                                                        @endcan
-                                                                                        <p>{!! $validationoperateur->created_at->diffForHumans() !!}</p>
-                                                                                    </div>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <hr class="dropdown-divider">
-                                                                                </li>
-                                                                            @endforeach
-                                                                            <li class="dropdown-footer">
-                                                                                <form
-                                                                                    action="{{ route('validationmessageop') }}"
-                                                                                    method="post" target="_blank">
-                                                                                    @csrf
-                                                                                    <input type="hidden" name="id"
-                                                                                        value="{{ $op?->id }}">
-                                                                                    <button class="btn btn-sm mx-1">Voir
-                                                                                        toutes les validations</button>
-                                                                                </form>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </ul>
-                                                                </nav>
-                                                            </span>
-                                                        @endhasanyrole
-                                                    @else
-                                                        <span class="d-flex mt-2 align-items-baseline">
-                                                            <nav class="header-nav ms-auto">
-                                                                <ul class="d-flex align-items-center">
-                                                                    <a class="nav-link nav-icon" href="#"
-                                                                        data-bs-toggle="dropdown">
-                                                                        <i class="bi bi-chat-left-text m-1"></i>
-                                                                        <span class="badge bg-success badge-number"
-                                                                            title="{{ $op?->statut }}">
-                                                                            {{ $op?->validationoperateurs->count() }}
-                                                                        </span>
-                                                                    </a>
-                                                                    <ul
-                                                                        class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-                                                                        <li class="dropdown-header">
-                                                                            Vous avez
-                                                                            {{ $op?->validationoperateurs->count() }}
-                                                                            validation(s)
-                                                                        </li>
-                                                                        <li>
-                                                                            <hr class="dropdown-divider">
-                                                                        </li>
-                                                                        @foreach ($op?->validationoperateurs->sortByDesc('created_at')->take(2) as $validationoperateur)
-                                                                            <li class="message-item">
-                                                                                <div>
-                                                                                    <p><span
-                                                                                            class="{{ $validationoperateur->action }}">{{ $validationoperateur->action }}</span>
-                                                                                    </p>
-                                                                                    <p>{!! $validationoperateur->created_at->diffForHumans() !!}</p>
-                                                                                </div>
-                                                                            </li>
-                                                                            <li>
-                                                                                <hr class="dropdown-divider">
-                                                                            </li>
-                                                                        @endforeach
-                                                                        <li class="dropdown-footer">
-                                                                            <form
-                                                                                action="{{ route('validationmessageop') }}"
-                                                                                method="post" target="_blank">
-                                                                                @csrf
-                                                                                <input type="hidden" name="id"
-                                                                                    value="{{ $op?->id }}">
-                                                                                <button class="btn btn-sm mx-1">Voir
-                                                                                    toutes les validations</button>
-                                                                            </form>
-                                                                        </li>
-                                                                    </ul>
-                                                                </ul>
-                                                            </nav>
-                                                        </span>
-                                                    @endif
-                                                </div>
                                             </div>
+
                                         </div>
                                     </div>
 
-                                    {{-- PARTIE DROITE --}}
                                     @can('devenir-operateur-agrement-ouvert')
                                         @can('devenir-operateur-agrement-create')
                                             @can('agrement-ouvert')
                                                 <div style="min-width: 280px; max-width: 320px;">
-                                                    {{-- Afficher uniquement si l'opérateur a des agréments --}}
                                                     @if ($op->commissionagrements->isNotEmpty())
                                                         @if ($showButton)
                                                             @if ($op->est_expire)
@@ -349,8 +223,156 @@
                                     @endcan
 
                                 </div>
-                            </div>
+                            </div> --}}
+                            <div class="card-header bg-white border-bottom py-3 px-4">
+                                <div class="d-flex justify-content-between align-items-start flex-wrap gap-4">
 
+                                    {{-- ================= LEFT ================= --}}
+                                    <div class="flex-grow-1 d-flex flex-column gap-2">
+
+                                        <div class="d-flex flex-wrap align-items-center gap-4">
+
+                                            {{-- TYPE --}}
+                                            <div class="d-flex align-items-center">
+                                                <i class="bi bi-arrow-right-circle text-secondary me-2"></i>
+                                                <span class="text-muted">Type :</span>
+                                                <span class="ms-2 fw-semibold {{ $op?->type_demande }}">
+                                                    {{ $op?->type_demande }}
+                                                </span>
+                                            </div>
+
+                                            {{-- DATE --}}
+                                            @php
+                                                $dates = $op->commissionagrements->pluck('fin_commission')->filter();
+                                            @endphp
+
+                                            @if ($dates->isNotEmpty())
+                                                <div class="d-flex align-items-center">
+                                                    <i class="bi bi-calendar-check text-primary me-2"></i>
+                                                    <span class="text-muted">Commission :</span>
+                                                    <span class="ms-2 text-primary fw-medium">
+                                                        {{ $dates->map(fn($d) => \Carbon\Carbon::parse($d)->format('d/m/Y'))->implode(' - ') }}
+                                                    </span>
+                                                </div>
+                                            @endif
+
+                                        </div>
+
+                                    </div>
+
+                                    {{-- ================= RIGHT ================= --}}
+                                    <div class="d-flex align-items-start flex-wrap gap-3">
+
+                                        {{-- STATUT --}}
+                                        <div class="d-flex align-items-center">
+                                            <span class="text-muted me-2">Statut :</span>
+                                            <span
+                                                class="badge {{ $op?->statut_agrement }} px-3 py-2 rounded-pill shadow-sm">
+                                                {{ $op?->statut_agrement }}
+                                            </span>
+                                        </div>
+
+                                        {{-- VALIDATIONS --}}
+                                        @php
+                                            $validations = $op?->validationoperateurs?->sortByDesc('created_at');
+                                        @endphp
+
+                                        <div class="dropdown">
+                                            <a class="d-inline-flex align-items-center text-decoration-none" href="#"
+                                                data-bs-toggle="dropdown">
+                                                <i class="bi bi-chat-left-text me-2"></i>
+                                                <span class="badge bg-success">
+                                                    {{ $validations->count() }}
+                                                </span>
+                                            </a>
+
+                                            <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                                                <li class="dropdown-header">
+                                                    {{ $validations->count() }} validation(s)
+                                                </li>
+
+                                                <li>
+                                                    <hr class="dropdown-divider">
+                                                </li>
+
+                                                @forelse ($validations->take(3) as $v)
+                                                    <li class="px-3 py-2 small">
+                                                        <div class="{{ $v->action }}">{{ $v->action }}</div>
+
+                                                        @can('show-observations')
+                                                            <div class="text-muted">
+                                                                {{ $v->user->firstname }} {{ $v->user->name }}
+                                                            </div>
+                                                        @endcan
+
+                                                        <div class="text-muted">
+                                                            {{ $v->created_at->diffForHumans() }}
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <hr class="dropdown-divider">
+                                                    </li>
+                                                @empty
+                                                    <li class="px-3 py-2 text-muted small">
+                                                        Aucune validation
+                                                    </li>
+                                                @endforelse
+
+                                                <li class="text-center py-2">
+                                                    <form action="{{ route('validationmessageop') }}" method="post"
+                                                        target="_blank">
+                                                        @csrf
+                                                        <input type="hidden" name="id" value="{{ $op?->id }}">
+                                                        <button class="btn btn-sm btn-light">
+                                                            Voir plus
+                                                        </button>
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        {{-- ACTIONS --}}
+                                        @can('devenir-operateur-agrement-ouvert')
+                                            @can('devenir-operateur-agrement-create')
+                                                @can('agrement-ouvert')
+                                                    @if ($op->commissionagrements->isNotEmpty() && $showButton)
+                                                        <div style="min-width: 240px; max-width: 280px;">
+
+                                                            @if ($op->est_expire)
+                                                                <div class="alert alert-danger p-2 mb-0 shadow-sm">
+                                                                    <button class="btn btn-success btn-sm w-100 mb-1"
+                                                                        data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
+                                                                        <i class="bi bi-arrow-repeat"></i>
+                                                                        Nouvelle demande
+                                                                    </button>
+
+                                                                    <small>
+                                                                        Expiré le
+                                                                        <strong>{{ $op->date_expiration?->format('d/m/Y') }}</strong>
+                                                                    </small>
+                                                                </div>
+                                                            @elseif($op->est_renouvellement)
+                                                                <div class="alert alert-info p-2 mb-0 shadow-sm">
+                                                                    <button class="btn btn-primary btn-sm w-100 mb-1"
+                                                                        data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
+                                                                        <i class="bi bi-arrow-repeat"></i>
+                                                                        Renouveler
+                                                                    </button>
+
+                                                                    <small>Agrément valide</small>
+                                                                </div>
+                                                            @endif
+
+                                                        </div>
+                                                    @endif
+                                                @endcan
+                                            @endcan
+                                        @endcan
+
+                                    </div>
+
+                                </div>
+                            </div>
                             <div class="card-body px-4">
                                 @foreach ($sections as $section)
                                     <div
