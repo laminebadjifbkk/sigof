@@ -1095,10 +1095,10 @@ class OperateurController extends Controller
     public function updated(Request $request, $uuid)
     {
         $operateur = Operateur::findOrFail($request->id);
-        /* if (strtolower($operateur->file8) === 'oui') {
+        if (strtolower($operateur->file8) === 'oui') {
             Alert::error('Attention !', 'Impossible de modifier car les informations ont déjà certifiés.');
             return redirect()->back();
-        } */
+        }
         $user        = $operateur->user;
         $departement = Departement::where('nom', $request->input("departement"))->firstOrFail();
 
@@ -3928,7 +3928,12 @@ class OperateurController extends Controller
 
         $operateur = Operateur::where('uuid', $uuid)->firstOrFail();
 
-        if ($operateur->statut_agrement !== 'Nouveau') {
+        /*  if ($operateur->statut_agrement !== 'Nouveau') {
+            Alert::error('Désolé', 'Vous ne pouvez pas certifier pour le moment.');
+            return redirect()->back();
+        } */
+
+        if (!in_array($operateur->statut_agrement, ['Nouveau', 'À corriger'])) {
             Alert::error('Désolé', 'Vous ne pouvez pas certifier pour le moment.');
             return redirect()->back();
         }
@@ -4081,11 +4086,15 @@ class OperateurController extends Controller
 
         $operateur = Operateur::where('uuid', $uuid)->firstOrFail();
 
-        if ($operateur->statut_agrement !== 'Nouveau') {
+        /* if ($operateur->statut_agrement !== 'Nouveau') {
+            Alert::error('Désolé', 'Vous ne pouvez pas certifier pour le moment.');
+            return redirect()->back();
+        } */
+
+        if (!in_array($operateur->statut_agrement, ['Nouveau', 'À corriger'])) {
             Alert::error('Désolé', 'Vous ne pouvez pas certifier pour le moment.');
             return redirect()->back();
         }
-
         $anneeEnCours = date('Y');
         $an = date('y');
 
