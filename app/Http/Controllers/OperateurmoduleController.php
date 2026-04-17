@@ -110,7 +110,7 @@ class OperateurmoduleController extends Controller
 
         // 🔹 Vérifications pour utilisateurs non super-admin / DEC
         if (!in_array('super-admin', $roleNames, true) && !in_array('DEC', $roleNames, true)) {
-            if (!in_array($operateurmodule->operateur?->statut_agrement, ['Nouveau', 'Extension', 'Renouvellement'], true)) {
+            if (!in_array($operateurmodule->operateur?->statut_agrement, ['Nouveau', 'Extension', 'Renouvellement', 'À corriger'], true)) {
                 Alert::warning('Action impossible !', 'Opérateur déjà traité');
                 return redirect()->back();
             }
