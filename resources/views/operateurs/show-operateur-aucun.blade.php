@@ -107,7 +107,7 @@
                                     <input name="username" type="text"
                                         class="form-control form-control-sm @error('username') is-invalid @enderror"
                                         id="username" value="{{ $user?->username ?? old('username') }}"
-                                        autocomplete="username" placeholder="Sigle">
+                                        autocomplete="username" placeholder="abréviation de nom de votre structure">
                                     @error('username')
                                         <span class="invalid-feedback" role="alert">
                                             <div>{{ $message }}</div>
