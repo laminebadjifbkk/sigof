@@ -200,9 +200,11 @@
                                                                                 <p><span
                                                                                         class="{{ $validationoperateur->action }}">{{ $validationoperateur->action }}</span>
                                                                                 </p>
-                                                                                <p>
-                                                                                    {{ $validationoperateur->user->firstname . ' ' . $validationoperateur->user->name }}
-                                                                                </p>
+                                                                                @can('show-observations')
+                                                                                    <p>
+                                                                                        {{ $validationoperateur->user->firstname . ' ' . $validationoperateur->user->name }}
+                                                                                    </p>
+                                                                                @endcan
                                                                                 <p>{!! $validationoperateur->created_at->diffForHumans() !!}</p>
                                                                             </div>
                                                                         </li>
