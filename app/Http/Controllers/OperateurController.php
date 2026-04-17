@@ -2725,12 +2725,12 @@ class OperateurController extends Controller
             )); */
 
 
-            $validations = $operateurs?->validationoperateurs;
+            /* $validations = $operateurs?->validationoperateurs; */
 
             return view('operateurs.show-operateur', compact(
                 'operateur_total',
                 'user_files',
-                'validations',
+                /* 'validations', */
                 'user',
                 'files',
                 'departements',
