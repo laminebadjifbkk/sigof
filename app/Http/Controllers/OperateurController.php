@@ -2723,9 +2723,14 @@ class OperateurController extends Controller
                 'estCertifie',
                 'sections'
             )); */
+
+
+            $validations = $operateurs?->validationoperateurs;
+
             return view('operateurs.show-operateur', compact(
                 'operateur_total',
                 'user_files',
+                'validations',
                 'user',
                 'files',
                 'departements',
