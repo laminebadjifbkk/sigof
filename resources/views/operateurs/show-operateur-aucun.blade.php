@@ -94,7 +94,7 @@
                                     <input name="operateur" type="text"
                                         class="form-control form-control-sm @error('operateur') is-invalid @enderror"
                                         id="operateur" value="{{ $user?->operateur ?? old('operateur') }}"
-                                        autocomplete="operateur" placeholder="Operateur">
+                                        autocomplete="operateur" placeholder="Nom de votre structure">
                                     @error('operateur')
                                         <span class="invalid-feedback" role="alert">
                                             <div>{{ $message }}</div>
