@@ -89,7 +89,7 @@
                                 @method('patch')
                                 <input type="hidden" name="idUser" value="{{ Auth::user()->id }}">
                                 <div class="col-12 col-md-12 mb-0">
-                                    <label for="operateur" class="form-label">Opérateur<span
+                                    <label for="operateur" class="form-label">Dénomination<span
                                             class="text-danger mx-1">*</span></label>
                                     <input name="operateur" type="text"
                                         class="form-control form-control-sm @error('operateur') is-invalid @enderror"
@@ -103,7 +103,7 @@
                                 </div>
 
                                 <div class="col-12 col-lg-6 col-md-12">
-                                    <label for="username" class="form-label">Sigle</label>
+                                    <label for="username" class="form-label">Sigle ou Enseigne</label>
                                     <input name="username" type="text"
                                         class="form-control form-control-sm @error('username') is-invalid @enderror"
                                         id="username" value="{{ $user?->username ?? old('username') }}"

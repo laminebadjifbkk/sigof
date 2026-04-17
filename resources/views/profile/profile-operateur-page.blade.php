@@ -394,7 +394,7 @@
 
                                         {{-- Operateur --}}
                                         <div class="row mb-3">
-                                            <label for="operateur" class="col-md-4 col-lg-3 col-form-label">Opérateur<span
+                                            <label for="operateur" class="col-md-4 col-lg-3 col-form-label">Dénomination<span
                                                     class="text-danger mx-1">*</span>
                                             </label>
                                             <div class="col-md-8 col-lg-9">
@@ -414,7 +414,7 @@
 
                                         {{-- Sigle --}}
                                         <div class="row mb-3">
-                                            <label for="username" class="col-md-4 col-lg-3 col-form-label">Sigle
+                                            <label for="username" class="col-md-4 col-lg-3 col-form-label">Sigle ou Enseigne
                                             </label>
                                             <div class="col-md-8 col-lg-9">
                                                 <div class="pt-2">
