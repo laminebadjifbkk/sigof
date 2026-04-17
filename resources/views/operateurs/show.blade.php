@@ -168,7 +168,7 @@
                                         {{-- Détail opérateur --}}
                                         <div class="tab-content pt-0">
                                             @if ($validations && $validations->isNotEmpty())
-                                                @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
+                                                @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur|Operateur')
                                                     <span class="d-flex mt-2 align-items-baseline">
                                                         <nav class="header-nav ms-auto">
                                                             <ul class="d-flex align-items-center list-unstyled mb-0 pt-2">
