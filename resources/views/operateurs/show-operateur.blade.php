@@ -192,9 +192,9 @@
                                                     class="badge {{ $op?->statut_agrement }} px-3 py-2 fs-6 shadow-sm rounded-pill">
                                                     {{ $op?->statut_agrement }}
                                                 </span>
-                                                {{-- <li class="nav-item position-relative">
+                                                <li class="nav-item position-relative">
                                                     <div class="tab-content pt-0">
-                                                        @if ($validations && $validations->isNotEmpty())
+                                                        @if ($ope?->validations && $ope?->validations->isNotEmpty())
                                                             @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur|Operateur')
                                                                 <span class="d-flex mt-2 align-items-baseline">
                                                                     <nav class="header-nav ms-auto">
@@ -304,7 +304,7 @@
                                                             </span>
                                                         @endif
                                                     </div>
-                                                </li> --}}
+                                                </li>
                                             </div>
 
                                         </div>
