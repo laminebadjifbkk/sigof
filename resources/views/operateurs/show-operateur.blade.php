@@ -144,7 +144,7 @@
 
                                     {{-- PARTIE GAUCHE --}}
                                     <div class="flex-grow-1">
-                                        <div class="row align-items-center gy-2">
+                                        <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
 
                                             <div class="col-12 col-md-auto">
                                                 <div class="d-flex align-items-center flex-wrap">
@@ -197,7 +197,7 @@
                                         </div>
                                     </div>
 
-                                    {{-- PARTIE DROITE 🔥 --}}
+                                    {{-- PARTIE DROITE --}}
                                     @can('devenir-operateur-agrement-ouvert')
                                         @can('devenir-operateur-agrement-create')
                                             @can('agrement-ouvert')
