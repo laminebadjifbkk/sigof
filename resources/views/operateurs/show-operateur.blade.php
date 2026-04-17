@@ -156,7 +156,7 @@
                                                 </div>
                                             </div>
 
-                                            @if ($op->commissionagrements->isNotEmpty())
+                                            {{-- @if ($op->commissionagrements->isNotEmpty())
                                                 <div class="col-12 col-md text-md-center">
                                                     <div
                                                         class="d-flex flex-wrap align-items-center justify-content-md-center">
@@ -164,6 +164,23 @@
                                                         <span class="fw-bold">Date commission :</span>
                                                         <span class="ms-2 text-primary">
                                                             {{ $op->commissionagrements->pluck('fin_commission')->filter()->map(fn($date) => \Carbon\Carbon::parse($date)->format('d/m/Y'))->implode(' - ') }}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            @endif --}}
+
+                                            @php
+                                                $dates = $op->commissionagrements->pluck('fin_commission')->filter();
+                                            @endphp
+
+                                            @if ($dates->isNotEmpty())
+                                                <div class="col-12 col-md text-md-center">
+                                                    <div
+                                                        class="d-flex flex-wrap align-items-center justify-content-md-center">
+                                                        <i class="bi bi-building text-primary me-2"></i>
+                                                        <span class="fw-bold">Date commission :</span>
+                                                        <span class="ms-2 text-primary">
+                                                            {{ $dates->map(fn($date) => \Carbon\Carbon::parse($date)->format('d/m/Y'))->implode(' - ') }}
                                                         </span>
                                                     </div>
                                                 </div>
