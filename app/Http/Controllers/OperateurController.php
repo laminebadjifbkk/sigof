@@ -2724,7 +2724,7 @@ class OperateurController extends Controller
                 'sections'
             )); */
 
-            $operateurs->loadCount([
+            /* $operateurs->loadCount([
                 'operateurmodules',
                 'operateureferences',
                 'operateurequipements',
@@ -2733,14 +2733,14 @@ class OperateurController extends Controller
                 'formations',
             ])->load(['user' => fn($q) => $q->withCount('files')]);
 
-            $validations = $operateurs?->validationoperateurs;
+            $validations = $operateurs?->validationoperateurs; */
 
             /* $validations = $operateurs?->validationoperateurs; */
 
             return view('operateurs.show-operateur', compact(
                 'operateur_total',
                 'user_files',
-                'validations',
+                /* 'validations', */
                 'user',
                 'files',
                 'departements',
