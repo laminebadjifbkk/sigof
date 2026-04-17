@@ -126,7 +126,7 @@
                                     <li class="nav-item position-relative">
                                         <button class="nav-link d-flex align-items-center justify-content-center"
                                             data-bs-toggle="tab" data-bs-target="#files">
-                                            Fichiers
+                                            Fichier
                                             @if ($operateur->user->files_count > 0)
                                                 <span
                                                     class="badge bg-dark position-absolute top-0 end-0 translate-middle p-1 rounded-circle">
@@ -153,7 +153,7 @@
                                         <li class="nav-item position-relative">
                                             <button class="nav-link d-flex align-items-center justify-content-center"
                                                 data-bs-toggle="tab" data-bs-target="#observations-overview">
-                                                Observation
+                                                Observations
                                                 @if (!empty($operateur->observations))
                                                     <span
                                                         class="badge bg-info position-absolute top-0 end-0 translate-middle p-1 rounded-circle">
