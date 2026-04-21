@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Operateurformateur;
@@ -42,7 +43,6 @@ class OperateurformateurController extends Controller
             $operateurformateur->update([
                 'file' => $filePath,
             ]);
-
         }
 
         Alert::success('Succès !', 'Enregistrement effectué avec succès');
@@ -63,7 +63,8 @@ class OperateurformateurController extends Controller
         $operateurformateur = Operateurformateur::findOrFail($id);
         $user               = auth()->user();
         /* if ($operateurformateur->operateur->statut_agrement != 'Nouveau') { */
-        if (! in_array($operateurformateur->operateur->statut_agrement, ['Nouveau', 'Extension', 'Renouvellement', 'Conforme'])
+        if (
+            ! in_array($operateurformateur->operateur->statut_agrement, ['Nouveau', 'Extension', 'Renouvellement', 'Conforme', 'À corriger'])
             && ! $user->hasRole('super-admin')
         ) {
             Alert::warning('Attention ! ', 'action impossible, déjà traité');
@@ -97,7 +98,6 @@ class OperateurformateurController extends Controller
             $operateurformateur->update([
                 'file' => $filePath,
             ]);
-
         }
 
         Alert::success('Succès !', 'Modification effectuée avec succès');
@@ -117,7 +117,8 @@ class OperateurformateurController extends Controller
         // Vérifie si l'utilisateur connecté est super-admin
         $user = auth()->user();
         /* if ($operateurformateur->operateur->statut_agrement != 'Nouveau') { */
-        if (! in_array($operateurformateur->operateur->statut_agrement, ['Nouveau', 'Extension', 'Renouvellement', 'Conforme'])
+        if (
+            ! in_array($operateurformateur->operateur->statut_agrement, ['Nouveau', 'Extension', 'Renouvellement', 'Conforme'])
             && ! $user->hasRole('super-admin')
         ) {
             Alert::warning('Attention ! ', 'action impossible');
