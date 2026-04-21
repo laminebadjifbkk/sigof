@@ -65,8 +65,8 @@ class OperateurformateurController extends Controller
         /* if ($operateurformateur->operateur->statut_agrement != 'Nouveau') { */
         if (
             ! in_array($operateurformateur->operateur->statut_agrement, ['Nouveau', 'Extension', 'Renouvellement', 'Conforme', 'À corriger'])
-            /* && ! $user->hasRole('super-admin' */
-            )
+            /* && ! $user->hasRole('super-admin'
+            ) */
         ) {
             Alert::warning('Attention ! ', 'action impossible, déjà traité');
             return redirect()->back();
