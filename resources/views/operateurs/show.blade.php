@@ -566,11 +566,17 @@
 
                                                 @can('devenir-operateur-agrement-ouvert')
                                                     @can('agrement-visible-par-op')
-                                                        <a href="{{ route('showLocalite', ['uuid' => $operateur?->uuid]) }}"
+                                                        {{-- <a href="{{ route('showLocalite', ['uuid' => $operateur?->uuid]) }}"
                                                             class="btn btn-sm btn-success rounded-pill shadow-sm d-flex align-items-center gap-2"
                                                             target="_blank" title="Ajouter, Modifier, Supprimer des localités">
                                                             <i class="bi bi-plus-circle-fill fs-5"></i>
                                                             Gérer les localités
+                                                        </a> --}}
+                                                        <a href="{{ route('showLocalite', ['uuid' => $operateur?->uuid]) }}"
+                                                            class="btn btn-sm btn-success rounded-pill shadow-sm d-inline-flex align-items-center gap-1 px-2 py-1"
+                                                            target="_blank" title="Ajouter, Modifier, Supprimer des localités">
+                                                            <i class="bi bi-plus-circle-fill fs-6"></i>
+                                                            Gérer
                                                         </a>
                                                     @endcan
                                                 @endcan
