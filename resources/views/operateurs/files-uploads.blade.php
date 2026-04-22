@@ -5,7 +5,7 @@
             <div class="my-2 p-3 text-center">
                 @if (
                     ($user->categorie === 'Public' && $hasNinea && $hasQuitus) ||
-                        ($user->categorie !== 'Public' && $hasNinea && $hasQuitus && $hasAC && $hasContrat && $hasNF))
+                        ($user->categorie !== 'Public' && $hasNinea && $hasQuitus && $hasContrat && $hasNF))
                     <span class="text-success fw-bold fs-5">Dossier complet</span>
                 @else
                     <span class="text-danger fw-bold fs-5 d-block">Dossier incomplet !</span>
