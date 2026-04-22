@@ -340,7 +340,7 @@
             new DataTable('#table-parc-mission', {
                 ordering: true,
                 order: [
-                    [3, 'asc']
+                    [2, 'asc']
                 ], // tri par colonne "Dernière mission"
                 searching: false, // désactive la recherche
                 paging: false, // désactive la pagination
