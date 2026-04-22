@@ -5,63 +5,142 @@
         <div class="modal-content">
             <form method="POST" action="{{ route('renewOperateur') }}" enctype="multipart/form-data">
                 @csrf
+
                 <div class="card-header bg-white border-bottom text-center py-4">
                     <h4 class="text-primary fw-bold mb-0">
                         <i class="bi bi-arrow-repeat me-2 text-dark"></i> AGREMENT
                     </h4>
                 </div>
-                <div class="modal-body px-4 pt-4">
 
+                <div class="modal-body px-4 pt-4">
                     <div class="row g-3">
+
                         <div class="col-12">
-                            <label for="type_demande" class="form-label">Type demande<span
-                                    class="text-danger mx-1">*</span></label>
-                            <select name="type_demande"
+                            <label for="type_demande" class="form-label">
+                                Type demande<span class="text-danger mx-1">*</span>
+                            </label>
+
+                            <select name="type_demande" id="select-field_type_demande"
                                 class="form-select form-select-sm @error('type_demande') is-invalid @enderror"
-                                aria-label="Select" id="select-field_type_demande" data-placeholder="Choisir">
-                                <option value="{{ old('type_demande') }}">
-                                    {{ old('type_demande') }}
-                                </option>
-                                <option value="Renouvellement">
+                                aria-label="Select" data-placeholder="Choisir">
+
+                                <option value="">Choisir</option>
+
+                                <option value="Renouvellement"
+                                    {{ old('type_demande') == 'Renouvellement' ? 'selected' : '' }}>
                                     Renouvellement
                                 </option>
-                                <option value="Extension">
+
+                                <option value="Extension" {{ old('type_demande') == 'Extension' ? 'selected' : '' }}>
                                     Extension
                                 </option>
-                                <option value="Nouvelle">
+
+                                <option value="Nouvelle" {{ old('type_demande') == 'Nouvelle' ? 'selected' : '' }}>
                                     Nouvelle
                                 </option>
+
                             </select>
+
                             @error('type_demande')
                                 <span class="invalid-feedback" role="alert">
                                     <div>{{ $message }}</div>
                                 </span>
                             @enderror
-                            {{-- <div class="form-text text-muted mt-2">
-                            <i class="bi bi-info-circle me-1"></i>
-                            Sélectionnez <strong>Nouvelle</strong> si votre dernier agrément remonte à plus
-                            de 4 ans. <br>
-                            <i class="bi bi-info-circle me-1"></i>
-                            Sélectionnez <strong>Extension</strong> si votre dernier agrément remonte à
-                            moins
-                            de 4 ans.
-                        </div> --}}
                         </div>
+
                         <div class="col-12">
-                            <label for="date_quitus" class="form-label fw-semibold">Date du visa quitus</label>
-                            <input type="text" name="date_quitus" id="datepicker" value="{{ old('date_quitus') }}"
-                                class="form-control form-control-sm @error('date_quitus') is-invalid @enderror"
-                                placeholder="JJ/MM/AAAA" autocomplete="bday">
+                            <label for="date_quitus" class="form-label fw-semibold">
+                                Date du visa quitus
+                            </label>
+
+                            <input type="date" name="date_quitus" id="date_quitus"
+                                value="{{ old('date_quitus', optional($op->date_quitus)->format('Y-m-d')) }}"
+                                class="form-control form-control-sm @error('date_quitus') is-invalid @enderror">
+
                             @error('date_quitus')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+
                     </div>
                 </div>
+
                 <div class="modal-footer bg-light mt-4 py-3 px-4">
                     <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">
                         <i class="bi bi-x-circle me-1"></i> Fermer
                     </button>
+
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <i class="bi bi-check2-circle me-1"></i> Enregistrer
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{-- Pour les opérateurs rejetés ou sous réserves des années précedentes --}}
+<div class="modal fade" id="AddoperateurModalNew" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form method="POST" action="{{ route('renewOperateurNew') }}" enctype="multipart/form-data">
+                @csrf
+
+                <div class="card-header bg-white border-bottom text-center py-4">
+                    <h4 class="text-primary fw-bold mb-0">
+                        <i class="bi bi-arrow-repeat me-2 text-dark"></i>
+                        FAIRE UNE NOUVELLE DEMANDE D'AGREMENT
+                    </h4>
+                </div>
+
+                <div class="modal-body px-4 pt-4">
+                    <div class="row g-3">
+
+                        <div class="col-12">
+                            <label for="type_demande" class="form-label">
+                                Type demande<span class="text-danger mx-1">*</span>
+                            </label>
+
+                            <select name="type_demande" id="select-field_type_demande"
+                                class="form-select form-select-sm @error('type_demande') is-invalid @enderror"
+                                aria-label="Select" data-placeholder="Choisir">
+
+                                <option value="">Choisir</option>
+
+                                <option value="Nouvelle" {{ old('type_demande') == 'Nouvelle' ? 'selected' : '' }}>
+                                    Nouvelle
+                                </option>
+                            </select>
+
+                            @error('type_demande')
+                                <span class="invalid-feedback" role="alert">
+                                    <div>{{ $message }}</div>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="col-12">
+                            <label for="date_quitus" class="form-label fw-semibold">
+                                Date du visa quitus
+                            </label>
+
+                            <input type="date" name="date_quitus" id="date_quitus"
+                                value="{{ old('date_quitus', optional($op->date_quitus)->format('Y-m-d')) }}"
+                                class="form-control form-control-sm @error('date_quitus') is-invalid @enderror">
+
+                            @error('date_quitus')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer bg-light mt-4 py-3 px-4">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">
+                        <i class="bi bi-x-circle me-1"></i> Fermer
+                    </button>
+
                     <button type="submit" class="btn btn-primary btn-sm">
                         <i class="bi bi-check2-circle me-1"></i> Enregistrer
                     </button>

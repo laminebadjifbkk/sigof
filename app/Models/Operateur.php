@@ -99,7 +99,7 @@ class Operateur extends Model
         'commissionagrements_id' => 'int',
         'operateurcategories_id' => 'int',
         'fin_quitus'             => 'datetime',
-        'debut_quitus'           => 'datetime',
+        'debut_quitus'           => 'date',
         'annee_agrement'         => 'date',
     ];
 
@@ -427,5 +427,15 @@ class Operateur extends Model
     public function getDateExpirationAttribute()
     {
         return $this->date_agrement?->copy()->addYears(4);
+    }
+
+    public function getEstSousReserveAttribute()
+    {
+        return $this->statut_agrement === 'sous réserve';
+    }
+
+    public function getEstRejeteAttribute()
+    {
+        return $this->statut_agrement === 'rejeté';
     }
 }

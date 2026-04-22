@@ -416,6 +416,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::post('/addOperateur', [OperateurController::class, 'addOperateur'])->name('addOperateur');
 
         Route::post('/renewOperateur', [OperateurController::class, 'renewOperateur'])->name('renewOperateur');
+        Route::post('/renewOperateurNew', [OperateurController::class, 'renewOperateurNew'])->name('renewOperateurNew');
 
         Route::put('/Validatelistecollective/{id}', [ListecollectiveController::class, 'Validatelistecollective'])->name('Validatelistecollective');
 

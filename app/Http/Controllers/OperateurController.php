@@ -702,13 +702,12 @@ class OperateurController extends Controller
         }
 
         $this->validate($request, [
-            // Appliquer la règle conditionnellement
             "date_quitus"  => [
                 Rule::requiredIf(function () use ($user) {
                     return $user->categorie !== 'Public' || $user->statut !== 'Etablissement public';
                 }),
-                'nullable', // Permet de ne rien mettre si ce n'est pas requis
-                'date_format:d/m/Y',
+                'nullable',
+                'date_format:Y-m-d', // ✅ corrigé
             ],
             "type_demande" => "required|in:Nouvelle,Renouvellement,Extension",
         ]);
@@ -727,9 +726,6 @@ class OperateurController extends Controller
         } else {
             $diffAnnee = null;
         }
-
-        $dateString  = $request->input('date_quitus');
-        $date_quitus = ! empty($dateString) ? Carbon::createFromFormat('d/m/Y', $dateString) : null;
 
         if ($diffAnnee < 1) {
 
@@ -756,7 +752,7 @@ class OperateurController extends Controller
                 "annee_agrement"  => now()->format('Y-m-d'),
                 "rccm"            => $operateur?->registre_commerce,
                 "ninea"           => $operateur?->ninea,
-                "debut_quitus"    => $date_quitus,
+                "debut_quitus"    => $request->input('date_quitus'),
                 "departements_id" => $operateur?->departements_id,
                 "regions_id"      => $operateur?->departement?->region?->id,
                 "users_id"        => $operateur?->users_id,
@@ -843,7 +839,7 @@ class OperateurController extends Controller
                 "annee_agrement"  => now()->format('Y-m-d'),
                 "rccm"            => $operateur?->registre_commerce,
                 "ninea"           => $operateur?->ninea,
-                "debut_quitus"    => $date_quitus,
+                "debut_quitus"    => $request->input('date_quitus'),
                 "departements_id" => $operateur?->departements_id,
                 "regions_id"      => $operateur?->departement?->region?->id,
                 "users_id"        => $operateur?->users_id,
@@ -934,6 +930,117 @@ class OperateurController extends Controller
 
             return redirect()->back();
         }
+    }
+
+    public function renewOperateurNew(Request $request)
+    {
+
+        $user = Auth::user();
+
+        $operateur = $user->operateurs()->latest('id')->first();
+
+        // Vérifier s'il existe un opérateur
+        if (! $operateur || ! $operateur->annee_agrement) {
+            Alert::error('Erreur', 'Aucun agrément trouvé. Veuillez d\'abord effectuer une demande.');
+            return back();
+        }
+
+        $this->validate($request, [
+            "date_quitus"  => [
+                Rule::requiredIf(function () use ($user) {
+                    return $user->categorie !== 'Public' || $user->statut !== 'Etablissement public';
+                }),
+                'nullable',
+                'date_format:Y-m-d', // ✅ corrigé
+            ],
+            "type_demande" => "required|in:Nouvelle",
+        ]);
+
+        $op = Operateur::create([
+            "categorie"       => $operateur?->categorie,
+            "statut"          => $operateur?->statut,
+            "statut_agrement" => 'Nouveau',
+            "type_demande"    => 'Nouvelle',
+            "autre_statut"    => $operateur?->autre_statut,
+            "annee_agrement"  => now()->format('Y-m-d'),
+            "rccm"            => $operateur?->registre_commerce,
+            "ninea"           => $operateur?->ninea,
+            "debut_quitus"    => $request->input('date_quitus'),
+            "departements_id" => $operateur?->departements_id,
+            "regions_id"      => $operateur?->departement?->region?->id,
+            "users_id"        => $operateur?->users_id,
+        ]);
+
+        // Clonage des modules de l'opérateur
+        foreach ($operateur?->operateurmodules as $operateurmodule) {
+            Operateurmodule::create([
+                "module"               => $operateurmodule?->module,
+                "domaine"              => $operateurmodule?->domaine,
+                "categorie"            => $operateurmodule?->categorie,
+                "niveau_qualification" => $operateurmodule?->niveau_qualification,
+                "statut"               => $operateurmodule?->statut,
+                "operateurs_id"        => $op?->id,
+            ]);
+        }
+
+        // Clonage des références
+        foreach ($operateur?->operateureferences as $operateureference) {
+            Operateureference::create([
+                "organisme"     => $operateureference?->organisme,
+                "contact"       => $operateureference?->contact,
+                "periode"       => $operateureference?->periode,
+                "description"   => $operateureference?->description,
+                "operateurs_id" => $op?->id,
+            ]);
+        }
+
+        // Clonage des formateurs
+        foreach ($operateur?->operateurformateurs as $operateurformateur) {
+            Operateurformateur::create([
+                "name"                   => $operateurformateur?->name,
+                "domaine"                => $operateurformateur?->domaine,
+                "nbre_annees_experience" => $operateurformateur?->nbre_annees_experience,
+                "references"             => $operateurformateur?->references,
+                "operateurs_id"          => $op?->id,
+            ]);
+        }
+
+        // Clonage des équipements
+        foreach ($operateur->operateurequipements as $operateurequipement) {
+            Operateurequipement::create([
+                "designation"   => $operateurequipement?->designation,
+                "quantite"      => $operateurequipement?->quantite,
+                "etat"          => $operateurequipement?->etat,
+                "type"          => $operateurequipement?->type,
+                "operateurs_id" => $op?->id,
+            ]);
+        }
+
+        // Clonage des localités
+        foreach ($operateur?->operateurlocalites as $operateurlocalite) {
+            Operateurlocalite::create([
+                "name"          => $operateurlocalite?->name,
+                "region"        => $operateurlocalite?->region,
+                "operateurs_id" => $op?->id,
+            ]);
+        }
+
+        $commissionagrement = Commissionagrement::where('statut', 'Ouvert')->first();
+
+        if (! $commissionagrement) {
+            Alert::error('Désolé', 'Aucun agrément n\'est lancé pour le moment.');
+            return redirect()->back();
+        }
+
+        /* $operateur->commissionagrements()->syncWithoutDetaching([$commissionagrement?->id]); */
+
+        Alert::success('Succès !', 'Votre nouvelle agrément a été créé avec succès.');
+
+        // Recharge l'opérateur pour que ses relations soient à jour
+        $op->refresh(); // recharge toutes les relations si elles sont déjà chargées
+        $op->load('commissionagrements'); // ou recharge explicitement la relation
+
+        return back();
     }
 
     public function update(Request $request, Operateur $operateur)
@@ -2512,7 +2619,7 @@ class OperateurController extends Controller
             ->get();
 
         /* $operateurs = Operateur::where('users_id', $user->id)->orderByDesc('id')->get(); */
-        $operateurs = Operateur::with('commissionagrements') // ⚡ charger la relation
+        $operateurs = Operateur::with('commissionagrements') // charger la relation
             ->where('users_id', $user->id)
             ->orderByDesc('id')
             ->get();

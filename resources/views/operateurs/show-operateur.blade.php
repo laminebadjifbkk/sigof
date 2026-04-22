@@ -265,7 +265,7 @@
 
                                         {{-- STATUT --}}
                                         <div class="d-flex align-items-center">
-                                            <span class="text-muted me-2">Statut :</span>
+                                            <span class="text-muted me-2">Statut : </span>
                                             <span
                                                 class="badge {{ $op?->statut_agrement }} px-3 py-2 rounded-pill shadow-sm">
                                                 {{ $op?->statut_agrement }}
@@ -350,6 +350,14 @@
                                                                         Expiré le
                                                                         <strong>{{ $op->date_expiration?->format('d/m/Y') }}</strong>
                                                                     </small>
+                                                                </div>
+                                                            @elseif ($op->est_sous_reserve || $op->est_rejete)
+                                                                <div class="alert alert-danger p-2 mb-0 shadow-sm">
+                                                                    <button class="btn btn-success btn-sm w-100 mb-1"
+                                                                        data-bs-toggle="modal" data-bs-target="#AddoperateurModalNew">
+                                                                        <i class="bi bi-arrow-repeat"></i>
+                                                                        Nouvelle demande
+                                                                    </button>
                                                                 </div>
                                                             @elseif($op->est_renouvellement)
                                                                 <div class="alert alert-info p-2 mb-0 shadow-sm">
