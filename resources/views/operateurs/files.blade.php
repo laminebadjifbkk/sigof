@@ -23,7 +23,8 @@
                         <li><i class="bi bi-check-circle text-success me-2"></i>Quitus fiscal <span
                                 class="text-danger">*</span></li>
                         <li><i class="bi bi-check-circle text-success me-2"></i>Acte ou arrêté de création <span
-                                class="text-danger">*</span></li>
+                                class="text-danger">*</span></li> (pour établissements ou écoles de
+                        formation)</small>
                         <li><i class="bi bi-check-circle text-success me-2"></i>Convention de partenariat ou contrat de
                             location à usage professionel<span class="text-danger">*</span></li>
                         <li>
@@ -49,7 +50,8 @@
                         <li><i class="bi bi-check-circle text-muted me-2"></i>Contrat de prestation <small
                                 class="text-muted">(si disponible)</small></li>
                         <li><i class="bi bi-check-circle text-muted me-2"></i>Acte ou arrêté de création <small
-                                class="text-muted">(si disponible)</small></li>
+                                class="text-muted">(si disponible)</small>(pour établissements ou écoles de
+                            formation)</li>
                         <li><i class="bi bi-check-circle text-muted me-2"></i>Organigramme <small class="text-muted">(si
                                 disponible)</small></li>
                     </ul>
@@ -63,7 +65,8 @@
                         <li><i class="bi bi-check-circle text-success me-2"></i>Quitus fiscal <span
                                 class="text-danger">*</span></li>
                         <li><i class="bi bi-check-circle text-success me-2"></i>Acte ou arrêté de création <span
-                                class="text-danger">*</span></li>
+                                class="text-danger">*</span>(pour établissements ou écoles de
+                            formation)</li>
                         <li><i class="bi bi-check-circle  text-muted me-2"></i>Décision de nomination <small
                                 class="text-muted">(si
                                 disponible)</small></li>
@@ -81,7 +84,7 @@
 
     </div>
 
-    
+
 
 
     {{-- ================= TABLE DES FICHIERS ================= --}}
@@ -178,8 +181,7 @@
                                                         @csrf
                                                         @method('put')
 
-                                                        <input type="hidden" name="idFile"
-                                                            value="{{ $file->id }}">
+                                                        <input type="hidden" name="idFile" value="{{ $file->id }}">
 
                                                         <button class="btn btn-outline-danger btn-sm show_confirm">
                                                             <i class="bi bi-trash"></i>
