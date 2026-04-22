@@ -67,7 +67,9 @@
                                         <th>Statut</th>
                                         <th>Véhicule</th>
                                         <th class="text-center">Dernière mission</th>
-                                        <th class="text-center">En {{ now()->year }}</th>
+                                        <th class="text-center">Année {{ now()->year }}</th>
+                                        <th class="text-center">Jours (Mois)</th>
+                                        <th class="text-center">Jours (Année)</th>
                                         <th class="text-center" width="5%">Missions</th>
                                         <th class="text-center" width="5%">Actions</th>
                                     </tr>
@@ -75,26 +77,33 @@
                                 <tbody>
                                     @foreach ($chauffeurs as $chauffeur)
                                         @php
+                                        use Carbon\Carbon;
                                             // Missions de l'année
-$missions = $chauffeur->employee->parcmissions;
+                                        $missions = $chauffeur->employee->parcmissions;
 
-// Date de retour la plus récente pour tri et affichage
-$lastMission = $missions->sortByDesc('date_retour')->first();
+                                        // Date de retour la plus récente pour tri et affichage
+                                        $lastMission = $missions->sortByDesc('date_retour')->first();
 
-// Montant total des missions
-$totalMontant = $missions->sum('indemnites_total');
+                                        // Montant total des missions
+                                        $totalMontant = $missions->sum('indemnites_total');
 
-// Nombre de missions
-$missionsCount = $missions->count();
+                                        // Nombre de missions
+                                        $missionsCount = $missions->count();
 
-// Pour les checkboxes et véhicules
-$pivot = $mission->employees->find($chauffeur->employee_id)?->pivot;
-$isChecked = $missionChauffeurs
-    ->pluck('id')
-    ->contains($chauffeur->employee_id);
+                                        // Pour les checkboxes et véhicules
+                                        $pivot = $mission->employees->find($chauffeur->employee_id)?->pivot;
+                                        $isChecked = $missionChauffeurs
+                                            ->pluck('id')
+                                            ->contains($chauffeur->employee_id);
 
-// Pour modal : 5 dernières missions
-$lastMissions = $missions->sortByDesc('date_depart')->take(5);
+                                        // Pour modal : 5 dernières missions
+                                        $lastMissions = $missions->sortByDesc('date_depart')->take(5);
+
+                                        // Nombre de jours dans le mois en cours
+                                        $daysInMonth = Carbon::now()->daysInMonth;
+
+                                        // Nombre de jours dans l'année en cours
+                                        $daysInYear = Carbon::now()->isLeapYear() ? 366 : 365;
                                         @endphp
                                         <tr>
                                             {{-- Checkbox Chauffeur --}}
@@ -143,6 +152,13 @@ $lastMissions = $missions->sortByDesc('date_depart')->take(5);
                                                 </span>
                                             </td>
 
+                                            <td class="text-center">
+                                                <span class="badge bg-primary">{{ $daysInMonth }}</span>
+                                            </td>
+
+                                            <td class="text-center">
+                                                <span class="badge bg-dark">{{ $daysInYear }}</span>
+                                            </td>
                                             {{-- Nombre de missions --}}
                                             <td class="text-center">
                                                 <span class="badge bg-secondary">{{ $missionsCount }}</span>
