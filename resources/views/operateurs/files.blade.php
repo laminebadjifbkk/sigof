@@ -23,7 +23,7 @@
                         <li><i class="bi bi-check-circle text-success me-2"></i>Quitus fiscal <span
                                 class="text-danger">*</span></li>
                         <li><i class="bi bi-check-circle text-success me-2"></i>Acte ou arrêté de création <span
-                                class="text-danger">*</span><small class="text-muted">(pour établissements ou écoles de
+                                class="text-danger">*</span><small class="text-muted">(pour les établissements ou écoles de
                                 formation)</small></li>
                         <li><i class="bi bi-check-circle text-success me-2"></i>Convention de partenariat ou contrat de
                             location à usage professionel<span class="text-danger">*</span></li>
@@ -41,7 +41,7 @@
                             la Direction générale des Imôts <span class="text-danger">*</span> <small
                                 class="text-muted">(pour les structures nouvellement crées)</small></li>
                         <li><i class="bi bi-check-circle text-success me-2"></i>Autorisation d'ouverture ministérielle <span
-                                class="text-danger">*</span> <small class="text-muted">(pour établissements ou écoles de
+                                class="text-danger">*</span> <small class="text-muted">(pour les établissements ou écoles de
                                 formation)</small></li>
                         <li><i class="bi bi-check-circle text-muted me-2"></i>Attestation de bonne exécution (ABE) <small
                                 class="text-muted">(si disponible)</small></li>
@@ -66,7 +66,7 @@
                         <li><i class="bi bi-check-circle text-success me-2"></i>Quitus fiscal <span
                                 class="text-danger">*</span></li>
                         <li><i class="bi bi-check-circle text-success me-2"></i>Acte ou arrêté de création <span
-                                class="text-danger">*</span><small class="text-muted">(pour établissements ou écoles de
+                                class="text-danger">*</span><small class="text-muted">(pour les établissements ou écoles de
                                 formation)</small></li>
                         <li><i class="bi bi-check-circle  text-muted me-2"></i>Décision de nomination <small
                                 class="text-muted">(si
