@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Operateureference;
@@ -13,7 +14,7 @@ class OperateureferenceController extends Controller
             "organisme"   => ["required", "string"],
             "contact"     => ['required', 'size:9'], // Assuming contact is a phone number with 12 digits
             "periode"     => ["required", "string"],
-            "description" => ["required", "string"],
+            "description" => ["required", "string", "max:500"],
         ]);
 
         $operateureference = Operateureference::create([
@@ -36,7 +37,7 @@ class OperateureferenceController extends Controller
             "organisme"   => ["required", "string"],
             "contact"     => ["required", "size:9"], // Assuming contact is a phone number with 12 digits
             "periode"     => ["required", "string"],
-            "description" => ["required", "string"],
+            "description" => ["required", "string", "max:500"],
         ]);
 
         $operateureference = Operateureference::findOrFail($id);

@@ -13,7 +13,7 @@ class OperateurformateurController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            "name"                   => ["required", "string"],
+            "name"                   => ["required", "string", "max:255"],
             "domaine"                => ["required", "string"],
             "nbre_annees_experience" => ["required", "string"],
             "reference"              => ["nullable", "string"],
@@ -53,7 +53,7 @@ class OperateurformateurController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            "name"                   => ["required", "string"],
+            "name"                   => ["required", "string", "max:255"],
             "domaine"                => ["required", "string"],
             "nbre_annees_experience" => ["required", "string"],
             "reference"              => ["nullable", "string"],
