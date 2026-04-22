@@ -14,9 +14,9 @@ class OperateurformateurController extends Controller
     {
         $this->validate($request, [
             "name"                   => ["required", "string", "max:255"],
-            "domaine"                => ["required", "string"],
-            "nbre_annees_experience" => ["required", "string"],
-            "reference"              => ["nullable", "string"],
+            "domaine"                => ["required", "string", "max:255"],
+            "nbre_annees_experience" => ["required", "string", "max:10"],
+            "reference"              => ["nullable", "string", "max:255"],
             "cv"                     => ['file', 'sometimes', 'mimes:jpeg,png,jpg,gif,svg,pdf', 'max:2048'],
         ]);
 
@@ -54,9 +54,9 @@ class OperateurformateurController extends Controller
     {
         $this->validate($request, [
             "name"                   => ["required", "string", "max:255"],
-            "domaine"                => ["required", "string"],
-            "nbre_annees_experience" => ["required", "string"],
-            "reference"              => ["nullable", "string"],
+            "domaine"                => ["required", "string", "max:255"],
+            "nbre_annees_experience" => ["required", "string", "max:10"],
+            "reference"              => ["nullable", "string", "max:255"],
             "cv"                     => ['file', 'sometimes', 'mimes:jpeg,png,jpg,gif,svg,pdf', 'max:2048'],
         ]);
 
