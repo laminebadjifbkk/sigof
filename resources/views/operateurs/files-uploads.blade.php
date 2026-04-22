@@ -9,7 +9,7 @@
                 )
                     <span class="text-success fw-bold fs-5">Dossier complet</span>
                 @else
-                    <span class="text-danger fw-bold fs-5 d-block">Dossier incomplet !</span>
+                    <span class="text-danger fw-bold fs-5 d-block">Dossier incomple !</span>
                     <div class="text-danger fs-6 mt-2">
                         @if (!$hasNinea)
                             Veuillez téléverser le NINEA.<br>
