@@ -5,11 +5,10 @@
             <div class="my-2 p-3 text-center">
                 @if (
                     ($user->categorie === 'Public' && $hasNinea && $hasQuitus) ||
-                    ($user->categorie !== 'Public' && $hasNinea && $hasQuitus && $hasAC && $hasContrat && $hasNF)
-                )
+                        ($user->categorie !== 'Public' && $hasNinea && $hasQuitus && $hasAC && $hasContrat && $hasNF))
                     <span class="text-success fw-bold fs-5">Dossier complet</span>
                 @else
-                    <span class="text-danger fw-bold fs-5 d-block">Dossier incomple !</span>
+                    <span class="text-danger fw-bold fs-5 d-block">Dossier incomplet !</span>
                     <div class="text-danger fs-6 mt-2">
                         @if (!$hasNinea)
                             Veuillez téléverser le NINEA.<br>
@@ -19,7 +18,9 @@
                         @endif
                         @if ($user->categorie !== 'Public')
                             @if (!$hasAC)
-                                Acte de création est requis.<br>
+                                Acte de création est requis.<small class="text-muted">(pour les établissements ou écoles
+                                    de
+                                    formation)</small><br>
                             @endif
                             @if (!$hasContrat)
                                 Contrat de location requis.<br>
@@ -44,8 +45,8 @@
                 </h5>
             </div>
             <div class="card-body">
-                <form method="POST" action="{{ route('files.update', $user) }}"
-                      enctype="multipart/form-data" class="row g-3">
+                <form method="POST" action="{{ route('files.update', $user) }}" enctype="multipart/form-data"
+                    class="row g-3">
                     @csrf
                     @method('patch')
 
@@ -57,7 +58,7 @@
                             Légende <span class="text-danger">*</span>
                         </label>
                         <select name="legende" class="form-select @error('legende') is-invalid @enderror"
-                                id="select-field-file">
+                            id="select-field-file">
                             <option value="">Choisir un document</option>
                             @foreach ($user_files as $file)
                                 <option value="{{ $file->id }}">
@@ -66,7 +67,7 @@
                             @endforeach
                         </select>
                         @error('legende')
-                        <div class="invalid-feedback">{{ $message }}</div>
+                            <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
@@ -77,7 +78,7 @@
                         </label>
                         <input type="file" name="file" class="form-control @error('file') is-invalid @enderror">
                         @error('file')
-                        <div class="text-danger small">{{ $message }}</div>
+                            <div class="text-danger small">{{ $message }}</div>
                         @enderror
                     </div>
 
