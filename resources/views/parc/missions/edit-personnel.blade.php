@@ -63,13 +63,13 @@
                             <table class="table table-bordered" id="table-parc-mission">
                                 <thead>
                                     <tr>
-                                        <th>Chauffeur</th>
-                                        <th>Statut</th>
+                                        <th>Chauffeurs</th>
+                                        {{-- <th>Statut</th> --}}
                                         <th>Véhicule</th>
                                         <th class="text-center">Dernière mission</th>
-                                        <th class="text-center">Année {{ now()->year }}</th>
-                                        <th class="text-center">Jours (Mois)</th>
-                                        <th class="text-center">Jours (Année)</th>
+                                        <th class="text-center">Gain {{ now()->year }}</th>
+                                        <th class="text-center">Nbre jours mois en cours</th>
+                                        <th class="text-center">Nbre jours {{ now()->year }}</th>
                                         <th class="text-center" width="5%">Missions</th>
                                         <th class="text-center" width="5%">Actions</th>
                                     </tr>
@@ -77,7 +77,6 @@
                                 <tbody>
                                     @foreach ($chauffeurs as $chauffeur)
                                         @php
-                                        use Carbon\Carbon;
                                             // Missions de l'année
                                         $missions = $chauffeur->employee->parcmissions;
 
@@ -98,12 +97,22 @@
 
                                         // Pour modal : 5 dernières missions
                                         $lastMissions = $missions->sortByDesc('date_depart')->take(5);
+                                        $missions = $chauffeur->employee->parcmissions;
 
-                                        // Nombre de jours dans le mois en cours
-                                        $daysInMonth = Carbon::now()->daysInMonth;
+                                            // Missions de l'année en cours
+                                            $missionsYear = $missions->filter(function ($mission) {
+                                                return $mission->date_depart->year === now()->year;
+                                            });
 
-                                        // Nombre de jours dans l'année en cours
-                                        $daysInYear = Carbon::now()->isLeapYear() ? 366 : 365;
+                                            // Missions du mois en cours
+                                            $missionsMonth = $missions->filter(function ($mission) {
+                                                return $mission->date_depart->month === now()->month
+                                                    && $mission->date_depart->year === now()->year;
+                                            });
+
+                                            // Comptages
+                                            $missionsYearCount = $missionsYear->count();
+                                            $missionsMonthCount = $missionsMonth->count();
                                         @endphp
                                         <tr>
                                             {{-- Checkbox Chauffeur --}}
@@ -114,11 +123,11 @@
                                                 {{ $chauffeur->employee->user->firstname }}
                                                 {{ $chauffeur->employee->user->name }}
                                             </td>
-                                            <td>
+                                            {{-- <td>
                                                 <span class="etat-btn {{ $chauffeur?->statut }}">
                                                     {{ ucfirst(str_replace('fie', 'fié', str_replace('_', ' ', $chauffeur->statut))) }}
                                                 </span>
-                                            </td>
+                                            </td> --}}
 
                                             {{-- Select Véhicule --}}
                                             <td>
@@ -152,13 +161,16 @@
                                                 </span>
                                             </td>
 
+                                            {{-- Missions du mois --}}
                                             <td class="text-center">
-                                                <span class="badge bg-primary">{{ $daysInMonth }}</span>
+                                                <span class="badge bg-primary">{{ $missionsMonthCount }}</span>
                                             </td>
 
+                                            {{-- Missions de l'année --}}
                                             <td class="text-center">
-                                                <span class="badge bg-dark">{{ $daysInYear }}</span>
+                                                <span class="badge bg-success">{{ $missionsYearCount }}</span>
                                             </td>
+
                                             {{-- Nombre de missions --}}
                                             <td class="text-center">
                                                 <span class="badge bg-secondary">{{ $missionsCount }}</span>
