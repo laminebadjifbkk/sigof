@@ -940,12 +940,14 @@
                                                                     title="Justification"></i>&nbsp;sous réserve
                                                             </button>
                                                         </div> --}}
-                                                        <button class="btn btn-sm mx-1" data-bs-toggle="modal"
-                                                            data-bs-target="#RejetAgrementModal{{ $operateur->id }}"><i
-                                                                class="bi bi-check2-circle"
-                                                                title="Agrément"></i>&nbsp;Validation opérateurs
-                                                        </button>
-                                                        <form
+                                                        <li>
+                                                            <button class="btn btn-sm mx-1" data-bs-toggle="modal"
+                                                                data-bs-target="#RejetAgrementModal{{ $operateur->id }}"><i
+                                                                    class="bi bi-check2-circle"
+                                                                    title="Agrément"></i>&nbsp;Validation opérateurs
+                                                            </button>
+                                                        </li>
+                                                        {{-- <form
                                                             action="{{ route('agreerAllModuleOperateur', ['id' => $operateur->id]) }}"
                                                             method="post">
                                                             @csrf
@@ -953,7 +955,14 @@
                                                             <button class="show_confirm_valider btn btn-sm mx-1"><i
                                                                     class="bi bi-check2-circle"
                                                                     title="Valider"></i>&nbsp;Validation modules</button>
-                                                        </form>
+                                                        </form> --}}
+                                                        <li>
+                                                            <button class="btn btn-sm mx-1" data-bs-toggle="modal"
+                                                                data-bs-target="#ValidationModuleModal{{ $operateur->id }}"><i
+                                                                    class="bi bi-check2-circle"
+                                                                    title="Agrément"></i>&nbsp;Validation modules
+                                                            </button>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </span>
@@ -1487,6 +1496,9 @@
                                         <option value="expiré" {{ $selectedStatut === 'expiré' ? 'selected' : '' }}>
                                             expiré
                                         </option>
+                                        <option value="Nouveau" {{ $selectedStatut === 'Nouveau' ? 'selected' : '' }}>
+                                            Nouveau
+                                        </option>
                                     </select>
                                     @error('statut')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -1667,6 +1679,75 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
+                        </div>
+
+                        <div class="modal-footer border-top-0">
+                            <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">
+                                Fermer
+                            </button>
+                            <button type="submit" class="btn btn-info btn-sm">
+                                Enregistrer
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="ValidationModuleModal{{ $operateur->id }}" tabindex="-1"
+            aria-labelledby="RejetAgrementModalLabel{{ $operateur->id }}" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content shadow-lg rounded-3">
+                    <form method="POST" action="{{ route('agreerAllModuleOperateur', ['id' => $operateur?->id]) }}">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-header bg-light border-bottom-0">
+                            <h5 class="modal-title fw-bold text-info" id="ValidationModuleModal{{ $operateur->id }}">
+                                Traitement module agrément
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Fermer"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            {{-- Champ Statut --}}
+                            <div class="mb-3">
+                                <label for="statut-{{ $operateur->id }}" class="form-label">
+                                    Statut de la demande <span class="text-danger">*</span>
+                                </label>
+                                @php
+                                    $selectedStatut = old('statut') ?? $operateur->statut_agrement;
+                                @endphp
+
+                                <select name="statut" id="statut-{{ $operateur->id }}"
+                                    class="form-select form-select-sm @error('statut') is-invalid @enderror" autofocus>
+
+                                    <option value="" disabled {{ empty($selectedStatut) ? 'selected' : '' }}>
+                                        -- Sélectionner un statut --
+                                    </option>
+
+                                    <option value="agréé" {{ $selectedStatut === 'agréé' ? 'selected' : '' }}>
+                                        agréé
+                                    </option>
+                                    <option value="sous réserve"
+                                        {{ $selectedStatut === 'sous réserve' ? 'selected' : '' }}>
+                                        sous réserve
+                                    </option>
+                                    <option value="rejeté" {{ $selectedStatut === 'rejeté' ? 'selected' : '' }}>
+                                        rejeté
+                                    </option>
+                                    <option value="Nouveau" {{ $selectedStatut === 'Nouveau' ? 'selected' : '' }}>
+                                        Nouveau
+                                    </option>
+                                    <option value="expiré" {{ $selectedStatut === 'expiré' ? 'selected' : '' }}>
+                                        expiré
+                                    </option>
+                                </select>
+                                @error('statut')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
                         </div>
 
                         <div class="modal-footer border-top-0">

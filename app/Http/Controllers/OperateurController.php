@@ -2310,14 +2310,14 @@ class OperateurController extends Controller
         }
     }
 
-    public function agreerAllModuleOperateur($id)
+    public function agreerAllModuleOperateur(Request $request, $id)
     {
         $operateur = Operateur::findOrFail($id);
 
         foreach ($operateur->operateurmodules as $key => $operateurmodule) {
 
             $operateurmodule->update([
-                'statut'   => 'agréé',
+                'statut'   => $request->statut,
                 'users_id' => Auth::user()->id,
             ]);
 
