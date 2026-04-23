@@ -1025,7 +1025,7 @@
                                                                                 data-bs-toggle="modal"
                                                                                 data-bs-target="#EditOperateurmoduleModal{{ $operateurmodule->id }}">modifier
                                                                             </button>
-                                                                            <form
+                                                                            {{-- <form
                                                                                 action="{{ route('operateurmodules.destroy', $operateurmodule->id) }}"
                                                                                 method="post">
                                                                                 @csrf
@@ -1033,7 +1033,19 @@
                                                                                 <button type="submit"
                                                                                     class="dropdown-item show_confirm"
                                                                                     title="Supprimer">supprimer</button>
+                                                                            </form> --}}
+
+
+                                                                            <form
+                                                                                action="{{ route('operateurmodules.destroy', $operateurmodule) }}"
+                                                                                method="post">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                                <button type="submit"
+                                                                                    class="dropdown-item show_confirm"
+                                                                                    title="Supprimer">&nbsp;Supprimer</button>
                                                                             </form>
+
                                                                         </ul>
                                                                     </div>
                                                                 </span>

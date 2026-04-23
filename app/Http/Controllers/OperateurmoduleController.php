@@ -158,7 +158,6 @@ class OperateurmoduleController extends Controller
     public function destroy(Operateurmodule $operateurmodule)
     {
         /* $operateurmodule = Operateurmodule::find($id); */
-
         foreach (Auth::user()->roles as $role) {
             if (! empty($role?->name) && ($role?->name == 'super-admin')) {
                 Alert::success('Succès !', 'Le module a été supprimé avec succès');
