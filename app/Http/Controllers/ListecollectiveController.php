@@ -130,7 +130,7 @@ class ListecollectiveController extends Controller
             "civilite"       => "required|string",
             "firstname"      => "required|string",
             "name"           => "required|string",
-            'date_naissance' => ['required', 'date'],
+            'date_naissance' => ['required', 'regex:/^\d{2}\/\d{2}\/\d{4}$/'],
             "lieu_naissance" => "required|string",
             "module"         => "required|string",
             "niveau_etude"   => "required|string",
