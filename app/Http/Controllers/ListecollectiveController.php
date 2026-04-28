@@ -167,9 +167,9 @@ class ListecollectiveController extends Controller
 
         $inputDate = $request->input('date_naissance');
 
-        if (preg_match('/^00\/00\/\d{4}$/', $inputDate)) {
+       /*  if (preg_match('/^00\/00\/\d{4}$/', $inputDate)) {
             $date_naissance = null; // ou stocker l’année séparément
-        } else {
+        } else { */
             try {
                 $date_naissance = Carbon::createFromFormat('d/m/Y', $inputDate);
             } catch (\Exception $e) {
@@ -177,7 +177,9 @@ class ListecollectiveController extends Controller
                     'date_naissance' => 'Date invalide.'
                 ])->withInput();
             }
-        }
+       /*  } */
+
+       dd($date_naissance);
         // 🔹 Mise à jour du membre
         $listecollective->update([
             'cin'                  => $data['cin'], // stocké sans espace
