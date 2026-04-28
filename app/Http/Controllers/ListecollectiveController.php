@@ -163,7 +163,21 @@ class ListecollectiveController extends Controller
             ])->withInput();
         }
  */
-        $date_naissance = Carbon::parse($request->input('date_naissance'));
+        /* $date_naissance = Carbon::parse($request->input('date_naissance')); */
+
+        $inputDate = $request->input('date_naissance');
+
+        if ($inputDate === '00/00/1985') {
+            $date_naissance = null; // ou une valeur spéciale
+        } else {
+            try {
+                $date_naissance = Carbon::createFromFormat('d/m/Y', $inputDate);
+            } catch (\Exception $e) {
+                return back()->withErrors([
+                    'date_naissance' => 'Date invalide.'
+                ])->withInput();
+            }
+        }
         // 🔹 Mise à jour du membre
         $listecollective->update([
             'cin'                  => $data['cin'], // stocké sans espace
