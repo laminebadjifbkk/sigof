@@ -170,7 +170,7 @@
                                     <div class="col-12 col-md-4 mb-0">
                                         <label for="date_naissance" class="form-label">Date naissance<span
                                                 class="text-danger mx-1">*</span></label>
-                                        <input type="text" name="date_naissance" min="00"
+                                        <input type="text" name="date_naissance"
                                             value="{{ old('date_naissance', optional($listecollective?->date_naissance)->format('d/m/Y')) }}"
                                             class="form-control form-control-sm @error('date_naissance') is-invalid @enderror"
                                             id="datepicker" placeholder="JJ/MM/AAAA" autocomplete="bday">
