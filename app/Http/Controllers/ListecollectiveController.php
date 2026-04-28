@@ -130,7 +130,7 @@ class ListecollectiveController extends Controller
             "civilite"       => "required|string",
             "firstname"      => "required|string",
             "name"           => "required|string",
-            'date_naissance' => ['required', 'date', 'date_format:d/m/Y'],
+            'date_naissance' => ['required', 'date'],
             "lieu_naissance" => "required|string",
             "module"         => "required|string",
             "niveau_etude"   => "required|string",
@@ -155,14 +155,15 @@ class ListecollectiveController extends Controller
         // 🔹 Conversion de la date
         /* $date_naissance = Carbon::createFromFormat('d/m/Y', $request->input('date_naissance')); */
 
-        try {
+        /* try {
             $date_naissance = Carbon::createFromFormat('d/m/Y', $request->input('date_naissance'));
         } catch (\Exception $e) {
             return back()->withErrors([
                 'date_naissance' => 'Date invalide.'
             ])->withInput();
         }
-
+ */
+        $date_naissance = Carbon::parse($request->input('date_naissance'));
         // 🔹 Mise à jour du membre
         $listecollective->update([
             'cin'                  => $data['cin'], // stocké sans espace

@@ -171,9 +171,8 @@
                                         <label for="date_naissance" class="form-label">Date naissance<span
                                                 class="text-danger mx-1">*</span></label>
                                         <input type="date" name="date_naissance"
-                                            value="{{ old('date_naissance', optional($listecollective?->date_naissance)->format('d/m/Y')) }}"
-                                            class="form-control form-control-sm @error('date_naissance') is-invalid @enderror"
-                                            id="datepicker" placeholder="JJ/MM/AAAA" autocomplete="bday">
+                                            value="{{ old('date_naissance', optional($listecollective?->date_naissance)->format('Y-m-d')) }}"
+                                            class="form-control form-control-sm @error('date_naissance') is-invalid @enderror">
                                         @error('date_naissance')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
