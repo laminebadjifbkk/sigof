@@ -124,10 +124,19 @@ class ParcMission extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    public function getNuiteesAttribute()
+    /* public function getNuiteesAttribute()
     {
         return Carbon::parse($this->date_depart)
             ->diffInDays(Carbon::parse($this->date_retour));
+    } */
+
+    public function getNuiteesAttribute()
+    {
+        return Carbon::parse($this->date_depart)
+            ->startOfDay()
+            ->diffInDays(
+                Carbon::parse($this->date_retour)->startOfDay()
+            );
     }
 
     public function getNuiteesParMoisAttribute()
