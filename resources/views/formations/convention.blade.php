@@ -26,7 +26,7 @@
                                     <tr>
                                         <th width='18%' class="text-center">N° Convention.</th>
                                         {{-- <th width='12%' class="text-center">Date Conv.</th> --}}
-                                        {{-- <th width='15%'>Type formation</th> --}}
+                                        {{-- <th width='15%'>Type demande</th> --}}
                                         <th>Bénéficiaires</th>
                                         <th width='10%'>Région</th>
                                         <th width='15%'>Modules</th>

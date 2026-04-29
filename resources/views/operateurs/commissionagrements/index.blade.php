@@ -381,8 +381,8 @@
                                             <option value="{{ $commissionagrement?->session ?? old('session') }}">
                                                 {{ $commissionagrement?->session ?? old('session') }}
                                             </option>
-                                            <option value="Normale">
-                                                Normale
+                                            <option value="Ordinaire">
+                                                Ordinaire
                                             </option>
                                             <option value="Remplacement">
                                                 Remplacement

@@ -24,7 +24,7 @@
                                         <thead>
                                             <tr>
                                                 <th width="2%" class="text-center">Code</th>
-                                                <th width="15%">Type formation</th>
+                                                <th width="15%">Type demande</th>
                                                 <th width="15%">Localité</th>
                                                 <th width="5%">Modules</th>
                                                 <th width="15%">Niveau qualification</th>

@@ -383,7 +383,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#detfs-nav" href="#">
                     <i class="bi bi-folder"></i>
-                    <span>Création DETF</span>
+                    <span>Gestion DETF</span>
                     <i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="detfs-nav" class="nav-content collapse {{ $activeDetfs ? 'show' : '' }}"

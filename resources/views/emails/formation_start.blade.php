@@ -58,7 +58,7 @@
     <ul>
         <li><strong>Intitulé :</strong>
             {{ $formation?->intitule ?? 'Non disponible' }}</li>
-        <li><strong>Type formation :</strong> {{ $formation?->types_formation?->name ?? 'Non disponible' }}</li>
+        <li><strong>Type demande :</strong> {{ $formation?->types_formation?->name ?? 'Non disponible' }}</li>
         <li><strong>Bénéficiaires :</strong> {{ $formation?->name }}</li>
         <li><strong>Lieu :</strong> {{ $formation?->lieu }}</li>
         {{-- <li><strong>Période :</strong>

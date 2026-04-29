@@ -106,7 +106,7 @@
                                     </div>
 
                                     <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                        <label for="types_formation" class="form-label">Type formation<span
+                                        <label for="types_formation" class="form-label">Type demande<span
                                                 class="text-danger mx-1">*</span></label>
                                         <select name="types_formation"
                                             class="form-select  @error('types_formation') is-invalid @enderror"

@@ -42,7 +42,7 @@
             {{ $formation?->intitule ?? '-' }}
         </li>
 
-        <li><strong>Type formation :</strong>
+        <li><strong>Type demande :</strong>
             {{ $formation?->types_formation?->name ?? '-' }}
         </li>
 
@@ -167,7 +167,7 @@
                                 </tr>
 
                                 <tr>
-                                    <td><strong>Type formation</strong></td>
+                                    <td><strong>Type demande</strong></td>
                                     <td>{{ $formation?->types_formation?->name ?? '-' }}</td>
                                 </tr>
 

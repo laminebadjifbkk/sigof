@@ -58,7 +58,7 @@
                                 </tr>
 
                                 <tr>
-                                    <td><strong>Type formation</strong></td>
+                                    <td><strong>Type demande</strong></td>
                                     <td>{{ $formation?->types_formation?->name ?? '-' }}</td>
                                 </tr>
 

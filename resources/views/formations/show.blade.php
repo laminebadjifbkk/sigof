@@ -119,7 +119,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-12 col-md-3 mb-0">
-                                                <div class="label">Type formation</div>
+                                                <div class="label">Type demande</div>
                                                 <div>{{ $formation?->types_formation?->name }}</div>
                                             </div>
                                             <div class="col-12 col-md-3 mb-0">
