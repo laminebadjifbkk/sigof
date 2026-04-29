@@ -519,7 +519,7 @@
                                             en ligne.</span></li>
                                 </ul>
                                 <p>
-                                    En résumé, le ONFP est un outil stratégique qui modernise et professionnalise la
+                                    En résumé, l'ONFP est un outil stratégique qui modernise et professionnalise la
                                     gestion des activités de formation de l'ONFP, améliorant ainsi l'efficacité et la
                                     qualité des services offerts.
                                 </p>
