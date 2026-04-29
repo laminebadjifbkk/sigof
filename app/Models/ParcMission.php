@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class ParcMission extends Model
 {
@@ -121,5 +122,53 @@ class ParcMission extends Model
     public function creator()
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function getNuiteesAttribute()
+    {
+        return Carbon::parse($this->date_depart)
+            ->diffInDays(Carbon::parse($this->date_retour));
+    }
+
+    public function getNuiteesParMoisAttribute()
+    {
+        if (!$this->date_depart || !$this->date_retour) {
+            return [];
+        }
+
+        $debut = Carbon::parse($this->date_depart)->startOfDay();
+        $fin = Carbon::parse($this->date_retour)->startOfDay();
+
+        $result = [];
+
+        $current = $debut->copy();
+
+        while ($current < $fin) {
+            $finMois = $current->copy()->endOfMonth()->addDay();
+            $segmentFin = $fin < $finMois ? $fin : $finMois;
+
+            $nuitees = $current->diffInDays($segmentFin);
+
+            $mois = $current->format('Y-m');
+
+            $result[$mois] = ($result[$mois] ?? 0) + $nuitees;
+
+            $current = $segmentFin;
+        }
+
+        return $result;
+    }
+
+    public function getNuiteesParAnAttribute()
+    {
+        $result = [];
+
+        foreach ($this->nuitees_par_mois as $mois => $nb) {
+            $annee = substr($mois, 0, 4);
+
+            $result[$annee] = ($result[$annee] ?? 0) + $nb;
+        }
+
+        return $result;
     }
 }

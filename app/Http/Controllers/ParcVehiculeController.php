@@ -54,7 +54,7 @@ class ParcVehiculeController extends Controller
 
     public function show($id)
     {
-        $vehicule = ParcVehicule::findOrFail($id);
+        $vehicule = ParcVehicule::with('missions')->findOrFail($id);
 
         // Compter les missions du véhicule dans l'année en cours
         $vehiculeMissionsCount = $vehicule->missions()

@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\CarbonPeriod;
 
 /**
  * Class Mission
@@ -50,8 +51,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class Mission extends Model
 {
-	
-    use HasFactory;
+
+	use HasFactory;
 	use SoftDeletes;
 	use \App\Helpers\UuidForKey;
 	protected $table = 'missions';
@@ -117,4 +118,11 @@ class Mission extends Model
 	{
 		return $this->belongsTo(Vehicule::class, 'vehicules_id');
 	}
+
+	public function getNuiteesAttribute()
+	{
+		return Carbon::parse($this->date_debut)
+			->diffInDays(Carbon::parse($this->date_fin));
+	}
+
 }

@@ -68,8 +68,8 @@
                                         <th>Véhicule</th>
                                         <th class="text-center">Dernière mission</th>
                                         <th class="text-center">Gain-{{ now()->year }}</th>
-                                        <th class="text-center">NBJ-{{ now()->month }}</th>
-                                        <th class="text-center">NBJ-{{ now()->year }}</th>
+                                        <th class="text-center">NB Nuitées - Mois</th>
+                                        <th class="text-center">NB Nuitées - Année</th>
                                         <th class="text-center" width="5%">Missions</th>
                                         <th class="text-center" width="5%">Actions</th>
                                     </tr>
@@ -78,41 +78,59 @@
                                     @foreach ($chauffeurs as $chauffeur)
                                         @php
                                             // Missions de l'année
-                                        $missions = $chauffeur->employee->parcmissions;
+$missions = $chauffeur->employee->parcmissions;
 
-                                        // Date de retour la plus récente pour tri et affichage
-                                        $lastMission = $missions->sortByDesc('date_retour')->first();
+// Date de retour la plus récente pour tri et affichage
+$lastMission = $missions->sortByDesc('date_retour')->first();
 
-                                        // Montant total des missions
-                                        $totalMontant = $missions->sum('indemnites_total');
+// Montant total des missions
+$totalMontant = $missions->sum('indemnites_total');
 
-                                        // Nombre de missions
-                                        $missionsCount = $missions->count();
+// Nombre de missions
+$missionsCount = $missions->count();
 
-                                        // Pour les checkboxes et véhicules
-                                        $pivot = $mission->employees->find($chauffeur->employee_id)?->pivot;
-                                        $isChecked = $missionChauffeurs
-                                            ->pluck('id')
-                                            ->contains($chauffeur->employee_id);
+// Pour les checkboxes et véhicules
+$pivot = $mission->employees->find($chauffeur->employee_id)?->pivot;
+$isChecked = $missionChauffeurs
+    ->pluck('id')
+    ->contains($chauffeur->employee_id);
 
-                                        // Pour modal : 5 dernières missions
-                                        $lastMissions = $missions->sortByDesc('date_depart')->take(5);
-                                        $missions = $chauffeur->employee->parcmissions;
+// Pour modal : 5 dernières missions
+$lastMissions = $missions->sortByDesc('date_depart')->take(5);
+$missions = $chauffeur->employee->parcmissions;
 
-                                            // Missions de l'année en cours
+// Missions de l'année en cours
                                             $missionsYear = $missions->filter(function ($mission) {
                                                 return $mission->date_depart->year === now()->year;
                                             });
 
                                             // Missions du mois en cours
                                             $missionsMonth = $missions->filter(function ($mission) {
-                                                return $mission->date_depart->month === now()->month
-                                                    && $mission->date_depart->year === now()->year;
+                                                return $mission->date_depart->month === now()->month &&
+                                                    $mission->date_depart->year === now()->year;
                                             });
 
                                             // Comptages
                                             $missionsYearCount = $missionsYear->count();
                                             $missionsMonthCount = $missionsMonth->count();
+
+                                            $nuiteesParMois = [];
+                                            $nuiteesParAn = [];
+
+                                            foreach ($missions as $mission) {
+                                                foreach ($mission->nuitees_par_mois as $mois => $nb) {
+                                                    $nuiteesParMois[$mois] = ($nuiteesParMois[$mois] ?? 0) + $nb;
+                                                }
+
+                                                foreach ($mission->nuitees_par_an as $anneeKey => $nb) {
+                                                    $nuiteesParAn[$anneeKey] = ($nuiteesParAn[$anneeKey] ?? 0) + $nb;
+                                                }
+                                            }
+                                            $currentMonth = now()->format('Y-m');
+                                            $currentYear = now()->year;
+
+                                            $nuiteesMonthCount = $nuiteesParMois[$currentMonth] ?? 0;
+                                            $nuiteesYearCount = $nuiteesParAn[$currentYear] ?? 0;
                                         @endphp
                                         <tr>
                                             {{-- Checkbox Chauffeur --}}
@@ -162,13 +180,25 @@
                                             </td>
 
                                             {{-- Missions du mois --}}
-                                            <td class="text-center">
+                                            {{-- <td class="text-center">
                                                 <span class="badge bg-primary">{{ $missionsMonthCount }}</span>
-                                            </td>
+                                            </td> --}}
 
                                             {{-- Missions de l'année --}}
-                                            <td class="text-center">
+                                            {{-- <td class="text-center">
                                                 <span class="badge bg-success">{{ $missionsYearCount }}</span>
+                                            </td> --}}
+
+                                            <td class="text-center">
+                                                <span class="badge bg-warning text-dark">
+                                                    {{ $nuiteesMonthCount }}
+                                                </span>
+                                            </td>
+
+                                            <td class="text-center">
+                                                <span class="badge bg-dark">
+                                                    {{ $nuiteesYearCount }}
+                                                </span>
                                             </td>
 
                                             {{-- Nombre de missions --}}
@@ -275,8 +305,8 @@
 
                             <div class="row mb-2 align-items-center">
                                 <div class="col-md-8">
-                                    <input type="checkbox" name="employees[{{ $employee->id }}][selected]" value="1"
-                                        {{ $pivot ? 'checked' : '' }}>
+                                    <input type="checkbox" name="employees[{{ $employee->id }}][selected]"
+                                        value="1" {{ $pivot ? 'checked' : '' }}>
                                     {{-- {{ $employee->matricule }} - --}}
                                     {{ $employee->user->name }} {{ $employee->user->firstname }},
                                     {{ $employee?->fonction?->name }}

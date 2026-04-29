@@ -326,6 +326,7 @@ class ParcMissionController extends Controller
 
     public function editPersonnel(ParcMission $mission)
     {
+
         $annee = now()->year;
 
         $chauffeurs = ParcChauffeur::with([
@@ -342,6 +343,26 @@ class ParcMissionController extends Controller
             ->orderByRaw('last_retour IS NULL') // ceux sans mission en haut
             ->orderBy('last_retour', 'asc')     // plus ancienne date de retour → haut
             ->get();
+
+        foreach ($chauffeurs as $chauffeur) {
+
+            $nuiteesParMois = [];
+            $nuiteesParAn = [];
+
+            foreach ($chauffeur->missions as $mission) {
+
+                foreach ($mission->nuitees_par_mois as $mois => $nb) {
+                    $nuiteesParMois[$mois] = ($nuiteesParMois[$mois] ?? 0) + $nb;
+                }
+
+                foreach ($mission->nuitees_par_an as $anneeKey => $nb) {
+                    $nuiteesParAn[$anneeKey] = ($nuiteesParAn[$anneeKey] ?? 0) + $nb;
+                }
+            }
+
+            $chauffeur->nuitees_par_mois_calc = $nuiteesParMois;
+            $chauffeur->nuitees_par_an_calc = $nuiteesParAn;
+        }
 
         // IDs des employés chauffeurs
         $chauffeurIds = $chauffeurs->pluck('employee_id')->toArray();

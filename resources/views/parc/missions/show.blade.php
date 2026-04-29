@@ -59,18 +59,32 @@
                                     <th>Itinéraire</th>
                                     <td>{{ $mission->itineraire }}</td>
                                 </tr>
+
                                 <tr>
                                     <th>Distance</th>
                                     <td>{{ number_format($mission?->distance_km, 0, ',', ' ') . ' km' }}</td>
                                 </tr>
+
                                 <tr>
                                     <th>Dates</th>
                                     <td>{{ $mission->date_depart->format('d/m/Y') }} -
                                         {{ $mission->date_retour?->format('d/m/Y') }}</td>
                                 </tr>
+
                                 <tr>
-                                    <th>Nuitées</th>
-                                    <td>{{ $mission->nombre_jours - 1 }} jour(s)</td>
+                                    <th>Nombre de jours</th>
+                                    <td>
+                                        <strong>{{ $mission->nuitees }} nuitée(s)</strong>
+
+                                        <ul style="margin:5px 0; padding-left:15px;">
+                                            @foreach ($mission->nuitees_par_mois ?? [] as $mois => $nb)
+                                                <li>
+                                                    {{ \Carbon\Carbon::createFromFormat('Y-m', $mois)->translatedFormat('F Y') }}
+                                                    : {{ $nb }} nuitée(s)
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </td>
                                 </tr>
 
                                 <tr>

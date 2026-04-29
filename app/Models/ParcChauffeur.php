@@ -188,4 +188,34 @@ class ParcChauffeur extends Model
             'id'                 // clé locale sur Employee
         );
     } */
+
+    public function getNuiteesParMoisAttribute()
+    {
+        $result = [];
+
+        foreach ($this->missions as $mission) {
+            foreach ($mission->nuitees_par_mois as $mois => $nb) {
+                $result[$mois] = ($result[$mois] ?? 0) + $nb;
+            }
+        }
+
+        ksort($result); // tri par mois
+
+        return $result;
+    }
+
+    public function getNuiteesParAnAttribute()
+    {
+        $result = [];
+
+        foreach ($this->missions as $mission) {
+            foreach ($mission->nuitees_par_an as $annee => $nb) {
+                $result[$annee] = ($result[$annee] ?? 0) + $nb;
+            }
+        }
+
+        ksort($result);
+
+        return $result;
+    }
 }
