@@ -139,7 +139,7 @@ class ParcMission extends Model
             );
     }
 
-    public function getNuiteesParMoisAttribute()
+    /* public function getNuiteesParMoisAttribute()
     {
         if (!$this->date_depart || !$this->date_retour) {
             return [];
@@ -163,6 +163,51 @@ class ParcMission extends Model
             $result[$mois] = ($result[$mois] ?? 0) + $nuitees;
 
             $current = $segmentFin;
+        }
+
+        return $result;
+    } */
+
+    /* public function getNuiteesParMoisAttribute()
+    {
+        $debut = Carbon::parse($this->date_depart)->startOfDay();
+        $fin = Carbon::parse($this->date_retour)->startOfDay();
+
+        $result = [];
+
+        $current = $debut->copy();
+
+        while ($current->lt($fin)) {
+
+            // chaque nuit = du jour courant au jour suivant
+            $mois = $current->format('Y-m');
+
+            $result[$mois] = ($result[$mois] ?? 0) + 1;
+
+            $current->addDay();
+        }
+
+        return $result;
+    } */
+
+    public function getNuiteesParMoisAttribute()
+    {
+        $debut = Carbon::parse($this->date_depart)->startOfDay();
+        $fin = Carbon::parse($this->date_retour)->startOfDay();
+
+        $result = [];
+
+        while ($debut->lt($fin)) {
+
+            $key = $debut->format('Y-m');
+
+            if (!isset($result[$key])) {
+                $result[$key] = 0;
+            }
+
+            $result[$key]++;
+
+            $debut->addDay();
         }
 
         return $result;
