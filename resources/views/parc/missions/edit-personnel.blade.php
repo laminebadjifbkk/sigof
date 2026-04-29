@@ -68,8 +68,8 @@
                                         <th>Véhicule</th>
                                         <th class="text-center">Dernière mission</th>
                                         <th class="text-center">Gain-{{ now()->year }}</th>
-                                        <th class="text-center">Nuitées - Mois</th>
-                                        <th class="text-center">Nuitées - Année</th>
+                                        <th class="text-center">Nuitées-Mois</th>
+                                        <th class="text-center">Nuitées-Année</th>
                                         <th class="text-center" width="5%">Missions</th>
                                         <th class="text-center" width="5%">Actions</th>
                                     </tr>
