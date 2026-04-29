@@ -69,7 +69,7 @@
                                         {{ $mission->date_retour?->format('d/m/Y') }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Durée</th>
+                                    <th>Nuitées</th>
                                     <td>{{ $mission->nombre_jours - 1 }} jour(s)</td>
                                 </tr>
 
