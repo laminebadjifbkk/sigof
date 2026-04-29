@@ -382,10 +382,15 @@
                                                 {{ $commissionagrement?->session ?? old('session') }}
                                             </option>
                                             <option value="Ordinaire">
-                                                Ordinaire
+                                                Session ordinaire (initiale)
                                             </option>
+
                                             <option value="Remplacement">
-                                                Remplacement
+                                                Session de remplacement
+                                            </option>
+
+                                            <option value="Provisoire">
+                                                Session provisoire (exceptionnelle)
                                             </option>
                                         </select>
                                         @error('session')
