@@ -378,9 +378,11 @@
                                         <select name="session"
                                             class="form-select form-select-sm @error('session') is-invalid @enderror"
                                             aria-label="Select" id="select-field" data-placeholder="Choisir session">
+
                                             <option value="{{ $commissionagrement?->session ?? old('session') }}">
                                                 {{ $commissionagrement?->session ?? old('session') }}
                                             </option>
+
                                             <option value="Ordinaire">
                                                 Session ordinaire (initiale)
                                             </option>
@@ -392,6 +394,7 @@
                                             <option value="Provisoire">
                                                 Session provisoire (exceptionnelle)
                                             </option>
+                                            
                                         </select>
                                         @error('session')
                                             <span class="invalid-feedback" role="alert">
