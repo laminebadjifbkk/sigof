@@ -51,6 +51,7 @@
                         {{-- 1. INFORMATIONS --}}
                         {{-- ===================== --}}
                         <h6 class="fw-bold text-primary mb-3">1. Informations générales</h6>
+                        <input type="hidden" value="{{ $individuelle?->id }}" name="individuelle_id">
 
                         <div class="row g-3">
 

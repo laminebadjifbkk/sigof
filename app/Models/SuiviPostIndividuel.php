@@ -13,6 +13,8 @@ class SuiviPostIndividuel extends Model
 
     protected $fillable = [
         'individuelles_id',
+        'module_id',
+        'statut',
         'situation_actuelle',
         'temps_emploi',
         'entreprise',

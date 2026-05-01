@@ -390,4 +390,5 @@ class Individuelle extends Model
     {
         return $this->hasOne(SuiviPostIndividuel::class);
     }
+    
 }

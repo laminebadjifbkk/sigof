@@ -2532,56 +2532,6 @@ class IndividuelleController extends Controller
         return view('individuelles.suivi_formulaire', compact('user', 'modulesFormes', 'difficultes', 'besoins'));
     } */
 
-    public function storeSuivi(Request $request)
-    {
-        $request->validate([
-            'module'   => 'required|exists:individuelles,id',
-            'situation_actuelle' => 'required|string',
-            'delai_emploi'      => 'required|string',
-            'entreprise'        => 'nullable|string',
-            'secteur'           => 'nullable|string',
-            'lien_formation'    => 'nullable|string',
-            'revenus'           => 'nullable|string',
-            'marche'            => 'required|string',
-            'raison_marche'     => 'required|string',
-            'recommandation'    => 'required|string',
-            'difficultes'       => 'required|array',
-            'besoins'           => 'required|array',
-            'diplome'           => 'required|string',
-            'raison_diplome'    => 'required|string',
-            'commentaires'      => 'required|string',
-        ]);
-
-        $user = auth()->user();
-
-        $individuelle = Individuelle::where('id', $request->module)
-            ->where('users_id', $user->id)
-            ->firstOrFail();
-
-        // Ici tu peux soit UPDATE soit créer une table de suivi
-        SuiviPostIndividuel::create([
-            'individuelles_id' => $request->module,
-            'situation_actuelle' => $request->situation_actuelle,
-            'delai_emploi'       => $request->delai_emploi,
-            'entreprise'         => $request->entreprise,
-            'secteur'            => $request->secteur,
-            'lien_formation'     => $request->lien_formation,
-            'revenu'            => $request->revenus,
-            'formation_marche'             => $request->marche,
-            'raison_marche'      => $request->raison_marche,
-            'recommande'     => $request->recommandation,
-            'difficultes'        => json_encode($request->difficultes),
-            'besoins'            => json_encode($request->besoins),
-            'diplome_retire'            => $request->diplome,
-            'raison_diplome'     => $request->raison_diplome,
-            'commentaires'       => $request->commentaires,
-            'competences_utilisees'       => $individuelle->module->name,
-        ]);
-
-        Alert::success('Succès ', 'Questionnaire enregistré avec succès.');
-        return redirect()->back();
-    }
-
     public function modulesFormes()
     {
         $individuelles = Individuelle::with(['module', 'departement.region'])
@@ -2633,5 +2583,61 @@ class IndividuelleController extends Controller
         ];
 
         return view('individuelles.suivi_formulaire', compact('individuelle', 'user', 'difficultes', 'besoins', 'modulesFormes'));
+    }
+
+    public function storeSuivi(Request $request)
+    {
+        $request->validate([
+            'situation_actuelle' => 'required|string',
+            'delai_emploi'      => 'required|string',
+            'entreprise'        => 'nullable|string',
+            'secteur'           => 'nullable|string',
+            'lien_formation'    => 'nullable|string',
+            'revenus'           => 'nullable|string',
+            'marche'            => 'required|string',
+            'raison_marche'     => 'required|string',
+            'recommandation'    => 'required|string',
+            'difficultes'       => 'required|array',
+            'besoins'           => 'required|array',
+            'diplome'           => 'required|string',
+            'raison_diplome'    => 'required|string',
+            'commentaires'      => 'required|string',
+        ]);
+
+        $user = auth()->user();
+
+        $individuelle = Individuelle::where('id', $request->individuelle_id)
+            ->where('users_id', $user->id)
+            ->firstOrFail();
+
+        // Ici tu peux soit UPDATE soit créer une table de suivi
+        SuiviPostIndividuel::updateOrCreate(
+            [
+                'individuelles_id' => $request->individuelle_id,
+                'module_id' => $individuelle->module->id,
+            ],
+            [
+                'situation_actuelle' => $request->situation_actuelle,
+                'delai_emploi'       => $request->delai_emploi,
+                'entreprise'         => $request->entreprise,
+                'secteur'            => $request->secteur,
+                'lien_formation'     => $request->lien_formation,
+                'revenu'             => $request->revenus,
+                'formation_marche'   => $request->marche,
+                'raison_marche'      => $request->raison_marche,
+                'recommande'         => $request->recommandation,
+                'difficultes'        => json_encode($request->difficultes),
+                'besoins'            => json_encode($request->besoins),
+                'diplome_retire'     => $request->diplome,
+                'raison_diplome'     => $request->raison_diplome,
+                'commentaires'       => $request->commentaires,
+
+                // 👉 pour affichage seulement
+                'competences_utilisees' => $individuelle->module->name,
+            ]
+        );
+
+        Alert::success('Succès ', 'Questionnaire enregistré avec succès.');
+        return redirect()->back();
     }
 }
