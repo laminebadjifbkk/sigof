@@ -12,11 +12,17 @@
                 <div
                     class="card-body bg-light border-bottom d-flex justify-content-between align-items-center flex-wrap gap-3">
 
-                    <h5 class="mb-0">
-                        QUESTIONNAIRE DE SUIVI POST-FORMATION (INDIVIDUEL)
-                    </h5>
+                    <div>
+                        <h6 class="mb-1">
+                            QUESTIONNAIRE DE SUIVI POST-FORMATION (INDIVIDUEL)
+                        </h6>
 
-                    <a href="{{ url('/demandesIndividuelles') }}" class="btn btn-outline-secondary btn-sm">
+                        <small class="text-muted">
+                            Module : {{ $individuelle?->module?->name }}
+                        </small>
+                    </div>
+
+                    <a href="{{ url('/individuelles/suivi/modules') }}" class="btn btn-outline-secondary btn-sm">
                         <i class="bi bi-arrow-left"></i> Retour
                     </a>
 
@@ -70,33 +76,6 @@
                                 <label class="form-label">Téléphone</label>
                                 <input type="text" class="form-control form-control-sm" value="{{ $user->telephone }}"
                                     readonly>
-                            </div>
-
-                            {{-- FORMATION --}}
-                            <div class="col-md-12">
-                                <label class="form-label">Formation suivie</label><span class="text-danger"> *</span>
-
-                                <select name="module"
-                                    class="form-select form-select-sm @error('module') is-invalid @enderror">
-
-                                    <option value="">-- Sélectionner la formation --</option>
-
-                                    @foreach ($modulesFormes as $individuelle)
-                                        <option value="{{ $individuelle->id }}"
-                                            {{ old('module') == $individuelle->id ? 'selected' : '' }}>
-
-                                            {{ $individuelle->module->name }}
-
-                                        </option>
-                                    @endforeach
-
-                                </select>
-
-                                @error('individuelle_id')
-                                    <span class="invalid-feedback" role="alert">
-                                        <div>{{ $message }}</div>
-                                    </span>
-                                @enderror
                             </div>
 
                         </div>

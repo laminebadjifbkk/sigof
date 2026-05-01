@@ -2492,7 +2492,7 @@ class IndividuelleController extends Controller
         return response()->download($zipPath)->deleteFileAfterSend(true);
     }
 
-    public function formulaireSuivi()
+    /* public function formulaireSuivi()
     {
         $user = auth()->user();
 
@@ -2530,7 +2530,7 @@ class IndividuelleController extends Controller
         ];
 
         return view('individuelles.suivi_formulaire', compact('user', 'modulesFormes', 'difficultes', 'besoins'));
-    }
+    } */
 
     public function storeSuivi(Request $request)
     {
@@ -2580,5 +2580,58 @@ class IndividuelleController extends Controller
 
         Alert::success('Succès ', 'Questionnaire enregistré avec succès.');
         return redirect()->back();
+    }
+
+    public function modulesFormes()
+    {
+        $individuelles = Individuelle::with(['module', 'departement.region'])
+            ->where('statut', 'formé') // ou ton statut exact
+            ->where('users_id', auth()->id()) // si utilisateur connecté
+            ->get();
+
+        return view('individuelles.suivi_modules', compact('individuelles'));
+    }
+
+    public function formulaire($id)
+    {
+        $individuelle = Individuelle::with(['module'])
+            ->findOrFail($id);
+
+        $user = auth()->user();
+
+        // Récupération uniquement des modules formés
+        $modulesFormes = Individuelle::with('module')
+            ->where('users_id', $user->id)
+            ->whereNotNull('numero')
+            ->where('statut', 'formé')
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        // Vérification accès formulaire
+        if ($modulesFormes->isEmpty()) {
+            return redirect()->back()
+                ->with('error', 'Vous n’avez pas encore été formé sur un module.');
+        }
+
+        // ✔ AJOUT DES VARIABLES MANQUANTES
+        $difficultes = [
+            "Manque d'emploi",
+            "Manque de financement",
+            "Manque d'équipement",
+            "Manque d'expérience",
+            "Difficultés administratives",
+            "Formation complémentaire",
+        ];
+
+        $besoins = [
+            "Insertion professionnelle",
+            "Auto-emploi",
+            "Financement",
+            "Formation complémentaire",
+            "Mentorat",
+            "Mise en relation entreprises",
+        ];
+
+        return view('individuelles.suivi_formulaire', compact('individuelle', 'user', 'difficultes', 'besoins', 'modulesFormes'));
     }
 }

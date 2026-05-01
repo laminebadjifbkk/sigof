@@ -2224,6 +2224,41 @@
             display: inline-flex;
             align-items: center;
         }
+
+        .mediocre {
+            color: #dc3545;
+            /* rouge */
+        }
+
+        .insuffisant {
+            color: #fd7e14;
+            /* orange */
+        }
+
+        .passable {
+            color: #6c757d;
+            /* gris */
+        }
+
+        .assez-bien {
+            color: #0dcaf0;
+            /* bleu clair */
+        }
+
+        .bien {
+            color: #0d6efd;
+            /* bleu */
+        }
+
+        .tres-bien {
+            color: #198754;
+            /* vert */
+        }
+
+        .excellent {
+            color: #198754;
+            font-weight: bold;
+        }
     </style>
 
 

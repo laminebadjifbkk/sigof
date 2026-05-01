@@ -124,9 +124,14 @@
                                                     sur le bouton ci-dessous.
                                                 </p>
 
-                                                <a href="{{ route('individuelles.suivi.formulaire') }}"
+                                                {{-- <a href="{{ route('individuelles.suivi.formulaire') }}"
                                                     class="btn btn-info btn-sm">
 
+                                                    <i class="bi bi-pencil-square me-1"></i>
+                                                    Ouvrir le questionnaire
+                                                </a> --}}
+                                                <a href="{{ route('individuelles.suivi.modules') }}"
+                                                    class="btn btn-info btn-sm">
                                                     <i class="bi bi-pencil-square me-1"></i>
                                                     Ouvrir le questionnaire
                                                 </a>
