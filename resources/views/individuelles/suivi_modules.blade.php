@@ -59,7 +59,7 @@
                                         <td>{{ $individuelle?->departement?->region?->nom }}</td>
 
                                         <td>
-                                            <span class="{{ strtolower($individuelle?->appreciation) }}">
+                                            <span class="{{ Str::slug($individuelle?->appreciation) }}">
                                                 {{ $individuelle?->appreciation }}
                                             </span>
                                         </td>
