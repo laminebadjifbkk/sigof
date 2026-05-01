@@ -53,121 +53,101 @@
 
                     {{-- INFORMATIONS DEMANDE --}}
                     <div class="card-body border-bottom">
-
                         <div class="row g-4">
 
-                            {{-- STRUCTURE --}}
+                            {{-- INFORMATIONS PERSONNELLES --}}
                             <div class="col-md-6">
-
                                 <h6 class="fw-bold text-primary mb-3">
-                                    <i class="bi bi-building me-1"></i>
+                                    <i class="bi bi-person-vcard me-1"></i>
                                     Informations personnelles
                                 </h6>
 
                                 <div class="small text-muted">
 
-                                    <div><strong>Prénom :</strong>
+                                    <div class="mb-2">
+                                        <strong>Prénom :</strong>
                                         {{ $user->firstname }}
                                     </div>
 
-                                    <div><strong>Nom :</strong>
+                                    <div class="mb-2">
+                                        <strong>Nom :</strong>
                                         {{ $user->name }}
                                     </div>
 
-                                    <div><strong>Date naissance :</strong>
-                                        {{ $user->date_naissance->format('d/m/Y') }}
+                                    <div class="mb-2">
+                                        <strong>Date de naissance :</strong>
+                                        {{ optional($user->date_naissance)->format('d/m/Y') ?? '-' }}
                                     </div>
 
-                                    <div><strong>Lieu naissance :</strong>
-                                        {{ $user->lieu_naissance }}
+                                    <div class="mb-2">
+                                        <strong>Lieu de naissance :</strong>
+                                        {{ $user->lieu_naissance ?? '-' }}
                                     </div>
 
-                                    <div><strong>Email :</strong>
+                                    <div class="mb-2">
+                                        <strong>Email :</strong>
                                         <a href="mailto:{{ $user->email }}">
                                             {{ $user->email }}
                                         </a>
                                     </div>
 
-                                    <div><strong>Téléphone :</strong>
+                                    <div class="mb-2">
+                                        <strong>Téléphone :</strong>
                                         <a href="tel:+221{{ $user->telephone }}">
                                             {{ $user->telephone }}
                                         </a>
                                     </div>
 
-                                    <div><strong>Adresse :</strong>
+                                    <div class="mb-0">
+                                        <strong>Adresse :</strong>
                                         {{ $user->adresse ?? '-' }}
                                     </div>
 
                                 </div>
-
                             </div>
+                            {{-- QUESTIONNAIRE --}}
+                            <div class="col-md-6">
 
-
-                            {{-- RESPONSABLE --}}
-                            {{-- <div class="col-md-6">
-
-                                <h6 class="fw-bold text-primary mb-3">
-                                    <i class="bi bi-person-badge me-1"></i>
-                                    Responsable
+                                <h6 class="fw-bold text-info mb-3">
+                                    <i class="bi bi-clipboard-check me-1"></i>
+                                    Questionnaire de suivi post-formation
                                 </h6>
 
-                                <div class="small text-muted">
+                                <div class="small">
 
-                                    <div><strong>Nom :</strong>
-                                        {{ $collective->civilite_responsable }}
-                                        {{ $collective->prenom_responsable }}
-                                        {{ $collective->nom_responsable }}
-                                    </div>
+                                    @if ($hasFormedModule)
+                                        <div class="card border-0 shadow-sm">
+                                            <div class="card-body">
 
-                                    <div><strong>Email :</strong>
-                                        <a href="mailto:{{ $collective->email_responsable }}">
-                                            {{ $collective->email_responsable }}
-                                        </a>
-                                    </div>
+                                                <p class="text-muted mb-3">
+                                                    Vous pouvez remplir le questionnaire de suivi post-formation en cliquant
+                                                    sur le bouton ci-dessous.
+                                                </p>
 
-                                    <div><strong>Téléphone :</strong>
-                                        <a href="tel:+221{{ $collective->telephone_responsable }}">
-                                            {{ $collective->telephone_responsable }}
-                                        </a>
-                                    </div>
+                                                <a href="{{ route('individuelles.suivi.formulaire') }}"
+                                                    class="btn btn-info btn-sm">
 
-                                    <div><strong>Fonction :</strong>
-                                        {{ $collective->fonction_responsable ?? '-' }}
-                                    </div>
+                                                    <i class="bi bi-pencil-square me-1"></i>
+                                                    Ouvrir le questionnaire
+                                                </a>
+
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="alert alert-warning mb-0">
+                                            Vous n’avez pas encore été formé sur un module.
+                                            Le questionnaire sera disponible après validation de votre formation.
+                                        </div>
+                                    @endif
 
                                 </div>
-
-                            </div> --}}
-
-                        </div>
-
-                        {{-- STATUT + ACTION --}}
-                        {{-- <div class="d-flex justify-content-between align-items-center mt-4 flex-wrap gap-2">
-
-                            <span class="{{ $collective->statut_demande }}">
-                                {{ $collective->statut_demande }}
-                            </span>
-
-                            <a href="{{ route('collectives.show', $collective) }}" class="btn btn-outline-primary btn-sm">
-                                <i class="bi bi-eye"></i> Voir les détails
-                            </a>
-
-                            <div class="text-center">
-                                <a href="{{ route('collectives.edit', $collective) }}"
-                                    class="btn btn-outline-success btn-sm" title="Modifier">Modifier</a>
                             </div>
 
-                        </div> --}}
-
+                        </div>
                     </div>
 
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-5">
-                            {{-- <span class="d-flex align-items-baseline"><a href="{{ url('/profil') }}"
-                                    class="btn btn-success btn-sm" title="retour"><i
-                                        class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
-                                <p> | retour</p>
-                            </span> --}}
                             <button type="button" class="btn btn-info btn-sm">
                                 <span class="badge bg-white text-info">{{ $individuelle_total }} sur 3</span>
                             </button>
@@ -180,10 +160,6 @@
                                 </button>
                             @endif
                         </div>
-                        {{-- <h5 class="card-title">
-                            Bonjour
-                            {{ $user?->civilite . ' ' . $user?->firstname . ' ' . $user?->name }}
-                        </h5> --}}
 
                         <div class="table-responsive">
                             <table class="table align-middle table-hover">

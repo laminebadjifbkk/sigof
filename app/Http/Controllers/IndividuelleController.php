@@ -1306,6 +1306,11 @@ class IndividuelleController extends Controller
             ->orderBy('created_at', 'asc')
             ->get();
 
+        // Vérifie si au moins un module est "formé"
+        $hasFormedModule = $individuelles->contains(function ($item) {
+            return $item->statut === 'formé';
+        });
+
         // Récupérer les fichiers associés à l'utilisateur
         $files = File::where('users_id', $user->id)
             ->whereNotNull('file')
@@ -1331,6 +1336,7 @@ class IndividuelleController extends Controller
             'files',
             'user_files',
             'user',
+            'hasFormedModule',
             'modules'
         );
 
@@ -2483,5 +2489,45 @@ class IndividuelleController extends Controller
         }
 
         return response()->download($zipPath)->deleteFileAfterSend(true);
+    }
+
+    public function formulaireSuivi()
+    {
+        $user = auth()->user();
+
+        // Récupération uniquement des modules formés
+        $modulesFormes = Individuelle::with('module')
+            ->where('users_id', $user->id)
+            ->whereNotNull('numero')
+            ->where('statut', 'formé')
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        // Vérification accès formulaire
+        if ($modulesFormes->isEmpty()) {
+            return redirect()->back()
+                ->with('error', 'Vous n’avez pas encore été formé sur un module.');
+        }
+
+        // ✔ AJOUT DES VARIABLES MANQUANTES
+        $difficultes = [
+            "Manque d'emploi",
+            "Manque de financement",
+            "Manque d'équipement",
+            "Manque d'expérience",
+            "Difficultés administratives",
+            "Formation complémentaire",
+        ];
+
+        $besoins = [
+            "Insertion professionnelle",
+            "Auto-emploi",
+            "Financement",
+            "Formation complémentaire",
+            "Mentorat",
+            "Mise en relation entreprises",
+        ];
+
+        return view('individuelles.suivi_formulaire', compact('user', 'modulesFormes', 'difficultes', 'besoins'));
     }
 }

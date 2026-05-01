@@ -349,6 +349,12 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::put('/ouvrirProjet/{id}', [ProjetController::class, 'ouvrirProjet'])->name('ouvrirProjet');
         Route::put('/fermerProjet/{id}', [ProjetController::class, 'fermerProjet'])->name('fermerProjet');
 
+        Route::get('/individuelles/suivi-formulaire', [IndividuelleController::class, 'formulaireSuivi'])
+            ->name('individuelles.suivi.formulaire');
+
+        Route::post('/individuelles/suivi/store', [IndividuelleController::class, 'storeSuivi'])
+            ->name('individuelles.suivi.store');
+
         Route::post('/addModule', [ModuleController::class, 'addModule'])->name('addModule');
 
         Route::post('/addDomaine', [DomaineController::class, 'addDomaine'])->name('addDomaine');
