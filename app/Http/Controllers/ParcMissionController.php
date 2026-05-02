@@ -324,10 +324,10 @@ class ParcMissionController extends Controller
         return redirect()->back()->with('status', 'Véhicules de la mission mis à jour avec succès');
     }
 
-    public function editPersonnel(ParcMission $mission, $id)
+    public function editPersonnel(ParcMission $mission)
     {
-        dd($id);
-
+        dd($mission);
+        
         $annee = now()->year;
 
         $chauffeurs = ParcChauffeur::with([
