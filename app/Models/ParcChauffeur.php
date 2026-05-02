@@ -174,7 +174,6 @@ class ParcChauffeur extends Model
             'mission_id',
             'employee_id'
         )
-            ->whereHas('chauffeur') // si relation existe
             ->withPivot('vehicule_id', 'role')
             ->withTimestamps();
     }
