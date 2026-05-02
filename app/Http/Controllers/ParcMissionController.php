@@ -334,7 +334,6 @@ class ParcMissionController extends Controller
                 $query->whereYear('date_depart', $annee);
             }
         ])
-            ->where('statut', '!=', 'Indisponible') // ✅ ajout ici
             ->withMax([
                 'missions as last_retour' => function ($query) use ($annee) {
                     $query->whereYear('date_depart', $annee);
