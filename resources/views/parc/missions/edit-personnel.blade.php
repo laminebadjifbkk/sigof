@@ -90,8 +90,8 @@ $totalMontant = $missions->sum('indemnites_total');
 $missionsCount = $missions->count();
 
 // Pour les checkboxes et véhicules
-$pivot = optional($missionChauffeurs[$chauffeur->employee_id] ?? null)->pivot;
-$isChecked = $missionChauffeurs->contains('id', $chauffeur->employee_id);
+$isChecked = isset($missionChauffeurs[$chauffeur->employee_id]);
+$pivot = $missionChauffeurs[$chauffeur->employee_id]->pivot ?? null;
 
 // Pour modal : 5 dernières missions
 $lastMissions = $missions->sortByDesc('date_depart')->take(5);

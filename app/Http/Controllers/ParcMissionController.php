@@ -374,7 +374,6 @@ class ParcMissionController extends Controller
 
         $missionChauffeurs = $mission->employees()
             ->withPivot('vehicule_id', 'role')
-            ->whereIn('employees.id', $chauffeurIds)
             ->get()
             ->keyBy('id');
 
