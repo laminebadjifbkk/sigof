@@ -154,7 +154,7 @@ class ParcChauffeur extends Model
         return 'permis-ok';
     }
 
-    public function chauffeurs()
+    /*     public function chauffeurs()
     {
         return $this->belongsToMany(
             ParcChauffeur::class,       // modèle cible
@@ -162,7 +162,20 @@ class ParcChauffeur extends Model
             'mission_id',               // clé locale dans la table pivot (mission)
             'employee_id'               // clé étrangère vers l’employé/chauffeur
         )->whereHas('employee')         // s'assure que ce sont des chauffeurs
-            ->withPivot('role')
+            ->withPivot('vehicule_id', 'role')
+            ->withTimestamps();
+    } */
+
+    public function chauffeurs()
+    {
+        return $this->belongsToMany(
+            Employee::class,
+            'parc_employee_mission',
+            'mission_id',
+            'employee_id'
+        )
+            ->whereHas('chauffeur') // si relation existe
+            ->withPivot('vehicule_id', 'role')
             ->withTimestamps();
     }
 
