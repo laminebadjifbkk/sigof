@@ -349,13 +349,13 @@ class ParcMissionController extends Controller
             $nuiteesParMois = [];
             $nuiteesParAn = [];
 
-            foreach ($chauffeur->missions as $mission) {
+            foreach ($chauffeur->missions as $mis) {
 
-                foreach ($mission->nuitees_par_mois as $mois => $nb) {
+                foreach ($mis->nuitees_par_mois as $mois => $nb) {
                     $nuiteesParMois[$mois] = ($nuiteesParMois[$mois] ?? 0) + $nb;
                 }
 
-                foreach ($mission->nuitees_par_an as $anneeKey => $nb) {
+                foreach ($mis->nuitees_par_an as $anneeKey => $nb) {
                     $nuiteesParAn[$anneeKey] = ($nuiteesParAn[$anneeKey] ?? 0) + $nb;
                 }
             }
