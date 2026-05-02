@@ -90,8 +90,10 @@ $totalMontant = $missions->sum('indemnites_total');
 $missionsCount = $missions->count();
 
 // Pour les checkboxes et véhicules
-$pivot = $mission->employees->firstWhere('id', $chauffeur->employee_id)
-    ?->pivot;
+$pivot = $mission
+    ->employees()
+    ->where('employees.id', $chauffeur->employee_id)
+    ->first()?->pivot;
 
 $isChecked = $missionChauffeurs->contains('id', $chauffeur->employee_id);
 
