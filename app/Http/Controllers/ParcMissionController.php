@@ -326,6 +326,8 @@ class ParcMissionController extends Controller
 
     public function editPersonnel(ParcMission $mission)
     {
+        dd($mission);
+        
         $annee = now()->year;
 
         $chauffeurs = ParcChauffeur::with([
