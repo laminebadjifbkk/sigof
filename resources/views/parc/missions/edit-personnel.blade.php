@@ -98,7 +98,6 @@ $isChecked = $missionChauffeurs->contains('id', $chauffeur->employee_id);
 // Pour modal : 5 dernières missions
 $lastMissions = $missions->sortByDesc('date_depart')->take(5);
 $missions = $chauffeur->employee->parcmissions;
-
 // Missions de l'année en cours
                                             $missionsYear = $missions->filter(function ($mission) {
                                                 return $mission->date_depart->year === now()->year;
@@ -331,7 +330,7 @@ $missions = $chauffeur->employee->parcmissions;
                                         <option value="">-- Aucun véhicule --</option>
                                         @foreach ($mission->vehicules as $vehicule)
                                             <option value="{{ $vehicule->id }}"
-                                                {{ $pivot?->vehicule_id == $vehicule->id ? 'selected' : '' }}>
+                                                {{ $pivot?->pivot_vehicule_id == $vehicule->id ? 'selected' : '' }}>
                                                 {{ $vehicule->immatriculation }}
                                             </option>
                                         @endforeach
