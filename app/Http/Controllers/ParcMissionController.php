@@ -334,6 +334,7 @@ class ParcMissionController extends Controller
                 $query->whereYear('date_depart', $annee);
             }
         ])
+            ->where('statut', '!=', 'Indisponible') // ✅ ajout ici
             ->withMax([
                 'missions as last_retour' => function ($query) use ($annee) {
                     $query->whereYear('date_depart', $annee);
@@ -367,9 +368,15 @@ class ParcMissionController extends Controller
         $chauffeurIds = $chauffeurs->pluck('employee_id')->toArray();
 
         // Chauffeurs déjà liés à la mission
-        $missionChauffeurs = $mission->employees()
+        /* $missionChauffeurs = $mission->employees()
             ->whereIn('employees.id', $chauffeurIds)
-            ->get();
+            ->get(); */
+
+        $missionChauffeurs = $mission->employees()
+            ->withPivot('vehicule_id', 'role')
+            ->whereIn('employees.id', $chauffeurIds)
+            ->get()
+            ->keyBy('id');
 
         // Employés non chauffeurs
         $employees = Employee::whereNotIn('id', $chauffeurIds)
