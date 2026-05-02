@@ -90,12 +90,9 @@ $totalMontant = $missions->sum('indemnites_total');
 $missionsCount = $missions->count();
 
 // Pour les checkboxes et véhicules
-/* $pivot = $mission->employees->find($chauffeur->employee_id)?->pivot; */
 $pivot = $mission->employees->firstWhere('id', $chauffeur->employee_id)
     ?->pivot;
-/* $isChecked = $missionChauffeurs
-    ->pluck('id')
-    ->contains($chauffeur->employee_id); */
+
 $isChecked = $missionChauffeurs->contains('id', $chauffeur->employee_id);
 
 // Pour modal : 5 dernières missions
@@ -158,7 +155,7 @@ $missions = $chauffeur->employee->parcmissions;
                                                     @foreach ($mission->vehicules as $vehicule)
                                                         <option value="{{ $vehicule->id }}"
                                                             {{ $pivot?->vehicule_id == $vehicule->id ? 'selected' : '' }}>
-                                                            {{ $vehicule->immatriculation }}
+                                                            {{ $vehicule->immatriculation }} // {{ $pivot?->vehicule_id }} / {{ $vehicule->id }}
                                                         </option>
                                                     @endforeach
                                                 </select>
