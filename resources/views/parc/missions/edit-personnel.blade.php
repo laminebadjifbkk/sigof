@@ -152,11 +152,7 @@ $missions = $chauffeur->employee->parcmissions;
                                                     @foreach ($mission->vehicules as $vehicule)
                                                         <option value="{{ $vehicule->id }}"
                                                             {{ ($pivot?->vehicule_id ?? $pivot?->pivot_vehicule_id) == $vehicule->id ? 'selected' : '' }}>
-
-                                                            {{ $vehicule->immatriculation }} /
-                                                            {{ $pivot?->vehicule_id ?? $pivot?->pivot_vehicule_id }} /
-                                                            {{ $vehicule->id }} /
-                                                            {{ $chauffeur->employee_id }}
+                                                            {{ $vehicule->immatriculation }} 
 
                                                         </option>
                                                     @endforeach
