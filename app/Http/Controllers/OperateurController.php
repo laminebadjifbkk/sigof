@@ -3069,10 +3069,14 @@ class OperateurController extends Controller
         $options = $dompdf->getOptions();
         $dompdf->setOptions($options);
 
+        $validFiles = $operateur->user?->files
+            ?->filter(fn($file) => !empty($file->file)) ?? collect();
+
         $dompdf->loadHtml(view(
             'operateurs.fichesyntheseoperateur',
             compact(
                 'operateur',
+                'validFiles',
                 'title'
             )
         ));
