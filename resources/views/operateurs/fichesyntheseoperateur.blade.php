@@ -142,7 +142,8 @@
                     <tr class="heading">
                         <td colspan="5">DOSSIER D'AGREMENT N° : <span
                                 style="color: red">{{ $operateur?->numero_dossier }}</span></td>
-                        <td colspan="2"></td>
+                        <td style="width: 6%; text-align:center;"><b></b></td>
+                <td style="width: 6%; text-align:center;"><b></b></td>
                         <td style="text-align: right" colspan="4">COURRIER ARRIVEE N° : <span
                                 style="color: red">{{ $operateur?->numero_arrive }}</span></td>
                     </tr>
@@ -616,29 +617,38 @@
             {{-- OPERATEUR --}}
             <tr>
                 <td><b>Dénomination</b></td>
-                <td colspan="11">{{ $operateur?->user?->display_operateur }}</td>
+                <td colspan="9">{{ $operateur?->user?->display_operateur }}</td>
+                <td colspan="2" style="width: 12%; text-align:center;"><b>CONFORMITÉ</b></td>
             </tr>
 
             <tr>
                 <td><b>Responsable</b></td>
-                <td colspan="11">
+                <td colspan="9">
                     {{ $operateur?->user?->firstname }} {{ $operateur?->user?->name }}
                 </td>
+                <td style="width: 6%; text-align:center;"><b></b></td>
+                <td style="width: 6%; text-align:center;"><b></b></td>
             </tr>
 
             <tr>
                 <td><b>Civilité</b></td>
-                <td colspan="11">{{ $operateur?->user?->civilite }}</td>
+                <td colspan="9">{{ $operateur?->user?->civilite }}</td>
+                <td style="width: 6%; text-align:center;"><b></b></td>
+                <td style="width: 6%; text-align:center;"><b></b></td>
             </tr>
 
             <tr>
                 <td><b>Titre</b></td>
-                <td colspan="11">{{ $operateur?->user?->fonction_responsable }}</td>
+                <td colspan="9">{{ $operateur?->user?->fonction_responsable }}</td>
+                <td style="width: 6%; text-align:center;"><b></b></td>
+                <td style="width: 6%; text-align:center;"><b></b></td>
             </tr>
 
             <tr>
                 <td><b>Adresse</b></td>
-                <td colspan="11">{{ $operateur?->user?->adresse }}</td>
+                <td colspan="9">{{ $operateur?->user?->adresse }}</td>
+                <td style="width: 6%; text-align:center;"><b></b></td>
+                <td style="width: 6%; text-align:center;"><b></b></td>
             </tr>
 
             {{-- CONTACTS --}}
@@ -656,18 +666,22 @@
                     @endforelse
                 </td>
 
-                <td colspan="4">
+                <td colspan="3">
                     Email: {{ $operateur?->user?->email }}
                 </td>
-                <td colspan="4">
+                <td colspan="3">
                     Web: {{ $operateur?->user?->web ?? '-' }}
                 </td>
+                <td style="width: 6%; text-align:center;"><b></b></td>
+                <td style="width: 6%; text-align:center;"><b></b></td>
             </tr>
 
             {{-- STATUT --}}
             <tr>
                 <td><b>Statut juridique</b></td>
-                <td colspan="11">{{ $operateur?->statut }}</td>
+                <td colspan="9">{{ $operateur?->statut }}</td>
+                <td style="width: 6%; text-align:center;"><b></b></td>
+                <td style="width: 6%; text-align:center;"><b></b></td>
             </tr>
 
             {{-- ================= DOSSIERS ================= --}}
@@ -677,9 +691,11 @@
 
             <tr>
                 <td><b>N° NINEA</b></td>
-                <td colspan="11">
+                <td colspan="9">
                     <span style="color:red">{{ $operateur?->user?->ninea ?? '-' }}</span>
                 </td>
+                <td style="width: 6%; text-align:center;"><b></b></td>
+                <td style="width: 6%; text-align:center;"><b></b></td>
             </tr>
 
             {{-- FICHIERS --}}
@@ -690,7 +706,7 @@
             @forelse ($validFiles as $file)
                 <tr>
                     <td colspan="8">{{ $file->legende }}</td>
-                    <td colspan="4">
+                    <td colspan="2">
                         @if ($file->statut === 'Validé')
                             <span class="Valide">Validé</span>
                         @elseif ($file->statut === 'Rejeté')
@@ -699,10 +715,14 @@
                             <span class="Autre">{{ $file->statut ?? 'Inconnu' }}</span>
                         @endif
                     </td>
+                    <td style="width: 6%; text-align:center;"><b></b></td>
+                <td style="width: 6%; text-align:center;"><b></b></td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="12" style="text-align:center;">Aucun fichier</td>
+                    <td colspan="10" style="text-align:center;">Aucun fichier</td>
+                    <td style="width: 6%; text-align:center;"><b></b></td>
+                <td style="width: 6%; text-align:center;"><b></b></td>
                 </tr>
             @endforelse
 
@@ -718,30 +738,30 @@
             </tr>
 
             <tr>
-                <td colspan="4"><b>DOMAINE</b></td>
-                <td colspan="6"><b>MODULE</b></td>
-                <td colspan="2"><b>CONFORMITÉ</b></td>
+                <td colspan="4" style="width: 35%;"><b>DOMAINE</b></td>
+                <td colspan="6" style="width: 53%;"><b>MODULE</b></td>
+                <td colspan="2" style="width: 12%; text-align:center;"><b>CONFORMITÉ</b></td>
             </tr>
 
-            <tr>
+            {{-- <tr>
                 <td colspan="4"></td>
                 <td colspan="6"></td>
-                <td style="text-align:center;"><b>Oui</b></td>
-                <td style="text-align:center;"><b>Non</b></td>
-            </tr>
+                <td style="width: 6%; text-align:center;"><b>Oui</b></td>
+                <td style="width: 6%; text-align:center;"><b>Non</b></td>
+            </tr> --}}
 
             @foreach ($operateur?->operateurmodules as $module)
                 <tr>
-                    <td colspan="4">{{ $module->domaine }}</td>
-                    <td colspan="6">{{ $module->module }}</td>
+                    <td colspan="4" style="width: 35%;">{{ $module->domaine }}</td>
+                    <td colspan="6" style="width: 53%;">{{ $module->module }}</td>
 
-                    <td style="text-align:center;">
+                    <td style="width: 6%; text-align:center;">
                         @if ($module->statut === 'Oui')
                             <span class="Oui">✔</span>
                         @endif
                     </td>
 
-                    <td style="text-align:center;">
+                    <td style="width: 6%; text-align:center;">
                         @if ($module->statut === 'Non')
                             <span class="Non">✔</span>
                         @endif
@@ -754,39 +774,39 @@
         <div style="page-break-after: always;"></div>
 
         {{-- ================= FORMATEURS ================= --}}
-        <table>
+        <table style="table-layout: fixed; width: 100%;">
 
             <tr class="section-title">
                 <td colspan="12">FORMATEURS</td>
             </tr>
 
             <tr>
-                <td colspan="4"><b>NOM</b></td>
-                <td colspan="6"><b>EXPERIENCE</b></td>
-                <td colspan="2"><b>CONFORMITÉ</b></td>
+                <td colspan="4" style="width: 35%;"><b>NOM</b></td>
+                <td colspan="6" style="width: 53%;"><b>EXPÉRIENCE</b></td>
+                <td colspan="2" style="width: 12%; text-align:center;"><b>CONFORMITÉ</b></td>
             </tr>
 
             <tr>
                 <td colspan="4"></td>
                 <td colspan="6"></td>
-                <td style="text-align:center;"><b>Oui</b></td>
-                <td style="text-align:center;"><b>Non</b></td>
+                <td style="width: 6%; text-align:center;"><b>Oui</b></td>
+                <td style="width: 6%; text-align:center;"><b>Non</b></td>
             </tr>
 
             @foreach ($operateur?->operateurformateurs as $formateur)
                 <tr>
-                    <td colspan="4">{{ $formateur->name }}</td>
-                    <td colspan="6">
+                    <td colspan="4" style="width: 35%;">{{ $formateur->name }}</td>
+                    <td colspan="6" style="width: 53%;">
                         {{ $formateur->domaine }} ({{ $formateur->nbre_annees_experience }} ans)
                     </td>
 
-                    <td style="text-align:center;">
+                    <td style="width: 6%; text-align:center;">
                         @if ($formateur->statut === 'Oui')
                             <span class="Oui">✔</span>
                         @endif
                     </td>
 
-                    <td style="text-align:center;">
+                    <td style="width: 6%; text-align:center;">
                         @if ($formateur->statut === 'Non')
                             <span class="Non">✔</span>
                         @endif
@@ -799,18 +819,18 @@
         <div style="page-break-after: always;"></div>
 
         {{-- ================= EQUIPEMENTS ================= --}}
-        <table>
+        <table style="table-layout: fixed; width: 100%;">
 
             <tr class="section-title">
                 <td colspan="12">MOYENS PÉDAGOGIQUES</td>
             </tr>
 
             <tr>
-                <td colspan="4"><b>TYPE</b></td>
-                <td colspan="4"><b>DÉSIGNATION</b></td>
-                <td><b>QTÉ</b></td>
-                <td><b>ETAT</b></td>
-                <td colspan="2"><b>CONFORMITÉ</b></td>
+                <td colspan="4" style="width: 35%;"><b>TYPE</b></td>
+                <td colspan="4" style="width: 35%;"><b>DÉSIGNATION</b></td>
+                <td style="width: 8%;"><b>QTÉ</b></td>
+                <td style="width: 8%;"><b>ÉTAT</b></td>
+                <td colspan="2" style="width: 14%; text-align:center;"><b>CONFORMITÉ</b></td>
             </tr>
 
             <tr>
@@ -824,10 +844,10 @@
 
             @foreach ($operateur?->operateurequipements as $eq)
                 <tr>
-                    <td colspan="4">{{ $eq->type }}</td>
-                    <td colspan="4">{{ $eq->designation }}</td>
-                    <td>{{ $eq->quantite }}</td>
-                    <td>{{ $eq->etat }}</td>
+                    <td colspan="4" style="width: 35%;">{{ $eq->type }}</td>
+                    <td colspan="4" style="width: 35%;">{{ $eq->designation }}</td>
+                    <td style="text-align:center;">{{ $eq->quantite }}</td>
+                    <td style="text-align:center;">{{ $eq->etat }}</td>
 
                     <td style="text-align:center;">
                         @if ($eq->statut === 'Oui')
