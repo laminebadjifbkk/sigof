@@ -155,9 +155,8 @@ class OperateurmoduleController extends Controller
 
         return view("operateurmodules.show", compact("operateurmodules", "modulename"));
     }
-    public function destroy(Operateurmodule $operateurmodule)
+    /* public function destroy(Operateurmodule $operateurmodule)
     {
-        /* $operateurmodule = Operateurmodule::find($id); */
         foreach (Auth::user()->roles as $role) {
             if (! empty($role?->name) && ($role?->name == 'super-admin')) {
                 Alert::success('Succès !', 'Le module a été supprimé avec succès');
@@ -175,6 +174,36 @@ class OperateurmoduleController extends Controller
                 return redirect()->back();
             }
         }
+    } */
+
+    public function destroy(Operateurmodule $operateurmodule)
+    {
+        $user = Auth::user();
+
+        // ✅ 1. Si super-admin → suppression directe
+        if ($user->roles->contains('name', 'super-admin')) {
+            $operateurmodule->delete();
+            Alert::success('Succès !', 'Le module a été supprimé avec succès');
+            return redirect()->back();
+        }
+
+        // ❌ 2. Vérifier le statut de l'opérateur
+        if (!in_array($operateurmodule->operateur->statut_agrement, ['Nouveau', 'Extension', 'Renouvellement'])) {
+            Alert::warning('Attention !', 'Action impossible : module déjà traité');
+            return redirect()->back();
+        }
+
+        // ❌ 3. Vérifier le statut du module
+        if (in_array($operateurmodule->statut, ['agréé', 'rejeté', 'sous réserve'], true)) {
+            Alert::warning('Action impossible !', 'Module déjà traité');
+            return redirect()->back();
+        }
+
+        // ✅ 4. Suppression normale
+        $operateurmodule->delete();
+        Alert::success('Succès !', 'Le module a été supprimé avec succès');
+
+        return redirect()->back();
     }
 
     public function rapports()

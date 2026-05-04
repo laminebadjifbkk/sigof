@@ -182,9 +182,7 @@
                         <tr class="item">
                             <td><b>{{ __("DENOMINATION DE L'OPERATEUR") }}</b></td>
                             <td colspan="8">{{ $operateur?->user?->operateur }}
-                                @if (!empty$operateur?->user?->display_operateur))
-                                    {{ '(' . $operateur?->user?->username . ')' }}
-                                @endif
+                               {{ $operateur?->user?->display_operateur }}
                             </td>
                             <td colspan="2" width="10%" style="text-align: center;">
                                 <b>{{ __('CONFORMITE') }}</b>
