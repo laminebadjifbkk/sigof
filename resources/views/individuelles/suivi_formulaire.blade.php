@@ -141,19 +141,23 @@
 
                                     <option value="">-- Sélectionner --</option>
 
-                                    <option value="moins_3" {{ old('temps_emploi', $suivi->temps_emploi ?? '') == 'moins_3' ? 'selected' : '' }}>
+                                    <option value="moins_3"
+                                        {{ old('temps_emploi', $suivi->temps_emploi ?? '') == 'moins_3' ? 'selected' : '' }}>
                                         Moins de 3 mois
                                     </option>
 
-                                    <option value="3_6" {{ old('temps_emploi', $suivi->temps_emploi ?? '') == '3_6' ? 'selected' : '' }}>
+                                    <option value="3_6"
+                                        {{ old('temps_emploi', $suivi->temps_emploi ?? '') == '3_6' ? 'selected' : '' }}>
                                         3 à 6 mois
                                     </option>
 
-                                    <option value="plus_6" {{ old('temps_emploi', $suivi->temps_emploi ?? '') == 'plus_6' ? 'selected' : '' }}>
+                                    <option value="plus_6"
+                                        {{ old('temps_emploi', $suivi->temps_emploi ?? '') == 'plus_6' ? 'selected' : '' }}>
                                         Plus de 6 mois
                                     </option>
 
-                                    <option value="aucun" {{ old('temps_emploi', $suivi->temps_emploi ?? '') == 'aucun' ? 'selected' : '' }}>
+                                    <option value="aucun"
+                                        {{ old('temps_emploi', $suivi->temps_emploi ?? '') == 'aucun' ? 'selected' : '' }}>
                                         Pas encore d’emploi
                                     </option>
 
@@ -189,6 +193,7 @@
                                 <div class="col-md-6">
                                     <label class="form-label">Secteur</label><span class="text-danger"> *</span>
                                     <input type="text" name="secteur"
+                                        value="{{ old('secteur', $suivi->secteur ?? '') }}"
                                         class="form-control form-control-sm @error('secteur') is-invalid @enderror">
                                     @error('secteur')
                                         <span class="invalid-feedback" role="alert">
@@ -199,11 +204,28 @@
 
                                 <div class="col-md-6">
                                     <label class="form-label">Lien formation</label><span class="text-danger"> *</span>
+
+
                                     <select name="lien_formation"
                                         class="form-select form-select-sm @error('lien_formation') is-invalid @enderror">
-                                        <option value="direct">Direct</option>
-                                        <option value="partiel">Partiel</option>
-                                        <option value="aucun">Aucun</option>
+
+                                        <option value="">-- Sélectionner --</option>
+
+                                        <option value="direct"
+                                            {{ old('lien_formation', $suivi->lien_formation ?? '') == 'direct' ? 'selected' : '' }}>
+                                            Direct
+                                        </option>
+
+                                        <option value="partiel"
+                                            {{ old('lien_formation', $suivi->lien_formation ?? '') == 'partiel' ? 'selected' : '' }}>
+                                            Partiel
+                                        </option>
+
+                                        <option value="aucun"
+                                            {{ old('lien_formation', $suivi->lien_formation ?? '') == 'aucun' ? 'selected' : '' }}>
+                                            Aucun
+                                        </option>
+
                                     </select>
                                     @error('lien_formation')
                                         <span class="invalid-feedback" role="alert">
@@ -214,12 +236,31 @@
 
                                 <div class="col-md-6">
                                     <label class="form-label">Revenus </label><span class="text-danger"> *</span>
+                                    @php
+                                        $revenu = old('revenus', $suivi->revenu ?? '');
+                                    @endphp
+
                                     <select name="revenus"
                                         class="form-select form-select-sm @error('revenus') is-invalid @enderror">
-                                        <option value="moins50">-50 000 FCFA</option>
-                                        <option value="50_100">50-100 000</option>
-                                        <option value="100_200">100-200 000</option>
-                                        <option value="plus200">+200 000</option>
+
+                                        <option value="">-- Sélectionner --</option>
+
+                                        <option value="moins50" {{ $revenu == 'moins50' ? 'selected' : '' }}>
+                                            -50 000 FCFA
+                                        </option>
+
+                                        <option value="50_100" {{ $revenu == '50_100' ? 'selected' : '' }}>
+                                            50-100 000
+                                        </option>
+
+                                        <option value="100_200" {{ $revenu == '100_200' ? 'selected' : '' }}>
+                                            100-200 000
+                                        </option>
+
+                                        <option value="plus200" {{ $revenu == 'plus200' ? 'selected' : '' }}>
+                                            +200 000
+                                        </option>
+
                                     </select>
                                     @error('revenus')
                                         <span class="invalid-feedback" role="alert">
@@ -238,56 +279,98 @@
                         {{-- ===================== --}}
                         <h6 class="fw-bold text-primary mt-4 mb-3">3. Appréciation</h6>
 
+                        @php
+                            $marche = old('marche', $suivi->formation_marche ?? '');
+                        @endphp
+
                         <div class="mb-3">
                             <label>Formation adaptée au marché ?</label><span class="text-danger"> *</span><br>
 
-                            <label><input type="radio" name="marche" value="oui"> Oui</label>
-                            <label class="ms-3"><input type="radio" name="marche" value="partiel"> Partiel</label>
-                            <label class="ms-3"><input type="radio" name="marche" value="non"> Non</label>
+                            <label>
+                                <input type="radio" name="marche" value="oui"
+                                    {{ $marche == 'oui' ? 'checked' : '' }}>
+                                Oui
+                            </label>
+
+                            <label class="ms-3">
+                                <input type="radio" name="marche" value="partiel"
+                                    {{ $marche == 'partiel' ? 'checked' : '' }}>
+                                Partiel
+                            </label>
+
+                            <label class="ms-3">
+                                <input type="radio" name="marche" value="non"
+                                    {{ $marche == 'non' ? 'checked' : '' }}>
+                                Non
+                            </label>
+
                             @error('marche')
-                                <span class="invalid-feedback" role="alert">
-                                    <div>{{ $message }}</div>
+                                <span class="invalid-feedback d-block">
+                                    {{ $message }}
                                 </span>
                             @enderror
                         </div>
 
                         <div class="mb-3">
                             <textarea name="raison_marche" class="form-control form-control-sm @error('raison_marche') is-invalid @enderror"
-                                rows="2" placeholder="Pourquoi ?"></textarea>
+                                rows="2" placeholder="Pourquoi ?">{{ old('raison_marche', $suivi->raison_marche ?? '') }}</textarea>
+
                             @error('raison_marche')
-                                <span class="invalid-feedback" role="alert">
-                                    <div>{{ $message }}</div>
+                                <span class="invalid-feedback d-block">
+                                    {{ $message }}
                                 </span>
                             @enderror
                         </div>
+
+                        @php
+                            $recommandation = old('recommandation', $suivi->recommande ?? '');
+                        @endphp
 
                         <div class="mb-3">
-                            <label>Recommandation (recommanderiez-vous cette formation à d’autres jeunes) ? </label><span
-                                class="text-danger"> *</span><br>
+                            <label>
+                                Recommandation (recommanderiez-vous cette formation à d’autres jeunes) ?
+                            </label><span class="text-danger"> *</span><br>
 
-                            <label><input type="radio" name="recommandation" value="oui"> Oui</label>
-                            <label class="ms-3"><input type="radio" name="recommandation" value="non">
-                                Non</label>
-                            <label class="ms-3"><input type="radio" name="recommandation" value="peut-etre">
-                                Peut-être</label>
+                            <label>
+                                <input type="radio" name="recommandation" value="oui"
+                                    {{ $recommandation == 'oui' ? 'checked' : '' }}>
+                                Oui
+                            </label>
+
+                            <label class="ms-3">
+                                <input type="radio" name="recommandation" value="non"
+                                    {{ $recommandation == 'non' ? 'checked' : '' }}>
+                                Non
+                            </label>
+
+                            <label class="ms-3">
+                                <input type="radio" name="recommandation" value="peut-etre"
+                                    {{ $recommandation == 'peut-etre' ? 'checked' : '' }}>
+                                Peut-être
+                            </label>
+
                             @error('recommandation')
-                                <span class="invalid-feedback" role="alert">
-                                    <div>{{ $message }}</div>
+                                <span class="invalid-feedback d-block">
+                                    {{ $message }}
                                 </span>
                             @enderror
                         </div>
-
 
                         {{-- ===================== --}}
                         {{-- 4. DIFFICULTÉS --}}
                         {{-- ===================== --}}
                         <h6 class="fw-bold text-primary mt-4 mb-3">4. Difficultés</h6>
 
+                        @php
+                            $selectedDifficultes = old('difficultes', $suivi->difficultes ?? []);
+                        @endphp
+
                         <div class="row">
                             @foreach ($difficultes as $diff)
                                 <div class="col-md-6">
                                     <label>
-                                        <input type="checkbox" name="difficultes[]" value="{{ $diff }}">
+                                        <input type="checkbox" name="difficultes[]" value="{{ $diff }}"
+                                            {{ in_array($diff, $selectedDifficultes ?? []) ? 'checked' : '' }}>
                                         {{ $diff }}
                                     </label>
                                 </div>
@@ -300,11 +383,16 @@
                         {{-- ===================== --}}
                         <h6 class="fw-bold text-primary mt-4 mb-3">5. Besoins</h6>
 
+                        @php
+                            $selectedBesoins = old('besoins', $suivi->besoins ?? []);
+                        @endphp
+
                         <div class="row">
                             @foreach ($besoins as $besoin)
                                 <div class="col-md-6">
                                     <label>
-                                        <input type="checkbox" name="besoins[]" value="{{ $besoin }}">
+                                        <input type="checkbox" name="besoins[]" value="{{ $besoin }}"
+                                            {{ in_array($besoin, $selectedBesoins ?? []) ? 'checked' : '' }}>
                                         {{ $besoin }}
                                     </label>
                                 </div>
@@ -317,21 +405,34 @@
                         {{-- ===================== --}}
                         <h6 class="fw-bold text-primary mt-4 mb-3">6. Diplôme / Attestation</h6>
 
-                        <div class="mb-3">
-                            <label>Avez-vous retiré votre diplôme ou attestation ? </label><span class="text-danger">
-                                *</span><br>
+                        @php
+                            $diplome = old('diplome', $suivi->diplome_retire ?? '');
+                        @endphp
 
-                            <label><input type="radio" name="diplome" value="1"> Oui</label>
-                            <label class="ms-3"><input type="radio" name="diplome" value="0"> Non</label>
+                        <div class="mb-3">
+                            <label>Avez-vous retiré votre diplôme ou attestation ? </label>
+                            <span class="text-danger">*</span><br>
+
+                            <label>
+                                <input type="radio" name="diplome" value="1"
+                                    {{ $diplome == '1' ? 'checked' : '' }}>
+                                Oui
+                            </label>
+
+                            <label class="ms-3">
+                                <input type="radio" name="diplome" value="0"
+                                    {{ $diplome == '0' ? 'checked' : '' }}>
+                                Non
+                            </label>
                         </div>
 
                         <textarea name="raison_diplome"
                             class="form-control form-control-sm @error('raison_diplome') is-invalid @enderror mb-3" rows="2"
-                            placeholder="Si non, pourquoi ?"></textarea>
+                            placeholder="Si non, pourquoi ?">{{ old('raison_diplome', $suivi->raison_diplome ?? '') }}</textarea>
 
                         @error('raison_diplome')
-                            <span class="invalid-feedback" role="alert">
-                                <div>{{ $message }}</div>
+                            <span class="invalid-feedback d-block">
+                                {{ $message }}
                             </span>
                         @enderror
 
@@ -342,11 +443,11 @@
                         <h6 class="fw-bold text-primary mt-4 mb-3">7. Commentaires</h6>
 
                         <textarea name="commentaires" class="form-control form-control-sm @error('commentaires') is-invalid @enderror"
-                            rows="3"></textarea>
+                            rows="3">{{ old('commentaires', $suivi->commentaires ?? '') }}</textarea>
 
                         @error('commentaires')
-                            <span class="invalid-feedback" role="alert">
-                                <div>{{ $message }}</div>
+                            <span class="invalid-feedback d-block">
+                                {{ $message }}
                             </span>
                         @enderror
 

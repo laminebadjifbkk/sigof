@@ -34,7 +34,7 @@ class SuiviPostIndividuelController extends Controller
             'formation_marche' => $request->formation_marche,
             'competences_utilisees' => $request->competences,
             'recommande' => $request->recommande,
-            'difficultes' => json_encode($request->difficultes),
+            'difficultes' => $request->difficultes,
             'besoins' => json_encode($request->besoins),
             'diplome_retire' => $request->diplome,
             'commentaires' => $request->commentaires,

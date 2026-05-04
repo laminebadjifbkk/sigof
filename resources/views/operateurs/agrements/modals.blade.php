@@ -269,6 +269,8 @@
                                     Abandon</option>
                                 <option value="Injoignable" {{ $selectedStatut === 'Injoignable' ? 'selected' : '' }}>
                                     Injoignable</option>
+                                <option value="rejeté" {{ $selectedStatut === 'rejeté' ? 'selected' : '' }}>
+                                    rejeté</option>
 
                             </select>
                             @error('statut')

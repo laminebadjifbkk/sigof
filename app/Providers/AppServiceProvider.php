@@ -4,9 +4,12 @@ namespace App\Providers;
 
 use App\Models\ActiviteQuotidienne;
 use App\Models\Antenne;
+use App\Models\Direction;
 use App\Models\Formation;
 use App\Models\ParcMission;
 use App\Models\Projet;
+use App\Models\SuiviPostIndividuel;
+use App\Observers\SuiviPostIndividuelObserver;
 use Carbon\Carbon;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -14,7 +17,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
-use App\Models\Direction;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -58,6 +60,8 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use App\Models\ActiviteQuotidienne;
 use Illuminate\Support\Facades\Auth;
+use App\Models\SuiviPostIndividuel;
+use App\Observers\SuiviPostIndividuelObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -111,5 +115,7 @@ class AppServiceProvider extends ServiceProvider
                 'url'  => $url,
             ]);
         });
+
+        SuiviPostIndividuel::observe(SuiviPostIndividuelObserver::class);
     }
 }

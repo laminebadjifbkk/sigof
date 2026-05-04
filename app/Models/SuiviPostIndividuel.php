@@ -28,6 +28,8 @@ class SuiviPostIndividuel extends Model
         'besoins',
         'diplome_retire',
         'commentaires',
+        'raison_marche',
+        'raison_diplome',
     ];
 
     protected $casts = [
@@ -45,5 +47,10 @@ class SuiviPostIndividuel extends Model
     public function individuelle()
     {
         return $this->belongsTo(Individuelle::class, 'individuelles_id');
+    }
+
+    public function histories()
+    {
+        return $this->hasMany(SuiviPostIndividuelHistory::class, 'suivi_post_individuel_id');
     }
 }
