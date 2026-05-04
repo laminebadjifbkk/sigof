@@ -4065,14 +4065,32 @@ class OperateurController extends Controller
         $anneeEnCours = date('Y');
         $an = date('y');
 
-        // Numéro de courrier
+        /* // Numéro de courrier
         $dernierArrive = Arrive::join('courriers', 'courriers.id', 'arrives.courriers_id')
             ->where('courriers.annee', $anneeEnCours)
             ->orderByDesc('arrives.numero_arrive')
             ->first();
 
         $numCourrier = $dernierArrive ? $dernierArrive->numero_arrive + 1 : (int)($an . '0001');
-        $numCourrier = str_pad($numCourrier, 6, '0', STR_PAD_LEFT);
+        $numCourrier = str_pad($numCourrier, 6, '0', STR_PAD_LEFT); */
+
+        $numCourrier = DB::transaction(function () use ($anneeEnCours, $an) {
+
+            // On récupère le dernier numéro de l'année en cours
+            $dernierNumero = Arrive::whereHas('courrier', function ($query) use ($anneeEnCours) {
+                $query->where('annee', $anneeEnCours);
+            })
+                ->lockForUpdate() // 🔐 évite les doublons en concurrence
+                ->max('numero_arrive');
+
+            if ($dernierNumero) {
+                $next = (int) $dernierNumero + 1;
+            } else {
+                $next = (int) ($an . '0001'); // ex: 260001
+            }
+
+            return str_pad($next, 6, '0', STR_PAD_LEFT);
+        });
 
         $courrier = Courrier::create([
             'numero_courrier' => $numCourrier,
@@ -4205,14 +4223,32 @@ class OperateurController extends Controller
         $anneeEnCours = date('Y');
         $an = date('y');
 
-        // Numéro de courrier
+        /* // Numéro de courrier
         $dernierArrive = Arrive::join('courriers', 'courriers.id', 'arrives.courriers_id')
             ->where('courriers.annee', $anneeEnCours)
             ->orderByDesc('arrives.numero_arrive')
             ->first();
 
         $numCourrier = $dernierArrive ? $dernierArrive->numero_arrive + 1 : (int)($an . '0001');
-        $numCourrier = str_pad($numCourrier, 6, '0', STR_PAD_LEFT);
+        $numCourrier = str_pad($numCourrier, 6, '0', STR_PAD_LEFT); */
+
+        $numCourrier = DB::transaction(function () use ($anneeEnCours, $an) {
+
+            // On récupère le dernier numéro de l'année en cours
+            $dernierNumero = Arrive::whereHas('courrier', function ($query) use ($anneeEnCours) {
+                $query->where('annee', $anneeEnCours);
+            })
+                ->lockForUpdate() // 🔐 évite les doublons en concurrence
+                ->max('numero_arrive');
+
+            if ($dernierNumero) {
+                $next = (int) $dernierNumero + 1;
+            } else {
+                $next = (int) ($an . '0001'); // ex: 260001
+            }
+
+            return str_pad($next, 6, '0', STR_PAD_LEFT);
+        });
 
         $courrier = Courrier::create([
             'numero_courrier' => $numCourrier,
