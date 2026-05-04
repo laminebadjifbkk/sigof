@@ -96,29 +96,33 @@
 
                                     <option value="">-- Sélectionner --</option>
 
-                                    <option value="employe" {{ old('situation_actuelle') == 'employe' ? 'selected' : '' }}>
+                                    <option value="employe"
+                                        {{ old('situation_actuelle', $suivi->situation_actuelle ?? '') == 'employe' ? 'selected' : '' }}>
                                         Employé(e)
                                     </option>
 
                                     <option value="auto_emploi"
-                                        {{ old('situation_actuelle') == 'auto_emploi' ? 'selected' : '' }}>
+                                        {{ old('situation_actuelle', $suivi->situation_actuelle ?? '') == 'auto_emploi' ? 'selected' : '' }}>
                                         Auto-emploi / Entrepreneur(e)
                                     </option>
 
-                                    <option value="stage" {{ old('situation_actuelle') == 'stage' ? 'selected' : '' }}>
+                                    <option value="stage"
+                                        {{ old('situation_actuelle', $suivi->situation_actuelle ?? '') == 'stage' ? 'selected' : '' }}>
                                         Stage
                                     </option>
 
                                     <option value="recherche"
-                                        {{ old('situation_actuelle') == 'recherche' ? 'selected' : '' }}>
+                                        {{ old('situation_actuelle', $suivi->situation_actuelle ?? '') == 'recherche' ? 'selected' : '' }}>
                                         Recherche d’emploi
                                     </option>
 
-                                    <option value="etudes" {{ old('situation_actuelle') == 'etudes' ? 'selected' : '' }}>
+                                    <option value="etudes"
+                                        {{ old('situation_actuelle', $suivi->situation_actuelle ?? '') == 'etudes' ? 'selected' : '' }}>
                                         Études
                                     </option>
 
-                                    <option value="autre" {{ old('situation_actuelle') == 'autre' ? 'selected' : '' }}>
+                                    <option value="autre"
+                                        {{ old('situation_actuelle', $suivi->situation_actuelle ?? '') == 'autre' ? 'selected' : '' }}>
                                         Autre
                                     </option>
 
@@ -132,29 +136,29 @@
 
                             <div class="col-md-6">
                                 <label class="form-label">Délai d’emploi</label><span class="text-danger"> *</span>
-                                <select name="delai_emploi"
-                                    class="form-select form-select-sm @error('delai_emploi') is-invalid @enderror">
+                                <select name="temps_emploi"
+                                    class="form-select form-select-sm @error('temps_emploi') is-invalid @enderror">
 
                                     <option value="">-- Sélectionner --</option>
 
-                                    <option value="moins_3" {{ old('delai_emploi') == 'moins_3' ? 'selected' : '' }}>
+                                    <option value="moins_3" {{ old('temps_emploi', $suivi->temps_emploi ?? '') == 'moins_3' ? 'selected' : '' }}>
                                         Moins de 3 mois
                                     </option>
 
-                                    <option value="3_6" {{ old('delai_emploi') == '3_6' ? 'selected' : '' }}>
+                                    <option value="3_6" {{ old('temps_emploi', $suivi->temps_emploi ?? '') == '3_6' ? 'selected' : '' }}>
                                         3 à 6 mois
                                     </option>
 
-                                    <option value="plus_6" {{ old('delai_emploi') == 'plus_6' ? 'selected' : '' }}>
+                                    <option value="plus_6" {{ old('temps_emploi', $suivi->temps_emploi ?? '') == 'plus_6' ? 'selected' : '' }}>
                                         Plus de 6 mois
                                     </option>
 
-                                    <option value="aucun" {{ old('delai_emploi') == 'aucun' ? 'selected' : '' }}>
+                                    <option value="aucun" {{ old('temps_emploi', $suivi->temps_emploi ?? '') == 'aucun' ? 'selected' : '' }}>
                                         Pas encore d’emploi
                                     </option>
 
                                 </select>
-                                @error('delai_emploi')
+                                @error('temps_emploi')
                                     <span class="invalid-feedback" role="alert">
                                         <div>{{ $message }}</div>
                                     </span>
@@ -173,7 +177,8 @@
                                     <label class="form-label">Entreprise / activité</label><span class="text-danger">
                                         *</span>
                                     <input type="text" name="entreprise"
-                                        class="form-control form-control-sm @error('entreprise') is-invalid @enderror">
+                                        class="form-control form-control-sm @error('entreprise') is-invalid @enderror"
+                                        value="{{ old('entreprise', $suivi->entreprise ?? '') }}">
                                     @error('entreprise')
                                         <span class="invalid-feedback" role="alert">
                                             <div>{{ $message }}</div>

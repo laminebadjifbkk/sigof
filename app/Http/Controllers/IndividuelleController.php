@@ -2582,14 +2582,19 @@ class IndividuelleController extends Controller
             "Mise en relation entreprises",
         ];
 
-        return view('individuelles.suivi_formulaire', compact('individuelle', 'user', 'difficultes', 'besoins', 'modulesFormes'));
+        $suivi = SuiviPostIndividuel::where([
+            'individuelles_id' => $individuelle->id,
+            'module_id' => $individuelle->module->id,
+        ])->first();
+
+        return view('individuelles.suivi_formulaire', compact('individuelle', 'user', 'difficultes', 'besoins', 'modulesFormes', 'suivi'));
     }
 
     public function storeSuivi(Request $request)
     {
         $request->validate([
             'situation_actuelle' => 'required|string',
-            'delai_emploi'      => 'required|string',
+            'temps_emploi'      => 'required|string',
             'entreprise'        => 'nullable|string',
             'secteur'           => 'nullable|string',
             'lien_formation'    => 'nullable|string',
@@ -2610,7 +2615,7 @@ class IndividuelleController extends Controller
             ->where('users_id', $user->id)
             ->firstOrFail();
 
-        // Ici tu peux soit UPDATE soit créer une table de suivi
+        /*  // Ici tu peux soit UPDATE soit créer une table de suivi
         SuiviPostIndividuel::updateOrCreate(
             [
                 'individuelles_id' => $request->individuelle_id,
@@ -2618,7 +2623,7 @@ class IndividuelleController extends Controller
             ],
             [
                 'situation_actuelle' => $request->situation_actuelle,
-                'delai_emploi'       => $request->delai_emploi,
+                'temps_emploi'       => $request->temps_emploi,
                 'entreprise'         => $request->entreprise,
                 'secteur'            => $request->secteur,
                 'lien_formation'     => $request->lien_formation,
@@ -2631,11 +2636,40 @@ class IndividuelleController extends Controller
                 'diplome_retire'     => $request->diplome,
                 'raison_diplome'     => $request->raison_diplome,
                 'commentaires'       => $request->commentaires,
+                'statut'       => 'Nouveau',
 
                 // 👉 pour affichage seulement
                 'competences_utilisees' => $individuelle->module->name,
             ]
+        ); */
+
+        $suivi = SuiviPostIndividuel::updateOrCreate(
+            [
+                'individuelles_id' => $request->individuelle_id,
+                'module_id' => $individuelle->module->id,
+            ],
+            [
+                'situation_actuelle' => $request->situation_actuelle,
+                'temps_emploi'       => $request->temps_emploi,
+                'entreprise'         => $request->entreprise,
+                'secteur'            => $request->secteur,
+                'lien_formation'     => $request->lien_formation,
+                'revenu'             => $request->revenus,
+                'formation_marche'   => $request->marche,
+                'raison_marche'      => $request->raison_marche,
+                'recommande'         => $request->recommandation,
+                'difficultes'        => json_encode($request->difficultes),
+                'besoins'            => json_encode($request->besoins),
+                'diplome_retire'     => $request->diplome,
+                'raison_diplome'     => $request->raison_diplome,
+                'commentaires'       => $request->commentaires,
+                'competences_utilisees' => $individuelle->module->name,
+            ]
         );
+
+        // 🔥 Statut sans save inutile
+        $suivi->statut = $suivi->wasRecentlyCreated ? 'Nouveau' : 'Mis à jour';
+        $suivi->save();
 
         Alert::success('Succès ', 'Questionnaire enregistré avec succès.');
         return redirect()->back();
