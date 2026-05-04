@@ -761,6 +761,7 @@
 @push('scripts')
     <script>
         new DataTable('#table-arrives', {
+            ordering: false,
             layout: {
                 topStart: {
                     buttons: ['csv', 'excel', 'print'],
