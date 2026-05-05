@@ -4078,7 +4078,7 @@ class OperateurController extends Controller
         $numCourrier = $dernierArrive ? $dernierArrive->numero_arrive + 1 : (int)($an . '0001');
         $numCourrier = str_pad($numCourrier, 6, '0', STR_PAD_LEFT); */
 
-        $numCourrier = DB::transaction(function () use ($anneeEnCours, $an) {
+        /* $numCourrier = DB::transaction(function () use ($anneeEnCours, $an) {
 
             // On récupère le dernier numéro de l'année en cours
             $dernierNumero = Arrive::whereHas('courrier', function ($query) use ($anneeEnCours) {
@@ -4091,6 +4091,23 @@ class OperateurController extends Controller
                 $next = (int) $dernierNumero + 1;
             } else {
                 $next = (int) ($an . '0001'); // ex: 260001
+            }
+
+            return str_pad($next, 6, '0', STR_PAD_LEFT);
+        }); */
+
+        $numCourrier = DB::transaction(function () use ($anneeEnCours, $an) {
+
+            $dernierNumero = DB::table('arrives')
+                ->join('courriers', 'courriers.id', '=', 'arrives.courriers_id')
+                ->where('courriers.annee', $anneeEnCours)
+                ->lockForUpdate()
+                ->max(DB::raw('CAST(arrives.numero_arrive AS UNSIGNED)'));
+
+            if ($dernierNumero) {
+                $next = $dernierNumero + 1;
+            } else {
+                $next = (int) ($an . '0001');
             }
 
             return str_pad($next, 6, '0', STR_PAD_LEFT);
@@ -4238,17 +4255,16 @@ class OperateurController extends Controller
 
         $numCourrier = DB::transaction(function () use ($anneeEnCours, $an) {
 
-            // On récupère le dernier numéro de l'année en cours
-            $dernierNumero = Arrive::whereHas('courrier', function ($query) use ($anneeEnCours) {
-                $query->where('annee', $anneeEnCours);
-            })
-                ->lockForUpdate() // 🔐 évite les doublons en concurrence
-                ->max('numero_arrive');
+            $dernierNumero = DB::table('arrives')
+                ->join('courriers', 'courriers.id', '=', 'arrives.courriers_id')
+                ->where('courriers.annee', $anneeEnCours)
+                ->lockForUpdate()
+                ->max(DB::raw('CAST(arrives.numero_arrive AS UNSIGNED)'));
 
             if ($dernierNumero) {
-                $next = (int) $dernierNumero + 1;
+                $next = $dernierNumero + 1;
             } else {
-                $next = (int) ($an . '0001'); // ex: 260001
+                $next = (int) ($an . '0001');
             }
 
             return str_pad($next, 6, '0', STR_PAD_LEFT);
