@@ -102,6 +102,7 @@ class ParcMission extends Model
             'vehicule_id'               // Clé étrangère sur la table pivot pour le modèle lié
         )->withPivot([
             'chauffeur_id',
+            'vehicule_id',
             'kilometrage_depart',
             'kilometrage_retour'
         ])->withTimestamps();
