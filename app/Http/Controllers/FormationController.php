@@ -3915,7 +3915,7 @@ class FormationController extends Controller
         }
     }
 
-    public function abeEvaluationlettre(Request $request, $idformation)
+    /* public function abeEvaluationlettre(Request $request, $idformation)
     {
 
         $formation = Formation::findOrFail($idformation);
@@ -3993,7 +3993,6 @@ class FormationController extends Controller
             $name = 'Attestation de bonne execution ' . $formation?->operateur?->user?->operateur . ' en ' . $formation?->module?->name . '.pdf';
 
             // Output the generated PDF to Browser
-            /* return $dompdf->stream($name, ['Attachment' => true]); */
 
             $pdfContent = $dompdf->output(); // Génère le contenu du PDF
 
@@ -4005,6 +4004,127 @@ class FormationController extends Controller
             Alert::warning('Désolé !', "La formation n'est pas encore terminée.");
             return redirect()->back();
         }
+    } */
+
+    public function abeEvaluationlettre(Request $request, $idformation)
+    {
+        $formation = Formation::findOrFail($idformation);
+
+        $prevus_h_count = $formation?->prevue_h ?? 0;
+        $prevus_f_count = $formation?->prevue_f ?? 0;
+        $prevus_total   = $prevus_h_count + $prevus_f_count;
+
+        // Base query (optimisation)
+        $baseQuery = Individuelle::with('user')
+            ->where('formations_id', $idformation);
+
+        // 🎯 ADMIS (note >= 12)
+        $admisQuery = (clone $baseQuery)
+            ->whereRaw('CAST(note_obtenue AS DECIMAL(5,2)) >= 12');
+
+        $admis = $admisQuery->get();
+        $admis_count = $admisQuery->count();
+
+        // ❌ RECALE (note < 12)
+        $recalesQuery = (clone $baseQuery)
+            ->whereRaw('CAST(note_obtenue AS DECIMAL(5,2)) < 12');
+
+        $recales = $recalesQuery->get();
+
+        // 👨‍🎓 FORMÉS
+        $formes_h_count = (clone $baseQuery)
+            ->whereHas('user', fn($q) => $q->where('civilite', 'M.'))
+            ->count();
+
+        $formes_f_count = (clone $baseQuery)
+            ->whereHas('user', fn($q) => $q->where('civilite', 'Mme'))
+            ->count();
+
+        $formes_total = $formes_h_count + $formes_f_count;
+
+        // 👨‍🎓 ADMIS PAR SEXE
+        $admis_h_count = (clone $baseQuery)
+            ->whereHas('user', fn($q) => $q->where('civilite', 'M.'))
+            ->whereRaw('CAST(note_obtenue AS DECIMAL(5,2)) >= 12')
+            ->count();
+
+        $admis_f_count = (clone $baseQuery)
+            ->whereHas('user', fn($q) => $q->where('civilite', 'Mme'))
+            ->whereRaw('CAST(note_obtenue AS DECIMAL(5,2)) >= 12')
+            ->count();
+
+        $admis_count = $admis_h_count + $admis_f_count;
+
+        // 📊 POURCENTAGE
+        $pourcentage_admis = $formes_total > 0
+            ? round(($admis_count / $formes_total) * 100, 2)
+            : 0;
+
+        // ❌ RETENUS = inutile (identique à formés)
+        $retenus_h_count = $formes_h_count;
+        $retenus_f_count = $formes_f_count;
+        $retenus_total   = $formes_total;
+
+        // 🚫 STATUT
+        if ($formation->statut !== "Terminée") {
+            Alert::warning('Désolé !', "La formation n'est pas encore terminée.");
+            return redirect()->back();
+        }
+
+        // 📄 PDF
+        $title = 'Attestation de bonne execution ' .
+            $formation?->operateur?->user?->username .
+            ' en ' .
+            $formation?->module?->name;
+
+        $membres_jury  = explode(";", $formation->membres_jury);
+        $count_membres = count($membres_jury);
+
+        $dompdf = new Dompdf();
+        $options = $dompdf->getOptions();
+        $options->setDefaultFont('DejaVu Sans');
+        $dompdf->setOptions($options);
+
+        $dompdf->loadHtml(view(
+            'formations.individuelles.abe',
+            compact(
+                'formation',
+                'title',
+                'membres_jury',
+                'count_membres',
+                'admis',
+                'recales',
+                'admis_count',
+                'pourcentage_admis',
+                'admis_h_count',
+                'admis_f_count',
+                'formes_h_count',
+                'formes_f_count',
+                'formes_total',
+                'retenus_h_count',
+                'retenus_f_count',
+                'retenus_total',
+                'prevus_h_count',
+                'prevus_f_count',
+                'prevus_total'
+            )
+        ));
+
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        $name = 'Attestation de bonne execution ' .
+            $formation?->operateur?->user?->operateur .
+            ' en ' .
+            $formation?->module?->name .
+            '.pdf';
+
+        $pdfContent = $dompdf->output();
+
+        return response()->streamDownload(
+            fn() => print($pdfContent),
+            $name
+        );
     }
 
     /*  public function abeEvaluationCol(Request $request)
