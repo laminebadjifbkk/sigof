@@ -460,11 +460,14 @@ class ParcMissionController extends Controller
     {
         try {
             // Récupérer le mission par ID
-            $mission = ParcMission::findOrFail($id);
-
             $mission = ParcMission::with([
                 'employees' => fn($q) => $q->withPivot('vehicule_id')
             ])->findOrFail($id);
+
+            $vehicules = ParcVehicule::whereIn(
+                'id',
+                $mission->employees->pluck('pivot.vehicule_id')->filter()
+            )->get()->keyBy('id');
 
             if ($mission->employees->isEmpty()) {
                 return redirect()
@@ -484,7 +487,7 @@ class ParcMissionController extends Controller
 
             $dompdf->loadHtml(view(
                 'parc.missions.ordre-mission',
-                compact('mission', 'employees', 'jours')
+                compact('mission', 'employees', 'jours', 'vehicules')
             ));
 
             // Format du PDF
