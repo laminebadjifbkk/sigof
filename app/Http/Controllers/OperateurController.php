@@ -4096,7 +4096,7 @@ class OperateurController extends Controller
             return str_pad($next, 6, '0', STR_PAD_LEFT);
         }); */
 
-        $numCourrier = DB::transaction(function () use ($anneeEnCours, $an) {
+        /* $numCourrier = DB::transaction(function () use ($anneeEnCours, $an) {
 
             $dernierNumero = DB::table('arrives')
                 ->join('courriers', 'courriers.id', '=', 'arrives.courriers_id')
@@ -4130,23 +4130,57 @@ class OperateurController extends Controller
             'numero_arrive' => $numCourrier,
             'type'          => 'operateur',
             'courriers_id'  => $courrier->id,
-        ]);
+        ]); */
 
-        // Numéro de dossier
-        $dernierDossier = Operateur::where('numero_dossier', 'like', $an . '%')
-            ->orderByDesc('numero_dossier')
-            ->first();
+        DB::transaction(function () use ($anneeEnCours, $an, $operateur) {
 
-        $numDossier = $dernierDossier
-            ? $an . str_pad((int)substr($dernierDossier->numero_dossier, -3) + 1, 3, '0', STR_PAD_LEFT)
-            : $an . '001';
+            $dernierNumero = DB::table('arrives')
+                ->join('courriers', 'courriers.id', '=', 'arrives.courriers_id')
+                ->where('courriers.annee', $anneeEnCours)
+                ->lockForUpdate()
+                ->max(DB::raw('CAST(arrives.numero_arrive AS UNSIGNED)'));
 
-        // Mise à jour de l'opérateur
-        $operateur->update([
-            'numero_arrive'   => $numCourrier,
-            'numero_dossier'  => $numDossier,
-            'numero_agrement' => $numCourrier . '/ONFP/DG/DEC/' . $anneeEnCours,
-        ]);
+            $next = $dernierNumero
+                ? $dernierNumero + 1
+                : (int) ($an . '0001');
+
+            $numCourrier = str_pad($next, 6, '0', STR_PAD_LEFT);
+
+            $courrier = Courrier::create([
+                'numero_courrier' => $numCourrier,
+                'date_recep'      => now(),
+                'date_cores'      => now(),
+                'annee'           => $anneeEnCours,
+                'objet'           => 'DEMANDE AGREMENT OPERATEUR',
+                'expediteur'      => $operateur->user?->operateur,
+                'type'            => 'operateur',
+                'user_create_id'  => Auth::id(),
+                'user_update_id'  => Auth::id(),
+                'users_id'        => Auth::id(),
+            ]);
+
+            Arrive::create([
+                'numero_arrive' => $numCourrier,
+                'type'          => 'operateur',
+                'courriers_id'  => $courrier->id,
+            ]);
+
+            // Numéro de dossier
+            $dernierDossier = Operateur::where('numero_dossier', 'like', $an . '%')
+                ->orderByDesc('numero_dossier')
+                ->first();
+
+            $numDossier = $dernierDossier
+                ? $an . str_pad((int)substr($dernierDossier->numero_dossier, -3) + 1, 3, '0', STR_PAD_LEFT)
+                : $an . '001';
+
+            // Mise à jour de l'opérateur
+            $operateur->update([
+                'numero_arrive'   => $numCourrier,
+                'numero_dossier'  => $numDossier,
+                'numero_agrement' => $numCourrier . '/ONFP/DG/DEC/' . $anneeEnCours,
+            ]);
+        });
 
         Alert::success('Succès', 'Informations certifiées avec succès.');
 
@@ -4253,7 +4287,7 @@ class OperateurController extends Controller
         $numCourrier = $dernierArrive ? $dernierArrive->numero_arrive + 1 : (int)($an . '0001');
         $numCourrier = str_pad($numCourrier, 6, '0', STR_PAD_LEFT); */
 
-        $numCourrier = DB::transaction(function () use ($anneeEnCours, $an) {
+        /* $numCourrier = DB::transaction(function () use ($anneeEnCours, $an) {
 
             $dernierNumero = DB::table('arrives')
                 ->join('courriers', 'courriers.id', '=', 'arrives.courriers_id')
@@ -4287,22 +4321,56 @@ class OperateurController extends Controller
             'numero_arrive' => $numCourrier,
             'type'          => 'operateur',
             'courriers_id'  => $courrier->id,
-        ]);
+        ]); */
 
-        // Numéro de dossier
-        $dernierDossier = Operateur::where('numero_dossier', 'like', $an . '%')
-            ->orderByDesc('numero_dossier')
-            ->first();
+        DB::transaction(function () use ($anneeEnCours, $an, $operateur) {
 
-        $numDossier = $dernierDossier
-            ? $an . str_pad((int)substr($dernierDossier->numero_dossier, -3) + 1, 3, '0', STR_PAD_LEFT)
-            : $an . '001';
+            $dernierNumero = DB::table('arrives')
+                ->join('courriers', 'courriers.id', '=', 'arrives.courriers_id')
+                ->where('courriers.annee', $anneeEnCours)
+                ->lockForUpdate()
+                ->max(DB::raw('CAST(arrives.numero_arrive AS UNSIGNED)'));
 
-        $operateur->update([
-            'numero_arrive'   => $numCourrier,
-            'numero_dossier'  => $numDossier,
-            'numero_agrement' => $numCourrier . '/ONFP/DG/DEC/' . $anneeEnCours,
-        ]);
+            $next = $dernierNumero
+                ? $dernierNumero + 1
+                : (int) ($an . '0001');
+
+            $numCourrier = str_pad($next, 6, '0', STR_PAD_LEFT);
+
+            $courrier = Courrier::create([
+                'numero_courrier' => $numCourrier,
+                'date_recep'      => now(),
+                'date_cores'      => now(),
+                'annee'           => $anneeEnCours,
+                'objet'           => 'DEMANDE AGREMENT OPERATEUR',
+                'expediteur'      => $operateur->user?->operateur,
+                'type'            => 'operateur',
+                'user_create_id'  => Auth::id(),
+                'user_update_id'  => Auth::id(),
+                'users_id'        => Auth::id(),
+            ]);
+
+            Arrive::create([
+                'numero_arrive' => $numCourrier,
+                'type'          => 'operateur',
+                'courriers_id'  => $courrier->id,
+            ]);
+
+            // Numéro de dossier
+            $dernierDossier = Operateur::where('numero_dossier', 'like', $an . '%')
+                ->orderByDesc('numero_dossier')
+                ->first();
+
+            $numDossier = $dernierDossier
+                ? $an . str_pad((int)substr($dernierDossier->numero_dossier, -3) + 1, 3, '0', STR_PAD_LEFT)
+                : $an . '001';
+
+            $operateur->update([
+                'numero_arrive'   => $numCourrier,
+                'numero_dossier'  => $numDossier,
+                'numero_agrement' => $numCourrier . '/ONFP/DG/DEC/' . $anneeEnCours,
+            ]);
+        });
 
         Alert::success('Succès', 'Informations certifiées avec succès.');
 
