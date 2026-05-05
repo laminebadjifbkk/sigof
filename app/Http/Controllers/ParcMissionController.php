@@ -386,7 +386,7 @@ class ParcMissionController extends Controller
         $missionEmployees = $mission->employees()
             ->withPivot('vehicule_id', 'role')
             ->get()
-            ->keyBy('id');
+            ->keyBy(fn($e) => (int) $e->id); // 🔥 cast explicite
 
         return view('parc.missions.edit-personnel', compact(
             'mission',

@@ -299,9 +299,7 @@ $missions = $chauffeur->employee->parcmissions;
                         @foreach ($employees as $employee)
                             @php
                                 //$pivot = $mission->employees->find($employee->id)?->pivot;
-                                $pivot = $missionEmployees[$employee->id]->pivot ?? null;
-                                $vehiculeIdsMission = $mission->vehicules->pluck('id')->toArray();
-                                $pivot = $missionChauffeurs[$chauffeur->employee_id]->pivot ?? null;
+                                $pivot = $missionEmployees[(int) $employee->id]->pivot ?? null;
                             @endphp
 
                             <div class="row mb-2 align-items-center">
