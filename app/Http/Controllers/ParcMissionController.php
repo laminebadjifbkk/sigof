@@ -395,8 +395,6 @@ class ParcMissionController extends Controller
 
         $vehicules = ParcVehicule::whereIn('id', $vehiculeIdsMission)->get();
 
-        dd($vehiculeIdsMission, $vehicules);
-
         return view('parc.missions.edit-personnel', compact(
             'mission',
             'chauffeurs',
