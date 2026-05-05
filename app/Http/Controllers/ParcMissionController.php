@@ -397,8 +397,6 @@ class ParcMissionController extends Controller
             ->unique()
             ->values();
 
-            dd($vehicules, $vehiculeIdsMission);
-
         return view('parc.missions.edit-personnel', compact(
             'mission',
             'chauffeurs',
