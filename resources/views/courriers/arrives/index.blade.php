@@ -182,7 +182,7 @@
                                                             class="btn btn-success btn-sm" title="voir détails">
                                                             <i class="bi bi-eye"></i>
                                                         </a>
-                                                        @can('update', $arrive)
+                                                        {{-- @can('update', $arrive) --}}
                                                             <div class="filter">
                                                                 <a class="icon" href="#" data-bs-toggle="dropdown">
                                                                     <i class="bi bi-three-dots"></i>
@@ -209,7 +209,7 @@
                                                                     @endcan
                                                                 </ul>
                                                             </div>
-                                                        @endcan
+                                                        {{-- @endcan --}}
                                                     </div>
                                                 </td>
                                             </tr>
