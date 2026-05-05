@@ -334,9 +334,14 @@ $missions = $chauffeur->employee->parcmissions;
                                                 {{ $vehicule->immatriculation }}
                                             </option>
                                         @endforeach --}}
+                                        @if ($pivot && $pivot->vehicule_id && !$mission->vehicules->contains('id', $pivot->vehicule_id))
+                                            <option value="{{ $pivot->vehicule_id }}" selected class="text-danger">
+                                                Véhicule hors mission
+                                            </option>
+                                        @endif
                                         @foreach ($mission->vehicules as $vehicule)
                                             <option value="{{ $vehicule->id }}"
-                                                {{ ($pivot?->vehicule_id ?? $pivot?->pivot_vehicule_id) == $vehicule->id ? 'selected' : '' }}>
+                                                {{ $pivot && $pivot->vehicule_id == $vehicule->id ? 'selected' : '' }}>
                                                 {{ $vehicule->immatriculation }}
                                             </option>
                                         @endforeach
