@@ -356,9 +356,9 @@
                                         @endif
 
                                         <p style="text-align: right; font-style: italic">
-                                            {{-- {{ 'Fait à ' . $formation?->departement?->nom . ' le ' . $formation?->date_pv_finale?->translatedFormat('d F Y') ?? $formation?->date_pv?->translatedFormat('l d F Y') }} --}}
-                                            @if ($formation?->date_pv_finale)
-                                                {{ 'Fait à ' . remove_accents_uppercase($formation?->departement?->nom ?? '') . ', le ' . $formation?->date_pv_finale?->translatedFormat('d F Y') }}
+                                            {{-- {{ 'Fait à ' . $formation?->departement?->nom . ' le ' . $formation?->date_pv?->translatedFormat('d F Y') ?? $formation?->date_pv?->translatedFormat('l d F Y') }} --}}
+                                            @if ($formation?->date_pv)
+                                                {{ 'Fait à ' . remove_accents_uppercase($formation?->departement?->nom ?? '') . ', le ' . $formation?->date_pv?->translatedFormat('d F Y') }}
                                             @else
                                                 {{ 'Fait à ' . remove_accents_uppercase($formation?->departement?->nom ?? '') . ', le ' . $formation?->date_pv?->translatedFormat('d F Y') }}
                                             @endif
