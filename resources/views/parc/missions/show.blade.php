@@ -398,8 +398,8 @@
 
                 {{-- Ordres de mission --}}
                 @can('parc-odre-mission-edit')
-                    <a href="{{ route('parc-missions.pdf', $mission->id) }}" class="btn btn-success btn-sm" target="_blank">
-                        <i class="bi bi-file-earmark-pdf"></i> Ordres de mission {{ $mission->id }}
+                    <a href="{{ route('parc-missions.pdf', $mission) }}" class="btn btn-success btn-sm" target="_blank">
+                        <i class="bi bi-file-earmark-pdf"></i> Ordres de mission
                     </a>
                 @endcan
 
