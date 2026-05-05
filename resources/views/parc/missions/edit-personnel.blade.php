@@ -297,10 +297,6 @@ $missions = $chauffeur->employee->parcmissions;
                         <h5 class="mt-4">Autres employés</h5>
 
                         @foreach ($employees as $employee)
-                            @php
-                                //$pivot = $mission->employees->find($employee->id)?->pivot;
-                                $pivot = $missionEmployees[(int) $employee->id]->pivot ?? null;
-                            @endphp
 
                             <div class="row mb-2 align-items-center">
                                 <div class="col-md-8">
