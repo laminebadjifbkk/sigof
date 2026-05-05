@@ -301,6 +301,7 @@ $missions = $chauffeur->employee->parcmissions;
                                 //$pivot = $mission->employees->find($employee->id)?->pivot;
                                 $pivot = $missionEmployees[$employee->id]->pivot ?? null;
                                 $vehiculeIdsMission = $mission->vehicules->pluck('id')->toArray();
+                                $pivot = $missionChauffeurs[$chauffeur->employee_id]->pivot ?? null;
                             @endphp
 
                             <div class="row mb-2 align-items-center">
@@ -336,10 +337,10 @@ $missions = $chauffeur->employee->parcmissions;
                                             </option>
                                         @endforeach --}}
                                         @foreach ($mission->vehicules as $vehicule)
-                                            {{-- <option value="{{ $vehicule->id }}"
+                                            <option value="{{ $vehicule->id }}"
                                                 {{ ($pivot?->vehicule_id ?? $pivot?->pivot_vehicule_id) == $vehicule->id ? 'selected' : '' }}>
                                                 {{ $vehicule->immatriculation }}
-                                            </option> --}}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
