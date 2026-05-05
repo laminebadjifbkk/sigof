@@ -386,16 +386,18 @@ class ParcMissionController extends Controller
         $missionEmployees = $mission->employees()
             ->withPivot('vehicule_id', 'role')
             ->get()
-            ->keyBy(fn($e) => (int) $e->id); // 🔥 cast explicite
+            ->keyBy(fn($e) => (int) $e->id);
 
-        $vehiculeIdsMission = $mission->employees
-            ->pluck('pivot.vehicule_id')
-            ->filter()
-            ->unique();
+        // 🔥 VEHICULES CORRIGÉS (ICI LE CHANGEMENT IMPORTANT)
+        $vehicules = $mission->vehicules()
+            ->get();
 
-        $vehicules = ParcVehicule::whereIn('id', $vehiculeIdsMission)->get();
+        $vehiculeIdsMission = $vehicules
+            ->pluck('id')
+            ->unique()
+            ->values();
 
-        dd($vehiculeIdsMission, $vehicules);
+            dd($vehicules, $vehiculeIdsMission);
 
         return view('parc.missions.edit-personnel', compact(
             'mission',
@@ -404,6 +406,7 @@ class ParcMissionController extends Controller
             'missionEmployees',
             'employees',
             'vehicules',
+            'vehiculeIdsMission',
             'annee'
         ));
     }
