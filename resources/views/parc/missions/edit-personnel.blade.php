@@ -328,18 +328,7 @@ $missions = $chauffeur->employee->parcmissions;
                                     <select name="employees[{{ $employee->id }}][vehicule_id]"
                                         class="form-select form-select-sm">
                                         <option value="">-- Aucun véhicule --</option>
-                                        {{-- @foreach ($mission->vehicules as $vehicule)
-                                            <option value="{{ $vehicule->id }}"
-                                                {{ $pivot?->vehicule_id == $vehicule->id ? 'selected' : '' }}>
-                                                {{ $vehicule->immatriculation }}
-                                            </option>
-                                        @endforeach --}}
-                                        @if ($pivot && $pivot->vehicule_id && !$mission->vehicules->contains('id', $pivot->vehicule_id))
-                                            <option value="{{ $pivot->vehicule_id }}" selected class="text-danger">
-                                                Véhicule hors mission
-                                            </option>
-                                        @endif
-                                        @foreach ($mission->vehicules as $vehicule)
+                                        @foreach ($vehicules as $vehicule)
                                             <option value="{{ $vehicule->id }}"
                                                 {{ $pivot && $pivot->vehicule_id == $vehicule->id ? 'selected' : '' }}>
                                                 {{ $vehicule->immatriculation }}
