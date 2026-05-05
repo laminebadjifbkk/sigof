@@ -256,7 +256,7 @@
                                         <p>
                                             <span>
                                                 <b>LIEU DE LA FORMATION </b> :
-                                                {{ $formation?->departement?->nom }}
+                                                {{ $formation?->lieu }}
                                             </span>
                                         </p>
 
@@ -356,7 +356,7 @@
                                         @endif
 
                                         <p style="text-align: right; font-style: italic">
-                                            {{ 'Fait à ' . $formation?->departement?->nom . ' le ' . $formation?->date_pv?->translatedFormat('d F Y') ?? $formation?->date_pv?->translatedFormat('l d F Y') }}
+                                            {{ 'Fait à ' . $formation?->lieu . ' le ' . $formation?->date_pv?->translatedFormat('d F Y') ?? $formation?->date_pv?->translatedFormat('l d F Y') }}
                                         </p>
                                         <p style="text-align: right; font-style: italic">
                                             <span>
