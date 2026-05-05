@@ -121,7 +121,7 @@
                 </div>
 
                 <div class="date" style="width: 30%; float:right; text-align: right;">
-                    {{ $formation?->departement?->region?->nom }}, le
+                    {{ $formation?->departement?->nom }}, le
                     {{ $formation?->date_pv_finale?->translatedFormat('d F Y') ?? $formation?->date_pv?->translatedFormat('d F Y') }}
                 </div>
 

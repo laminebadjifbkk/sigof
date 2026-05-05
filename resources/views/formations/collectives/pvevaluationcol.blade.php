@@ -238,10 +238,10 @@
                 <b><u>SIGNATURE DES MEMBRES DU JURY</u></b>
                 @if ($formation?->date_pv)
                     <span style="float: right; font-style: italic">
-                        @if ($formation?->date_pv_finale)
-                            {{ 'Fait à ' . remove_accents_uppercase($formation?->lieu ?? '') . ', le ' . $formation?->date_pv_finale?->translatedFormat('d F Y') }}
+                        @if ($formation?->date_pv)
+                            {{ 'Fait à ' . remove_accents_uppercase($formation?->departement?->nom ?? '') . ', le ' . $formation?->date_pv?->translatedFormat('d F Y') }}
                         @else
-                            {{ 'Fait à ' . remove_accents_uppercase($formation?->lieu ?? '') . ', le ' . $formation?->date_pv?->translatedFormat('d F Y') }}
+                            {{ 'Fait à ' . remove_accents_uppercase($formation?->departement?->nom ?? '') . ', le ' . $formation?->date_pv?->translatedFormat('d F Y') }}
                         @endif
                     </span>
                 @endif
