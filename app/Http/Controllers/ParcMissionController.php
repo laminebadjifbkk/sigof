@@ -461,6 +461,11 @@ class ParcMissionController extends Controller
         try {
             // Récupérer le mission par ID
             $mission = ParcMission::findOrFail($id);
+
+            $mission = ParcMission::with([
+                'employees' => fn($q) => $q->withPivot('vehicule_id')
+            ])->findOrFail($id);
+
             if ($mission->employees->isEmpty()) {
                 return redirect()
                     ->back()

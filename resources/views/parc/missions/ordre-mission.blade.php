@@ -203,7 +203,9 @@
         <!-- ========================= -->
         @php
             $vehiculeId = $employee->pivot?->vehicule_id;
-            $vehicule = $mission->vehicules->firstWhere('id', $vehiculeId);
+        @endphp
+        @php
+            $vehicule = \App\Models\ParcVehicule::find($employee->pivot->vehicule_id);
         @endphp
         <div class="page-lettre page-break">
             <div style="font-family: Tahoma, Arial, sans-serif; font-size: 12pt; line-height: 1.3;">
