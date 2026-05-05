@@ -383,6 +383,27 @@ class Operateur extends Model
         return array_values($numeros);
     }
 
+    public function getNumeroAttribute()
+    {
+        $fixe = $this->user?->fixe;
+        $mobile = $this->user?->telephone;
+
+        $fixeClean = $fixe ? preg_replace('/[^0-9]/', '', $fixe) : null;
+        $mobileClean = $mobile ? preg_replace('/[^0-9]/', '', $mobile) : null;
+
+        $numero = [];
+
+        if ($fixeClean) {
+            $numero[$fixeClean] = $fixeClean;
+        }
+
+        if ($mobileClean) {
+            $numero[$mobileClean] = $mobileClean;
+        }
+
+        return implode('/', array_values($numero));
+    }
+
     public function scopeAvecNumeroAgrement($query)
     {
         return $query->whereNotNull('numero_agrement')

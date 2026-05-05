@@ -624,18 +624,18 @@
             <tr>
                 <td><b>Responsable</b></td>
                 <td colspan="9">
-                    {{ $operateur?->user?->firstname }} {{ $operateur?->user?->name }}
+                    {{ $operateur?->user?->civilite }} {{ $operateur?->user?->firstname }} {{ $operateur?->user?->name }}
                 </td>
                 <td style="width: 6%; text-align:center;"><b></b></td>
                 <td style="width: 6%; text-align:center;"><b></b></td>
             </tr>
 
-            <tr>
+            {{-- <tr>
                 <td><b>Civilité</b></td>
                 <td colspan="9">{{ $operateur?->user?->civilite }}</td>
                 <td style="width: 6%; text-align:center;"><b></b></td>
                 <td style="width: 6%; text-align:center;"><b></b></td>
-            </tr>
+            </tr> --}}
 
             <tr>
                 <td><b>Titre</b></td>
@@ -646,7 +646,9 @@
 
             <tr>
                 <td><b>Adresse</b></td>
-                <td colspan="9">{{ $operateur?->user?->adresse }}</td>
+                <td colspan="5">{{ $operateur?->user?->adresse }}</td>
+                <td colspan="2">{{ $operateur?->departement->nom }}</td>
+                <td colspan="2">{{ $operateur?->departement?->region?->nom }}</td>
                 <td style="width: 6%; text-align:center;"><b></b></td>
                 <td style="width: 6%; text-align:center;"><b></b></td>
             </tr>
@@ -655,22 +657,22 @@
             <tr>
                 <td><b>Contacts</b></td>
                 <td colspan="3">
-                    @forelse ($operateur->numeros as $numero)
-                        <div>
-                            <a href="tel:+221{{ preg_replace('/[^0-9]/', '', $numero) }}" class="text-decoration-none">
-                                {{ $numero }}
-                            </a>
-                        </div>
-                    @empty
+                    @if ($operateur->numero)
+                        <a href="tel:+221{{ str_replace('/', '', $operateur->numero) }}"
+                            style="text-decoration: none;">
+                            {{ $operateur->numero }}
+                        </a>
+                    @else
                         <span class="text-muted fst-italic">Aucun numéro</span>
-                    @endforelse
+                    @endif
                 </td>
 
-                <td colspan="3">
-                    Email: {{ $operateur?->user?->email }}
+                <td colspan="3"><a
+                        href="mailto:{{ $operateur?->user?->email }}">{{ $operateur?->user?->email }}</a>
+
                 </td>
-                <td colspan="3">
-                    Web: {{ $operateur?->user?->web ?? '-' }}
+                <td colspan="3"><a href="{{ $operateur?->user?->web }}" target="_blank"
+                        rel="noopener noreferrer">{{ $operateur?->user?->web ?? '-' }}</a>
                 </td>
                 <td style="width: 6%; text-align:center;"><b></b></td>
                 <td style="width: 6%; text-align:center;"><b></b></td>
@@ -716,13 +718,13 @@
                         @endif
                     </td>
                     <td style="width: 6%; text-align:center;"><b></b></td>
-                <td style="width: 6%; text-align:center;"><b></b></td>
+                    <td style="width: 6%; text-align:center;"><b></b></td>
                 </tr>
             @empty
                 <tr>
                     <td colspan="10" style="text-align:center;">Aucun fichier</td>
                     <td style="width: 6%; text-align:center;"><b></b></td>
-                <td style="width: 6%; text-align:center;"><b></b></td>
+                    <td style="width: 6%; text-align:center;"><b></b></td>
                 </tr>
             @endforelse
 
