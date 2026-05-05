@@ -383,10 +383,16 @@ class ParcMissionController extends Controller
             ->get()
             ->sortBy(fn($e) => $e->user->name);
 
+        $missionEmployees = $mission->employees()
+            ->withPivot('vehicule_id', 'role')
+            ->get()
+            ->keyBy('id');
+
         return view('parc.missions.edit-personnel', compact(
             'mission',
             'chauffeurs',
             'missionChauffeurs',
+            'missionEmployees',
             'employees',
             'annee'
         ));
