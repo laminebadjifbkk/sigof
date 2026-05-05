@@ -458,7 +458,6 @@ class ParcMissionController extends Controller
 
     public function ordreMission($id)
     {
-        dd($id);
         try {
             // Récupérer le mission par ID
             $mission = ParcMission::findOrFail($id);
