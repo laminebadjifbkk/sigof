@@ -370,7 +370,42 @@
                                                                     <small>Agrément valide</small>
                                                                 </div>
                                                             @endif
+                                                        </div>
+                                                    @elseif ($showButton)
+                                                        <div style="min-width: 240px; max-width: 280px;">
 
+                                                            @if ($op->est_expire)
+                                                                <div class="alert alert-danger p-2 mb-0 shadow-sm">
+                                                                    <button class="btn btn-success btn-sm w-100 mb-1"
+                                                                        data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
+                                                                        <i class="bi bi-arrow-repeat"></i>
+                                                                        Nouvelle demande
+                                                                    </button>
+
+                                                                    <small>
+                                                                        Expiré le
+                                                                        <strong>{{ $op->date_expiration?->format('d/m/Y') }}</strong>
+                                                                    </small>
+                                                                </div>
+                                                            @elseif ($op->est_sous_reserve || $op->est_rejete)
+                                                                <div class="alert alert-danger p-2 mb-0 shadow-sm">
+                                                                    <button class="btn btn-success btn-sm w-100 mb-1"
+                                                                        data-bs-toggle="modal" data-bs-target="#AddoperateurModalNew">
+                                                                        <i class="bi bi-arrow-repeat"></i>
+                                                                        Nouvelle demande
+                                                                    </button>
+                                                                </div>
+                                                            @elseif($op->est_renouvellement)
+                                                                <div class="alert alert-info p-2 mb-0 shadow-sm">
+                                                                    <button class="btn btn-primary btn-sm w-100 mb-1"
+                                                                        data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
+                                                                        <i class="bi bi-arrow-repeat"></i>
+                                                                        Renouveler
+                                                                    </button>
+
+                                                                    <small>Agrément valide</small>
+                                                                </div>
+                                                            @endif
                                                         </div>
                                                     @endif
                                                 @endcan
