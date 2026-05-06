@@ -404,6 +404,7 @@
                                                         'À corriger',
                                                         'rejeté',
                                                         'Non conforme',
+                                                        'Conforme',
                                                         'Injoignable',
                                                         'Indisponible',
                                                         'Retiré',
