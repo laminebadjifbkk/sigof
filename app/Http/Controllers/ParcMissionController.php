@@ -290,10 +290,10 @@ class ParcMissionController extends Controller
                     $query->whereYear('date_depart', $annee);
                 }
             ])
-            ->whereIn('etat', ['operationnel', 'disponible'])
-            ->whereDoesntHave('missions', function ($query) {
+            /* ->whereIn('etat', ['operationnel', 'disponible']) */
+            /* ->whereDoesntHave('missions', function ($query) {
                 $query->where('statut', 'en_cours');
-            })
+            }) */
             ->get();
 
         // Véhicules déjà affectés à la mission (pivot chauffeur)
