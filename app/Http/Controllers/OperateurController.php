@@ -4044,7 +4044,14 @@ class OperateurController extends Controller
             return redirect()->back();
         } */
 
-        if (!in_array($operateur->statut_agrement, ['Nouveau', 'À corriger'])) {
+        if (!in_array($operateur->statut_agrement, [
+            'Nouveau',
+            'À corriger',
+            'Non conforme',
+            'Injoignable',
+            'Indisponible',
+            'Retiré'
+        ])) {
             Alert::error('Désolé', 'Vous ne pouvez pas certifier pour le moment.');
             return redirect()->back();
         }
@@ -4271,7 +4278,14 @@ class OperateurController extends Controller
             return redirect()->back();
         } */
 
-        if (!in_array($operateur->statut_agrement, ['Nouveau', 'À corriger'])) {
+        if (!in_array($operateur->statut_agrement, [
+            'Nouveau',
+            'À corriger',
+            'Non conforme',
+            'Injoignable',
+            'Indisponible',
+            'Retiré'
+        ])) {
             Alert::error('Désolé', 'Vous ne pouvez pas certifier pour le moment.');
             return redirect()->back();
         }
