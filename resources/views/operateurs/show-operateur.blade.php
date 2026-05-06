@@ -402,8 +402,8 @@
                                                     in_array($op?->statut_agrement, [
                                                         'Nouveau',
                                                         'À corriger',
+                                                        'rejeté',
                                                         'Non conforme',
-                                                        'Nouveau',
                                                         'Injoignable',
                                                         'Indisponible',
                                                         'Retiré',
