@@ -74,6 +74,8 @@ class FormationStartController extends Controller
             'SerigneMansourSy.FALL@onfp.sn',
             'MaimounaGadio.AW@onfp.sn',
             'ramet.ndiaye@onfp.sn',
+            'ticana92@gmail.com',
+            'binamcheikhou@gmail.com',
             'seckseynabou27@gmail.com',
             'seynabou.seck@onfp.sn',
             'mamebigue.ciss@onfp.sn',

@@ -247,6 +247,8 @@ class SendFormationStartEmail extends Command
                     //'aissatou.deme@tresor.gouv.sn',
                     'MaimounaGadio.AW@onfp.sn',
                     'ramet.ndiaye@onfp.sn',
+                    'ticana92@gmail.com',
+                    'binamcheikhou@gmail.com',
                     'seckseynabou27@gmail.com',
                     'seynabou.seck@onfp.sn',
                     'mamebigue.ciss@onfp.sn',
