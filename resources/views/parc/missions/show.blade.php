@@ -384,14 +384,14 @@
 
                 {{-- Gestion des chauffeurs --}}
                 @can('parc-mission-personnel-update')
-                    <a href="{{ route('parc-missions.personnel.edit', $mission->id) }}" class="btn btn-info btn-sm">
+                    <a href="{{ route('parc-missions.personnel.edit', $mission) }}" class="btn btn-info btn-sm">
                         <i class="bi bi-people-fill"></i> Ajouter / Modifier Personnel
                     </a>
                 @endcan
 
                 {{-- Gestion véhicules --}}
                 @can('parc-vehicule-update')
-                    <a href="{{ route('parc-missions.vehicules.edit', $mission->id) }}" class="btn btn-secondary btn-sm">
+                    <a href="{{ route('parc-missions.vehicules.edit', $mission) }}" class="btn btn-secondary btn-sm">
                         <i class="bi bi-truck"></i> Ajouter / Modifier Véhicules
                     </a>
                 @endcan

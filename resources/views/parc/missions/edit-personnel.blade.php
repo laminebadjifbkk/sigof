@@ -288,7 +288,7 @@ $missions = $chauffeur->employee->parcmissions;
                             <button class="btn btn-success btn-sm">
                                 <i class="bi bi-check-circle"></i> Enregistrer
                             </button>
-                            <a href="{{ route('parc-missions.show', $mission->id) }}" class="btn btn-secondary btn-sm">
+                            <a href="{{ route('parc-missions.show', $mission) }}" class="btn btn-secondary btn-sm">
                                 Annuler
                             </a>
                         </div>
@@ -350,7 +350,7 @@ $missions = $chauffeur->employee->parcmissions;
                             <button class="btn btn-success btn-sm">
                                 <i class="bi bi-check-circle"></i> Enregistrer
                             </button>
-                            <a href="{{ route('parc-missions.show', $mission->id) }}" class="btn btn-secondary btn-sm">
+                            <a href="{{ route('parc-missions.show', $mission) }}" class="btn btn-secondary btn-sm">
                                 Annuler
                             </a>
                         </div>
