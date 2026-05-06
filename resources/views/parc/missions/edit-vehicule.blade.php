@@ -62,9 +62,13 @@
                             <div class="row mb-2 align-items-center">
                                 <div class="col-md-6">
                                     <div class="form-check">
+                                        {{-- <input type="checkbox" class="vehicle-checkbox"
+                                            name="vehicules[{{ $vehicule->id }}][id]" value="{{ $vehicule->id }}"
+                                            {{ $mission->vehicules->contains($vehicule->id) ? 'checked' : '' }}> --}}
                                         <input type="checkbox" class="vehicle-checkbox"
                                             name="vehicules[{{ $vehicule->id }}][id]" value="{{ $vehicule->id }}"
-                                            {{ $mission->vehicules->contains($vehicule->id) ? 'checked' : '' }}>
+                                            {{ $mission->vehicules->contains($vehicule->id) ? 'checked' : '' }}
+                                            {{ $vehicule->etat === 'en_mission' ? 'disabled' : '' }}>
 
                                         <label class="form-check-label">
                                             {{ $vehicule->immatriculation }} - {{ $vehicule->marque }}
