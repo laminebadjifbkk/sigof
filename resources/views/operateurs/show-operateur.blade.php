@@ -397,7 +397,17 @@
                                             @endif
                                         </div>
                                         <div>
-                                            @if (!empty($section['route']) && in_array($op?->statut_agrement, ['Nouveau', 'À corriger']))
+                                            @if (
+                                                !empty($section['route']) &&
+                                                    in_array($op?->statut_agrement, [
+                                                        'Nouveau',
+                                                        'À corriger',
+                                                        'Non conforme',
+                                                        'Nouveau',
+                                                        'Injoignable',
+                                                        'Indisponible',
+                                                        'Retiré',
+                                                    ]))
                                                 <a href="{{ $section['route'] }}" target="_blank"
                                                     class="btn btn-sm btn-outline-success">
                                                     <i class="bi bi-pencil-square me-1"></i> Ajouter / Modifier
