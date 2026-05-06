@@ -69,7 +69,7 @@
                                         <label class="form-check-label">
                                             {{ $vehicule->immatriculation }} - {{ $vehicule->marque }}
                                             <span class="{{ $vehicule->etat }}">
-                                                {{ ucfirst(str_replace('_', ' ', $vehicule->etat)) }}
+                                                - {{ ucfirst(str_replace('_', ' ', $vehicule->etat)) }}
                                             </span>
 
                                         </label>
