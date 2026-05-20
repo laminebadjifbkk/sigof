@@ -892,10 +892,9 @@
                         {{ $ref->contact }}
                     </td>
 
-                    <td colspan="8"
-                        style="vertical-align: top; padding: 5px; line-height: 1.5; word-break: break-word;">
+                    <td colspan="8" style="vertical-align: top; padding: 8px; line-height: 20px;">
                         {{ $ref->organisme }} - {{ $ref->periode }} <br>
-                        {{ $ref->description }}
+                        {!! nl2br(e($ref->description)) !!}
                     </td>
                 </tr>
             @endforeach
