@@ -624,7 +624,8 @@
             <tr>
                 <td><b>Responsable</b></td>
                 <td colspan="9">
-                    {{ $operateur?->user?->civilite }} {{ $operateur?->user?->firstname }} {{ $operateur?->user?->name }}
+                    {{ $operateur?->user?->civilite }} {{ $operateur?->user?->firstname }}
+                    {{ $operateur?->user?->name }}
                 </td>
                 <td style="width: 6%; text-align:center;"><b></b></td>
                 <td style="width: 6%; text-align:center;"><b></b></td>
@@ -887,15 +888,27 @@
             @endforeach
 
         </table>
+
         <table>
 
             <tr class="section-title">
                 <td colspan="12">OBSERVATIONS</td>
             </tr>
 
+            <tr>
+                <td colspan="12">
+                    {!! nl2br(e(strtoupper($operateur?->observations))) !!}
+                </td>
+            </tr>
+
+            {{-- 5 lignes vides --}}
+            @for ($i = 0; $i < 5; $i++)
                 <tr>
-                    <td colspan="12">{!! nl2br(e(strtoupper($operateur?->observations))) !!}</td>
+                    <td colspan="12" style="height: 25px; border-bottom: 1px solid #000;">
+                        &nbsp;
+                    </td>
                 </tr>
+            @endfor
 
         </table>
 
