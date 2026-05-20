@@ -681,7 +681,7 @@
             {{-- STATUT --}}
             <tr>
                 <td><b>Statut juridique</b></td>
-                <td colspan="9">{{ $operateur?->statut_agrement }}</td>
+                <td colspan="9">{{ $operateur?->statut }}</td>
                 <td style="width: 6%; text-align:center;"><b></b></td>
                 <td style="width: 6%; text-align:center;"><b></b></td>
             </tr>
