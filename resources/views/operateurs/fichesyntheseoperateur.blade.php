@@ -934,7 +934,7 @@
 
             {{-- Signatures --}}
             <tr>
-                <td style="border: none; width: 50%; text-align: center;">
+                <td style="border: none; width: 50%; text-align: left;">
                     <b>Signature ONFP</b>
                 </td>
 
