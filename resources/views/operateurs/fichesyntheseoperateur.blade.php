@@ -672,7 +672,7 @@
 
                 </td>
                 <td colspan="3"><a href="{{ $operateur?->user?->web }}" target="_blank"
-                        rel="noopener noreferrer">{{ $operateur?->user?->web ?? '-' }}</a>
+                        rel="noopener noreferrer"></a>
                 </td>
                 <td style="width: 6%; text-align:center;"><b></b></td>
                 <td style="width: 6%; text-align:center;"><b></b></td>
