@@ -627,7 +627,7 @@
             <tr>
                 <td><b>Dénomination</b></td>
                 <td colspan="9">{{ $operateur?->user?->display_operateur }}</td>
-                <td colspan="2" style="width: 12%; text-align:center;"><b>CONFORMITÉ</b></td>
+                <td colspan="2" style="width: 11%; text-align:center;">CONFORMITÉ</td>
             </tr>
 
             <tr>
@@ -752,7 +752,7 @@
             <tr>
                 <td colspan="4" style="width: 35%;"><b>DOMAINE</b></td>
                 <td colspan="6" style="width: 53%;"><b>MODULE</b></td>
-                <td colspan="2" style="width: 12%; text-align:center;"><b>CONFORMITÉ</b></td>
+                <td colspan="2" style="width: 11%; text-align:center;">CONFORMITÉ</td>
             </tr>
 
             {{-- <tr>
@@ -795,7 +795,7 @@
             <tr>
                 <td colspan="4" style="width: 35%;"><b>NOM</b></td>
                 <td colspan="6" style="width: 53%;"><b>EXPÉRIENCE</b></td>
-                <td colspan="2" style="width: 12%; text-align:center;"><b>CONFORMITÉ</b></td>
+                <td colspan="2" style="width: 11%; text-align:center;">CONFORMITÉ</td>
             </tr>
 
             <tr>
@@ -842,7 +842,7 @@
                 <td colspan="4" style="width: 35%;"><b>DÉSIGNATION</b></td>
                 <td style="width: 8%;"><b>QTÉ</b></td>
                 <td style="width: 8%;"><b>ÉTAT</b></td>
-                <td colspan="2" style="width: 14%; text-align:center;"><b>CONFORMITÉ</b></td>
+                <td colspan="2" style="width: 11%; text-align:center;">CONFORMITÉ</td>
             </tr>
 
             <tr>
