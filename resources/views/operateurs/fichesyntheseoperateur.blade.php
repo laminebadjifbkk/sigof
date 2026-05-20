@@ -888,11 +888,11 @@
 
             @foreach ($operateur?->operateureferences as $ref)
                 <tr>
-                    <td colspan="4" style="vertical-align: top; padding: 5px; white-space: nowrap; width: 120px;">
+                    <td colspan="2" style="vertical-align: top; padding: 5px; white-space: nowrap; width: 120px;">
                         {{ $ref->contact }}
                     </td>
 
-                    <td colspan="8" style="vertical-align: top; padding: 8px; line-height: 20px;">
+                    <td colspan="10" style="vertical-align: top; padding: 8px; line-height: 20px;">
                         {{ $ref->organisme }} - {{ $ref->periode }} <br>
                         {!! nl2br(e($ref->description)) !!}
                     </td>
