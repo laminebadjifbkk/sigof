@@ -894,11 +894,13 @@
                 <td colspan="12">OBSERVATIONS</td>
             </tr>
 
-            <tr>
-                <td colspan="12" style="padding: 8px;">
-                    {!! nl2br(e(strtoupper($operateur?->observations))) !!}
-                </td>
-            </tr>
+            @if (!empty($operateur?->observations))
+                <tr>
+                    <td colspan="12" style="padding: 8px;">
+                        {!! nl2br(e(strtoupper($operateur?->observations))) !!}
+                    </td>
+                </tr>
+            @endif
 
             {{-- Grand espace sans bordures internes --}}
             <tr>
