@@ -879,8 +879,8 @@
 
             @foreach ($operateur?->operateureferences as $ref)
                 <tr>
-                    <td colspan="3">{{ $ref->contact }}</td>
-                    <td colspan="9">
+                    <td colspan="4">{{ $ref->contact }}</td>
+                    <td colspan="8">
                         {{ $ref->organisme }} - {{ $ref->periode }} <br>
                         {{ $ref->description }}
                     </td>
