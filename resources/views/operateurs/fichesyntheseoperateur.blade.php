@@ -626,13 +626,13 @@
             {{-- OPERATEUR --}}
             <tr>
                 <td><b>Dénomination</b></td>
-                <td colspan="8">{{ $operateur?->user?->display_operateur }}</td>
-                <td colspan="3" style="width: 12%; text-align:center;"><b>CONFORMITÉ</b></td>
+                <td colspan="9">{{ $operateur?->user?->display_operateur }}</td>
+                <td colspan="2" style="width: 12%; text-align:center;"><b>CONFORMITÉ</b></td>
             </tr>
 
             <tr>
                 <td><b>Responsable</b></td>
-                <td colspan="8">
+                <td colspan="9">
                     {{ $operateur?->user?->civilite }} {{ $operateur?->user?->firstname }}
                     {{ $operateur?->user?->name }}
                 </td>
@@ -649,7 +649,7 @@
 
             <tr>
                 <td><b>Titre</b></td>
-                <td colspan="8">{{ $operateur?->user?->fonction_responsable }}</td>
+                <td colspan="9">{{ $operateur?->user?->fonction_responsable }}</td>
                 <td style="width: 6%; text-align:center;"><b></b></td>
                 <td style="width: 6%; text-align:center;"><b></b></td>
             </tr>
@@ -691,7 +691,7 @@
             {{-- STATUT --}}
             <tr>
                 <td><b>Statut juridique</b></td>
-                <td colspan="8">{{ $operateur?->user?->statut }}</td>
+                <td colspan="9">{{ $operateur?->user?->statut }}</td>
                 <td style="width: 6%; text-align:center;"><b></b></td>
                 <td style="width: 6%; text-align:center;"><b></b></td>
             </tr>
@@ -703,7 +703,7 @@
 
             <tr>
                 <td><b>N° NINEA</b></td>
-                <td colspan="8">
+                <td colspan="9">
                     <span style="color:red">{{ $operateur?->user?->ninea ?? '-' }}</span>
                 </td>
                 <td style="width: 6%; text-align:center;"><b></b></td>
@@ -888,11 +888,11 @@
 
             @foreach ($operateur?->operateureferences as $ref)
                 <tr>
-                    <td colspan="2" style="vertical-align: top; padding: 5px; white-space: nowrap; width: 120px;">
+                    <td colspan="4" style="vertical-align: top; padding: 5px; white-space: nowrap; width: 120px;">
                         {{ $ref->contact }}
                     </td>
 
-                    <td colspan="10" style="vertical-align: top; padding: 8px; line-height: 20px;">
+                    <td colspan="8" style="vertical-align: top; padding: 8px; line-height: 20px;">
                         {{ $ref->organisme }} - {{ $ref->periode }} <br>
                         {!! nl2br(e($ref->description)) !!}
                     </td>
