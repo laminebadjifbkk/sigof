@@ -997,6 +997,10 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::resource('/projetmodules', ProjetmoduleController::class);
         Route::resource('/validation-operateur-modules', ValidationmoduleController::class);
         Route::resource('/validation-operateur', ValidationoperateurController::class);
+        Route::delete(
+            '/validation-operateur/{id}/delete-validation',
+            [ValidationoperateurController::class, 'deleteValidation']
+        )->name('validation-operateur.deleteValidation');
         Route::resource('/collectives', CollectiveController::class);
         Route::resource('/domaines', DomaineController::class);
         Route::resource('/secteurs', SecteurController::class);

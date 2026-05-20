@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Operateur;
@@ -139,4 +140,18 @@ class ValidationoperateurController extends Controller
 
         return redirect()->back();
     }
+
+    public function deleteValidation($id)
+    {
+        $validation = Validationoperateur::findOrFail($id);
+        
+        $operateur = $validation->operateur;
+
+        $validation->delete();
+
+        Alert::success('Succès', 'Validation supprimée avec succès');
+
+        return redirect()->route('operateurs.show', $operateur);
+    }
+
 }
