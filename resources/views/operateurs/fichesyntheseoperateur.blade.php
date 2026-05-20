@@ -935,11 +935,11 @@
             {{-- Signatures --}}
             <tr>
                 <td style="border: none; width: 50%; text-align: left;">
-                    <b>Signature ONFP</b>
+                    <b>Signature ONFP(Prénom, NOM)</b>
                 </td>
 
                 <td style="border: none; width: 50%; text-align: center;">
-                    <b>Signature de l'Opérateur</b>
+                    <b>Signature de l'Opérateur(Prénom, NOM)</b>
                 </td>
             </tr>
 
