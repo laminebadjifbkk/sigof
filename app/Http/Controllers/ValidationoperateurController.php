@@ -163,6 +163,8 @@ class ValidationoperateurController extends Controller
         ]);
 
         $validation = Validationoperateur::findOrFail($id);
+
+        dd($validation);
         $operateur = $validation->operateur;
 
         $validation->update([
