@@ -1135,7 +1135,7 @@
                                             <div class="d-flex align-items-center gap-2">
                                                 <a href="#"
                                                     class="btn btn-success btn-sm d-flex align-items-center gap-1"
-                                                    data-bs-toggle="modal" data-bs-target="#addobservations"
+                                                    data-bs-toggle="modal" data-bs-target="#addobservations{{ $operateur->id }}"
                                                     title="Ajouter">
                                                     <i class="bi bi-plus"></i>
                                                     Ajouter/Modifier

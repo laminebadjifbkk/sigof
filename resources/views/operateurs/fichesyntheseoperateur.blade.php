@@ -886,10 +886,16 @@
                 </tr>
             @endforeach
 
-            <tr>
-                <td><b>Observations</b></td>
-                <td colspan="11">{!! nl2br(e(strtoupper($operateur?->observations))) !!}</td>
+        </table>
+        <table>
+
+            <tr class="section-title">
+                <td colspan="12">OBSERVATIONS</td>
             </tr>
+
+                <tr>
+                    <td colspan="12">{!! nl2br(e(strtoupper($operateur?->observations))) !!}</td>
+                </tr>
 
         </table>
 

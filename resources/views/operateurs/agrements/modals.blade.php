@@ -313,8 +313,8 @@
 @endforeach
 
 @foreach ($operateurs as $operateur)
-    <div class="modal fade" id="addobservations" tabindex="-1" role="dialog"
-        aria-labelledby="addobservationsLabel" aria-hidden="true">
+    <div class="modal fade" id="addobservations{{ $operateur->id }}" tabindex="-1" role="dialog"
+        aria-labelledby="addobservationsLabel{{ $operateur->id }}" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">

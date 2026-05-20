@@ -1507,6 +1507,7 @@ class OperateurController extends Controller
 
         // 🔹 Charger uniquement les sigles des fichiers utilisateurs
         $userFileSigles = $files->pluck('sigle');
+        $departements = Departement::orderBy("nom", "asc")->get();
 
         // 🔹 Vérification des documents
         $hasAuto         = $userFileSigles->contains('Autorisation');
@@ -1572,6 +1573,7 @@ class OperateurController extends Controller
             'hasNinea',
             'hasOrganigramme',
             'hasQuitus',
+            'departements',
             'hasRC'
         ));
     }
