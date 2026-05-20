@@ -921,6 +921,36 @@
 
         </table>
 
+        <br><br>
+
+        <table style="width: 100%; border-collapse: collapse; border: none;">
+
+            {{-- Ligne "Fait à ..." --}}
+            <tr>
+                <td colspan="2" style="border: none; text-align: right; padding-bottom: 40px;">
+                    Fait à ..........................................
+                </td>
+            </tr>
+
+            {{-- Signatures --}}
+            <tr>
+                <td style="border: none; width: 50%; text-align: center;">
+                    <b>Signature ONFP</b>
+                </td>
+
+                <td style="border: none; width: 50%; text-align: center;">
+                    <b>Signature de l'Opérateur</b>
+                </td>
+            </tr>
+
+            {{-- Espaces signatures --}}
+            <tr>
+                <td style="border: none; height: 100px;"></td>
+                <td style="border: none;"></td>
+            </tr>
+
+        </table>
+
     </div>
 
 </body>
