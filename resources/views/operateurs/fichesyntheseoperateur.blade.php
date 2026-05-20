@@ -880,7 +880,7 @@
         <div style="page-break-after: always;"></div>
 
         {{-- ================= REFERENCES ================= --}}
-        <table style="width:100%; border-collapse: collapse;">
+        <table style="width:100%; border-collapse: collapse; table-layout: fixed;">
 
             <tr class="section-title">
                 <td colspan="12">EXPÉRIENCES</td>
@@ -888,7 +888,7 @@
 
             @foreach ($operateur?->operateureferences as $ref)
                 <tr>
-                    <td colspan="4" style="vertical-align: top; padding: 5px;">
+                    <td colspan="4" style="vertical-align: top; padding: 5px; white-space: nowrap; width: 120px;">
                         {{ $ref->contact }}
                     </td>
 
