@@ -534,6 +534,15 @@
         body {
             font-family: Arial, sans-serif;
             font-size: 12px;
+            line-height: 1.5;
+        }
+
+        td {
+            border: 1px solid #000;
+            padding: 6px;
+            vertical-align: top;
+            line-height: 1.5;
+            word-wrap: break-word;
         }
 
         .invoice-box {
