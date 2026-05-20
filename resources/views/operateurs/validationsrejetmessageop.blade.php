@@ -57,9 +57,10 @@
                 <div class="ms-2 d-flex gap-2">
 
                     {{-- Modifier (si tu as déjà une route edit) --}}
-                    <a href="{{ route('validation-operateur.edit', $validationoperateur->id) }}" class="btn btn-sm btn-primary">
+                    <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#editValidationModal{{ $validationoperateur->id }}">
                         <i class="bi bi-pencil-square"></i>
-                    </a>
+                    </button>
 
                     {{-- Supprimer validation (NOUVELLE ROUTE) --}}
                     <form action="{{ route('validation-operateur.deleteValidation', $validationoperateur->id) }}" method="POST"
@@ -85,7 +86,116 @@
             <p>{!! $validationoperateur->created_at->diffForHumans() . ',' !!}
                 {{ 'le ' . $validationoperateur->created_at->format('d/m/Y, H:i:s') }}
             </p>
+            @hasanyrole('super-admin')
+                <p>{!! $validationoperateur->updated_at->diffForHumans() . ',' !!}
+                    {{ 'le ' . $validationoperateur->updated_at->format('d/m/Y, H:i:s') }}
+                </p>
+            @endhasanyrole
         </div>
         <hr class="dropdown-divider">
+
+        <div class="modal fade" id="editValidationModal{{ $validationoperateur->id }}" tabindex="-1" aria-hidden="true">
+
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="{{ route('validation-operateur.updateValidation', $validationoperateur->id) }}"
+                        method="POST">
+
+                        @csrf
+
+                        <div class="modal-header">
+                            <h5 class="modal-title">Modifier la validation</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <div class="modal-body">
+
+                            {{-- <div class="mb-3">
+                                <label>Motif</label>
+                                <textarea name="motif" class="form-control" required>{{ $validationoperateur->motif }}</textarea>
+                            </div> --}}
+
+                            <div class="mb-3">
+                                <label for="motif-{{ $operateur->id }}" class="form-label">
+                                    Commentaires ou remarques
+                                </label>
+                                @php
+                                    $lastValidation = collect($operateur->validationoperateurs)
+                                        ->sortByDesc('created_at')
+                                        ->first();
+                                @endphp
+                                <textarea name="motif" id="motif-{{ $operateur->id }}" rows="5"
+                                    class="form-control form-control-sm @error('motif') is-invalid @enderror"
+                                    placeholder="Indiquez les raisons ou recommandations">{{ old('motif', $lastValidation?->motif) }}</textarea>
+                                @error('motif')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="mb-3">
+                                    <label for="statut-{{ $operateur->id }}" class="form-label">
+                                        Statut de la demande
+                                    </label>
+                                    @php
+                                        $selectedStatut = old('statut', $operateur->statut_agrement);
+                                    @endphp
+                                    <select name="action" id="statut-{{ $operateur->id }}"
+                                        class="form-select form-select-sm @error('statut') is-invalid @enderror" autofocus>
+                                        <option value="" disabled {{ !$selectedStatut ? 'selected' : '' }}>
+                                            Sélectionner
+                                        </option>
+                                        <option value="À corriger"
+                                            {{ $selectedStatut === 'À corriger' ? 'selected' : '' }}>
+                                            À corriger
+                                        </option>
+                                        <option value="Conforme" {{ $selectedStatut === 'Conforme' ? 'selected' : '' }}>
+                                            Conforme
+                                        </option>
+                                        <option value="Non conforme"
+                                            {{ $selectedStatut === 'Non conforme' ? 'selected' : '' }}>
+                                            Non conforme
+                                        </option>
+                                        <option value="liste attente"
+                                            {{ $selectedStatut === 'liste attente' ? 'selected' : '' }}>En
+                                            liste attente</option>
+                                        <option value="Indisponible"
+                                            {{ $selectedStatut === 'Indisponible' ? 'selected' : '' }}>
+                                            Indisponible</option>
+                                        <option value="Disponible"
+                                            {{ $selectedStatut === 'Disponible' ? 'selected' : '' }}>
+                                            Disponible</option>
+                                        <option value="Abandon" {{ $selectedStatut === 'Abandon' ? 'selected' : '' }}>
+                                            Abandon</option>
+                                        <option value="Injoignable"
+                                            {{ $selectedStatut === 'Injoignable' ? 'selected' : '' }}>
+                                            Injoignable</option>
+                                        <option value="rejeté" {{ $selectedStatut === 'rejeté' ? 'selected' : '' }}>
+                                            rejeté</option>
+
+                                    </select>
+                                    @error('statut')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                Annuler
+                            </button>
+
+                            <button type="submit" class="btn btn-primary">
+                                Enregistrer
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
     @endforeach
 @endsection

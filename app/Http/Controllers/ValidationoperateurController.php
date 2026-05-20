@@ -144,7 +144,7 @@ class ValidationoperateurController extends Controller
     public function deleteValidation($id)
     {
         $validation = Validationoperateur::findOrFail($id);
-        
+
         $operateur = $validation->operateur;
 
         $validation->delete();
@@ -154,4 +154,24 @@ class ValidationoperateurController extends Controller
         return redirect()->route('operateurs.show', $operateur);
     }
 
+    public function updateValidation(Request $request, $id)
+    {
+
+        $request->validate([
+            'motif'  => 'required|string',
+            'action' => 'required|string',
+        ]);
+
+        $validation = Validationoperateur::findOrFail($id);
+        $operateur = $validation->operateur;
+
+        $validation->update([
+            'action' => $request->action,
+            'motif'  => $request->motif,
+        ]);
+
+        Alert::success('Succès', 'Validation modifiée avec succès');
+
+        return redirect()->route('operateurs.show', $operateur);
+    }
 }
