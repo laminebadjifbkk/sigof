@@ -129,11 +129,25 @@
                                 @endcan
                             @endif
 
-                            @if ($user->individuelles->isNotEmpty())
+                            {{-- @if ($user?->individuelles->isNotEmpty())
                                 @can('user-view')
                                     <li class="nav-item">
                                         <button class="nav-link" data-bs-toggle="tab"
                                             data-bs-target="#demandes">Formations</button>
+                                    </li>
+                                @elseif ($user?->collective?->listecollectives?->isNotEmpty())
+                                    <li class="nav-item">
+                                        <button class="nav-link" data-bs-toggle="tab"
+                                            data-bs-target="#demandes">Formations</button>
+                                    </li>
+                                @endcan
+                            @endif --}}
+                            @if ($user?->individuelles?->isNotEmpty() || $user?->collective?->listecollectives?->isNotEmpty())
+                                @can('user-view')
+                                    <li class="nav-item">
+                                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#demandes">
+                                            Formations
+                                        </button>
                                     </li>
                                 @endcan
                             @endif
@@ -343,7 +357,7 @@
                                 </div>
                             </div>
 
-                            <div class="tab-content">
+                            {{-- <div class="tab-content">
                                 <div class="tab-pane fade profile-edit" id="demandes">
                                     <h5 class="card-title text-center">DEMANDES FORMATION</h5>
                                     <div class="row mb-3">
@@ -458,6 +472,159 @@
                                         @else
                                             <div class="alert alert-warning">
                                                 <p class="text-muted">Aucune formation collective pour l'instant !</p>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div> --}}
+
+                            <div class="tab-content">
+                                <div class="tab-pane fade profile-edit" id="demandes">
+                                    <h5 class="card-title text-center">DEMANDES FORMATION</h5>
+
+                                    {{-- Formations individuelles --}}
+                                    <div class="row mb-3">
+                                        <h5 class="card-title">Formations individuelles</h5>
+
+                                        @if ($user?->individuelles?->isNotEmpty())
+                                            <div class="col-12">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-hover datatables"
+                                                        id="table-individuelles">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="5%" class="text-center">N°</th>
+                                                                <th>Modules</th>
+                                                                <th width="10%" class="text-center">Dépôt</th>
+                                                                <th width="20%" class="text-center">Statut</th>
+
+                                                                @can('user-show')
+                                                                    <th width="5%" class="text-center">
+                                                                        <i class="bi bi-gear"></i>
+                                                                    </th>
+                                                                @endcan
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody>
+                                                            @foreach ($user->individuelles->sortByDesc('created_at') as $individuelle)
+                                                                <tr class="{{ $individuelle->row_class }}">
+                                                                    <td class="text-center">
+                                                                        {{ $loop->iteration }}
+                                                                    </td>
+
+                                                                    <td>
+                                                                        {{ $individuelle?->module?->name ?? 'Non défini' }}
+                                                                    </td>
+
+                                                                    <td class="text-center">
+                                                                        {{ $individuelle?->date_depot?->format('d/m/Y') ?? 'Aucun' }}
+                                                                    </td>
+
+                                                                    <td class="text-center">
+                                                                        <span class="{{ $individuelle?->statut }}">
+                                                                            {{ $individuelle?->statut }}
+                                                                        </span>
+                                                                    </td>
+
+                                                                    @can('user-show')
+                                                                        <td class="text-center">
+                                                                            <a href="{{ route('individuelles.show', $individuelle) }}"
+                                                                                class="btn btn-primary btn-sm" target="_blank"
+                                                                                title="Voir détails">
+                                                                                <i class="bi bi-eye"></i>
+                                                                            </a>
+                                                                        </td>
+                                                                    @endcan
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        @else
+                                            <div class="col-12">
+                                                <div class="alert alert-info mb-0">
+                                                    <p class="text-muted mb-0">
+                                                        Aucune formation individuelle pour l'instant !
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        @endif
+                                    </div>
+
+                                    {{-- Formations collectives --}}
+                                    <div class="row mb-3">
+                                        <h5 class="card-title">Formations collectives</h5>
+
+                                        @if ($user?->collectives?->isNotEmpty())
+                                            <div class="col-12">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-hover datatables"
+                                                        id="table-collectives">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="5%" class="text-center">N°</th>
+                                                                <th>Modules</th>
+                                                                <th width="10%" class="text-center">Dépôt</th>
+                                                                <th width="15%" class="text-center">Statut</th>
+
+                                                                @can('user-show')
+                                                                    <th width="5%" class="text-center">
+                                                                        <i class="bi bi-gear"></i>
+                                                                    </th>
+                                                                @endcan
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody>
+                                                            @php $i = 1; @endphp
+
+                                                            @foreach ($user->collectives->sortByDesc('created_at') as $collective)
+                                                                @foreach ($collective?->collectivemodules as $collectivemodule)
+                                                                    <tr>
+                                                                        <td class="text-center">
+                                                                            {{ $i++ }}
+                                                                        </td>
+
+                                                                        <td>
+                                                                            {{ $collectivemodule?->module ?? 'Non défini' }}
+                                                                        </td>
+
+                                                                        <td class="text-center">
+                                                                            {{ optional($collectivemodule?->collective?->date_depot)->format('d/m/Y') }}
+                                                                        </td>
+
+                                                                        <td class="text-center">
+                                                                            <span
+                                                                                class="{{ $collectivemodule?->statut }}">
+                                                                                {{ $collectivemodule?->statut }}
+                                                                            </span>
+                                                                        </td>
+
+                                                                        @can('user-show')
+                                                                            <td class="text-center">
+                                                                                <a href="{{ route('collectivemodules.show', $collectivemodule) }}"
+                                                                                    class="btn btn-primary btn-sm"
+                                                                                    target="_blank" title="Voir détails">
+                                                                                    <i class="bi bi-eye"></i>
+                                                                                </a>
+                                                                            </td>
+                                                                        @endcan
+                                                                    </tr>
+                                                                @endforeach
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        @else
+                                            <div class="col-12">
+                                                <div class="alert alert-warning mb-0">
+                                                    <p class="text-muted mb-0">
+                                                        Aucune formation collective pour l'instant !
+                                                    </p>
+                                                </div>
                                             </div>
                                         @endif
                                     </div>
