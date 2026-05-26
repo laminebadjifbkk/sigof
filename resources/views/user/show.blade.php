@@ -592,7 +592,7 @@
                                                                         </td>
 
                                                                         <td class="text-center">
-                                                                            {{ optional($collectivemodule?->collective?->date_depot)->format('d/m/Y') }}
+                                                                            {{ $collectivemodule?->collective->date_depot ? \Carbon\Carbon::parse($collectivemodule?->collective->date_depot)->format('d/m/Y') : '-' }}
                                                                         </td>
 
                                                                         <td class="text-center">
