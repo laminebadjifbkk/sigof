@@ -294,7 +294,7 @@
                                         placeholder="Description de l'organisation, de ses activités et de ses réalisations">
                                         {{ $collective?->description ?? old('description') }}
                                     </textarea> --}}
-                                    <textarea name="description" id="description" rows="6" minlength="100" maxlength="200"
+                                    <textarea name="description" id="description" rows="6"
                                         class="form-control form-control-sm @error('description') is-invalid @enderror"
                                         placeholder="Faire un résumé de la description de l'organisation, de ses activités et de ses réalisations">{!! $collective?->description ?? old('description') !!}
                                     </textarea>
@@ -309,7 +309,7 @@
                                 <div class="col-12">
                                     <label for="projetprofessionnel" class="form-label">Projet professionnel<span
                                             class="text-danger mx-1">*</span></label>
-                                    <textarea name="projetprofessionnel" id="projetprofessionnel" rows="6" minlength="100" maxlength="200"
+                                    <textarea name="projetprofessionnel" id="projetprofessionnel" rows="6"
                                         class="form-control form-control-sm @error('projetprofessionnel') is-invalid @enderror"
                                         placeholder="Faire un résumé de la description détaillée du projet professionnel et de l'effet attendu après la formation">{!! $collective?->projetprofessionnel ?? old('projetprofessionnel') !!}
                                     </textarea>
