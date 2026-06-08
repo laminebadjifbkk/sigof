@@ -806,6 +806,10 @@ Route::group(['middleware' => ['XSS']], function () {
 
         Route::get('/demande-paiement/{lettrevaluation}/telecharger', [LettrevaluationController::class, 'telechargerDemandePaiement'])
             ->name('demandePaiement.telecharger');
+            
+        Route::get('/attestation_participation/{formation}/{individuelle}/telecharger', [FormationController::class, 'telechargerAttestationParticipation'])
+            ->name('attestationParticipation.telecharger');
+
         Route::get('/lettre-mission/{lettrevaluation}/telecharger', [LettrevaluationController::class, 'telechargerlettreMission'])
             ->name('lettreMission.telecharger');
 

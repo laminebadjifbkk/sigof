@@ -5538,4 +5538,54 @@ class FormationController extends Controller
             return redirect()->back();
         }
     }
+
+    // Attestation de participation
+
+    public function telechargerAttestationParticipation(int $formationId, int $individuelleId)
+    {
+        $formation = Formation::findOrFail($formationId);
+        $individuelle = Individuelle::findOrFail($individuelleId);
+
+        $title         = 'Attestation de participation ' . $formation->name;
+        $now = \Carbon\Carbon::now();
+        /* $membres_jury  = explode(";", $formation->membres_jury);
+        $count_membres = count($membres_jury); */
+        // ✅ Génération QR PNG sans imagick avec endroid/qr-code
+        if ($formation?->module && $formation?->module?->name) {
+            $moduleName = $formation->module->name;
+        } elseif ($formation?->collectivemodule && $formation?->collectivemodule?->module) {
+            $moduleName = $formation?->collectivemodule?->module;
+        }
+
+        $qrContent = "Formation : {$formation?->name}\n" .
+            "Code : {$formation?->code}\n" .
+            "Module : {$moduleName}\n" .
+            "Date : " . $formation?->date_debut?->format('d/m/Y') . " au " . $formation?->date_fin?->format('d/m/Y');
+
+        $qrCode       = QrCode::create($qrContent)->setSize(150);
+        $writer       = new PngWriter();
+        $result       = $writer->write($qrCode);
+        $qrCodeBase64 = base64_encode($result->getString());
+
+        $dompdf  = new Dompdf();
+        $options = $dompdf->getOptions();
+        $options->setDefaultFont('DejaVu Sans');
+        $dompdf->setOptions($options);
+
+        $html = View::make('formations.individuelles.attestation_participation', compact(
+            'formation',
+            'title',
+            'individuelle',
+            'moduleName',
+            'now',
+            'qrCodeBase64'
+        ))->render();
+
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        $name = 'Attestation_Particpation_' . $individuelle->user->firstname . '_' . $individuelle->user->name . '.pdf';
+        return $dompdf->stream($name, ['Attachment' => false]);
+    }
 }

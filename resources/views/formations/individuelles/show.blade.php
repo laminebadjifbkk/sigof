@@ -910,6 +910,16 @@
                                                                                             </form>
                                                                                         </li>
                                                                                     @endif
+                                                                                    <a href="{{ route('attestationParticipation.telecharger', [
+                                                                                        'formation' => $formation->id,
+                                                                                        'individuelle' => $individuelle->id,
+                                                                                    ]) }}"
+                                                                                        class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1"
+                                                                                        title="Télécharger l'attestation"
+                                                                                        target="_blank">
+                                                                                        <i class="bi bi-receipt"></i>
+                                                                                        Attestation
+                                                                                    </a>
                                                                                 </ul>
                                                                             </div>
                                                                         </div>
