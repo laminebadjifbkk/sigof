@@ -473,10 +473,11 @@
                             au
                             <span
                                 class="highlight">{{ $formation?->date_fin?->translatedFormat('d F Y') ?? '…………………' }}</span>,
-                            à <span class="highlight">{{ $formation?->lieu ?? '…………………………………' }}</span>,
+                            à <span class="highlight">{{ $formation?->lieu ?? '…………………………………' }}</span>
+                            {{-- ,
                             exécutée par l'opérateur
                             <span
-                                class="highlight">{{ $formation?->operateur?->user?->display_operateur ?? '…………………' }}</span>.
+                                class="highlight">{{ $formation?->operateur?->user?->display_operateur ?? '…………………' }}</span> --}}.
                         </p>
                     </div>
 
