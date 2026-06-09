@@ -5611,9 +5611,9 @@ class FormationController extends Controller
 
     public function verifier(Request $request)
     {
+        dd("ok");
         try {
             $decoded = base64_decode($request->query('token'));
-            dd($decoded);
             [$payload, $signature] = explode('::', $decoded, 2);
 
             // Vérifier la signature
