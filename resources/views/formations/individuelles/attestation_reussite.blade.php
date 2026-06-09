@@ -448,7 +448,7 @@
                         Fait le {{ $now->translatedFormat('d F Y') }}
                     </div>
                     <div class="titre-sig">Le Directeur général</div>
-                    <div class="nom-sig">Mamadou Mounirou LY</div>
+                    <div class="nom-sig">{{ $nameDG }}</div>
                 </div>
             </div>
 

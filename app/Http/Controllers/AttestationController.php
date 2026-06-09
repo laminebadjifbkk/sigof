@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Direction;
 use App\Models\Formation;
 use App\Models\Individuelle;
 use Dompdf\Dompdf;
@@ -161,6 +162,9 @@ class AttestationController extends Controller
     {
         $formation    = Formation::findOrFail($formationId);
         $individuelle = Individuelle::findOrFail($individuelleId);
+        $direction = Direction::where('sigle', 'DG')->first();
+
+        $nameDG = $direction?->chef?->user?->civilite . ' ' . $direction?->chef?->user?->firstname . ' ' . $direction?->chef?->user?->name;
 
         if ($formation->statut != "Terminée") {
             Alert::warning('Action impossible !', 'La formation n\'est pas encore achevée.');
@@ -208,6 +212,7 @@ class AttestationController extends Controller
             'title',
             'individuelle',
             'moduleName',
+            'nameDG',
             'now',
             'qrCodeBase64'
         ))->render();
