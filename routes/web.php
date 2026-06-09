@@ -810,10 +810,6 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/attestation_participation/{formation}/{individuelle}/telecharger', [FormationController::class, 'telechargerAttestationParticipation'])
             ->name('attestationParticipation.telecharger');
 
-        // routes/web.php
-        Route::get('/attestation/verifier', [FormationController::class, 'verifier'])
-            ->name('attestation.verifier');
-
         Route::get('/lettre-mission/{lettrevaluation}/telecharger', [LettrevaluationController::class, 'telechargerlettreMission'])
             ->name('lettreMission.telecharger');
 
@@ -1124,6 +1120,9 @@ Route::group(['middleware' => ['XSS']], function () {
     Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
         ->name('password.email');
 
+    // routes/web.php
+    Route::get('/attestation/verifier', [FormationController::class, 'verifier'])
+        ->name('attestation.verifier');
     Route::resource('/contacts', ContactController::class);
     Route::get('/services-details', [ContactController::class, 'servicesDetails'])->name('services.details');
     Route::get('nos-modules', [ContactController::class, 'nosModules'])->name('nos-modules');
