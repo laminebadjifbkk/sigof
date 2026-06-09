@@ -164,10 +164,10 @@
                                             <option value="{{ $formation?->type_certification }}">
                                                 {{ $formation?->type_certification ?? old('type_certification') }}
                                             </option>
-                                            <option value="{{ old('c') }}">
+                                            <option value="{{ old('type_certification') }}">
                                                 {{ old('type_certification') }}
                                             </option>
-                                            <option value="Titre">
+                                            <option value="Titre de qualification">
                                                 Titre de qualification
                                             </option>
                                             <option value="Attestation">
