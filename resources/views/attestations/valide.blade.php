@@ -189,6 +189,13 @@
             font-size: 12px;
             letter-spacing: 0.5px;
         }
+
+        .logo-onfp {
+            display: block;
+            margin: 8px auto 4px;
+            width: 100%;
+            max-width: 190px;
+        }
     </style>
 </head>
 
