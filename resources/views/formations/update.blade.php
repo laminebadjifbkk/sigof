@@ -168,7 +168,7 @@
                                                 {{ old('type_certification') }}
                                             </option>
                                             <option value="Titre">
-                                                Titre
+                                                Titre de qualification
                                             </option>
                                             <option value="Attestation">
                                                 Attestation
