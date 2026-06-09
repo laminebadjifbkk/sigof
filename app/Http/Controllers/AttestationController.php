@@ -116,7 +116,7 @@ class AttestationController extends Controller
             return view('attestations.invalide');
         }
     }
-/* 
+    /* 
     public function verifier(Request $request)
     {
         try {
@@ -156,4 +156,67 @@ class AttestationController extends Controller
             return view('attestations.invalide');
         }
     } */
+
+    public function telechargerAttestationReussite(int $formationId, int $individuelleId)
+    {
+        $formation    = Formation::findOrFail($formationId);
+        $individuelle = Individuelle::findOrFail($individuelleId);
+
+        if ($formation->statut != "Terminée") {
+            Alert::warning('Action impossible !', 'La formation n\'est pas encore achevée.');
+            return redirect()->back();
+        }
+
+        $title = 'Attestation de Réussite ' . $formation->name;
+        $now   = \Carbon\Carbon::now();
+
+        // Résolution du nom de module (identique à la participation)
+        $moduleName = null;
+        if ($formation?->module && $formation?->module?->name) {
+            $moduleName = $formation->module->name;
+        } elseif ($formation?->collectivemodule && $formation?->collectivemodule?->module) {
+            $moduleName = $formation?->collectivemodule?->module;
+        }
+
+        // Génération du token QR signé
+        $payload = implode('|', [
+            $formation->id,
+            $individuelle->id,
+            $individuelle->user->id,
+            $formation->date_fin?->format('Y-m-d'),
+            'reussite', // discriminant pour distinguer du QR participation
+        ]);
+
+        $secret    = config('app.attestation_secret');
+        $signature = hash_hmac('sha256', $payload, $secret);
+        $token     = base64_encode($payload . '::' . $signature);
+
+        $qrContent = route('attestation.verifier', ['token' => $token]);
+
+        $qrCode       = QrCode::create($qrContent)->setSize(150);
+        $writer       = new PngWriter();
+        $result       = $writer->write($qrCode);
+        $qrCodeBase64 = base64_encode($result->getString());
+
+        $dompdf  = new Dompdf();
+        $options = $dompdf->getOptions();
+        $options->setDefaultFont('DejaVu Sans');
+        $dompdf->setOptions($options);
+
+        $html = View::make('formations.individuelles.attestation_reussite', compact(
+            'formation',
+            'title',
+            'individuelle',
+            'moduleName',
+            'now',
+            'qrCodeBase64'
+        ))->render();
+
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+
+        $name = 'Attestation_Reussite_' . $individuelle->user->firstname . '_' . $individuelle->user->name . '.pdf';
+        return $dompdf->stream($name, ['Attachment' => false]);
+    }
 }

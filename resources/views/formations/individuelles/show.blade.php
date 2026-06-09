@@ -920,9 +920,29 @@
                                                                                                 target="_blank">
                                                                                                 <i
                                                                                                     class="bi bi-file-earmark-arrow-down"></i>
-                                                                                                Attestation
+                                                                                                Attestation de participation
                                                                                             </a>
                                                                                         </li>
+                                                                                        <li>
+                                                                                            <a href="{{ route('attestationReussite.telecharger', [
+                                                                                                'formation' => $formation->id,
+                                                                                                'individuelle' => $individuelle->id,
+                                                                                            ]) }}"
+                                                                                                class="dropdown-item"
+                                                                                                target="_blank">
+                                                                                                <i
+                                                                                                    class="bi bi-file-earmark-arrow-down"></i>
+                                                                                                Attestation de réussite
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        
+                                                                                        {{-- <li>
+                                                                                            <a href="{{ route('attestationReussite.telecharger', [$formation->id, $individuelle->id]) }}"
+                                                                                                target="_blank"
+                                                                                                class="btn btn-success">
+                                                                                                Attestation de Réussite
+                                                                                            </a>
+                                                                                        </li> --}}
                                                                                     @endcan
                                                                                 </ul>
                                                                             </div>
