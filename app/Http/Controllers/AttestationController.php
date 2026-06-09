@@ -87,7 +87,7 @@ class AttestationController extends Controller
         return $dompdf->stream($name, ['Attachment' => false]);
     }
 
-    /* public function verifier(Request $request)
+    public function verifier(Request $request)
     {
         try {
             $decoded = base64_decode($request->query('token'));
@@ -115,8 +115,8 @@ class AttestationController extends Controller
         } catch (\Throwable $e) {
             return view('attestations.invalide');
         }
-    } */
-
+    }
+/* 
     public function verifier(Request $request)
     {
         try {
@@ -155,5 +155,5 @@ class AttestationController extends Controller
         } catch (\Throwable $e) {
             return view('attestations.invalide');
         }
-    }
+    } */
 }
