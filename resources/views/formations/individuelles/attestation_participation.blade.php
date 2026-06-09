@@ -69,7 +69,7 @@
 
         /* ── Cadre décoratif ── */
         .border-outer {
-            border: 2.5px solid #19b363;
+            border: 2.5px solid #b8996e;
             padding: 5px;
             display: flex;
             flex-direction: column;
