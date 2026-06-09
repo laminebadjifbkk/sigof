@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attestation Authentique — Vérification</title>
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         body {
             font-family: 'Segoe UI', system-ui, sans-serif;
@@ -22,7 +29,7 @@
         .card {
             background: #fff;
             border-radius: 16px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
             max-width: 560px;
             width: 100%;
             overflow: hidden;
@@ -39,7 +46,7 @@
         .shield-icon {
             width: 64px;
             height: 64px;
-            background: rgba(255,255,255,0.15);
+            background: rgba(255, 255, 255, 0.15);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -56,7 +63,7 @@
         }
 
         .card-header p {
-            color: rgba(255,255,255,0.85);
+            color: rgba(255, 255, 255, 0.85);
             font-size: 0.875rem;
             margin-top: 0.35rem;
         }
@@ -146,81 +153,127 @@
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.4;
+            }
         }
 
         .verified-time {
             font-size: 0.75rem;
             color: #9CA3AF;
         }
+
+        /* ── En-tête ── */
+        .header {
+            text-align: center;
+            margin-bottom: 18px;
+            padding-bottom: 16px;
+            border-bottom: 0px solid #c8b07a;
+        }
+
+        .republique-bloc {
+            font-size: 11.5px;
+            line-height: 1.6;
+            color: #1a1a1a;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .republique-bloc b {
+            font-size: 12px;
+            letter-spacing: 0.5px;
+        }
     </style>
 </head>
+
 <body>
 
-<div class="card">
-    <div class="card-header">
-        <div class="shield-icon">✅</div>
-        <h1>Attestation Authentique</h1>
-        <p>Ce document a été vérifié avec succès</p>
-    </div>
-
-    <div class="card-body">
-        <div class="participant-name">
-            {{ $individuelle->user->firstname }} {{ $individuelle->user->name }}
-        </div>
-        <p class="participant-sub">A bien participé à la formation suivante</p>
-
-        <div class="info-grid">
-            <div class="info-row">
-                <span class="info-icon">📋</span>
-                <div>
-                    <span class="info-label">Formation</span>
-                    <span class="info-value">{{ $formation->name }}</span>
-                </div>
-            </div>
-
-            <div class="info-row">
-                <span class="info-icon">🔖</span>
-                <div>
-                    <span class="info-label">Code</span>
-                    <span class="info-value">{{ $formation->code }}</span>
-                </div>
-            </div>
-
-            @if(isset($moduleName))
-            <div class="info-row">
-                <span class="info-icon">📚</span>
-                <div>
-                    <span class="info-label">Module</span>
-                    <span class="info-value">{{ $moduleName }}</span>
-                </div>
-            </div>
-            @endif
-
-            <div class="info-row">
-                <span class="info-icon">📅</span>
-                <div>
-                    <span class="info-label">Période</span>
-                    <span class="info-value">
-                        {{ $formation->date_debut?->format('d/m/Y') }}
-                        — {{ $formation->date_fin?->format('d/m/Y') }}
-                    </span>
-                </div>
+    <div class="card">
+        <!-- En-tête officiel -->
+        <div class="header">
+            <div class="republique-bloc">
+                <b>REPUBLIQUE DU SENEGAL</b><br>
+                Un Peuple – Un But – Une Foi<br>
+                <b>
+                    *************<br>
+                    MINISTERE DE L'EMPLOI ET DE LA FORMATION PROFESSIONNELLE ET TECHNIQUE<br>
+                    *************
+                </b><br>
+                <img class="logo-onfp"
+                    src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo_sigle.png'))) }}"
+                    alt="Logo ONFP" />
             </div>
         </div>
-    </div>
 
-    <div class="card-footer">
-        <div class="verified-badge">
-            <span class="verified-dot"></span>
-            Signature cryptographique valide
+        <div class="card-header">
+            <div class="shield-icon">✅</div>
+            <h1>Attestation Authentique</h1>
+            <p>Ce document a été vérifié avec succès</p>
         </div>
-        <span class="verified-time">
-            Vérifié le {{ \Carbon\Carbon::now()->format('d/m/Y à H:i') }}
-        </span>
+
+        <div class="card-body">
+            <div class="participant-name">
+                {{ $individuelle->user->firstname }} {{ $individuelle->user->name }}
+            </div>
+            <p class="participant-sub">A bien participé à la formation suivante</p>
+
+            <div class="info-grid">
+                <div class="info-row">
+                    <span class="info-icon">📋</span>
+                    <div>
+                        <span class="info-label">Formation</span>
+                        <span class="info-value">{{ $formation->name }}</span>
+                    </div>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-icon">🔖</span>
+                    <div>
+                        <span class="info-label">Code</span>
+                        <span class="info-value">{{ $formation->code }}</span>
+                    </div>
+                </div>
+
+                @if (isset($moduleName))
+                    <div class="info-row">
+                        <span class="info-icon">📚</span>
+                        <div>
+                            <span class="info-label">Module</span>
+                            <span class="info-value">{{ $moduleName }}</span>
+                        </div>
+                    </div>
+                @endif
+
+                <div class="info-row">
+                    <span class="info-icon">📅</span>
+                    <div>
+                        <span class="info-label">Période</span>
+                        <span class="info-value">
+                            {{ $formation->date_debut?->format('d/m/Y') }}
+                            — {{ $formation->date_fin?->format('d/m/Y') }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-footer">
+            <div class="verified-badge">
+                <span class="verified-dot"></span>
+                Signature cryptographique valide
+            </div>
+            <span class="verified-time">
+                Vérifié le {{ \Carbon\Carbon::now()->format('d/m/Y à H:i') }}
+            </span>
+        </div>
     </div>
-</div>
 
 </body>
+
 </html>
