@@ -287,8 +287,8 @@
         }
 
         .qr-zone img {
-            width: 22mm;
-            height: 22mm;
+            width: 32mm;
+            height: 32mm;
         }
 
         .qr-zone p {
