@@ -260,7 +260,7 @@
 
             <div class="info-grid">
                 <div class="info-row">
-                    <span class="info-icon">📋</span>
+                    {{-- <span class="info-icon">📋</span> --}}
                     <div>
                         <span class="info-label">Formation</span>
                         <span class="info-value">{{ $formation?->intitule }}</span>
@@ -277,7 +277,7 @@
 
                 @if (isset($moduleName))
                     <div class="info-row">
-                        <span class="info-icon">📚</span>
+                        {{-- <span class="info-icon">📚</span> --}}
                         <div>
                             <span class="info-label">Module</span>
                             <span class="info-value">{{ $moduleName }}</span>
@@ -286,7 +286,7 @@
                 @endif
 
                 <div class="info-row">
-                    <span class="info-icon">📅</span>
+                    {{-- <span class="info-icon">📅</span> --}}
                     <div>
                         <span class="info-label">Période</span>
                         <span class="info-value">
