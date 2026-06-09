@@ -910,16 +910,20 @@
                                                                                             </form>
                                                                                         </li>
                                                                                     @endif
-                                                                                    <a href="{{ route('attestationParticipation.telecharger', [
-                                                                                        'formation' => $formation->id,
-                                                                                        'individuelle' => $individuelle->id,
-                                                                                    ]) }}"
-                                                                                        class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1"
-                                                                                        title="Télécharger l'attestation"
-                                                                                        target="_blank">
-                                                                                        <i class="bi bi-receipt"></i>
-                                                                                        Attestation
-                                                                                    </a>
+                                                                                    @can('attestation-participation-view')
+                                                                                        <li>
+                                                                                            <a href="{{ route('attestationParticipation.telecharger', [
+                                                                                                'formation' => $formation->id,
+                                                                                                'individuelle' => $individuelle->id,
+                                                                                            ]) }}"
+                                                                                                class="dropdown-item"
+                                                                                                target="_blank">
+                                                                                                <i
+                                                                                                    class="bi bi-file-earmark-arrow-down"></i>
+                                                                                                Attestation
+                                                                                            </a>
+                                                                                        </li>
+                                                                                    @endcan
                                                                                 </ul>
                                                                             </div>
                                                                         </div>

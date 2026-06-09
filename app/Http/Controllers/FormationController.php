@@ -5546,6 +5546,11 @@ class FormationController extends Controller
         $formation = Formation::findOrFail($formationId);
         $individuelle = Individuelle::findOrFail($individuelleId);
 
+        if ($formation->statut != "Terminée") {
+            Alert::warning('Action impossible !', 'La formation n\'est pas encore achevée.');
+            return redirect()->back();
+        }
+
         $title         = 'Attestation de participation ' . $formation->name;
         $now = \Carbon\Carbon::now();
         /* $membres_jury  = explode(";", $formation->membres_jury);
