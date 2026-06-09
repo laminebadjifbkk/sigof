@@ -167,24 +167,13 @@
             margin: 16px 0 24px;
         }
 
-        /* .doc-title h1 {
+        .doc-title h1 {
             font-family: 'Cormorant Garamond', serif;
             font-size: 26px;
             font-weight: 600;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: #1a3a5c;
-            margin: 0 0 6px;
-        } */
-
-        .doc-title h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 26px;
-            font-weight: 700;
-            /* plus gras */
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: #D1B073;
+            color: #b8996e;
             margin: 0 0 6px;
         }
 
