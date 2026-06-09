@@ -218,10 +218,21 @@
             </div>
         </div>
 
-        <div class="card-header">
+        {{-- <div class="card-header">
             <div class="shield-icon">✅</div>
             <h1>Attestation Authentique</h1>
             <p>Ce document a été vérifié avec succès</p>
+        </div> --}}
+
+        <!-- Titre -->
+        <div class="doc-title">
+            <h1>Attestation Authentique</h1>
+            <p>Ce document a été vérifié avec succès</p>
+            <div class="title-ornament">
+                <span class="line"></span>
+                <span class="diamond"></span>
+                <span class="line right"></span>
+            </div>
         </div>
 
         <div class="card-body">
