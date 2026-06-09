@@ -209,8 +209,8 @@
 
         <!-- Titre -->
         <div class="doc-title">
-            <h1>Attestation Authentique</h1>
-            <p>Ce document a été vérifié avec succès</p>
+            <h1>Document Non Valide</h1>
+            <p>Cette attestation n'a pas pu être authentifiée</p>
             <div class="title-ornament">
                 <span class="line"></span>
                 <span class="diamond"></span>
