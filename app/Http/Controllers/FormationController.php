@@ -5609,7 +5609,7 @@ class FormationController extends Controller
         return $dompdf->stream($name, ['Attachment' => false]);
     }
 
-    /* public function verifier(Request $request)
+    public function verifier(Request $request)
     {
         try {
             $decoded = base64_decode($request->query('token'));
@@ -5634,46 +5634,6 @@ class FormationController extends Controller
             return view('attestations.valide', compact('formation', 'individuelle'));
             // ✅ Affiche : "Attestation authentique délivrée à Jean Dupont le ..."
 
-        } catch (\Throwable $e) {
-            return view('attestations.invalide');
-        }
-    } */
-
-    public function verifier(Request $request)
-    {
-        try {
-            $decoded = base64_decode($request->query('token'));
-
-            if (!str_contains($decoded, '::')) {
-                return view('attestations.invalide');
-            }
-
-            [$payload, $signature] = explode('::', $decoded, 2);
-
-            $secret   = config('app.attestation_secret');
-            $expected = hash_hmac('sha256', $payload, $secret);
-
-            if (!hash_equals($expected, $signature)) {
-                return view('attestations.invalide');
-            }
-
-            [$formationId, $individuelleId, $userId, $dateFin] = explode('|', $payload);
-
-            $formation    = Formation::findOrFail((int) $formationId);
-            $individuelle = Individuelle::with('user')
-                ->where('id', $individuelleId)
-                ->where('formation_id', $formationId)
-                ->firstOrFail();
-
-            // Déduire le moduleName comme dans telechargerAttestationParticipation
-            $moduleName = null;
-            if ($formation?->module?->name) {
-                $moduleName = $formation->module->name;
-            } elseif ($formation?->collectivemodule?->module) {
-                $moduleName = $formation->collectivemodule->module;
-            }
-
-            return view('attestations.valide', compact('formation', 'individuelle', 'moduleName'));
         } catch (\Throwable $e) {
             return view('attestations.invalide');
         }
