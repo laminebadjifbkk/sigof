@@ -5,6 +5,7 @@ use App\Http\Controllers\AntenneController;
 use App\Http\Controllers\ArriveController;
 use App\Http\Controllers\ArrondissementController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\AttestationController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BudgetLabelController;
@@ -96,6 +97,7 @@ use App\Http\Controllers\ValidationoperateurController;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Formula;
+
 
 
 
@@ -807,7 +809,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/demande-paiement/{lettrevaluation}/telecharger', [LettrevaluationController::class, 'telechargerDemandePaiement'])
             ->name('demandePaiement.telecharger');
 
-        Route::get('/attestation_participation/{formation}/{individuelle}/telecharger', [FormationController::class, 'telechargerAttestationParticipation'])
+        Route::get('/attestation_participation/{formation}/{individuelle}/telecharger', [AttestationController::class, 'telechargerAttestationParticipation'])
             ->name('attestationParticipation.telecharger');
 
         Route::get('/lettre-mission/{lettrevaluation}/telecharger', [LettrevaluationController::class, 'telechargerlettreMission'])
@@ -1120,7 +1122,7 @@ Route::group(['middleware' => ['XSS']], function () {
     Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
         ->name('password.email');
 
-    Route::get('/attestation/verifier', [FormationController::class, 'verifier'])
+    Route::get('/attestation/verifier', [AttestationController::class, 'verifier'])
         ->name('attestation.verifier');
 
     Route::resource('/contacts', ContactController::class);
