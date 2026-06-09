@@ -173,7 +173,7 @@
             font-weight: 600;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: #1a3a5c;
+            color: #D1B073;
             margin: 0 0 6px;
         }
 
