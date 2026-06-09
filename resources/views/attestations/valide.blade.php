@@ -196,6 +196,23 @@
             width: 100%;
             max-width: 190px;
         }
+
+
+        /* ── Titre principal ── */
+        .doc-title {
+            text-align: center;
+            margin: 16px 0 24px;
+        }
+
+        .doc-title h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 26px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #1a3a5c;
+            margin: 0 0 6px;
+        }
     </style>
 </head>
 
@@ -246,17 +263,17 @@
                     <span class="info-icon">📋</span>
                     <div>
                         <span class="info-label">Formation</span>
-                        <span class="info-value">{{ $formation->name }}</span>
+                        <span class="info-value">{{ $formation?->module?->name }}</span>
                     </div>
                 </div>
 
-                <div class="info-row">
+                {{-- <div class="info-row">
                     <span class="info-icon">🔖</span>
                     <div>
                         <span class="info-label">Code</span>
                         <span class="info-value">{{ $formation->code }}</span>
                     </div>
-                </div>
+                </div> --}}
 
                 @if (isset($moduleName))
                     <div class="info-row">
