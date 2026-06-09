@@ -263,7 +263,7 @@
                     <span class="info-icon">📋</span>
                     <div>
                         <span class="info-label">Formation</span>
-                        <span class="info-value">{{ $formation?->module?->name }}</span>
+                        <span class="info-value">{{ $formation?->intitule }}</span>
                     </div>
                 </div>
 

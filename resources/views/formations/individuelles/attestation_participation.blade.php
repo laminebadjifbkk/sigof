@@ -84,7 +84,8 @@
             border: 1px solid #b8996e;
             padding: 28px 38px 0;
             position: relative;
-             overflow: visible; /* important pour les coins */
+            overflow: visible;
+            /* important pour les coins */
             height: 273.8mm;
             flex: 1;
             display: flex;
@@ -392,6 +393,11 @@
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
         }
+
+        .attestation-intro {
+            display: block;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -437,10 +443,10 @@
 
                     <!-- Corps -->
                     <div class="body-text">
-                        <p>
+                        <p class="attestation-intro">
                             Le Directeur général de l'<strong>Office National de Formation Professionnelle
                                 (ONFP)</strong>
-                            atteste que
+                            atteste que <br>
                             <span class="highlight">
                                 {{ $individuelle?->user?->civilite ?? 'Monsieur/Madame' }}
                                 {{ $individuelle?->user?->firstname ?? '……………………' }}
