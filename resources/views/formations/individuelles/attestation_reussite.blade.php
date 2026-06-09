@@ -19,7 +19,7 @@
         body {
             width: 297mm;
             height: 210mm;
-            font-family: 'DejaVu Serif', 'Times New Roman', Georgia, serif;
+            font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
             background: #fff;
             overflow: hidden;
         }
@@ -108,13 +108,13 @@
 
         /* ── Titre Attestation ── */
         .titre-attestation {
-            font-size: 32pt;
+            font-size: 35pt;
             color: #C8972A;
-            font-style: italic;
+            /* font-style: italic; */
             font-weight: normal;
             letter-spacing: 2px;
             margin-top: 2mm;
-            font-family: 'DejaVu Serif', Georgia, serif;
+            font-family: 'Old London', serif;
             text-align: center;
         }
 
@@ -123,9 +123,40 @@
             position: relative;
             width: 100%;
             flex: 1;
-            display: flex;
-            align-items: flex-start;
-            margin-top: 1mm;
+            margin-top: 15px;
+        }
+
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-repeat: no-repeat;
+            background-position: center;
+            pointer-events: none;
+        }
+
+        .watermark-1 {
+            width: 75mm;
+            height: 75mm;
+            opacity: 0.08;
+            z-index: 1;
+            background-size: contain;
+            background-image: url("data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/img1.png'))) }}");
+        }
+
+        .watermark-2 {
+            width: 55mm;
+            height: 55mm;
+            opacity: 0.15;
+            z-index: 2;
+            background-size: contain;
+            background-image: url("data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/img2.png'))) }}");
+        }
+
+        .corps {
+            position: relative;
+            z-index: 3;
         }
 
         /* Cercle décoratif en filigrane centré */
@@ -230,6 +261,82 @@
             margin-top: 1mm;
             letter-spacing: 0.3px;
         }
+
+        .body-zone {
+            position: relative;
+            width: 100%;
+            flex: 1;
+        }
+
+        .watermark-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80mm;
+            height: 80mm;
+            z-index: 1;
+        }
+
+        .watermark-img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .watermark-img1 {
+            width: 75mm;
+            opacity: 0.08;
+        }
+
+        .watermark-img2 {
+            width: 55mm;
+            opacity: 0.15;
+        }
+
+        .corps {
+            position: relative;
+            z-index: 2;
+        }
+
+        .body-zone {
+            position: relative;
+            width: 100%;
+            flex: 1;
+        }
+
+        .watermark-container {
+            position: absolute;
+
+            left: 50%;
+            top: 105mm;
+            /* centre exact de la page A4 paysage */
+
+            transform: translate(-50%, -50%);
+
+            width: 90mm;
+            height: 90mm;
+
+            z-index: 2;
+        }
+
+        .watermark-img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .watermark-img1 {
+            width: 85mm;
+            opacity: 0.24;
+        }
+
+        .watermark-img2 {
+            width: 55mm;
+            opacity: 0.40;
+        }
     </style>
 </head>
 
@@ -241,6 +348,14 @@
         <img class="border-img"
             src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/contour_complet.png'))) }}"
             alt="">
+
+        <div class="watermark-container">
+            <img class="watermark-img watermark-img1"
+                src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/img1.png'))) }}">
+
+            <img class="watermark-img watermark-img2"
+                src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/img2.png'))) }}">
+        </div>
 
         {{-- QR code en bas à gauche --}}
         <div class="qr-zone">
@@ -267,16 +382,10 @@
             </div>
 
             {{-- Titre --}}
-            <div class="titre-attestation">Attestation</div>
+            <div class="titre-attestation">A t t e s t a t i o n</div>
 
             {{-- Corps --}}
             <div class="body-zone">
-
-                {{-- Filigrane : double cercle ornemental (img2.png) --}}
-                <div class="watermark">
-                    <img
-                        src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/img2.png'))) }}">
-                </div>
 
                 <div class="corps">
                     <p class="intro">
@@ -290,7 +399,8 @@
                             «{{ $individuelle->user->firstname }}» «{{ $individuelle->user->name }}»
                         </span>
                         @if ($individuelle->user->date_naissance ?? null)
-                            né(e) le «{{ \Carbon\Carbon::parse($individuelle->user->date_naissance)->format('d/m/Y') }}»
+                            né(e) le
+                            «{{ \Carbon\Carbon::parse($individuelle->user->date_naissance)->format('d/m/Y') }}»
                         @endif
                         @if ($individuelle->user->lieu_naissance ?? null)
                             à «{{ $individuelle->user->lieu_naissance }}»
