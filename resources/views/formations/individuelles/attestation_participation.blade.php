@@ -222,7 +222,7 @@
 
         .highlight {
             font-weight: 700;
-            color: #19b363;
+            color: #1a3a5c;
             border-bottom: 1px dotted #b8996e;
         }
 
@@ -264,7 +264,7 @@
         .footer-separator .sep-line {
             flex: 1;
             height: 1px;
-            background: linear-gradient(to right, transparent, #19b363 30%, #19b363 70%, transparent);
+            background: linear-gradient(to right, transparent, #1a3a5c 30%, #1a3a5c 70%, transparent);
         }
 
         .footer-separator .sep-ornament {
@@ -283,7 +283,7 @@
         .footer-separator .sep-diamond-sm {
             width: 4px;
             height: 4px;
-            background: #19b363;
+            background: #1a3a5c;
             transform: rotate(45deg);
         }
 
@@ -336,7 +336,7 @@
             font-weight: 700;
             letter-spacing: 1px;
             text-transform: uppercase;
-            color: #19b363;
+            color: #1a3a5c;
             margin-bottom: 3px;
         }
 
@@ -468,7 +468,7 @@
                         </p>
 
                         <p
-                            style="text-align: center; text-indent: 0; font-size: 15px; font-weight: 700; color: #19b363; margin: 10px 0 16px; font-style: italic;">
+                            style="text-align: center; text-indent: 0; font-size: 15px; font-weight: 700; color: #1a3a5c; margin: 10px 0 16px; font-style: italic;">
                             «&nbsp;{{ $formation?->intitule ?? '………………………………………………………………' }}&nbsp;»
                         </p>
 
