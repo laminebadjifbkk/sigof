@@ -96,6 +96,7 @@
         /* ── Logo ONFP ── */
         .logo-wrap {
             margin-top: 3mm;
+            margin-bottom: 8mm;
             display: flex;
             justify-content: center;
             text-align: center;
@@ -108,7 +109,7 @@
 
         /* ── Titre Attestation ── */
         .titre-attestation {
-            font-size: 35pt;
+            font-size: 41pt;
             color: #C8972A;
             /* font-style: italic; */
             font-weight: normal;
@@ -116,6 +117,7 @@
             margin-top: 2mm;
             font-family: 'Old London', serif;
             text-align: center;
+            margin-bottom: 10mm;
         }
 
         /* ── Zone centrale : cercles décoratifs + texte ── */
@@ -154,11 +156,6 @@
             background-image: url("data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/img2.png'))) }}");
         }
 
-        .corps {
-            position: relative;
-            z-index: 3;
-        }
-
         /* Cercle décoratif en filigrane centré */
         .watermark {
             position: absolute;
@@ -190,13 +187,28 @@
             line-height: 1.85;
         }
 
-        .corps p {
-            margin-bottom: 3mm;
+        .corps {
+            position: relative;
+            z-index: 2;
         }
 
         .corps .intro {
+            font-size: 13pt;
             font-weight: bold;
             font-style: italic;
+            font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
+            letter-spacing: 3px;
+            /* ajuste ici (1px à 4px selon rendu) */
+        }
+
+        .corps .text-intro {
+            font-size: 12pt;
+            font-weight: normal;
+            font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
+            letter-spacing: 2px;
+
+            margin-right: 10mm;
+            /* ou 15mm selon ton rendu */
         }
 
         .corps .nom-participant {
@@ -205,40 +217,64 @@
 
         .corps .formation-intitule {
             font-weight: bold;
-            font-style: italic;
+            font-style: normal;
         }
 
         /* ── Pied : date + signature ── */
+        /* ── Pied : date + signature ───────────────────────────── */
         .footer {
-            width: 100%;
-            padding: 0 8mm;
+            position: absolute;
+            right: 20mm;
+            bottom: 16mm;
+            /* augmente cette valeur */
+            /* ajuste selon ton cadre */
+            width: auto;
+
             display: flex;
             justify-content: flex-end;
-            align-items: flex-start;
-            margin-top: 2mm;
-            margin-bottom: 3mm;
+            align-items: flex-end;
         }
 
+        /* Bloc signature */
         .signature-block {
             text-align: center;
-            font-size: 10pt;
+            font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
+            font-size: 11pt;
+            line-height: 1.2;
+            margin: 0;
+            padding: 0;
         }
 
+        /* Date */
         .signature-block .fait-le {
             font-weight: bold;
             font-style: italic;
             margin-bottom: 8mm;
+            position: relative;
+            right: 36mm;
+            /* ajuste la valeur */
         }
 
+        /* Fonction */
         .signature-block .titre-sig {
-            font-size: 9.5pt;
-            margin-bottom: 14mm;
-        }
-
-        .signature-block .nom-sig {
-            font-style: italic;
             font-size: 10pt;
             font-weight: normal;
+            margin: 0 0 38mm 0;
+        }
+
+        /* Nom */
+        .signature-block .nom-sig {
+            font-size: 11pt;
+            font-weight: bold;
+            font-style: italic;
+            margin: 0;
+            padding: 0;
+            line-height: 1;
+        }
+
+        /* Supprime tout espace sous le dernier élément */
+        .signature-block>*:last-child {
+            margin-bottom: 0 !important;
         }
 
         /* ── QR code ── */
@@ -260,12 +296,6 @@
             color: #666;
             margin-top: 1mm;
             letter-spacing: 0.3px;
-        }
-
-        .body-zone {
-            position: relative;
-            width: 100%;
-            flex: 1;
         }
 
         .watermark-container {
@@ -295,17 +325,6 @@
             opacity: 0.15;
         }
 
-        .corps {
-            position: relative;
-            z-index: 2;
-        }
-
-        .body-zone {
-            position: relative;
-            width: 100%;
-            flex: 1;
-        }
-
         .watermark-container {
             position: absolute;
 
@@ -323,19 +342,19 @@
 
         .watermark-img {
             position: absolute;
-            top: 50%;
+            top: 60%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
 
         .watermark-img1 {
-            width: 85mm;
-            opacity: 0.24;
+            width: 65mm;
+            opacity: 0.48;
         }
 
         .watermark-img2 {
-            width: 55mm;
-            opacity: 0.40;
+            width: 35mm;
+            opacity: 0.80;
         }
     </style>
 </head>
@@ -369,7 +388,7 @@
             <div class="header">
                 <div class="republique">République du Sénégal</div>
                 <div class="devise">Un Peuple &bull; Un But &bull; Une Foi</div>
-                <div class="ministere">Ministère de la Formation Professionnelle, de l'Apprentissage et de l'Insertion
+                <div class="ministere">Ministère de l'Emploi et de la Formation Professionnelle et Technique
                 </div>
                 <div class="onfp">Office National de Formation Professionnelle</div>
             </div>
@@ -391,32 +410,32 @@
                     <p class="intro">
                         Le Directeur général de l'Office national de Formation professionnelle (ONFP) atteste que
                     </p>
-                    <p>
+                    <p class="text-intro">
                         @if ($individuelle->user->civilite ?? null)
-                            «{{ $individuelle->user->civilite }}»
+                            {{ $individuelle->user->civilite }}
                         @endif
                         <span class="nom-participant">
-                            «{{ $individuelle->user->firstname }}» «{{ $individuelle->user->name }}»
+                            {{ $individuelle->user->firstname }} {{ $individuelle->user->name }}
                         </span>
                         @if ($individuelle->user->date_naissance ?? null)
                             né(e) le
-                            «{{ \Carbon\Carbon::parse($individuelle->user->date_naissance)->format('d/m/Y') }}»
+                            {{ \Carbon\Carbon::parse($individuelle->user->date_naissance)->format('d/m/Y') }}
                         @endif
                         @if ($individuelle->user->lieu_naissance ?? null)
-                            à «{{ $individuelle->user->lieu_naissance }}»
+                            à {{ $individuelle->user->lieu_naissance }}
                         @endif
                         a suivi avec succès la formation
-                        en <span class="formation-intitule">«{{ $moduleName }}»</span>
-                        qui s'est déroulée
-                        du {{ $formation->date_debut?->format('d/m/Y') }}
-                        au {{ $formation->date_fin?->format('d/m/Y') }}
-                        @if ($formation->localite ?? null)
-                            à {{ strtoupper($formation->localite->name) }}.
+                        en <br><span class="formation-intitule">{{ $formation->intitule }}</span>
+                        qui s'est déroulée {{ $formation->periode_formatee }}
+                        {{-- du {{ $formation->date_debut?->format('d/m/Y') }}
+                        au {{ $formation->date_fin?->format('d/m/Y') }} --}}
+                        @if ($formation->lieu ?? null)
+                            à {{ strtoupper($formation->lieu) }}.
                         @else
                             .
                         @endif
                     </p>
-                    <p>
+                    <p class="text-intro">
                         En foi de quoi, la présente attestation lui est délivrée pour servir et valoir ce que de droit.
                     </p>
                 </div>
@@ -425,7 +444,9 @@
             {{-- Pied --}}
             <div class="footer">
                 <div class="signature-block">
-                    <div class="fait-le">Fait le {{ $now->format('d') }} {{ $now->translatedFormat('F Y') }}</div>
+                    <div class="fait-le">
+                        Fait le {{ $now->translatedFormat('d F Y') }}
+                    </div>
                     <div class="titre-sig">Le Directeur général</div>
                     <div class="nom-sig">Mamadou Mounirou LY</div>
                 </div>

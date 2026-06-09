@@ -741,4 +741,26 @@ class Formation extends Model
         Alert::success('Succès !', 'La formation a été supprimée avec succès.');
         return back();
     }
+
+    public function getPeriodeFormateeAttribute(): string
+    {
+        if (!$this->date_debut || !$this->date_fin) {
+            return '';
+        }
+
+        if ($this->date_debut->format('mY') === $this->date_fin->format('mY')) {
+            return sprintf(
+                'du %s au %s %s',
+                $this->date_debut->format('d'),
+                $this->date_fin->format('d'),
+                $this->date_fin->translatedFormat('F Y')
+            );
+        }
+
+        return sprintf(
+            'du %s au %s',
+            $this->date_debut->translatedFormat('d F Y'),
+            $this->date_fin->translatedFormat('d F Y')
+        );
+    }
 }
