@@ -5562,10 +5562,25 @@ class FormationController extends Controller
             $moduleName = $formation?->collectivemodule?->module;
         }
 
-        $qrContent = "Formation : {$formation?->name}\n" .
+        /* $qrContent = "Formation : {$formation?->name}\n" .
             "Code : {$formation?->code}\n" .
             "Module : {$moduleName}\n" .
-            "Date : " . $formation?->date_debut?->format('d/m/Y') . " au " . $formation?->date_fin?->format('d/m/Y');
+            "Date : " . $formation?->date_debut?->format('d/m/Y') . " au " . $formation?->date_fin?->format('d/m/Y'); */
+
+        // Remplacer votre bloc $qrContent par :
+        $payload = implode('|', [
+            $formation->id,
+            $individuelle->id,
+            $individuelle->user->id,
+            $formation->date_fin?->format('Y-m-d'),
+        ]);
+
+        $secret    = config('app.attestation_secret');
+        $signature = hash_hmac('sha256', $payload, $secret);
+        $token     = base64_encode($payload . '::' . $signature);
+
+        $qrContent = route('attestation.verifier', ['token' => $token]);
+        //FIN
 
         $qrCode       = QrCode::create($qrContent)->setSize(150);
         $writer       = new PngWriter();
@@ -5592,5 +5607,35 @@ class FormationController extends Controller
 
         $name = 'Attestation_Particpation_' . $individuelle->user->firstname . '_' . $individuelle->user->name . '.pdf';
         return $dompdf->stream($name, ['Attachment' => false]);
+    }
+
+    public function verifier(Request $request)
+    {
+        try {
+            $decoded = base64_decode($request->query('token'));
+            [$payload, $signature] = explode('::', $decoded, 2);
+
+            // Vérifier la signature
+            $secret   = config('app.attestation_secret');
+            $expected = hash_hmac('sha256', $payload, $secret);
+
+            if (!hash_equals($expected, $signature)) {
+                return view('attestations.invalide'); // ❌ Falsifié
+            }
+
+            [$formationId, $individuelleId, $userId, $dateFin] = explode('|', $payload);
+
+            $formation   = Formation::findOrFail($formationId);
+            $individuelle = Individuelle::with('user')
+                ->where('id', $individuelleId)
+                ->where('formations_id', $formationId)
+                ->firstOrFail();
+
+            return view('attestations.valide', compact('formation', 'individuelle'));
+            // ✅ Affiche : "Attestation authentique délivrée à Jean Dupont le ..."
+
+        } catch (\Throwable $e) {
+            return view('attestations.invalide');
+        }
     }
 }
