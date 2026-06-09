@@ -169,21 +169,12 @@
 
         .doc-title h1 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 30px;
-            /* légèrement plus grand */
-            font-weight: 700;
-            /* vrai gras */
-            letter-spacing: 1px;
-            /* moins espacé = plus net */
+            font-size: 26px;
+            font-weight: 600;
+            letter-spacing: 2px;
             text-transform: uppercase;
             color: #b8996e;
             margin: 0 0 6px;
-            line-height: 1.1;
-
-            /* amélioration du rendu */
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            text-rendering: geometricPrecision;
         }
 
         .title-ornament {
