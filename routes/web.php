@@ -1120,8 +1120,8 @@ Route::group(['middleware' => ['XSS']], function () {
     Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
         ->name('password.email');
 
-    /* Route::get('/attestation/verifier', [FormationController::class, 'verifier'])
-        ->name('attestation.verifier'); */
+    Route::get('/attestation/verifier', [FormationController::class, 'verifierr'])
+        ->name('attestation.verifier');
 
     Route::resource('/contacts', ContactController::class);
     Route::get('/services-details', [ContactController::class, 'servicesDetails'])->name('services.details');
