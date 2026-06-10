@@ -216,11 +216,8 @@
             width: 100%;
             text-align: justify;
             text-align-last: justify;
-        }
-
-        /* .corps .nom-participant {
             font-weight: bold;
-        } */
+        }
 
         .corps .formation-intitule {
             font-weight: bold;
