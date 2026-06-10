@@ -136,6 +136,23 @@
                                                 <i class="bi bi-check-circle"></i> ABE
                                             </button>
                                         </form>
+                                        {{-- <a href="{{ route('attestation.telecharger', [
+                                            'formation' => $formation->id,
+                                        ]) }}"
+                                            class="dropdown-item" target="_blank">
+                                            <i class="bi bi-file-earmark-arrow-down"></i>
+                                            Attestation de réussite
+                                        </a> --}}
+
+                                        @can('attestation-participation-view')
+                                            <a href="{{ route('attestation.telecharger', [
+                                                'formation' => $formation->id,
+                                            ]) }}"
+                                                class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1"
+                                                title="Télécharger la demande de paiement" target="_blank">
+                                                <i class="bi bi-receipt"></i> Attestation de réussite
+                                            </a>
+                                        @endcan
                                     @endif
                                     {{-- @can('formation-show')
                                         <td class="text-center">

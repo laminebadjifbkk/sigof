@@ -815,8 +815,20 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/attestation_participation_collective/{formation}/{listecollective}/telecharger', [AttestationController::class, 'telechargerAttestationParticipationCollective'])
             ->name('attestationParticipationCollective.telecharger');
 
+        Route::get('/attestation/{formation}/telecharger', [AttestationController::class, 'attestation'])
+            ->name('attestation.telecharger');
+
+        Route::get('/attestation_reussite/{formation}/{individuelle}/telecharger', [AttestationController::class, 'telechargerAttestationReussite'])
+            ->name('attestationReussite.telecharger');
+
+        Route::get('/attestation_reussite_boucle/{formation}/{individuelle}/telecharger', [AttestationController::class, 'telechargerAttestationReussiteBoucle'])
+            ->name('attestationReussiteBoucle.telecharger');
+
         Route::get('/attestation_reussite_collective/{formation}/{listecollective}/telecharger', [AttestationController::class, 'telechargerAttestationReussiteCollective'])
             ->name('attestationReussiteCollective.telecharger');
+
+        Route::get('/attestation_reussite_collective_boucle/{formation}/telecharger', [AttestationController::class, 'telechargerAttestationReussiteCollectiveBoucle'])
+            ->name('attestationReussiteCollectiveBoucle.telecharger');
 
         Route::get('/lettre-mission/{lettrevaluation}/telecharger', [LettrevaluationController::class, 'telechargerlettreMission'])
             ->name('lettreMission.telecharger');
