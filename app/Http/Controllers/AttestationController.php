@@ -117,7 +117,7 @@ class AttestationController extends Controller
 
     public function verifier(Request $request)
     {
-        try {
+       /*  try {
             $decoded = base64_decode($request->query('token'));
             [$payload, $signature] = explode('::', $decoded, 2);
 
@@ -142,7 +142,7 @@ class AttestationController extends Controller
 
         } catch (\Throwable $e) {
             return view('attestations.invalide');
-        }
+        } */
     }
     /* 
     public function verifier(Request $request)
@@ -366,16 +366,13 @@ class AttestationController extends Controller
         $name = 'Attestation_Particpation_' . $listecollective->prenom . '_' . $listecollective->nom . '.pdf';
         return $dompdf->stream($name, ['Attachment' => false]);
     }
-
     public function verifierCollective(Request $request)
     {
-        dd('invalide 1');
-        try {
+        /* try {
             // ✅ Même décodage que verifier()
             $decoded = base64_decode($request->query('token'));
 
             if (!str_contains($decoded, '::')) {
-                dd('invalide 1');
                 return view('attestations.collectives.invalide');
             }
 
@@ -385,7 +382,6 @@ class AttestationController extends Controller
             $expected = hash_hmac('sha256', $payload, $secret);
 
             if (!hash_equals($expected, $signature)) {
-                dd('invalide 2');
                 return view('attestations.collectives.invalide');
             }
 
@@ -400,14 +396,8 @@ class AttestationController extends Controller
 
             return view('attestations.collectives.valide', compact('formation', 'listecollective'));
         } catch (\Throwable $e) {
-            dd([
-                'message' => $e->getMessage(),
-                'line'    => $e->getLine(),
-                'file'    => $e->getFile(),
-                'token'   => $request->query('token'),
-                'decoded' => base64_decode($request->query('token')),
-            ]);
-        }
+            return view('attestations.collectives.invalide');
+        } */
     }
 
     public function telechargerAttestationReussiteCollective(int $formationId, int $collectiveId)
