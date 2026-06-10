@@ -433,10 +433,10 @@
                             @if ($individuelle->user->lieu_naissance ?? null)
                                 à {{ $individuelle->user->lieu_naissance }}
                             @endif
-                            a suivi avec succès la formation
+                            a suivi avec succès la formation en 
                         </span>
                         <span class="line-two">
-                            en <span class="formation-intitule">{{ $formation->intitule }}</span>
+                            <span class="formation-intitule">{{ $formation->intitule }}</span>
                             qui s'est déroulée {{ $formation->periode_formatee }}
                             @if ($formation->lieu ?? null)
                                 à {{ strtoupper($formation->lieu) }}.
