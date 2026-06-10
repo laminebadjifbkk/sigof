@@ -211,9 +211,9 @@ class AttestationController extends Controller
         $longueur = mb_strlen($nomComplet);
 
         if ($longueur < 15) {
-            $spacing = '5px';
-        } elseif ($longueur < 25) {
             $spacing = '3px';
+        } elseif ($longueur < 25) {
+            $spacing = '2px';
         } elseif ($longueur < 35) {
             $spacing = '1px';
         } else {

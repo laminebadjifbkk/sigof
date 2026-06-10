@@ -211,6 +211,13 @@
             /* ou 15mm selon ton rendu */
         }
 
+        .nom-participant {
+            display: inline-block;
+            width: 100%;
+            text-align: justify;
+            text-align-last: justify;
+        }
+
         .corps .nom-participant {
             font-weight: bold;
         }
