@@ -117,7 +117,8 @@ class AttestationController extends Controller
 
     public function verifier(Request $request)
     {
-       /*  try {
+        dd('ok');
+        try {
             $decoded = base64_decode($request->query('token'));
             [$payload, $signature] = explode('::', $decoded, 2);
 
@@ -142,7 +143,7 @@ class AttestationController extends Controller
 
         } catch (\Throwable $e) {
             return view('attestations.invalide');
-        } */
+        }
     }
     /* 
     public function verifier(Request $request)
