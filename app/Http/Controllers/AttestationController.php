@@ -455,7 +455,7 @@ class AttestationController extends Controller
         $signature = hash_hmac('sha256', $payload, $secret);
         $token     = base64_encode($payload . '::' . $signature);
 
-        $qrContent = route('attestation.verifier', ['token' => $token]);
+        $qrContent = route('attestationCollective.verifier', ['token' => $token]);
 
         $qrCode       = QrCode::create($qrContent)->setSize(150);
         $writer       = new PngWriter();
