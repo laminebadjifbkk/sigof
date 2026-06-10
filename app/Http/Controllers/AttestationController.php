@@ -369,6 +369,7 @@ class AttestationController extends Controller
 
     public function verifierCollective(Request $request)
     {
+        dd('invalide 1');
         try {
             // ✅ Même décodage que verifier()
             $decoded = base64_decode($request->query('token'));
