@@ -396,6 +396,10 @@ class AttestationController extends Controller
 
             return view('attestations.collectives.valide', compact('formation', 'listecollective'));
         } catch (\Throwable $e) {
+            \Log::error('verifierCollective: ' . $e->getMessage(), [
+                'token' => $request->query('token'),
+                'trace' => $e->getTraceAsString(),
+            ]);
             return view('attestations.collectives.invalide');
         }
     }
