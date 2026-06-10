@@ -6,11 +6,13 @@ namespace App\Http\Controllers;
 use App\Models\Direction;
 use App\Models\Formation;
 use App\Models\Individuelle;
+use App\Models\Validationformation;
 use Dompdf\Dompdf;
 use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Writer\PngWriter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use NumberToWords\NumberToWords;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -45,6 +47,17 @@ class AttestationController extends Controller
             "Code : {$formation?->code}\n" .
             "Module : {$moduleName}\n" .
             "Date : " . $formation?->date_debut?->format('d/m/Y') . " au " . $formation?->date_fin?->format('d/m/Y'); */
+
+        $nameRes = $individuelle?->user?->civilite . ' ' . $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name;
+
+        $validated_by = new Validationformation([
+            'validated_id'  =>  Auth::user()->id,
+            'action'        => "generer",
+            'motif'        =>  $nameRes,
+            'formations_id' => $formationId,
+        ]);
+
+        $validated_by->save();
 
         // Remplacer votre bloc $qrContent par :
         $payload = implode('|', [
@@ -162,9 +175,19 @@ class AttestationController extends Controller
     {
         $formation    = Formation::findOrFail($formationId);
         $individuelle = Individuelle::findOrFail($individuelleId);
-        $direction = Direction::where('sigle', 'DG')->first();
+        $direction    = Direction::where('sigle', 'DG')->first();
 
         $nameDG = $direction?->chef?->user?->civilite . ' ' . $direction?->chef?->user?->firstname . ' ' . $direction?->chef?->user?->name;
+        $nameRes = $individuelle?->user?->civilite . ' ' . $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name;
+
+        $validated_by = new Validationformation([
+            'validated_id'  =>  Auth::user()->id,
+            'action'        => "generer",
+            'motif'        =>  $nameRes,
+            'formations_id' => $formationId,
+        ]);
+
+        $validated_by->save();
 
         if ($formation->statut != "Terminée") {
             Alert::warning('Action impossible !', 'La formation n\'est pas encore achevée.');
