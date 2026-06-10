@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Attestation de Participation – {{ $individuelle->user->firstname ?? '' }}
-        {{ $individuelle->user->name ?? '' }}</title>
+    <title>Attestation de Participation – {{ $listecollective->prenom ?? '' }}
+        {{ $listecollective->nom ?? '' }}</title>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Cormorant+Garamond:wght@300;400;600&display=swap');
@@ -448,17 +448,16 @@
                                 (ONFP)</strong>
                             atteste que <br>
                             <span class="highlight">
-                                {{ $individuelle?->user?->civilite ?? 'Monsieur/Madame' }}
-                                {{ $individuelle?->user?->firstname ?? '……………………' }}
-                                {{ $individuelle?->user?->name ?? '' }}
+                                {{ $listecollective?->civilite ?? 'Monsieur/Madame' }}
+                                {{ $listecollective?->prenom ?? '……………………' }}
+                                {{ $listecollective?->nom ?? '' }}
                             </span>,
 
-                            @if ($individuelle?->user?->date_naissance)
+                            @if ($listecollective?->date_naissance)
                                 né(e) le
                                 <span
-                                    class="highlight">{{ \Carbon\Carbon::parse($individuelle->user?->date_naissance)->translatedFormat('d F Y') }}</span>
-                                à <span
-                                    class="highlight">{{ $individuelle?->user?->lieu_naissance ?? '…………………' }}</span>,
+                                    class="highlight">{{ \Carbon\Carbon::parse($listecollective?->date_naissance)->translatedFormat('d F Y') }}</span>
+                                à <span class="highlight">{{ $listecollective?->lieu_naissance ?? '…………………' }}</span>,
                             @else
                                 né(e) le <span class="fill">……………………</span>
                                 à <span class="fill">……………………</span>,

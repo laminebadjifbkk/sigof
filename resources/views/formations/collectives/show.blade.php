@@ -875,6 +875,32 @@
                                                                                             </form>
                                                                                         </li>
                                                                                     @endif
+                                                                                    @can('attestation-participation-view')
+                                                                                        <li>
+                                                                                            <a href="{{ route('attestationParticipationCollective.telecharger', [
+                                                                                                'formation' => $formation->id,
+                                                                                                'listecollective' => $listecollective->id,
+                                                                                            ]) }}"
+                                                                                                class="dropdown-item"
+                                                                                                target="_blank">
+                                                                                                <i
+                                                                                                    class="bi bi-file-earmark-arrow-down"></i>
+                                                                                                Attestation de participation
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <li>
+                                                                                            <a href="{{ route('attestationReussiteCollective.telecharger', [
+                                                                                                'formation' => $formation->id,
+                                                                                                'listecollective' => $listecollective->id,
+                                                                                            ]) }}"
+                                                                                                class="dropdown-item"
+                                                                                                target="_blank">
+                                                                                                <i
+                                                                                                    class="bi bi-file-earmark-arrow-down"></i>
+                                                                                                Attestation de réussite
+                                                                                            </a>
+                                                                                        </li>
+                                                                                    @endcan
                                                                                 </ul>
                                                                             </div>
                                                                         </div>

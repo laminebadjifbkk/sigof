@@ -812,8 +812,11 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/attestation_participation/{formation}/{individuelle}/telecharger', [AttestationController::class, 'telechargerAttestationParticipation'])
             ->name('attestationParticipation.telecharger');
 
-        Route::get('/attestation_reussite/{formation}/{individuelle}/telecharger', [AttestationController::class, 'telechargerAttestationReussite'])
-            ->name('attestationReussite.telecharger');
+        Route::get('/attestation_participation_collective/{formation}/{listecollective}/telecharger', [AttestationController::class, 'telechargerAttestationParticipationCollective'])
+            ->name('attestationParticipationCollective.telecharger');
+
+        Route::get('/attestation_reussite_collective/{formation}/{listecollective}/telecharger', [AttestationController::class, 'telechargerAttestationReussiteCollective'])
+            ->name('attestationReussiteCollective.telecharger');
 
         Route::get('/lettre-mission/{lettrevaluation}/telecharger', [LettrevaluationController::class, 'telechargerlettreMission'])
             ->name('lettreMission.telecharger');
@@ -1127,6 +1130,9 @@ Route::group(['middleware' => ['XSS']], function () {
 
     Route::get('/attestation/verifier', [AttestationController::class, 'verifier'])
         ->name('attestation.verifier');
+
+    Route::get('/attestation_collective/verifier', [AttestationController::class, 'verifierCollective'])
+        ->name('attestationCollective.verifier');
 
     Route::resource('/contacts', ContactController::class);
     Route::get('/services-details', [ContactController::class, 'servicesDetails'])->name('services.details');
