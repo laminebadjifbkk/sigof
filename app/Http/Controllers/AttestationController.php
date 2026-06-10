@@ -370,7 +370,13 @@ class AttestationController extends Controller
     public function verifierCollective(Request $request)
     {
         try {
-            $decoded = base64_decode($request->query('token'));
+            // ✅ base64url → base64 standard
+            $decoded = base64_decode(strtr($request->query('token'), '-_', '+/'));
+
+            if (!str_contains($decoded, '::')) {
+                return view('attestations.collectives.invalide');
+            }
+
             [$payload, $signature] = explode('::', $decoded, 2);
 
             // Vérifier la signature
@@ -383,17 +389,19 @@ class AttestationController extends Controller
 
             [$formationId, $collectiveId, $userId, $dateFin] = explode('|', $payload);
 
-             $formation   = Formation::findOrFail($formationId);
+            // ✅ Vérifier l'expiration si applicable
+            if (!empty($dateFin) && now()->isAfter($dateFin)) {
+                return view('attestations.collectives.invalide'); // ❌ Expiré
+            }
 
-            $formation   = Formation::findOrFail($formationId);
+            $formation = Formation::findOrFail($formationId); // ✅ Une seule fois
+
             $listecollective = Listecollective::with('collective')
                 ->where('id', $collectiveId)
                 ->where('formations_id', $formationId)
                 ->firstOrFail();
 
             return view('attestations.collectives.valide', compact('formation', 'listecollective'));
-            // ✅ Affiche : "Attestation authentique délivrée à Jean Dupont le ..."
-
         } catch (\Throwable $e) {
             return view('attestations.collectives.invalide');
         }
