@@ -207,15 +207,15 @@ class AttestationController extends Controller
         $options->setDefaultFont('DejaVu Sans');
         $dompdf->setOptions($options);
 
-        $nomComplet = trim($individuelle->user->civilite . ' ' . $individuelle->user->firstname . ' ' . $individuelle->user->name);
+        $nomComplet = trim($individuelle->user->civilite . ' ' .$individuelle->user->firstname . ' ' . $individuelle->user->name);
         $longueur = mb_strlen($nomComplet);
 
-        if ($longueur < 80) {
-            $spacing = '1.2px';
-        } elseif ($longueur < 120) {
-            $spacing = '0.8px';
-        } elseif ($longueur < 150) {
-            $spacing = '0.4px';
+        if ($longueur < 15) {
+            $spacing = '3px';
+        } elseif ($longueur < 25) {
+            $spacing = '2px';
+        } elseif ($longueur < 35) {
+            $spacing = '1px';
         } else {
             $spacing = '0px';
         }
