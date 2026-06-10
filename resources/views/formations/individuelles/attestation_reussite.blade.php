@@ -427,17 +427,18 @@
 
                         <span class="nom-participant" style="letter-spacing: {{ $spacing }}">
                             {{ $nomComplet }}
-                        </span>
 
-                        @if ($individuelle->user->date_naissance ?? null)
-                            né(e) le
-                            {{ \Carbon\Carbon::parse($individuelle->user->date_naissance)->format('d/m/Y') }}
-                        @endif
-                        @if ($individuelle->user->lieu_naissance ?? null)
-                            à {{ $individuelle->user->lieu_naissance }}
-                        @endif
-                        a suivi avec succès la formation
-                        en <br><span class="formation-intitule">{{ $formation->intitule }}</span>
+                            @if ($individuelle->user->date_naissance ?? null)
+                                né(e) le
+                                {{ \Carbon\Carbon::parse($individuelle->user->date_naissance)->format('d/m/Y') }}
+                            @endif
+                            @if ($individuelle->user->lieu_naissance ?? null)
+                                à {{ $individuelle->user->lieu_naissance }}
+                            @endif
+                            a suivi avec succès la formation
+                            en
+                        </span>
+                        <br><span class="formation-intitule">{{ $formation->intitule }}</span>
                         qui s'est déroulée {{ $formation->periode_formatee }}
                         {{-- du {{ $formation->date_debut?->format('d/m/Y') }}
                         au {{ $formation->date_fin?->format('d/m/Y') }} --}}
