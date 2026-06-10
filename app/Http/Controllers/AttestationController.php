@@ -207,45 +207,6 @@ class AttestationController extends Controller
         $options->setDefaultFont('DejaVu Sans');
         $dompdf->setOptions($options);
 
-        $nomComplet = trim($individuelle->user->civilite . ' ' . $individuelle->user->firstname . ' ' . $individuelle->user->name);
-        $longueur = mb_strlen($nomComplet);
-
-        if ($longueur < 15) {
-            $spacing = '3px';
-        } elseif ($longueur < 25) {
-            $spacing = '2px';
-        } elseif ($longueur < 35) {
-            $spacing = '1px';
-        } else {
-            $spacing = '0px';
-        }
-
-
-
-        $texteIntro = trim(
-            '<strong>' .
-                ($individuelle->user->civilite ?? '') . ' ' .
-                $individuelle->user->firstname . ' ' .
-                $individuelle->user->name .
-                '</strong> ' .
-                ($individuelle->user->date_naissance
-                    ? 'né(e) le ' . \Carbon\Carbon::parse($individuelle->user->date_naissance)->format('d/m/Y')
-                    : '') . ' ' .
-                ($individuelle->user->lieu_naissance
-                    ? 'à ' . $individuelle->user->lieu_naissance
-                    : '') . ' ' .
-                'a suivi avec succès la formation en'
-        );
-
-        $longueur = mb_strlen(strip_tags($texteIntro));
-
-        // Largeur cible de la ligne (à ajuster)
-        $largeurCible = 290;
-
-        // Espacement calculé
-        $spacing = max(0, ($largeurCible - $longueur) / $longueur);
-        $spacing = min($spacing, 5); // limite max
-
         $html = View::make('formations.individuelles.attestation_reussite', compact(
             'formation',
             'title',
@@ -253,9 +214,6 @@ class AttestationController extends Controller
             'moduleName',
             'nameDG',
             'now',
-            'spacing',
-            'nomComplet',
-            'texteIntro',
             'qrCodeBase64'
         ))->render();
 

@@ -249,7 +249,7 @@
         .signature-block .fait-le {
             font-weight: bold;
             font-style: italic;
-            margin-bottom: 8mm;
+            margin-top: 12mm;
             position: relative;
             right: 36mm;
             /* ajuste la valeur */
@@ -356,6 +356,14 @@
             width: 35mm;
             opacity: 0.80;
         }
+
+        .text-intro .line-one,
+        .text-intro .line-two {
+            display: block;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+        }
     </style>
 </head>
 
@@ -411,29 +419,30 @@
                         Le Directeur général de l'Office national de Formation professionnelle (ONFP) atteste que
                     </p>
                     <p class="text-intro">
-                        @if ($individuelle->user->civilite ?? null)
-                            {{ $individuelle->user->civilite }}
-                        @endif
-                        <span class="nom-participant">
-                            {{ $individuelle->user->firstname }} {{ $individuelle->user->name }}
+                        <span class="line-one">
+                            @if ($individuelle->user->civilite ?? null)
+                                {{ $individuelle->user->civilite }}
+                            @endif
+                            <span class="nom-participant">{{ $individuelle->user->firstname }}
+                                {{ $individuelle->user->name }}</span>
+                            @if ($individuelle->user->date_naissance ?? null)
+                                né(e) le
+                                {{ \Carbon\Carbon::parse($individuelle->user->date_naissance)->format('d/m/Y') }}
+                            @endif
+                            @if ($individuelle->user->lieu_naissance ?? null)
+                                à {{ $individuelle->user->lieu_naissance }}
+                            @endif
+                            a suivi avec succès la formation
                         </span>
-                        @if ($individuelle->user->date_naissance ?? null)
-                            né(e) le
-                            {{ \Carbon\Carbon::parse($individuelle->user->date_naissance)->format('d/m/Y') }}
-                        @endif
-                        @if ($individuelle->user->lieu_naissance ?? null)
-                            à {{ $individuelle->user->lieu_naissance }}
-                        @endif
-                        a suivi avec succès la formation
-                        en <br><span class="formation-intitule">{{ $formation->intitule }}</span>
-                        qui s'est déroulée {{ $formation->periode_formatee }}
-                        {{-- du {{ $formation->date_debut?->format('d/m/Y') }}
-                        au {{ $formation->date_fin?->format('d/m/Y') }} --}}
-                        @if ($formation->lieu ?? null)
-                            à {{ strtoupper($formation->lieu) }}.
-                        @else
-                            .
-                        @endif
+                        <span class="line-two">
+                            en <span class="formation-intitule">{{ $formation->intitule }}</span>
+                            qui s'est déroulée {{ $formation->periode_formatee }}
+                            @if ($formation->lieu ?? null)
+                                à {{ strtoupper($formation->lieu) }}.
+                            @else
+                                .
+                            @endif
+                        </span>
                     </p>
                     <p class="text-intro">
                         En foi de quoi, la présente attestation lui est délivrée pour servir et valoir ce que de droit.
@@ -455,7 +464,29 @@
         </div>{{-- /content --}}
 
     </div>{{-- /page --}}
+    <script>
+        function fitTextToLine(selector) {
+            document.querySelectorAll(selector).forEach(function(el) {
+                const parent = el.closest('.text-intro') || el.parentElement;
+                const maxWidth = parent.clientWidth;
+                let fontSize = parseFloat(window.getComputedStyle(el).fontSize);
 
+                while (el.scrollWidth > maxWidth && fontSize > 6) {
+                    fontSize -= 0.5;
+                    el.style.fontSize = fontSize + 'px';
+                }
+                while (el.scrollWidth < maxWidth * 0.98 && fontSize < 30) {
+                    fontSize += 0.5;
+                    el.style.fontSize = fontSize + 'px';
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            fitTextToLine('.text-intro .line-one');
+            fitTextToLine('.text-intro .line-two');
+        });
+    </script>
 </body>
 
 </html>
