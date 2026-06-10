@@ -117,7 +117,6 @@ class AttestationController extends Controller
 
     public function verifier(Request $request)
     {
-        dd('ok');
         try {
             $decoded = base64_decode($request->query('token'));
             [$payload, $signature] = explode('::', $decoded, 2);
@@ -367,9 +366,10 @@ class AttestationController extends Controller
         $name = 'Attestation_Particpation_' . $listecollective->prenom . '_' . $listecollective->nom . '.pdf';
         return $dompdf->stream($name, ['Attachment' => false]);
     }
+    
     public function verifierCollective(Request $request)
     {
-        /* try {
+        try {
             // ✅ Même décodage que verifier()
             $decoded = base64_decode($request->query('token'));
 
@@ -398,7 +398,7 @@ class AttestationController extends Controller
             return view('attestations.collectives.valide', compact('formation', 'listecollective'));
         } catch (\Throwable $e) {
             return view('attestations.collectives.invalide');
-        } */
+        }
     }
 
     public function telechargerAttestationReussiteCollective(int $formationId, int $collectiveId)
