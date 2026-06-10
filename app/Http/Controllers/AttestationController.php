@@ -69,9 +69,9 @@ class AttestationController extends Controller
             'individuelles_id' => $individuelle->id,
         ]);
 
-        /* $formation->update([
+        $individuelle->update([
             'attestation' => 'generer', // ou la valeur souhaitée
-        ]); */
+        ]);
 
         // Remplacer votre bloc $qrContent par :
         $payload = implode('|', [
@@ -210,9 +210,9 @@ class AttestationController extends Controller
             'individuelles_id' => $individuelle->id,
         ]);
 
-        /* $formation->update([
+        $individuelle->update([
             'attestation' => 'generer', // ou la valeur souhaitée
-        ]); */
+        ]);
 
         if ($formation->statut != "Terminée") {
             Alert::warning('Action impossible !', 'La formation n\'est pas encore achevée.');
@@ -515,6 +515,88 @@ class AttestationController extends Controller
                 'collectives_id' => $listecollective->collective->id,
             ]);
         }
+
+        if ($formation->statut != "Terminée") {
+            Alert::warning('Action impossible !', 'La formation n\'est pas encore achevée.');
+            return redirect()->back();
+        }
+
+        $title = 'Attestation de Réussite ' . $formation->name;
+        $now   = \Carbon\Carbon::now();
+
+        // Résolution du nom de module (identique à la participation)
+        $moduleName = null;
+        if ($formation?->module && $formation?->module?->name) {
+            $moduleName = $formation->module->name;
+        } elseif ($formation?->collectivemodule && $formation?->collectivemodule?->module) {
+            $moduleName = $formation?->collectivemodule?->module;
+        }
+
+        // Génération du token QR signé
+        $payload = implode('|', [
+            $formation->id,
+            $listecollective->id,
+            $listecollective->collective->user->id,
+            $formation->date_fin?->format('Y-m-d'),
+            'reussite', // discriminant pour distinguer du QR participation
+        ]);
+
+        $secret    = config('app.attestation_secret');
+        $signature = hash_hmac('sha256', $payload, $secret);
+        $token     = base64_encode($payload . '::' . $signature);
+
+        $qrContent = route('attestationCollective.verifier', ['token' => $token]);
+
+        $qrCode       = QrCode::create($qrContent)->setSize(150);
+        $writer       = new PngWriter();
+        $result       = $writer->write($qrCode);
+        $qrCodeBase64 = base64_encode($result->getString());
+
+        $dompdf  = new Dompdf();
+        $options = $dompdf->getOptions();
+        $options->setDefaultFont('DejaVu Sans');
+        $dompdf->setOptions($options);
+
+        $html = View::make('formations.collectives.attestation_reussite', compact(
+            'formation',
+            'title',
+            'listecollective',
+            'moduleName',
+            'nameDG',
+            'now',
+            'qrCodeBase64'
+        ))->render();
+
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+
+        $name = 'Attestation_Reussite_' . $listecollective->prenom . '_' . $listecollective->nom . '.pdf';
+        return $dompdf->stream($name, ['Attachment' => false]);
+    }
+
+    public function telechargerAttestationReussiteCollective(int $formationId, int $listecollectiveId)
+    {
+        $formation    = Formation::findOrFail($formationId);
+        $listecollective    = Listecollective::findOrFail($listecollectiveId);
+        $direction    = Direction::where('sigle', 'DG')->first();
+
+        $nameDG = $direction?->chef?->user?->civilite . ' ' . $direction?->chef?->user?->firstname . ' ' . $direction?->chef?->user?->name;
+
+        $validated_by = new Validationformation([
+            'validated_id'  =>  Auth::user()->id,
+            'action'        => "generer",
+            'formations_id' => $formationId,
+        ]);
+
+        $validated_by->save();
+
+        Validationcollective::create([
+            'validated_id'   => Auth::user()->id,
+            'action'         => 'Attestation ou titre généré',
+            'motif'          => 'Votre attestation/titre a été généré',
+            'collectives_id' => $listecollective->collective->id,
+        ]);
 
         if ($formation->statut != "Terminée") {
             Alert::warning('Action impossible !', 'La formation n\'est pas encore achevée.');

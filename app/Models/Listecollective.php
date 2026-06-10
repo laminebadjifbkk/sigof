@@ -96,6 +96,7 @@ class Listecollective extends Model
         'formations_id',
         'retrait_diplome',
         'diplome_retirer_by',
+        'attestation',
         'modules_id'
     ];
 
