@@ -260,7 +260,7 @@
             font-size: 12pt;
             font-weight: normal;
             font-weight: bold;
-            margin: 10mm 0 38mm 0;
+            margin: 5mm 0 38mm 0;
         }
 
         /* Nom */
