@@ -207,6 +207,19 @@ class AttestationController extends Controller
         $options->setDefaultFont('DejaVu Sans');
         $dompdf->setOptions($options);
 
+        $nomComplet = trim($individuelle->user->firstname . ' ' . $individuelle->user->name);
+        $longueur = mb_strlen($nomComplet);
+
+        if ($longueur < 15) {
+            $spacing = '3px';
+        } elseif ($longueur < 25) {
+            $spacing = '2px';
+        } elseif ($longueur < 35) {
+            $spacing = '1px';
+        } else {
+            $spacing = '0px';
+        }
+
         $html = View::make('formations.individuelles.attestation_reussite', compact(
             'formation',
             'title',
@@ -214,6 +227,8 @@ class AttestationController extends Controller
             'moduleName',
             'nameDG',
             'now',
+            'spacing',
+            'nomComplet',
             'qrCodeBase64'
         ))->render();
 

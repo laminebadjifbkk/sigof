@@ -205,7 +205,7 @@
             font-size: 12pt;
             font-weight: normal;
             font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
-            letter-spacing: 1px;
+            /* letter-spacing: 1px; */
 
             margin-right: 10mm;
             /* ou 15mm selon ton rendu */
@@ -411,12 +411,17 @@
                         Le Directeur général de l'Office national de Formation professionnelle (ONFP) atteste que
                     </p>
                     <p class="text-intro">
-                        @if ($individuelle->user->civilite ?? null)
+                        {{-- @if ($individuelle->user->civilite ?? null)
                             {{ $individuelle->user->civilite }}
                         @endif
                         <span class="nom-participant">
                             {{ $individuelle->user->firstname }} {{ $individuelle->user->name }}
+                        </span> --}}
+
+                        <span class="nom-participant" style="letter-spacing: {{ $spacing }}">
+                            {{ $nomComplet }}
                         </span>
+
                         @if ($individuelle->user->date_naissance ?? null)
                             né(e) le
                             {{ \Carbon\Carbon::parse($individuelle->user->date_naissance)->format('d/m/Y') }}
