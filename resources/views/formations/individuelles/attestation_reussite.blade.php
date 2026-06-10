@@ -205,29 +205,19 @@
             font-size: 12pt;
             font-weight: normal;
             font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
-            /* letter-spacing: 1px; */
+            letter-spacing: 2px;
 
             margin-right: 10mm;
             /* ou 15mm selon ton rendu */
         }
 
-        .nom-participant {
-            display: inline-block;
-            width: 100%;
-            text-align: justify;
-            text-align-last: justify;
-            font-weight: bold;
-        }
-
-        .corps .nom-participant-bold {
+        .corps .nom-participant {
             font-weight: bold;
         }
 
         .corps .formation-intitule {
             font-weight: bold;
             font-style: normal;
-            font-size: 12pt;
-            font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
         }
 
         /* ── Pied : date + signature ── */
@@ -366,10 +356,6 @@
             width: 35mm;
             opacity: 0.80;
         }
-
-        .text-intro {
-            text-align: justify;
-        }
     </style>
 </head>
 
@@ -425,38 +411,29 @@
                         Le Directeur général de l'Office national de Formation professionnelle (ONFP) atteste que
                     </p>
                     <p class="text-intro">
-                        {{-- @if ($individuelle->user->civilite ?? null)
+                        @if ($individuelle->user->civilite ?? null)
                             {{ $individuelle->user->civilite }}
                         @endif
                         <span class="nom-participant">
                             {{ $individuelle->user->firstname }} {{ $individuelle->user->name }}
-                        </span> --}}
-
-                        {{-- <span class="nom-participant" style="letter-spacing: {{ $spacing }}">
-                            <span class="nom-participant-bold">{{ $nomComplet }}</span>
-
-                            @if ($individuelle->user->date_naissance ?? null)
-                                né(e) le
-                                {{ \Carbon\Carbon::parse($individuelle->user->date_naissance)->format('d/m/Y') }}
-                            @endif
-                            @if ($individuelle->user->lieu_naissance ?? null)
-                                à {{ $individuelle->user->lieu_naissance }}
-                            @endif
-                            a suivi avec succès la formation
-                            en
-                        </span> --}}
-                    <p class="text-intro" style="letter-spacing: {{ number_format($spacing, 2) }}px;">
-                        {!! $texteIntro !!}
-                    </p>
-                    <span class="formation-intitule">{{ $formation->intitule }}</span>
-                    qui s'est déroulée {{ $formation->periode_formatee }}
-                    {{-- du {{ $formation->date_debut?->format('d/m/Y') }}
+                        </span>
+                        @if ($individuelle->user->date_naissance ?? null)
+                            né(e) le
+                            {{ \Carbon\Carbon::parse($individuelle->user->date_naissance)->format('d/m/Y') }}
+                        @endif
+                        @if ($individuelle->user->lieu_naissance ?? null)
+                            à {{ $individuelle->user->lieu_naissance }}
+                        @endif
+                        a suivi avec succès la formation
+                        en <br><span class="formation-intitule">{{ $formation->intitule }}</span>
+                        qui s'est déroulée {{ $formation->periode_formatee }}
+                        {{-- du {{ $formation->date_debut?->format('d/m/Y') }}
                         au {{ $formation->date_fin?->format('d/m/Y') }} --}}
-                    @if ($formation->lieu ?? null)
-                        à {{ strtoupper($formation->lieu) }}.
-                    @else
-                        .
-                    @endif
+                        @if ($formation->lieu ?? null)
+                            à {{ strtoupper($formation->lieu) }}.
+                        @else
+                            .
+                        @endif
                     </p>
                     <p class="text-intro">
                         En foi de quoi, la présente attestation lui est délivrée pour servir et valoir ce que de droit.
