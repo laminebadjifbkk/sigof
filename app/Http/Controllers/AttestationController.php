@@ -237,17 +237,14 @@ class AttestationController extends Controller
                 'a suivi avec succès la formation en'
         );
 
-        $longueur = mb_strlen($texteIntro);
+        $longueur = mb_strlen(strip_tags($texteIntro));
 
-        if ($longueur < 80) {
-            $spacing = '1.2px';
-        } elseif ($longueur < 120) {
-            $spacing = '0.8px';
-        } elseif ($longueur < 150) {
-            $spacing = '0.4px';
-        } else {
-            $spacing = '0px';
-        }
+        // Largeur cible de la ligne (à ajuster)
+        $largeurCible = 120;
+
+        // Espacement calculé
+        $spacing = max(0, ($largeurCible - $longueur) / $longueur);
+        $spacing = min($spacing, 2.5); // limite max
 
         $html = View::make('formations.individuelles.attestation_reussite', compact(
             'formation',

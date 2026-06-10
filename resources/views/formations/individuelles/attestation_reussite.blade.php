@@ -364,6 +364,10 @@
             width: 35mm;
             opacity: 0.80;
         }
+
+        .text-intro {
+            text-align: justify;
+        }
     </style>
 </head>
 
@@ -439,16 +443,18 @@
                             a suivi avec succès la formation
                             en
                         </span> --}}
+                    <p class="text-intro" style="letter-spacing: {{ number_format($spacing, 2) }}px;">
                         {!! $texteIntro !!}
-                        <br><span class="formation-intitule">{{ $formation->intitule }}</span>
-                        qui s'est déroulée {{ $formation->periode_formatee }}
-                        {{-- du {{ $formation->date_debut?->format('d/m/Y') }}
+                    </p>
+                    <span class="formation-intitule">{{ $formation->intitule }}</span>
+                    qui s'est déroulée {{ $formation->periode_formatee }}
+                    {{-- du {{ $formation->date_debut?->format('d/m/Y') }}
                         au {{ $formation->date_fin?->format('d/m/Y') }} --}}
-                        @if ($formation->lieu ?? null)
-                            à {{ strtoupper($formation->lieu) }}.
-                        @else
-                            .
-                        @endif
+                    @if ($formation->lieu ?? null)
+                        à {{ strtoupper($formation->lieu) }}.
+                    @else
+                        .
+                    @endif
                     </p>
                     <p class="text-intro">
                         En foi de quoi, la présente attestation lui est délivrée pour servir et valoir ce que de droit.
