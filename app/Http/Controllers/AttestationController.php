@@ -207,7 +207,7 @@ class AttestationController extends Controller
         $options->setDefaultFont('DejaVu Sans');
         $dompdf->setOptions($options);
 
-        $nomComplet = trim($individuelle->user->firstname . ' ' . $individuelle->user->name);
+        $nomComplet = trim($individuelle->user->civilite . ' ' .$individuelle->user->firstname . ' ' . $individuelle->user->name);
         $longueur = mb_strlen($nomComplet);
 
         if ($longueur < 15) {
