@@ -374,6 +374,7 @@ class AttestationController extends Controller
             $decoded = base64_decode($request->query('token'));
 
             if (!str_contains($decoded, '::')) {
+                dd('invalide 1');
                 return view('attestations.collectives.invalide');
             }
 
@@ -383,6 +384,7 @@ class AttestationController extends Controller
             $expected = hash_hmac('sha256', $payload, $secret);
 
             if (!hash_equals($expected, $signature)) {
+                dd('invalide 2');
                 return view('attestations.collectives.invalide');
             }
 
