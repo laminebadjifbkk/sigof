@@ -1435,7 +1435,8 @@
                                                             <th>Date naissance</th>
                                                             <th>Lieu de naissance</th>
                                                             <th>Note<span class="text-danger mx-1">*</span></th>
-                                                            <th>Diplôme</th>
+                                                            <th>Attestations</th>
+                                                            <th></th>
                                                             <th><i class="bi bi-gear"></i></th>
                                                         </tr>
                                                     </thead>
@@ -1452,6 +1453,18 @@
                                                                 <td>{{ $listecollective?->lieu_naissance }}</td>
                                                                 <td>
                                                                     <span>{{ $listecollective?->note_obtenue }}</span>
+                                                                </td>
+                                                                <td style="vertical-align: middle;">
+                                                                    <span
+                                                                        class="{{ $listecollective?->attestation }}">{{ $listecollective?->attestation }}</span>
+                                                                    <a href="{{ route('attestationParticipationCollective.telecharger', [
+                                                                        'formation' => $formation->id,
+                                                                        'listecollective' => $listecollective->id,
+                                                                    ]) }}"
+                                                                        class="dropdown-item" target="_blank">
+                                                                        <i class="bi bi-file-earmark-arrow-down"></i>
+                                                                        {{-- Attestation de participation --}}
+                                                                    </a>
                                                                 </td>
                                                                 <td style="vertical-align: middle;">
                                                                     @if (!empty($listecollective?->retrait_diplome))

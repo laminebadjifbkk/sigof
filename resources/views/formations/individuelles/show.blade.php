@@ -935,7 +935,7 @@
                                                                                                 Attestation de réussite
                                                                                             </a>
                                                                                         </li>
-                                                                                        
+
                                                                                         {{-- <li>
                                                                                             <a href="{{ route('attestationReussite.telecharger', [$formation->id, $individuelle->id]) }}"
                                                                                                 target="_blank"
@@ -1733,7 +1733,8 @@
                                                                 <th class="text-center">Note<span
                                                                         class="text-danger mx-1">*</span>
                                                                 </th>
-                                                                <th class="text-center">Diplôme</th>
+                                                                <th class="text-center">Attestations</th>
+                                                                <th class="text-center"></th>
                                                                 <th class="text-center"><i class="bi bi-gear"></i></th>
                                                             </tr>
                                                         </thead>
@@ -1759,6 +1760,19 @@
                                                                             value="{{ $individuelle?->id }}"> --}}
                                                                         <span
                                                                             class="text-center">{{ $individuelle?->note_obtenue }}</span>
+                                                                    </td>
+
+                                                                    <td style="vertical-align: middle;">
+                                                                        <span
+                                                                            class="{{ $individuelle?->attestation }}">{{ $individuelle?->attestation }}</span>
+                                                                        <a href="{{ route('attestationReussite.telecharger', [
+                                                                            'formation' => $formation->id,
+                                                                            'individuelle' => $individuelle->id,
+                                                                        ]) }}"
+                                                                            class="dropdown-item" target="_blank">
+                                                                            <i class="bi bi-file-earmark-arrow-down"></i>
+                                                                            {{-- Attestation de réussite --}}
+                                                                        </a>
                                                                     </td>
                                                                     <td
                                                                         style="text-align: center; vertical-align: middle;">

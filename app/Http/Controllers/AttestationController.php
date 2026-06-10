@@ -410,9 +410,9 @@ class AttestationController extends Controller
             'collectives_id' => $listecollective->collective->id,
         ]);
 
-        /* $formation->update([
+        $listecollective->update([
             'attestation' => 'generer', // ou la valeur souhaitée
-        ]); */
+        ]);
 
         // Remplacer votre bloc $qrContent par :
         $payload = implode('|', [
@@ -596,6 +596,10 @@ class AttestationController extends Controller
             'action'         => 'Attestation ou titre généré',
             'motif'          => 'Votre attestation/titre a été généré',
             'collectives_id' => $listecollective->collective->id,
+        ]);
+
+        $listecollective->update([
+            'attestation' => 'generer', // ou la valeur souhaitée
         ]);
 
         if ($formation->statut != "Terminée") {
