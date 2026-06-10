@@ -257,14 +257,15 @@
 
         /* Fonction */
         .signature-block .titre-sig {
-            font-size: 10pt;
+            font-size: 12pt;
             font-weight: normal;
+            font-weight: bold;
             margin: 0 0 38mm 0;
         }
 
         /* Nom */
         .signature-block .nom-sig {
-            font-size: 11pt;
+            font-size: 12pt;
             font-weight: bold;
             font-style: italic;
             margin: 0;
