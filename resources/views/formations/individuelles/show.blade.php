@@ -923,6 +923,8 @@
                                                                                                 Attestation de participation
                                                                                             </a>
                                                                                         </li>
+                                                                                    @endcan
+                                                                                    @can('attestation-reussite-view')
                                                                                         <li>
                                                                                             <a href="{{ route('attestationReussite.telecharger', [
                                                                                                 'formation' => $formation->id,
@@ -1765,14 +1767,16 @@
                                                                     <td style="vertical-align: middle;">
                                                                         <span
                                                                             class="{{ $individuelle?->attestation }}">{{ $individuelle?->attestation }}</span>
-                                                                        <a href="{{ route('attestationReussite.telecharger', [
-                                                                            'formation' => $formation->id,
-                                                                            'individuelle' => $individuelle->id,
-                                                                        ]) }}"
-                                                                            class="dropdown-item" target="_blank">
-                                                                            <i class="bi bi-file-earmark-arrow-down"></i>
-                                                                            {{-- Attestation de réussite --}}
-                                                                        </a>
+                                                                        @can('attestation-reussite-view')
+                                                                            <a href="{{ route('attestationReussite.telecharger', [
+                                                                                'formation' => $formation->id,
+                                                                                'individuelle' => $individuelle->id,
+                                                                            ]) }}"
+                                                                                class="dropdown-item" target="_blank">
+                                                                                <i class="bi bi-file-earmark-arrow-down"></i>
+                                                                                {{-- Attestation de réussite --}}
+                                                                            </a>
+                                                                        @endcan
                                                                     </td>
                                                                     <td
                                                                         style="text-align: center; vertical-align: middle;">

@@ -888,6 +888,8 @@
                                                                                                 Attestation de participation
                                                                                             </a>
                                                                                         </li>
+                                                                                    @endcan
+                                                                                    @can('attestation-reussite-view')
                                                                                         <li>
                                                                                             <a href="{{ route('attestationReussiteCollective.telecharger', [
                                                                                                 'formation' => $formation->id,
@@ -1457,14 +1459,16 @@
                                                                 <td style="vertical-align: middle;">
                                                                     <span
                                                                         class="{{ $listecollective?->attestation }}">{{ $listecollective?->attestation }}</span>
-                                                                    <a href="{{ route('attestationParticipationCollective.telecharger', [
-                                                                        'formation' => $formation->id,
-                                                                        'listecollective' => $listecollective->id,
-                                                                    ]) }}"
-                                                                        class="dropdown-item" target="_blank">
-                                                                        <i class="bi bi-file-earmark-arrow-down"></i>
-                                                                        {{-- Attestation de participation --}}
-                                                                    </a>
+                                                                    @can('attestation-reussite-view')
+                                                                        <a href="{{ route('attestationParticipationCollective.telecharger', [
+                                                                            'formation' => $formation->id,
+                                                                            'listecollective' => $listecollective->id,
+                                                                        ]) }}"
+                                                                            class="dropdown-item" target="_blank">
+                                                                            <i class="bi bi-file-earmark-arrow-down"></i>
+                                                                            {{-- Attestation de participation --}}
+                                                                        </a>
+                                                                    @endcan
                                                                 </td>
                                                                 <td style="vertical-align: middle;">
                                                                     @if (!empty($listecollective?->retrait_diplome))

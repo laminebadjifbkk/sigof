@@ -144,7 +144,7 @@
                                             Attestation de réussite
                                         </a> --}}
 
-                                        @can('attestation-participation-view')
+                                        @can('attestation-reussite-view')
                                             <a href="{{ route('attestation.telecharger', [
                                                 'formation' => $formation->id,
                                             ]) }}"
