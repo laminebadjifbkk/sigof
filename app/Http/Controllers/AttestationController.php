@@ -366,6 +366,7 @@ class AttestationController extends Controller
         $name = 'Attestation_Particpation_' . $listecollective->prenom . '_' . $listecollective->nom . '.pdf';
         return $dompdf->stream($name, ['Attachment' => false]);
     }
+
     public function verifierCollective(Request $request)
     {
         try {
@@ -396,11 +397,13 @@ class AttestationController extends Controller
 
             return view('attestations.collectives.valide', compact('formation', 'listecollective'));
         } catch (\Throwable $e) {
-            \Log::error('verifierCollective: ' . $e->getMessage(), [
-                'token' => $request->query('token'),
-                'trace' => $e->getTraceAsString(),
+            dd([
+                'message' => $e->getMessage(),
+                'line'    => $e->getLine(),
+                'file'    => $e->getFile(),
+                'token'   => $request->query('token'),
+                'decoded' => base64_decode($request->query('token')),
             ]);
-            return view('attestations.collectives.invalide');
         }
     }
 
