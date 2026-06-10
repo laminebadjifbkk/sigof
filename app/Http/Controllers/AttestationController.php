@@ -240,11 +240,11 @@ class AttestationController extends Controller
         $longueur = mb_strlen(strip_tags($texteIntro));
 
         // Largeur cible de la ligne (à ajuster)
-        $largeurCible = 190;
+        $largeurCible = 290;
 
         // Espacement calculé
         $spacing = max(0, ($largeurCible - $longueur) / $longueur);
-        $spacing = min($spacing, 3); // limite max
+        $spacing = min($spacing, 5); // limite max
 
         $html = View::make('formations.individuelles.attestation_reussite', compact(
             'formation',
