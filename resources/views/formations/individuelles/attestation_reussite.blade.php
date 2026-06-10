@@ -260,6 +260,7 @@
             font-size: 12pt;
             font-weight: normal;
             font-weight: bold;
+            margin-top: 10px;
             margin: 0 0 38mm 0;
         }
 
