@@ -1852,6 +1852,8 @@
         .démarrer,
         .Imputée,
         .cours,
+        .generer,
+        .généré,
         .new,
         .retiré {
             background-color: #0DCAF0;

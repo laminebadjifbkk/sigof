@@ -7,6 +7,7 @@ use App\Models\Direction;
 use App\Models\Formation;
 use App\Models\Individuelle;
 use App\Models\Validationformation;
+use App\Models\Validationindividuelle;
 use Dompdf\Dompdf;
 use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Writer\PngWriter;
@@ -58,6 +59,13 @@ class AttestationController extends Controller
         ]);
 
         $validated_by->save();
+
+        Validationindividuelle::create([
+            'validated_id'     => Auth::user()->id,
+            'action'           => 'attestation',
+            'motif'           => 'Votre attestation/titre a été généré',
+            'individuelles_id' => $individuelle->id,
+        ]);
 
         /* $formation->update([
             'attestation' => 'generer', // ou la valeur souhaitée
@@ -192,6 +200,13 @@ class AttestationController extends Controller
         ]);
 
         $validated_by->save();
+
+        Validationindividuelle::create([
+            'validated_id'     => Auth::user()->id,
+            'action'           => 'Attestation ou titre généré',
+            'motif'           => 'Votre attestation/titre a été généré',
+            'individuelles_id' => $individuelle->id,
+        ]);
 
         /* $formation->update([
             'attestation' => 'generer', // ou la valeur souhaitée
