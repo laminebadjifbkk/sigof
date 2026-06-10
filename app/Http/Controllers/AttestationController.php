@@ -366,12 +366,11 @@ class AttestationController extends Controller
         $name = 'Attestation_Particpation_' . $listecollective->prenom . '_' . $listecollective->nom . '.pdf';
         return $dompdf->stream($name, ['Attachment' => false]);
     }
-
     public function verifierCollective(Request $request)
     {
         try {
-            // ✅ base64url → base64 standard
-            $decoded = base64_decode(strtr($request->query('token'), '-_', '+/'));
+            // ✅ Même décodage que verifier()
+            $decoded = base64_decode($request->query('token'));
 
             if (!str_contains($decoded, '::')) {
                 return view('attestations.collectives.invalide');
@@ -379,22 +378,16 @@ class AttestationController extends Controller
 
             [$payload, $signature] = explode('::', $decoded, 2);
 
-            // Vérifier la signature
             $secret   = config('app.attestation_secret');
             $expected = hash_hmac('sha256', $payload, $secret);
 
             if (!hash_equals($expected, $signature)) {
-                return view('attestations.collectives.invalide'); // ❌ Falsifié
+                return view('attestations.collectives.invalide');
             }
 
             [$formationId, $collectiveId, $userId, $dateFin] = explode('|', $payload);
 
-            // ✅ Vérifier l'expiration si applicable
-            if (!empty($dateFin) && now()->isAfter($dateFin)) {
-                return view('attestations.collectives.invalide'); // ❌ Expiré
-            }
-
-            $formation = Formation::findOrFail($formationId); // ✅ Une seule fois
+            $formation = Formation::findOrFail($formationId);
 
             $listecollective = Listecollective::with('collective')
                 ->where('id', $collectiveId)
