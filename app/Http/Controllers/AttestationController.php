@@ -59,6 +59,10 @@ class AttestationController extends Controller
 
         $validated_by->save();
 
+        /* $formation->update([
+            'attestation' => 'generer', // ou la valeur souhaitée
+        ]); */
+
         // Remplacer votre bloc $qrContent par :
         $payload = implode('|', [
             $formation->id,
@@ -188,6 +192,10 @@ class AttestationController extends Controller
         ]);
 
         $validated_by->save();
+
+        /* $formation->update([
+            'attestation' => 'generer', // ou la valeur souhaitée
+        ]); */
 
         if ($formation->statut != "Terminée") {
             Alert::warning('Action impossible !', 'La formation n\'est pas encore achevée.');
