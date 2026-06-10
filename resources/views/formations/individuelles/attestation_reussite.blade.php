@@ -219,6 +219,10 @@
             font-weight: bold;
         }
 
+        .corps .nom-participant-bold {
+            font-weight: bold;
+        }
+
         .corps .formation-intitule {
             font-weight: bold;
             font-style: normal;
@@ -422,8 +426,8 @@
                             {{ $individuelle->user->firstname }} {{ $individuelle->user->name }}
                         </span> --}}
 
-                        <span class="nom-participant" style="letter-spacing: {{ $spacing }}">
-                            {{ $nomComplet }}
+                        {{-- <span class="nom-participant" style="letter-spacing: {{ $spacing }}">
+                            <span class="nom-participant-bold">{{ $nomComplet }}</span>
 
                             @if ($individuelle->user->date_naissance ?? null)
                                 né(e) le
@@ -434,7 +438,8 @@
                             @endif
                             a suivi avec succès la formation
                             en
-                        </span>
+                        </span> --}}
+                        {!! $texteIntro !!}
                         <br><span class="formation-intitule">{{ $formation->intitule }}</span>
                         qui s'est déroulée {{ $formation->periode_formatee }}
                         {{-- du {{ $formation->date_debut?->format('d/m/Y') }}

@@ -207,7 +207,7 @@ class AttestationController extends Controller
         $options->setDefaultFont('DejaVu Sans');
         $dompdf->setOptions($options);
 
-        $nomComplet = trim($individuelle->user->civilite . ' ' .$individuelle->user->firstname . ' ' . $individuelle->user->name);
+        $nomComplet = trim($individuelle->user->civilite . ' ' . $individuelle->user->firstname . ' ' . $individuelle->user->name);
         $longueur = mb_strlen($nomComplet);
 
         if ($longueur < 15) {
@@ -216,6 +216,35 @@ class AttestationController extends Controller
             $spacing = '2px';
         } elseif ($longueur < 35) {
             $spacing = '1px';
+        } else {
+            $spacing = '0px';
+        }
+
+
+
+        $texteIntro = trim(
+            '<strong>' .
+                ($individuelle->user->civilite ?? '') . ' ' .
+                $individuelle->user->firstname . ' ' .
+                $individuelle->user->name .
+                '</strong> ' .
+                ($individuelle->user->date_naissance
+                    ? 'né(e) le ' . \Carbon\Carbon::parse($individuelle->user->date_naissance)->format('d/m/Y')
+                    : '') . ' ' .
+                ($individuelle->user->lieu_naissance
+                    ? 'à ' . $individuelle->user->lieu_naissance
+                    : '') . ' ' .
+                'a suivi avec succès la formation en'
+        );
+
+        $longueur = mb_strlen($texteIntro);
+
+        if ($longueur < 80) {
+            $spacing = '1.2px';
+        } elseif ($longueur < 120) {
+            $spacing = '0.8px';
+        } elseif ($longueur < 150) {
+            $spacing = '0.4px';
         } else {
             $spacing = '0px';
         }
@@ -229,6 +258,7 @@ class AttestationController extends Controller
             'now',
             'spacing',
             'nomComplet',
+            'texteIntro',
             'qrCodeBase64'
         ))->render();
 
