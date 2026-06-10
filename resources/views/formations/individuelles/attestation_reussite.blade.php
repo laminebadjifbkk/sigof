@@ -226,6 +226,8 @@
         .corps .formation-intitule {
             font-weight: bold;
             font-style: normal;
+            font-size: 12pt;
+            font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
         }
 
         /* ── Pied : date + signature ── */
