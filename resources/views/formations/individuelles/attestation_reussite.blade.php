@@ -205,7 +205,7 @@
             font-size: 12pt;
             font-weight: normal;
             font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
 
             margin-right: 10mm;
             /* ou 15mm selon ton rendu */
