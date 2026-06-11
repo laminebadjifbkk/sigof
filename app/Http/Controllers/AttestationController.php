@@ -419,7 +419,7 @@ class AttestationController extends Controller
                 'validated_id'   => Auth::user()->id,
                 'action'         => 'Attestation ou titre généré',
                 'motif'          => 'Votre attestation/titre a été généré',
-                'collectives_id' => $individuelle->id,
+                'individuelles_id' => $individuelle->id,
             ]);
 
             $individuelle->update(['attestation' => 'generer']);
