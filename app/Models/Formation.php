@@ -323,6 +323,7 @@ class Formation extends Model
         'indemnite',
         'lettre_mission_dec',
         'file_lettre_dec',
+        'pdf_attestations_path',
     ];
 
     public function getRouteKeyName()

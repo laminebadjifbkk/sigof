@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\GenererAttestationsReussiteJob;
 use App\Models\Collective;
 use App\Models\Direction;
 use App\Models\Formation;
@@ -359,7 +360,7 @@ class AttestationController extends Controller
         $name = 'Attestation_Reussite_' . $individuelle->user->firstname . '_' . $individuelle->user->name . '.pdf';
         return $dompdf->stream($name, ['Attachment' => false]);
     } */
-
+    /* 
 
     public function telechargerToutesAttestationsReussite(int $formationId)
     {
@@ -474,6 +475,151 @@ class AttestationController extends Controller
 
         $name = 'Attestations_Reussite_' . Str::slug($formation->name) . '_' . now()->format('Ymd') . '.pdf';
         return $dompdf->stream($name, ['Attachment' => true]);
+    } */
+
+    public function telechargerToutesAttestationsReussite(int $formationId)
+    {
+        // ── 0. Limites PHP ──────────────────────────────────────────────
+        ini_set('memory_limit', '512M');
+        set_time_limit(300);
+
+        $formation = Formation::findOrFail($formationId);
+
+        if ($formation->statut != "Terminée") {
+            Alert::warning('Action impossible !', 'La formation n\'est pas encore achevée.');
+            return redirect()->back();
+        }
+
+        $individuelles = $formation->individuelles;
+
+        if ($individuelles->isEmpty()) {
+            Alert::warning('Aucun bénéficiaire', 'Aucun bénéficiaire n\'est rattaché à cette formation.');
+            return redirect()->back();
+        }
+
+        $direction = Direction::where('sigle', 'DG')->first();
+        $nameDG    = $direction?->chef?->user?->civilite . ' '
+            . $direction?->chef?->user?->firstname . ' '
+            . $direction?->chef?->user?->name;
+
+        $now   = \Carbon\Carbon::now();
+        $title = 'Attestations de Réussite ' . $formation->name;
+
+        $moduleName = null;
+        if ($formation?->module?->name) {
+            $moduleName = $formation->module->name;
+        } elseif ($formation?->collectivemodule?->module) {
+            $moduleName = $formation->collectivemodule->module;
+        }
+
+        // Log formation (une seule fois)
+        Validationformation::create([
+            'validated_id'  => Auth::user()->id,
+            'action'        => 'generer',
+            'formations_id' => $formationId,
+        ]);
+
+        // ── 1. Dossier temporaire ───────────────────────────────────────
+        $tmpDir = storage_path('app/tmp/attestations_' . $formationId . '_' . uniqid());
+        mkdir($tmpDir, 0755, true);
+
+        $pdfPaths = [];
+
+        try {
+            foreach ($individuelles as $individuelle) {
+
+                // Logs individuels
+                Validationindividuelle::create([
+                    'validated_id'    => Auth::user()->id,
+                    'action'          => 'Attestation ou titre généré',
+                    'motif'           => 'Votre attestation/titre a été généré',
+                    'individuelles_id' => $individuelle->id,
+                ]);
+                $individuelle->update(['attestation' => 'generer']);
+
+                // QR Code
+                $payload = implode('|', [
+                    $formation->id,
+                    $individuelle->id,
+                    $individuelle->user->id,
+                    $formation->date_fin?->format('Y-m-d'),
+                    'reussite',
+                ]);
+                $secret       = config('app.attestation_secret');
+                $signature    = hash_hmac('sha256', $payload, $secret);
+                $token        = base64_encode($payload . '::' . $signature);
+                $qrContent    = route('attestation.verifier', ['token' => $token]);
+                $qrCode       = QrCode::create($qrContent)->setSize(150);
+                $writer       = new PngWriter();
+                $qrCodeBase64 = base64_encode($writer->write($qrCode)->getString());
+
+                // Rendu HTML → PDF
+                $html = View::make('formations.individuelles.attestation_reussite', compact(
+                    'formation',
+                    'title',
+                    'individuelle',
+                    'moduleName',
+                    'nameDG',
+                    'now',
+                    'qrCodeBase64'
+                ))->render();
+
+                $dompdf = new Dompdf();
+                $opts   = $dompdf->getOptions();
+                $opts->setDefaultFont('DejaVu Sans');
+                $dompdf->setOptions($opts);
+                $dompdf->loadHtml($html);
+                $dompdf->setPaper('A4', 'landscape');
+                $dompdf->render();
+
+                // Écriture sur disque
+                $pdfPath    = $tmpDir . '/' . $individuelle->id . '.pdf';
+                file_put_contents($pdfPath, $dompdf->output());
+                $pdfPaths[] = $pdfPath;
+
+                // Libération mémoire immédiate
+                unset($dompdf, $html, $qrCodeBase64, $writer, $qrCode);
+                gc_collect_cycles();
+            }
+
+            // ── 2. Fusion avec FPDI ─────────────────────────────────────
+            $merger = new \setasign\Fpdi\Fpdi();
+            $merger->SetAutoPageBreak(false);
+
+            foreach ($pdfPaths as $path) {
+                $pageCount = $merger->setSourceFile($path);
+                for ($i = 1; $i <= $pageCount; $i++) {
+                    $tpl = $merger->importPage($i);
+                    $sz  = $merger->getTemplateSize($tpl);
+                    $merger->AddPage(
+                        $sz['width'] > $sz['height'] ? 'L' : 'P',
+                        [$sz['width'], $sz['height']]
+                    );
+                    $merger->useTemplate($tpl);
+                }
+            }
+
+            $outputPath = $tmpDir . '/merged.pdf';
+            $merger->Output($outputPath, 'F');
+            unset($merger);
+
+            // ── 3. Envoi au navigateur ──────────────────────────────────
+            $fileName = 'Attestations_Reussite_' . Str::slug($formation->name) . '_' . now()->format('Ymd') . '.pdf';
+
+            return response()->download($outputPath, $fileName, [
+                'Content-Type' => 'application/pdf',
+            ])->deleteFileAfterSend(true);
+        } finally {
+            // ── 4. Nettoyage garanti même en cas d'exception ────────────
+            foreach ($pdfPaths as $path) {
+                if (file_exists($path)) {
+                    unlink($path);
+                }
+            }
+            if (is_dir($tmpDir)) {
+                @rmdir($tmpDir);
+            }
+        }
     }
 
     // Attestation de participationcollective
@@ -1065,5 +1211,76 @@ class AttestationController extends Controller
 
         // Type non reconnu
         abort(404, "Type de formation non reconnu : {$type_formation}");
+    }
+
+
+    //avec les jobs
+    /*  public function attestation(int $formationId)
+    {
+        $formation      = Formation::findOrFail($formationId);
+        $type_formation = $formation->types_formation?->name;
+
+        if (!in_array($type_formation, ['individuelle', 'collective'])) {
+            abort(404, "Type de formation non reconnu : {$type_formation}");
+        }
+
+        if ($formation->statut != "Terminée") {
+            Alert::warning('Action impossible !', 'La formation n\'est pas encore achevée.');
+            return redirect()->back();
+        }
+
+        // Si déjà généré → téléchargement direct
+        if (
+            $formation->pdf_attestations_path &&
+            $formation->pdf_attestations_path !== 'en_cours' &&
+            file_exists(storage_path('app/public/' . $formation->pdf_attestations_path))
+        ) {
+            return redirect()->route('formations.attestations.telecharger', $formation->id);
+        }
+
+        // Sinon → lancer la génération en queue
+        return redirect()->route('formations.attestations.lancer', $formation->id);
+    } */
+
+    // Lance la génération en arrière-plan
+    public function lancerGenerationAttestations(int $formationId)
+    {
+        $formation = Formation::findOrFail($formationId);
+        /* dd($formation, $type, $formation->types_formation->name); */
+
+        if ($formation->statut != "Terminée") {
+            Alert::warning('Action impossible !', 'La formation n\'est pas encore achevée.');
+            return redirect()->back();
+        }
+
+        // Réinitialise le chemin pour indiquer que c'est en cours
+        $formation->update(['pdf_attestations_path' => 'en_cours']);
+
+        Validationformation::create([
+            'validated_id'  => Auth::user()->id,
+            'action'        => 'generer',
+            'formations_id' => $formationId,
+        ]);
+
+        GenererAttestationsReussiteJob::dispatch($formationId, Auth::user()->id, $formation->types_formation->name);
+
+        Alert::info('Génération lancée', 'Le PDF sera disponible dans quelques minutes. Revenez sur cette page pour le télécharger.');
+        return redirect()->back();
+    }
+
+    // Télécharge quand le PDF est prêt
+    public function telechargerAttestationsGenerees(int $formationId)
+    {
+        $formation = Formation::findOrFail($formationId);
+        $path      = storage_path('app/public/' . $formation->pdf_attestations_path);
+
+        if (!$formation->pdf_attestations_path || $formation->pdf_attestations_path === 'en_cours' || !file_exists($path)) {
+            Alert::warning('Pas encore prêt', 'La génération est en cours, veuillez patienter.');
+            return redirect()->back();
+        }
+
+        return response()->download($path, basename($path), [
+            'Content-Type' => 'application/pdf',
+        ]);
     }
 }

@@ -152,6 +152,27 @@
                                                 title="Télécharger la demande de paiement" target="_blank">
                                                 <i class="bi bi-receipt"></i> Attestations
                                             </a>
+                                            {{-- @if (!$formation->pdf_attestations_path)
+                                                <a href="{{ route('formations.attestations.lancer', $formation->id) }}"
+                                                    class="btn btn-primary">
+                                                    Générer les attestations
+                                                </a>
+                                            @elseif ($formation->pdf_attestations_path === 'en_cours')
+                                                <button class="btn btn-secondary" disabled>
+                                                    <span class="spinner-border spinner-border-sm"></span>
+                                                    Génération en cours…
+                                                </button>
+                                                <meta http-equiv="refresh" content="10">
+                                            @else
+                                                <a href="{{ route('formations.attestations.telecharger', $formation->id) }}"
+                                                    class="btn btn-success">
+                                                    Télécharger le PDF
+                                                </a>
+                                                <a href="{{ route('formations.attestations.lancer', $formation->id) }}"
+                                                    class="btn btn-outline-secondary btn-sm">
+                                                    Regénérer
+                                                </a>
+                                            @endif --}}
                                             {{-- <a href="{{ route('formations.attestations.reussite.toutes', $formation->id) }}"
                                                 class="btn btn-primary">
                                                 Attestations
