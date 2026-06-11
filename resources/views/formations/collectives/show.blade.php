@@ -1460,7 +1460,7 @@
                                                                     <span
                                                                         class="{{ $listecollective?->attestation }}">{{ $listecollective?->attestation }}</span>
                                                                     @can('attestation-reussite-view')
-                                                                        <a href="{{ route('attestationParticipationCollective.telecharger', [
+                                                                        <a href="{{ route('attestationReussiteCollective.telecharger', [
                                                                             'formation' => $formation->id,
                                                                             'listecollective' => $listecollective->id,
                                                                         ]) }}"
