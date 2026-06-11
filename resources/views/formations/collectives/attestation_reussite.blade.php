@@ -192,7 +192,7 @@
             font-weight: bold;
             font-style: italic;
             font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-align: center;
             /* ajuste ici (1px à 4px selon rendu) */
         }
@@ -201,7 +201,7 @@
             font-size: 12pt;
             font-weight: normal;
             font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-align: center;
             /* ← centrage */
             /* margin-right: 10mm ← SUPPRIMÉ */
@@ -361,7 +361,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-align: center;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             /* ← redondant mais explicite */
         }
     </style>
