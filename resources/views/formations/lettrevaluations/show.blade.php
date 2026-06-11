@@ -150,8 +150,12 @@
                                             ]) }}"
                                                 class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1"
                                                 title="Télécharger la demande de paiement" target="_blank">
-                                                <i class="bi bi-receipt"></i> Attestation de réussite
+                                                <i class="bi bi-receipt"></i> Attestations
                                             </a>
+                                            {{-- <a href="{{ route('formations.attestations.reussite.toutes', $formation->id) }}"
+                                                class="btn btn-primary">
+                                                Attestations
+                                            </a> --}}
                                         @endcan
                                     @endif
                                     {{-- @can('formation-show')

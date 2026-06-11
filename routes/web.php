@@ -827,8 +827,14 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/attestation_reussite_collective/{formation}/{listecollective}/telecharger', [AttestationController::class, 'telechargerAttestationReussiteCollective'])
             ->name('attestationReussiteCollective.telecharger');
 
-        Route::get('/attestation_reussite_collective_boucle/{formation}/telecharger', [AttestationController::class, 'telechargerAttestationReussiteCollectiveBoucle'])
-            ->name('attestationReussiteCollectiveBoucle.telecharger');
+        /* Route::get('/attestation_reussite_collective_boucle/{formation}/telecharger', [AttestationController::class, 'telechargerAttestationReussiteCollectiveBoucle'])
+            ->name('attestationReussiteCollectiveBoucle.telecharger'); */
+
+        Route::get(
+            'formations/{formationId}/attestations-reussite/toutes',
+            [AttestationController::class, 'telechargerToutesAttestationsReussiteCollective']
+        )
+            ->name('formations.attestations.reussite.toutes');
 
         Route::get('/lettre-mission/{lettrevaluation}/telecharger', [LettrevaluationController::class, 'telechargerlettreMission'])
             ->name('lettreMission.telecharger');
