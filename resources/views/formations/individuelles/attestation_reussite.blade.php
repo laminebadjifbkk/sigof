@@ -180,7 +180,7 @@
             position: relative;
             z-index: 2;
             width: 100%;
-            padding: 0 6mm;
+            padding: 0;
             font-size: 10.5pt;
             color: #111;
             line-height: 1.85;
