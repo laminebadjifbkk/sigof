@@ -274,7 +274,7 @@ class AttestationController extends Controller
         return $dompdf->stream($name, ['Attachment' => false]);
     }
 
-    public function telechargerAttestationReussiteBoucle(int $formationId)
+    /* public function telechargerAttestationReussiteBoucle(int $formationId)
     {
         $formation    = Formation::findOrFail($formationId);
         $direction    = Direction::where('sigle', 'DG')->first();
@@ -300,10 +300,6 @@ class AttestationController extends Controller
             'motif'           => 'Votre attestation/titre a été généré',
             'individuelles_id' => $individuelle->id,
         ]);
-
-        /* $formation->update([
-            'attestation' => 'generer', // ou la valeur souhaitée
-        ]); */
 
         if ($formation->statut != "Terminée") {
             Alert::warning('Action impossible !', 'La formation n\'est pas encore achevée.');
@@ -362,8 +358,123 @@ class AttestationController extends Controller
 
         $name = 'Attestation_Reussite_' . $individuelle->user->firstname . '_' . $individuelle->user->name . '.pdf';
         return $dompdf->stream($name, ['Attachment' => false]);
-    }
+    } */
 
+
+    public function telechargerToutesAttestationsReussite(int $formationId)
+    {
+        $formation = Formation::findOrFail($formationId);
+
+        if ($formation->statut != "Terminée") {
+            Alert::warning('Action impossible !', 'La formation n\'est pas encore achevée.');
+            return redirect()->back();
+        }
+
+        $direction = Direction::where('sigle', 'DG')->first();
+        $nameDG = $direction?->chef?->user?->civilite . ' ' .
+            $direction?->chef?->user?->firstname . ' ' .
+            $direction?->chef?->user?->name;
+
+        $now = \Carbon\Carbon::now();
+
+        // Log de l'action globale sur la formation
+        $validated_by = new Validationformation([
+            'validated_id'  => Auth::user()->id,
+            'action'        => "generer",
+            'formations_id' => $formationId,
+        ]);
+        $validated_by->save();
+
+        // Résolution du nom de module
+        $moduleName = null;
+        if ($formation?->module && $formation?->module?->name) {
+            $moduleName = $formation->module->name;
+        } elseif ($formation?->collectivemodule && $formation?->collectivemodule?->module) {
+            $moduleName = $formation?->collectivemodule?->module;
+        }
+
+        $title = 'Attestations de Réussite ' . $formation->name;
+
+        // Initialisation de Dompdf
+        $dompdf  = new Dompdf();
+        $options = $dompdf->getOptions();
+        $options->setDefaultFont('DejaVu Sans');
+        $dompdf->setOptions($options);
+
+        // Récupération de tous les bénéficiaires de la formation
+        $individuelles = $formation->individuelles;
+
+        if ($individuelles->isEmpty()) {
+            Alert::warning('Aucun bénéficiaire', 'Aucun bénéficiaire n\'est rattaché à cette formation.');
+            return redirect()->back();
+        }
+
+        // Construction du HTML complet (une page par bénéficiaire)
+        $allHtml = '';
+
+        foreach ($individuelles as $individuelle) {
+
+            // Log individuel
+            Validationindividuelle::create([
+                'validated_id'   => Auth::user()->id,
+                'action'         => 'Attestation ou titre généré',
+                'motif'          => 'Votre attestation/titre a été généré',
+                'collectives_id' => $individuelle->id,
+            ]);
+
+            $individuelle->update(['attestation' => 'generer']);
+
+            // Génération du QR code signé
+            $payload = implode('|', [
+                $formation->id,
+                $individuelle->id,
+                $individuelle->user->id,
+                $formation->date_fin?->format('Y-m-d'),
+                'reussite',
+            ]);
+
+            $secret    = config('app.attestation_secret');
+            $signature = hash_hmac('sha256', $payload, $secret);
+            $token     = base64_encode($payload . '::' . $signature);
+
+            $qrContent    = route('attestation.verifier', ['token' => $token]);
+            $qrCode       = QrCode::create($qrContent)->setSize(150);
+            $writer       = new PngWriter();
+            $result       = $writer->write($qrCode);
+            $qrCodeBase64 = base64_encode($result->getString());
+
+            // Rendu de la vue pour ce bénéficiaire
+            $html = View::make('formations.individuelles.attestation_reussite', compact(
+                'formation',
+                'title',
+                'individuelle',
+                'moduleName',
+                'nameDG',
+                'now',
+                'qrCodeBase64'
+            ))->render();
+
+            // Extraction du contenu du <body> pour concaténation
+            // On enveloppe chaque attestation dans un div avec saut de page
+            preg_match('/<body[^>]*>(.*?)<\/body>/is', $html, $matches);
+            $bodyContent = $matches[1] ?? $html;
+
+            $allHtml .= '<div style="page-break-after: always;">' . $bodyContent . '</div>';
+        }
+
+        // Enveloppe HTML complète avec les styles de la première attestation
+        preg_match('/<head[^>]*>(.*?)<\/head>/is', $html, $headMatches);
+        $headContent = $headMatches[1] ?? '';
+
+        $fullHtml = '<!DOCTYPE html><html lang="fr"><head>' . $headContent . '</head><body>' . $allHtml . '</body></html>';
+
+        $dompdf->loadHtml($fullHtml);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+
+        $name = 'Attestations_Reussite_' . Str::slug($formation->name) . '_' . now()->format('Ymd') . '.pdf';
+        return $dompdf->stream($name, ['Attachment' => true]);
+    }
 
     // Attestation de participationcollective
 
@@ -790,7 +901,7 @@ class AttestationController extends Controller
                 'formation'       => $formation->id,
             ]); */
             return redirect()->route(
-                'formations.attestations.reussite.toutes',
+                'formations.attestations.reussite.collectives.toutes',
                 $formation->id
             );
         }
@@ -798,9 +909,13 @@ class AttestationController extends Controller
         if ($type_formation === 'individuelle') {
             $individuelle = Individuelle::where('formations_id', $formationId)->firstOrFail();
 
-            return redirect()->route('attestationReussiteBoucle.telecharger', [
+            /* return redirect()->route('attestationReussiteBoucle.telecharger', [
                 'formation'    => $formation->id,
-            ]);
+            ]); */
+            return redirect()->route(
+                'formations.attestations.reussite.toutes',
+                $formation->id
+            );
         }
 
         // Type non reconnu
