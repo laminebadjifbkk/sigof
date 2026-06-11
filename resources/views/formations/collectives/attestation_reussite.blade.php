@@ -179,18 +179,12 @@
         /* Texte du corps */
         .corps {
             position: relative;
-            z-index: 1;
+            z-index: 2;
             width: 100%;
             padding: 0 6mm;
-            font-size: 10.5pt;
+            font-size: 12pt;
             color: #111;
-            text-align: justify;
             line-height: 1.85;
-        }
-
-        .corps {
-            position: relative;
-            z-index: 2;
         }
 
         .corps .intro {
@@ -207,9 +201,9 @@
             font-weight: normal;
             font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
             letter-spacing: 2px;
-
-            margin-right: 10mm;
-            /* ou 15mm selon ton rendu */
+            text-align: center;
+            /* ← centrage */
+            /* margin-right: 10mm ← SUPPRIMÉ */
         }
 
         .corps .nom-participant {
@@ -365,6 +359,8 @@
             width: 100%;
             white-space: nowrap;
             overflow: hidden;
+            text-align: center;
+            /* ← redondant mais explicite */
         }
     </style>
 </head>
@@ -469,18 +465,43 @@
     <script>
         function fitTextToLine(selector) {
             document.querySelectorAll(selector).forEach(function(el) {
-                const parent = el.closest('.text-intro') || el.parentElement;
-                const maxWidth = parent.clientWidth;
-                let fontSize = parseFloat(window.getComputedStyle(el).fontSize);
 
-                while (el.scrollWidth > maxWidth && fontSize > 6) {
-                    fontSize -= 0.5;
-                    el.style.fontSize = fontSize + 'px';
-                }
-                while (el.scrollWidth < maxWidth * 0.98 && fontSize < 30) {
+                const probe = document.createElement('span');
+                probe.style.cssText = [
+                    'position:absolute',
+                    'visibility:hidden',
+                    'white-space:nowrap',
+                    'font-family:' + window.getComputedStyle(el).fontFamily,
+                    'letter-spacing:' + window.getComputedStyle(el).letterSpacing,
+                    'font-weight:' + window.getComputedStyle(el).fontWeight,
+                ].join(';');
+                probe.innerHTML = el.innerHTML;
+                document.body.appendChild(probe);
+
+                const corps = el.closest('.corps');
+                const corpsStyle = window.getComputedStyle(corps);
+                const maxWidth = corps.clientWidth -
+                    parseFloat(corpsStyle.paddingLeft) -
+                    parseFloat(corpsStyle.paddingRight);
+
+                // Partir d'une taille de base fixe pour être cohérent
+                let fontSize = 12;
+                probe.style.fontSize = fontSize + 'px';
+
+                // 1. Agrandir jusqu'à remplir 98% de la largeur
+                while (probe.offsetWidth < maxWidth * 0.98 && fontSize < 60) {
                     fontSize += 0.5;
-                    el.style.fontSize = fontSize + 'px';
+                    probe.style.fontSize = fontSize + 'px';
                 }
+
+                // 2. Reculer si on a dépassé
+                while (probe.offsetWidth > maxWidth && fontSize > 6) {
+                    fontSize -= 0.5;
+                    probe.style.fontSize = fontSize + 'px';
+                }
+
+                document.body.removeChild(probe);
+                el.style.fontSize = fontSize + 'px';
             });
         }
 
