@@ -361,7 +361,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-align: center;
-            letter-spacing: 3px;
+            letter-spacing: 2.5px;
             /* ← redondant mais explicite */
         }
     </style>

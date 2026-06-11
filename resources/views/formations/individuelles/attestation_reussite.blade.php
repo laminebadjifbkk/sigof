@@ -181,7 +181,7 @@
             z-index: 2;
             width: 100%;
             padding: 0;
-            font-size: 10.5pt;
+            font-size: 12pt;
             color: #111;
             line-height: 1.85;
             /* text-align: justify ← SUPPRIMÉ */
@@ -361,7 +361,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-align: center;
-            letter-spacing: 3px;
+            letter-spacing: 2.5px;
             /* ← redondant mais explicite */
         }
     </style>
