@@ -1142,7 +1142,7 @@ class FormulaireController extends Controller
             ]);
 
             // Stream vers le navigateur
-            return $dompdf->stream($name, ['Attachment' => false]);
+            return $dompdf->stream($name, ['Attachment' => true]);
         } catch (\Exception $e) {
             Alert::error('Erreur', 'Une erreur est survenue lors de la génération du PDF.');
             return redirect()->back();
@@ -1217,7 +1217,7 @@ class FormulaireController extends Controller
             ]);
 
             // Stream vers le navigateur
-            return $dompdf->stream($name, ['Attachment' => false]);
+            return $dompdf->stream($name, ['Attachment' => true]);
         } catch (\Exception $e) {
             Alert::error('Erreur', 'Une erreur est survenue lors de la génération du PDF.');
             return redirect()->back();

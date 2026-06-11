@@ -114,7 +114,7 @@ class AttestationController extends Controller
         $dompdf->render();
 
         $name = 'Attestation_Particpation_' . $individuelle->user->firstname . '_' . $individuelle->user->name . '.pdf';
-        return $dompdf->stream($name, ['Attachment' => false]);
+        return $dompdf->stream($name, ['Attachment' => true]);
     }
 
     public function verifier(Request $request)
@@ -272,7 +272,7 @@ class AttestationController extends Controller
         $dompdf->render();
 
         $name = 'Attestation_Reussite_' . $individuelle->user->firstname . '_' . $individuelle->user->name . '.pdf';
-        return $dompdf->stream($name, ['Attachment' => false]);
+        return $dompdf->stream($name, ['Attachment' => true]);
     }
 
     /* public function telechargerAttestationReussiteBoucle(int $formationId)
@@ -358,7 +358,7 @@ class AttestationController extends Controller
         $dompdf->render();
 
         $name = 'Attestation_Reussite_' . $individuelle->user->firstname . '_' . $individuelle->user->name . '.pdf';
-        return $dompdf->stream($name, ['Attachment' => false]);
+        return $dompdf->stream($name, ['Attachment' => true]);
     } */
     /* 
 
@@ -712,7 +712,7 @@ class AttestationController extends Controller
         $dompdf->render();
 
         $name = 'Attestation_Particpation_' . $listecollective->prenom . '_' . $listecollective->nom . '.pdf';
-        return $dompdf->stream($name, ['Attachment' => false]);
+        return $dompdf->stream($name, ['Attachment' => true]);
     }
 
     public function verifierCollective(Request $request)
@@ -832,7 +832,7 @@ class AttestationController extends Controller
         $dompdf->render();
 
         $name = 'Attestation_Reussite_' . $listecollective->prenom . '_' . $listecollective->nom . '.pdf';
-        return $dompdf->stream($name, ['Attachment' => false]);
+        return $dompdf->stream($name, ['Attachment' => true]);
     }
 
     /* public function telechargerAttestationReussiteCollectiveBoucle(int $formationId)
@@ -916,7 +916,7 @@ class AttestationController extends Controller
         $dompdf->render();
 
         $name = 'Attestation_Reussite_' . $listecollective->prenom . '_' . $listecollective->nom . '.pdf';
-        return $dompdf->stream($name, ['Attachment' => false]);
+        return $dompdf->stream($name, ['Attachment' => true]);
     } */
 
     /* public function telechargerToutesAttestationsReussiteCollective(int $formationId)

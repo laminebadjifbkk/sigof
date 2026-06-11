@@ -514,7 +514,7 @@ class ParcMissionController extends Controller
             );
 
             // Stream vers le navigateur
-            return $dompdf->stream($name, ['Attachment' => false]);
+            return $dompdf->stream($name, ['Attachment' => true]);
         } catch (\Exception $e) {
             return redirect()->back()
                 ->with('status', 'Une erreur est survenue lors de la génération du P');

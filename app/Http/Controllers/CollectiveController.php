@@ -1168,7 +1168,7 @@ class CollectiveController extends Controller
         $dompdf->render();
 
         $name = 'Fiche_demande_formaion_collective_' . $collective->name . '.pdf';
-        return $dompdf->stream($name, ['Attachment' => false]);
+        return $dompdf->stream($name, ['Attachment' => true]);
     } */
 
     public function fiche(Request $request, $id)
@@ -1222,7 +1222,7 @@ class CollectiveController extends Controller
         $dompdf->render();
 
         $name = 'Fiche_demande_formaion_collective_' . $collective->name . '.pdf';
-        return $dompdf->stream($name, ['Attachment' => false]);
+        return $dompdf->stream($name, ['Attachment' => true]);
     }
 
     public function generateReport(Request $request)

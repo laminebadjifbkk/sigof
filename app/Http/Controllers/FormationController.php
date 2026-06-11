@@ -5302,7 +5302,7 @@ class FormationController extends Controller
 
         $name = 'Lettre_mission_formation_code_' . $formation->code . '.pdf';
         // Output the generated PDF to Browser
-        return $dompdf->stream($name, ['Attachment' => false]);
+        return $dompdf->stream($name, ['Attachment' => true]);
     }
 
     public function downloadDemandePaiement($formationId)
@@ -5410,7 +5410,7 @@ class FormationController extends Controller
         $dompdf->render();
 
         $name = 'Demande_paiement_' . $formation->code . '.pdf';
-        return $dompdf->stream($name, ['Attachment' => false]);
+        return $dompdf->stream($name, ['Attachment' => true]);
     }
 
     public function changerFormation(Request $request, $id)
@@ -5486,7 +5486,7 @@ class FormationController extends Controller
             );
 
             // Stream vers le navigateur
-            return $dompdf->stream($name, ['Attachment' => false]);
+            return $dompdf->stream($name, ['Attachment' => true]);
         } catch (\Exception $e) {
             Alert::error('Erreur', 'Une erreur est survenue lors de la génération du PDF.');
             return redirect()->back();
@@ -5531,7 +5531,7 @@ class FormationController extends Controller
             );
 
             // Stream vers le navigateur
-            return $dompdf->stream($name, ['Attachment' => false]);
+            return $dompdf->stream($name, ['Attachment' => true]);
         } catch (\Exception $e) {
             Alert::error('Erreur', 'Une erreur est survenue lors de la génération du PDF.');
             return redirect()->back();
