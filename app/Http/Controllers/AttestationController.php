@@ -786,9 +786,13 @@ class AttestationController extends Controller
         if ($type_formation === 'collective') {
             $listecollective = Listecollective::where('formations_id', $formationId)->firstOrFail();
 
-            return redirect()->route('formations.attestations.reussite.toutes', [
+            /* return redirect()->route('attestationReussiteCollectiveBoucle.telecharger', [
                 'formation'       => $formation->id,
-            ]);
+            ]); */
+            return redirect()->route(
+                'formations.attestations.reussite.toutes',
+                $formation->id
+            );
         }
 
         if ($type_formation === 'individuelle') {
