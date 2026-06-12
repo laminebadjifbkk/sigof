@@ -319,7 +319,13 @@
 
                         <tr>
                             <td>
-                                <b>Total frais de mission :</b> ...........................................
+                                <b>Total frais de mission :</b>
+
+                                @if ($mission->taux_journalier > 0)
+                                    ...........................................
+                                @else
+                                    <b>Sans frais</b>
+                                @endif
                             </td>
                             <td>
                                 <b>Région :</b> {{ $mission?->region ?? $mission?->lieu_arrivee }}
