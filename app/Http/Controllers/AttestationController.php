@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\GenererAttestationsReussiteJob;
-use App\Models\Collective;
 use App\Models\Direction;
 use App\Models\Formation;
 use App\Models\Individuelle;

@@ -7,7 +7,6 @@ namespace App\Jobs;
 use App\Models\Direction;
 use App\Models\Formation;
 use App\Models\Validationcollective;
-use App\Models\Validationformation;
 use App\Models\Validationindividuelle;
 use Dompdf\Dompdf;
 use Endroid\QrCode\QrCode;
@@ -17,8 +16,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 
