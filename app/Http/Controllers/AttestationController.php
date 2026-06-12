@@ -1178,7 +1178,7 @@ class AttestationController extends Controller
         }
     }
 
-    /* public function attestation(int $formationId)
+    public function attestation(int $formationId)
     {
 
         $formation       = Formation::findOrFail($formationId);
@@ -1204,9 +1204,9 @@ class AttestationController extends Controller
 
         // Type non reconnu
         abort(404, "Type de formation non reconnu : {$type_formation}");
-    } */
+    }
 
-    public function attestation(int $formationId)
+    public function attestations(int $formationId)
     {
         $formation      = Formation::findOrFail($formationId);
         $type_formation = $formation->types_formation?->name;
