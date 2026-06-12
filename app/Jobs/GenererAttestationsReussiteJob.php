@@ -4,8 +4,9 @@
 
 namespace App\Jobs;
 
-use App\Models\Formation;
 use App\Models\Direction;
+use App\Models\Formation;
+use App\Models\Validationcollective;
 use App\Models\Validationformation;
 use App\Models\Validationindividuelle;
 use Dompdf\Dompdf;
@@ -40,6 +41,8 @@ class GenererAttestationsReussiteJob implements ShouldQueue
 
         $formation = Formation::findOrFail($this->formationId);
 
+        $type = $formation->types_formation->name;
+
         $direction = Direction::where('sigle', 'DG')->first();
         $nameDG    = $direction?->chef?->user?->civilite . ' '
             . $direction?->chef?->user?->firstname . ' '
@@ -51,7 +54,7 @@ class GenererAttestationsReussiteJob implements ShouldQueue
             ?? $formation?->collectivemodule?->module
             ?? null;
 
-        $items = $this->type === 'collective'
+        $items = $type === 'collective'
             ? $formation->listecollectives
             : $formation->individuelles;
 
@@ -63,14 +66,14 @@ class GenererAttestationsReussiteJob implements ShouldQueue
             foreach ($items as $item) {
 
                 // Logs
-                if ($this->type === 'collective') {
-                    \App\Models\Validationcollective::create([
+                if ($type === 'collective') {
+                    Validationcollective::create([
                         'validated_id'   => $this->userId,
                         'action'         => 'Attestation ou titre généré',
                         'motif'          => 'Votre attestation/titre a été généré',
                         'collectives_id' => $item->collective->id,
                     ]);
-                } elseif ($this->type === 'individuelle') {
+                } elseif ($type === 'individuelle') {
                     Validationindividuelle::create([
                         'validated_id'    => $this->userId,
                         'action'          => 'Attestation ou titre généré',
@@ -83,7 +86,7 @@ class GenererAttestationsReussiteJob implements ShouldQueue
                 $item->update(['attestation' => 'generer']);
 
                 // QR Code
-                $userId  = $this->type === 'collective'
+                $userId  = $type === 'collective'
                     ? $item->collective->user->id
                     : $item->user->id;
 
@@ -95,16 +98,16 @@ class GenererAttestationsReussiteJob implements ShouldQueue
                     'reussite',
                 ]);
                 $token        = base64_encode($payload . '::' . hash_hmac('sha256', $payload, config('app.attestation_secret')));
-                $routeName    = $this->type === 'collective' ? 'attestationCollective.verifier' : 'attestation.verifier';
+                $routeName    = $type === 'collective' ? 'attestationCollective.verifier' : 'attestation.verifier';
                 $qrContent    = route($routeName, ['token' => $token]);
                 $qrCodeBase64 = base64_encode((new PngWriter())->write(QrCode::create($qrContent)->setSize(150))->getString());
 
                 // Vue
-                $viewName = $this->type === 'collective'
+                $viewName = $type === 'collective'
                     ? 'formations.collectives.attestation_reussite'
                     : 'formations.individuelles.attestation_reussite';
 
-                $varName = $this->type === 'collective' ? 'listecollective' : 'individuelle';
+                $varName = $type === 'collective' ? 'listecollective' : 'individuelle';
 
                 $html = View::make($viewName, array_merge(compact(
                     'formation',

@@ -119,7 +119,7 @@
                                             @csrf
                                             <input type="hidden" name="id" value="{{ $formation->id }}">
                                             <button type="submit"
-                                                class="btn btn-sm btn-outline-dark d-flex align-items-center gap-1"
+                                                class="btn btn-outline-dark d-flex align-items-center gap-1"
                                                 title="Télécharger le PV d’évaluation">
                                                 <i class="bi bi-journal-text"></i> PV finale
                                             </button>
@@ -131,7 +131,7 @@
                                             method="POST" target="_blank">
                                             @csrf
                                             <button type="submit"
-                                                class="btn btn-sm btn-outline-success d-flex align-items-center gap-1"
+                                                class="btn btn-outline-success d-flex align-items-center gap-1"
                                                 title="Télécharger l'attestation de bonne exécution">
                                                 <i class="bi bi-check-circle"></i> ABE
                                             </button>
@@ -152,27 +152,27 @@
                                                 title="Télécharger la demande de paiement" target="_blank">
                                                 <i class="bi bi-receipt"></i> Attestations
                                             </a>
-                                            {{-- @if (!$formation->pdf_attestations_path)
+                                            @if (!$formation->pdf_attestations_path)
                                                 <a href="{{ route('formations.attestations.lancer', $formation->id) }}"
-                                                    class="btn btn-primary">
+                                                    class="btn btn-outline-primary">
                                                     Générer les attestations
                                                 </a>
                                             @elseif ($formation->pdf_attestations_path === 'en_cours')
-                                                <button class="btn btn-secondary" disabled>
+                                                <button class="btn btn-outline-secondary" disabled>
                                                     <span class="spinner-border spinner-border-sm"></span>
                                                     Génération en cours…
                                                 </button>
                                                 <meta http-equiv="refresh" content="10">
                                             @else
                                                 <a href="{{ route('formations.attestations.telecharger', $formation->id) }}"
-                                                    class="btn btn-success">
+                                                    class="btn btn-outline-success">
                                                     Télécharger le PDF
                                                 </a>
                                                 <a href="{{ route('formations.attestations.lancer', $formation->id) }}"
                                                     class="btn btn-outline-secondary btn-sm">
                                                     Regénérer
                                                 </a>
-                                            @endif --}}
+                                            @endif
                                             {{-- <a href="{{ route('formations.attestations.reussite.toutes', $formation->id) }}"
                                                 class="btn btn-primary">
                                                 Attestations
