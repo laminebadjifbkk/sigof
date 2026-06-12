@@ -840,7 +840,6 @@ Route::group(['middleware' => ['XSS']], function () {
             [AttestationController::class, 'telechargerToutesAttestationsReussiteCollective']
         )->name('formations.attestations.reussite.collectives.toutes');
 
-
         Route::get(
             'formations/{formationId}/attestations/lancer',
             [AttestationController::class, 'lancerGenerationAttestations']

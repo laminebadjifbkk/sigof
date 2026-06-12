@@ -1178,7 +1178,7 @@ class AttestationController extends Controller
         }
     }
 
-    public function attestation(int $formationId)
+    /* public function attestation(int $formationId)
     {
 
         $formation       = Formation::findOrFail($formationId);
@@ -1187,9 +1187,6 @@ class AttestationController extends Controller
         if ($type_formation === 'collective') {
             $listecollective = Listecollective::where('formations_id', $formationId)->firstOrFail();
 
-            /* return redirect()->route('attestationReussiteCollectiveBoucle.telecharger', [
-                'formation'       => $formation->id,
-            ]); */
             return redirect()->route(
                 'formations.attestations.reussite.collectives.toutes',
                 $formation->id
@@ -1199,9 +1196,6 @@ class AttestationController extends Controller
         if ($type_formation === 'individuelle') {
             $individuelle = Individuelle::where('formations_id', $formationId)->firstOrFail();
 
-            /* return redirect()->route('attestationReussiteBoucle.telecharger', [
-                'formation'    => $formation->id,
-            ]); */
             return redirect()->route(
                 'formations.attestations.reussite.toutes',
                 $formation->id
@@ -1210,6 +1204,33 @@ class AttestationController extends Controller
 
         // Type non reconnu
         abort(404, "Type de formation non reconnu : {$type_formation}");
+    } */
+
+    public function attestation(int $formationId)
+    {
+        $formation      = Formation::findOrFail($formationId);
+        $type_formation = $formation->types_formation?->name;
+
+        if (!in_array($type_formation, ['individuelle', 'collective'])) {
+            abort(404, "Type de formation non reconnu : {$type_formation}");
+        }
+
+        if ($formation->statut != "Terminée") {
+            Alert::warning('Action impossible !', 'La formation n\'est pas encore achevée.');
+            return redirect()->back();
+        }
+
+        // PDF déjà généré → téléchargement direct
+        if (
+            $formation->pdf_attestations_path &&
+            $formation->pdf_attestations_path !== 'en_cours' &&
+            file_exists(storage_path('app/public/' . $formation->pdf_attestations_path))
+        ) {
+            return redirect()->route('formations.attestations.telecharger', $formation->id);
+        }
+
+        // Pas encore lancé ou en cours → rediriger vers la page avec les boutons
+        return redirect()->back();
     }
 
 
