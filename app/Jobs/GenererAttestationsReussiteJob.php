@@ -29,7 +29,6 @@ class GenererAttestationsReussiteJob implements ShouldQueue
     public function __construct(
         public int $formationId,
         public int $userId,        // Auth n'est pas disponible dans un job
-        public string $type        // 'individuelle' ou 'collective'
     ) {}
 
     public function handle(): void
@@ -52,7 +51,7 @@ class GenererAttestationsReussiteJob implements ShouldQueue
             ?? null;
 
         $items = $type === 'collective'
-            ? $formation->listecollectives
+            ? $formation->collective->listecollectives
             : $formation->individuelles;
 
         $tmpDir = storage_path('app/tmp/att_' . $this->formationId . '_' . uniqid());
