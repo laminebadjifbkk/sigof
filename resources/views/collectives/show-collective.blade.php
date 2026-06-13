@@ -922,6 +922,9 @@ $hasRC = $files->contains(function ($file) {
                                             <option value="Institution privée">
                                                 Institution privée
                                             </option>
+                                                <option value="Coopérative">
+                                                    Coopérative
+                                                </option>
                                             <option value="Autre">
                                                 Autre
                                             </option>

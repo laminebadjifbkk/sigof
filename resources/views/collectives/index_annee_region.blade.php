@@ -407,7 +407,7 @@
                                                                 statut
                                                             </option>
 
-                                                            @php $statuts = ['GIE', 'Association', 'Entreprise', 'Institution publique', 'Institution privée', 'Autre']; @endphp
+                                                            @php $statuts = ['GIE', 'Association', 'Entreprise', 'Institution publique', 'Institution privée', 'Coopérative', 'Autre']; @endphp
                                                             @foreach ($statuts as $statut)
                                                                 <option value="{{ $statut }}"
                                                                     {{ old('statut') == $statut ? 'selected' : '' }}>

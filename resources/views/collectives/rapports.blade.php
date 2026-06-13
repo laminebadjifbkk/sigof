@@ -150,6 +150,9 @@
                                         <option value="Institution privée">
                                             Institution privée
                                         </option>
+                                        <option value="Coopérative">
+                                            Coopérative
+                                        </option>
                                         <option value="Autre">
                                             Autre
                                         </option>
@@ -182,7 +185,7 @@
         new DataTable('#table-collective', {
             layout: {
                 topStart: {
-                    buttons: [ 'csv', 'excel', 'print'],
+                    buttons: ['csv', 'excel', 'print'],
                 }
             },
             "order": [

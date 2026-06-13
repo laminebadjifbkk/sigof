@@ -204,6 +204,9 @@
                                         <option value="Institution privée">
                                             Institution privée
                                         </option>
+                                        <option value="Coopérative">
+                                            Coopérative
+                                        </option>
                                         <option value="Autre">
                                             Autre
                                         </option>
