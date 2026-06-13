@@ -150,7 +150,7 @@ class GenererAttestationsReussiteJob implements ShouldQueue
             }
 
             // Stockage final dans storage/app/public/attestations/
-            $finalName = 'attestations_' . $formation?->operateur?->user?->display_operateur . '_' . Str::slug($formation->name) . '.pdf';
+            $finalName = 'attestations_' . $this->formationId . '_' . Str::slug($formation->name) . '.pdf';
             $finalPath = storage_path('app/public/attestations/' . $finalName);
 
             if (!is_dir(dirname($finalPath))) {
