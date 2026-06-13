@@ -50,8 +50,12 @@ class GenererAttestationsReussiteJob implements ShouldQueue
             ?? $formation?->collectivemodule?->module
             ?? null;
 
-        $items = $type === 'collective'
+        /* $items = $type === 'collective'
             ? $formation->collective->listecollectives
+            : $formation->individuelles; */
+
+        $items = $type === 'collective'
+            ? $formation->collective->listecollectives->where('formations_id', $formation->id)
             : $formation->individuelles;
 
         $tmpDir = storage_path('app/tmp/att_' . $this->formationId . '_' . uniqid());
@@ -76,7 +80,7 @@ class GenererAttestationsReussiteJob implements ShouldQueue
                         'motif'           => 'Votre attestation/titre a été généré',
                         'individuelles_id' => $item->id,
                     ]);
-                } else{
+                } else {
                     dd('aucun');
                 }
                 $item->update(['attestation' => 'generer']);
