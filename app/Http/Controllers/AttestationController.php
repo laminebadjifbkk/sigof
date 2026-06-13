@@ -1265,6 +1265,8 @@ class AttestationController extends Controller
     // Lance la génération en arrière-plan
     public function lancerGenerationAttestations(int $formationId)
     {
+        ini_set('max_execution_time', 0);
+        set_time_limit(0);
         $formation = Formation::findOrFail($formationId);
         /* dd($formation, $type, $formation->types_formation->name); */
 
