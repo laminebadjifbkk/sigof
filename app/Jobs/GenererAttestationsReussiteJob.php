@@ -8,6 +8,7 @@ use App\Models\Direction;
 use App\Models\Formation;
 use App\Models\Validationcollective;
 use App\Models\Validationindividuelle;
+use App\Services\NumeroAttestationService;
 use Dompdf\Dompdf;
 use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Writer\PngWriter;
@@ -62,6 +63,10 @@ class GenererAttestationsReussiteJob implements ShouldQueue
         mkdir($tmpDir, 0755, true);
         $pdfPaths = [];
 
+        NumeroAttestationService::reset();
+
+        $numeroAttestation = NumeroAttestationService::generer($formation->date_fin?->year ?? now()->year);
+
         try {
             foreach ($items as $item) {
 
@@ -83,7 +88,24 @@ class GenererAttestationsReussiteJob implements ShouldQueue
                 } else {
                     dd('aucun');
                 }
-                $item->update(['attestation' => 'generer']);
+
+                /* $item->update([
+                    'attestation'          => 'generer',
+                    'numero_attestation'   => $numeroAttestation,
+                ]); */
+
+                if (!$item->numero_attestation) {
+                    $numeroAttestation = NumeroAttestationService::generer(
+                        $formation->date_fin?->year ?? now()->year
+                    );
+                    $item->update([
+                        'attestation'        => 'generer',
+                        'numero_attestation' => $numeroAttestation,
+                    ]);
+                } else {
+                    $numeroAttestation = $item->numero_attestation;
+                    $item->update(['attestation' => 'generer']);
+                }
 
                 // QR Code
                 $userId  = $type === 'collective'

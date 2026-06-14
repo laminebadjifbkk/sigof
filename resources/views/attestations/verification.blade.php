@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vérification d'attestation et titres — ONFP</title>
+    <title>Vérification d'attestation — ONFP</title>
     <style>
         *,
         *::before,
@@ -200,85 +200,74 @@
             <p>Ce document a été vérifié avec succès</p>
         </div>
 
-        {{-- <div class="card-header">
-            <div class="shield-icon">✅</div>
-            <h1>Authentique</h1>
-            <p>Ce document a été vérifié avec succès</p>
-        </div> --}}
-
-        <!-- Titre -->
-     {{--    <div class="doc-title">
-            <h1>Authentique</h1>
-            <p>Ce document a été vérifié avec succès</p>
-            <div class="title-ornament">
-                <span class="line"></span>
-                <span class="diamond"></span>
-                <span class="line right"></span>
-            </div>
-        </div> --}}
-
+        {{-- Corps --}}
         <div class="card-body">
+
             <div class="participant-name">
-                {{ $individuelle->user->firstname }} {{ $individuelle->user->name }}
+                @if ($type === 'collective')
+                    {{ $item->prenom }} {{ $item->nom }}
+                @else
+                    {{ $item->user->firstname }} {{ $item->user->name }}
+                @endif
             </div>
-            <p class="participant-sub">A bien participé à la formation suivante</p>
+
+            <p class="participant-sub">
+                @if ($type === 'collective')
+                    A suivi avec succès la formation suivante
+                @else
+                    A suivi avec succès la formation suivante
+                @endif
+            </p>
 
             <div class="info-grid">
-                <div class="info-row">
-                    {{-- <span class="info-icon">📋</span> --}}
-                    <div>
-                        <span class="info-label">Formation</span>
-                        <span class="info-value">{{ $formation?->intitule }}</span>
-                    </div>
-                </div>
 
-                {{-- <div class="info-row">
-                    <span class="info-icon">🔖</span>
-                    <div>
-                        <span class="info-label">Code</span>
-                        <span class="info-value">{{ $formation->code }}</span>
-                    </div>
-                </div> --}}
-
-                @if (isset($moduleName))
+                @if ($formation)
                     <div class="info-row">
-                        {{-- <span class="info-icon">📚</span> --}}
                         <div>
-                            <span class="info-label">Module</span>
-                            <span class="info-value">{{ $moduleName }}</span>
+                            <span class="info-label">Formation</span>
+                            <span class="info-value">{{ $formation->intitule ?? $formation->name }}</span>
+                        </div>
+                    </div>
+
+                    <div class="info-row">
+                        <div>
+                            <span class="info-label">Période</span>
+                            <span class="info-value">
+                                {{ $formation->date_debut?->format('d/m/Y') }}
+                                — {{ $formation->date_fin?->format('d/m/Y') }}
+                            </span>
                         </div>
                     </div>
                 @endif
 
                 <div class="info-row">
-                    {{-- <span class="info-icon">📅</span> --}}
                     <div>
-                        <span class="info-label">Période</span>
-                        <span class="info-value">
-                            {{ $formation->date_debut?->format('d/m/Y') }}
-                            — {{ $formation->date_fin?->format('d/m/Y') }}
-                        </span>
+                        <span class="info-label">N°</span>
+                        <span class="info-value numero">{{ $item->numero_attestation }}</span>
                     </div>
                 </div>
 
-                <div class="info-row">
+                {{-- <div class="info-row">
                     <div>
-                        <span class="info-label">N°</span>
-                        <span class="info-value numero">{{ $item?->numero_attestation }}</span>
+                        <span class="info-label">Statut</span>
+                        <span class="info-value">Réussite</span>
                     </div>
-                </div>
+                </div> --}}
+
             </div>
         </div>
 
+        {{-- Pied --}}
         <div class="card-footer">
             <div class="verified-badge">
                 <span class="verified-dot"></span>
                 Signature cryptographique valide
             </div>
             <span class="verified-time">
-                Vérifié le {{ \Carbon\Carbon::now()->format('d/m/Y à H:i') }}
+                Vérifié le {{ \Carbon\Carbon::now()->translatedFormat('d F Y à H:i') }}
             </span>
         </div>
+
     </div>
 
 </body>

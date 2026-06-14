@@ -145,13 +145,13 @@
                                         </a> --}}
 
                                         @can('attestation-reussite-view')
-                                            <a href="{{ route('attestation.telecharger', [
+                                            {{-- <a href="{{ route('attestation.telecharger', [
                                                 'formation' => $formation->id,
                                             ]) }}"
                                                 class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1"
                                                 title="Télécharger la demande de paiement" target="_blank">
                                                 <i class="bi bi-receipt"></i> Attestations
-                                            </a>
+                                            </a> --}}
                                             @if (!$formation->pdf_attestations_path)
                                                 <a href="{{ route('formations.attestations.lancer', $formation->id) }}"
                                                     class="btn btn-outline-primary">

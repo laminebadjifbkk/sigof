@@ -295,6 +295,15 @@
             letter-spacing: 0.3px;
         }
 
+        .qr-zone .numero-attestation {
+            font-size: 5pt;
+            color: #444;
+            letter-spacing: 1px;
+            font-family: 'Courier New', monospace;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
         .watermark-container {
             position: absolute;
             top: 50%;
@@ -387,6 +396,7 @@
         {{-- QR code en bas à gauche --}}
         <div class="qr-zone">
             <img src="data:image/png;base64,{{ $qrCodeBase64 }}" alt="QR Code">
+            <p class="numero-attestation">{{ $listecollective?->numero_attestation }}</p>
             <p>Vérifier l'authenticité</p>
         </div>
 

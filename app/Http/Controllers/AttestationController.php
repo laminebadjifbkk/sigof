@@ -10,6 +10,7 @@ use App\Models\Listecollective;
 use App\Models\Validationcollective;
 use App\Models\Validationformation;
 use App\Models\Validationindividuelle;
+use App\Services\NumeroAttestationService;
 use Dompdf\Dompdf;
 use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Writer\PngWriter;
@@ -211,9 +212,25 @@ class AttestationController extends Controller
             'individuelles_id' => $individuelle->id,
         ]);
 
-        $individuelle->update([
+        $numeroAttestation = NumeroAttestationService::generer($formation->date_fin?->year ?? now()->year);
+
+        /* $individuelle->update([
             'attestation' => 'generer', // ou la valeur souhaitée
-        ]);
+            'numero_attestation'   => $numeroAttestation,
+        ]); */
+
+        if (!$individuelle->numero_attestation) {
+            $numeroAttestation = NumeroAttestationService::generer(
+                $formation->date_fin?->year ?? now()->year
+            );
+            $individuelle->update([
+                'attestation'        => 'generer',
+                'numero_attestation' => $numeroAttestation,
+            ]);
+        } else {
+            $numeroAttestation = $individuelle->numero_attestation;
+            $individuelle->update(['attestation' => 'generer']);
+        }
 
         if ($formation->statut != "Terminée") {
             Alert::warning('Action impossible !', 'La formation n\'est pas encore achevée.');
@@ -667,9 +684,26 @@ class AttestationController extends Controller
             'collectives_id' => $listecollective->collective->id,
         ]);
 
-        $listecollective->update([
+        $numeroAttestation = NumeroAttestationService::generer($formation->date_fin?->year ?? now()->year);
+
+        /* $listecollective->update([
             'attestation' => 'generer', // ou la valeur souhaitée
-        ]);
+            'numero_attestation'   => $numeroAttestation,
+        ]); */
+
+        // ✅ Généré à chaque itération
+        if (!$listecollective->numero_attestation) {
+            $numeroAttestation = NumeroAttestationService::generer(
+                $formation->date_fin?->year ?? now()->year
+            );
+            $listecollective->update([
+                'attestation'        => 'generer',
+                'numero_attestation' => $numeroAttestation,
+            ]);
+        } else {
+            $numeroAttestation = $listecollective->numero_attestation;
+            $listecollective->update(['attestation' => 'generer']);
+        }
 
         // Remplacer votre bloc $qrContent par :
         $payload = implode('|', [

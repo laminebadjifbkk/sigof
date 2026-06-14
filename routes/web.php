@@ -94,9 +94,11 @@ use App\Http\Controllers\ValidationformationController;
 use App\Http\Controllers\ValidationIndividuelleController;
 use App\Http\Controllers\ValidationmoduleController;
 use App\Http\Controllers\ValidationoperateurController;
+use App\Http\Controllers\VerificationAttestationController;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Formula;
+
 
 
 
@@ -1171,6 +1173,13 @@ Route::group(['middleware' => ['XSS']], function () {
 
     Route::get('/attestation_collective/verifier', [AttestationController::class, 'verifierCollective'])
         ->name('attestationCollective.verifier');
+
+    // Vérification par code
+    Route::controller(VerificationAttestationController::class)->group(function () {
+        Route::get('/verifier-attestation', 'index')->name('attestation.verifier.page');
+        Route::get('/verifier-attestation/recherche', 'recherche')->name('attestation.verifier.numero.recherche');
+        Route::get('/verifier-numero/{numero}', 'afficher')->name('attestation.verifier.numero');
+    });
 
     Route::resource('/contacts', ContactController::class);
     Route::get('/services-details', [ContactController::class, 'servicesDetails'])->name('services.details');

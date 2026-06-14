@@ -254,6 +254,7 @@ class Individuelle extends Model
         'frais_formation',
         'frais',
         'regions_id',
+        'numero_attestation',
     ];
 
     public function getRouteKeyName()
