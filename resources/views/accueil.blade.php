@@ -252,6 +252,15 @@
                                             </div>
                                         @endif
 
+                                        <a href="{{ route('attestation.verifier.page') }}"
+                                            class="flex items-center gap-2 px-4 py-2 rounded-lg text-white fw-bold transition duration-300"
+                                            style="background: linear-gradient(135deg, #0D7E4A 0%, #12A362 100%); text-decoration: none;"
+                                            target="_blank">
+                                            <i class="bi bi-patch-check-fill fs-5"></i>
+                                            <span>Vérifier l'authenticité d'une attestation</span>
+                                            <i class="bi bi-arrow-right ms-auto"></i>
+                                        </a>
+
                                         {{-- <a href="{{ url('/programme2025-2.pdf') }}"
                                             class="flex items-center text-orange-600 fw-bold blink-me hover:text-orange-800 transition duration-300"
                                             target="_blank">
