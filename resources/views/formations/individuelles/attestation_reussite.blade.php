@@ -313,7 +313,8 @@
 
             font-size: 5pt;
             color: #444;
-            font-family: 'Courier New', monospace;
+            /* font-family: 'Courier New', monospace; */
+            font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
             /*margin-top: 0;
             margin-bottom: 0;*/
 
