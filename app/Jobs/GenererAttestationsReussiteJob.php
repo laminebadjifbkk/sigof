@@ -65,7 +65,14 @@ class GenererAttestationsReussiteJob implements ShouldQueue
 
         NumeroAttestationService::reset();
 
-        $numeroAttestation = NumeroAttestationService::generer($formation->date_fin?->year ?? now()->year);
+        $typeFormation = $formation->types_formation->name;
+        $niveauQualification = $formation->type_certification;
+
+        $numeroAttestation = NumeroAttestationService::generer(
+            $typeFormation,
+            $niveauQualification,
+            $formation->date_fin?->year ?? now()->year
+        );
 
         try {
             foreach ($items as $item) {
@@ -101,13 +108,11 @@ class GenererAttestationsReussiteJob implements ShouldQueue
                     dd('aucun');
                 }
 
-                /* $item->update([
-                    'attestation'          => 'generer',
-                    'numero_attestation'   => $numeroAttestation,
-                ]); */
-
                 if (!$item->numero_attestation) {
+
                     $numeroAttestation = NumeroAttestationService::generer(
+                        $typeFormation,
+                        $niveauQualification,
                         $formation->date_fin?->year ?? now()->year
                     );
                     $item->update([

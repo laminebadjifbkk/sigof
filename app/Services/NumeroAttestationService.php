@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services;
 
 use Illuminate\Support\Facades\DB;
@@ -7,7 +8,7 @@ class NumeroAttestationService
 {
     private static ?int $compteurSession = null;
 
-    public static function generer(): string
+    public static function generer(string $typeFormation, string $niveauQualification, ?int $annee = null): string
     {
         $annee = $annee ?? now()->year;
 
@@ -23,9 +24,23 @@ class NumeroAttestationService
 
         self::$compteurSession++;
 
+
+        $codeType = match (strtolower($typeFormation)) {
+            'collective'  => 'COL',
+            'individuelle' => 'IND',
+            default       => 'X',
+        };
+
+        $codeQualification = match (strtolower(trim($niveauQualification))) {
+            'attestation'            => 'ATT',
+            'titre de qualification' => 'TIT',
+            default                  => 'TIT',
+        };
+
         $sequenceFormatee = str_pad(self::$compteurSession, 6, '0', STR_PAD_LEFT);
         /* $base             = "TIT-{$annee}-ONFP-{$sequenceFormatee}"; */
-        $base             = "ONFP-{$annee}-{$sequenceFormatee}";
+        /* $base             = "ONFP-{$annee}-{$sequenceFormatee}"; */
+        $base = "{$codeQualification}-{$codeType}-{$annee}-{$sequenceFormatee}";
         $checksum         = self::calculerChecksum($base);
 
         /* return "{$base}-{$checksum}"; */

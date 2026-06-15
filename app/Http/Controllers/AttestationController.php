@@ -232,7 +232,15 @@ class AttestationController extends Controller
             'individuelles_id' => $individuelle->id,
         ]);
 
-        $numeroAttestation = NumeroAttestationService::generer($formation->date_fin?->year ?? now()->year);
+        /* $numeroAttestation = NumeroAttestationService::generer($formation->date_fin?->year ?? now()->year); */
+        $typeFormation = $formation->types_formation->name;
+        $niveauQualification = $formation->type_certification;
+
+        $numeroAttestation = NumeroAttestationService::generer(
+            $typeFormation,
+            $niveauQualification,
+            $formation->date_fin?->year ?? now()->year
+        );
 
         /* $individuelle->update([
             'attestation' => 'generer', // ou la valeur souhaitée
@@ -240,7 +248,13 @@ class AttestationController extends Controller
         ]); */
 
         if (!$individuelle->numero_attestation) {
+            /* $numeroAttestation = NumeroAttestationService::generer(
+                $formation->date_fin?->year ?? now()->year
+            ); */
+
             $numeroAttestation = NumeroAttestationService::generer(
+                $typeFormation,
+                $niveauQualification,
                 $formation->date_fin?->year ?? now()->year
             );
             $individuelle->update([
@@ -711,7 +725,16 @@ class AttestationController extends Controller
             'collectives_id' => $listecollective->collective->id,
         ]);
 
-        $numeroAttestation = NumeroAttestationService::generer($formation->date_fin?->year ?? now()->year);
+        /* $numeroAttestation = NumeroAttestationService::generer($formation->date_fin?->year ?? now()->year); */
+
+        $typeFormation = $formation->types_formation->name;
+        $niveauQualification = $formation->type_certification;
+
+        $numeroAttestation = NumeroAttestationService::generer(
+            $typeFormation,
+            $niveauQualification,
+            $formation->date_fin?->year ?? now()->year
+        );
 
         /* $listecollective->update([
             'attestation' => 'generer', // ou la valeur souhaitée
@@ -720,9 +743,19 @@ class AttestationController extends Controller
 
         // ✅ Généré à chaque itération
         if (!$listecollective->numero_attestation) {
+            /* $numeroAttestation = NumeroAttestationService::generer(
+                $formation->date_fin?->year ?? now()->year
+            ); */
+
+            /* $typeFormation = $formation->types_formation->name;
+            $niveauQualification = $formation->type_certification; */
+
             $numeroAttestation = NumeroAttestationService::generer(
+                $typeFormation,
+                $niveauQualification,
                 $formation->date_fin?->year ?? now()->year
             );
+
             $listecollective->update([
                 'attestation'        => 'generer',
                 'numero_attestation' => $numeroAttestation,
@@ -856,10 +889,24 @@ class AttestationController extends Controller
             'attestation' => 'generer', // ou la valeur souhaitée
         ]); */
 
-        $numeroAttestation = NumeroAttestationService::generer($formation->date_fin?->year ?? now()->year);
+        /* $numeroAttestation = NumeroAttestationService::generer($formation->date_fin?->year ?? now()->year); */
+        $typeFormation = $formation->types_formation->name;
+        $niveauQualification = $formation->type_certification;
+
+        $numeroAttestation = NumeroAttestationService::generer(
+            $typeFormation,
+            $niveauQualification,
+            $formation->date_fin?->year ?? now()->year
+        );
 
         if (!$listecollective->numero_attestation) {
+            /* $numeroAttestation = NumeroAttestationService::generer(
+                $formation->date_fin?->year ?? now()->year
+            ); */
+
             $numeroAttestation = NumeroAttestationService::generer(
+                $typeFormation,
+                $niveauQualification,
                 $formation->date_fin?->year ?? now()->year
             );
             $listecollective->update([
