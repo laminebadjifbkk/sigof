@@ -41,7 +41,7 @@ class VerificationAttestationController extends Controller
             return view('attestations.invalide');
         }
 
-        $item = Listecollective::with('formations')
+        $item = Listecollective::with('formation')
                     ->where('numero_attestation', $numero)->first();
         $type = 'collective';
 
