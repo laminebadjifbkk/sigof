@@ -56,8 +56,8 @@ class GenererAttestationsReussiteJob implements ShouldQueue
             : $formation->individuelles; */
 
         $items = $type === 'collective'
-            ? $formation->collective->listecollectives->where('formations_id', $formation->id)
-            : $formation->individuelles;
+            ? $formation?->collective?->listecollectives->where('formations_id', $formation?->id)
+            : $formation?->individuelles;
 
         $tmpDir = storage_path('app/tmp/att_' . $this->formationId . '_' . uniqid());
         mkdir($tmpDir, 0755, true);
