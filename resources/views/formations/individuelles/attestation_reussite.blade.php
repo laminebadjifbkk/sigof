@@ -281,11 +281,16 @@
             left: 14mm;
             z-index: 3;
             text-align: center;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .qr-zone img {
             width: 22mm;
             height: 22mm;
+            margin-bottom: 0;
         }
 
         .qr-zone p {
@@ -296,12 +301,40 @@
         }
 
         .qr-zone .numero-attestation {
+            /* width: 22mm; */
+            /* même largeur que le QR code */
+
+
+            width: auto;
+            /* ou 30mm, 35mm selon le besoin */
+            white-space: nowrap;
+            /* empêche le retour à la ligne */
+
+
             font-size: 5pt;
             color: #444;
             letter-spacing: 1px;
             font-family: 'Courier New', monospace;
-            margin-top: 0;
-            margin-bottom: 0;
+            /*margin-top: 0;
+            margin-bottom: 0;*/
+
+            margin: 0;
+            /* collé au QR code */
+            padding: 0;
+            line-height: 1.1;
+            text-align: center;
+
+            margin-top: -0.5mm;
+
+            letter-spacing: 0.5px;
+            /* réduire si nécessaire */
+        }
+
+        .qr-zone p:last-child {
+            font-size: 5.5pt;
+            color: #666;
+            margin-top: 1mm;
+            letter-spacing: 0.3px;
         }
 
         .watermark-container {

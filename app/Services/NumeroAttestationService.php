@@ -49,7 +49,7 @@ class NumeroAttestationService
     public static function verifier(string $numero): bool
     {
         $parts = explode('-', $numero);
-        if (count($parts) !== 5) return false;
+        if (count($parts) !== 4) return false;
 
         $checksum = array_pop($parts);
         $base     = implode('-', $parts);
