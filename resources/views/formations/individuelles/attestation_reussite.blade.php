@@ -428,10 +428,10 @@
         </div>
 
         {{-- QR code en bas à gauche --}}
-        <div class="qr-zone">
+        <div class="qr-zone">            
+            <p><strong>Vérifier l'authenticité</strong></p>
             <img src="data:image/png;base64,{{ $qrCodeBase64 }}" alt="QR Code">
             <p class="numero-attestation"><strong>{{ $individuelle?->numero_attestation }}</strong></p>
-            <p>Vérifier l'authenticité</p>
         </div>
 
         <div class="content">
