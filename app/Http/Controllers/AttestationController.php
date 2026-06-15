@@ -190,7 +190,27 @@ class AttestationController extends Controller
     public function telechargerAttestationReussite(int $formationId, int $individuelleId)
     {
         $formation    = Formation::findOrFail($formationId);
+
+        if ($formation->statut != "Terminée") {
+            Alert::warning('Action impossible !', 'La formation n\'est pas encore achevée.');
+            return redirect()->back();
+        }
+
         $individuelle = Individuelle::findOrFail($individuelleId);
+
+        // Vérification de la note ou mention avant génération
+        $noteObtenue = $individuelle->note_obtenue;
+        $mentionsAcceptees = ['attesté', 'attestée'];
+
+        $noteValide = is_numeric($noteObtenue)
+            ? (float) $noteObtenue >= 12
+            : in_array(strtolower(trim($noteObtenue)), $mentionsAcceptees);
+
+        if (!$noteValide) {
+            Alert::warning('Action impossible !', 'Le participant n\'a pas obtenu la note ou la mention requise pour recevoir une attestation de réussite.');
+            return redirect()->back();
+        }
+
         $direction    = Direction::where('sigle', 'DG')->first();
 
         $nameDG = $direction?->chef?->user?->civilite . ' ' . $direction?->chef?->user?->firstname . ' ' . $direction?->chef?->user?->name;
@@ -230,11 +250,6 @@ class AttestationController extends Controller
         } else {
             $numeroAttestation = $individuelle->numero_attestation;
             $individuelle->update(['attestation' => 'generer']);
-        }
-
-        if ($formation->statut != "Terminée") {
-            Alert::warning('Action impossible !', 'La formation n\'est pas encore achevée.');
-            return redirect()->back();
         }
 
         $title = 'Attestation de Réussite ' . $formation->name;
@@ -544,6 +559,18 @@ class AttestationController extends Controller
         try {
             foreach ($individuelles as $individuelle) {
 
+                // Vérification de la note ou mention — on saute les non-éligibles
+                $noteObtenue = $individuelle->note_obtenue;
+                $mentionsAcceptees = ['attesté', 'attestée'];
+
+                $noteValide = is_numeric($noteObtenue)
+                    ? (float) $noteObtenue >= 12
+                    : in_array(strtolower(trim((string) $noteObtenue)), $mentionsAcceptees);
+
+                if (!$noteValide) {
+                    continue; // on passe au suivant sans générer ni logger
+                }
+
                 // Logs individuels
                 Validationindividuelle::create([
                     'validated_id'    => Auth::user()->id,
@@ -785,7 +812,27 @@ class AttestationController extends Controller
     public function telechargerAttestationReussiteCollective(int $formationId, int $listecollectiveId)
     {
         $formation    = Formation::findOrFail($formationId);
+
+        if ($formation->statut != "Terminée") {
+            Alert::warning('Action impossible !', 'La formation n\'est pas encore achevée.');
+            return redirect()->back();
+        }
+
         $listecollective    = Listecollective::findOrFail($listecollectiveId);
+
+        // Vérification de la note ou mention avant génération
+        $noteObtenue = $listecollective->note_obtenue;
+        $mentionsAcceptees = ['attesté', 'attestée'];
+
+        $noteValide = is_numeric($noteObtenue)
+            ? (float) $noteObtenue >= 12
+            : in_array(strtolower(trim($noteObtenue)), $mentionsAcceptees);
+
+        if (!$noteValide) {
+            Alert::warning('Action impossible !', 'Le participant n\'a pas obtenu la note ou la mention requise pour recevoir une attestation de réussite.');
+            return redirect()->back();
+        }
+
         $direction    = Direction::where('sigle', 'DG')->first();
 
         $nameDG = $direction?->chef?->user?->civilite . ' ' . $direction?->chef?->user?->firstname . ' ' . $direction?->chef?->user?->name;
@@ -805,13 +852,23 @@ class AttestationController extends Controller
             'collectives_id' => $listecollective->collective->id,
         ]);
 
-        $listecollective->update([
+        /* $listecollective->update([
             'attestation' => 'generer', // ou la valeur souhaitée
-        ]);
+        ]); */
 
-        if ($formation->statut != "Terminée") {
-            Alert::warning('Action impossible !', 'La formation n\'est pas encore achevée.');
-            return redirect()->back();
+        $numeroAttestation = NumeroAttestationService::generer($formation->date_fin?->year ?? now()->year);
+
+        if (!$listecollective->numero_attestation) {
+            $numeroAttestation = NumeroAttestationService::generer(
+                $formation->date_fin?->year ?? now()->year
+            );
+            $listecollective->update([
+                'attestation'        => 'generer',
+                'numero_attestation' => $numeroAttestation,
+            ]);
+        } else {
+            $numeroAttestation = $listecollective->numero_attestation;
+            $listecollective->update(['attestation' => 'generer']);
         }
 
         $title = 'Attestation de Réussite ' . $formation->name;
@@ -1117,6 +1174,18 @@ class AttestationController extends Controller
 
         try {
             foreach ($listecollectives as $listecollective) {
+
+                // Vérification de la note ou mention — on saute les non-éligibles
+                $noteObtenue = $listecollective->note_obtenue;
+                $mentionsAcceptees = ['attesté', 'attestée'];
+
+                $noteValide = is_numeric($noteObtenue)
+                    ? (float) $noteObtenue >= 12
+                    : in_array(strtolower(trim((string) $noteObtenue)), $mentionsAcceptees);
+
+                if (!$noteValide) {
+                    continue; // on passe au suivant sans générer ni logger
+                }
 
                 // Logs individuels
                 Validationcollective::create([

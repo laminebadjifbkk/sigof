@@ -70,6 +70,18 @@ class GenererAttestationsReussiteJob implements ShouldQueue
         try {
             foreach ($items as $item) {
 
+                // Vérification de la note ou mention — on saute les non-éligibles
+                $noteObtenue       = $item->note_obtenue;
+                $mentionsAcceptees = ['attesté', 'attestée'];
+
+                $noteValide = is_numeric($noteObtenue)
+                    ? (float) $noteObtenue >= 12
+                    : in_array(strtolower(trim((string) $noteObtenue)), $mentionsAcceptees);
+
+                if (!$noteValide) {
+                    continue;
+                }
+
                 // Logs
                 if ($type === 'collective') {
                     Validationcollective::create([
