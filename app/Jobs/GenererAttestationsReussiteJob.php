@@ -68,12 +68,6 @@ class GenererAttestationsReussiteJob implements ShouldQueue
         $typeFormation = $formation->types_formation->name;
         $niveauQualification = $formation->type_certification;
 
-        $numeroAttestation = NumeroAttestationService::generer(
-            $typeFormation,
-            $niveauQualification,
-            $formation->date_fin?->year ?? now()->year
-        );
-
         try {
             foreach ($items as $item) {
 
