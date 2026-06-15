@@ -189,10 +189,10 @@
 
             <form action="{{ route('attestation.verifier.numero.recherche') }}" method="GET">
                 <div class="input-wrap">
-                    <input type="text" name="numero" placeholder="ONFP-2026-000001-L"
+                    <input type="text" name="numero" placeholder="ATT-COL-2026-000004-M"
                         value="{{ old('numero') }}" autofocus required>
                 </div>
-                <p class="hint">Exemple : ONFP-2026-000001-L</p>
+                <p class="hint">Exemple : ATT-COL-2026-000004-M</p>
                 <button type="submit">Vérifier l'authenticité</button>
             </form>
         </div>
