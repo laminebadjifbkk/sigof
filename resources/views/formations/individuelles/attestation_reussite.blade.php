@@ -313,7 +313,6 @@
 
             font-size: 5pt;
             color: #444;
-            letter-spacing: 1px;
             font-family: 'Courier New', monospace;
             /*margin-top: 0;
             margin-bottom: 0;*/
