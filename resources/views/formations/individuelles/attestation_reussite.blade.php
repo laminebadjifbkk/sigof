@@ -290,7 +290,9 @@
         .qr-zone img {
             width: 32mm;
             height: 32mm;
-            margin-bottom: 0;
+            display: block;
+            margin: 0;
+            padding: 0;
         }
 
         .qr-zone p {
@@ -428,8 +430,8 @@
         </div>
 
         {{-- QR code en bas à gauche --}}
-        <div class="qr-zone">            
-            <p><strong>Vérifier l'authenticité</strong></p>
+        <div class="qr-zone">
+            <p class="numero-attestation"><strong>Vérifier l'authenticité</strong></p>
             <img src="data:image/png;base64,{{ $qrCodeBase64 }}" alt="QR Code">
             <p class="numero-attestation"><strong>{{ $individuelle?->numero_attestation }}</strong></p>
         </div>

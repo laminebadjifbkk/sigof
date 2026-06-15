@@ -220,7 +220,7 @@ class LettrevaluationController extends Controller
             "Module : {$moduleName}\n" .
             "Date : " . $formation?->date_debut?->format('d/m/Y') . " au " . $formation?->date_fin?->format('d/m/Y');
 
-        $qrCode       = QrCode::create($qrContent)->setSize(150);
+        $qrCode       = QrCode::create($qrContent)->setSize(150)->setMargin(0);
         $writer       = new PngWriter();
         $result       = $writer->write($qrCode);
         $qrCodeBase64 = base64_encode($result->getString());

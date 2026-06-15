@@ -90,7 +90,7 @@ class AttestationController extends Controller
         $qrContent = route('attestation.verifier', ['token' => $token]);
         //FIN
 
-        $qrCode       = QrCode::create($qrContent)->setSize(150);
+        $qrCode       = QrCode::create($qrContent)->setSize(150)->setMargin(0);
         $writer       = new PngWriter();
         $result       = $writer->write($qrCode);
         $qrCodeBase64 = base64_encode($result->getString());
@@ -278,7 +278,7 @@ class AttestationController extends Controller
 
         $qrContent = route('attestation.verifier', ['token' => $token]);
 
-        $qrCode       = QrCode::create($qrContent)->setSize(150);
+        $qrCode       = QrCode::create($qrContent)->setSize(150)->setMargin(0);
         $writer       = new PngWriter();
         $result       = $writer->write($qrCode);
         $qrCodeBase64 = base64_encode($result->getString());
@@ -364,7 +364,7 @@ class AttestationController extends Controller
 
         $qrContent = route('attestation.verifier', ['token' => $token]);
 
-        $qrCode       = QrCode::create($qrContent)->setSize(150);
+        $qrCode       = QrCode::create($qrContent)->setSize(150)->setMargin(0);
         $writer       = new PngWriter();
         $result       = $writer->write($qrCode);
         $qrCodeBase64 = base64_encode($result->getString());
@@ -470,7 +470,7 @@ class AttestationController extends Controller
             $token     = base64_encode($payload . '::' . $signature);
 
             $qrContent    = route('attestation.verifier', ['token' => $token]);
-            $qrCode       = QrCode::create($qrContent)->setSize(150);
+            $qrCode       = QrCode::create($qrContent)->setSize(150)->setMargin(0);
             $writer       = new PngWriter();
             $result       = $writer->write($qrCode);
             $qrCodeBase64 = base64_encode($result->getString());
@@ -592,7 +592,7 @@ class AttestationController extends Controller
                 $signature    = hash_hmac('sha256', $payload, $secret);
                 $token        = base64_encode($payload . '::' . $signature);
                 $qrContent    = route('attestation.verifier', ['token' => $token]);
-                $qrCode       = QrCode::create($qrContent)->setSize(150);
+                $qrCode       = QrCode::create($qrContent)->setSize(150)->setMargin(0);
                 $writer       = new PngWriter();
                 $qrCodeBase64 = base64_encode($writer->write($qrCode)->getString());
 
@@ -747,7 +747,7 @@ class AttestationController extends Controller
         $qrContent = route('attestationCollective.verifier', ['token' => $token]);
         //FIN
 
-        $qrCode       = QrCode::create($qrContent)->setSize(150);
+        $qrCode       = QrCode::create($qrContent)->setSize(150)->setMargin(0);
         $writer       = new PngWriter();
         $result       = $writer->write($qrCode);
         $qrCodeBase64 = base64_encode($result->getString());
@@ -897,7 +897,7 @@ class AttestationController extends Controller
 
         $qrContent = route('attestationCollective.verifier', ['token' => $token]);
 
-        $qrCode       = QrCode::create($qrContent)->setSize(150);
+        $qrCode       = QrCode::create($qrContent)->setSize(150)->setMargin(0);
         $writer       = new PngWriter();
         $result       = $writer->write($qrCode);
         $qrCodeBase64 = base64_encode($result->getString());
@@ -981,7 +981,7 @@ class AttestationController extends Controller
 
         $qrContent = route('attestationCollective.verifier', ['token' => $token]);
 
-        $qrCode       = QrCode::create($qrContent)->setSize(150);
+        $qrCode       = QrCode::create($qrContent)->setSize(150)->setMargin(0);
         $writer       = new PngWriter();
         $result       = $writer->write($qrCode);
         $qrCodeBase64 = base64_encode($result->getString());
@@ -1086,7 +1086,7 @@ class AttestationController extends Controller
             $token     = base64_encode($payload . '::' . $signature);
 
             $qrContent    = route('attestationCollective.verifier', ['token' => $token]);
-            $qrCode       = QrCode::create($qrContent)->setSize(150);
+            $qrCode       = QrCode::create($qrContent)->setSize(150)->setMargin(0);
             $writer       = new PngWriter();
             $result       = $writer->write($qrCode);
             $qrCodeBase64 = base64_encode($result->getString());
@@ -1208,7 +1208,7 @@ class AttestationController extends Controller
                 $signature    = hash_hmac('sha256', $payload, $secret);
                 $token        = base64_encode($payload . '::' . $signature);
                 $qrContent    = route('attestationCollective.verifier', ['token' => $token]);
-                $qrCode       = QrCode::create($qrContent)->setSize(150);
+                $qrCode       = QrCode::create($qrContent)->setSize(150)->setMargin(0);
                 $writer       = new PngWriter();
                 $qrCodeBase64 = base64_encode($writer->write($qrCode)->getString());
 
