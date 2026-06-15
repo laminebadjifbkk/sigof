@@ -13,13 +13,27 @@ class NumeroAttestationService
         $annee = $annee ?? now()->year;
 
         // Initialise le compteur une seule fois, toutes années confondues
-        if (self::$compteurSession === null) {
+        /* if (self::$compteurSession === null) {
             self::$compteurSession = DB::table('listecollectives')
                 ->whereNotNull('numero_attestation')
                 ->count()
                 + DB::table('individuelles')
                 ->whereNotNull('numero_attestation')
                 ->count();
+        } */
+
+        if (self::$compteurSession === null) {
+            $maxCollective = DB::table('listecollectives')
+                ->whereNotNull('numero_attestation')
+                ->selectRaw("MAX(CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(numero_attestation, '-', -2), '-', 1) AS UNSIGNED)) as max_seq")
+                ->value('max_seq') ?? 0;
+
+            $maxIndividuelle = DB::table('individuelles')
+                ->whereNotNull('numero_attestation')
+                ->selectRaw("MAX(CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(numero_attestation, '-', -2), '-', 1) AS UNSIGNED)) as max_seq")
+                ->value('max_seq') ?? 0;
+
+            self::$compteurSession = max($maxCollective, $maxIndividuelle);
         }
 
         self::$compteurSession++;
