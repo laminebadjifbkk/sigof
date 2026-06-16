@@ -2269,9 +2269,13 @@ class OperateurController extends Controller
             ->with('user:id,name')
             ->get();
 
+        $departements = Departement::select('id', 'nom')
+            ->orderBy('nom')
+            ->get();
+
         $domaines    = Domaine::select('id', 'name')->get();
 
-        return view('operateurmodules.showmodule', compact('operateur', 'domaines', 'operateurs'));
+        return view('operateurmodules.showmodule', compact('operateur', 'domaines', 'operateurs', 'departements'));
     }
 
     /* Validation automatique */
