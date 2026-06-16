@@ -607,13 +607,13 @@
 
                                                 <div
                                                     class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
-                                                    <span><i class="bi bi-building text-primary me-2 fs-5"></i>
+                                                    {{-- <span><i class="bi bi-building text-primary me-2 fs-5"></i>
                                                         <span>Date commission :</span>
-                                                    </span>
+                                                    </span> --}}
 
                                                     <span class="{{ $operateur?->statut_agrement }} text-white">
                                                         {{ $operateur?->statut_agrement }}</span>
-                                                        
+
                                                     <span class="ms-2 text-primary">
                                                         {{ $operateur->commissionagrements->pluck('fin_commission')->filter()->map(fn($date) => \Carbon\Carbon::parse($date)->format('d/m/Y'))->implode(' - ') }}
                                                     </span>
