@@ -597,6 +597,9 @@
                                                     <i class="bi bi-building text-primary me-2 fs-5"></i>
                                                     <span>Date commission :</span>
 
+                                                    <span class="{{ $operateur?->statut_agrement }} text-white">
+                                                        {{ $operateur?->statut_agrement }}</span>
+
                                                     <span class="ms-2 text-primary">
                                                         {{ $operateur->commissionagrements->pluck('fin_commission')->filter()->map(fn($date) => \Carbon\Carbon::parse($date)->format('d/m/Y'))->implode(' - ') }}
                                                     </span>
@@ -1133,7 +1136,8 @@
                                             <div class="d-flex align-items-center gap-2">
                                                 <a href="#"
                                                     class="btn btn-success btn-sm d-flex align-items-center gap-1"
-                                                    data-bs-toggle="modal" data-bs-target="#addobservations{{ $operateur->id }}"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#addobservations{{ $operateur->id }}"
                                                     title="Ajouter">
                                                     <i class="bi bi-plus"></i>
                                                     Ajouter/Modifier
