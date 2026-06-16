@@ -870,12 +870,12 @@
 
                                     </div>
 
-                                    <div class="col-12 mb-0">
+                                    {{-- <div class="col-12 mb-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div
                                                 class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
                                                 <h5 class="mb-0 text-uppercase fw-bold text-primary">
-                                                    <i class="bi bi-briefcase-fill me-2"></i> Modules de formati
+                                                    <i class="bi bi-briefcase-fill me-2"></i> Modules de formation
                                                 </h5>
                                             </div>
                                             <h5>Type : <span
@@ -920,7 +920,6 @@
                                                                     </form>
                                                                 </li>
                                                             @endcan
-                                                            {{-- @endisset --}}
                                                         </ul>
                                                     </div>
                                                 @endif
@@ -994,8 +993,7 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        {{-- </form> --}}
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <div class="tab-content pt-2">
