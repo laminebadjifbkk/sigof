@@ -2109,24 +2109,39 @@ class OperateurController extends Controller
 
     public function showReference($uuid)
     {
-        $operateur          = Operateur::where('uuid', $uuid)->firstOrFail();
-        $operateureferences = Operateureference::get();
+        /* $operateur          = Operateur::where('uuid', $uuid)->firstOrFail();
+        $operateureferences = Operateureference::get(); */
+        
+        $operateur = Operateur::where('uuid', $uuid)
+            ->with('operateureferences') // eager load directement
+            ->firstOrFail();
+        $operateureferences = $operateur->operateureferences; // uniquement les siennes
 
         return view('operateureferences.show', compact('operateur', 'operateureferences'));
     }
 
     public function showEquipement($uuid)
     {
-        $operateur            = Operateur::where('uuid', $uuid)->firstOrFail();
-        $operateurequipements = Operateurequipement::get();
+        /* $operateur            = Operateur::where('uuid', $uuid)->firstOrFail();
+        $operateurequipements = Operateurequipement::get(); */
+
+        $operateur = Operateur::where('uuid', $uuid)
+            ->with('operateurequipements') // eager load directement
+            ->firstOrFail();
+        $operateurequipements = $operateur->operateurequipements; // uniquement les siennes
 
         return view('operateurequipements.show', compact('operateur', 'operateurequipements'));
     }
 
     public function showFormateur($uuid)
     {
-        $operateur           = Operateur::where('uuid', $uuid)->firstOrFail();
-        $operateurformateurs = Operateurformateur::get();
+        /* $operateur           = Operateur::where('uuid', $uuid)->firstOrFail();
+        $operateurformateurs = Operateurformateur::get(); */
+
+        $operateur = Operateur::where('uuid', $uuid)
+            ->with('operateurformateurs') // eager load directement
+            ->firstOrFail();
+        $operateurformateurs = $operateur->operateurformateurs; // uniquement les siennes
 
         return view('operateurformateurs.show', compact('operateur', 'operateurformateurs'));
     }
