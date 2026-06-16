@@ -1494,6 +1494,7 @@ class OperateurController extends Controller
 
     public function show(Operateur $operateur)
     {
+        dd('ok');
         $operateurs         = Operateur::all();
         $domaines           = Domaine::all();
         $operateureferences = Operateureference::all();
