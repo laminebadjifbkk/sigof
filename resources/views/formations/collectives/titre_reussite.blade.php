@@ -242,6 +242,7 @@
             font-weight: bold;
             font-style: italic;
         }
+
         .corps .text-intro-numero {
             font-size: 9pt;
             font-weight: normal;
@@ -532,7 +533,7 @@
                         VU la loi n°86-44 du 11 Août 1986 portant création de l’ONFP ;<br>
                         VU le décret n°87-955 du 21 Juillet 1987 fixant les règles d’organisation et de fonctionnement
                         de l’ONFP ; <br>
-                        VU la convention collective fédérale du commerce de l’Afrique de l’Ouest du 16 novembre 1956 ;
+                        VU la {{ strtolower($formation?->referentiel?->reference ?? '') }} ;
                     </p>
 
                     <p class="text-intro-decision">Sur décision du jury d’évaluation en date du

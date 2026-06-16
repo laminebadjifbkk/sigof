@@ -332,7 +332,7 @@ class AttestationController extends Controller
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
 
-        $name = $typeFormation . '_' . $individuelle->user->firstname . '_' . $individuelle->user->name . '.pdf';
+        $name = $niveauQualification .'_'. $individuelle->user->firstname . '_' . $individuelle->user->name . '.pdf';
         return $dompdf->stream($name, ['Attachment' => true]);
     }
 
