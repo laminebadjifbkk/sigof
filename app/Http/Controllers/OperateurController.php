@@ -1941,7 +1941,7 @@ class OperateurController extends Controller
         );
     } */
 
-    public function showAgrement($id)
+    public function showAgrement(int $id)
     {
         // 🔥 Chargement optimisé (relations + counts en une seule fois)
         $operateur = Operateur::with([
@@ -2265,9 +2265,13 @@ class OperateurController extends Controller
             ->with('operateurmodules') // eager load directement
             ->firstOrFail();
 
+        $operateurs = Operateur::select('id', 'uuid', 'users_id', 'numero_agrement')
+            ->with('user:id,name')
+            ->get();
+
         $domaines    = Domaine::select('id', 'name')->get();
 
-        return view('operateurmodules.showmodule', compact('operateur', 'domaines'));
+        return view('operateurmodules.showmodule', compact('operateur', 'domaines', 'operateurs'));
     }
 
     /* Validation automatique */
