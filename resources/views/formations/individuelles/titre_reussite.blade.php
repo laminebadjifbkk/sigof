@@ -59,7 +59,7 @@
         /* ── En-tête institutionnel ── */
         .header {
             text-align: center;
-            margin-top: 4mm;
+            margin-top: 15mm;
             line-height: 1.5;
         }
 
@@ -96,29 +96,29 @@
 
         /* ── Logo ONFP ── */
         .logo-wrap {
-            margin-top: 3mm;
-            margin-bottom: 8mm;
+            margin-top: 2mm;
+            margin-bottom: 0mm;
             display: flex;
             justify-content: center;
             text-align: center;
         }
 
         .logo-wrap img {
-            height: 30mm;
+            height: 25mm;
             object-fit: contain;
         }
 
-        /* ── Titre Attestation ── */
-        .titre-attestation {
-            font-size: 41pt;
+        /* ── Titre de qualification ── */
+        .titre {
+            font-size: 35pt;
             color: #C8972A;
             /* font-style: italic; */
             font-weight: normal;
             letter-spacing: 2px;
-            margin-top: 2mm;
+            margin-top: 0mm;
             font-family: 'Old London', serif;
             text-align: center;
-            margin-bottom: 10mm;
+            margin-bottom: 2mm;
         }
 
         /* ── Zone centrale : cercles décoratifs + texte ── */
@@ -126,7 +126,7 @@
             position: relative;
             width: 100%;
             flex: 1;
-            margin-top: 15px;
+            margin-top: 14px;
         }
 
         .watermark {
@@ -181,11 +181,13 @@
             position: relative;
             z-index: 2;
             width: 100%;
+            /* ← ajouter du padding horizontal */
             padding: 0;
             font-size: 12pt;
             color: #111;
             line-height: 1.85;
-            /* text-align: justify ← SUPPRIMÉ */
+            box-sizing: border-box;
+            /* ← important */
         }
 
         .corps .intro {
@@ -193,19 +195,70 @@
             font-weight: bold;
             font-style: italic;
             font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
-            letter-spacing: 3px;
+            letter-spacing: 1px;
             text-align: center;
             /* ajuste ici (1px à 4px selon rendu) */
         }
 
-        .corps .text-intro {
-            font-size: 12pt;
+        .corps .text-intro-vu {
+            font-size: 9pt;
             font-weight: normal;
             font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
-            letter-spacing: 3px;
+            letter-spacing: 1px;
+            margin-left: 25mm;
+            font-weight: bold;
+            font-style: italic;
+            line-height: 1.50;
+        }
+
+        .corps .text-intro-decision {
+            font-size: 10pt;
+            font-weight: normal;
+            font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
+            letter-spacing: 1px;
+            font-weight: bold;
+            font-style: italic;
+            text-align: center;
+            margin-top: 5mm;
+            line-height: 1.15;
+        }
+
+        .corps .text-intro {
+            font-size: 11pt;
+            font-weight: normal;
+            font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
+            letter-spacing: 1px;
             text-align: center;
             /* ← centrage */
             /* margin-right: 10mm ← SUPPRIMÉ */
+        }
+
+        .corps .text-intro-imp {
+            font-size: 11pt;
+            font-weight: normal;
+            font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
+            letter-spacing: 1px;
+            margin-left: 25mm;
+            font-weight: bold;
+            font-style: italic;
+        }
+        .corps .text-intro-numero {
+            font-size: 9pt;
+            font-weight: normal;
+            font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
+            letter-spacing: 1px;
+            margin-left: 25mm;
+            font-weight: bold;
+            font-style: italic;
+            margin-top: 22mm;
+        }
+
+        .corps .text-intro-fois {
+            font-size: 11pt;
+            font-weight: normal;
+            font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
+            letter-spacing: 1px;
+            margin-left: 25mm;
         }
 
         .corps .nom-participant {
@@ -222,9 +275,7 @@
         .footer {
             position: absolute;
             right: 20mm;
-            bottom: 16mm;
-            /* augmente cette valeur */
-            /* ajuste selon ton cadre */
+            bottom: 31mm;
             width: auto;
 
             display: flex;
@@ -249,7 +300,6 @@
             margin-top: 12mm;
             position: relative;
             right: 36mm;
-            /* ajuste la valeur */
         }
 
         /* Fonction */
@@ -257,7 +307,7 @@
             font-size: 12pt;
             font-weight: normal;
             font-weight: bold;
-            margin: 5mm 0 38mm 0;
+            margin: 1mm 0 15mm 0;
         }
 
         /* Nom */
@@ -278,9 +328,9 @@
         /* ── QR code ── */
         .qr-zone {
             position: absolute;
-            bottom: 10mm;
-            left: 14mm;
-            z-index: 3;
+            bottom: 26mm;
+            left: 27mm;
+            z-index: 1;
             text-align: center;
 
             display: flex;
@@ -289,8 +339,8 @@
         }
 
         .qr-zone img {
-            width: 32mm;
-            height: 32mm;
+            width: 22mm;
+            height: 22mm;
             display: block;
             margin: 0;
             padding: 0;
@@ -298,24 +348,20 @@
 
         .qr-zone p {
             font-size: 5.5pt;
-            color: #666;
+            color: #000000;
             margin-top: 1mm;
             letter-spacing: 0.3px;
         }
 
-        .qr-zone .numero-attestation {
+        .qr-zone .numero-titre {
             /* width: 22mm; */
             /* même largeur que le QR code */
-
 
             width: auto;
             /* ou 30mm, 35mm selon le besoin */
             white-space: nowrap;
             /* empêche le retour à la ligne */
-
-
-            font-size: 5pt;
-            color: #444;
+            color: #000000;
             /* font-family: 'Courier New', monospace; */
             font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
             /*margin-top: 0;
@@ -328,10 +374,11 @@
             text-align: center;
 
             margin-top: -0.5mm;
-
             letter-spacing: 0.5px;
             /* réduire si nécessaire */
+            font-size: 12pt;
             font-weight: bold;
+            font-style: italic;
         }
 
         .qr-zone p:last-child {
@@ -372,7 +419,7 @@
             position: absolute;
 
             left: 50%;
-            top: 105mm;
+            top: 115mm;
             /* centre exact de la page A4 paysage */
 
             transform: translate(-50%, -50%);
@@ -407,8 +454,25 @@
             white-space: nowrap;
             overflow: hidden;
             text-align: center;
-            letter-spacing: 2.5px;
-            /* ← redondant mais explicite */
+            letter-spacing: 1.5px;
+        }
+
+        .text-intro .line-two {
+            display: block;
+            width: 220mm;
+            margin: 0 auto;
+            white-space: normal;
+            text-align: center;
+        }
+
+        .text-intro .line-two {
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+
+        .numero-enregistrement {
+            position: relative;
+            right: 100mm;
         }
     </style>
 </head>
@@ -432,9 +496,8 @@
 
         {{-- QR code en bas à gauche --}}
         <div class="qr-zone">
-            <p class="numero-attestation"><strong>Vérifier l'authenticité</strong></p>
+            {{-- <p><strong>Vérifier l'authenticité</strong></p> --}}
             <img src="data:image/png;base64,{{ $qrCodeBase64 }}" alt="QR Code">
-            <p class="numero-attestation"><strong>{{ $individuelle?->numero_attestation }}</strong></p>
         </div>
 
         <div class="content">
@@ -456,7 +519,7 @@
             </div>
 
             {{-- Titre --}}
-            <div class="titre-attestation">A t t e s t a t i o n</div>
+            <div class="titre">Titre de Qualification Professionnelle</div>
 
             {{-- Corps --}}
             <div class="body-zone">
@@ -465,35 +528,48 @@
                     <p class="intro">
                         Le Directeur général de l'Office national de Formation professionnelle (ONFP) atteste que
                     </p>
+                    <p class="text-intro-vu">
+                        VU la loi n°86-44 du 11 Août 1986 portant création de l’ONFP ;<br>
+                        VU le décret n°87-955 du 21 Juillet 1987 fixant les règles d’organisation et de fonctionnement
+                        de l’ONFP ; <br>
+                        VU la convention collective fédérale du commerce de l’Afrique de l’Ouest du 16 novembre 1956 ;
+                    </p>
+
+                    <p class="text-intro-decision">Sur décision du jury d’évaluation en date du
+                        {{ $formation?->date_pv?->translatedFormat('d F Y') }} à
+                        {{ remove_accents_uppercase($formation?->lieu ?? '') }} ;</p>
+
                     <p class="text-intro">
                         <span class="line-one">
-                            @if ($individuelle->user->civilite ?? null)
-                                {{ $individuelle->user->civilite }}
+                            Déclare,
+                            @if ($individuelle?->user?->civilite ?? null)
+                                {{ $individuelle?->user?->civilite }}
                             @endif
-                            <span class="nom-participant">{{ $individuelle->user->firstname }}
-                                {{ $individuelle->user->name }}</span>
-                            @if ($individuelle->user->date_naissance ?? null)
+                            <span class="nom-participant">{{ $individuelle?->user?->firstname }}
+                                {{ $individuelle?->user?->name }}</span>
+                            @if ($individuelle?->user?->date_naissance ?? null)
                                 né(e) le
-                                {{ \Carbon\Carbon::parse($individuelle->user->date_naissance)->format('d/m/Y') }}
+                                {{ \Carbon\Carbon::parse($individuelle?->user?->date_naissance)?->format('d/m/Y') }}
                             @endif
-                            @if ($individuelle->user->lieu_naissance ?? null)
-                                à {{ $individuelle->user->lieu_naissance }}
+                            @if ($individuelle?->user?->lieu_naissance ?? null)
+                                à {{ $individuelle?->user?->lieu_naissance }}
                             @endif
-                            a suivi avec succès la formation en
                         </span>
                         <span class="line-two">
-                            <span class="formation-intitule">{{ $formation->intitule }}</span>
-                            qui s'est déroulée {{ $formation->periode_formatee }}
-                            @if ($formation->lieu ?? null)
-                                à {{ strtoupper($formation->lieu) }}.
-                            @else
-                                .
-                            @endif
+                            Apte au titre de <span class="formation-intitule">{{ $formation->intitule }}</span> classé
+                            à la {{ $formation?->referentiel?->categorie }} catégorie de la
+                            {{ $formation?->referentiel?->convention?->name }}
+                            .
                         </span>
                     </p>
-                    <p class="text-intro">
-                        En foi de quoi, la présente attestation lui est délivrée pour servir et valoir ce que de droit.
+                    <p class="text-intro-fois">
+                        En foi de quoi, la présente titre lui est délivrée pour servir et valoir ce que de droit.
                     </p>
+                    <P class="text-intro-imp">
+                        L’impétrant
+                    </P>
+
+                    <p class="text-intro-numero"><strong>{{ $individuelle?->numero_attestation }}</strong></p>
                 </div>
             </div>
 
@@ -504,7 +580,13 @@
                         Fait le {{ $now->translatedFormat('d F Y') }}
                     </div>
                     <div class="titre-sig">Le Directeur général</div>
-                    <div class="nom-sig">{{ $nameDG }}</div>
+                    {{-- <div class="nom-sig numero-enregistrement">
+                        Enregistré sous le numéro : .............................................
+                    </div> --}}
+
+                    <div class="nom-sig">
+                        {{ $nameDG }}
+                    </div>
                 </div>
             </div>
 
@@ -533,17 +615,13 @@
                     parseFloat(corpsStyle.paddingLeft) -
                     parseFloat(corpsStyle.paddingRight);
 
-                // Partir d'une taille de base fixe pour être cohérent
                 let fontSize = 12;
                 probe.style.fontSize = fontSize + 'px';
 
-                // 1. Agrandir jusqu'à remplir 98% de la largeur
-                while (probe.offsetWidth < maxWidth * 0.98 && fontSize < 60) {
+                while (probe.offsetWidth < maxWidth * 0.97 && fontSize < 60) {
                     fontSize += 0.5;
                     probe.style.fontSize = fontSize + 'px';
                 }
-
-                // 2. Reculer si on a dépassé
                 while (probe.offsetWidth > maxWidth && fontSize > 6) {
                     fontSize -= 0.5;
                     probe.style.fontSize = fontSize + 'px';
@@ -555,8 +633,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            fitTextToLine('.text-intro .line-one');
-            fitTextToLine('.text-intro .line-two');
+            fitTextToLine('.text-intro .line-one'); // ← line-two exclue du fit
         });
     </script>
 </body>
