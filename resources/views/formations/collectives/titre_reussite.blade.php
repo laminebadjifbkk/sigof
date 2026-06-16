@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Attestation de Réussite — – {{ $listecollective->prenom ?? '' }}
+    <title>Titre de Qualification Professionnelle — {{ $listecollective->prenom ?? '' }}
         {{ $listecollective->nom ?? '' }}</title>
     <style>
         * {
@@ -108,8 +108,8 @@
             object-fit: contain;
         }
 
-        /* ── Titre Attestation ── */
-        .titre-attestation {
+        /* ── Titre de qualification ── */
+        .titre {
             font-size: 41pt;
             color: #C8972A;
             /* font-style: italic; */
@@ -179,18 +179,12 @@
         /* Texte du corps */
         .corps {
             position: relative;
-            z-index: 1;
-            width: 100%;
-            padding: 0 6mm;
-            font-size: 10.5pt;
-            color: #111;
-            text-align: justify;
-            line-height: 1.85;
-        }
-
-        .corps {
-            position: relative;
             z-index: 2;
+            width: 100%;
+            padding: 0;
+            font-size: 12pt;
+            color: #111;
+            line-height: 1.85;
         }
 
         .corps .intro {
@@ -199,6 +193,7 @@
             font-style: italic;
             font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
             letter-spacing: 3px;
+            text-align: center;
             /* ajuste ici (1px à 4px selon rendu) */
         }
 
@@ -206,10 +201,10 @@
             font-size: 12pt;
             font-weight: normal;
             font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
-            letter-spacing: 2px;
-
-            margin-right: 10mm;
-            /* ou 15mm selon ton rendu */
+            letter-spacing: 3px;
+            text-align: center;
+            /* ← centrage */
+            /* margin-right: 10mm ← SUPPRIMÉ */
         }
 
         .corps .nom-participant {
@@ -286,14 +281,56 @@
             left: 14mm;
             z-index: 3;
             text-align: center;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .qr-zone img {
-            width: 22mm;
-            height: 22mm;
+            width: 32mm;
+            height: 32mm;
+            display: block;
+            margin: 0;
+            padding: 0;
         }
 
         .qr-zone p {
+            font-size: 5.5pt;
+            color: #666;
+            margin-top: 1mm;
+            letter-spacing: 0.3px;
+        }
+
+        .qr-zone .numero-titre {
+            /* width: 22mm; */
+            /* même largeur que le QR code */
+
+            width: auto;
+            /* ou 30mm, 35mm selon le besoin */
+            white-space: nowrap;
+            /* empêche le retour à la ligne */
+
+            font-size: 5pt;
+            color: #444;
+            /* font-family: 'Courier New', monospace; */
+            font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
+            /*margin-top: 0;
+            margin-bottom: 0;*/
+
+            margin: 0;
+            /* collé au QR code */
+            padding: 0;
+            line-height: 1.1;
+            text-align: center;
+
+            margin-top: -0.5mm;
+            letter-spacing: 0.5px;
+            /* réduire si nécessaire */
+            font-weight: bold;
+        }
+
+        .qr-zone p:last-child {
             font-size: 5.5pt;
             color: #666;
             margin-top: 1mm;
@@ -365,6 +402,9 @@
             width: 100%;
             white-space: nowrap;
             overflow: hidden;
+            text-align: center;
+            letter-spacing: 2.5px;
+            /* ← redondant mais explicite */
         }
     </style>
 </head>
@@ -375,7 +415,7 @@
 
         {{-- Cadre doré (contour_complet.png) --}}
         <img class="border-img"
-            src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/contour_complet.png'))) }}"
+            src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/contour_complet_titre.png'))) }}"
             alt="">
 
         <div class="watermark-container">
@@ -388,8 +428,10 @@
 
         {{-- QR code en bas à gauche --}}
         <div class="qr-zone">
+            <p><strong>Vérifier l'authenticité</strong></p>
             <img src="data:image/png;base64,{{ $qrCodeBase64 }}" alt="QR Code">
-            <p>Vérifier l'authenticité</p>
+            <p class="numero-titre"><strong>{{ $listecollective?->numero_attestation }}</strong></p>
+
         </div>
 
         <div class="content">
@@ -411,7 +453,7 @@
             </div>
 
             {{-- Titre --}}
-            <div class="titre-attestation">A t t e s t a t i o n</div>
+            <div class="titre">Titre de Qualification Professionnelle</div>
 
             {{-- Corps --}}
             <div class="body-zone">
@@ -447,7 +489,7 @@
                         </span>
                     </p>
                     <p class="text-intro">
-                        En foi de quoi, la présente attestation lui est délivrée pour servir et valoir ce que de droit.
+                        En foi de quoi, la présente titre lui est délivrée pour servir et valoir ce que de droit.
                     </p>
                 </div>
             </div>
@@ -469,18 +511,43 @@
     <script>
         function fitTextToLine(selector) {
             document.querySelectorAll(selector).forEach(function(el) {
-                const parent = el.closest('.text-intro') || el.parentElement;
-                const maxWidth = parent.clientWidth;
-                let fontSize = parseFloat(window.getComputedStyle(el).fontSize);
 
-                while (el.scrollWidth > maxWidth && fontSize > 6) {
-                    fontSize -= 0.5;
-                    el.style.fontSize = fontSize + 'px';
-                }
-                while (el.scrollWidth < maxWidth * 0.98 && fontSize < 30) {
+                const probe = document.createElement('span');
+                probe.style.cssText = [
+                    'position:absolute',
+                    'visibility:hidden',
+                    'white-space:nowrap',
+                    'font-family:' + window.getComputedStyle(el).fontFamily,
+                    'letter-spacing:' + window.getComputedStyle(el).letterSpacing,
+                    'font-weight:' + window.getComputedStyle(el).fontWeight,
+                ].join(';');
+                probe.innerHTML = el.innerHTML;
+                document.body.appendChild(probe);
+
+                const corps = el.closest('.corps');
+                const corpsStyle = window.getComputedStyle(corps);
+                const maxWidth = corps.clientWidth -
+                    parseFloat(corpsStyle.paddingLeft) -
+                    parseFloat(corpsStyle.paddingRight);
+
+                // Partir d'une taille de base fixe pour être cohérent
+                let fontSize = 12;
+                probe.style.fontSize = fontSize + 'px';
+
+                // 1. Agrandir jusqu'à remplir 98% de la largeur
+                while (probe.offsetWidth < maxWidth * 0.98 && fontSize < 60) {
                     fontSize += 0.5;
-                    el.style.fontSize = fontSize + 'px';
+                    probe.style.fontSize = fontSize + 'px';
                 }
+
+                // 2. Reculer si on a dépassé
+                while (probe.offsetWidth > maxWidth && fontSize > 6) {
+                    fontSize -= 0.5;
+                    probe.style.fontSize = fontSize + 'px';
+                }
+
+                document.body.removeChild(probe);
+                el.style.fontSize = fontSize + 'px';
             });
         }
 

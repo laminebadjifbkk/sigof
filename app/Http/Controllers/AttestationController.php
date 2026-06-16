@@ -302,7 +302,23 @@ class AttestationController extends Controller
         $options->setDefaultFont('DejaVu Sans');
         $dompdf->setOptions($options);
 
-        $html = View::make('formations.individuelles.attestation_reussite', compact(
+        /* $html = View::make('formations.individuelles.attestation_reussite', compact(
+            'formation',
+            'title',
+            'individuelle',
+            'moduleName',
+            'nameDG',
+            'now',
+            'qrCodeBase64'
+        ))->render(); */
+
+        $viewName = match ($niveauQualification) {
+            'Attestation' => 'formations.individuelles.attestation_reussite',
+            'Titre de qualification' => 'formations.individuelles.titre_reussite',
+            default => 'formations.individuelles.attestation_reussite',
+        };
+
+        $html = View::make($viewName, compact(
             'formation',
             'title',
             'individuelle',
@@ -954,7 +970,23 @@ class AttestationController extends Controller
         $options->setDefaultFont('DejaVu Sans');
         $dompdf->setOptions($options);
 
-        $html = View::make('formations.collectives.attestation_reussite', compact(
+        /* $html = View::make('formations.collectives.attestation_reussite', compact(
+            'formation',
+            'title',
+            'listecollective',
+            'moduleName',
+            'nameDG',
+            'now',
+            'qrCodeBase64'
+        ))->render(); */
+
+        $viewName = match ($niveauQualification) {
+            'Attestation' => 'formations.collectives.attestation_reussite',
+            'Titre de qualification' => 'formations.collectives.titre_reussite',
+            default => 'formations.collectives.attestation_reussite',
+        };
+
+        $html = View::make($viewName, compact(
             'formation',
             'title',
             'listecollective',
@@ -968,7 +1000,7 @@ class AttestationController extends Controller
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
 
-        $name = 'Attestation_Reussite_' . $listecollective->prenom . '_' . $listecollective->nom . '.pdf';
+        $name = $niveauQualification . ' ' . $listecollective->prenom . '_' . $listecollective->nom . '.pdf';
         return $dompdf->stream($name, ['Attachment' => true]);
     }
 
