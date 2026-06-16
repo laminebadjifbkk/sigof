@@ -2263,13 +2263,9 @@ class OperateurController extends Controller
             ->with('operateurmodules') // eager load directement
             ->firstOrFail();
 
-        $operateurmodules = $operateur->operateurmodules; // uniquement les siennes
-        $regions            = Region::orderBy('nom')->get(['id', 'nom']); // uniquement id et nom
-
-        $operateurs = Operateur::select('id', 'uuid')->get();
         $domaines    = Domaine::select('id', 'name')->get();
 
-        return view('operateurmodules.showmodule', compact('operateur', 'operateurmodules', 'regions', 'operateurs', 'domaines'));
+        return view('operateurmodules.showmodule', compact('operateur', 'domaines'));
     }
 
     /* Validation automatique */
