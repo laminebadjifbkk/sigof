@@ -59,7 +59,7 @@
         /* ── En-tête institutionnel ── */
         .header {
             text-align: center;
-            margin-top: 4mm;
+            margin-top: 15mm;
             line-height: 1.5;
         }
 
@@ -97,7 +97,7 @@
         /* ── Logo ONFP ── */
         .logo-wrap {
             margin-top: 3mm;
-            margin-bottom: 8mm;
+            margin-bottom: 1mm;
             display: flex;
             justify-content: center;
             text-align: center;
@@ -110,15 +110,15 @@
 
         /* ── Titre de qualification ── */
         .titre {
-            font-size: 41pt;
+            font-size: 35pt;
             color: #C8972A;
             /* font-style: italic; */
             font-weight: normal;
             letter-spacing: 2px;
-            margin-top: 2mm;
+            margin-top: 0mm;
             font-family: 'Old London', serif;
             text-align: center;
-            margin-bottom: 10mm;
+            margin-bottom: 2mm;
         }
 
         /* ── Zone centrale : cercles décoratifs + texte ── */
@@ -181,10 +181,13 @@
             position: relative;
             z-index: 2;
             width: 100%;
+            /* ← ajouter du padding horizontal */
             padding: 0;
             font-size: 12pt;
             color: #111;
             line-height: 1.85;
+            box-sizing: border-box;
+            /* ← important */
         }
 
         .corps .intro {
@@ -192,16 +195,37 @@
             font-weight: bold;
             font-style: italic;
             font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
-            letter-spacing: 3px;
+            letter-spacing: 1px;
             text-align: center;
             /* ajuste ici (1px à 4px selon rendu) */
+        }
+
+        .corps .text-intro-vu {
+            font-size: 9pt;
+            font-weight: normal;
+            font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
+            letter-spacing: 1px;
+            margin-left: 25mm;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .corps .text-intro-decision {
+            font-size: 10pt;
+            font-weight: normal;
+            font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
+            letter-spacing: 1px;
+            font-weight: bold;
+            font-style: italic;
+            text-align: center;
+            margin-top: 5mm;
         }
 
         .corps .text-intro {
             font-size: 12pt;
             font-weight: normal;
             font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
-            letter-spacing: 3px;
+            letter-spacing: 1px;
             text-align: center;
             /* ← centrage */
             /* margin-right: 10mm ← SUPPRIMÉ */
@@ -403,8 +427,20 @@
             white-space: nowrap;
             overflow: hidden;
             text-align: center;
-            letter-spacing: 2.5px;
-            /* ← redondant mais explicite */
+            letter-spacing: 1.5px;
+        }
+
+        .text-intro .line-two {
+            display: block;
+            width: 220mm;
+            margin: 0 auto;
+            white-space: normal;
+            text-align: center;
+        }
+
+        .text-intro .line-two {
+            overflow-wrap: break-word;
+            word-wrap: break-word;
         }
     </style>
 </head>
@@ -462,8 +498,20 @@
                     <p class="intro">
                         Le Directeur général de l'Office national de Formation professionnelle (ONFP) atteste que
                     </p>
+                    <p class="text-intro-vu">
+                        VU la loi n°86-44 du 11 Août 1986 portant création de l’ONFP ;<br>
+                        VU le décret n°87-955 du 21 Juillet 1987 fixant les règles d’organisation et de fonctionnement
+                        de l’ONFP ; <br>
+                        VU la convention collective fédérale du commerce de l’Afrique de l’Ouest du 16 novembre 1956 ;
+                    </p>
+
+                    <p class="text-intro-decision">Sur décision du jury d’évaluation en date du
+                        {{ $formation?->date_pv?->translatedFormat('d F Y') }} à
+                        {{ remove_accents_uppercase($formation?->lieu ?? '') }} ;</p>
+
                     <p class="text-intro">
                         <span class="line-one">
+                            Déclare,
                             @if ($listecollective->civilite ?? null)
                                 {{ $listecollective->civilite }}
                             @endif
@@ -476,16 +524,12 @@
                             @if ($listecollective->lieu_naissance ?? null)
                                 à {{ $listecollective->lieu_naissance }}
                             @endif
-                            a suivi avec succès la formation en
                         </span>
                         <span class="line-two">
-                            <span class="formation-intitule">{{ $formation->intitule }}</span>
-                            qui s'est déroulée {{ $formation->periode_formatee }}
-                            @if ($formation->lieu ?? null)
-                                à {{ strtoupper($formation->lieu) }}.
-                            @else
-                                .
-                            @endif
+                            Apte au titre de <span class="formation-intitule">{{ $formation->intitule }}</span> classé
+                            à la {{ $formation?->referentiel?->categorie }} catégorie de la
+                            {{ $formation?->referentiel?->convention?->name }}
+                            .
                         </span>
                     </p>
                     <p class="text-intro">
@@ -495,7 +539,7 @@
             </div>
 
             {{-- Pied --}}
-            <div class="footer">
+            {{-- <div class="footer">
                 <div class="signature-block">
                     <div class="fait-le">
                         Fait le {{ $now->translatedFormat('d F Y') }}
@@ -503,7 +547,7 @@
                     <div class="titre-sig">Le Directeur général</div>
                     <div class="nom-sig">{{ $nameDG }}</div>
                 </div>
-            </div>
+            </div> --}}
 
         </div>{{-- /content --}}
 
@@ -530,17 +574,13 @@
                     parseFloat(corpsStyle.paddingLeft) -
                     parseFloat(corpsStyle.paddingRight);
 
-                // Partir d'une taille de base fixe pour être cohérent
                 let fontSize = 12;
                 probe.style.fontSize = fontSize + 'px';
 
-                // 1. Agrandir jusqu'à remplir 98% de la largeur
-                while (probe.offsetWidth < maxWidth * 0.98 && fontSize < 60) {
+                while (probe.offsetWidth < maxWidth * 0.97 && fontSize < 60) {
                     fontSize += 0.5;
                     probe.style.fontSize = fontSize + 'px';
                 }
-
-                // 2. Reculer si on a dépassé
                 while (probe.offsetWidth > maxWidth && fontSize > 6) {
                     fontSize -= 0.5;
                     probe.style.fontSize = fontSize + 'px';
@@ -552,8 +592,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            fitTextToLine('.text-intro .line-one');
-            fitTextToLine('.text-intro .line-two');
+            fitTextToLine('.text-intro .line-one'); // ← line-two exclue du fit
         });
     </script>
 </body>
