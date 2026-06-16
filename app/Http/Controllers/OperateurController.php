@@ -1492,7 +1492,7 @@ class OperateurController extends Controller
         );
     } */
 
-    public function show(Operateur $operateur)
+    /* public function show(Operateur $operateur)
     {
         dd('ok');
         $operateurs         = Operateur::all();
@@ -1559,6 +1559,100 @@ class OperateurController extends Controller
         ])->load(['user' => fn($q) => $q->withCount('files')]);
 
         $validations = $operateur?->validationoperateurs;
+
+        return view('operateurs.show', compact(
+            'operateur',
+            'operateureferences',
+            'operateurs',
+            'user_files',
+            'user',
+            'files',
+            'labels',
+            'domaines',
+            'validations',
+            'hasAuto',
+            'hasNinea',
+            'hasOrganigramme',
+            'hasQuitus',
+            'departements',
+            'hasRC'
+        ));
+    } */
+
+    public function show(Operateur $operateur)
+    {
+        $this->authorize('show', $operateur);
+
+        // ✅ Eager load tout en une seule requête
+        $operateur->loadCount([
+            'operateurmodules',
+            'operateureferences',
+            'operateurequipements',
+            'operateurformateurs',
+            'operateureferences',
+            'operateureferences',
+            'operateureferences',
+            'operateurlocalites',
+            'formations',
+        ])->load([
+            'user' => fn($q) => $q->withCount('files')->with([
+                'files' => fn($q) => $q->whereNotNull('file')
+            ]),
+            'validationoperateurs',      // ✅ plus de lazy load
+            'operateureferences',        // ✅ remplace Operateureference::all()
+        ]);
+
+        $user  = $operateur->user;
+        $files = $user?->files ?? collect(); // ✅ déjà chargé via eager load
+
+        $userFileSigles = $files->pluck('sigle');
+
+        $hasAuto         = $userFileSigles->contains('Autorisation');
+        $hasNinea        = $userFileSigles->contains('Ninea');
+        $hasOrganigramme = $userFileSigles->contains('Organigramme');
+        $hasQuitus       = $userFileSigles->contains('Quitus');
+        $hasRC           = $userFileSigles->contains('Ninea/RC');
+
+        $labels = [
+            'Ninea ou registre de commerce' => 'Registre de commerce',
+            'Ninea/RC'        => 'RC',
+            'Non-fonctionnaire' => 'NF',
+        ];
+
+        // ✅ Requête légère : seulement les templates (pas de users_id ni file)
+        $user_files = File::whereNull('file')
+            ->whereNull('users_id')
+            ->whereIn('sigle', [
+                'Ninea/RC',
+                'Ninea',
+                'AC',
+                'Quitus',
+                'Arrêté',
+                'Non-fonctionnaire',
+                'Organigramme',
+                'Contrat',
+                'Titre',
+                'Justificatif',
+                'ADEDGI',
+                'ABE',
+                'CME',
+                'CP',
+                'DENO',
+                'Bail'
+            ])
+            ->orderBy('sigle')
+            ->distinct()
+            ->get();
+
+        // ✅ select() pour ne charger que ce qui est affiché dans la vue
+        $operateurs  = Operateur::select('id', 'nom')->get();
+        $domaines    = Domaine::select('id', 'nom')->get();
+        $departements = Departement::select('id', 'nom')
+            ->orderBy('nom')
+            ->get();
+
+        $validations        = $operateur->validationoperateurs; // déjà eager loadé
+        $operateureferences = $operateur->operateureferences;   // ✅ plus de ::all()
 
         return view('operateurs.show', compact(
             'operateur',
@@ -2112,7 +2206,7 @@ class OperateurController extends Controller
     {
         /* $operateur          = Operateur::where('uuid', $uuid)->firstOrFail();
         $operateureferences = Operateureference::get(); */
-        
+
         $operateur = Operateur::where('uuid', $uuid)
             ->with('operateureferences') // eager load directement
             ->firstOrFail();
