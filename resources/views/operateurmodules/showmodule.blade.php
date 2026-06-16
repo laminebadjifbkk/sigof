@@ -52,6 +52,58 @@
                             @endcan
                         </div> --}}
 
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+                                <h5 class="mb-0 text-uppercase fw-bold text-primary">
+                                    <i class="bi bi-briefcase-fill me-2"></i> Modules de formation
+                                </h5>
+                            </div>
+                            <h5>Type : <span
+                                    class="{{ $operateur?->type_demande }} btn-sm">{{ $operateur?->type_demande }}</span>
+                            </h5>
+                            <span class="card-title d-flex align-items-baseline">Statut
+                                :&nbsp;
+                                <span class="{{ $operateur?->statut_agrement }} text-white">
+                                    {{ $operateur?->statut_agrement }}</span>
+                                @if (auth()->user()->hasRole('super-admin|admin|DEC'))
+                                    <div class="filter">
+                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                class="bi bi-three-dots"></i></a>
+                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                            <li>
+                                                <button class="btn btn-sm mx-1" data-bs-toggle="modal"
+                                                    data-bs-target="#RejetAgrementModal{{ $operateur->id }}"><i
+                                                        class="bi bi-check2-circle"
+                                                        title="Justification"></i>&nbsp;Validation
+                                                </button>
+                                            </li>
+                                            @can('fichesynthese-view')
+                                                <li>
+                                                    <form action="{{ route('ficheSyntheseOperateur') }}" method="post"
+                                                        target="_blank">
+                                                        @csrf
+                                                        <input type="hidden" name="id" value="{{ $operateur?->id }}">
+                                                        <button class="btn btn-sm mx-1">Fiche synthèse</button>
+                                                    </form>
+                                                </li>
+                                            @endcan
+                                            @can('lettreagrement-view')
+                                                <li>
+                                                    <form action="{{ route('lettreOperateur') }}" method="post"
+                                                        target="_blank">
+                                                        @csrf
+                                                        <input type="hidden" name="id" value="{{ $operateur?->id }}">
+                                                        <button class="btn btn-sm mx-1">Lettre
+                                                            agrément</button>
+                                                    </form>
+                                                </li>
+                                            @endcan
+                                        </ul>
+                                    </div>
+                                @endif
+                            </span>
+                        </div>
+
                         <div class="tab-content pt-2">
                             <div class="tab-pane show active fade profile-overview" id="module-overview">
                                 <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
@@ -120,7 +172,8 @@
                                                     <div class="col-md-6">
                                                         <label for="categorie" class="form-label">CATEGORIE
                                                             PROFESSIONNELLE</label>
-                                                        <input type="text" name="categorie" placeholder="Niveau de qualification"
+                                                        <input type="text" name="categorie"
+                                                            placeholder="Niveau de qualification"
                                                             class="form-control form-control-sm @error('categorie') is-invalid @enderror" />
 
                                                         <p class="small fst-italic mb-0"
@@ -155,8 +208,8 @@
                                                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                         @can('fichesynthese-view')
                                                             <li>
-                                                                <form action="{{ route('ficheSyntheseOperateur') }}" method="post"
-                                                                    target="_blank">
+                                                                <form action="{{ route('ficheSyntheseOperateur') }}"
+                                                                    method="post" target="_blank">
                                                                     @csrf
                                                                     <input type="hidden" name="id"
                                                                         value="{{ $operateur?->id }}">
