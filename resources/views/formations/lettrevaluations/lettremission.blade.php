@@ -218,7 +218,7 @@
 
                                             <p style="text-align : justify;">
                                                 <b>{{ $evaluateur?->name . ' ' . $evaluateur?->lastname . ', ' . $evaluateur?->fonction }},</b>
-                                                tel n° {{ $evaluateur?->telephone }}, est sollicité
+                                                tel n° {{ $evaluateur?->telephone }}, est sollicité(e)
                                                 pour être membre du jury de certification selon les procédures de l'ONFP
                                                 pour la
                                                 formation ci-après:

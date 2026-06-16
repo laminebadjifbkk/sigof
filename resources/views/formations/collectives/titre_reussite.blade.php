@@ -96,15 +96,15 @@
 
         /* ── Logo ONFP ── */
         .logo-wrap {
-            margin-top: 3mm;
-            margin-bottom: 1mm;
+            margin-top: 2mm;
+            margin-bottom: 0mm;
             display: flex;
             justify-content: center;
             text-align: center;
         }
 
         .logo-wrap img {
-            height: 30mm;
+            height: 25mm;
             object-fit: contain;
         }
 
@@ -126,7 +126,7 @@
             position: relative;
             width: 100%;
             flex: 1;
-            margin-top: 15px;
+            margin-top: 14px;
         }
 
         .watermark {
@@ -208,6 +208,7 @@
             margin-left: 25mm;
             font-weight: bold;
             font-style: italic;
+            line-height: 1.50;
         }
 
         .corps .text-intro-decision {
@@ -219,6 +220,7 @@
             font-style: italic;
             text-align: center;
             margin-top: 5mm;
+            line-height: 1.15;
         }
 
         .corps .text-intro {
@@ -245,9 +247,7 @@
         .footer {
             position: absolute;
             right: 20mm;
-            bottom: 16mm;
-            /* augmente cette valeur */
-            /* ajuste selon ton cadre */
+            bottom: 31mm;
             width: auto;
 
             display: flex;
@@ -272,7 +272,6 @@
             margin-top: 12mm;
             position: relative;
             right: 36mm;
-            /* ajuste la valeur */
         }
 
         /* Fonction */
@@ -280,7 +279,7 @@
             font-size: 12pt;
             font-weight: normal;
             font-weight: bold;
-            margin: 5mm 0 38mm 0;
+            margin: 1mm 0 15mm 0;
         }
 
         /* Nom */
@@ -301,9 +300,9 @@
         /* ── QR code ── */
         .qr-zone {
             position: absolute;
-            bottom: 10mm;
-            left: 14mm;
-            z-index: 3;
+            bottom: 28mm;
+            left: 28mm;
+            z-index: 1;
             text-align: center;
 
             display: flex;
@@ -312,8 +311,8 @@
         }
 
         .qr-zone img {
-            width: 32mm;
-            height: 32mm;
+            width: 22mm;
+            height: 22mm;
             display: block;
             margin: 0;
             padding: 0;
@@ -392,7 +391,7 @@
             position: absolute;
 
             left: 50%;
-            top: 105mm;
+            top: 115mm;
             /* centre exact de la page A4 paysage */
 
             transform: translate(-50%, -50%);
@@ -464,9 +463,9 @@
 
         {{-- QR code en bas à gauche --}}
         <div class="qr-zone">
-            <p><strong>Vérifier l'authenticité</strong></p>
+            {{-- <p><strong>Vérifier l'authenticité</strong></p> --}}
             <img src="data:image/png;base64,{{ $qrCodeBase64 }}" alt="QR Code">
-            <p class="numero-titre"><strong>{{ $listecollective?->numero_attestation }}</strong></p>
+            {{-- <p class="numero-titre"><strong>{{ $listecollective?->numero_attestation }}</strong></p> --}}
 
         </div>
 
@@ -539,7 +538,7 @@
             </div>
 
             {{-- Pied --}}
-            {{-- <div class="footer">
+            <div class="footer">
                 <div class="signature-block">
                     <div class="fait-le">
                         Fait le {{ $now->translatedFormat('d F Y') }}
@@ -547,7 +546,7 @@
                     <div class="titre-sig">Le Directeur général</div>
                     <div class="nom-sig">{{ $nameDG }}</div>
                 </div>
-            </div> --}}
+            </div>
 
         </div>{{-- /content --}}
 

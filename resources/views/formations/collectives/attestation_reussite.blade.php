@@ -368,7 +368,7 @@
             position: absolute;
 
             left: 50%;
-            top: 105mm;
+            top: 115mm;
             /* centre exact de la page A4 paysage */
 
             transform: translate(-50%, -50%);
