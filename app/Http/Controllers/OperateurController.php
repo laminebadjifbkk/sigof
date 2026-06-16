@@ -2265,9 +2265,9 @@ class OperateurController extends Controller
             ->with('operateurmodules') // eager load directement
             ->firstOrFail();
 
-        $operateurs = Operateur::select('id', 'uuid', 'users_id', 'numero_agrement')
+        /* $operateurs = Operateur::select('id', 'uuid', 'users_id', 'numero_agrement')
             ->with('user:id,name')
-            ->get();
+            ->get(); */
 
         $departements = Departement::select('id', 'nom')
             ->orderBy('nom')
@@ -2275,7 +2275,7 @@ class OperateurController extends Controller
 
         $domaines    = Domaine::select('id', 'name')->get();
 
-        return view('operateurmodules.showmodule', compact('operateur', 'domaines', 'operateurs', 'departements'));
+        return view('operateurmodules.showmodule', compact('operateur', 'domaines', 'departements'));
     }
 
     /* Validation automatique */
