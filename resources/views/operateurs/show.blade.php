@@ -785,7 +785,7 @@
                                     <div class="tab-pane show active fade profile-overview" id="module-overview">
                                         <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
                                             <h5 class="mb-0 text-uppercase fw-bold text-primary">
-                                                <i class="bi bi-briefcase-fill me-2"></i> Modules de formation
+                                                <i class="bi bi-briefcase-fill me-2"></i> Modules de format
                                             </h5>
                                         </div>
 
