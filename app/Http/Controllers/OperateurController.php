@@ -393,7 +393,8 @@ class OperateurController extends Controller
                 'label' => 'Modules',
                 'icon' => 'bi-journal-code text-info',
                 'count' => $operateur->operateurmodules->count(),
-                'route' => route('operateurs.show', $operateur),
+                /* 'route' => route('operateurs.show', $operateur), */
+                'route' => route('showModule', $operateur),
             ],
             [
                 'label' => 'Références',
