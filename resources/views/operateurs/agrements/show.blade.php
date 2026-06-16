@@ -593,17 +593,31 @@
                                         <div
                                             class="card-header bg-white border-bottom py-3 px-4 d-flex justify-content-between align-items-center">
                                             <div>
-                                                <h5 class="mb-1 text-dark fw-bold d-flex align-items-center">
+                                                {{-- <h5 class="mb-1 text-dark fw-bold d-flex align-items-center">
                                                     <i class="bi bi-building text-primary me-2 fs-5"></i>
                                                     <span>Date commission :</span>
 
                                                     <span class="{{ $operateur?->statut_agrement }} text-white">
                                                         {{ $operateur?->statut_agrement }}</span>
 
+                                                        <span class="ms-2 text-primary">
+                                                            {{ $operateur->commissionagrements->pluck('fin_commission')->filter()->map(fn($date) => \Carbon\Carbon::parse($date)->format('d/m/Y'))->implode(' - ') }}
+                                                        </span>
+                                                </h5> --}}
+
+                                                <div
+                                                    class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+                                                    <span><i class="bi bi-building text-primary me-2 fs-5"></i>
+                                                        <span>Date commission :</span>
+                                                    </span>
+
+                                                    <span class="{{ $operateur?->statut_agrement }} text-white">
+                                                        {{ $operateur?->statut_agrement }}</span>
+                                                        
                                                     <span class="ms-2 text-primary">
                                                         {{ $operateur->commissionagrements->pluck('fin_commission')->filter()->map(fn($date) => \Carbon\Carbon::parse($date)->format('d/m/Y'))->implode(' - ') }}
                                                     </span>
-                                                </h5>
+                                                </div>
                                             </div>
 
                                             {{-- Statut sur une seule ligne --}}
