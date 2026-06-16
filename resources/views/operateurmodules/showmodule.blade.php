@@ -260,7 +260,7 @@
 @endsection
 @push('scripts')
     <script>
-        new DataTable('#table-regions', {
+        new DataTable('#table-operateurModules', {
             layout: {
                 topStart: {
                     buttons: ['csv', 'excel', 'print'],
@@ -299,31 +299,5 @@
                 }
             }
         });
-    </script>
-
-    <script>
-        function confirmAllRegions(e) {
-            e.preventDefault();
-
-            Swal.fire({
-                title: 'Ajouter toutes les régions ?',
-                text: "Toutes les régions seront ajoutées comme zones d’intervention.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#198754',
-                cancelButtonColor: '#6c757d',
-                confirmButtonText: 'Oui, ajouter',
-                cancelButtonText: 'Annuler'
-            }).then((result) => {
-                if (result.isConfirmed) {
-
-                    // activer le champ hidden
-                    document.getElementById('all_regions_input').value = 1;
-
-                    // soumettre le formulaire
-                    e.target.closest('form').submit();
-                }
-            });
-        }
     </script>
 @endpush
