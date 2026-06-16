@@ -2133,11 +2133,16 @@ class OperateurController extends Controller
 
     public function showLocalite($uuid)
     {
-
-    dd("ok");
-        $operateur          = Operateur::where('uuid', $uuid)->firstOrFail();
+        /* $operateur          = Operateur::where('uuid', $uuid)->firstOrFail();
         $operateurlocalites = Operateurlocalite::get();
-        $regions            = Region::get();
+        $regions            = Region::get(); */
+
+        $operateur = Operateur::where('uuid', $uuid)
+            ->with('operateurlocalites') // eager load directement
+            ->firstOrFail();
+
+        $operateurlocalites = $operateur->operateurlocalites; // uniquement les siennes
+        $regions            = Region::orderBy('nom')->get(['id', 'nom']); // uniquement id et nom
 
         return view('operateurlocalites.show', compact('operateur', 'operateurlocalites', 'regions'));
     }
