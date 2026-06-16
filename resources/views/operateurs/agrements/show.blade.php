@@ -1169,7 +1169,7 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- @include('operateurs.agrements.modals') --}}
+                            @include('operateurs.agrements.modals')
                         </div>
                     </div>
                 </div>
