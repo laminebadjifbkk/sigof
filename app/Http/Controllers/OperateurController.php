@@ -1645,8 +1645,8 @@ class OperateurController extends Controller
             ->get();
 
         // ✅ select() pour ne charger que ce qui est affiché dans la vue
-        $operateurs  = Operateur::select('id', 'nom')->get();
-        $domaines    = Domaine::select('id', 'nom')->get();
+        $operateurs = Operateur::select('id', 'uuid', 'users_id', 'numero_agrement', 'statut')->get();
+        $domaines    = Domaine::select('id', 'name')->get();
         $departements = Departement::select('id', 'nom')
             ->orderBy('nom')
             ->get();
