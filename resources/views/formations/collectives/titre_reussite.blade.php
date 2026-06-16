@@ -224,13 +224,41 @@
         }
 
         .corps .text-intro {
-            font-size: 12pt;
+            font-size: 11pt;
             font-weight: normal;
             font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
             letter-spacing: 1px;
             text-align: center;
             /* ← centrage */
             /* margin-right: 10mm ← SUPPRIMÉ */
+        }
+
+        .corps .text-intro-imp {
+            font-size: 11pt;
+            font-weight: normal;
+            font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
+            letter-spacing: 1px;
+            margin-left: 25mm;
+            font-weight: bold;
+            font-style: italic;
+        }
+        .corps .text-intro-numero {
+            font-size: 9pt;
+            font-weight: normal;
+            font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
+            letter-spacing: 1px;
+            margin-left: 25mm;
+            font-weight: bold;
+            font-style: italic;
+            margin-top: 22mm;
+        }
+
+        .corps .text-intro-fois {
+            font-size: 11pt;
+            font-weight: normal;
+            font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
+            letter-spacing: 1px;
+            margin-left: 25mm;
         }
 
         .corps .nom-participant {
@@ -300,8 +328,8 @@
         /* ── QR code ── */
         .qr-zone {
             position: absolute;
-            bottom: 28mm;
-            left: 28mm;
+            bottom: 26mm;
+            left: 27mm;
             z-index: 1;
             text-align: center;
 
@@ -320,7 +348,7 @@
 
         .qr-zone p {
             font-size: 5.5pt;
-            color: #666;
+            color: #000000;
             margin-top: 1mm;
             letter-spacing: 0.3px;
         }
@@ -333,9 +361,7 @@
             /* ou 30mm, 35mm selon le besoin */
             white-space: nowrap;
             /* empêche le retour à la ligne */
-
-            font-size: 5pt;
-            color: #444;
+            color: #000000;
             /* font-family: 'Courier New', monospace; */
             font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
             /*margin-top: 0;
@@ -350,7 +376,9 @@
             margin-top: -0.5mm;
             letter-spacing: 0.5px;
             /* réduire si nécessaire */
+            font-size: 12pt;
             font-weight: bold;
+            font-style: italic;
         }
 
         .qr-zone p:last-child {
@@ -441,6 +469,11 @@
             overflow-wrap: break-word;
             word-wrap: break-word;
         }
+
+        .numero-enregistrement {
+            position: relative;
+            right: 100mm;
+        }
     </style>
 </head>
 
@@ -465,8 +498,6 @@
         <div class="qr-zone">
             {{-- <p><strong>Vérifier l'authenticité</strong></p> --}}
             <img src="data:image/png;base64,{{ $qrCodeBase64 }}" alt="QR Code">
-            {{-- <p class="numero-titre"><strong>{{ $listecollective?->numero_attestation }}</strong></p> --}}
-
         </div>
 
         <div class="content">
@@ -531,9 +562,14 @@
                             .
                         </span>
                     </p>
-                    <p class="text-intro">
+                    <p class="text-intro-fois">
                         En foi de quoi, la présente titre lui est délivrée pour servir et valoir ce que de droit.
                     </p>
+                    <P class="text-intro-imp">
+                        L’impétrant
+                    </P>
+
+                    <p class="text-intro-numero"><strong>{{ $listecollective?->numero_attestation }}</strong></p>
                 </div>
             </div>
 
@@ -544,7 +580,13 @@
                         Fait le {{ $now->translatedFormat('d F Y') }}
                     </div>
                     <div class="titre-sig">Le Directeur général</div>
-                    <div class="nom-sig">{{ $nameDG }}</div>
+                    {{-- <div class="nom-sig numero-enregistrement">
+                        Enregistré sous le numéro : .............................................
+                    </div> --}}
+
+                    <div class="nom-sig">
+                        {{ $nameDG }}
+                    </div>
                 </div>
             </div>
 
