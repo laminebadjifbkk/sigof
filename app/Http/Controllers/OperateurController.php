@@ -2257,6 +2257,21 @@ class OperateurController extends Controller
         return view('operateurlocalites.show', compact('operateur', 'operateurlocalites', 'regions'));
     }
 
+    public function showModule(string $uuid)
+    {
+        $operateur = Operateur::where('uuid', $uuid)
+            ->with('operateurmodules') // eager load directement
+            ->firstOrFail();
+
+        $operateurmodules = $operateur->operateurmodules; // uniquement les siennes
+        $regions            = Region::orderBy('nom')->get(['id', 'nom']); // uniquement id et nom
+
+        $operateurs = Operateur::select('id', 'uuid', 'users_id', 'numero_agrement', 'statut')->get();
+        $domaines    = Domaine::select('id', 'name')->get();
+
+        return view('operateurmodules.showmodule', compact('operateur', 'operateurmodules', 'regions', 'operateurs', 'domaines'));
+    }
+
     /* Validation automatique */
     public function validateOperateur($id)
     {

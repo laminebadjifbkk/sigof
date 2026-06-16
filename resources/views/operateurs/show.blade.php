@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'OPERATEUR | ' . $operateur?->user?->display_operateur)
+@section('title', 'Opérateur, ' . $operateur?->user?->display_operateur)
 @section('space-work')
     @can('operateur-show')
         <section

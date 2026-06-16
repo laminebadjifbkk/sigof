@@ -100,6 +100,7 @@
                                     'icon' => 'bi-journal-code text-info',
                                     'count' => $op->operateurmodules->count(),
                                     'route' => route('operateurs.show', $op),
+                                    /* 'route' => route('showModule', $op->uuid), */
                                 ],
                                 [
                                     'label' => 'Références',

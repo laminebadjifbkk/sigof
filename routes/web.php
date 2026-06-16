@@ -412,6 +412,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/showEquipement/{uuid}', [OperateurController::class, 'showEquipement'])->name('showEquipement');
         Route::get('/showFormateur/{uuid}', [OperateurController::class, 'showFormateur'])->name('showFormateur');
         Route::get('/showLocalite/{uuid}', [OperateurController::class, 'showLocalite'])->name('showLocalite');
+        Route::get('/showModule/{uuid}', [OperateurController::class, 'showModule'])->name('showModule');
 
         Route::put('/validateOperateur/{id}', [OperateurController::class, 'validateOperateur'])->name('validateOperateur');
         Route::put('/agreerOperateur/{id}', [OperateurController::class, 'agreerOperateur'])->name('agreerOperateur');
