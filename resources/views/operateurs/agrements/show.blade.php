@@ -1169,7 +1169,43 @@
                                     </div>
                                 </div>
                             </div>
-                            @include('operateurs.agrements.modals')
+                            {{-- @include('operateurs.agrements.modals') --}}
+                            @foreach ($operateur->operateurmodules as $operateurmodule)
+                                <div class="modal" id="myModal{{ $operateurmodule->id }}">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Confirmation</h4>
+                                                <button type="button" class="btn-close"
+                                                    data-bs-dismiss="modal"></button>
+                                            </div>
+
+                                            <!-- Modal body -->
+                                            <div class="modal-body">
+                                                Êtes-vous sûre de bien vouloir supprimer ?
+                                            </div>
+
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <form method="post"
+                                                    action="{{ route('operateurmodules.destroy', $operateurmodule) }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">
+                                                            Non</button>
+                                                        <button class="btn btn-danger">
+                                                            <i class="bi bi-trash"></i> Oui
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
