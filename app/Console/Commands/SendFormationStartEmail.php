@@ -257,6 +257,10 @@ class SendFormationStartEmail extends Command
                     's.fall@onfp.sn',
                     'a.drame@onfp.sn',
                     'elhadjigorgui.diouf@onfp.sn',
+                    'kanealkhalifa94@gmail.com',
+                    'luneba.ab@gmail.com',
+                    'fatou.ba@onfp.sn',
+                    'gueyesuntech3@gmail.com',
                 ];
 
                 /* $emails = collect($defaultEmails)
