@@ -390,7 +390,7 @@ class OperateurController extends Controller
 
         $sections = [
             [
-                'label' => 'Modules',
+                'label' => 'Modul',
                 'icon' => 'bi-journal-code text-info',
                 'count' => $operateur->operateurmodules->count(),
                 /* 'route' => route('operateurs.show', $operateur), */
