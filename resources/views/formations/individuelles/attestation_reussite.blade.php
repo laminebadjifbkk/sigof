@@ -278,8 +278,8 @@
         .qr-zone {
             position: absolute;
             bottom: 10mm;
-            left: 14mm;
-            z-index: 3;
+            margin-left: 13mm;
+            z-index: 1;
             text-align: center;
 
             display: flex;
@@ -288,8 +288,8 @@
         }
 
         .qr-zone img {
-            width: 32mm;
-            height: 32mm;
+            width: 22mm;
+            height: 22mm;
             display: block;
             margin: 0;
             padding: 0;
@@ -297,24 +297,20 @@
 
         .qr-zone p {
             font-size: 5.5pt;
-            color: #666;
+            color: #000000;
             margin-top: 1mm;
             letter-spacing: 0.3px;
         }
 
-        .qr-zone .numero-attestation {
+        .qr-zone .numero-titre {
             /* width: 22mm; */
             /* même largeur que le QR code */
-
 
             width: auto;
             /* ou 30mm, 35mm selon le besoin */
             white-space: nowrap;
             /* empêche le retour à la ligne */
-
-
-            font-size: 5pt;
-            color: #444;
+            color: #000000;
             /* font-family: 'Courier New', monospace; */
             font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
             /*margin-top: 0;
@@ -327,10 +323,11 @@
             text-align: center;
 
             margin-top: -0.5mm;
-
             letter-spacing: 0.5px;
             /* réduire si nécessaire */
+            font-size: 12pt;
             font-weight: bold;
+            font-style: italic;
         }
 
         .qr-zone p:last-child {
@@ -409,6 +406,18 @@
             letter-spacing: 2.5px;
             /* ← redondant mais explicite */
         }
+
+
+        .corps .text-intro-numero {
+            font-size: 9pt;
+            font-weight: normal;
+            font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
+            letter-spacing: 1px;
+            margin-left: 6mm;
+            font-weight: bold;
+            font-style: italic;
+            margin-top: 62mm;
+        }
     </style>
 </head>
 
@@ -433,7 +442,7 @@
         <div class="qr-zone">
             <p class="numero-attestation"><strong>Vérifier l'authenticité</strong></p>
             <img src="data:image/png;base64,{{ $qrCodeBase64 }}" alt="QR Code">
-            <p class="numero-attestation"><strong>{{ $individuelle?->numero_attestation }}</strong></p>
+            {{-- <p class="numero-attestation"><strong>{{ $individuelle?->numero_attestation }}</strong></p> --}}
         </div>
 
         <div class="content">
@@ -493,6 +502,8 @@
                     <p class="text-intro">
                         En foi de quoi, la présente attestation lui est délivrée pour servir et valoir ce que de droit.
                     </p>
+
+                    <p class="text-intro-numero"><strong>{{ $individuelle?->numero_attestation }}</strong></p>
                 </div>
             </div>
 
