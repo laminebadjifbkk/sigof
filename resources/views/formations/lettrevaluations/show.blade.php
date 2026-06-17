@@ -160,13 +160,13 @@
                                             @elseif ($formation->pdf_attestations_path === 'en_cours')
                                                 <button class="btn btn-outline-secondary" disabled>
                                                     <span class="spinner-border spinner-border-sm"></span>
-                                                    Génération en cours…
+                                                    Génération {{ $formation?->type_certification }} en cours…
                                                 </button>
                                                 <meta http-equiv="refresh" content="10">
                                             @else
                                                 <a href="{{ route('formations.attestations.telecharger', $formation->id) }}"
                                                     class="btn btn-outline-success">
-                                                    Télécharger le PDF
+                                                    Télécharger {{ $formation?->type_certification }}
                                                 </a>
                                                 <a href="{{ route('formations.attestations.lancer', $formation->id) }}"
                                                     class="btn btn-outline-secondary btn-sm">
