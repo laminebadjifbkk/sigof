@@ -264,7 +264,7 @@
                 <div class="info-row">
                     <div>
                         <span class="info-label">N°</span>
-                        <span class="info-value numero">{{ $item?->numero_attestation }}</span>
+                        <span class="info-value numero">{{ $individuelle?->numero_attestation }}</span>
                     </div>
                 </div>
             </div>
