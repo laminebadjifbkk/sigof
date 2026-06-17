@@ -1457,8 +1457,6 @@ class AttestationController extends Controller
             return redirect()->back();
         }
 
-        dd($formation->type_certification, $formation->types_formation->name);
-
         // Réinitialise le chemin pour indiquer que c'est en cours
         $formation->update(['pdf_attestations_path' => 'en_cours']);
 
@@ -1468,6 +1466,7 @@ class AttestationController extends Controller
             'formations_id' => $formationId,
         ]);
 
+        /* GenererAttestationsReussiteJob::dispatch($formationId, Auth::user()->id, $formation->types_formation->name); */
         GenererAttestationsReussiteJob::dispatch($formationId, Auth::user()->id, $formation->types_formation->name);
 
         Alert::info('Génération lancée', 'Le PDF sera disponible dans quelques minutes. Revenez sur cette page pour le télécharger.');
