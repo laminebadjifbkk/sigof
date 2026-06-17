@@ -155,7 +155,7 @@
                                             @if (!$formation->pdf_attestations_path)
                                                 <a href="{{ route('formations.attestations.lancer', $formation->id) }}"
                                                     class="btn btn-outline-primary">
-                                                    Générer les attestations
+                                                    Générer {{ $formation?->type_certification }}
                                                 </a>
                                             @elseif ($formation->pdf_attestations_path === 'en_cours')
                                                 <button class="btn btn-outline-secondary" disabled>

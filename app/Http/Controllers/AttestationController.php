@@ -332,7 +332,7 @@ class AttestationController extends Controller
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
 
-        $name = $niveauQualification .'_'. $individuelle->user->firstname . '_' . $individuelle->user->name . '.pdf';
+        $name = $niveauQualification . '_' . $individuelle->user->firstname . '_' . $individuelle->user->name . '.pdf';
         return $dompdf->stream($name, ['Attachment' => true]);
     }
 
@@ -1456,6 +1456,8 @@ class AttestationController extends Controller
             Alert::warning('Action impossible !', 'La formation n\'est pas encore achevée.');
             return redirect()->back();
         }
+
+        dd($formation->type_certification, $formation->types_formation->name);
 
         // Réinitialise le chemin pour indiquer que c'est en cours
         $formation->update(['pdf_attestations_path' => 'en_cours']);

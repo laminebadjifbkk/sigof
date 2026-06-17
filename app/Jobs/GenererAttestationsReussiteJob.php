@@ -37,8 +37,8 @@ class GenererAttestationsReussiteJob implements ShouldQueue
         ini_set('memory_limit', '512M');
 
         $formation = Formation::findOrFail($this->formationId);
-
-        $type = $formation->types_formation->name;
+        $typeFormation = $formation->types_formation->name;
+        $niveauQualification = $formation->type_certification;
 
         $direction = Direction::where('sigle', 'DG')->first();
         $nameDG    = $direction?->chef?->user?->civilite . ' '
@@ -46,16 +46,16 @@ class GenererAttestationsReussiteJob implements ShouldQueue
             . $direction?->chef?->user?->name;
 
         $now        = \Carbon\Carbon::now();
-        $title      = 'Attestations de Réussite ' . $formation->name;
+        $title      = $niveauQualification . ' ' . $formation->name;
         $moduleName = $formation?->module?->name
             ?? $formation?->collectivemodule?->module
             ?? null;
 
-        /* $items = $type === 'collective'
+        /* $items = $typeFormation === 'collective'
             ? $formation->collective->listecollectives
             : $formation->individuelles; */
 
-        $items = $type === 'collective'
+        $items = $typeFormation === 'collective'
             ? $formation?->listecollectives->where('formations_id', $formation?->id)
             : $formation?->individuelles;
 
@@ -64,9 +64,6 @@ class GenererAttestationsReussiteJob implements ShouldQueue
         $pdfPaths = [];
 
         NumeroAttestationService::reset();
-
-        $typeFormation = $formation->types_formation->name;
-        $niveauQualification = $formation->type_certification;
 
         try {
             foreach ($items as $item) {
@@ -84,14 +81,14 @@ class GenererAttestationsReussiteJob implements ShouldQueue
                 }
 
                 // Logs
-                if ($type === 'collective') {
+                if ($typeFormation === 'collective') {
                     Validationcollective::create([
                         'validated_id'   => $this->userId,
                         'action'         => 'Attestation ou titre généré',
                         'motif'          => 'Votre attestation/titre a été généré',
                         'collectives_id' => $item->collective->id,
                     ]);
-                } elseif ($type === 'individuelle') {
+                } elseif ($typeFormation === 'individuelle') {
                     Validationindividuelle::create([
                         'validated_id'    => $this->userId,
                         'action'          => 'Attestation ou titre généré',
@@ -119,7 +116,7 @@ class GenererAttestationsReussiteJob implements ShouldQueue
                 }
 
                 // QR Code
-                $userId  = $type === 'collective'
+                $userId  = $typeFormation === 'collective'
                     ? $item->collective->user->id
                     : $item->user->id;
 
@@ -131,16 +128,16 @@ class GenererAttestationsReussiteJob implements ShouldQueue
                     'reussite',
                 ]);
                 $token        = base64_encode($payload . '::' . hash_hmac('sha256', $payload, config('app.attestation_secret')));
-                $routeName    = $type === 'collective' ? 'attestationCollective.verifier' : 'attestation.verifier';
+                $routeName    = $typeFormation === 'collective' ? 'attestationCollective.verifier' : 'attestation.verifier';
                 $qrContent    = route($routeName, ['token' => $token]);
                 $qrCodeBase64 = base64_encode((new PngWriter())->write(QrCode::create($qrContent)->setSize(150))->getString());
 
                 // Vue
-                $viewName = $type === 'collective'
+                $viewName = $typeFormation === 'collective'
                     ? 'formations.collectives.attestation_reussite'
                     : 'formations.individuelles.attestation_reussite';
 
-                $varName = $type === 'collective' ? 'listecollective' : 'individuelle';
+                $varName = $typeFormation === 'collective' ? 'listecollective' : 'individuelle';
 
                 $html = View::make($viewName, array_merge(compact(
                     'formation',
