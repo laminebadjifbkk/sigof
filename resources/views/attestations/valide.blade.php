@@ -167,8 +167,15 @@
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.4;
+            }
         }
 
         .verified-time {
@@ -207,7 +214,7 @@
         </div> --}}
 
         <!-- Titre -->
-     {{--    <div class="doc-title">
+        {{--    <div class="doc-title">
             <h1>Authentique</h1>
             <p>Ce document a été vérifié avec succès</p>
             <div class="title-ornament">
@@ -240,15 +247,15 @@
                     </div>
                 </div> --}}
 
-                @if (isset($moduleName))
+                {{-- @if (isset($moduleName))
                     <div class="info-row">
-                        {{-- <span class="info-icon">📚</span> --}}
+                        <span class="info-icon">📚</span>
                         <div>
                             <span class="info-label">Module</span>
                             <span class="info-value">{{ $moduleName }}</span>
                         </div>
                     </div>
-                @endif
+                @endif --}}
 
                 <div class="info-row">
                     {{-- <span class="info-icon">📅</span> --}}
@@ -265,6 +272,14 @@
                     <div>
                         <span class="info-label">NUMERO</span>
                         <span class="info-value numero">{{ $individuelle?->numero_attestation }}</span>
+                    </div>
+                </div>
+
+                <div class="info-row">
+                    {{-- <span class="info-icon">📚</span> --}}
+                    <div>
+                        <span class="info-label">Mention</span>
+                        <span class="info-value">{{ $individuelle?->appreciation }}</span>
                     </div>
                 </div>
             </div>
