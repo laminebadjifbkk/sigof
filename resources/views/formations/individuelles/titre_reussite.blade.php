@@ -330,7 +330,7 @@
         .qr-zone {
             position: absolute;
             bottom: 26mm;
-            left: 27mm;
+            left: 33mm;
             z-index: 1;
             text-align: center;
 
