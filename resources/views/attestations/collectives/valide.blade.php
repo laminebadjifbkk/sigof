@@ -275,15 +275,15 @@
                     </div>
                 </div> --}}
 
-                @if (isset($moduleName))
+                {{-- @if (isset($moduleName))
                     <div class="info-row">
-                        {{-- <span class="info-icon">📚</span> --}}
+                        <span class="info-icon">📚</span>
                         <div>
                             <span class="info-label">Module</span>
                             <span class="info-value">{{ $moduleName }}</span>
                         </div>
                     </div>
-                @endif
+                @endif --}}
 
                 <div class="info-row">
                     {{-- <span class="info-icon">📅</span> --}}
@@ -292,6 +292,21 @@
                         <span class="info-value">
                             {{ $formation->periode_formatee }}
                         </span>
+                    </div>
+                </div>
+
+                <div class="info-row">
+                    <div>
+                        <span class="info-label">NUMERO</span>
+                        <span class="info-value numero">{{ $listecollective?->numero_attestation }}</span>
+                    </div>
+                </div>
+
+                <div class="info-row">
+                    {{-- <span class="info-icon">📚</span> --}}
+                    <div>
+                        <span class="info-label">Mention</span>
+                        <span class="info-value">{{ $listecollective?->appreciation }}</span>
                     </div>
                 </div>
             </div>
