@@ -118,7 +118,7 @@
             margin-top: 0mm;
             font-family: 'Old London', serif;
             text-align: center;
-            margin-bottom: 2mm;
+            margin-bottom: 0mm;
         }
 
         /* ── Zone centrale : cercles décoratifs + texte ── */
@@ -126,7 +126,7 @@
             position: relative;
             width: 100%;
             flex: 1;
-            margin-top: 14px;
+            margin-top: 2px;
         }
 
         .watermark {
@@ -251,7 +251,7 @@
             margin-left: 25mm;
             font-weight: bold;
             font-style: italic;
-            margin-top: 22mm;
+            margin-top: 25mm;
         }
 
         .corps .text-intro-fois {
@@ -319,6 +319,8 @@
             margin: 0;
             padding: 0;
             line-height: 1;
+            margin-right: 12mm;
+            /* ajustez selon besoin */
         }
 
         /* Supprime tout espace sous le dernier élément */
@@ -530,10 +532,10 @@
                         Le Directeur général de l'Office national de Formation professionnelle (ONFP) atteste que
                     </p>
                     <p class="text-intro-vu">
-                        VU la loi n°86-44 du 11 Août 1986 portant création de l’ONFP ;<br>
-                        VU le décret n°87-955 du 21 Juillet 1987 fixant les règles d’organisation et de fonctionnement
+                        Vu la loi n°86-44 du 11 Août 1986 portant création de l’ONFP ;<br>
+                        Vu le décret n°87-955 du 21 Juillet 1987 fixant les règles d’organisation et de fonctionnement
                         de l’ONFP ; <br>
-                        VU la {{ strtolower($formation?->referentiel?->convention?->name ?? '') }} ;
+                        Vu la {{ strtolower($formation?->referentiel?->convention?->name ?? '') }} ;
                     </p>
 
                     <p class="text-intro-decision">Sur décision du jury d’évaluation en date du

@@ -167,8 +167,15 @@
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.4;
+            }
         }
 
         .verified-time {
@@ -247,12 +254,13 @@
                     </div>
                 </div>
 
-                {{-- <div class="info-row">
+                <div class="info-row">
+                    {{-- <span class="info-icon">📚</span> --}}
                     <div>
-                        <span class="info-label">Statut</span>
-                        <span class="info-value">Réussite</span>
+                        <span class="info-label">Mention</span>
+                        <span class="info-value">{{ $item?->appreciation }}</span>
                     </div>
-                </div> --}}
+                </div>
 
             </div>
         </div>
