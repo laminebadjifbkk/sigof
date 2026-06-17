@@ -1200,13 +1200,17 @@ class OperateurController extends Controller
         return redirect()->back();
     }
 
-    public function updated(Request $request, $uuid)
+    public function updated(Request $request)
     {
         $operateur = Operateur::findOrFail($request->id);
-        if (strtolower($operateur->file8) === 'oui') {
+        // Si l'utilisateur n'a pas de rôle valide, on l'autorise à effectuer la mise à jour
+        $this->authorize('update', $operateur);
+
+        /* if (strtolower($operateur->file8) === 'oui') {
             Alert::error('Attention !', 'Impossible de modifier car les informations ont déjà certifiés.');
             return redirect()->back();
-        }
+        } */
+
         $user        = $operateur->user;
         $departement = Departement::where('nom', $request->input("departement"))->firstOrFail();
 
@@ -1236,8 +1240,6 @@ class OperateurController extends Controller
             ],
         ]); */
 
-        // Si l'utilisateur n'a pas de rôle valide, on l'autorise à effectuer la mise à jour
-        $this->authorize('update', $operateur);
 
         // Vérifier le statut de l'opérateur et autoriser l'action si nécessaire
         /*  if ($operateur->statut_agrement === 'Nouveau') {
@@ -2261,13 +2263,12 @@ class OperateurController extends Controller
 
     public function showModule(string $uuid)
     {
+
+        $user = auth()->user();
+
         $operateur = Operateur::where('uuid', $uuid)
             ->with('operateurmodules') // eager load directement
             ->firstOrFail();
-
-        /* $operateurs = Operateur::select('id', 'uuid', 'users_id', 'numero_agrement')
-            ->with('user:id,name')
-            ->get(); */
 
         $departements = Departement::select('id', 'nom')
             ->orderBy('nom')
@@ -2275,7 +2276,21 @@ class OperateurController extends Controller
 
         $domaines    = Domaine::select('id', 'name')->get();
 
-        return view('operateurmodules.showmodule', compact('operateur', 'domaines', 'departements'));
+        if ($user->hasAnyRole(['super-admin', 'DEC'])) {
+            $operateurs = Operateur::select('id', 'uuid', 'users_id', 'numero_agrement')
+                ->with('user:id,name')
+                ->get();
+            return view('operateurmodules.showmodule', compact('operateur', 'domaines', 'departements', 'operateurs'));
+        }
+
+        if ($user->hasRole('Operateur')) {
+            return view(
+                'operateurmodules.showmodule_operateur',
+                compact('operateur', 'domaines', 'departements')
+            );
+        }
+
+        abort(403);
     }
 
     /* Validation automatique */

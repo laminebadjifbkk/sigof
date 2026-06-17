@@ -541,7 +541,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{-- @include('operateurs.agrements.modals') --}}
+                                @include('operateurs.agrements.modals')
 
                                 <!-- Edit Operateur Module -->
                                 @foreach ($operateur->operateurmodules as $operateurmodule)

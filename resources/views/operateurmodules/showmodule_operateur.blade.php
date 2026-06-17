@@ -302,7 +302,125 @@
                             </div>
                         </div>
                         <!-- Edit Operateur Module -->
-                        @include('operateurs.agrements.modals')                        
+                        {{-- @include('operateurs.agrements.modals')        --}}
+                        <!-- Edit Operateur Module -->
+                        @foreach ($operateur->operateurmodules as $operateurmodule)
+                            <div class="modal fade" id="EditOperateurmoduleModal{{ $operateurmodule->id }}"
+                                tabindex="-1" role="dialog"
+                                aria-labelledby="EditOperateurmoduleModalLabel{{ $operateurmodule->id }}"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <form method="post"
+                                            action="{{ route('operateurmodules.update', $operateurmodule) }}"
+                                            enctype="multipart/form-data" class="row g-3">
+                                            @csrf
+                                            @method('patch')
+
+                                            <div class="modal-header"
+                                                id="EditOperateurmoduleModalLabel{{ $operateurmodule->id }}">
+                                                <h5 class="modal-title">Modification module opérateur</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <input type="hidden" name="id" value="{{ $operateurmodule->id }}">
+
+                                                {{-- Module --}}
+                                                <div class="col-12 mb-3">
+                                                    <label for="module_operateur_edit" class="form-label">Module
+                                                        <span class="text-danger mx-1">*</span>
+                                                    </label>
+                                                    <input type="text" name="module" id="module_operateur_edit"
+                                                        value="{{ old('module', $operateurmodule->module) }}"
+                                                        class="form-control form-control-sm @error('module') is-invalid @enderror"
+                                                        placeholder="module">
+                                                    <div id="moduleListEdit"></div>
+                                                    @error('module')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <div>{{ $message }}</div>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+
+                                                {{-- Domaine --}}
+                                                <div class="col-12 mb-3">
+                                                    <label for="domaine_operateur_edit" class="form-label">Domaine
+                                                        <span class="text-danger mx-1">*</span>
+                                                    </label>
+                                                    <input type="text" name="domaine" id="domaine_operateur_edit"
+                                                        value="{{ old('domaine', $operateurmodule->domaine) }}"
+                                                        class="form-control form-control-sm @error('domaine') is-invalid @enderror"
+                                                        placeholder="domaine">
+                                                    @error('domaine')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <div>{{ $message }}</div>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+
+                                                {{-- Catégorie --}}
+                                                <div class="col-12 mb-3">
+                                                    <label for="categorie_operateur_edit" class="form-label">Catégorie
+                                                        <span class="text-danger mx-1">*</span>
+                                                    </label>
+                                                    <input type="text" name="categorie" id="categorie_operateur_edit"
+                                                        value="{{ old('categorie', $operateurmodule->categorie) }}"
+                                                        class="form-control form-control-sm @error('categorie') is-invalid @enderror"
+                                                        placeholder="catégorie">
+                                                    @error('categorie')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <div>{{ $message }}</div>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+
+                                                {{-- Niveau de qualification --}}
+                                                <div class="col-12 mb-3">
+                                                    <label for="niveau_qualification_operateur_edit"
+                                                        class="form-label">Niveau de
+                                                        qualification
+                                                        <span class="text-danger mx-1">*</span>
+                                                    </label>
+                                                    <select name="niveau_qualification"
+                                                        id="niveau_qualification_operateur_edit"
+                                                        class="form-select form-select-sm selectpicker @error('niveau_qualification') is-invalid @enderror"
+                                                        data-live-search="true"
+                                                        data-placeholder="Choisir niveau qualification">
+
+                                                        <option value="">Choisir</option>
+                                                        <option value="Pré-qualification"
+                                                            {{ old('niveau_qualification', $operateurmodule->niveau_qualification) == 'Pré-qualification' ? 'selected' : '' }}>
+                                                            Pré-qualification
+                                                        </option>
+                                                        <option value="Renforcement de capacités"
+                                                            {{ old('niveau_qualification', $operateurmodule->niveau_qualification) == 'Renforcement de capacités' ? 'selected' : '' }}>
+                                                            Renforcement de capacités
+                                                        </option>
+                                                        <option value="Qualification"
+                                                            {{ old('niveau_qualification', $operateurmodule->niveau_qualification) == 'Qualification' ? 'selected' : '' }}>
+                                                            Qualification
+                                                        </option>
+                                                    </select>
+                                                    @error('niveau_qualification')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <div>{{ $message }}</div>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary btn-sm"
+                                                    data-bs-dismiss="modal">Fermer</button>
+                                                <button type="submit" class="btn btn-primary btn-sm">Modifier</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
 
