@@ -10,7 +10,10 @@ class NumeroAttestationService
 
     public static function generer(string $typeFormation, string $niveauQualification, ?int $annee = null): string
     {
+        /* $annee = $annee ?? now()->year; */
+        /* $annee = $annee ?? now()->format('y'); */
         $annee = $annee ?? now()->year;
+        $annee = substr((string) $annee, -2);
 
         // Initialise le compteur une seule fois, toutes années confondues
         /* if (self::$compteurSession === null) {
@@ -48,13 +51,13 @@ class NumeroAttestationService
         $codeQualification = match (strtolower(trim($niveauQualification))) {
             'attestation'            => 'ATT',
             'titre de qualification' => 'TIT',
-            default                  => 'TIT',
+            default                  => 'X',
         };
 
-        $sequenceFormatee = str_pad(self::$compteurSession, 6, '0', STR_PAD_LEFT);
+        $sequenceFormatee = str_pad(self::$compteurSession, 8, '0', STR_PAD_LEFT);
         /* $base             = "TIT-{$annee}-ONFP-{$sequenceFormatee}"; */
         /* $base             = "ONFP-{$annee}-{$sequenceFormatee}"; */
-        $base = "{$codeQualification}-{$codeType}-{$annee}-{$sequenceFormatee}";
+        $base = "{$annee}{$sequenceFormatee}";
         $checksum         = self::calculerChecksum($base);
 
         /* return "{$base}-{$checksum}"; */
