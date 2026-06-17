@@ -133,9 +133,22 @@ class GenererAttestationsReussiteJob implements ShouldQueue
                 $qrCodeBase64 = base64_encode((new PngWriter())->write(QrCode::create($qrContent)->setSize(150))->getString());
 
                 // Vue
-                $viewName = $typeFormation === 'collective'
+                /* $viewName = $typeFormation === 'collective'
                     ? 'formations.collectives.attestation_reussite'
                     : 'formations.individuelles.attestation_reussite';
+
+                $varName = $typeFormation === 'collective' ? 'listecollective' : 'individuelle'; */
+
+                // Vue : on choisit le template selon le type de formation ET le niveau de qualification
+                $baseView = match ($niveauQualification) {
+                    'Attestation' => 'attestation_reussite',
+                    'Titre de qualification' => 'titre_reussite',
+                    default => 'attestation_reussite',
+                };
+
+                $viewName = $typeFormation === 'collective'
+                    ? 'formations.collectives.' . $baseView
+                    : 'formations.individuelles.' . $baseView;
 
                 $varName = $typeFormation === 'collective' ? 'listecollective' : 'individuelle';
 

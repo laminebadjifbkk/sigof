@@ -545,6 +545,7 @@ class AttestationController extends Controller
         set_time_limit(300);
 
         $formation = Formation::findOrFail($formationId);
+        $niveauQualification = $formation->type_certification; // ← ajout
 
         if ($formation->statut != "Terminée") {
             Alert::warning('Action impossible !', 'La formation n\'est pas encore achevée.');
@@ -626,8 +627,15 @@ class AttestationController extends Controller
                 $writer       = new PngWriter();
                 $qrCodeBase64 = base64_encode($writer->write($qrCode)->getString());
 
+
+                $viewName = match ($niveauQualification) {
+                    'Attestation' => 'formations.individuelles.attestation_reussite',
+                    'Titre de qualification' => 'formations.individuelles.titre_reussite',
+                    default => 'formations.individuelles.attestation_reussite',
+                };
+
                 // Rendu HTML → PDF
-                $html = View::make('formations.individuelles.attestation_reussite', compact(
+                $html = View::make($viewName, compact(
                     'formation',
                     'title',
                     'individuelle',
@@ -1210,6 +1218,7 @@ class AttestationController extends Controller
         set_time_limit(300);
 
         $formation = Formation::findOrFail($formationId);
+        $niveauQualification = $formation->type_certification; // ← ajout
 
         if ($formation->statut != "Terminée") {
             Alert::warning('Action impossible !', 'La formation n\'est pas encore achevée.');
@@ -1292,7 +1301,23 @@ class AttestationController extends Controller
                 $qrCodeBase64 = base64_encode($writer->write($qrCode)->getString());
 
                 // Rendu HTML → PDF
-                $html = View::make('formations.collectives.attestation_reussite', compact(
+                /*  $html = View::make('formations.collectives.attestation_reussite', compact(
+                    'formation',
+                    'title',
+                    'listecollective',
+                    'moduleName',
+                    'nameDG',
+                    'now',
+                    'qrCodeBase64'
+                ))->render(); */
+
+                $viewName = match ($niveauQualification) {
+                    'Attestation' => 'formations.collectives.attestation_reussite',
+                    'Titre de qualification' => 'formations.collectives.titre_reussite',
+                    default => 'formations.collectives.attestation_reussite',
+                };
+
+                $html = View::make($viewName, compact(
                     'formation',
                     'title',
                     'listecollective',

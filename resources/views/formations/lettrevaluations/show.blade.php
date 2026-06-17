@@ -170,7 +170,7 @@
                                                 </a>
                                                 <a href="{{ route('formations.attestations.lancer', $formation->id) }}"
                                                     class="btn btn-outline-secondary btn-sm">
-                                                    Regénérer
+                                                    Regénérer {{ $formation?->type_certification }}
                                                 </a>
                                             @endif
                                             {{-- <a href="{{ route('formations.attestations.reussite.toutes', $formation->id) }}"
