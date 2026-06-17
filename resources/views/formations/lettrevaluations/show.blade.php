@@ -165,7 +165,8 @@
                                                 <meta http-equiv="refresh" content="10">
                                             @else
                                                 <a href="{{ route('formations.attestations.telecharger', $formation->id) }}"
-                                                    class="btn btn-outline-success">
+                                                    class="btn btn-danger">
+                                                    <i class="bi bi-file-earmark-pdf fs-0"></i>
                                                     Télécharger {{ $formation?->type_certification }}
                                                 </a>
                                                 <a href="{{ route('formations.attestations.lancer', $formation->id) }}"
