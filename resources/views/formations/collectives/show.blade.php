@@ -937,7 +937,11 @@
 
                                         <h5 class="card-title">
                                             Structure :
-                                            {{ $formation?->collectivemodule?->collective->name . ' (' . $formation?->collectivemodule?->collective->sigle . ')' }}
+                                            {{ $formation?->collectivemodule?->collective?->name }}
+                                            @if ($formation?->collectivemodule?->collective?->sigle)
+                                                <small
+                                                    class="text-muted">({{ $formation?->collectivemodule?->collective?->sigle }})</small>
+                                            @endif
                                             <a class="btn btn-outline-info btn-sm" title="modifier module"
                                                 href="{{ route('collectives.show', $formation->collectivemodule?->collective) }}"
                                                 target="_blank"><i class="bi bi-eye"></i></a>
