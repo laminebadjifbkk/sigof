@@ -530,7 +530,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Attestation de Réussite — – {{ $listecollective->prenom ?? '' }}
+    <title>Attestation de réussite, {{ $listecollective->prenom ?? '' }}
         {{ $listecollective->nom ?? '' }}</title>
     <style>
         * {
