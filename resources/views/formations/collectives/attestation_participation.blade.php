@@ -653,7 +653,7 @@
             position: relative;
             width: 100%;
             flex: 1;
-            margin-top: 15px;
+            margin-top: 13px;
         }
 
         .watermark {
