@@ -520,16 +520,16 @@
 
                                     <div class="col-8">
                                         <div class="border rounded p-2 h-100 bg-light">
-                                            <small class="text-muted fw-bold">Formation</small>
+                                            <small class="text-muted fw-bold">Formation : {{ $listecollective?->formation?->titre ?? $listecollective?->formation?->referentiel?->titre }}</small>
                                             <div>
                                                 @if (!empty($listecollective->formation))
                                                     <div class="list-group">
                                                         <div
                                                             class="list-group-item d-flex justify-content-between align-items-center">
                                                             <div>
-                                                                <h6 class="fw-semibold mb-1">
+                                                                {{-- <h6 class="fw-semibold mb-1">
                                                                     {{ $listecollective?->formation?->titre ?? $listecollective?->formation?->referentiel?->titre }}
-                                                                </h6>
+                                                                </h6> --}}
                                                                 <div class="text-muted small">
                                                                     <i class="bi bi-book me-1"></i>
                                                                     {{ $listecollective?->formation?->collectivemodule?->module ?? 'Aucun' }}
