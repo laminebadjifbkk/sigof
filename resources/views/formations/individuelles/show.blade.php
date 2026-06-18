@@ -924,7 +924,7 @@
                                                                                             </a>
                                                                                         </li>
                                                                                     @endcan
-                                                                                    @can('attestation-reussite-view')
+                                                                                    {{-- @can('attestation-reussite-view')
                                                                                         <li>
                                                                                             <a href="{{ route('attestationReussite.telecharger', [
                                                                                                 'formation' => $formation->id,
@@ -937,15 +937,7 @@
                                                                                                 Attestation de réussite
                                                                                             </a>
                                                                                         </li>
-
-                                                                                        {{-- <li>
-                                                                                            <a href="{{ route('attestationReussite.telecharger', [$formation->id, $individuelle->id]) }}"
-                                                                                                target="_blank"
-                                                                                                class="btn btn-success">
-                                                                                                Attestation de Réussite
-                                                                                            </a>
-                                                                                        </li> --}}
-                                                                                    @endcan
+                                                                                    @endcan --}}
                                                                                 </ul>
                                                                             </div>
                                                                         </div>

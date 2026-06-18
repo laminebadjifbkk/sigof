@@ -889,7 +889,7 @@
                                                                                             </a>
                                                                                         </li>
                                                                                     @endcan
-                                                                                    @can('attestation-reussite-view')
+                                                                                    {{-- @can('attestation-reussite-view')
                                                                                         <li>
                                                                                             <a href="{{ route('attestationReussiteCollective.telecharger', [
                                                                                                 'formation' => $formation->id,
@@ -902,7 +902,7 @@
                                                                                                 Attestation de réussite
                                                                                             </a>
                                                                                         </li>
-                                                                                    @endcan
+                                                                                    @endcan --}}
                                                                                 </ul>
                                                                             </div>
                                                                         </div>
