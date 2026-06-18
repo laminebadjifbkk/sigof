@@ -62,7 +62,7 @@ class NumeroAttestationService
             default                  => 'X',
         };
 
-        $sequenceFormatee = str_pad((string) $sequence, 7, '0', STR_PAD_LEFT);
+        $sequenceFormatee = str_pad((string) $sequence, 6, '0', STR_PAD_LEFT);
 
         $base     = "{$codeQualification}{$codeType}-{$annee}-{$sequenceFormatee}";
         $checksum = self::calculerChecksum($base);
