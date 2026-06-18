@@ -110,10 +110,139 @@ class AttestationController extends Controller
         ))->render();
 
         $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
 
         $name = 'Attestation_Particpation_' . $individuelle->user->firstname . '_' . $individuelle->user->name . '.pdf';
+        return $dompdf->stream($name, ['Attachment' => true]);
+    }
+
+    // Attestation de participationcollective
+
+    public function telechargerAttestationParticipationCollective(int $formationId, int $collectiveId)
+    {
+        $formation = Formation::findOrFail($formationId);
+        $listecollective = Listecollective::findOrFail($collectiveId);
+
+        if ($formation->statut != "Terminée") {
+            Alert::warning('Action impossible !', 'La formation n\'est pas encore achevée.');
+            return redirect()->back();
+        }
+
+        $title         = 'Attestation de participation ' . $formation->name;
+        $now = \Carbon\Carbon::now();
+        /* $membres_jury  = explode(";", $formation->membres_jury);
+        $count_membres = count($membres_jury); */
+        // ✅ Génération QR PNG sans imagick avec endroid/qr-code
+        if ($formation?->module && $formation?->module?->name) {
+            $moduleName = $formation->module->name;
+        } elseif ($formation?->collectivemodule && $formation?->collectivemodule?->module) {
+            $moduleName = $formation?->collectivemodule?->module;
+        }
+
+        /* $qrContent = "Formation : {$formation?->name}\n" .
+            "Code : {$formation?->code}\n" .
+            "Module : {$moduleName}\n" .
+            "Date : " . $formation?->date_debut?->format('d/m/Y') . " au " . $formation?->date_fin?->format('d/m/Y'); */
+
+        $nameRes = $listecollective->civilite . ' ' . $listecollective->prenom . ' ' . $listecollective->nom;
+
+        $validated_by = new Validationformation([
+            'validated_id'  =>  Auth::user()->id,
+            'action'        => "generer",
+            'motif'        =>  $nameRes,
+            'formations_id' => $formationId,
+        ]);
+
+        $validated_by->save();
+
+        Validationcollective::create([
+            'validated_id'     => Auth::user()->id,
+            'action'           => 'attestation',
+            'motif'           => 'Votre attestation/titre a été généré',
+            'collectives_id' => $listecollective->collective->id,
+        ]);
+
+        /* $numeroAttestation = NumeroAttestationService::generer($formation->annee ?? $formation->date_fin?->year); */
+
+        $typeFormation = $formation->types_formation->name;
+        $niveauQualification = $formation->type_certification;
+
+        $numeroAttestation = NumeroAttestationService::generer(
+            $typeFormation,
+            $niveauQualification,
+            $formation->annee ?? $formation->date_fin?->year
+        );
+
+        /* $listecollective->update([
+            'attestation' => 'generer', // ou la valeur souhaitée
+            'numero_attestation'   => $numeroAttestation,
+        ]); */
+
+        // ✅ Généré à chaque itération
+        if (!$listecollective->numero_attestation) {
+            /* $numeroAttestation = NumeroAttestationService::generer(
+                $formation->annee ?? $formation->date_fin?->year
+            ); */
+
+            /* $typeFormation = $formation->types_formation->name;
+            $niveauQualification = $formation->type_certification; */
+
+            $numeroAttestation = NumeroAttestationService::generer(
+                $typeFormation,
+                $niveauQualification,
+                $formation->annee ?? $formation->date_fin?->year
+            );
+
+            $listecollective->update([
+                'attestation'        => 'generer',
+                'numero_attestation' => $numeroAttestation,
+            ]);
+        } else {
+            $numeroAttestation = $listecollective->numero_attestation;
+            $listecollective->update(['attestation' => 'generer']);
+        }
+
+        // Remplacer votre bloc $qrContent par :
+        $payload = implode('|', [
+            $formation->id,
+            $listecollective->id,
+            $listecollective->collective->user->id,
+            $formation->date_fin?->format('Y-m-d'),
+        ]);
+
+        $secret    = config('app.attestation_secret');
+        $signature = hash_hmac('sha256', $payload, $secret);
+        $token     = base64_encode($payload . '::' . $signature);
+
+        $qrContent = route('attestationCollective.verifier', ['token' => $token]);
+        //FIN
+
+        $qrCode       = QrCode::create($qrContent)->setSize(250)->setMargin(0);
+        $writer       = new PngWriter();
+        $result       = $writer->write($qrCode);
+        $qrCodeBase64 = base64_encode($result->getString());
+
+        $dompdf  = new Dompdf();
+        $options = $dompdf->getOptions();
+        $options->setDefaultFont('DejaVu Sans');
+        $dompdf->setOptions($options);
+
+
+        $html = View::make('formations.collectives.attestation_participation', compact(
+            'formation',
+            'title',
+            'listecollective',
+            'moduleName',
+            'now',
+            'qrCodeBase64'
+        ))->render();
+
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+
+        $name = 'Attestation_Particpation_' . $listecollective->prenom . '_' . $listecollective->nom . '.pdf';
         return $dompdf->stream($name, ['Attachment' => true]);
     }
 
@@ -696,135 +825,6 @@ class AttestationController extends Controller
                 @rmdir($tmpDir);
             }
         }
-    }
-
-    // Attestation de participationcollective
-
-    public function telechargerAttestationParticipationCollective(int $formationId, int $collectiveId)
-    {
-        $formation = Formation::findOrFail($formationId);
-        $listecollective = Listecollective::findOrFail($collectiveId);
-
-        if ($formation->statut != "Terminée") {
-            Alert::warning('Action impossible !', 'La formation n\'est pas encore achevée.');
-            return redirect()->back();
-        }
-
-        $title         = 'Attestation de participation ' . $formation->name;
-        $now = \Carbon\Carbon::now();
-        /* $membres_jury  = explode(";", $formation->membres_jury);
-        $count_membres = count($membres_jury); */
-        // ✅ Génération QR PNG sans imagick avec endroid/qr-code
-        if ($formation?->module && $formation?->module?->name) {
-            $moduleName = $formation->module->name;
-        } elseif ($formation?->collectivemodule && $formation?->collectivemodule?->module) {
-            $moduleName = $formation?->collectivemodule?->module;
-        }
-
-        /* $qrContent = "Formation : {$formation?->name}\n" .
-            "Code : {$formation?->code}\n" .
-            "Module : {$moduleName}\n" .
-            "Date : " . $formation?->date_debut?->format('d/m/Y') . " au " . $formation?->date_fin?->format('d/m/Y'); */
-
-        $nameRes = $listecollective->civilite . ' ' . $listecollective->prenom . ' ' . $listecollective->nom;
-
-        $validated_by = new Validationformation([
-            'validated_id'  =>  Auth::user()->id,
-            'action'        => "generer",
-            'motif'        =>  $nameRes,
-            'formations_id' => $formationId,
-        ]);
-
-        $validated_by->save();
-
-        Validationcollective::create([
-            'validated_id'     => Auth::user()->id,
-            'action'           => 'attestation',
-            'motif'           => 'Votre attestation/titre a été généré',
-            'collectives_id' => $listecollective->collective->id,
-        ]);
-
-        /* $numeroAttestation = NumeroAttestationService::generer($formation->annee ?? $formation->date_fin?->year); */
-
-        $typeFormation = $formation->types_formation->name;
-        $niveauQualification = $formation->type_certification;
-
-        $numeroAttestation = NumeroAttestationService::generer(
-            $typeFormation,
-            $niveauQualification,
-            $formation->annee ?? $formation->date_fin?->year
-        );
-
-        /* $listecollective->update([
-            'attestation' => 'generer', // ou la valeur souhaitée
-            'numero_attestation'   => $numeroAttestation,
-        ]); */
-
-        // ✅ Généré à chaque itération
-        if (!$listecollective->numero_attestation) {
-            /* $numeroAttestation = NumeroAttestationService::generer(
-                $formation->annee ?? $formation->date_fin?->year
-            ); */
-
-            /* $typeFormation = $formation->types_formation->name;
-            $niveauQualification = $formation->type_certification; */
-
-            $numeroAttestation = NumeroAttestationService::generer(
-                $typeFormation,
-                $niveauQualification,
-                $formation->annee ?? $formation->date_fin?->year
-            );
-
-            $listecollective->update([
-                'attestation'        => 'generer',
-                'numero_attestation' => $numeroAttestation,
-            ]);
-        } else {
-            $numeroAttestation = $listecollective->numero_attestation;
-            $listecollective->update(['attestation' => 'generer']);
-        }
-
-        // Remplacer votre bloc $qrContent par :
-        $payload = implode('|', [
-            $formation->id,
-            $listecollective->id,
-            $listecollective->collective->user->id,
-            $formation->date_fin?->format('Y-m-d'),
-        ]);
-
-        $secret    = config('app.attestation_secret');
-        $signature = hash_hmac('sha256', $payload, $secret);
-        $token     = base64_encode($payload . '::' . $signature);
-
-        $qrContent = route('attestationCollective.verifier', ['token' => $token]);
-        //FIN
-
-        $qrCode       = QrCode::create($qrContent)->setSize(250)->setMargin(0);
-        $writer       = new PngWriter();
-        $result       = $writer->write($qrCode);
-        $qrCodeBase64 = base64_encode($result->getString());
-
-        $dompdf  = new Dompdf();
-        $options = $dompdf->getOptions();
-        $options->setDefaultFont('DejaVu Sans');
-        $dompdf->setOptions($options);
-
-
-        $html = View::make('formations.collectives.attestation_participation', compact(
-            'formation',
-            'title',
-            'listecollective',
-            'moduleName',
-            'now',
-            'qrCodeBase64'
-        ))->render();
-
-        $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4', 'portrait');
-        $dompdf->render();
-
-        $name = 'Attestation_Particpation_' . $listecollective->prenom . '_' . $listecollective->nom . '.pdf';
-        return $dompdf->stream($name, ['Attachment' => true]);
     }
 
     public function verifierCollective(Request $request)
