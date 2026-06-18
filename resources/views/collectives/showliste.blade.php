@@ -527,9 +527,9 @@
                                                         <div
                                                             class="list-group-item d-flex justify-content-between align-items-center">
                                                             <div>
-                                                                <h6 class="fw-semibold mb-1">
+                                                                {{-- <h6 class="fw-semibold mb-1">
                                                                     {{ $listecollective?->formation?->titre ?? $listecollective?->formation?->referentiel?->titre }}
-                                                                </h6>
+                                                                </h6> --}}
                                                                 <div class="text-muted small">
                                                                     <i class="bi bi-book me-1"></i>
                                                                     {{ $listecollective?->formation?->collectivemodule?->module ?? 'Aucun' }}
@@ -549,11 +549,11 @@
                                                                         ];
 
                                                                         $color =
-                                                                            $colors[$listecollective?->formation->statut] ?? 'secondary';
+                                                                            $colors[$listecollective?->formation?->statut] ?? 'secondary';
                                                                     @endphp
 
                                                                     <span class="badge bg-{{ $color }}">
-                                                                        {{ $listecollective?->formation->statut ?? ' ' }}
+                                                                        {{ $listecollective?->formation?->statut ?? ' ' }}
                                                                     </span>
 
                                                                 </div>
