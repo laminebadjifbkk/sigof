@@ -499,7 +499,7 @@
 
         {{-- QR code en bas à gauche --}}
         <div class="qr-zone">
-            <p><strong>Vérifier l'authenticité</strong></p>
+            {{-- <p><strong>Vérifier l'authenticité</strong></p> --}}
             <img src="data:image/png;base64,{{ $qrCodeBase64 }}" alt="QR Code">
         </div>
 
