@@ -1012,8 +1012,8 @@
                         </span>
                     </p>
                     <p class="text-intro">
-                        En foi de quoi, la présente attestation est délivrée pour certifier la participation
-                        effective du bénéficiaire à ladite formation.
+                        En foi de quoi, la présente attestation est délivrée pour attester de la participation effective
+                        du bénéficiaire à la formation susmentionnée.
                     </p>
                     {{-- <p class="text-intro-numero"><strong>{{ $listecollective?->numero_attestation }}</strong></p> --}}
                 </div>
