@@ -179,8 +179,7 @@
                                     </div>
 
                                     <div class="col-12 col-md-4 mb-0">
-                                        <label for="sigle" class="form-label">Sigle<span
-                                                class="text-danger mx-1">*</span></label>
+                                        <label for="sigle" class="form-label">Sigle</label>
                                         <input type="text" name="sigle" value="{{ old('sigle') }}"
                                             class="form-control form-control-sm @error('sigle') is-invalid @enderror"
                                             id="sigle" placeholder="Sigle ou abréviation">

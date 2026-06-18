@@ -278,7 +278,7 @@ class CollectiveController extends Controller
             "name"                  => ["required", "string", Rule::unique('collectives')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
-            "sigle"                 => ["required", "string", Rule::unique('collectives')->where(function ($query) {
+            "sigle"                 => ["nullable", "string", Rule::unique('collectives')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
             "email"                 => ["required", "string", Rule::unique('collectives')->where(function ($query) {
@@ -306,6 +306,9 @@ class CollectiveController extends Controller
             "email_responsable"     => ["required", "string", Rule::unique('collectives')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
+        ],  [
+            'description.min' => 'La description doit contenir au moins 200 caractères.',
+            'projetprofessionnel.min' => 'Le projet professionnel doit contenir au moins 200 caractères.',
         ]);
 
         $user = Auth::user();

@@ -403,7 +403,7 @@
 
                             <div class="card shadow-lg border-0">
                                 <div class="card-header bg-default text-center py-2 rounded-top">
-                                    <h4 class="mb-0">➕ Formuler une demande de formation collective</h4>
+                                    <h4 class="mb-0">Formuler une demande de formation collective</h4>
                                 </div>
                                 <div class="modal-body">
                                     <h5 class="text-primary fw-semibold mb-3">Informations de la structure</h5>
@@ -422,8 +422,7 @@
                                         </div>
 
                                         <div class="col-12 col-lg-6">
-                                            <label for="sigle" class="form-label">Sigle<span
-                                                    class="text-danger mx-1">*</span></label>
+                                            <label for="sigle" class="form-label">Sigle</label>
                                             <input type="text" name="sigle" value="{{ old('sigle') }}"
                                                 class="form-control form-control-sm @error('sigle') is-invalid @enderror"
                                                 id="sigle" placeholder="Sigle ou abréviation">
@@ -437,7 +436,8 @@
                                         <div class="col-12 col-lg-6">
                                             <label for="email" class="form-label">Email<span
                                                     class="text-danger mx-1">*</span></label>
-                                            <input type="email" name="email" value="{{ old('email') }}"
+                                            <input type="email" name="email"
+                                                value="{{ old('email', auth()?->user()?->email) }}"
                                                 class="form-control form-control-sm @error('email') is-invalid @enderror"
                                                 id="email" placeholder="Adresse email">
                                             @error('email')
@@ -579,10 +579,12 @@
                                         <div class="col-12  mb-0">
                                             <label for="description" class="form-label">Description de l'organisation<span
                                                     class="text-danger mx-1">*</span></label>
-                                            <textarea name="description" id="description" rows="2" minlength="200" maxlength="500"
+                                            <textarea name="description" id="description" rows="5" minlength="200" maxlength="500"
                                                 class="form-control form-control-sm @error('description') is-invalid @enderror"
                                                 placeholder="Faire un résumé de la description de l'organisation, de ses activités et de ses réalisations">{{ old('description') }}</textarea>
-
+                                            <small class="text-muted">
+                                                <span id="description-count">0</span>/200 caractères minimum
+                                            </small>
                                             @error('description')
                                                 <span class="invalid-feedback" role="alert">
                                                     <div>{{ $message }}</div>
@@ -593,10 +595,12 @@
                                         <div class="col-12  mb-0">
                                             <label for="projetprofessionnel" class="form-label">Projet professionnel<span
                                                     class="text-danger mx-1">*</span></label>
-                                            <textarea name="projetprofessionnel" id="projetprofessionnel" rows="2" minlength="200" maxlength="500"
+                                            <textarea name="projetprofessionnel" id="projetprofessionnel" rows="5" minlength="200" maxlength="500"
                                                 class="form-control form-control-sm @error('projetprofessionnel') is-invalid @enderror"
                                                 placeholder="Faire un résumé de la description détaillée du projet professionnel et de l'effet attendu après la formation">{{ old('projetprofessionnel') }}</textarea>
-
+                                            <small class="text-muted">
+                                                <span id="description-count">0</span>/200 caractères minimum
+                                            </small>
                                             @error('projetprofessionnel')
                                                 <span class="invalid-feedback" role="alert">
                                                     <div>{{ $message }}</div>
