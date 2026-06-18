@@ -6,46 +6,54 @@ use Illuminate\Support\Facades\DB;
 
 class NumeroAttestationService
 {
-    private static ?int $compteurSession = null;
-
+    /**
+     * Génère un numéro d'attestation unique, en incrémentant
+     * de façon atomique le compteur de l'année en base de données.
+     *
+     * Aucun état n'est conservé en mémoire PHP : chaque appel
+     * incrémente réellement le compteur. Il faut donc l'appeler
+     * une seule fois par attestation réellement créée, jamais
+     * pour un simple aperçu.
+     */
     public static function generer(string $typeFormation, string $niveauQualification, ?int $annee = null): string
     {
-        /* $annee = $annee ?? now()->year; */
-        /* $annee = $annee ?? now()->format('y'); */
         $annee = $annee ?? now()->year;
-        $annee = substr((string) $annee, -2);
 
-        // Initialise le compteur une seule fois, toutes années confondues
-        /* if (self::$compteurSession === null) {
-            self::$compteurSession = DB::table('listecollectives')
-                ->whereNotNull('numero_attestation')
-                ->count()
-                + DB::table('individuelles')
-                ->whereNotNull('numero_attestation')
-                ->count();
-        } */
+        $sequence = DB::transaction(function () use ($annee) {
+            // Verrouille la ligne de l'année (ou la crée si elle n'existe pas)
+            // pour empêcher deux requêtes concurrentes d'obtenir le même numéro.
+            $row = DB::table('sequences_attestations')
+                ->where('annee', $annee)
+                ->lockForUpdate()
+                ->first();
 
-        if (self::$compteurSession === null) {
-            $maxCollective = DB::table('listecollectives')
-                ->whereNotNull('numero_attestation')
-                ->selectRaw("MAX(CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(numero_attestation, '-', -2), '-', 1) AS UNSIGNED)) as max_seq")
-                ->value('max_seq') ?? 0;
+            if (!$row) {
+                DB::table('sequences_attestations')->insert([
+                    'annee'          => $annee,
+                    'dernier_numero' => 1,
+                    'created_at'     => now(),
+                    'updated_at'     => now(),
+                ]);
 
-            $maxIndividuelle = DB::table('individuelles')
-                ->whereNotNull('numero_attestation')
-                ->selectRaw("MAX(CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(numero_attestation, '-', -2), '-', 1) AS UNSIGNED)) as max_seq")
-                ->value('max_seq') ?? 0;
+                return 1;
+            }
 
-            self::$compteurSession = max($maxCollective, $maxIndividuelle);
-        }
+            $nouveauNumero = $row->dernier_numero + 1;
 
-        self::$compteurSession++;
+            DB::table('sequences_attestations')
+                ->where('annee', $annee)
+                ->update([
+                    'dernier_numero' => $nouveauNumero,
+                    'updated_at'     => now(),
+                ]);
 
+            return $nouveauNumero;
+        });
 
         $codeType = match (strtolower($typeFormation)) {
-            'collective'  => 'C',
+            'collective'   => 'C',
             'individuelle' => 'I',
-            default       => 'X',
+            default        => 'X',
         };
 
         $codeQualification = match (strtolower(trim($niveauQualification))) {
@@ -54,20 +62,25 @@ class NumeroAttestationService
             default                  => 'X',
         };
 
-        $sequenceFormatee = str_pad(self::$compteurSession, 7, '0', STR_PAD_LEFT);
-        /* $base             = "TIT-{$annee}-ONFP-{$sequenceFormatee}"; */
-        /* $base             = "ONFP-{$annee}-{$sequenceFormatee}"; */
-        /* $base = "{$codeQualification}-{$codeType}-{$annee}{$sequenceFormatee}"; */
-        $base = "{$codeQualification}{$codeType}-{$annee}{$sequenceFormatee}";
-        $checksum         = self::calculerChecksum($base);
+        $sequenceFormatee = str_pad((string) $sequence, 7, '0', STR_PAD_LEFT);
 
-        /* return "{$base}-{$checksum}"; */
+        $base     = "{$codeQualification}{$codeType}-{$annee}-{$sequenceFormatee}";
+        $checksum = self::calculerChecksum($base);
+
         return "{$base}-{$checksum}";
     }
 
-    public static function reset(): void
+    /**
+     * Remet à zéro le compteur d'une année donnée.
+     * À utiliser uniquement en cas de réinitialisation volontaire (ex: tests, reset manuel).
+     */
+    public static function reset(?int $annee = null): void
     {
-        self::$compteurSession = null;
+        $annee = $annee ?? now()->year;
+
+        DB::table('sequences_attestations')
+            ->where('annee', $annee)
+            ->update(['dernier_numero' => 0]);
     }
 
     private static function calculerChecksum(string $chaine): string
@@ -81,8 +94,11 @@ class NumeroAttestationService
 
     public static function verifier(string $numero): bool
     {
-        $parts = explode('-', $numero);
-        if (count($parts) !== 5) return false;
+        $parts = explode('-', $numero); // ex: AI-2025-0000002-B => 4 segments
+
+        if (count($parts) !== 4) {
+            return false;
+        }
 
         $checksum = array_pop($parts);
         $base     = implode('-', $parts);
