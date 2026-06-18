@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', $collectivemodule?->collective?->sigle . ' - Liste des bénéficiaires en ' .
+@section('title', $collectivemodule?->collective?->name . ' - Liste des bénéficiaires en ' .
     $collectivemodule?->module)
 @section('space-work')
     <section class="section">
@@ -12,7 +12,7 @@
                             <li class="breadcrumb-item"><a href="{{ url('/home') }}">Accueil</a></li>
                             <li class="breadcrumb-item">Tables</li>
                             <li class="breadcrumb-item active">
-                                {{ $collectivemodule?->collective?->sigle . ' - Liste des bénéficiaires en ' . $collectivemodule?->module }}
+                                {{ $collectivemodule?->collective?->name . ' - Liste des bénéficiaires en ' . $collectivemodule?->module }}
                             </li>
                         </ol>
                     </nav>
