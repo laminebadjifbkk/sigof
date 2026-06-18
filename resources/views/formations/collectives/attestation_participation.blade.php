@@ -748,7 +748,7 @@
         .footer {
             position: absolute;
             right: 20mm;
-            bottom: 38mm;
+            bottom: 40mm;
             /* augmente cette valeur */
             /* ajuste selon ton cadre */
             width: auto;

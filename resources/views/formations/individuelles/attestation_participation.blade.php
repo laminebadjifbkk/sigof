@@ -118,7 +118,7 @@
             margin-top: 2mm;
             font-family: 'Old London', serif;
             text-align: center;
-            margin-bottom: 10mm;
+            margin-bottom: 7mm;
         }
 
         /* ── Zone centrale : cercles décoratifs + texte ── */
@@ -221,7 +221,7 @@
         .footer {
             position: absolute;
             right: 20mm;
-            bottom: 38mm;
+            bottom: 40mm;
             /* augmente cette valeur */
             /* ajuste selon ton cadre */
             width: auto;
