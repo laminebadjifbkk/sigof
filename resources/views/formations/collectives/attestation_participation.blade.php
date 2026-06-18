@@ -748,7 +748,7 @@
         .footer {
             position: absolute;
             right: 20mm;
-            bottom: 16mm;
+            bottom: 50mm;
             /* augmente cette valeur */
             /* ajuste selon ton cadre */
             width: auto;
@@ -913,6 +913,23 @@
             font-weight: bold;
             font-style: italic;
         }
+
+        .signature-block .titre-sig {
+            font-size: 12pt;
+            font-weight: bold;
+            margin: 5mm 0 2mm 0;
+            /* 38mm → 2mm : "ou son représentant" doit suivre de près */
+        }
+
+        .signature-block .ou-representant {
+            font-size: 10pt;
+            font-weight: normal;
+            font-style: italic;
+            margin: 0;
+            /* plus besoin du -3mm compensatoire */
+            padding: 0;
+            line-height: 1;
+        }
     </style>
 </head>
 
@@ -982,11 +999,11 @@
                             @if ($listecollective->lieu_naissance ?? null)
                                 à {{ $listecollective->lieu_naissance }}
                             @endif
-                            a suivi avec succès la formation en
+                            a effectivement suivi la formation en
                         </span>
                         <span class="line-two">
                             <span class="formation-intitule">{{ $formation->intitule }}</span>
-                            qui s'est déroulée {{ $formation->periode_formatee }}
+                            organisée {{ $formation->periode_formatee }}
                             @if ($formation->lieu ?? null)
                                 à {{ strtoupper($formation->lieu) }}.
                             @else
@@ -995,7 +1012,8 @@
                         </span>
                     </p>
                     <p class="text-intro">
-                        En foi de quoi, la présente attestation lui est délivrée pour servir et valoir ce que de droit.
+                        En foi de quoi, la présente attestation est délivrée pour certifier la participation
+                        effective du bénéficiaire à ladite formation.
                     </p>
                     {{-- <p class="text-intro-numero"><strong>{{ $listecollective?->numero_attestation }}</strong></p> --}}
                 </div>
@@ -1005,10 +1023,10 @@
             <div class="footer">
                 <div class="signature-block">
                     <div class="fait-le">
-                        Fait le {{ $now->translatedFormat('d F Y') }}
+                        Fait à Dakar, le {{ $now->translatedFormat('d F Y') }}
                     </div>
                     <div class="titre-sig">Le Directeur général</div>
-                    {{-- <div class="nom-sig">{{ $nameDG }}</div> --}}
+                    <div class="ou-representant">ou son représentant</div>
                 </div>
             </div>
 
