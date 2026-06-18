@@ -522,7 +522,7 @@
                                         <div class="border rounded p-2 h-100 bg-light">
                                             <small class="text-muted fw-bold">Formation</small>
                                             <div>
-                                                {{-- @if (!empty($listecollective->formation))
+                                                @if (!empty($listecollective->formation))
                                                     <div class="list-group">
                                                         <div
                                                             class="list-group-item d-flex justify-content-between align-items-center">
@@ -561,7 +561,7 @@
                                                             @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
                                                                 <div class="d-flex align-items-center gap-2">
                                                                     @can('formation-show')
-                                                                        <a href="{{ route('formations.show', $formation) }}"
+                                                                        <a href="{{ route('formations.show', $listecollective?->formation) }}"
                                                                             class="btn btn-sm btn-outline-primary"
                                                                             title="Voir détails">
                                                                             <i class="bi bi-eye"></i>
@@ -575,7 +575,7 @@
                                                     <div class="alert alert-info small">Aucune formation pour le
                                                         moment.
                                                     </div>
-                                                @endif --}}
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
