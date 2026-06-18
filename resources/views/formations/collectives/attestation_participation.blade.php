@@ -645,7 +645,7 @@
             margin-top: 2mm;
             font-family: 'Old London', serif;
             text-align: center;
-            margin-bottom: 10mm;
+            margin-bottom: 7mm;
         }
 
         /* ── Zone centrale : cercles décoratifs + texte ── */
@@ -653,7 +653,7 @@
             position: relative;
             width: 100%;
             flex: 1;
-            margin-top: 13px;
+            margin-top: 15px;
         }
 
         .watermark {
