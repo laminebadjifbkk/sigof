@@ -232,7 +232,7 @@ class AttestationController extends Controller
             'individuelles_id' => $individuelle->id,
         ]);
 
-        /* $numeroAttestation = NumeroAttestationService::generer($formation->annee ?? now()->year); */
+        /* $numeroAttestation = NumeroAttestationService::generer($formation->annee ?? $formation->date_fin?->year); */
         $typeFormation = $formation->types_formation->name;
         $niveauQualification = $formation->type_certification;
 
@@ -243,13 +243,13 @@ class AttestationController extends Controller
 
         if (!$individuelle->numero_attestation) {
             /* $numeroAttestation = NumeroAttestationService::generer(
-                $formation->annee ?? now()->year
+                $formation->annee ?? $formation->date_fin?->year
             ); */
 
             $numeroAttestation = NumeroAttestationService::generer(
                 $typeFormation,
                 $niveauQualification,
-                $formation->annee ?? now()->year
+                $formation->annee ?? $formation->date_fin?->year
             );
 
             $individuelle->update([
@@ -744,7 +744,7 @@ class AttestationController extends Controller
             'collectives_id' => $listecollective->collective->id,
         ]);
 
-        /* $numeroAttestation = NumeroAttestationService::generer($formation->annee ?? now()->year); */
+        /* $numeroAttestation = NumeroAttestationService::generer($formation->annee ?? $formation->date_fin?->year); */
 
         $typeFormation = $formation->types_formation->name;
         $niveauQualification = $formation->type_certification;
@@ -752,7 +752,7 @@ class AttestationController extends Controller
         $numeroAttestation = NumeroAttestationService::generer(
             $typeFormation,
             $niveauQualification,
-            $formation->annee ?? now()->year
+            $formation->annee ?? $formation->date_fin?->year
         );
 
         /* $listecollective->update([
@@ -763,7 +763,7 @@ class AttestationController extends Controller
         // ✅ Généré à chaque itération
         if (!$listecollective->numero_attestation) {
             /* $numeroAttestation = NumeroAttestationService::generer(
-                $formation->annee ?? now()->year
+                $formation->annee ?? $formation->date_fin?->year
             ); */
 
             /* $typeFormation = $formation->types_formation->name;
@@ -772,7 +772,7 @@ class AttestationController extends Controller
             $numeroAttestation = NumeroAttestationService::generer(
                 $typeFormation,
                 $niveauQualification,
-                $formation->annee ?? now()->year
+                $formation->annee ?? $formation->date_fin?->year
             );
 
             $listecollective->update([
@@ -908,19 +908,19 @@ class AttestationController extends Controller
             'attestation' => 'generer', // ou la valeur souhaitée
         ]); */
 
-        /* $numeroAttestation = NumeroAttestationService::generer($formation->annee ?? now()->year); */
+        /* $numeroAttestation = NumeroAttestationService::generer($formation->annee ?? $formation->date_fin?->year); */
         $typeFormation = $formation->types_formation->name;
         $niveauQualification = $formation->type_certification;
 
         if (!$listecollective->numero_attestation) {
             /* $numeroAttestation = NumeroAttestationService::generer(
-                $formation->annee ?? now()->year
+                $formation->annee ?? $formation->date_fin?->year
             ); */
 
             $numeroAttestation = NumeroAttestationService::generer(
                 $typeFormation,
                 $niveauQualification,
-                $formation->annee ?? now()->year
+                $formation->annee ?? $formation->date_fin?->year
             );
             $listecollective->update([
                 'attestation'        => 'generer',
