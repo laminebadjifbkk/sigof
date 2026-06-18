@@ -603,7 +603,7 @@
                                                                         {{ $formation->module->name ?? ($formation->collectivemodule->module ?? 'Aucun') }}
                                                                         |
                                                                         <i class="bi bi-person-workspace me-1"></i>
-                                                                        {{ $formation?->operateur?->user?->username ?? ' ' }}
+                                                                        {{ $formation?->operateur?->user?->display_operateur ?? ' ' }}
                                                                         |
                                                                         <i class="bi bi-flag me-1"></i>
 

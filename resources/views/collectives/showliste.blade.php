@@ -1,6 +1,5 @@
 @extends('layout.user-layout')
-@section('title', $collectivemodule?->collective?->name . ', Liste des bénéficiaires en ' .
-    $collectivemodule?->module)
+@section('title', $collectivemodule?->collective?->name . ', Liste des bénéficiaires en ' . $collectivemodule?->module)
 @section('space-work')
     <section class="section">
         <div class="row justify-content-center">
@@ -515,6 +514,68 @@
                                                     class="badge bg-{{ $listecollective->statut == 'Nouvelle' ? 'warning' : 'success' }}">
                                                     {{ $listecollective->statut }}
                                                 </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-md-4">
+                                        <div class="border rounded p-2 h-100 bg-light">
+                                            <small class="text-muted fw-bold">Formation</small>
+                                            <div>
+                                                @if (!empty($listecollective->formation))
+                                                    <div class="list-group">
+                                                        <div
+                                                            class="list-group-item d-flex justify-content-between align-items-center">
+                                                            <div>
+                                                                <h6 class="fw-semibold mb-1">
+                                                                    {{ $listecollective?->formation?->titre ?? $listecollective?->formation?->referentiel?->titre }}
+                                                                </h6>
+                                                                <div class="text-muted small">
+                                                                    <i class="bi bi-book me-1"></i>
+                                                                    {{ $listecollective?->formation?->collectivemodule?->module ?? 'Aucun' }}
+                                                                    |
+                                                                    <i class="bi bi-person-workspace me-1"></i>
+                                                                    {{ $listecollective?->formation?->operateur?->user?->display_operateur ?? ' ' }}
+                                                                    |
+                                                                    <i class="bi bi-flag me-1"></i>
+
+                                                                    @php
+                                                                        $colors = [
+                                                                            'Terminée' => 'success',
+                                                                            'Nouvelle' => 'primary',
+                                                                            'formé' => 'info',
+                                                                            'En cours' => 'warning',
+                                                                            'Annulée' => 'danger',
+                                                                        ];
+
+                                                                        $color =
+                                                                            $colors[$listecollective?->formation->statut] ?? 'secondary';
+                                                                    @endphp
+
+                                                                    <span class="badge bg-{{ $color }}">
+                                                                        {{ $listecollective?->formation->statut ?? ' ' }}
+                                                                    </span>
+
+                                                                </div>
+                                                            </div>
+                                                            @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
+                                                                <div class="d-flex align-items-center gap-2">
+                                                                    @can('formation-show')
+                                                                        <a href="{{ route('formations.show', $formation) }}"
+                                                                            class="btn btn-sm btn-outline-primary"
+                                                                            title="Voir détails">
+                                                                            <i class="bi bi-eye"></i>
+                                                                        </a>
+                                                                    @endcan
+                                                                </div>
+                                                            @endhasanyrole
+                                                        </div>
+                                                    </div>
+                                                @else
+                                                    <div class="alert alert-info small">Aucune formation pour le
+                                                        moment.
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
