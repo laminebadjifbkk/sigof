@@ -43,21 +43,22 @@ class NumeroAttestationService
 
 
         $codeType = match (strtolower($typeFormation)) {
-            'collective'  => 'COL',
-            'individuelle' => 'IND',
+            'collective'  => 'C',
+            'individuelle' => 'I',
             default       => 'X',
         };
 
         $codeQualification = match (strtolower(trim($niveauQualification))) {
-            'attestation'            => 'ATT',
-            'titre de qualification' => 'TIT',
+            'attestation'            => 'A',
+            'titre de qualification' => 'T',
             default                  => 'X',
         };
 
-        $sequenceFormatee = str_pad(self::$compteurSession, 8, '0', STR_PAD_LEFT);
+        $sequenceFormatee = str_pad(self::$compteurSession, 7, '0', STR_PAD_LEFT);
         /* $base             = "TIT-{$annee}-ONFP-{$sequenceFormatee}"; */
         /* $base             = "ONFP-{$annee}-{$sequenceFormatee}"; */
-        $base = "{$annee}{$sequenceFormatee}";
+        /* $base = "{$codeQualification}-{$codeType}-{$annee}{$sequenceFormatee}"; */
+        $base = "{$codeQualification}{$codeType}-{$annee}{$sequenceFormatee}";
         $checksum         = self::calculerChecksum($base);
 
         /* return "{$base}-{$checksum}"; */
