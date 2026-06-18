@@ -518,7 +518,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12">
+                                    <div class="col-8">
                                         <div class="border rounded p-2 h-100 bg-light">
                                             <small class="text-muted fw-bold">Formation</small>
                                             <div>
