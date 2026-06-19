@@ -207,6 +207,12 @@
                                         <option value="Coopérative">
                                             Coopérative
                                         </option>
+                                        <option value="COLLECTIVITE TERRITORIALE">
+                                           COLLECTIVITE TERRITORIALE
+                                        </option>
+                                        <option value="PROFESSION LIBERALE">
+                                            PROFESSION LIBERALE
+                                        </option>
                                         <option value="Autre">
                                             Autre
                                         </option>
