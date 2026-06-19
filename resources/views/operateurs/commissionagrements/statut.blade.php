@@ -123,7 +123,7 @@
                                                 <th width="50%">Opérateurs</th>
                                                 {{-- <th width="10%">Sigle</th> --}}
                                                 <th class="text-center">Modules</th>
-                                                <th width="15%" class="text-center">Statut</th>
+                                                {{-- <th width="15%" class="text-center">Statut</th> --}}
                                                 <th><i class="bi bi-gear"></i></th>
                                             </tr>
                                         </thead>
@@ -150,10 +150,10 @@
                                                                     class="badge bg-warning">{{ $operateur->operateurmodules->count() }}</span></a>
                                                         @endif
                                                     </td>
-                                                    <td class="text-center">
+                                                    {{-- <td class="text-center">
                                                         <span
                                                             class="{{ $operateur->statut_agrement }}">{{ $operateur->statut_agrement }}</span>
-                                                    </td>
+                                                    </td> --}}
                                                     <td>
                                                         <span class="d-flex align-items-baseline"><a
                                                                 href="{{ route('agrements', ['id' => $operateur?->id]) }}"
