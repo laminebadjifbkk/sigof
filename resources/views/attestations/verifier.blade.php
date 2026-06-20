@@ -180,7 +180,7 @@
 
         {{-- Formulaire --}}
         <div class="card-body">
-            <h2>Vérification d'attestation et titres</h2>
+            <h2>Vérification attestations et titres</h2>
             <p class="subtitle">Saisissez le numéro figurant sous le QR code</p>
 
             @if (session('error'))
