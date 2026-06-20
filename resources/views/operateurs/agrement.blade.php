@@ -718,7 +718,8 @@
                                                 </span>
 
                                                 <div>
-                                                    <a href="{{ route('operateurs.show', $operateur) }}" target="_blank"
+                                                    {{-- <a href="{{ route('operateurs.show', $operateur) }}" target="_blank" --}}
+                                                    <a href="{{ route('showModule', $operateur) }}" target="_blank"
                                                         class="btn btn-sm btn-outline-success me-1"
                                                         title="Ajouter/Modifier">
                                                         <i class="bi bi-pencil-square me-1"></i> Ajouter /
@@ -738,7 +739,7 @@
                                                         style="transform: translateX(-50%);">{{ count($operateur->operateureferences) }}</span>
                                                 </div>
                                                 <div>
-                                                    <a href="{{ route('showReference', $operateur->uuid) }}"
+                                                    <a href="{{ route('showReference', $operateur) }}"
                                                         target="_blank" class="btn btn-sm btn-outline-success me-1"
                                                         title="Ajouter/Modifier">
                                                         <i class="bi bi-pencil-square me-1"></i> Ajouter /
@@ -758,7 +759,7 @@
                                                         style="transform: translateX(-50%);">{{ count($operateur->operateurequipements) }}</span>
                                                 </div>
                                                 <div>
-                                                    <a href="{{ route('showEquipement', $operateur->uuid) }}"
+                                                    <a href="{{ route('showEquipement', $operateur) }}"
                                                         target="_blank" class="btn btn-sm btn-outline-success me-1"
                                                         title="Ajouter/Modifier">
                                                         <i class="bi bi-pencil-square me-1"></i> Ajouter /
@@ -777,7 +778,7 @@
                                                         style="transform: translateX(-50%);">{{ count($operateur->operateurformateurs) }}</span>
                                                 </div>
                                                 <div>
-                                                    <a href="{{ route('showFormateur', $operateur->uuid) }}"
+                                                    <a href="{{ route('showFormateur', $operateur) }}"
                                                         target="_blank" class="btn btn-sm btn-outline-success me-1"
                                                         title="Ajouter/Modifier">
                                                         <i class="bi bi-pencil-square me-1"></i> Ajouter /
@@ -796,7 +797,7 @@
                                                         style="transform: translateX(-50%);">{{ count($operateur->operateurlocalites) }}</span>
                                                 </div>
                                                 <div>
-                                                    <a href="{{ route('showLocalite', $operateur->uuid) }}"
+                                                    <a href="{{ route('showLocalite', $operateur) }}"
                                                         target="_blank" class="btn btn-sm btn-outline-success me-1"
                                                         title="Ajouter/Modifier">
                                                         <i class="bi bi-pencil-square me-1"></i> Ajouter /
