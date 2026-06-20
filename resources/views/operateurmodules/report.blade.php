@@ -74,10 +74,10 @@
                                 id="table-operateurModules">
                                 <thead>
                                     <tr>
-                                        <th>Numéro</th>
+                                        {{-- <th>Numéro</th> --}}
                                         <th>Operateurs</th>
                                         {{-- <th>Sigle</th> --}}
-                                        <th>Email</th>
+                                        {{-- <th>Email</th> --}}
                                         <th>Telephone</th>
                                         <th>Région</th>
                                         {{-- 
@@ -85,7 +85,7 @@
                                     <th class="text-center">Modules</th>
                                     <th class="text-center">Formations</th> --}}
                                         <th>Responsable</th>
-                                        <th class="text-center">Statut</th>
+                                        {{-- <th class="text-center">Statut</th> --}}
                                         <th width="2%"><i class="bi bi-gear"></i></th>
                                     </tr>
                                 </thead>
@@ -93,12 +93,12 @@
                                     <?php $i = 1; ?>
                                     @foreach ($operateurs as $operateur)
                                         <tr>
-                                            <td>{{ $operateur?->numero_agrement }}</td>
+                                            {{-- <td>{{ $operateur?->numero_agrement }}</td> --}}
                                             <td>{{ $operateur?->user?->display_operateur }}</td>
                                             {{-- <td>{{ $operateur?->user?->username }}</td> --}}
-                                            <td><a
+                                            {{-- <td><a
                                                     href="mailto:{{ $operateur?->user?->email }}">{{ $operateur?->user?->email }}</a>
-                                            </td>
+                                            </td> --}}
                                             <td>
                                                 <a href="tel:+221{{ $operateur?->user?->fixe }}">
                                                     {{ $operateur?->user?->fixe }}<br>
@@ -126,9 +126,9 @@
                                         </td> --}}
                                             <td>{{ $operateur?->user?->firstname . ' ' . $operateur?->user?->name }}
                                             </td>
-                                            <td style="text-align: center;"><span
+                                            {{-- <td style="text-align: center;"><span
                                                     class="{{ $operateur?->statut_agrement }}">
-                                                    {{ $operateur?->statut_agrement }}</span></td>
+                                                    {{ $operateur?->statut_agrement }}</span></td> --}}
                                             <td>
                                                 <span class="d-flex align-items-baseline"><a
                                                         href="{{ route('operateurs.show', $operateur) }}"
