@@ -55,7 +55,8 @@ class VerificationAttestationController extends Controller
             return view('attestations.invalide');
         }
 
-        $formation = $type === 'collective' ? $item->formations : $item->formation;
+        /* $formation = $type === 'collective' ? $item->formations : $item->formation; */       
+        $formation = $item->formation;
 
         return view('attestations.verification', compact('item', 'type', 'formation'));
     }

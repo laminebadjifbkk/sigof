@@ -228,24 +228,22 @@
 
             <div class="info-grid">
 
-                @if ($formation)
-                    <div class="info-row">
-                        <div>
-                            <span class="info-label">Formation</span>
-                            <span class="info-value">{{ $formation->intitule ?? $formation->name }}</span>
-                        </div>
+                <div class="info-row">
+                    {{-- <span class="info-icon">📋</span> --}}
+                    <div>
+                        <span class="info-label">Formation</span>
+                        <span class="info-value">{{ $formation?->intitule }}</span>
                     </div>
+                </div>
 
-                    <div class="info-row">
-                        <div>
-                            <span class="info-label">Période</span>
-                            <span class="info-value">
-                                {{ $formation->date_debut?->format('d/m/Y') }}
-                                — {{ $formation->date_fin?->format('d/m/Y') }}
-                            </span>
-                        </div>
+                <div class="info-row">
+                    <div>
+                        <span class="info-label">Période</span>
+                        <span class="info-value">
+                            {{ $formation?->periode_formatee }}
+                        </span>
                     </div>
-                @endif
+                </div>
 
                 <div class="info-row">
                     <div>
