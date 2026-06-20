@@ -143,7 +143,7 @@
         }
 
         button[type="submit"]:hover {
-            background: #0a6a3d;
+            background: #FF8000;
         }
 
         button[type="submit"]:active {
