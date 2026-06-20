@@ -260,8 +260,8 @@ class OperateurmoduleController extends Controller
 
         $operateurmodules = $query->get(); */
 
-        $operateurs = Operateur::whereIn('statut_agrement', ['agréé', 'sous réserve', 'Extension', 'Renouvellement'])
-            ->whereHas('operateurmodules', function ($query) use ($keywords) {
+        /* $operateurs = Operateur::whereIn('statut_agrement', ['agréé', 'sous réserve', 'Extension', 'Renouvellement']) */
+        $operateurs = Operateur::whereHas('operateurmodules', function ($query) use ($keywords) {
                 $query->where('statut', 'agréé');
                 $query->where(function ($q) use ($keywords) {
                     foreach ($keywords as $word) {
