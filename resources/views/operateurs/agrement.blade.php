@@ -739,8 +739,8 @@
                                                         style="transform: translateX(-50%);">{{ count($operateur->operateureferences) }}</span>
                                                 </div>
                                                 <div>
-                                                    <a href="{{ route('showReference', $operateur) }}"
-                                                        target="_blank" class="btn btn-sm btn-outline-success me-1"
+                                                    <a href="{{ route('showReference', $operateur) }}" target="_blank"
+                                                        class="btn btn-sm btn-outline-success me-1"
                                                         title="Ajouter/Modifier">
                                                         <i class="bi bi-pencil-square me-1"></i> Ajouter /
                                                         Modifier
@@ -759,8 +759,8 @@
                                                         style="transform: translateX(-50%);">{{ count($operateur->operateurequipements) }}</span>
                                                 </div>
                                                 <div>
-                                                    <a href="{{ route('showEquipement', $operateur) }}"
-                                                        target="_blank" class="btn btn-sm btn-outline-success me-1"
+                                                    <a href="{{ route('showEquipement', $operateur) }}" target="_blank"
+                                                        class="btn btn-sm btn-outline-success me-1"
                                                         title="Ajouter/Modifier">
                                                         <i class="bi bi-pencil-square me-1"></i> Ajouter /
                                                         Modifier
@@ -778,8 +778,8 @@
                                                         style="transform: translateX(-50%);">{{ count($operateur->operateurformateurs) }}</span>
                                                 </div>
                                                 <div>
-                                                    <a href="{{ route('showFormateur', $operateur) }}"
-                                                        target="_blank" class="btn btn-sm btn-outline-success me-1"
+                                                    <a href="{{ route('showFormateur', $operateur) }}" target="_blank"
+                                                        class="btn btn-sm btn-outline-success me-1"
                                                         title="Ajouter/Modifier">
                                                         <i class="bi bi-pencil-square me-1"></i> Ajouter /
                                                         Modifier
@@ -797,8 +797,8 @@
                                                         style="transform: translateX(-50%);">{{ count($operateur->operateurlocalites) }}</span>
                                                 </div>
                                                 <div>
-                                                    <a href="{{ route('showLocalite', $operateur) }}"
-                                                        target="_blank" class="btn btn-sm btn-outline-success me-1"
+                                                    <a href="{{ route('showLocalite', $operateur) }}" target="_blank"
+                                                        class="btn btn-sm btn-outline-success me-1"
                                                         title="Ajouter/Modifier">
                                                         <i class="bi bi-pencil-square me-1"></i> Ajouter /
                                                         Modifier
@@ -1059,16 +1059,14 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="tab-content pt-2">
                                 {{-- Début Edition --}}
                                 <div class="tab-pane fade files" id="files">
                                     <div class="row mb-3">
-                                        <h5 class="card-title col-12 col-md-4">
-                                            FICHIERS JOINTS</h5>
-                                        {{-- @php
-                                            // Filtrer uniquement les fichiers qui ont une valeur non vide
-                                            $validFiles = $user?->files->filter(fn($file) => !empty($file->file));
-                                        @endphp --}}
+                                        <div class="col-12">
+                                            <h5 class="card-title mb-3">FICHIERS JOINTS</h5>
+                                        </div>
 
                                         @php
                                             // Filtrer uniquement les fichiers qui ont une valeur non vide
@@ -1078,20 +1076,11 @@
                                         @endphp
 
                                         @if ($validFiles->isNotEmpty())
-                                            <div class="col-12 col-md-8">
+                                            <div class="col-12">
                                                 <div class="table-responsive">
                                                     <table class="table table-bordered table-hover datatables"
                                                         id="table-iles">
                                                         <thead>
-                                                            {{-- <tr>
-                                                            <th width="5%" class="text-center">N°</th>
-                                                            <th>Légende</th>
-                                                            <th width="10%" class="text-center">File</th>
-                                                            @can('user-show-file')
-                                                                <th width="5%" class="text-center"><i
-                                                                        class="bi bi-gear"></i></th>
-                                                            @endcan
-                                                        </tr> --}}
                                                             <tr>
                                                                 <th style="width: 5%">N°</th>
                                                                 <th>Légende</th>
@@ -1186,8 +1175,10 @@
                                                 </div>
                                             </div>
                                         @else
-                                            <div class="alert alert-info">
-                                                <p class="text-muted">Aucun fichier joint.</p>
+                                            <div class="col-12">
+                                                <div class="alert alert-info">
+                                                    <p class="text-muted mb-0">Aucun fichier joint.</p>
+                                                </div>
                                             </div>
                                         @endif
                                     </div>
