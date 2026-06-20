@@ -1096,17 +1096,17 @@
                                                         <tbody>
                                                             @php $i = 1; @endphp
                                                             @foreach ($validFiles as $file)
-                                                                <tr class="text-center align-middle">
-                                                                    <td>{{ $i++ }}</td>
-                                                                    <td>{{ $file->legende }}</td>
-                                                                    <td>
+                                                                <tr>
+                                                                    <td class="text-center align-middle">{{ $i++ }}</td>
+                                                                    <td>{{ $file?->legende }}</td>
+                                                                    <td class="text-center align-middle">
                                                                         <a class="btn btn-outline-secondary btn-sm"
                                                                             title="Télécharger" target="_blank"
                                                                             href="{{ asset($file->getFichier()) }}">
                                                                             <i class="bi bi-download"></i>
                                                                         </a>
                                                                     </td>
-                                                                    <td>
+                                                                    <td class="text-center align-middle">
                                                                         @php
                                                                             $statut = $file->statut ?? 'Attente';
                                                                             $badgeClass = match ($statut) {
@@ -1119,7 +1119,7 @@
                                                                             class="badge bg-{{ $badgeClass }}">{{ $statut }}</span>
                                                                     </td>
                                                                     {{-- Supprimer --}}
-                                                                    <td>
+                                                                    <td class="text-center align-middle">
                                                                         @if ($file->statut !== 'Validé')
                                                                             <form action="{{ route('fileDestroy') }}"
                                                                                 method="post" class="d-inline">
@@ -1138,7 +1138,7 @@
 
                                                                     @hasanyrole('super-admin|admin|DIOF|Ingenieur')
                                                                         {{-- Valider --}}
-                                                                        <td>
+                                                                        <td class="text-center align-middle">
                                                                             <form action="{{ route('fileValidate') }}"
                                                                                 method="post" class="d-inline">
                                                                                 @csrf
@@ -1153,7 +1153,7 @@
                                                                             </form>
                                                                         </td>
                                                                         {{-- Invalider --}}
-                                                                        <td>
+                                                                        <td class="text-center align-middle">
                                                                             <form action="{{ route('fileInvalide') }}"
                                                                                 method="post" class="d-inline">
                                                                                 @csrf
