@@ -289,15 +289,12 @@
                                 {{-- Début Edition --}}
                                 <div class="tab-pane fade files" id="files">
                                     <div class="row mb-3">
-                                        <h5 class="card-title col-12 col-md-4">
-                                            FICHIERS JOINTS</h5>
-                                        {{-- @php
-                                            // Filtrer uniquement les fichiers qui ont une valeur non vide
-                                            $validFiles = $user?->files->filter(fn($file) => !empty($file->file));
-                                        @endphp --}}
+                                        <div class="col-12">
+                                            <h5 class="card-title mb-3">FICHIERS JOINTS</h5>
+                                        </div>
 
                                         @if ($validFiles->isNotEmpty())
-                                            <div class="col-12 col-md-8">
+                                            <div class="col-12">
                                                 <div class="table-responsive">
                                                     <table class="table table-bordered table-hover datatables"
                                                         id="table-iles">
@@ -349,8 +346,10 @@
                                                 </div>
                                             </div>
                                         @else
-                                            <div class="alert alert-info">
-                                                <p class="text-muted">Aucun fichier joint.</p>
+                                            <div class="col-12">
+                                                <div class="alert alert-info">
+                                                    <p class="text-muted mb-0">Aucun fichier joint.</p>
+                                                </div>
                                             </div>
                                         @endif
                                     </div>

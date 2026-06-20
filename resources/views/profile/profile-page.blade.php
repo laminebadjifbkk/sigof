@@ -1040,14 +1040,15 @@
                                 </div>
                             </div><!-- End Bordered Tabs -->
 
-
                             <div class="tab-content pt-2">
                                 {{-- Début Edition --}}
                                 <div class="tab-pane fade files" id="files">
                                     <div class="row mb-3">
-                                        <h5 class="card-title col-12 col-md-4">
-                                            FICHIERS JOINTS</h5>
-                                        <div class="col-12 col-md-8">
+                                        <div class="col-12">
+                                            <h5 class="card-title mb-3">FICHIERS JOINTS</h5>
+                                        </div>
+
+                                        <div class="col-12">
                                             <div class="table-responsive">
                                                 <table class="table table-bordered table-hover datatables"
                                                     id="table-iles">
@@ -1062,7 +1063,6 @@
                                                                 <th style="width: 10%">Valider</th>
                                                                 <th style="width: 10%">Rejeter</th>
                                                             @endhasanyrole
-                                                            </th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -1147,69 +1147,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- <form method="post" action="{{ route('files.update', $user) }}"
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        @method('patch')
-                                        <h5 class="card-title">{{ __("Ajouter d'autres fichiers") }}</h5>
-                                        <span style="color:red;">NB:</span>
-                                        <span>Seule la Carte Nationale d'Identité (recto/verso) </span><span
-                                            style="color:red;"> est requise</span>.
-                                        <div class="row mb-3 mt-3">
-                                            <label for="legende"
-                                                class="col-12 col-md-4 col-form-label">Légende<span
-                                                    class="text-danger mx-1">*</span></label>
-                                            <div class="col-12 col-md-8">
-                                                <input type="hidden" name="idUser" value="{{ $user->id }}">
-                                                <select name="legende"
-                                                    class="form-select  @error('legende') is-invalid @enderror"
-                                                    aria-label="Select" id="select-field-file"
-                                                    data-placeholder="Choisir">
-                                                    <option value="{{ old('legende') }}">
-
-                                                    </option>
-                                                    @foreach ($user_files as $file)
-                                                        <option value="{{ $file?->id }}">
-                                                            {{ $file?->legende }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                                @error('legende')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <div>{{ $message }}</div>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-3">
-                                            <label for="file"
-                                                class="col-12 col-md-4 col-form-label">Fichier<span
-                                                    class="text-danger mx-1">*</span></label>
-                                            <div class="col-12 col-md-8">
-                                                <div class="pt-2">
-                                                    <input type="file" name="file" id="file"
-                                                        class="form-control @error('file') is-invalid @enderror btn btn-primary btn-sm">
-                                                    @error('file')
-                                                        <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <label for="file"
-                                                class="col-12 col-md-4 col-form-label"><span
-                                                    class="text-danger mx-1"></span></label>
-                                            <div class="col-12 col-md-8">
-                                                <div class="pt-2">
-                                                    <button type="submit" class="btn btn-info btn-sm">Ajouter</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form> --}}
                                 </div>
                             </div>
-
 
                         </div>
                     </div>
