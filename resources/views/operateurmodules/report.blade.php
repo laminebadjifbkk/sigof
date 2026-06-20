@@ -85,7 +85,7 @@
                                     <th class="text-center">Modules</th>
                                     <th class="text-center">Formations</th> --}}
                                         <th>Responsable</th>
-                                        {{-- <th class="text-center">Statut</th> --}}
+                                        <th class="text-center">Statut</th>
                                         <th width="2%"><i class="bi bi-gear"></i></th>
                                     </tr>
                                 </thead>
@@ -126,9 +126,9 @@
                                         </td> --}}
                                             <td>{{ $operateur?->user?->firstname . ' ' . $operateur?->user?->name }}
                                             </td>
-                                            {{-- <td style="text-align: center;"><span
+                                            <td style="text-align: center;"><span
                                                     class="{{ $operateur?->statut_agrement }}">
-                                                    {{ $operateur?->statut_agrement }}</span></td> --}}
+                                                    {{ $operateur?->statut_agrement }}</span></td>
                                             <td>
                                                 <span class="d-flex align-items-baseline"><a
                                                         href="{{ route('operateurs.show', $operateur) }}"
