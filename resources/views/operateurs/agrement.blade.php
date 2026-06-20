@@ -687,7 +687,6 @@
                                                 <span class="fw-bold">Date commission :</span>
 
                                                 <span class="ms-2 text-primary">
-                                                    {{ $operateur->commissionagrements->pluck('debut_commission')->filter()->map(fn($date) => \Carbon\Carbon::parse($date)->format('d'))->implode(' - ') . ' -' }}
                                                     {{ $operateur->commissionagrements->pluck('fin_commission')->filter()->map(fn($date) => \Carbon\Carbon::parse($date)->format('d/m/Y'))->implode(' - ') }}
                                                 </span>
                                             </div>
@@ -740,8 +739,8 @@
                                                         style="transform: translateX(-50%);">{{ count($operateur->operateureferences) }}</span>
                                                 </div>
                                                 <div>
-                                                    <a href="{{ route('showReference', $operateur) }}" target="_blank"
-                                                        class="btn btn-sm btn-outline-success me-1"
+                                                    <a href="{{ route('showReference', $operateur) }}"
+                                                        target="_blank" class="btn btn-sm btn-outline-success me-1"
                                                         title="Ajouter/Modifier">
                                                         <i class="bi bi-pencil-square me-1"></i> Ajouter /
                                                         Modifier
@@ -760,8 +759,8 @@
                                                         style="transform: translateX(-50%);">{{ count($operateur->operateurequipements) }}</span>
                                                 </div>
                                                 <div>
-                                                    <a href="{{ route('showEquipement', $operateur) }}" target="_blank"
-                                                        class="btn btn-sm btn-outline-success me-1"
+                                                    <a href="{{ route('showEquipement', $operateur) }}"
+                                                        target="_blank" class="btn btn-sm btn-outline-success me-1"
                                                         title="Ajouter/Modifier">
                                                         <i class="bi bi-pencil-square me-1"></i> Ajouter /
                                                         Modifier
@@ -779,8 +778,8 @@
                                                         style="transform: translateX(-50%);">{{ count($operateur->operateurformateurs) }}</span>
                                                 </div>
                                                 <div>
-                                                    <a href="{{ route('showFormateur', $operateur) }}" target="_blank"
-                                                        class="btn btn-sm btn-outline-success me-1"
+                                                    <a href="{{ route('showFormateur', $operateur) }}"
+                                                        target="_blank" class="btn btn-sm btn-outline-success me-1"
                                                         title="Ajouter/Modifier">
                                                         <i class="bi bi-pencil-square me-1"></i> Ajouter /
                                                         Modifier
@@ -798,8 +797,8 @@
                                                         style="transform: translateX(-50%);">{{ count($operateur->operateurlocalites) }}</span>
                                                 </div>
                                                 <div>
-                                                    <a href="{{ route('showLocalite', $operateur) }}" target="_blank"
-                                                        class="btn btn-sm btn-outline-success me-1"
+                                                    <a href="{{ route('showLocalite', $operateur) }}"
+                                                        target="_blank" class="btn btn-sm btn-outline-success me-1"
                                                         title="Ajouter/Modifier">
                                                         <i class="bi bi-pencil-square me-1"></i> Ajouter /
                                                         Modifier
