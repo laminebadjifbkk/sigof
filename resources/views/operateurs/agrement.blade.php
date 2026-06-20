@@ -687,7 +687,7 @@
                                                 <span class="fw-bold">Date commission :</span>
 
                                                 <span class="ms-2 text-primary">
-                                                    {{ $operateur->commissionagrements->pluck('debut_commission')->filter()->map(fn($date) => \Carbon\Carbon::parse($date)->format('d/m/Y'))->implode(' - ') . ' -' }}
+                                                    {{ 'Du ' . $operateur->commissionagrements->pluck('debut_commission')->filter()->map(fn($date) => \Carbon\Carbon::parse($date)->format('d'))->implode(' - ') . ' au ' }}
                                                     {{ $operateur->commissionagrements->pluck('fin_commission')->filter()->map(fn($date) => \Carbon\Carbon::parse($date)->format('d/m/Y'))->implode(' - ') }}
                                                 </span>
                                             </div>
