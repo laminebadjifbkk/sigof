@@ -115,7 +115,7 @@
         }
 
         input[type="text"]:focus {
-            border-color: #0D7E4A;
+            border-color: #FF8000;
             box-shadow: 0 0 0 3px rgba(13, 126, 74, 0.1);
             background: #fff;
         }
