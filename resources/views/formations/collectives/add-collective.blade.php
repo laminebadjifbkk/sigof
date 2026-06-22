@@ -17,88 +17,74 @@
                             role="alert"><strong>{{ $error }}</strong></div>
                     @endforeach
                 @endif
-                <div class="card">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white py-3">
+                        <h5 class="mb-0">
+                            <i class="bi bi-buildings-fill text-primary"></i>
+                            Structures disponibles
+                        </h5>
+                    </div>
+
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-12 pt-0">
-                                <span class="d-flex mt-0 align-items-baseline"><a
-                                        href="{{ route('formations.show', $formation) }}" class="btn btn-success btn-sm"
-                                        title="retour"><i class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
-                                    <p> | Retour</p>
-                                </span>
-                            </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle datatables" id="table-modules">
+
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Structure</th>
+                                        <th class="text-center">Modules</th>
+                                        <th>Responsable</th>
+                                        <th width="80" class="text-center">
+                                            <i class="bi bi-gear"></i>
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach ($collectives as $collective)
+                                        <tr>
+
+                                            <td>
+                                                <div class="fw-semibold">
+                                                    {{ $collective->name_with_sigle }}
+                                                </div>
+
+                                                @if ($collective?->departement?->region?->nom)
+                                                    <small class="text-muted">
+                                                        {{ $collective->departement->region->nom }}
+                                                    </small>
+                                                @endif
+                                            </td>
+
+                                            <td class="text-center">
+                                                <span class="badge rounded-pill bg-primary">
+                                                    {{ $collective?->collectivemodules?->count() ?? 0 }}
+                                                </span>
+                                            </td>
+
+                                            <td>
+                                                {{ $collective?->prenom_responsable .' '. $collective?->nom_responsable ?? '-' }}
+                                            </td>
+
+                                            <td class="text-center">
+                                                <a href="{{ route('collectivemoduleformations', [
+                                                    'idformation' => $formation->id,
+                                                    'idlocalite' => $formation->departement->region->id,
+                                                    'idcollective' => $collective->id,
+                                                ]) }}"
+                                                    class="btn btn-outline-success btn-sm" title="Voir les modules">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                            </td>
+
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+
+                            </table>
                         </div>
 
-                        <div class="p-1 mb-4 border rounded bg-light shadow-sm">
-                            <div class="row text-center fw-semibold">
-                                <div class="col-md-4 mb-2">
-                                    <span class="text-secondary">Région</span><br>
-                                    <span class="fs-5 text-dark">{{ $localite->nom ?? 'Aucune' }}</span>
-                                </div>
-                                @if (!empty($formation?->collective?->module))
-                                    <div class="col-md-4 mb-2">
-                                        <span class="text-secondary">Structure</span><br>
-                                        <span
-                                            class="fs-5 text-dark">{{ $formation?->collective?->collective?->name_with_sigle ?? 'Aucun' }}</span>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-
-                        <form method="post" action="{{ url('formationcollectives', ['$idformation' => $formation->id]) }}"
-                            enctype="multipart/form-data" class="row g-3">
-                            @csrf
-                            @method('PUT')
-                            <div class="row mb-3 border rounded bg-light shadow-sm p-3">
-                                <div class="col-md-12 pt-5">
-                                    <div class="table-responsive">
-                                        <table class="m-2 table datatables align-middle" id="table-modules">
-                                            <thead>
-                                                <tr>
-                                                    <th>Structure</th>
-                                                    <th>Modules</th>
-                                                    <th>Responsable</th>
-                                                    <th width="3%"><i class="bi bi-gear"></i></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php $i = 1; ?>
-                                                @foreach ($collectives as $collective)
-                                                    <tr>
-                                                        <td>
-                                                            {{ $collective?->name_with_sigle }}
-                                                        </td>
-                                                        <td>
-                                                            @php $count = $collective?->collectivemodules?->count() ?? 0; @endphp
-                                                            <span class="badge bg-info">{{ $count }}</span>
-                                                        </td>
-                                                        <td>
-
-                                                        </td>
-                                                        <td>
-                                                            <span class="d-flex mt-2 align-items-baseline">
-                                                                <a href="{{ route('collectivemoduleformations', [
-                                                                    'idformation' => $formation->id,
-                                                                    'idlocalite' => $formation->departement->region->id,
-                                                                    'idcollective' => $collective->id,
-                                                                ]) }}"
-                                                                    class="btn btn-success btn-sm mx-1"
-                                                                    title="Voir détails">
-                                                                    <i class="bi bi-eye"></i>
-                                                                </a>
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="text-center">
-                                    <button type="submit" class="btn btn-outline-primary btn-sm"><i
-                                            class="bi bi-check2-circle"></i>&nbsp;Sélectionner</button>
-                                </div>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -108,13 +94,12 @@
 @push('scripts')
     <script>
         new DataTable('#table-modules', {
-            lengthMenu: [
-                [5, 10, 25, 50, 100, -1],
-                [5, 10, 25, 50, 100, "Tout"]
-            ],
-            "order": [
-                [2, 'desc']
-            ],
+            ordering: true,
+            layout: {
+                topStart: {
+                    buttons: ['excel', 'pdf', 'print'],
+                }
+            },
             language: {
                 "sProcessing": "Traitement en cours...",
                 "sSearch": "Rechercher&nbsp;:",

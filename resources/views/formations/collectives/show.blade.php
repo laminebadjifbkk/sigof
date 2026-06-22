@@ -929,9 +929,17 @@
                                         <h5 class="card-title">
                                             Module : {{ $module_collective?->module }}
                                             @can('module-check')
-                                                <a href="{{ url('formationcollectivemodules', ['$idformation' => $formation->id, '$idlocalite' => $formation->departement->region->id]) }}"
+                                                {{-- <a href="{{ url('formationcollectivemodules', ['$idformation' => $formation->id, '$idlocalite' => $formation->departement->region->id]) }}"
                                                     class="btn btn-outline-primary btn-sm" target="_blank">
-                                                    <i class="bi bi-pencil" title="Changer module"></i></a>
+                                                    <i class="bi bi-pencil" title="Changer module"></i></a> --}}
+                                                <a href="{{ route('collectivedemande', [
+                                                    'idformation' => $formation->id,
+                                                    'idlocalite' => $formation->departement->region->id,
+                                                ]) }}"
+                                                    class="btn btn-outline-primary btn-sm" target="_blank">
+                                                    <i class="bi bi-pencil" title="Changer module"></i>
+                                                    <span class="d-none d-sm-inline">Changer module</span>
+                                                </a>
                                             @endcan
                                         </h5>
 
@@ -944,7 +952,8 @@
                                             @endif
                                             <a class="btn btn-outline-info btn-sm" title="modifier module"
                                                 href="{{ route('collectives.show', $formation->collectivemodule?->collective) }}"
-                                                target="_blank"><i class="bi bi-eye"></i></a>
+                                                target="_blank"><i class="bi bi-eye"></i>
+                                            </a>
                                         </h5>
                                         {{-- </div> --}}
                                     @else
