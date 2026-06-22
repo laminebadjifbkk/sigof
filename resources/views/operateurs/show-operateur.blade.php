@@ -261,159 +261,161 @@
 
                                     </div>
 
-                                    {{-- ================= RIGHT ================= --}}
-                                    <div class="d-flex align-items-start flex-wrap gap-3">
+                                    @can('voir-statutèagrement')
+                                        {{-- ================= RIGHT ================= --}}
+                                        <div class="d-flex align-items-start flex-wrap gap-3">
 
-                                        {{-- STATUT --}}
-                                        <div class="d-flex align-items-center">
-                                            <span class="text-muted me-2">Statut : </span>
-                                            <span
-                                                class="badge {{ $op?->statut_agrement }} px-3 py-2 rounded-pill shadow-sm">
-                                                {{ $op?->statut_agrement }}
-                                            </span>
-                                        </div>
-
-                                        {{-- VALIDATIONS --}}
-                                        @php
-                                            $validations = $op?->validationoperateurs?->sortByDesc('created_at');
-                                        @endphp
-
-                                        <div class="dropdown">
-                                            <a class="d-inline-flex align-items-center text-decoration-none" href="#"
-                                                data-bs-toggle="dropdown">
-                                                <i class="bi bi-chat-left-text me-2"></i>
-                                                <span class="badge bg-success">
-                                                    {{ $validations->count() }}
+                                            {{-- STATUT --}}
+                                            <div class="d-flex align-items-center">
+                                                <span class="text-muted me-2">Statut : </span>
+                                                <span
+                                                    class="badge {{ $op?->statut_agrement }} px-3 py-2 rounded-pill shadow-sm">
+                                                    {{ $op?->statut_agrement }}
                                                 </span>
-                                            </a>
+                                            </div>
 
-                                            <ul class="dropdown-menu dropdown-menu-end shadow-sm">
-                                                <li class="dropdown-header">
-                                                    {{ $validations->count() }} validation(s)
-                                                </li>
+                                            {{-- VALIDATIONS --}}
+                                            @php
+                                                $validations = $op?->validationoperateurs?->sortByDesc('created_at');
+                                            @endphp
 
-                                                <li>
-                                                    <hr class="dropdown-divider">
-                                                </li>
+                                            <div class="dropdown">
+                                                <a class="d-inline-flex align-items-center text-decoration-none" href="#"
+                                                    data-bs-toggle="dropdown">
+                                                    <i class="bi bi-chat-left-text me-2"></i>
+                                                    <span class="badge bg-success">
+                                                        {{ $validations->count() }}
+                                                    </span>
+                                                </a>
 
-                                                @forelse ($validations->take(3) as $v)
-                                                    <li class="px-3 py-2 small">
-                                                        <div class="{{ $v->action }}">{{ $v->action }}</div>
-
-                                                        @can('show-observations')
-                                                            <div class="text-muted">
-                                                                {{ $v->user->firstname }} {{ $v->user->name }}
-                                                            </div>
-                                                        @endcan
-
-                                                        <div class="text-muted">
-                                                            {{ $v->created_at->diffForHumans() }}
-                                                        </div>
+                                                <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                                                    <li class="dropdown-header">
+                                                        {{ $validations->count() }} validation(s)
                                                     </li>
+
                                                     <li>
                                                         <hr class="dropdown-divider">
                                                     </li>
-                                                @empty
-                                                    <li class="px-3 py-2 text-muted small">
-                                                        Aucune validation
+
+                                                    @forelse ($validations->take(3) as $v)
+                                                        <li class="px-3 py-2 small">
+                                                            <div class="{{ $v->action }}">{{ $v->action }}</div>
+
+                                                            @can('show-observations')
+                                                                <div class="text-muted">
+                                                                    {{ $v->user->firstname }} {{ $v->user->name }}
+                                                                </div>
+                                                            @endcan
+
+                                                            <div class="text-muted">
+                                                                {{ $v->created_at->diffForHumans() }}
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <hr class="dropdown-divider">
+                                                        </li>
+                                                    @empty
+                                                        <li class="px-3 py-2 text-muted small">
+                                                            Aucune validation
+                                                        </li>
+                                                    @endforelse
+
+                                                    <li class="text-center py-2">
+                                                        <form action="{{ route('validationmessageop') }}" method="post"
+                                                            target="_blank">
+                                                            @csrf
+                                                            <input type="hidden" name="id" value="{{ $op?->id }}">
+                                                            <button class="btn btn-sm btn-light">
+                                                                Voir plus
+                                                            </button>
+                                                        </form>
                                                     </li>
-                                                @endforelse
+                                                </ul>
+                                            </div>
 
-                                                <li class="text-center py-2">
-                                                    <form action="{{ route('validationmessageop') }}" method="post"
-                                                        target="_blank">
-                                                        @csrf
-                                                        <input type="hidden" name="id" value="{{ $op?->id }}">
-                                                        <button class="btn btn-sm btn-light">
-                                                            Voir plus
-                                                        </button>
-                                                    </form>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                            {{-- ACTIONS --}}
+                                            @can('devenir-operateur-agrement-ouvert')
+                                                @can('devenir-operateur-agrement-create')
+                                                    @can('agrement-ouvert')
+                                                        @if ($op->commissionagrements->isNotEmpty() && $showButton)
+                                                            <div style="min-width: 240px; max-width: 280px;">
 
-                                        {{-- ACTIONS --}}
-                                        @can('devenir-operateur-agrement-ouvert')
-                                            @can('devenir-operateur-agrement-create')
-                                                @can('agrement-ouvert')
-                                                    @if ($op->commissionagrements->isNotEmpty() && $showButton)
-                                                        <div style="min-width: 240px; max-width: 280px;">
+                                                                @if ($op->est_expire)
+                                                                    <div class="alert alert-danger p-2 mb-0 shadow-sm">
+                                                                        <button class="btn btn-success btn-sm w-100 mb-1"
+                                                                            data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
+                                                                            <i class="bi bi-arrow-repeat"></i>
+                                                                            Nouvelle demande
+                                                                        </button>
 
-                                                            @if ($op->est_expire)
-                                                                <div class="alert alert-danger p-2 mb-0 shadow-sm">
-                                                                    <button class="btn btn-success btn-sm w-100 mb-1"
-                                                                        data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
-                                                                        <i class="bi bi-arrow-repeat"></i>
-                                                                        Nouvelle demande
-                                                                    </button>
+                                                                        <small>
+                                                                            Expiré le
+                                                                            <strong>{{ $op->date_expiration?->format('d/m/Y') }}</strong>
+                                                                        </small>
+                                                                    </div>
+                                                                @elseif ($op->est_sous_reserve || $op->est_rejete)
+                                                                    <div class="alert alert-danger p-2 mb-0 shadow-sm">
+                                                                        <button class="btn btn-success btn-sm w-100 mb-1"
+                                                                            data-bs-toggle="modal" data-bs-target="#AddoperateurModalNew">
+                                                                            <i class="bi bi-arrow-repeat"></i>
+                                                                            Nouvelle demande
+                                                                        </button>
+                                                                    </div>
+                                                                @elseif($op->est_renouvellement)
+                                                                    <div class="alert alert-info p-2 mb-0 shadow-sm">
+                                                                        <button class="btn btn-primary btn-sm w-100 mb-1"
+                                                                            data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
+                                                                            <i class="bi bi-arrow-repeat"></i>
+                                                                            Renouveler
+                                                                        </button>
 
-                                                                    <small>
-                                                                        Expiré le
-                                                                        <strong>{{ $op->date_expiration?->format('d/m/Y') }}</strong>
-                                                                    </small>
-                                                                </div>
-                                                            @elseif ($op->est_sous_reserve || $op->est_rejete)
-                                                                <div class="alert alert-danger p-2 mb-0 shadow-sm">
-                                                                    <button class="btn btn-success btn-sm w-100 mb-1"
-                                                                        data-bs-toggle="modal" data-bs-target="#AddoperateurModalNew">
-                                                                        <i class="bi bi-arrow-repeat"></i>
-                                                                        Nouvelle demande
-                                                                    </button>
-                                                                </div>
-                                                            @elseif($op->est_renouvellement)
-                                                                <div class="alert alert-info p-2 mb-0 shadow-sm">
-                                                                    <button class="btn btn-primary btn-sm w-100 mb-1"
-                                                                        data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
-                                                                        <i class="bi bi-arrow-repeat"></i>
-                                                                        Renouveler
-                                                                    </button>
+                                                                        <small>Agrément valide</small>
+                                                                    </div>
+                                                                @endif
+                                                            </div>
+                                                        @elseif ($showButton)
+                                                            <div style="min-width: 240px; max-width: 280px;">
 
-                                                                    <small>Agrément valide</small>
-                                                                </div>
-                                                            @endif
-                                                        </div>
-                                                    @elseif ($showButton)
-                                                        <div style="min-width: 240px; max-width: 280px;">
+                                                                @if ($op->est_expire)
+                                                                    <div class="alert alert-danger p-2 mb-0 shadow-sm">
+                                                                        <button class="btn btn-success btn-sm w-100 mb-1"
+                                                                            data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
+                                                                            <i class="bi bi-arrow-repeat"></i>
+                                                                            Nouvelle demande
+                                                                        </button>
 
-                                                            @if ($op->est_expire)
-                                                                <div class="alert alert-danger p-2 mb-0 shadow-sm">
-                                                                    <button class="btn btn-success btn-sm w-100 mb-1"
-                                                                        data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
-                                                                        <i class="bi bi-arrow-repeat"></i>
-                                                                        Nouvelle demande
-                                                                    </button>
+                                                                        <small>
+                                                                            Expiré le
+                                                                            <strong>{{ $op->date_expiration?->format('d/m/Y') }}</strong>
+                                                                        </small>
+                                                                    </div>
+                                                                @elseif ($op->est_sous_reserve || $op->est_rejete)
+                                                                    <div class="alert alert-danger p-2 mb-0 shadow-sm">
+                                                                        <button class="btn btn-success btn-sm w-100 mb-1"
+                                                                            data-bs-toggle="modal" data-bs-target="#AddoperateurModalNew">
+                                                                            <i class="bi bi-arrow-repeat"></i>
+                                                                            Nouvelle demande
+                                                                        </button>
+                                                                    </div>
+                                                                @elseif($op->est_renouvellement)
+                                                                    <div class="alert alert-info p-2 mb-0 shadow-sm">
+                                                                        <button class="btn btn-primary btn-sm w-100 mb-1"
+                                                                            data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
+                                                                            <i class="bi bi-arrow-repeat"></i>
+                                                                            Renouveler
+                                                                        </button>
 
-                                                                    <small>
-                                                                        Expiré le
-                                                                        <strong>{{ $op->date_expiration?->format('d/m/Y') }}</strong>
-                                                                    </small>
-                                                                </div>
-                                                            @elseif ($op->est_sous_reserve || $op->est_rejete)
-                                                                <div class="alert alert-danger p-2 mb-0 shadow-sm">
-                                                                    <button class="btn btn-success btn-sm w-100 mb-1"
-                                                                        data-bs-toggle="modal" data-bs-target="#AddoperateurModalNew">
-                                                                        <i class="bi bi-arrow-repeat"></i>
-                                                                        Nouvelle demande
-                                                                    </button>
-                                                                </div>
-                                                            @elseif($op->est_renouvellement)
-                                                                <div class="alert alert-info p-2 mb-0 shadow-sm">
-                                                                    <button class="btn btn-primary btn-sm w-100 mb-1"
-                                                                        data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
-                                                                        <i class="bi bi-arrow-repeat"></i>
-                                                                        Renouveler
-                                                                    </button>
-
-                                                                    <small>Agrément valide</small>
-                                                                </div>
-                                                            @endif
-                                                        </div>
-                                                    @endif
+                                                                        <small>Agrément valide</small>
+                                                                    </div>
+                                                                @endif
+                                                            </div>
+                                                        @endif
+                                                    @endcan
                                                 @endcan
                                             @endcan
-                                        @endcan
 
-                                    </div>
+                                        </div>
+                                    @endcan
 
                                 </div>
                             </div>
