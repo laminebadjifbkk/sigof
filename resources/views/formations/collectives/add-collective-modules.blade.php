@@ -31,107 +31,156 @@
                         {{--  <h5><u><b>MODULE</b>:</u> {{ $formation?->collectivemodule?->module  ?? 'Aucun module' }}</h5>
                         <h5><u><b>REGION</b>:</u> {{ $localite->nom ?? 'Aucune région' }}</h5> --}}
 
-                        <div class="p-1 mb-4 border rounded bg-light shadow-sm">
-                            <div class="row text-center fw-semibold">
-                                <div class="col-md-4 mb-2">
-                                    <span class="text-secondary">Région</span><br>
-                                    <span class="fs-5 text-dark">{{ $localite->nom ?? 'Aucune' }}</span>
-                                </div>
-                                <div class="col-md-4 mb-2">
-                                    <span class="text-secondary">Module</span><br>
-                                    <span
-                                        class="fs-5 text-dark">{{ $formation?->collectivemodule?->module ?? 'Aucun' }}</span>
-                                </div>
-                                @if (!empty($formation?->collectivemodule?->module))
-                                    <div class="col-md-4 mb-2">
-                                        <span class="text-secondary">Structure</span><br>
-                                        <span
-                                            class="fs-5 text-dark">{{ $formation?->collectivemodule?->collective?->name_with_sigle ?? 'Aucun' }}</span>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-4">
+                                <div class="card border-0 shadow-sm h-100">
+                                    <div class="card-body text-center">
+                                        {{-- <i class="bi bi-geo-alt-fill fs-2 text-primary"></i> --}}
+                                        <div class="text-muted small mt-0">Région</div>
+                                        <div class="fw-bold fs-5">
+                                            {{ $localite->nom ?? 'Aucune' }}
+                                        </div>
                                     </div>
-                                @endif
+                                </div>
                             </div>
+
+                            <div class="col-md-8">
+                                <div class="card border-0 shadow-sm h-100">
+                                    <div class="card-body text-center">
+                                        {{-- <i class="bi bi-journal-bookmark-fill fs-2 text-success"></i> --}}
+                                        <div class="text-muted small mt-0">Module</div>
+                                        <div class="fw-bold fs-5">
+                                            {{ $formation?->collectivemodule?->module ?? 'Aucun' }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- @if (!empty($formation?->collectivemodule?->module))
+                                <div class="col-md-4">
+                                    <div class="card border-0 shadow-sm h-100">
+                                        <div class="card-body text-center">
+                                            <i class="bi bi-building-fill fs-2 text-warning"></i>
+                                            <div class="text-muted small mt-2">Structure</div>
+                                            <div class="fw-bold fs-5">
+                                                {{ $formation?->collectivemodule?->collective?->name_with_sigle ?? 'Aucune' }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif --}}
                         </div>
 
-                        <form method="post"
-                            action="{{ url('formationcollectivemodules', ['$idformation' => $formation->id]) }}"
-                            enctype="multipart/form-data" class="row g-3">
-                            @csrf
-                            @method('PUT')
-                            <div class="row mb-3 border rounded bg-light shadow-sm p-3">
-                                <div class="col-md-12 pt-5">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white py-3">
+                                <h5 class="mb-0">
+                                    <i class="bi bi-diagram-3-fill text-primary"></i>
+                                    Structure : {{ $formation?->collectivemodule?->collective?->name_with_sigle ?? 'Aucune' }}
+                                </h5>
+                            </div>
+
+                            <div class="card-body">
+                                <form method="post"
+                                    action="{{ url('formationcollectivemodules', ['$idformation' => $formation->id]) }}"
+                                    enctype="multipart/form-data">
+
+                                    @csrf
+                                    @method('PUT')
+
                                     <div class="table-responsive">
-                                        <table class="m-2 table datatables align-middle" id="table-modules">
-                                            <thead>
+                                        <table class="table table-hover align-middle">
+                                            <thead class="table-light">
                                                 <tr>
-                                                    <th width="30%">Structure</th>
-                                                    {{-- <th>E-mail</th>
-                                                <th>Téléphone</th>
-                                                <th>Localité</th> --}}
-                                                    <th>Modules</th>
-                                                    <th class="text-center" scope="col">Effectif</th>
-                                                    <th class="text-center" scope="col">Formations</th>
-                                                    <th class="text-center" scope="col">Statut</th>
-                                                    <th width="3%"><i class="bi bi-gear"></i></th>
+                                                    <th width="35%">Structure</th>
+                                                    <th>Module</th>
+                                                    <th class="text-center">Effectif</th>
+                                                    <th class="text-center">Formations</th>
+                                                    <th class="text-center">Statut</th>
+                                                    <th width="80" class="text-center">
+                                                        <i class="bi bi-gear"></i>
+                                                    </th>
                                                 </tr>
                                             </thead>
+
                                             <tbody>
-                                                <?php $i = 1; ?>
                                                 @foreach ($collectivemodules as $collectivemodule)
                                                     <tr>
+
                                                         <td>
-                                                            <input type="radio" name="collectivemodule"
-                                                                value="{{ $collectivemodule?->id }}"
-                                                                {{ in_array($collectivemodule?->id, $collectivemoduleFormation) ? 'checked' : '' }}
-                                                                class="form-check-input @error('collectivemodule') is-invalid @enderror">
-                                                            @error('collectivemodule')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <div>{{ $message }}</div>
-                                                                </span>
-                                                            @enderror
-                                                            {{ $collectivemodule?->collective?->name_with_sigle}}
+                                                            <div class="d-flex align-items-center">
+
+                                                                <input type="radio" name="collectivemodule"
+                                                                    value="{{ $collectivemodule->id }}"
+                                                                    class="form-check-input me-3"
+                                                                    {{ in_array($collectivemodule->id, $collectivemoduleFormation) ? 'checked' : '' }}>
+
+                                                                <div>
+                                                                    <div class="fw-semibold">
+                                                                        {{ $collectivemodule?->collective?->name_with_sigle }}
+                                                                    </div>
+
+                                                                    <small class="text-muted">
+                                                                        Module collectif
+                                                                    </small>
+                                                                </div>
+                                                            </div>
                                                         </td>
-                                                        {{--  <td><a
-                                                            href="mailto:{{ $collectivemodule?->collective?->user?->email }}">{{ $collectivemodule?->collective?->user?->email }}</a>
-                                                    </td>
-                                                    <td><a
-                                                            href="tel:+221{{ $collectivemodule?->collective?->telephone }}">{{ $collectivemodule?->collective?->telephone }}</a>
-                                                    </td>
-                                                    <td>{{ $collectivemodule?->collective?->departement?->region?->nom }}
-                                                    </td> --}}
-                                                        <td>{{ $collectivemodule?->module }}</td>
-                                                        <td class="text-center">
-                                                            @php $count = $collectivemodule?->listecollectives?->count() ?? 0; @endphp
-                                                            <span class="badge bg-info">{{ $count }}</span>
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <span class="badge bg-primary">
-                                                                {{ count($collectivemodule?->formations) }}
-                                                            </span>
-                                                        </td>
+
                                                         <td>
-                                                            <span class="{{ $collectivemodule?->statut }}">
-                                                                {{ $collectivemodule?->statut }}
+                                                            <span class="fw-semibold">
+                                                                {{ $collectivemodule?->module }}
                                                             </span>
                                                         </td>
+
                                                         <td class="text-center">
-                                                            <span class="d-flex mt-2 align-items-baseline"><a
-                                                                    href="{{ route('collectivemodules.show', $collectivemodule) }}"
-                                                                    class="btn btn-success btn-sm mx-1"
-                                                                    title="Voir détails">
-                                                                    <i class="bi bi-eye"></i></a>
+                                                            <span class="badge rounded-pill bg-info">
+                                                                {{ $collectivemodule?->listecollectives?->count() ?? 0 }}
                                                             </span>
                                                         </td>
+
+                                                        <td class="text-center">
+                                                            <span class="badge rounded-pill bg-primary">
+                                                                {{ $collectivemodule?->formations?->count() ?? 0 }}
+                                                            </span>
+                                                        </td>
+
+                                                        <td class="text-center">
+
+                                                            <span class="{{ $collectivemodule->statut }}">
+                                                                {{ ucfirst($collectivemodule->statut) }}
+                                                            </span>
+                                                        </td>
+
+                                                        <td class="text-center">
+                                                            <a href="{{ route('collectivemodules.show', $collectivemodule) }}"
+                                                                class="btn btn-outline-success btn-sm"
+                                                                data-bs-toggle="tooltip" title="Voir les détails">
+                                                                <i class="bi bi-eye"></i>
+                                                            </a>
+                                                        </td>
+
                                                     </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
                                     </div>
-                                </div>
-                                <div class="text-center">
-                                    <button type="submit" class="btn btn-outline-primary btn-sm"><i
-                                            class="bi bi-check2-circle"></i>&nbsp;Sélectionner</button>
-                                </div>
-                        </form>
+
+                                    @error('collectivemodule')
+                                        <div class="alert alert-danger mt-3">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+
+                                    <div class="text-center mt-4">
+                                        <button type="submit" class="btn btn-outline-primary px-4">
+                                            <i class="bi bi-check2-circle me-1"></i>
+                                            Sélectionner ce module
+                                        </button>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

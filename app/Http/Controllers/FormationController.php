@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Antenne;
 use App\Models\Choixoperateur;
+use App\Models\Collective;
 use App\Models\Collectivemodule;
 use App\Models\Departement;
 use App\Models\Domaine;
@@ -1633,15 +1634,29 @@ class FormationController extends Controller
         return view("formations.individuelles.add-modules-individuelles", compact('formation', 'modules', 'localite', 'moduleFormation', 'domaines'));
     }
 
-    public function addcollectivemoduleformations($idformation, $idlocalite)
+    public function addcollectiveDeamande(int $idformation, int $idlocalite)
     {
         $formation = Formation::findOrFail($idformation);
         $localite  = Region::findOrFail($idlocalite);
 
+        $collectives = Collective::where([
+            'regions_id' => $idlocalite,
+            'statut_demande' => 'Conforme',
+        ])->get();
+
+        return view("formations.collectives.add-collective", compact('formation', 'collectives', 'localite'));
+    }
+
+    public function addcollectivemoduleformations(int $idformation, int $idlocalite, int $idcollective)
+    {
+        $formation = Formation::findOrFail($idformation);
+        $localite  = Region::findOrFail($idlocalite);
         /* $collectivemodule    = $formation?->collectivemodule?->module; */
 
         /* $collectivemodules = Collectivemodule::get(); */
-        $collectivemodules = Collectivemodule::select('id', 'uuid', 'collectives_id', 'module', 'statut')->get();
+        $collectivemodules = Collectivemodule::select('id', 'uuid', 'collectives_id', 'module', 'statut')->where([
+            'collectives_id' => $idcollective,
+        ])->get();
 
         $collectivemoduleFormation = DB::table('formations')
             ->where('collectivemodules_id', $formation->collectivemodules_id)
@@ -1653,7 +1668,7 @@ class FormationController extends Controller
         return view("formations.collectives.add-collective-modules", compact('formation', 'collectivemodules', 'localite', 'collectivemoduleFormation', 'domaines'));
     }
 
-    public function addformationingenieurs($idformation)
+    public function addformationingenieurs(int $idformation)
     {
         $formation = Formation::findOrFail($idformation);
         $ingenieur = $formation?->ingenieur?->name;

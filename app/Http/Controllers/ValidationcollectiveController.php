@@ -210,7 +210,8 @@ class ValidationcollectiveController extends Controller
 
             $message = strip_tags($safeMessage, '<b><i><p><a><br>');
 
-            Mail::to($toEmail)->send(new NotificationRejetCollective($message, $subject, $toEmail, $toUserName));
+            //Mail::to($toEmail)->send(new NotificationRejetCollective($message, $subject, $toEmail, $toUserName));
+            Alert::success('Suucès !', 'Validation effectuée avec succès !');
         }
 
         return redirect()->back();
