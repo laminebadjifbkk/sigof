@@ -145,7 +145,6 @@
                                                         </td>
 
                                                         <td class="text-center">
-
                                                             <span class="{{ $collectivemodule->statut }}">
                                                                 {{ ucfirst($collectivemodule->statut) }}
                                                             </span>
