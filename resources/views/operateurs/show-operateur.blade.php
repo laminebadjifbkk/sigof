@@ -94,6 +94,7 @@
                             $estCertifie = !empty($op->file8);
 
                             // Sections dynamiques
+
                             $sections = [
                                 [
                                     'label' => 'Modules',
@@ -261,7 +262,7 @@
 
                                     </div>
 
-                                    @can('voir-statutèagrement')
+                                    @can('voir-statut-agrement')
                                         {{-- ================= RIGHT ================= --}}
                                         <div class="d-flex align-items-start flex-wrap gap-3">
 
@@ -447,10 +448,12 @@
                                                         'Indisponible',
                                                         'Retiré',
                                                     ]))
-                                                <a href="{{ $section['route'] }}" target="_blank"
-                                                    class="btn btn-sm btn-outline-success">
-                                                    <i class="bi bi-pencil-square me-1"></i> Ajouter / Modifier
-                                                </a>
+                                                @can('voir-statut-agrement')
+                                                    <a href="{{ $section['route'] }}" target="_blank"
+                                                        class="btn btn-sm btn-outline-success">
+                                                        <i class="bi bi-pencil-square me-1"></i> Ajouter / Modifier
+                                                    </a>
+                                                @endcan
                                             @elseif(!empty($section['modal']))
                                                 <button class="btn btn-sm btn-outline-success" title="Modifier"
                                                     data-bs-toggle="modal" data-bs-target="#{{ $section['modal'] }}"
