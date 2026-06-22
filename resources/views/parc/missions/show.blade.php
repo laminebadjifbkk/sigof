@@ -133,7 +133,7 @@
                                         {{ $mission?->creator ? $mission->creator->firstname . ' ' . $mission->creator->name : 'Fatou Boro DIOP' }}
                                         <br>
                                         <small class="text-muted">
-                                            Le {{ $mission->created_at?->translatedFormat('d F Y à H:i') }} 
+                                            Le {{ $mission->created_at?->translatedFormat('l jS F Y à H:i') }} 
                                             {{-- <br> Dernière modification : Le
                                             {{ $mission->updated_at?->translatedFormat('d F Y à H:i') }} --}}
                                         </small>
