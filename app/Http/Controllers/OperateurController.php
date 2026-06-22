@@ -3769,7 +3769,7 @@ class OperateurController extends Controller
 
     public function exporterOperateursExcel($statut, $commission)
     {
-        if ($statut === 'agréé' || $statut === 'sous réserve' || $statut === 'rejeté') {
+        if ($statut === 'agréé' || $statut === 'sous réserve' || $statut === 'rejeté' || $statut === 'Conforme' || $statut === 'À corriger' || $statut === 'Nouveau') {
 
             $commissionagrement = Commissionagrement::findOrFail($commission);
 
