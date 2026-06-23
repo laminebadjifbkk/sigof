@@ -2524,7 +2524,7 @@ class FormationController extends Controller
     public function updateObservationsCollective(Request $request)
     {
         $request->validate([
-            'observations' => 'nullable',
+            'observations' => 'required',
             'string',
         ]);
 
