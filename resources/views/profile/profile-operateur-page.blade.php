@@ -90,7 +90,8 @@
                                     <div class="scrolling-message-wrapper position-relative w-100 overflow-hidden p-2 mb-2"
                                         style="background-color: #fff3f3; border: 1px solid #ff4d4f; border-radius: 5px;">
                                         <span class="scrolling-message text-danger fw-bold">
-                                            ⚠️ Vous n'avez pas encore fait de demande d'agrément ! Cliquez sur "Agréments" pour
+                                            ⚠️ Vous n'avez pas encore fait de demande d'agrément ! Cliquez sur "Agréments"
+                                            pour
                                             postuler.
                                         </span>
                                     </div>
@@ -196,13 +197,15 @@
                                 </li>
 
                                 @if ($user?->operateurs())
-                                    <li class="nav-item">
-                                        <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab"
-                                            data-bs-target="#agrements">
-                                            <i class="bi bi-award"></i>
-                                            <span>Agréments</span>
-                                        </button>
-                                    </li>
+                                    @can('voir-statut-agrement')
+                                        <li class="nav-item">
+                                            <button class="nav-link d-flex align-items-center gap-1" data-bs-toggle="tab"
+                                                data-bs-target="#agrements">
+                                                <i class="bi bi-award"></i>
+                                                <span>Agréments</span>
+                                            </button>
+                                        </li>
+                                    @endcan
                                 @endif
 
                             </ul>
@@ -394,7 +397,8 @@
 
                                         {{-- Operateur --}}
                                         <div class="row mb-3">
-                                            <label for="operateur" class="col-md-4 col-lg-3 col-form-label">Dénomination<span
+                                            <label for="operateur"
+                                                class="col-md-4 col-lg-3 col-form-label">Dénomination<span
                                                     class="text-danger mx-1">*</span>
                                             </label>
                                             <div class="col-md-8 col-lg-9">
@@ -414,7 +418,8 @@
 
                                         {{-- Sigle --}}
                                         <div class="row mb-3">
-                                            <label for="username" class="col-md-4 col-lg-3 col-form-label">Sigle ou Enseigne
+                                            <label for="username" class="col-md-4 col-lg-3 col-form-label">Sigle ou
+                                                Enseigne
                                             </label>
                                             <div class="col-md-8 col-lg-9">
                                                 <div class="pt-2">
