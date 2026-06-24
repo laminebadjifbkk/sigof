@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Courrier;
@@ -280,5 +281,21 @@ class InterneController extends Controller
         $interne->delete();
         Alert::success('Opération réussie !', 'Le courrier a été supprimé avec succès.');
         return redirect()->back();
+    }
+
+    public function internesDirection()
+    {
+        if (!auth()->check()) {
+            abort(403, 'Accès non autorisé.');
+        }
+
+        Alert::info(
+            'Module en développement',
+            'La gestion des courriers internes par direction sera bientôt disponible.'
+        );
+
+        return redirect()->back();
+
+        /* return redirect()->route('courriers.internes.direction'); */
     }
 }

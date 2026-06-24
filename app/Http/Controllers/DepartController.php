@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DepartStoreRequest;
@@ -499,5 +500,20 @@ class DepartController extends Controller
             'departs',
             'title'
         ));
+    }
+
+    public function departsDirection()
+    {
+        if (!auth()->check()) {
+            abort(403, 'Accès non autorisé.');
+        }
+
+        Alert::info(
+            'Module en développement',
+            'La gestion des courriers départs par direction sera bientôt disponible.'
+        );
+
+        return redirect()->back();
+        /* return redirect()->route('courriers.departs.direction'); */
     }
 }

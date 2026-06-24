@@ -92,7 +92,7 @@
 
                 <!-- DÉPARTS -->
                 <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
-                    <a href="{{ route('departs.index') }}" class="text-decoration-none">
+                    <a href="{{ route('departs.direction') }}" class="text-decoration-none">
                         <div class="card info-card border-0 shadow-sm hover-card">
                             <div class="card-body">
                                 <div class="d-flex align-items-center justify-content-between">
@@ -117,7 +117,7 @@
 
                 <!-- INTERNES -->
                 <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
-                    <a href="{{ route('internes.index') }}" class="text-decoration-none">
+                    <a href="{{ route('internes.direction') }}" class="text-decoration-none">
                         <div class="card info-card border-0 shadow-sm hover-card">
                             <div class="card-body">
                                 <div class="d-flex align-items-center justify-content-between">
