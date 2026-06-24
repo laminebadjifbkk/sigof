@@ -208,7 +208,7 @@
 
                                                                                 {{-- RIGHT : CHEF --}}
                                                                                 <div class="text-end">
-                                                                                    <div class="small text-muted">Chef</div>
+                                                                                    <div class="small text-muted">Responsable</div>
 
                                                                                     <div class="fw-semibold">
                                                                                         {{ $direction->chef?->user?->firstname . ' ' . $direction->chef?->user?->name ?? 'Non défini' }}
