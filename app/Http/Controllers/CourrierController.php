@@ -131,8 +131,7 @@ class CourrierController extends Controller
         return view("courriers.notifications");
     }
 
-
-    public function send(int $id)
+    /* public function send(int $id)
     {
         $mailer = app(BrevoMailer::class);
 
@@ -141,7 +140,7 @@ class CourrierController extends Controller
         $users = $arrive->users;
 
         $defaultEmails = [
-            'lamine.badji@outlook.fr',
+            'badjilaminefbkk@gmail.com',
         ];
 
         $emails = collect($defaultEmails)
@@ -162,6 +161,7 @@ class CourrierController extends Controller
                 'arrive' => $arrive,
                 'email' => $email, // 👈 destinataire courant
             ])->render();
+
 
             try {
                 $mailer->sendEmail(
@@ -194,6 +194,82 @@ class CourrierController extends Controller
             Alert::success(
                 'Succès',
                 'Tous les mails ont été envoyés avec succès.'
+            );
+        }
+
+        return redirect()->back();
+    } */
+
+    public function send(int $id)
+    {
+        $mailer = app(BrevoMailer::class);
+
+        $arrive = Arrive::with(['users'])->findOrFail($id);
+
+        // =========================
+        // DESTINATAIRES
+        // =========================
+
+        $defaultEmails = [
+            'badjilaminefbkk@gmail.com',
+        ];
+
+        $emails = collect($defaultEmails)
+            ->merge($arrive->users->pluck('email'))
+            ->filter()
+            ->map(fn($email) => strtolower(trim($email)))
+            ->filter(fn($email) => filter_var($email, FILTER_VALIDATE_EMAIL))
+            ->unique()
+            ->values();
+
+        if ($emails->isEmpty()) {
+            Alert::warning('Attention', 'Aucun destinataire valide trouvé.');
+            return redirect()->back();
+        }
+
+        // =========================
+        // BULK RECIPIENTS BREVO
+        // =========================
+
+        $recipients = $emails->map(function ($email) {
+            return [
+                'email' => $email,
+                'name'  => 'Agent ONFP'
+            ];
+        })->values()->toArray();
+
+        // =========================
+        // CONTENU EMAIL
+        // =========================
+
+        $subject = "IMPUTATION DE COURRIER ONFP";
+
+        $htmlContent = view('emails.imputation-courrier', [
+            'arrive' => $arrive,
+        ])->render();
+
+        // =========================
+        // ENVOI BREVO (BULK)
+        // =========================
+
+        try {
+            $mailer->sendBulk($recipients, $subject, $htmlContent);
+
+            Alert::success(
+                'Succès',
+                'Les notifications ont été envoyées avec succès.'
+            );
+        } catch (\Exception $e) {
+
+            logger()->error('Erreur Brevo sendBulk', [
+                'arrive_id' => $arrive->id,
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+
+            Alert::error(
+                'Erreur Brevo',
+                $e->getMessage() // 👈 IMPORTANT
             );
         }
 
