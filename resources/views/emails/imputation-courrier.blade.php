@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>ONFP - Imputation mail</title>
+    <title>ONFP - Imputation courrier</title>
 </head>
 
 <body style="margin:0;padding:0;background-color:#f4f6f9;font-family:Arial,Helvetica,sans-serif;">
@@ -25,8 +25,8 @@
 
                     {{-- TITRE --}}
                     <tr>
-                        <td style="background:#d9534f;color:#fff;padding:12px;text-align:center;">
-                            <strong>Notifications de courrier</strong>
+                        <td style="background:#F28500;color:#ffffff;padding:12px;text-align:center;">
+                            <strong>NOTIFICATION D’IMPUTATION DE COURRIER</strong>
                         </td>
                     </tr>
 
@@ -34,22 +34,74 @@
                     <tr>
                         <td style="padding:30px;">
 
-                            <p>Bonjour,</p>
-
-                            <p>
-                                Le courrier a été traité et les notifications ont été envoyées.
+                            <p style="font-size:15px;">
+                                Bonjour <strong>{{ $user?->firstname ?? 'Cher agent' }}</strong>,
                             </p>
 
-                            <p><strong>Liste des destinataires :</strong></p>
+                            <p style="font-size:15px;">
+                                La Direction Générale de l’ONFP vous a imputé un nouveau courrier dans le système SIGOF.
+                            </p>
 
-                           {{--  <ul>
-                                @foreach ($emails as $email)
-                                    <li>{{ $email }}</li>
-                                @endforeach
-                            </ul> --}}
+                            <!-- TABLE DETAILS -->
+                            <table width="100%" cellpadding="8" cellspacing="0"
+                                style="border-collapse:collapse;font-size:14px;margin-top:15px;">
 
-                            <p>
-                                Ce message est un rapport automatique du système SIGOF.
+                                <tr style="background:#f1f3f5;">
+                                    <td><strong>Expéditeur</strong></td>
+                                    <td>{{ $arrive->courrier->expediteur ?? '-' }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Objet</strong></td>
+                                    <td>{{ $arrive->courrier->objet ?? '-' }}</td>
+                                </tr>
+
+                                <tr style="background:#f1f3f5;">
+                                    <td><strong>Date d’arrivée</strong></td>
+                                    <td>
+                                        {{ $arrive->courrier->date_recep?->format('d/m/Y') ?? ($arrive->created_at?->format('d/m/Y') ?? '-') }}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Numéro arrivé</strong></td>
+                                    <td>{{ $arrive->numero_arrive ?? '-' }}</td>
+                                </tr>
+
+                            </table>
+
+                            <!-- DESTINATAIRES -->
+                            <div style="margin-top:20px;font-size:14px;">
+                                <strong>Agents concernés :</strong>
+
+                                <ul style="margin-top:8px;">
+                                    @foreach ($arrive->users ?? [] as $u)
+                                        <li>{{ $u->firstname ?? '' }} {{ $u->name ?? '' }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+
+                            <!-- BOUTON -->
+                            <table width="100%" style="margin-top:25px;">
+                                <tr>
+                                    <td align="center">
+
+                                        <a href="{{ url('https://sigof.onfp.sn/arrives/' . $arrive->id) }}"
+                                            style="background:#F28500;color:white;text-decoration:none;
+                                  padding:12px 25px;border-radius:4px;font-size:14px;display:inline-block;">
+                                            Voir le courrier
+                                        </a>
+
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <p style="margin-top:30px;font-size:14px;">
+                                Merci de prendre les dispositions nécessaires.
+                            </p>
+
+                            <p style="font-size:14px;">
+                                <strong>L’équipe SIGOF - ONFP</strong>
                             </p>
 
                             @include('emails.footer_mail')
