@@ -110,7 +110,7 @@
                                                 <td class="text-center">{{ $arrive?->numero_arrive }}</td>
                                                 <td>{{ $arrive?->courrier?->expediteur }}</td>
                                                 <td>{{ $arrive?->courrier?->objet }}</td>
-                                                <td>
+                                                {{-- <td>
                                                     @if ($arrive?->employees && $arrive->employees->isNotEmpty())
                                                         <div class="small">
                                                             @foreach ($arrive->employees as $employee)
@@ -118,6 +118,71 @@
                                                                     {{ $employee?->user?->firstname . ' ' . $employee?->user?->name }}
                                                                 </span>
                                                             @endforeach
+                                                        </div>
+                                                    @else
+                                                        <span class="badge bg-info text-dark">Aucune</span>
+                                                    @endif
+                                                </td> --}}
+                                                <td>
+                                                    @if ($arrive?->employees && $arrive->employees->isNotEmpty())
+                                                        <button class="btn btn-sm btn-outline-primary"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#employeesModal{{ $arrive->id }}">
+                                                            Voir ({{ $arrive->employees->count() }})
+                                                        </button>
+
+                                                        {{-- MODAL --}}
+                                                        <div class="modal fade" id="employeesModal{{ $arrive->id }}"
+                                                            tabindex="-1" aria-hidden="true">
+                                                            <div class="modal-dialog modal-md modal-dialog-centered">
+                                                                <div class="modal-content">
+
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title">
+                                                                            Imputations
+                                                                        </h5>
+                                                                        <button type="button" class="btn-close"
+                                                                            data-bs-dismiss="modal"></button>
+                                                                    </div>
+
+                                                                    <div class="modal-body">
+
+                                                                        @foreach ($arrive->employees as $index => $employee)
+                                                                            <div
+                                                                                class="d-flex align-items-center justify-content-between py-2 border-bottom">
+
+                                                                                <div
+                                                                                    class="d-flex align-items-center gap-2">
+
+                                                                                    <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
+                                                                                        style="width:32px; height:32px; font-size:12px;">
+                                                                                        {{ strtoupper(substr($employee?->user?->firstname ?? 'U', 0, 1)) }}
+                                                                                    </div>
+
+                                                                                    <div>
+                                                                                        <div class="fw-semibold">
+                                                                                            {{ $employee?->user?->firstname . ' ' . $employee?->user?->name }}
+                                                                                        </div>
+                                                                                        <small class="text-muted">
+                                                                                            Imputation #{{ $index + 1 }}
+                                                                                        </small>
+                                                                                    </div>
+
+                                                                                </div>
+
+                                                                                @if ($employee?->fonction?->sigle)
+                                                                                    <span class="badge bg-secondary">
+                                                                                        {{ $employee->fonction->sigle }}
+                                                                                    </span>
+                                                                                @endif
+
+                                                                            </div>
+                                                                        @endforeach
+
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     @else
                                                         <span class="badge bg-info text-dark">Aucune</span>
