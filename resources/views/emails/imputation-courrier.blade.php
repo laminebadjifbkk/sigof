@@ -57,14 +57,14 @@
                                 </tr>
 
                                 <tr style="background:#f1f3f5;">
-                                    <td><strong>Date d’arrivée</strong></td>
+                                    <td><strong>Date arrivée</strong></td>
                                     <td>
                                         {{ $arrive->courrier->date_recep?->format('d/m/Y') ?? ($arrive->created_at?->format('d/m/Y') ?? '-') }}
                                     </td>
                                 </tr>
 
                                 <tr>
-                                    <td><strong>Numéro arrivé</strong></td>
+                                    <td><strong>Numéro</strong></td>
                                     <td>{{ $arrive->numero_arrive ?? '-' }}</td>
                                 </tr>
 
@@ -84,7 +84,7 @@
                             <!-- BOUTON -->
                             <table width="100%" style="margin-top:25px;">
                                 <tr>
-                                    <td align="center">
+                                    <td>
 
                                         <a href="{{ url('https://sigof.onfp.sn/arrives/' . $arrive->id) }}"
                                             style="background:#F28500;color:white;text-decoration:none;

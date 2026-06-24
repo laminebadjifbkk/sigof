@@ -207,22 +207,13 @@ class CourrierController extends Controller
         $arrive = Arrive::with(['users'])->findOrFail($id);
 
         // =========================
-        // EMAILS DE BASE
+        // DESTINATAIRES
         // =========================
+
         $defaultEmails = [
             'badjilaminefbkk@gmail.com',
         ];
 
-        // =========================
-        // INDEX USER PAR EMAIL
-        // =========================
-        $usersByEmail = $arrive->users
-            ->filter(fn($u) => $u?->email)
-            ->keyBy(fn($u) => strtolower(trim($u->email)));
-
-        // =========================
-        // NETTOYAGE EMAILS
-        // =========================
         $emails = collect($defaultEmails)
             ->merge($arrive->users->pluck('email'))
             ->filter()
@@ -237,44 +228,32 @@ class CourrierController extends Controller
         }
 
         // =========================
-        // RECIPIENTS + CONTEXT USER
+        // BULK RECIPIENTS BREVO
         // =========================
-        $recipients = $emails->map(function ($email) use ($usersByEmail) {
 
-            $user = $usersByEmail->get($email);
-
+        $recipients = $emails->map(function ($email) {
             return [
                 'email' => $email,
-                'name'  => $user?->firstname
-                    ? ($user->firstname . ' ' . $user->name)
-                    : 'Agent ONFP',
-
-                'user'  => $user, // 👈 contexte interne (non envoyé à Brevo)
+                'name'  => 'Agent ONFP'
             ];
-        })->values();
+        })->values()->toArray();
 
         // =========================
         // CONTENU EMAIL
         // =========================
+
         $subject = "IMPUTATION DE COURRIER ONFP";
 
-        $errors = [];
+        $htmlContent = view('emails.imputation-courrier', [
+            'arrive' => $arrive,
+        ])->render();
 
         // =========================
-        // ENVOI BULK SAFE (par groupe propre)
+        // ENVOI BREVO (BULK)
         // =========================
+
         try {
-            // Brevo ne prend que email + name
-            $brevoRecipients = $recipients->map(fn($r) => [
-                'email' => $r['email'],
-                'name'  => $r['name'],
-            ])->values()->toArray();
-
-            $htmlContent = view('emails.imputation-courrier', [
-                'arrive' => $arrive,
-            ])->render();
-
-            $mailer->sendBulk($brevoRecipients, $subject, $htmlContent);
+            $mailer->sendBulk($recipients, $subject, $htmlContent);
 
             Alert::success(
                 'Succès',
@@ -284,7 +263,7 @@ class CourrierController extends Controller
 
             logger()->error('Erreur envoi bulk imputation courrier', [
                 'arrive_id' => $arrive->id,
-                'message'   => $e->getMessage(),
+                'error' => $e->getMessage(),
             ]);
 
             Alert::error(
