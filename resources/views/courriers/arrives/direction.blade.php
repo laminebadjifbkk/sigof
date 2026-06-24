@@ -124,7 +124,7 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <div class="d-flex align-items-baseline">
+                                                    {{-- <div class="d-flex align-items-baseline">
                                                         <a href="{{ route('arrives.show', $arrive?->id) }}"
                                                             class="btn btn-success btn-sm" title="voir détails">
                                                             <i class="bi bi-eye"></i>
@@ -155,7 +155,7 @@
                                                                 @endcan
                                                             </ul>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                 </td>
                                             </tr>
                                         @endforeach
