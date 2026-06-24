@@ -35,7 +35,7 @@
                         <td style="padding:30px;">
 
                             <p style="font-size:15px;">
-                                Bonjour <strong>{{ $user?->firstname ?? 'Cher agent' }}</strong>,
+                                Bonjour,</strong>,
                             </p>
 
                             <p style="font-size:15px;">
