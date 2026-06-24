@@ -327,6 +327,9 @@ class ProfileController extends Controller
             ? $employee->arrives()->whereDate('jour_imputation', Carbon::today())->count()
             : 0;
 
+        //Vérifier si l'employé est chef de Direction
+        $isChefDirection = !is_null($user->employee?->direction?->chef);
+
         $count_ingenieur_formations = $employee?->arrives?->count();
 
         // Projet actif
@@ -379,6 +382,7 @@ class ProfileController extends Controller
                 'showChangeCertificat',
                 'showButton',
                 'isComplete',
+                'isChefDirection',
                 'labels'
             ));
         }
@@ -409,6 +413,7 @@ class ProfileController extends Controller
             'formulaire',
             'showChangeCertificat',
             'showButton',
+            'isChefDirection',
             'isComplete'
         ));
     }
