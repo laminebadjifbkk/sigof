@@ -129,7 +129,7 @@
                 @hasanyrole('Employe')
                     @if ($isChefDirection)
                         <div class="col-12">
-                            <a href="{{ route('mescourriers') }}">
+                            <a href="{{ route('courriers.direction') }}">
                                 <div class="card shadow-lg border-0 rounded-lg">
                                     <div class="card-body d-flex align-items-center justify-content-between">
                                         <div>

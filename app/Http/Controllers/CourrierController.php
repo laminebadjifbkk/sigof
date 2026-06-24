@@ -274,4 +274,77 @@ class CourrierController extends Controller
 
         return redirect()->back();
     }
+
+    public function courriersDirection()
+    {
+        $user = auth()->user();
+
+        // Sécurité : uniquement chef de direction
+        if (!$user->employee?->direction?->chef) {
+            abort(403, 'Accès non autorisé.');
+        }
+
+        $direction = $user->employee->direction;
+
+        if (!$direction) {
+            abort(403, 'Aucune direction associée.');
+        }
+
+        // =========================
+        // ARRIVÉS (liés à la direction)
+        // =========================
+        $arrives = Arrive::whereHas('courrier.directions', function ($q) use ($direction) {
+            $q->where('directions.id', $direction->id);
+        })->count();
+
+        // =========================
+        // DÉPARTS
+        // =========================
+        $departs = Depart::whereHas('courrier.directions', function ($q) use ($direction) {
+            $q->where('directions.id', $direction->id);
+        })->count();
+
+        // =========================
+        // INTERNES
+        // =========================
+        $internes = Interne::whereHas('courrier.directions', function ($q) use ($direction) {
+            $q->where('directions.id', $direction->id);
+        })->count();
+
+        // =========================
+        // TOTAL
+        // =========================
+        $total_arrive  = $arrives;
+        $total_depart  = $departs;
+        $total_interne = $internes;
+
+        $total_courrier = $total_arrive + $total_depart + $total_interne;
+
+        // =========================
+        // POURCENTAGES
+        // =========================
+        $pourcentage_arrive = $total_courrier ? ($total_arrive / $total_courrier) * 100 : 0;
+        $pourcentage_depart = $total_courrier ? ($total_depart / $total_courrier) * 100 : 0;
+        $pourcentage_interne = $total_courrier ? ($total_interne / $total_courrier) * 100 : 0;
+
+        // =========================
+        // AUTRES DONNÉES
+        // =========================
+        $roles = Role::orderBy('created_at', 'desc')->get();
+
+        return view('courriers.direction', compact(
+            'total_courrier',
+            'total_arrive',
+            'total_depart',
+            'total_interne',
+            'pourcentage_arrive',
+            'pourcentage_depart',
+            'pourcentage_interne',
+            'arrives',
+            'departs',
+            'internes',
+            'roles',
+            'direction'
+        ));
+    }
 }

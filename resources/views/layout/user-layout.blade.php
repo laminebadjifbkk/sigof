@@ -2261,11 +2261,7 @@
             color: #198754;
             font-weight: bold;
         }
-    </style>
 
-
-
-    <style>
         /* Wrapper pour le défilement */
         .scrolling-message-wrapper {
             white-space: nowrap;
@@ -2287,6 +2283,46 @@
             100% {
                 transform: translateX(-100%);
             }
+        }
+
+        .hover-card {
+            transition: all 0.25s ease-in-out;
+        }
+
+        .hover-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .icon-box {
+            width: 55px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .direction-header {
+            background: linear-gradient(135deg, #F28500, #ffb347, #ff8c00);
+            border-radius: 12px;
+            color: #fff;
+        }
+
+        .direction-header .icon {
+            width: 55px;
+            height: 55px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* hover effet */
+        .direction-header:hover {
+            transform: translateY(-3px);
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 12px 25px rgba(242, 133, 0, 0.35);
         }
     </style>
 
