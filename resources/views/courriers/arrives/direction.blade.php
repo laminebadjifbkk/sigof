@@ -39,15 +39,15 @@
                                 </div>
 
                                 <div class="d-flex gap-2">
-                                    <a href="{{ route('courriers.index') }}"
+                                    <a href="{{ route('courriers.direction') }}"
                                         class="btn btn-outline-success btn-sm rounded-pill">
                                         <i class="bi bi-arrow-left"></i> Retour
                                     </a>
 
                                     @can('arrive-create')
-                                        <a href="{{ route('arrives.create') }}" class="btn btn-primary btn-sm rounded-pill">
+                                        {{-- <a href="{{ route('arrives.create') }}" class="btn btn-primary btn-sm rounded-pill">
                                             <i class="bi bi-plus-circle"></i> Ajouter
-                                        </a>
+                                        </a> --}}
 
                                         <button class="btn btn-outline-secondary btn-sm rounded-pill" data-bs-toggle="modal"
                                             data-bs-target="#generate_rapport">
@@ -75,10 +75,10 @@
                                             <td>{{ $items->annee }}</td>
                                             <td class="text-center">{{ number_format($items->total, 0, '', ' ') }}</td>
                                             <td>
-                                                <a href="{{ route('arrives.parAnnee', ['annee' => $items->annee]) }}"
+                                                {{-- <a href="{{ route('arrives.parAnnee', ['annee' => $items->annee]) }}"
                                                     class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1">
                                                     Voir plus <i class="bi bi-arrow-right-short"></i>
-                                                </a>
+                                                </a> --}}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -98,44 +98,13 @@
                 </div>
                 <div class="card">
                     <div class="card-body">
-                        {{-- <div class="d-flex justify-content-between align-items-center mt-0">
-                            <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('courriers.index') }}"
-                                    class="btn btn-success btn-sm" title="retour"><i
-                                        class="bi bi-arrow-counterclockwise"></i></a>&nbsp;Liste des courriers arrivés
-                            </span>
-                            <span class="d-flex align-items-baseline">
-                                <a href="#" class="btn btn-success btn-sm float-end" data-bs-toggle="modal"
-                                    data-bs-target="#addCourrierArrive" title="Ajouter">Ajouter</a>
-                                <div class="filter">
-                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                            class="bi bi-three-dots"></i></a>
-                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                        <li>
-                                            <button type="button" class="dropdown-item btn btn-sm" data-bs-toggle="modal"
-                                                data-bs-target="#generate_rapport"></i>Rechercher
-                                                plus</button>
-                                        </li>
-                                        @hasrole('courrier|super-admin')
-                                            <li>
-                                                <form action="{{ route('importA') }}" method="get">
-                                                    <button type="submit" class="dropdown-item btn btn-sm">Importer</button>
-                                                </form>
-                                            </li>
-                                        @endhasrole
-                                    </ul>
-                                </div>
-                            </span>
-                        </div> --}}
                         @if ($arrives->isNotEmpty())
-                            {{-- <h5 class="card-title">{{ $title }}</h5> --}}
                             <div class="table-responsive">
                                 <table class="table datatables align-middle" id="table-arrives">
                                     <thead>
                                         <tr>
-                                            <th class="text-center" width='8%'>N° arrivé</th>
-                                            <th class="text-center"width='8%'>Date arrivé</th>
-                                            {{-- <th class="text-center">N° corres.</th> --}}
-                                            {{-- <th class="text-center">Date corres.</th> --}}
+                                            <th class="text-center" width='8%'>N°</th>
+                                            {{-- <th class="text-center"width='8%'>Date arrivé</th> --}}
                                             <th>Expéditeur</th>
                                             <th>Objet</th>
                                             <th>Imputation</th>
@@ -146,27 +115,33 @@
                                         @foreach ($arrives as $arrive)
                                             <tr>
                                                 <td class="text-center">{{ $arrive?->numero_arrive }}</td>
-                                                <td class="text-center">
+                                                {{-- <td class="text-center">
                                                     {{ $arrive?->courrier?->date_recep?->format('d/m/Y') }}
-                                                </td>
-                                                {{-- <td class="text-center">{{ $arrive?->courrier?->numero_courrier }}</td> --}}
-                                                {{-- <td class="text-center">{{ $arrive?->courrier?->date_cores?->format('d/m/Y') }}
-                                            </td> --}}
+                                                </td> --}}
                                                 <td>{{ $arrive?->courrier?->expediteur }}</td>
                                                 <td>{{ $arrive?->courrier?->objet }}</td>
-                                                <td>
+                                                {{-- <td>
                                                     @if ($arrive?->employees && $arrive->employees->isNotEmpty())
                                                         <ul class="mb-0 ps-3">
                                                             @foreach ($arrive->employees as $index => $employee)
                                                                 <li>
-                                                                    {{-- {!! $employee->user->firstname . ' ' . $employee->user->name !!}
-                                                                    @if (!empty($employee->fonction?->sigle))
-                                                                        <strong>({!! $employee->fonction?->sigle ?? '' !!})</strong>
-                                                                    @endif --}}
-                                                                    <strong>{!! $employee->fonction?->sigle ?? '' !!}</strong>
+                                                                    <strong>{{ $employee?->user?->firstname . ' ' . $employee?->user?->name ?? '' }}</strong>
                                                                 </li>
                                                             @endforeach
                                                         </ul>
+                                                    @else
+                                                        <span class="badge bg-info text-dark">Aucune</span>
+                                                    @endif
+                                                </td> --}}
+                                                <td>
+                                                    @if ($arrive?->employees && $arrive->employees->isNotEmpty())
+                                                        <div class="small">
+                                                            @foreach ($arrive->employees as $employee)
+                                                                <span class="badge bg-light text-dark border me-1 mb-1">
+                                                                    {{ $employee?->user?->firstname . ' ' . $employee?->user?->name }}
+                                                                </span>
+                                                            @endforeach
+                                                        </div>
                                                     @else
                                                         <span class="badge bg-info text-dark">Aucune</span>
                                                     @endif
@@ -177,7 +152,6 @@
                                                             class="btn btn-success btn-sm" title="voir détails">
                                                             <i class="bi bi-eye"></i>
                                                         </a>
-                                                        {{-- @can('update', $arrive) --}}
                                                         <div class="filter">
                                                             <a class="icon" href="#" data-bs-toggle="dropdown">
                                                                 <i class="bi bi-three-dots"></i>
@@ -204,7 +178,6 @@
                                                                 @endcan
                                                             </ul>
                                                         </div>
-                                                        {{-- @endcan --}}
                                                     </div>
                                                 </td>
                                             </tr>
@@ -224,29 +197,13 @@
             aria-labelledby="addCourrierArriveLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
-                    {{--  <div class="pt-0 pb-0">
-                        <h5 class="card-title text-center pb-0 fs-4">Enregistrement</h5>
-                        <p class="text-center small">enregister un nouveau courrier arrivé</p>
-                    </div> --}}
 
                     <div class="card-header text-center bg-gradient-default">
                         <h1 class="h4 text-black mb-0">Ajouter un nouveau courrier arrivé</h1>
                     </div>
-                    {{--    <div class="modal-header">
-                        <h5 class="modal-title">Ajouter un nouveau courrier arrivé</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div> --}}
                     <form method="post" action="{{ route('arrives.store') }}" enctype="multipart/form-data"
                         class="row g-3">
                         @csrf
-
-                        {{--  <div class="modal-header">
-                            <h5 class="modal-title"><i class="bi bi-plus" title="Ajouter"></i> Ajouter une nouvelle
-                                demande
-                                individuelle</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div> --}}
                         <div class="modal-body">
                             <div class="row g-3">
                                 <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
@@ -291,20 +248,6 @@
                                         </span>
                                     @enderror
                                 </div>
-
-                                {{-- <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                    <label for="numero_courrier" class="form-label">Numéro correspondance</label>
-                                    <input type="text" min="0" name="numero_courrier"
-                                            value="{{ old('numero_courrier') }}"
-                                            class="form-control form-control-sm @error('numero_courrier') is-invalid @enderror"
-                                            id="numero_courrier" placeholder="Numéro de correspondance">
-                                    @error('numero_courrier')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
-                                </div> --}}
-
                                 <div class="col-12 col-lg-4 col-md-12 col-sm-12 col-xs-12 col-xxl-4">
                                     <label for="numero_courrier" class="form-label">Numéro de correspondance</label>
                                     <textarea name="numero_courrier" id="numero_courrier" rows="1"
@@ -331,20 +274,6 @@
                                         </span>
                                     @enderror
                                 </div>
-
-                                {{-- <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                    <label for="expediteur" class="form-label">Expéditeur<span
-                                            class="text-danger mx-1">*</span></label>
-                                    <textarea name="expediteur" id="expediteur" rows="1"
-                                        class="form-control form-control-sm @error('expediteur') is-invalid @enderror" placeholder="Expéditeur">{{ old('expediteur') }}
-                                    </textarea>
-                                    @error('expediteur')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
-                                </div> --}}
-
                                 <div class="col-12">
                                     <label for="expediteur" class="form-label">
                                         Expéditeur <span class="text-danger">*</span>

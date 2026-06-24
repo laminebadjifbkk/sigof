@@ -95,6 +95,7 @@ use App\Http\Controllers\ValidationIndividuelleController;
 use App\Http\Controllers\ValidationmoduleController;
 use App\Http\Controllers\ValidationoperateurController;
 use App\Http\Controllers\VerificationAttestationController;
+use App\Models\Arrive;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Formula;
@@ -390,6 +391,8 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/mescourriers', [ArriveController::class, 'mescourriers'])->name('mescourriers');
         Route::get('/courriers-direction', [CourrierController::class, 'courriersDirection'])
             ->name('courriers.direction');
+        Route::get('/arrives-direction', [ArriveController::class, 'arrivesDirection'])
+            ->name('arrives.direction');
         Route::get('/ingenieurformations', [UserController::class, 'ingenieurformations'])->name('ingenieurformations');
 
         Route::post('/autocomplete/fetch', [OperateurController::class, 'fetch'])->name('autocomplete.fetch');

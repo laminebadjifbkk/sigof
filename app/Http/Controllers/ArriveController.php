@@ -1076,4 +1076,95 @@ class ArriveController extends Controller
         Alert::success('Succès !', 'Imputation retirée avec succès');
         return redirect()->back();
     }
+
+    public function arrivesDirection(Request $request)
+    {
+        $user = auth()->user();
+        $direction = $user->employee?->direction;
+
+        if (!$direction) {
+            abort(403, 'Direction non définie.');
+        }
+
+        $anneeEnCours = date('Y');  // 2026
+        $an           = date('y');  // 26
+
+        // =========================
+        // NUMÉRO ARRIVÉE
+        // =========================
+        $lastArrive = Arrive::join('courriers', 'courriers.id', '=', 'arrives.courriers_id')
+            ->where('courriers.annee', $anneeEnCours)
+            ->whereHas('courrier.directions', function ($q) use ($direction) {
+                $q->where('directions.id', $direction->id);
+            })
+            ->orderByDesc('arrives.numero_arrive')
+            ->select('arrives.numero_arrive')
+            ->first();
+
+        if ($lastArrive && $lastArrive->numero_arrive) {
+            $numCourrier = $lastArrive->numero_arrive + 1;
+        } else {
+            $numCourrier = $an . "0001";
+        }
+
+        $numCourrier = str_pad($numCourrier, 6, '0', STR_PAD_LEFT);
+
+        // =========================
+        // QUERY ARRIVÉS FILTRÉS PAR DIRECTION
+        // =========================
+        $query = Arrive::with('courrier')
+            ->whereHas('courrier.directions', function ($q) use ($direction) {
+                $q->where('directions.id', $direction->id);
+            });
+
+        if ($statut = $request->query('statut')) {
+            $query->where('statut', $statut);
+        }
+
+        $arrives = $query
+            ->latest()
+            ->limit(500)
+            ->get();
+
+        // =========================
+        // TOTAL GLOBAL (DIRECTION)
+        // =========================
+        $total = Arrive::whereHas('courrier.directions', function ($q) use ($direction) {
+            $q->where('directions.id', $direction->id);
+        })->count();
+
+        $totalArrives = number_format($total, 0, ',', ' ');
+
+        // =========================
+        // GROUPES PAR ANNÉE (DIRECTION)
+        // =========================
+        $groupes = Arrive::join('courriers', 'courriers.id', '=', 'arrives.courriers_id')
+            ->whereHas('courrier.directions', function ($q) use ($direction) {
+                $q->where('directions.id', $direction->id);
+            })
+            ->select('courriers.annee')
+            ->selectRaw('COUNT(arrives.id) as total')
+            ->groupBy('courriers.annee')
+            ->orderBy('courriers.annee', 'desc')
+            ->paginate(1);
+
+        // =========================
+        // STATS AFFICHAGE
+        // =========================
+        $affichees = $arrives->count();
+
+        return view(
+            "courriers.arrives.direction",
+            compact(
+                "arrives",
+                "anneeEnCours",
+                "numCourrier",
+                "totalArrives",
+                "groupes",
+                "affichees",
+                "total",
+                "direction"
+            )
+        );
+    }
 }
