@@ -154,19 +154,75 @@
                                             </td> --}}
                                                 <td>{{ $arrive?->courrier?->expediteur }}</td>
                                                 <td>{{ $arrive?->courrier?->objet }}</td>
-                                                <td>
+                                                {{-- <td>
                                                     @if ($arrive?->employees && $arrive->employees->isNotEmpty())
                                                         <ul class="mb-0 ps-3">
                                                             @foreach ($arrive->employees as $index => $employee)
                                                                 <li>
-                                                                    {{-- {!! $employee->user->firstname . ' ' . $employee->user->name !!}
-                                                                    @if (!empty($employee->fonction?->sigle))
-                                                                        <strong>({!! $employee->fonction?->sigle ?? '' !!})</strong>
-                                                                    @endif --}}
                                                                     <strong>{!! $employee->fonction?->sigle ?? '' !!}</strong>
                                                                 </li>
                                                             @endforeach
                                                         </ul>
+                                                    @else
+                                                        <span class="badge bg-info text-dark">Aucune</span>
+                                                    @endif
+                                                </td> --}}
+                                                <td>
+                                                    @if ($arrive?->courrier?->directions && $arrive->courrier->directions->isNotEmpty())
+                                                        <button class="btn btn-sm btn-outline-primary"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#directionsModal{{ $arrive->id }}">
+                                                            Voir ({{ $arrive->courrier->directions->count() }})
+                                                        </button>
+
+                                                        {{-- MODAL --}}
+                                                        <div class="modal fade" id="directionsModal{{ $arrive->id }}"
+                                                            tabindex="-1" aria-hidden="true">
+                                                            <div class="modal-dialog modal-md modal-dialog-centered">
+                                                                <div class="modal-content">
+
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title">
+                                                                            Directions concernées
+                                                                        </h5>
+                                                                        <button type="button" class="btn-close"
+                                                                            data-bs-dismiss="modal"></button>
+                                                                    </div>
+
+                                                                    <div class="modal-body">
+
+                                                                        @foreach ($arrive->courrier->directions as $index => $direction)
+                                                                            <div
+                                                                                class="d-flex align-items-center justify-content-between py-2 border-bottom">
+
+                                                                                {{-- LEFT --}}
+                                                                                <div>
+                                                                                    <div class="fw-semibold text-primary">
+                                                                                        {{ $direction->name }}
+                                                                                    </div>
+
+                                                                                    <small class="text-muted">
+                                                                                        Direction #{{ $index + 1 }}
+                                                                                    </small>
+                                                                                </div>
+
+                                                                                {{-- RIGHT : CHEF --}}
+                                                                                <div class="text-end">
+                                                                                    <div class="small text-muted">Chef</div>
+
+                                                                                    <div class="fw-semibold">
+                                                                                        {{ $direction->chef?->user?->firstname . ' ' . $direction->chef?->user?->name ?? 'Non défini' }}
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        @endforeach
+
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     @else
                                                         <span class="badge bg-info text-dark">Aucune</span>
                                                     @endif
