@@ -303,14 +303,14 @@ class ArriveController extends Controller
         return redirect()->back();
     }
 
-    public function edit($id)
+    public function edit(int $id)
     {
         $arrive = Arrive::findOrFail($id);
 
         return view("courriers.arrives.update", compact("arrive"));
     }
 
-    public function update(Request $request, $id): RedirectResponse
+    public function update(Request $request, int $id): RedirectResponse
     {
         $arrive = Arrive::findOrFail($id);
         $arrive->update([

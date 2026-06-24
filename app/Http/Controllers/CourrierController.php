@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Arrive;
@@ -6,6 +7,7 @@ use App\Models\Courrier;
 use App\Models\Depart;
 use App\Models\Interne;
 use App\Models\User;
+use App\Services\BrevoMailer;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -127,5 +129,74 @@ class CourrierController extends Controller
     public function notifications()
     {
         return view("courriers.notifications");
+    }
+
+
+    public function send(int $id)
+    {
+        $mailer = app(BrevoMailer::class);
+
+        $arrive = Arrive::with(['users'])->findOrFail($id);
+
+        $users = $arrive->users;
+
+        $defaultEmails = [
+            'lamine.badji@outlook.fr',
+        ];
+
+        $emails = collect($defaultEmails)
+            ->merge($users->map(fn($u) => $u?->user?->email))
+            ->filter()
+            ->map(fn($email) => strtolower(trim($email)))
+            ->filter(fn($email) => filter_var($email, FILTER_VALIDATE_EMAIL))
+            ->unique()
+            ->values();
+
+        $subject = "IMPUTATION DE COURRIER ONFP";
+
+        $errors = [];
+
+        foreach ($emails as $email) {
+
+            $htmlContent = view('emails.imputation-courrier', [
+                'arrive' => $arrive,
+                'email' => $email, // 👈 destinataire courant
+            ])->render();
+
+            try {
+                $mailer->sendEmail(
+                    [
+                        'email' => $email,
+                        'name' => 'Destinataire ONFP'
+                    ],
+                    $subject,
+                    $htmlContent
+                );
+            } catch (\Exception $e) {
+
+                $errors[] = $email;
+
+                logger()->error("Erreur envoi mail imputation", [
+                    'email' => $email,
+                    'error' => $e->getMessage()
+                ]);
+            }
+        }
+
+        if (count($errors) > 0) {
+
+            Alert::warning(
+                'Partiellement envoyé',
+                'Certains mails n’ont pas été envoyés : ' . implode(', ', $errors)
+            );
+        } else {
+
+            Alert::success(
+                'Succès',
+                'Tous les mails ont été envoyés avec succès.'
+            );
+        }
+
+        return redirect()->back();
     }
 }

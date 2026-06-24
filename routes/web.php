@@ -913,6 +913,9 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::post('/formations/{formation}/notify-start', [FormationStartController::class, 'send'])
             ->name('formations.notifyStart');
 
+        Route::post('/courriers/{courrier}/notify-send', [CourrierController::class, 'send'])
+            ->name('courriers.notifySend');
+
         /* Route::get('/inscriptioncontacts/{id}/details', [InscriptionContactController::class, 'showAjax'])
             ->name('inscriptioncontacts.details');
 

@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'COURRIER ARRIVE | ' . $arrive?->courrier?->objet)
+@section('title', 'COURRIER ARRIVE, ' . $arrive?->courrier?->objet)
 @section('space-work')
     <section class="section profile">
         <div class="container-fluid">
@@ -122,6 +122,15 @@
                                                         <h5 class="fw-bold text-primary">
                                                             <i class="bi bi-list-check me-1"></i> Anciennes imputations
                                                         </h5>
+                                                        <form action="{{ route('courriers.notifySend', $arrive->id) }}"
+                                                            method="POST">
+                                                            @csrf
+
+                                                            <button type="submit" class="btn btn-primary btn-sm">
+                                                                <i class="bi bi-envelope-paper me-1"></i>
+                                                                Informer par email
+                                                            </button>
+                                                        </form>
                                                     </div>
 
                                                     <div class="table-responsive mb-4">
