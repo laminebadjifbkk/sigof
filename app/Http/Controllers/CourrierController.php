@@ -211,7 +211,7 @@ class CourrierController extends Controller
         // =========================
 
         $defaultEmails = [
-            'badjilaminefbkk@gmail.com',
+            'mouhamet.ndime@onfp.sn',
         ];
 
         $emails = collect($defaultEmails)
