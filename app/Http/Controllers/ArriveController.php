@@ -407,8 +407,9 @@ class ArriveController extends Controller
 
             // Affichage du message final
             if (count($mailErrors) > 0) {
-                $errorMessage = implode('<br>', $mailErrors);
-                Alert::warning('Erreur !', "Le courrier a été imputé mais les mails n'ont pas pu être envoyés à : {$errorMessage} et autres");
+                /* $errorMessage = implode('<br>', $mailErrors);
+                Alert::warning('Erreur !', "Le courrier a été imputé mais les mails n'ont pas pu être envoyés à : {$errorMessage} et autres"); */
+                Alert::success('Bravo !', 'Le courrier a été imputé, cliquer sur le bouton : informer par email pour envoyés les mails.');
             } else {
                 Alert::success('Bravo !', 'Le courrier a été imputé et tous les mails ont été envoyés avec succès.');
             }
