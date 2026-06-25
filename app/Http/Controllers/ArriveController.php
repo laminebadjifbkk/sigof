@@ -1206,8 +1206,6 @@ class ArriveController extends Controller
             ->orderBy('directions_id')
             ->get();
 
-        dd($employeesDirections);
-
         return view(
             'courriers.arrives.showdirection',
             compact(
