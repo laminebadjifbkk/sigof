@@ -538,7 +538,7 @@ class ArriveController extends Controller
         }
     }
 
-    public function show($id)
+    public function show(int $id)
     {
         $arrive = Arrive::findOrFail($id);
 
@@ -1059,7 +1059,7 @@ class ArriveController extends Controller
         return view("profile.mescourriers", compact("user", "employee", "arrives"));
     }
 
-    public function detachEmployee($arriveId, $employeeId)
+    public function detachEmployee(int $arriveId, int $employeeId)
     {
         $arrive = Arrive::findOrFail($arriveId);
         $employee = Employee::findOrFail($employeeId);
@@ -1166,5 +1166,72 @@ class ArriveController extends Controller
                 "direction"
             )
         );
+    }
+
+    public function showArriveDirection(int $idcourrier, int $iddirection)
+    {
+        $arrive = Arrive::with([
+            'employees.direction',
+            'employees.user'
+        ])->findOrFail($idcourrier);
+
+        $direction = Direction::findOrFail($iddirection);
+
+        $courrier = $arrive->courrier;
+
+        $user_create = User::find($courrier->user_create_id);
+        $user_update = User::find($courrier->user_update_id);
+
+        $user_create_name = $user_create?->firstname . ' ' . $user_create?->name;
+        $user_update_name = $user_update?->firstname . ' ' . $user_update?->name;
+
+        // Employés déjà imputés
+        $imputedEmployeeIds = $arrive->employees->pluck('id');
+
+        // Récupération des directions concernées
+        $directionIds = $arrive->employees
+            ->pluck('directions_id')
+            ->filter()
+            ->unique();
+
+        // Employés des directions concernées
+        $employeesDirections = Employee::with(['user', 'direction'])
+            ->whereIn('directions_id', $directionIds)
+            ->whereNotIn('id', $imputedEmployeeIds) // exclure les employés déjà imputés
+            ->orderBy('directions_id')
+            ->get();
+
+        return view(
+            'courriers.arrives.showdirection',
+            compact(
+                'arrive',
+                'courrier',
+                'user_create_name',
+                'user_update_name',
+                'employeesDirections',
+                'direction'
+            )
+        );
+    }
+
+    public function attachMultipleEmployees(Request $request, Arrive $arrive)
+    {
+        $request->validate([
+            'employees' => 'required|array',
+            'employees.*' => 'exists:employees,id'
+        ]);
+
+        // IDs déjà liés
+        $existing = $arrive->employees()->pluck('employees_id')->toArray();
+
+        // filtrer les nouveaux
+        $toAttach = array_diff($request->employees, $existing);
+
+        if (!empty($toAttach)) {
+            $arrive->employees()->attach($toAttach);
+        }
+
+        Alert::success('Opération réussie !', 'Imputation multiple effectuée avec succès.');
+        return redirect()->back();
     }
 }

@@ -189,12 +189,15 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    {{-- <div class="d-flex align-items-baseline">
-                                                        <a href="{{ route('arrives.show', $arrive?->id) }}"
-                                                            class="btn btn-success btn-sm" title="voir détails">
+                                                    <div class="d-flex align-items-baseline">
+                                                        <a href="{{ route('arrives.showdirection', [
+                                                            'idcourrier' => $arrive->id,
+                                                            'iddirection' => $direction->id,
+                                                        ]) }}"
+                                                            class="btn btn-success btn-sm" title="Voir détails">
                                                             <i class="bi bi-eye"></i>
                                                         </a>
-                                                        <div class="filter">
+                                                        {{-- <div class="filter">
                                                             <a class="icon" href="#" data-bs-toggle="dropdown">
                                                                 <i class="bi bi-three-dots"></i>
                                                             </a>
@@ -219,8 +222,8 @@
                                                                     @endcan
                                                                 @endcan
                                                             </ul>
-                                                        </div>
-                                                    </div> --}}
+                                                        </div> --}}
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @endforeach

@@ -397,6 +397,15 @@ Route::group(['middleware' => ['XSS']], function () {
             ->name('departs.direction');
         Route::get('/internes-direction', [InterneController::class, 'internesDirection'])
             ->name('internes.direction');
+        Route::get('/arrives-showdirection/{idcourrier}/{iddirection}', [ArriveController::class, 'showArriveDirection'])
+            ->name('arrives.showdirection');
+
+        Route::post(
+            '/arrives/{arrive}/employees/attach-multiple',
+            [ArriveController::class, 'attachMultipleEmployees']
+        )->name('arrives.attachMultipleEmployees');
+
+
         Route::get('/ingenieurformations', [UserController::class, 'ingenieurformations'])->name('ingenieurformations');
 
         Route::post('/autocomplete/fetch', [OperateurController::class, 'fetch'])->name('autocomplete.fetch');
