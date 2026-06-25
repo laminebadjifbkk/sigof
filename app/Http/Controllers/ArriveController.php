@@ -1194,16 +1194,10 @@ class ArriveController extends Controller
             ->filter()
             ->unique();
 
-        $employees = Employee::with(['user', 'direction'])
-            ->whereIn('directions_id', $directionIds)
-            ->whereNotIn('id', $imputedEmployeeIds)
-            ->get();
-
-        // Employés des directions concernées
         $employeesDirections = Employee::with(['user', 'direction'])
-            ->whereIn('directions_id', $directionIds)
-            ->whereNotIn('id', $imputedEmployeeIds) // exclure les employés déjà imputés
-            ->orderBy('directions_id')
+            ->where('directions_id', $iddirection)
+            ->whereNotIn('id', $imputedEmployeeIds)
+            ->orderBy('id')
             ->get();
 
         return view(
