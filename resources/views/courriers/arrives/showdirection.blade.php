@@ -130,7 +130,7 @@
                                                                 <tr>
                                                                     <th>Employé</th>
                                                                     <th>Direction</th>
-                                                                    <th width="5%">Action</th>
+                                                                    {{-- <th width="5%">Action</th> --}}
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -148,7 +148,7 @@
                                                                                 class="form-control form-control-sm border-0 bg-light"
                                                                                 readonly>
                                                                         </td>
-                                                                        <td class="text-center">
+                                                                        {{-- <td class="text-center">
                                                                             @can('imputer-courrier')
                                                                                 <form method="POST"
                                                                                     action="{{ route('arrives.detachEmployee', [$arrive->id, $employe->id]) }}">
@@ -160,7 +160,7 @@
                                                                                     </button>
                                                                                 </form>
                                                                             @endcan
-                                                                        </td>
+                                                                        </td> --}}
                                                                     </tr>
                                                                 @empty
                                                                     <tr>
