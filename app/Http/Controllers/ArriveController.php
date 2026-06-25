@@ -1199,16 +1199,14 @@ class ArriveController extends Controller
             ->whereNotIn('id', $imputedEmployeeIds)
             ->get();
 
-        dd(
-            $employees
-        );
-
         // Employés des directions concernées
         $employeesDirections = Employee::with(['user', 'direction'])
             ->whereIn('directions_id', $directionIds)
             ->whereNotIn('id', $imputedEmployeeIds) // exclure les employés déjà imputés
             ->orderBy('directions_id')
             ->get();
+
+        dd($employeesDirections);
 
         return view(
             'courriers.arrives.showdirection',
