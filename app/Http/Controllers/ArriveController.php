@@ -1194,6 +1194,8 @@ class ArriveController extends Controller
             ->filter()
             ->unique();
 
+        dd($directionIds);
+
         // Employés des directions concernées
         $employeesDirections = Employee::with(['user', 'direction'])
             ->whereIn('directions_id', $directionIds)
