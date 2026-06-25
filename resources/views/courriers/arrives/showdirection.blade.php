@@ -197,8 +197,9 @@
                                                                         </th>
                                                                         <th>Employé</th>
                                                                         <th>Fonction</th>
-                                                                        <th>Email</th>
+                                                                        {{-- <th>Email</th> --}}
                                                                         <th>Téléphone</th>
+                                                                        <th width="5%">Action</th>
                                                                     </tr>
                                                                 </thead>
 
@@ -220,17 +221,30 @@
                                                                                 {{ $employee->fonction?->name }}
                                                                             </td>
 
-                                                                            <td>
+                                                                            {{-- <td>
                                                                                 <a href="mailto:{{ $employee->user?->email }}">
                                                                                     {{ $employee->user?->email }}
                                                                                 </a>
-                                                                            </td>
+                                                                            </td> --}}
 
                                                                             <td>
                                                                                 <a
                                                                                     href="tel:+221{{ $employee->user?->telephone }}">
                                                                                     {{ $employee->user?->telephone }}
                                                                                 </a>
+                                                                            </td>
+
+                                                                            <td>
+
+                                                                                @can('employe-show')
+                                                                                    <span
+                                                                                        class="d-flex mt-2 align-items-baseline"><a
+                                                                                            href="{{ route('employes.show', $employe) }}"
+                                                                                            class="btn btn-success btn-sm mx-1"
+                                                                                            title="voir détails"><i
+                                                                                                class="bi bi-eye"></i></a>
+                                                                                    </span>
+                                                                                @endcan
                                                                             </td>
                                                                         </tr>
                                                                     @empty
