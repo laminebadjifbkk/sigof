@@ -239,7 +239,7 @@
                                                                                 @can('employe-show')
                                                                                     <span
                                                                                         class="d-flex mt-2 align-items-baseline"><a
-                                                                                            href="{{ route('employes.show', $employe->uuid) }}"
+                                                                                            href="{{ route('employes.show', $employee) }}"
                                                                                             class="btn btn-success btn-sm mx-1"
                                                                                             title="voir détails"><i
                                                                                                 class="bi bi-eye"></i></a>
