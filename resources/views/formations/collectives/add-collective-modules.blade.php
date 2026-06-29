@@ -91,7 +91,7 @@
                                         <table class="table table-hover align-middle">
                                             <thead class="table-light">
                                                 <tr>
-                                                    <th width="35%">Structure</th>
+                                                   {{--  <th width="35%">Structure</th> --}}
                                                     <th>Module</th>
                                                     <th class="text-center">Effectif</th>
                                                     <th class="text-center">Formations</th>
@@ -114,7 +114,7 @@
                                                                     class="form-check-input me-3"
                                                                     {{ in_array($collectivemodule->id, $collectivemoduleFormation) ? 'checked' : '' }}>
 
-                                                                <div>
+                                                                {{-- <div>
                                                                     <div class="fw-semibold">
                                                                         {{ $collectivemodule?->collective?->name_with_sigle }}
                                                                     </div>
@@ -122,7 +122,7 @@
                                                                     <small class="text-muted">
                                                                         Module collectif
                                                                     </small>
-                                                                </div>
+                                                                </div> --}}
                                                             </div>
                                                         </td>
 
