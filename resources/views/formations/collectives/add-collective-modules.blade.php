@@ -74,8 +74,10 @@
                         <div class="card border-0 shadow-sm">
                             <div class="card-header bg-white py-3">
                                 <h5 class="mb-0">
-                                    <i class="bi bi-diagram-3-fill text-primary"></i>
+                                    {{-- <i class="bi bi-diagram-3-fill text-primary"></i> --}}
+                                    <small class="text-muted">
                                     Structure : {{ $formation?->collectivemodule?->collective?->name_with_sigle ?? 'Aucune' }}
+                                    </small>
                                 </h5>
                             </div>
 
