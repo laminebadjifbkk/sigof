@@ -91,7 +91,7 @@
                                         <table class="table table-hover align-middle">
                                             <thead class="table-light">
                                                 <tr>
-                                                   {{--  <th width="35%">Structure</th> --}}
+                                                    <th></th>
                                                     <th>Module</th>
                                                     <th class="text-center">Effectif</th>
                                                     <th class="text-center">Formations</th>
