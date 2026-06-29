@@ -20,7 +20,7 @@
                 <div class="card border-0 shadow-sm">
                     <div class="card-header bg-white py-3">
                         <h5 class="mb-0">
-                            <i class="bi bi-buildings-fill text-primary"></i>
+                            {{-- <i class="bi bi-buildings-fill text-primary"></i> --}}
                             Structures disponibles
                         </h5>
                     </div>
