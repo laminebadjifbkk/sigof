@@ -112,7 +112,7 @@
                                                         <h5 class="fw-bold text-primary">
                                                             <i class="bi bi-list-check me-1"></i>Imputations
                                                         </h5>
-                                                        <form action="{{ route('courriers.notifySend', $arrive->id) }}"
+                                                        {{-- <form action="{{ route('courriers.notifySend', $arrive->id) }}"
                                                             method="POST">
                                                             @csrf
 
@@ -120,7 +120,7 @@
                                                                 <i class="bi bi-envelope-paper me-1"></i>
                                                                 Informer par email
                                                             </button>
-                                                        </form>
+                                                        </form> --}}
                                                     </div>
 
                                                     <div class="table-responsive mb-4">
