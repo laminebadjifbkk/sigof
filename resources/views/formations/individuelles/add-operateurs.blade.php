@@ -69,7 +69,7 @@
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Opérateurs</th>
-                                                    <th class="text-center">Modules</th>
+                                                    {{-- <th class="text-center">Modules</th> --}}
                                                     <th class="text-center">Formations</th>
                                                     <th class="text-center">Statut</th>
                                                     <th><i class="bi bi-gear"></i></th>
@@ -97,17 +97,10 @@
                                                             {{-- {{ $operateur?->numero_agrement }} --}}
                                                         </td>
                                                         <td>{{ $operateur?->user?->display_operateur }}</td>
-                                                        <td style="text-align: center;">
-                                                            {{-- @foreach ($operateur?->operateurmodules as $operateurmodule)
-                                                                    @if ($loop->last)
-                                                                        <a href="#">
-                                                                            <span
-                                                                                class="badge bg-info">{{ $loop->count }}</span></a>
-                                                                    @endif
-                                                                @endforeach --}}
+                                                        {{-- <td style="text-align: center;">
                                                             <span
                                                                 class="badge bg-info">{{ count($operateur?->operateurmodules) }}</span>
-                                                        </td>
+                                                        </td> --}}
                                                         <td class="text-center">
                                                             {{-- @foreach ($operateur?->formations as $formation)
                                                                     @if ($loop->last)
