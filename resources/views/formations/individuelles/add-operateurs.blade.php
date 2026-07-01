@@ -79,7 +79,11 @@
                                                 <?php $i = 1; ?>
                                                 @foreach ($operateurs as $operateur)
                                                     {{-- @isset($operateur?->operateur?->numero_agrement) --}}
-                                                    <tr>
+
+                                                    @php
+                                                        $selected = in_array($operateur->id, $operateurFormation);
+                                                    @endphp
+                                                    <tr class="{{ $selected ? 'table-success' : '' }}">
                                                         <td>
                                                             <input type="checkbox" name="operateur"
                                                                 value="{{ $operateur?->id }}"
