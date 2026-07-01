@@ -353,7 +353,7 @@ $missions = $chauffeur->employee->parcmissions;
                                             $pivot = $missionEmployees[(int) $employee->id]->pivot ?? null;
                                         @endphp
 
-                                        <tr>
+                                        <tr class="{{ $pivot ? 'table-success' : '' }}">
                                             <td>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox"
