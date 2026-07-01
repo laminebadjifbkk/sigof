@@ -296,7 +296,7 @@ $missions = $chauffeur->employee->parcmissions;
                         {{-- ================== EMPLOYÉS ================== --}}
                         <h5 class="mt-4">Autres employés</h5>
 
-                        @foreach ($employees as $employee)
+                        {{--  @foreach ($employees as $employee)
                             @php
                                 //$pivot = $mission->employees->find($employee->id)?->pivot;
                                 $pivot = $missionEmployees[(int) $employee->id]->pivot ?? null;
@@ -306,7 +306,6 @@ $missions = $chauffeur->employee->parcmissions;
                                 <div class="col-md-8">
                                     <input type="checkbox" name="employees[{{ $employee->id }}][selected]"
                                         value="1" {{ $pivot ? 'checked' : '' }}>
-                                    {{-- {{ $employee->matricule }} - --}}
                                     {{ $employee->user->name }} {{ $employee->user->firstname }},
                                     {{ $employee?->fonction?->name }}
                                 </div>
@@ -337,7 +336,78 @@ $missions = $chauffeur->employee->parcmissions;
                                     </select>
                                 </div>
                             </div>
-                        @endforeach
+                        @endforeach --}}
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th style="width: 55%;">Employé</th>
+                                        <th style="width: 20%;">Rôle</th>
+                                        <th style="width: 25%;">Véhicule</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($employees as $employee)
+                                        @php
+                                            $pivot = $missionEmployees[(int) $employee->id]->pivot ?? null;
+                                        @endphp
+
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        name="employees[{{ $employee->id }}][selected]" value="1"
+                                                        {{ $pivot ? 'checked' : '' }}>
+
+                                                    <label class="form-check-label">
+                                                        {{ $employee->user->name }}
+                                                        {{ $employee->user->firstname }}
+                                                        <br>
+                                                        <small class="text-muted">
+                                                            {{ $employee?->fonction?->name }}
+                                                        </small>
+                                                    </label>
+                                                </div>
+                                            </td>
+
+                                            <td>
+                                                <select name="employees[{{ $employee->id }}][role]"
+                                                    class="form-select form-select-sm">
+                                                    <option value="">Aucun</option>
+                                                    <option value="participant"
+                                                        {{ $pivot?->role === 'participant' ? 'selected' : '' }}>
+                                                        Participant
+                                                    </option>
+                                                    <option value="responsable"
+                                                        {{ $pivot?->role === 'responsable' ? 'selected' : '' }}>
+                                                        Responsable
+                                                    </option>
+                                                    <option value="observateur"
+                                                        {{ $pivot?->role === 'observateur' ? 'selected' : '' }}>
+                                                        Observateur
+                                                    </option>
+                                                </select>
+                                            </td>
+
+                                            <td>
+                                                <select name="employees[{{ $employee->id }}][vehicule_id]"
+                                                    class="form-select form-select-sm">
+                                                    <option value="">-- Aucun véhicule --</option>
+
+                                                    @foreach ($vehicules as $vehicule)
+                                                        <option value="{{ $vehicule->id }}"
+                                                            {{ $pivot && $pivot->vehicule_id == $vehicule->id ? 'selected' : '' }}>
+                                                            {{ $vehicule->immatriculation }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
 
                         {{-- <button class="btn btn-success btn-sm mt-3">
                             <i class="bi bi-check-circle"></i> Enregistrer
