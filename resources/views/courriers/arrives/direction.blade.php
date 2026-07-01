@@ -74,6 +74,7 @@
                                             </td>
                                             <td>{{ $items->annee }}</td>
                                             <td class="text-center">{{ number_format($items->total, 0, '', ' ') }}</td>
+                                            <td></td>
                                         </tr>
                                     @endforeach
                                 </tbody>
