@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'Formation | Choisir demandeurs collectifs')
+@section('title', 'Sélectionner demandeurs collectifs')
 @section('space-work')
     <section class="section">
         <div class="row justify-content-center">
@@ -83,12 +83,13 @@
                                             </thead>
                                             <tbody>
                                                 @foreach ($listecollectives as $i => $listecollective)
-                                                    <tr>
+                                                    <tr
+                                                        class="{{ in_array($listecollective->formations_id, $listecollectiveFormation) ? 'table-success' : '' }}">
                                                         <td class="text-center">
                                                             <input type="checkbox" name="listecollectives[]"
                                                                 value="{{ $listecollective->id }}"
                                                                 {{ in_array($listecollective->formations_id, $listecollectiveFormation) ? 'checked' : '' }}
-                                                                class="form-check-input choisir-tout-checkbox @error('listecollectives') is-invalid @enderror">
+                                                                class="form-check-input choisir-tout-checkbox demandeurs-checkbox @error('listecollectives') is-invalid @enderror">
                                                             @error('listecollectives')
                                                                 <span class="invalid-feedback" role="alert">
                                                                     <div>{{ $message }}</div>
@@ -162,42 +163,17 @@
 @endsection
 
 
-{{-- @push('scripts')
+@push('scripts')
     <script>
-        new DataTable('#table-individuelles', {
-            ordering: false, // désactive le tri automatique
-            paging: false, // 🔹 Désactive la pagination
-            info: false, // 🔹 Supprime le texte "Affichage de X à Y..."
-            pageLength: -1, // 🔹 Affiche toutes les lignes
-            language: {
-                "sProcessing": "Traitement en cours...",
-                "sSearch": "Rechercher&nbsp;:",
-                "sLengthMenu": "Afficher _MENU_ &eacute;l&eacute;ments",
-                "sInfo": "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
-                "sInfoEmpty": "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
-                "sInfoFiltered": "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
-                "sInfoPostFix": "",
-                "sLoadingRecords": "Chargement en cours...",
-                "sZeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",
-                "sEmptyTable": "Aucune donn&eacute;e disponible dans le tableau",
-                "oPaginate": {
-                    "sFirst": "Premier",
-                    "sPrevious": "Pr&eacute;c&eacute;dent",
-                    "sNext": "Suivant",
-                    "sLast": "Dernier"
-                },
-                "oAria": {
-                    "sSortAscending": ": activer pour trier la colonne par ordre croissant",
-                    "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
-                },
-                "select": {
-                    "rows": {
-                        _: "%d lignes sÃ©lÃ©ctionnÃ©es",
-                        0: "Aucune ligne sÃ©lÃ©ctionnÃ©e",
-                        1: "1 ligne sÃ©lÃ©ctionnÃ©e"
-                    }
-                }
+        document.querySelectorAll('.demandeurs-checkbox').forEach(function(checkbox) {
+
+            function updateRow() {
+                checkbox.closest('tr').classList.toggle('table-success', checkbox.checked);
             }
+
+            updateRow(); // À l'ouverture de la page
+
+            checkbox.addEventListener('change', updateRow);
         });
     </script>
-@endpush --}}
+@endpush
