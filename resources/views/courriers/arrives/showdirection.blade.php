@@ -179,7 +179,7 @@
                                                     <div class="mb-3">
                                                         <h5 class="fw-bold text-success">
                                                             <i class="bi bi-diagram-3 me-1"></i>
-                                                            Seconde imputation (Employés {{ $direction?->name }})
+                                                            Transférer ({{ $direction?->name }})
                                                         </h5>
                                                     </div>
 
