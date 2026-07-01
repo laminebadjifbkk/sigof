@@ -215,15 +215,20 @@
             }
         });
 
-        document.querySelectorAll('.operateurs-checkbox').forEach(function(checkbox) {
+        document.querySelectorAll('.operateurs-checkbox').forEach(function(current) {
 
-            function updateRow() {
-                checkbox.closest('tr').classList.toggle('table-success', checkbox.checked);
-            }
+            current.addEventListener('change', function() {
 
-            updateRow();
+                if (this.checked) {
+                    document.querySelectorAll('.operateurs-checkbox').forEach(function(cb) {
+                        if (cb !== current) {
+                            cb.checked = false;
+                        }
+                    });
+                }
 
-            checkbox.addEventListener('change', updateRow);
+            });
+
         });
     </script>
 @endpush
