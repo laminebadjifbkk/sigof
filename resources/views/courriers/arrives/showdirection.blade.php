@@ -179,7 +179,7 @@
                                                     <div class="mb-3">
                                                         <h5 class="fw-bold text-success">
                                                             <i class="bi bi-diagram-3 me-1"></i>
-                                                            Transférer ({{ $direction?->name }})
+                                                            Transférer - {{ $direction?->name }}
                                                         </h5>
                                                     </div>
 
@@ -250,8 +250,7 @@
                                                                     @empty
                                                                         <tr>
                                                                             <td colspan="4" class="text-center text-muted">
-                                                                                Aucun employé disponible pour une seconde
-                                                                                imputation.
+                                                                                Aucun employé disponible pour un transfert du courrier.
                                                                             </td>
                                                                         </tr>
                                                                     @endforelse
@@ -260,9 +259,9 @@
                                                             </table>
                                                         </div>
 
-                                                        <button type="submit" class="btn btn-primary btn-sm mt-2">
+                                                        <button type="submit" class="btn btn-outline-success btn-sm mt-2">
                                                             <i class="bi bi-check2-circle"></i>
-                                                            Imputer la sélection
+                                                            Transférer le courrier à la sélection
                                                         </button>
 
                                                     </form>
