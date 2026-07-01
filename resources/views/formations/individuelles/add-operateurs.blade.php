@@ -67,7 +67,7 @@
                                         <table class="m-2 table datatables align-middle" id="table-operateurs">
                                             <thead>
                                                 <tr>
-                                                    <th>N° agrément</th>
+                                                    <th>#</th>
                                                     <th>Opérateurs</th>
                                                     <th class="text-center">Modules</th>
                                                     <th class="text-center">Formations</th>
@@ -89,7 +89,8 @@
                                                                 <span class="invalid-feedback" role="alert">
                                                                     <div>{{ $message }}</div>
                                                                 </span>
-                                                                @enderror{{ $operateur?->numero_agrement }}
+                                                                @enderror
+                                                                {{-- {{ $operateur?->numero_agrement }} --}}
                                                             </td>
                                                             <td>{{ $operateur?->user?->display_operateur }}</td>
                                                             <td style="text-align: center;">
