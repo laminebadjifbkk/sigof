@@ -356,7 +356,7 @@ $missions = $chauffeur->employee->parcmissions;
                                         <tr class="{{ $pivot ? 'table-success' : '' }}">
                                             <td>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox"
+                                                    <input class="form-check-input employee-checkbox" type="checkbox"
                                                         name="employees[{{ $employee->id }}][selected]" value="1"
                                                         {{ $pivot ? 'checked' : '' }}>
 
@@ -457,6 +457,16 @@ $missions = $chauffeur->employee->parcmissions;
             deselectAllBtn.addEventListener('click', () => {
                 document.querySelectorAll('.chauffeur-checkbox').forEach(cb => cb.checked = false);
             });
+        });
+        document.querySelectorAll('.employee-checkbox').forEach(function(checkbox) {
+
+            function updateRow() {
+                checkbox.closest('tr').classList.toggle('table-success', checkbox.checked);
+            }
+
+            updateRow(); // À l'ouverture de la page
+
+            checkbox.addEventListener('change', updateRow);
         });
     </script>
 @endpush
