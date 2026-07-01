@@ -214,18 +214,18 @@
                 }
             }
         });
-
         document.querySelectorAll('.operateurs-checkbox').forEach(function(current) {
 
             current.addEventListener('change', function() {
 
-                if (this.checked) {
-                    document.querySelectorAll('.operateurs-checkbox').forEach(function(cb) {
-                        if (cb !== current) {
-                            cb.checked = false;
-                        }
-                    });
-                }
+                document.querySelectorAll('.operateurs-checkbox').forEach(function(cb) {
+                    if (cb !== current) {
+                        cb.checked = false;
+                        cb.closest('tr').classList.remove('table-success');
+                    }
+                });
+
+                this.closest('tr').classList.toggle('table-success', this.checked);
 
             });
 
