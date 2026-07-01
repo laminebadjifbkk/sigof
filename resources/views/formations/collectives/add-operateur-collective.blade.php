@@ -82,7 +82,7 @@
                                                     {{-- @isset($operateur?->numero_agrement) --}}
                                                     <tr>
                                                         <td>
-                                                            <input type="radio" name="operateur"
+                                                            <input type="checkbox" name="operateur"
                                                                 value="{{ $operateur?->id }}"
                                                                 {{ in_array($operateur?->id, $operateurFormation) ? 'checked' : '' }}
                                                                 class="form-check-input operateurs-checkbox @error('operateur') is-invalid @enderror">
