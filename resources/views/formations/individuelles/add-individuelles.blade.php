@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'Choisir bénéficiaires à la formation en ' . $formation->module->name)
+@section('title', 'Sélectionner demandeurs individuels')
 @section('space-work')
     <section class="section">
         <div class="row justify-content-center">
@@ -85,7 +85,13 @@
                                             <tbody>
                                                 @foreach ($individuelles as $i => $individuelle)
                                                     {{-- @if (!empty($individuelle?->numero)) --}}
-                                                    <tr>
+                                                    @php
+                                                        $selected = in_array(
+                                                            $individuelle->formations_id,
+                                                            $individuelleFormation,
+                                                        );
+                                                    @endphp
+                                                    <tr class="{{ $selected ? 'table-success' : '' }}">
                                                         <td>
                                                             <div
                                                                 class="d-flex align-items-center justify-content-center gap-2">
@@ -93,7 +99,7 @@
                                                                     value="{{ $individuelle->id }}"
                                                                     {{ in_array($individuelle->formations_id, $individuelleFormation) ? 'checked' : '' }}
                                                                     {{ in_array($individuelle->formations_id, $individuelleFormationCheck) ? 'disabled' : '' }}
-                                                                    class="form-check-input choisir-tout-checkbox m-0 @error('individuelles') is-invalid @enderror">
+                                                                    class="form-check-input choisir-tout-checkbox m-0 individuelles-checkbox @error('individuelles') is-invalid @enderror">
                                                             </div>
 
                                                             @error('individuelles')
@@ -223,6 +229,16 @@
                     }
                 }
             }
+        });
+        document.querySelectorAll('.individuelles-checkbox').forEach(function(checkbox) {
+
+            function updateRow() {
+                checkbox.closest('tr').classList.toggle('table-success', checkbox.checked);
+            }
+
+            updateRow();
+
+            checkbox.addEventListener('change', updateRow);
         });
     </script>
 @endpush
