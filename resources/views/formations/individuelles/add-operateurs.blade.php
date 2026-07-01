@@ -84,62 +84,62 @@
                                                             <input type="radio" name="operateur"
                                                                 value="{{ $operateur?->id }}"
                                                                 {{ in_array($operateur?->id, $operateurFormation) ? 'checked' : '' }}
-                                                                class="form-check-input @error('operateur') is-invalid @enderror">
+                                                                class="form-check-input operateurs-checkbox @error('operateur') is-invalid @enderror">
                                                             @error('operateur')
                                                                 <span class="invalid-feedback" role="alert">
                                                                     <div>{{ $message }}</div>
                                                                 </span>
-                                                                @enderror
-                                                                {{-- {{ $operateur?->numero_agrement }} --}}
-                                                            </td>
-                                                            <td>{{ $operateur?->user?->display_operateur }}</td>
-                                                            <td style="text-align: center;">
-                                                                {{-- @foreach ($operateur?->operateurmodules as $operateurmodule)
+                                                            @enderror
+                                                            {{-- {{ $operateur?->numero_agrement }} --}}
+                                                        </td>
+                                                        <td>{{ $operateur?->user?->display_operateur }}</td>
+                                                        <td style="text-align: center;">
+                                                            {{-- @foreach ($operateur?->operateurmodules as $operateurmodule)
                                                                     @if ($loop->last)
                                                                         <a href="#">
                                                                             <span
                                                                                 class="badge bg-info">{{ $loop->count }}</span></a>
                                                                     @endif
                                                                 @endforeach --}}
-                                                                <span
-                                                                    class="badge bg-info">{{ count($operateur?->operateurmodules) }}</span>
-                                                            </td>
-                                                            <td class="text-center">
-                                                                {{-- @foreach ($operateur?->formations as $formation)
+                                                            <span
+                                                                class="badge bg-info">{{ count($operateur?->operateurmodules) }}</span>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            {{-- @foreach ($operateur?->formations as $formation)
                                                                     @if ($loop->last)
                                                                         <a href="#"><span
                                                                                 class="badge bg-info">{{ $loop->count }}</span></a>
                                                                     @endif
                                                                 @endforeach --}}
-                                                                <span
-                                                                    class="badge bg-info">{{ count($operateur?->formations) }}</span>
-                                                            </td>
-                                                            <td class="text-center">
-                                                                <span class=" {{ $operateur?->statut_agrement }}">
-                                                                    {{ $operateur?->statut_agrement }}</span>
-                                                            </td>
-                                                            <td>
-                                                                <span class="d-flex align-items-baseline"><a
-                                                                        href="{{ route('operateurs.show', $operateur) }}"
-                                                                        class="btn btn-primary btn-sm" title="voir détails"
-                                                                        target="_blank"><i class="bi bi-eye"></i></a>
-                                                                    <div class="filter">
-                                                                        <a class="icon" href="#"
-                                                                            data-bs-toggle="dropdown"><i
-                                                                                class="bi bi-three-dots"></i></a>
-                                                                        <ul
-                                                                            class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                            <li>
-                                                                                <button type="button"
-                                                                                    class="dropdown-item btn btn-sm mx-1"
-                                                                                    data-bs-toggle="modal"
-                                                                                    data-bs-target="#EditOperateurModal{{ $operateur?->id }}">
-                                                                                    <i class="bi bi-pencil"
-                                                                                        title="Modifier"></i>
-                                                                                    Modifier
-                                                                                </button>
-                                                                            </li>
-                                                                            {{-- <li>
+                                                            <span
+                                                                class="badge bg-info">{{ count($operateur?->formations) }}</span>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <span class=" {{ $operateur?->statut_agrement }}">
+                                                                {{ $operateur?->statut_agrement }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="d-flex align-items-baseline"><a
+                                                                    href="{{ route('operateurs.show', $operateur) }}"
+                                                                    class="btn btn-primary btn-sm" title="voir détails"
+                                                                    target="_blank"><i class="bi bi-eye"></i></a>
+                                                                <div class="filter">
+                                                                    <a class="icon" href="#"
+                                                                        data-bs-toggle="dropdown"><i
+                                                                            class="bi bi-three-dots"></i></a>
+                                                                    <ul
+                                                                        class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                        <li>
+                                                                            <button type="button"
+                                                                                class="dropdown-item btn btn-sm mx-1"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#EditOperateurModal{{ $operateur?->id }}">
+                                                                                <i class="bi bi-pencil"
+                                                                                    title="Modifier"></i>
+                                                                                Modifier
+                                                                            </button>
+                                                                        </li>
+                                                                        {{-- <li>
                                                                                 <form
                                                                                     action="{{ route('operateurs.destroy', $operateur->id) }}"
                                                                                     method="post">
@@ -151,72 +151,82 @@
                                                                                             class="bi bi-trash"></i>Supprimer</button>
                                                                                 </form>
                                                                             </li> --}}
-                                                                        </ul>
-                                                                    </div>
-                                                                </span>
-                                                            </td>
-                                                        </tr>
-                                                        {{-- @endisset --}}
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                                    </ul>
+                                                                </div>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                    {{-- @endisset --}}
+                                                @endforeach
+                                            </tbody>
+                                        </table>
                                     </div>
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-outline-primary btn-sm"><i
-                                                class="bi bi-check2-circle"></i>&nbsp;Sélectionner</button>
-                                    </div>
-                            </form>
-                        </div>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-outline-primary btn-sm"><i
+                                            class="bi bi-check2-circle"></i>&nbsp;Sélectionner</button>
+                                </div>
+                        </form>
                     </div>
                 </div>
             </div>
-        </section>
-    @endsection
-    @push('scripts')
-        <script>
-            new DataTable('#table-operateurs', {
-                /* layout: {
-                    topStart: {
-                        buttons: [ 'csv', 'excel', 'print'],
-                    }
-                }, */
-                "lengthMenu": [
-                    [10, 25, 50, 100, -1],
-                    [10, 25, 50, 100, "Tout"]
-                ],
-                "order": [
-                    [2, 'desc']
-                ],
-                language: {
-                    "sProcessing": "Traitement en cours...",
-                    "sSearch": "Rechercher&nbsp;:",
-                    "sLengthMenu": "Afficher _MENU_ &eacute;l&eacute;ments",
-                    "sInfo": "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
-                    "sInfoEmpty": "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
-                    "sInfoFiltered": "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
-                    "sInfoPostFix": "",
-                    "sLoadingRecords": "Chargement en cours...",
-                    "sZeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",
-                    "sEmptyTable": "Aucune donn&eacute;e disponible dans le tableau",
-                    "oPaginate": {
-                        "sFirst": "Premier",
-                        "sPrevious": "Pr&eacute;c&eacute;dent",
-                        "sNext": "Suivant",
-                        "sLast": "Dernier"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": activer pour trier la colonne par ordre croissant",
-                        "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
-                    },
-                    "select": {
-                        "rows": {
-                            _: "%d lignes sÃ©lÃ©ctionnÃ©es",
-                            0: "Aucune ligne sÃ©lÃ©ctionnÃ©e",
-                            1: "1 ligne sÃ©lÃ©ctionnÃ©e"
-                        }
+        </div>
+    </section>
+@endsection
+@push('scripts')
+    <script>
+        new DataTable('#table-operateurs', {
+            /* layout: {
+                topStart: {
+                    buttons: [ 'csv', 'excel', 'print'],
+                }
+            }, */
+            "lengthMenu": [
+                [10, 25, 50, 100, -1],
+                [10, 25, 50, 100, "Tout"]
+            ],
+            "order": [
+                [2, 'desc']
+            ],
+            language: {
+                "sProcessing": "Traitement en cours...",
+                "sSearch": "Rechercher&nbsp;:",
+                "sLengthMenu": "Afficher _MENU_ &eacute;l&eacute;ments",
+                "sInfo": "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                "sInfoEmpty": "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
+                "sInfoFiltered": "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                "sInfoPostFix": "",
+                "sLoadingRecords": "Chargement en cours...",
+                "sZeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                "sEmptyTable": "Aucune donn&eacute;e disponible dans le tableau",
+                "oPaginate": {
+                    "sFirst": "Premier",
+                    "sPrevious": "Pr&eacute;c&eacute;dent",
+                    "sNext": "Suivant",
+                    "sLast": "Dernier"
+                },
+                "oAria": {
+                    "sSortAscending": ": activer pour trier la colonne par ordre croissant",
+                    "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+                },
+                "select": {
+                    "rows": {
+                        _: "%d lignes sÃ©lÃ©ctionnÃ©es",
+                        0: "Aucune ligne sÃ©lÃ©ctionnÃ©e",
+                        1: "1 ligne sÃ©lÃ©ctionnÃ©e"
                     }
                 }
-            });
-        </script>
-    @endpush
+            }
+        });
+        document.querySelectorAll('.operateurs-checkbox').forEach(function(checkbox) {
+
+            function updateRow() {
+                checkbox.closest('tr').classList.toggle('table-success', checkbox.checked);
+            }
+
+            updateRow();
+
+            checkbox.addEventListener('change', updateRow);
+        });
+    </script>
+@endpush
