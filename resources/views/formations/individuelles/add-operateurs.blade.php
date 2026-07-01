@@ -69,7 +69,6 @@
                                                 <tr>
                                                     <th>N° agrément</th>
                                                     <th>Opérateurs</th>
-                                                    <th class="text-center">Sigle</th>
                                                     <th class="text-center">Modules</th>
                                                     <th class="text-center">Formations</th>
                                                     <th class="text-center">Statut</th>
@@ -92,8 +91,7 @@
                                                                 </span>
                                                                 @enderror{{ $operateur?->numero_agrement }}
                                                             </td>
-                                                            <td>{{ $operateur?->user?->operateur }}</td>
-                                                            <td>{{ $operateur?->user?->username }}</td>
+                                                            <td>{{ $operateur?->user?->display_operateur }}</td>
                                                             <td style="text-align: center;">
                                                                 {{-- @foreach ($operateur?->operateurmodules as $operateurmodule)
                                                                     @if ($loop->last)
