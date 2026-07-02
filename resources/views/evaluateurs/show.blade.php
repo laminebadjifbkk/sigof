@@ -104,12 +104,13 @@
 
                         <div class="card-body">
                             <div class="row mb-2">
-                                <div class="col-md-6">
-                                    <strong>Prénom :</strong> {{ $evaluateur->name ?? '—' }}
+                                <div class="col-md-12">
+                                    <strong>Prénom et NOM :</strong>
+                                    {{ ($evaluateur?->name ?? '—') . ' ' . ($evaluateur?->lastname ?? '—') }}
                                 </div>
-                                <div class="col-md-6">
+                                {{-- <div class="col-md-6">
                                     <strong>Nom :</strong> {{ $evaluateur->lastname ?? '—' }}
-                                </div>
+                                </div> --}}
                             </div>
                             <div class="row mb-2">
                                 <div class="col-md-12">
