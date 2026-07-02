@@ -155,7 +155,7 @@
                                 <table class="table table-hover table-striped align-middle" id="table-formations">
                                     <thead class="table-light">
                                         <tr>
-                                            <th class="text-center">Code</th>
+                                            <th class="text-center">N° Conv.</th>
                                             <th>Type</th>
                                             <th>Intitulé</th>
                                             <th>Localité</th>
@@ -167,10 +167,10 @@
                                     <tbody>
                                         @foreach ($evaluateur->formations as $formation)
                                             <tr>
-                                                <td class="text-center fw-bold">{{ $formation->code }}</td>
-                                                <td>{{ $formation->types_formation?->name }}</td>
-                                                <td>{{ $formation->name }}</td>
-                                                <td>{{ $formation->departement?->region?->nom }}</td>
+                                                <td class="text-center fw-bold">{{ $formation?->numero_convention }}</td>
+                                                <td>{{ $formation?->types_formation?->name }}</td>
+                                                <td>{{ $formation?->name }}</td>
+                                                <td>{{ $formation?->departement?->region?->nom }}</td>
                                                 <td>
                                                     {{ $formation->module?->name ?? ($formation->collectivemodule?->module ?? '—') }}
                                                 </td>
