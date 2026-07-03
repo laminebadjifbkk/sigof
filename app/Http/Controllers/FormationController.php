@@ -3834,7 +3834,7 @@ class FormationController extends Controller
             ->where('note_obtenue', '<', 12)
             ->get();
 
-        $admis_h_count = Individuelle::join('users', 'users.id', 'individuelles.users_id')
+        /*  $admis_h_count = Individuelle::join('users', 'users.id', 'individuelles.users_id')
             ->select('individuelles.*')
             ->where('formations_id', $formation->id)
             ->where('users.civilite', "M.")
@@ -3846,6 +3846,34 @@ class FormationController extends Controller
             ->where('formations_id', $formation->id)
             ->where('users.civilite', "Mme")
             ->where('note_obtenue', '>=', 12)
+            ->count(); */
+
+        $admisCondition = function ($query) {
+            $query->where(function ($q) {
+                // Cas 1 : note numérique simple >= 12 (ex: "12", "15.5")
+                $q->whereRaw("individuelles.note_obtenue REGEXP '^[0-9]+(\\.[0-9]+)?$'")
+                    ->whereRaw('CAST(individuelles.note_obtenue AS DECIMAL(5,2)) >= 12');
+            })
+                ->orWhere(function ($q) {
+                    // Cas 2 : pourcentage >= 60% (ex: "60%", "75.5%")
+                    $q->whereRaw("individuelles.note_obtenue REGEXP '^[0-9]+(\\.[0-9]+)?%$'")
+                        ->whereRaw("CAST(REPLACE(individuelles.note_obtenue, '%', '') AS DECIMAL(5,2)) >= 60");
+                })
+                ->orWhereRaw("LOWER(TRIM(individuelles.note_obtenue)) IN ('attesté', 'attestée')");
+        };
+
+        $admis_h_count = Individuelle::join('users', 'users.id', 'individuelles.users_id')
+            ->select('individuelles.*')
+            ->where('formations_id', $formation->id)
+            ->where('users.civilite', "M.")
+            ->where($admisCondition)
+            ->count();
+
+        $admis_f_count = Individuelle::join('users', 'users.id', 'individuelles.users_id')
+            ->select('individuelles.*')
+            ->where('formations_id', $formation->id)
+            ->where('users.civilite', "Mme")
+            ->where($admisCondition)
             ->count();
 
         $formes_h_count = Individuelle::join('users', 'users.id', 'individuelles.users_id')
