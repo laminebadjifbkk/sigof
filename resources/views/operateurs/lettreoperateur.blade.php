@@ -192,7 +192,7 @@
     <h4 style="text-align: center;">AGREMENT OPERATEUR</h4>
     <div class="invoice-box">
         <b>Opérateur</b> :
-        {{ $operateur?->user?->operateur . ' (' . $operateur?->user?->username . ')' }}
+        {{ $operateur?->user?->display_operateur }}
         <br>
         <b>Responsable</b> :
         {{ $operateur?->user?->firstname . ' ' . $operateur?->user?->name }}
@@ -201,26 +201,19 @@
         {{ $operateur?->user?->adresse }}
         <br>
         <b>Téléphone</b> :
-        <a style="text-decoration:none" href="tel:+221{{ $operateur?->user?->telephone }}">
-            {{-- {{ substr($operateur?->user?->fixe, 0, 2) .
-                ' ' .
-                substr($operateur?->user?->fixe, 2, 3) .
-                ' ' .
-                substr($operateur?->user?->fixe, 5, 2) .
-                ' ' .
-                substr($operateur?->user?->fixe, 7, 2) }}
+        {{-- <a style="text-decoration:none" href="tel:+221{{ $operateur?->user?->telephone }}"> --}}
 
-            {{ ' / ' .
-                substr($operateur?->user?->telephone, 0, 2) .
-                ' ' .
-                substr($operateur?->user?->telephone, 2, 3) .
-                ' ' .
-                substr($operateur?->user?->telephone, 5, 2) .
-                ' ' .
-                substr($operateur?->user?->telephone, 7, 2) }} --}}
-
-            {{ $operateur?->user?->fixe . ' / ' . $operateur?->user?->telephone }}
-        </a>
+            @forelse ($operateur->numeros as $numero)
+                {{-- <div> --}}
+                    <a href="tel:+221{{ preg_replace('/[^0-9]/', '', $numero) }}" style="text-decoration:none">
+                        {{ $numero }}
+                    </a>
+               {{--  </div> --}}
+            @empty
+                <span class="text-muted fst-italic">Aucun numéro</span>
+            @endforelse
+            {{-- {{ $operateur?->user?->fixe . ' / ' . $operateur?->user?->telephone }} --}}
+       {{--  </a> --}}
         <br>
         <b>Email</b> :
         <a style="text-decoration:none"
