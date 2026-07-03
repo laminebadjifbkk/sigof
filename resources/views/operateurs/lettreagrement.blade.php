@@ -235,18 +235,13 @@
             {{ $operateur?->user?->adresse }}
             <br>
             <b>Téléphone</b> :
-            {{-- <a style="text-decoration:none" href="tel:+221{{ $operateur?->user?->telephone }}"> --}}
-                {{-- {{ $operateur?->user?->fixe . ' / ' . $operateur?->user?->telephone }} --}}
-                @forelse ($operateur->numeros as $numero)
-                    {{-- <div> --}}
-                        <a href="tel:+221{{ preg_replace('/[^0-9]/', '', $numero) }}" style="text-decoration:none">
-                            {{ $numero }}
-                        </a>
-                    {{-- </div> --}}
-                @empty
-                    <span class="text-muted fst-italic">Aucun numéro</span>
-                @endforelse
-            {{-- </a> --}}
+            @forelse ($operateur->numeros as $numero)
+                <a href="tel:+221{{ preg_replace('/[^0-9]/', '', $numero) }}" style="text-decoration:none">
+                    {{ $numero }}
+                </a>
+            @empty
+                <span class="text-muted fst-italic">Aucun numéro</span>
+            @endforelse
             <br>
             <b>Email</b> :
             <a style="text-decoration:none"
