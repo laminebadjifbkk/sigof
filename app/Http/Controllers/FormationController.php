@@ -3929,97 +3929,6 @@ class FormationController extends Controller
         }
     }
 
-    /* public function abeEvaluationlettre(Request $request, $idformation)
-    {
-
-        $formation = Formation::findOrFail($idformation);
-
-        $prevus_h_count = $formation?->prevue_h;
-        $prevus_f_count = $formation?->prevue_f;
-        $prevus_total   = $prevus_h_count + $prevus_f_count;
-
-        // Toutes les individuelles liées à la formation, avec jointure utilisateur
-        $individuelles = Individuelle::with('user')
-            ->where('formations_id', $idformation)
-            ->get();
-
-        // Admis et recalés
-        $admis   = $individuelles->where('note_obtenue', '>=', 12);
-        $recales = $individuelles->where('note_obtenue', '<', 12);
-
-        // Comptage par sexe parmi les admis
-        $admis_h_count = $admis->filter(fn($i) => $i->user?->civilite === 'M.')->count();
-        $admis_f_count = $admis->filter(fn($i) => $i->user?->civilite === 'Mme')->count();
-
-        // Comptage total formés par sexe
-        $formes_h_count = $individuelles->filter(fn($i) => $i->user?->civilite === 'M.')->count();
-        $formes_f_count = $individuelles->filter(fn($i) => $i->user?->civilite === 'Mme')->count();
-        $formes_total   = $formes_h_count + $formes_f_count;
-
-        // Comptage des retenus (identique à formés dans ton code, à confirmer)
-        $retenus_h_count = $formes_h_count;
-        $retenus_f_count = $formes_f_count;
-        $retenus_total   = $retenus_h_count + $retenus_f_count;
-
-        $admis_count       = $admis_h_count + $admis_f_count;
-        $pourcentage_admis = $formes_total > 0 ? round(($admis_count / $formes_total) * 100, 2) : 0;
-
-        if ($formation->statut == "Terminée") {
-
-            $title = 'Attestation de bonne execution ' . $formation?->operateur?->user?->username . ' en ' . $formation?->module?->name;
-
-            $membres_jury  = explode(";", $formation->membres_jury);
-            $count_membres = count($membres_jury);
-
-            $dompdf  = new Dompdf();
-            $options = $dompdf->getOptions();
-            $options->setDefaultFont('DejaVu Sans');
-            $dompdf->setOptions($options);
-
-            $dompdf->loadHtml(view('formations.individuelles.abe', compact(
-                'formation',
-                'title',
-                'membres_jury',
-                'count_membres',
-                'admis',
-                'recales',
-                'admis_count',
-                'pourcentage_admis',
-                'admis_h_count',
-                'admis_f_count',
-                'formes_h_count',
-                'formes_f_count',
-                'formes_total',
-                'retenus_h_count',
-                'retenus_f_count',
-                'retenus_total',
-                'prevus_h_count',
-                'prevus_f_count',
-                'prevus_total',
-            )));
-
-            // (Optional) Setup the paper size and orientation (portrait ou landscape)
-            $dompdf->setPaper('A4', 'portrait');
-
-            // Render the HTML as PDF
-            $dompdf->render();
-
-            $name = 'Attestation de bonne execution ' . $formation?->operateur?->user?->operateur . ' en ' . $formation?->module?->name . '.pdf';
-
-            // Output the generated PDF to Browser
-
-            $pdfContent = $dompdf->output(); // Génère le contenu du PDF
-
-            return response()->streamDownload(
-                fn() => print($pdfContent),
-                $name
-            );
-        } else {
-            Alert::warning('Désolé !', "La formation n'est pas encore terminée.");
-            return redirect()->back();
-        }
-    } */
-
     public function abeEvaluationlettre(Request $request, $idformation)
     {
         $formation = Formation::findOrFail($idformation);
@@ -4140,112 +4049,6 @@ class FormationController extends Controller
             $name
         );
     }
-
-    /*  public function abeEvaluationCol(Request $request)
-    {
-
-        $formation = Formation::findOrFail($request->input('id'));
-
-        $prevus_h_count = $formation?->prevue_h;
-        $prevus_f_count = $formation?->prevue_f;
-        $prevus_total   = $prevus_h_count + $prevus_f_count;
-
-        $admis = Listecollective::where('formations_id', $formation->id)
-            ->where('note_obtenue', '>=', 12)
-            ->get();
-
-        $recales = Listecollective::where('formations_id', $formation->id)
-            ->where('note_obtenue', '<', 12)
-            ->get();
-
-        $admis_h_count = Listecollective::where('formations_id', $formation->id)
-            ->where('civilite', "M.")
-            ->where('note_obtenue', '>=', 12)
-            ->count();
-
-        $admis_f_count = Listecollective::where('formations_id', $formation->id)
-            ->where('civilite', "Mme")
-            ->where('note_obtenue', '>=', 12)
-            ->count();
-
-        $formes_h_count = Listecollective::where('formations_id', $formation->id)
-            ->where('civilite', "M.")
-            ->count();
-
-        $formes_f_count = Listecollective::where('formations_id', $formation->id)
-            ->where('civilite', "Mme")
-            ->count();
-
-        $formes_total = $formes_h_count + $formes_f_count;
-
-        $retenus_h_count = Listecollective::where('formations_id', $formation->id)
-            ->where('civilite', "M.")
-            ->count();
-
-        $retenus_f_count = Listecollective::where('formations_id', $formation->id)
-            ->where('civilite', "Mme")
-            ->count();
-
-        $retenus_total = $retenus_h_count + $retenus_f_count;
-
-        $admis_count       = $admis_h_count + $admis_f_count;
-        $pourcentage_admis = $formes_total > 0 ? round(($admis_count / $formes_total) * 100, 2) : 0;
-
-        if ($formation->statut == "Terminée") {
-
-            $title = 'Attestation de bonne execution ' . $formation?->operateur?->user?->username . ' en ' . $formation?->collectivemodule?->module;
-
-            $membres_jury  = explode(";", $formation->membres_jury);
-            $count_membres = count($membres_jury);
-
-            $dompdf  = new Dompdf();
-            $options = $dompdf->getOptions();
-            $options->setDefaultFont('DejaVu Sans');
-            $dompdf->setOptions($options);
-
-            $dompdf->loadHtml(view('formations.collectives.abecollective', compact(
-                'formation',
-                'title',
-                'membres_jury',
-                'count_membres',
-                'admis',
-                'recales',
-                'pourcentage_admis',
-                'admis_count',
-                'admis_h_count',
-                'admis_f_count',
-                'formes_h_count',
-                'formes_f_count',
-                'formes_total',
-                'retenus_h_count',
-                'retenus_f_count',
-                'retenus_total',
-                'prevus_h_count',
-                'prevus_f_count',
-                'prevus_total',
-            )));
-
-            // (Optional) Setup the paper size and orientation (portrait ou landscape)
-            $dompdf->setPaper('A4', 'portrait');
-
-            // Render the HTML as PDF
-            $dompdf->render();
-
-            $name = 'Attestation de bonne execution ' . $formation?->operateur?->user?->operateur . ' en ' . $formation?->collectivemodule?->module . '.pdf';
-
-            // Output the generated PDF to Browser
-
-            $pdfContent = $dompdf->output(); // Génère le contenu du PDF
-
-            return response()->streamDownload(
-                fn() => print($pdfContent),
-                $name
-            );
-        } else {
-            Alert::warning('Désolé !', "La formation n'est pas encore terminée.");
-            return redirect()->back();
-        }
-    } */
 
     public function abeEvaluationCol(Request $request)
     {
@@ -4374,7 +4177,7 @@ class FormationController extends Controller
             ->where('note_obtenue', '<', 12)
             ->get();
 
-        $admis_h_count = Listecollective::where('formations_id', $formation->id)
+        /* $admis_h_count = Listecollective::where('formations_id', $formation->id)
             ->where('civilite', "M.")
             ->where('note_obtenue', '>=', 12)
             ->count();
@@ -4382,6 +4185,30 @@ class FormationController extends Controller
         $admis_f_count = Listecollective::where('formations_id', $formation->id)
             ->where('civilite', "Mme")
             ->where('note_obtenue', '>=', 12)
+            ->count(); */
+
+        $admisCondition = function ($query) {
+            $query->where(function ($q) {
+                // Cas 1 : note numérique simple >= 12 (ex: "12", "15.5")
+                $q->whereRaw("note_obtenue REGEXP '^[0-9]+(\\.[0-9]+)?$'")
+                    ->whereRaw('CAST(note_obtenue AS DECIMAL(5,2)) >= 12');
+            })
+                ->orWhere(function ($q) {
+                    // Cas 2 : pourcentage >= 60% (ex: "60%", "75.5%")
+                    $q->whereRaw("note_obtenue REGEXP '^[0-9]+(\\.[0-9]+)?%$'")
+                        ->whereRaw("CAST(REPLACE(note_obtenue, '%', '') AS DECIMAL(5,2)) >= 60");
+                })
+                ->orWhereRaw("LOWER(TRIM(note_obtenue)) IN ('attesté', 'attestée')");
+        };
+
+        $admis_h_count = Listecollective::where('formations_id', $formation->id)
+            ->where('civilite', "M.")
+            ->where($admisCondition)
+            ->count();
+
+        $admis_f_count = Listecollective::where('formations_id', $formation->id)
+            ->where('civilite', "Mme")
+            ->where($admisCondition)
             ->count();
 
         $formes_h_count = Listecollective::where('formations_id', $formation->id)
