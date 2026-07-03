@@ -174,7 +174,7 @@
                                                         <th>Démarrage</th>
                                                         <th>Fin</th>
                                                         <th>Évaluation</th>
-                                                        <th>Jours restants</th>
+                                                        <th class="text-center">Jours restants</th>
                                                         <th></th>
                                                     </tr>
                                                 </thead>
@@ -267,7 +267,7 @@
                                                                     <span class="text-muted">-</span>
                                                                 @endif
                                                             </td>
-                                                            <td class="small {{ $joursClass }}">
+                                                            <td class="small {{ $joursClass }} text-center">
                                                                 {{ $joursLabel }}
                                                             </td>
                                                             <td class="text-end">
