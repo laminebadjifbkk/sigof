@@ -170,11 +170,11 @@
                                                         <th>Conv.</th>
                                                         <th>Formation</th>
                                                         {{-- <th>Ingénieur</th> --}}
-                                                        <th>Progres.</th>
-                                                        <th>Démar.</th>
+                                                        <th>Progression</th>
+                                                        <th>Démarrage</th>
                                                         <th>Fin</th>
-                                                        <th>Éval.</th>
-                                                        <th>J restants</th>
+                                                        <th>Évaluation</th>
+                                                        <th>Jours restants</th>
                                                         <th></th>
                                                     </tr>
                                                 </thead>
