@@ -204,7 +204,7 @@
                                                             };
 
                                                             $badgeLabel = $isAVenir
-                                                                ? '-'
+                                                                ? 'À venir'
                                                                 : (is_null($progress)
                                                                     ? 'N/A'
                                                                     : ($progress >= 100
