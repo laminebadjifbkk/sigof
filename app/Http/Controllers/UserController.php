@@ -137,6 +137,7 @@ class UserController extends Controller
                 $dateDebut = $formation->date_debut;
                 $dateFin   = $formation->date_fin;
                 $dateEval  = $formation->date_pv;
+                $isAVenir = $dateDebut ? $dateDebut->copy()->startOfDay()->isFuture() : false;
 
                 $progress = null;
                 $color = '';
@@ -156,10 +157,6 @@ class UserController extends Controller
                     };
                 }
 
-                /* $joursRestants = $dateFin
-                    ? now()->startOfDay()->diffInDays($dateFin->copy()->startOfDay(), false)
-                    : null; */
-
                 $joursRestants = $dateEval
                     ? now()->startOfDay()->diffInDays($dateEval->copy()->startOfDay(), false)
                     : null;
@@ -172,6 +169,7 @@ class UserController extends Controller
                     'dateFin' => $dateFin,
                     'dateEval' => $dateEval,
                     'joursRestants' => $joursRestants,
+                    'isAVenir' => $isAVenir,
                     'isIndividuelle' => $isIndividuelle,
                     'isCollective' => $isCollective,
                 ];

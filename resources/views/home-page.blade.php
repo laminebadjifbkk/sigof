@@ -170,9 +170,9 @@
                                                         <th>Conv.</th>
                                                         <th>Formation</th>
                                                         {{-- <th>Ingénieur</th> --}}
-                                                        <th>Progression</th>
-                                                        <th>Démarrage</th>
-                                                        <th>Fin</th>
+                                                        <th class="text-center">Progression</th>
+                                                        <th>Date début</th>
+                                                        <th>Date fin</th>
                                                         <th>Évaluation</th>
                                                         <th class="text-center">Jours restants</th>
                                                         <th></th>
@@ -187,12 +187,14 @@
                                                             $dateFin = $f['dateFin'];
                                                             $dateEval = $f['dateEval'];
                                                             $jours = $f['joursRestants'];
+                                                            $isAVenir = $f['isAVenir'];
 
                                                             $libelle = $f['isIndividuelle']
                                                                 ? $formation->module?->name
                                                                 : $formation->collectivemodule?->module;
 
                                                             $badgeClass = match (true) {
+                                                                $isAVenir => 'bg-secondary text-white',
                                                                 is_null($progress) => 'bg-secondary text-white',
                                                                 $progress <= 20 => 'bg-danger text-white',
                                                                 $progress <= 40 => 'bg-warning text-white',
@@ -201,13 +203,13 @@
                                                                 default => 'bg-success text-white',
                                                             };
 
-                                                            /* $badgeLabel = $isAVenir
+                                                            $badgeLabel = $isAVenir
                                                                 ? 'À venir'
                                                                 : (is_null($progress)
                                                                     ? 'N/A'
                                                                     : ($progress >= 100
                                                                         ? 'Terminée'
-                                                                        : $progress . '%')); */
+                                                                        : $progress . '%'));
 
                                                             $joursClass = match (true) {
                                                                 is_null($jours) => 'text-muted',
@@ -241,10 +243,10 @@
                                                             {{-- <td class="small">
                                                                 {{ $formation?->ingenieur?->user?->firstname . ' ' . $formation?->ingenieur?->user?->name ?? 'N/A' }}
                                                             </td> --}}
-                                                            <td>
-                                                                {{-- <span class="badge rounded-pill {{ $badgeClass }}">
+                                                            <td class="text-center">
+                                                                <span class="badge rounded-pill {{ $badgeClass }}">
                                                                     {{ $badgeLabel }}
-                                                                </span> --}}
+                                                                </span>
                                                             </td>
                                                             <td class="small">
                                                                 @if ($date)
