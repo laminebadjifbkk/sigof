@@ -1,12 +1,9 @@
 @extends('layout.user-layout')
 @section('space-work')
-    @php
-        $user = auth()->user();
-    @endphp
     @if ($user->hasAnyRole(['super-admin', 'admin', 'DIOF', 'DEC', 'Ingenieur', 'Employe']))
         <section class="section dashboard">
             <div class="row">
-                <div class="col-12">
+                {{-- <div class="col-12">
                     @if ($formations->isNotEmpty())
                         <div class="card">
                             <div class="card-body">
@@ -135,7 +132,6 @@
                                     </div>
                                 @endforeach
 
-                                {{-- Pagination --}}
                                 <div class="d-flex justify-content-center mt-4">
                                     {{ $formations->links('pagination.custom') }}
                                 </div>
@@ -143,7 +139,207 @@
                             </div>
                         </div>
                     @endif
+                </div> --}}
+
+                <div class="col-12">
+                    @if ($formations->isNotEmpty())
+                        <div class="row g-4">
+
+                            {{-- ============ Tableau : Suivi des formations en cours ============ --}}
+                            <div class="col-lg-12">
+                                <div class="card h-100 shadow-sm border-0 rounded-4">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center mb-4">
+                                            <h5 class="card-title mb-0">
+                                                Formations en cours
+                                                <span
+                                                    class="badge bg-warning text-white ms-1">{{ $formations->total() ?? $formations->count() }}</span>
+                                            </h5>
+                                            @if (Route::has('formations.index'))
+                                                <a href="{{ route('formations.index') }}"
+                                                    class="text-decoration-none small fw-semibold">
+                                                    Voir tout <i class="bi bi-arrow-right"></i>
+                                                </a>
+                                            @endif
+                                        </div>
+
+                                        <div class="table-responsive">
+                                            <table class="table align-middle formations-table">
+                                                <thead>
+                                                    <tr class="text-uppercase text-muted small">
+                                                        <th>Conv.</th>
+                                                        <th>Formation</th>
+                                                        {{-- <th>Ingénieur</th> --}}
+                                                        <th>Progres.</th>
+                                                        <th>Démar.</th>
+                                                        <th>Fin</th>
+                                                        <th>Éval.</th>
+                                                        <th>J restants</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($formations as $f)
+                                                        @php
+                                                            $formation = $f['formation'];
+                                                            $progress = $f['progress'];
+                                                            $date = $f['dateDebut'];
+                                                            $dateFin = $f['dateFin'];
+                                                            $dateEval = $f['dateEval'];
+                                                            $jours = $f['joursRestants'];
+
+                                                            $libelle = $f['isIndividuelle']
+                                                                ? $formation->module?->name
+                                                                : $formation->collectivemodule?->module;
+
+                                                            $badgeClass = match (true) {
+                                                                is_null($progress) => 'bg-secondary text-white',
+                                                                $progress <= 20 => 'bg-danger text-white',
+                                                                $progress <= 40 => 'bg-warning text-white',
+                                                                $progress <= 60 => 'bg-info text-white',
+                                                                $progress <= 80 => 'bg-primary text-white',
+                                                                default => 'bg-success text-white',
+                                                            };
+
+                                                            /* $badgeLabel = $isAVenir
+                                                                ? 'À venir'
+                                                                : (is_null($progress)
+                                                                    ? 'N/A'
+                                                                    : ($progress >= 100
+                                                                        ? 'Terminée'
+                                                                        : $progress . '%')); */
+
+                                                            $joursClass = match (true) {
+                                                                is_null($jours) => 'text-muted',
+                                                                $jours < 0 => 'text-danger fw-semibold',
+                                                                $jours <= 3 => 'text-warning fw-semibold',
+                                                                default => 'text-body',
+                                                            };
+
+                                                            $joursLabel = match (true) {
+                                                                is_null($jours) => '-',
+                                                                $jours < 0 => abs($jours) . ' j de retard',
+                                                                $jours === 0 => "Aujourd'hui",
+                                                                default => $jours . ' j',
+                                                            };
+                                                        @endphp
+                                                        <tr>
+                                                            <td class="text-muted small">
+                                                                {{ $formation?->numero_convention ?? '-' }}
+                                                            </td>
+                                                            <td class="fw-semibold">
+                                                                {{ $libelle ?? 'N/A' }}
+                                                                <div class="text-muted small fw-normal">
+                                                                    <i class="bi bi-geo-alt"></i>
+                                                                    {{ $formation?->lieu ?? 'N/A' }}
+                                                                </div>
+                                                                <div class="text-muted small fw-normal">
+                                                                    <i class="bi bi-person"></i>
+                                                                    {{ $formation?->ingenieur?->user?->firstname . ' ' . $formation?->ingenieur?->user?->name ?? 'N/A' }}
+                                                                </div>
+                                                            </td>
+                                                            {{-- <td class="small">
+                                                                {{ $formation?->ingenieur?->user?->firstname . ' ' . $formation?->ingenieur?->user?->name ?? 'N/A' }}
+                                                            </td> --}}
+                                                            <td>
+                                                                {{-- <span class="badge rounded-pill {{ $badgeClass }}">
+                                                                    {{ $badgeLabel }}
+                                                                </span> --}}
+                                                            </td>
+                                                            <td class="small">
+                                                                @if ($date)
+                                                                    {{ $date->format('d/m/Y') }}
+                                                                @else
+                                                                    <span class="text-danger">Non définie</span>
+                                                                @endif
+                                                            </td>
+                                                            <td class="small">
+                                                                @if ($dateFin)
+                                                                    {{ $dateFin->format('d/m/Y') }}
+                                                                @else
+                                                                    <span class="text-danger">Non définie</span>
+                                                                @endif
+                                                            </td>
+                                                            <td class="small">
+                                                                @if ($dateEval)
+                                                                    {{ $dateEval?->format('d/m/Y') }}
+                                                                @else
+                                                                    <span class="text-muted">-</span>
+                                                                @endif
+                                                            </td>
+                                                            <td class="small {{ $joursClass }}">
+                                                                {{ $joursLabel }}
+                                                            </td>
+                                                            <td class="text-end">
+                                                                <a href="{{ route('formations.show', $formation) }}"
+                                                                    class="btn btn-outline-primary btn-sm rounded-pill px-3">
+                                                                    Ouvrir
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <div class="d-flex justify-content-center mt-3">
+                                            {{ $formations->links('pagination.custom') }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- ============ Donut : Progression globale ============ --}}
+                            {{-- <div class="col-lg-4">
+                                @php
+                                    $progressValues = $formations->pluck('progress')->filter(fn($p) => !is_null($p));
+                                    $totalCount = max($progressValues->count(), 1);
+
+                                    $termine = $progressValues->filter(fn($p) => $p >= 100)->count();
+                                    $enCours = $progressValues->filter(fn($p) => $p > 0 && $p < 100)->count();
+                                    $aVenir = $progressValues->filter(fn($p) => $p == 0)->count();
+
+                                    $pctTermine = round(($termine / $totalCount) * 100);
+                                    $pctEnCours = round(($enCours / $totalCount) * 100);
+                                    $pctAVenir = 100 - $pctTermine - $pctEnCours;
+
+                                    $avgProgress = $progressValues->count() ? round($progressValues->avg()) : 0;
+                                @endphp
+
+                                <div class="card h-100 shadow-sm border-0 rounded-4">
+                                    <div class="card-body d-flex flex-column align-items-center">
+                                        <h5 class="card-title align-self-start mb-4">Progression formations</h5>
+
+                                        <div class="donut-chart mb-4"
+                                            style="--p-terminee: {{ $pctTermine }}; --p-encours: {{ $pctEnCours }};">
+                                            <div class="donut-inner">
+                                                <span class="fs-3 fw-bold">{{ $avgProgress }}%</span>
+                                                <span class="text-muted small">Complété</span>
+                                            </div>
+                                        </div>
+
+                                        <ul class="list-unstyled w-100 small">
+                                            <li class="d-flex justify-content-between align-items-center mb-2">
+                                                <span><span class="legend-dot bg-success"></span> Modules validés</span>
+                                                <strong>{{ $pctTermine }}%</strong>
+                                            </li>
+                                            <li class="d-flex justify-content-between align-items-center mb-2">
+                                                <span><span class="legend-dot bg-warning"></span> En cours</span>
+                                                <strong>{{ $pctEnCours }}%</strong>
+                                            </li>
+                                            <li class="d-flex justify-content-between align-items-center">
+                                                <span><span class="legend-dot bg-light border"></span> À venir</span>
+                                                <strong>{{ $pctAVenir }}%</strong>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div> --}}
+
+                        </div>
+                    @endif
                 </div>
+
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-body">

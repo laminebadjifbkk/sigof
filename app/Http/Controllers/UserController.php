@@ -49,184 +49,6 @@ class UserController extends Controller
         $this->middleware("permission:give-role-permissions", ["only" => ["givePermissionsToRole"]]);
     }
 
-    /*  public function homePage()
-    {
-        $total_user = User::count();
-
-        $email_verified_at = User::whereNotNull('email_verified_at')->count();
-        $email_verified_at = ($email_verified_at / $total_user) * 100;
-        $email_verified_at = number_format($email_verified_at, 2, ',', ' ');
-
-        $total_arrive  = Arrive::where('type', null)->count();
-        $total_depart  = Depart::count();
-        $total_interne = Interne::count();
-
-        $formations = collect();
-
-        Formation::where('statut', "En cours")
-            ->orderBy('date_debut', 'desc')
-            ->chunk(100, function ($batch) use (&$formations) {
-                $formations = $formations->merge($batch);
-            });
-
-
-        $total_courrier = $total_arrive + $total_depart + $total_interne;
-
-        $pourcentage_arrive  = $total_courrier != 0 ? ($total_arrive / $total_courrier) * 100 : 0;
-        $pourcentage_depart  = $total_courrier != 0 ? ($total_depart / $total_courrier) * 100 : 0;
-        $pourcentage_interne = $total_courrier != 0 ? ($total_interne / $total_courrier) * 100 : 0;
-
-        $total_individuelle = Individuelle::count();
-
-        // Rôles
-        $roles = collect();
-        Role::orderBy('created_at', 'desc')->chunk(30, function ($batch) use (&$roles) {
-            $roles = $roles->merge($batch);
-        });
-
-        // Individuelles
-        $individuelles = collect();
-        Individuelle::select('id')->chunk(300, function ($batch) use (&$individuelles) {
-            $individuelles = $individuelles->merge($batch);
-        });
-
-        // Collectives
-        $collectives = collect();
-        Collective::select('id')->chunk(300, function ($batch) use (&$collectives) {
-            $collectives = $collectives->merge($batch);
-        });
-
-
-        // Départements
-        $departements = collect();
-        Departement::orderBy("created_at", "desc")->chunk(300, function ($batch) use (&$departements) {
-            $departements = $departements->merge($batch);
-        });
-
-        // Modules
-        $modules = collect();
-        Module::orderBy("created_at", "desc")->chunk(300, function ($batch) use (&$modules) {
-            $modules = $modules->merge($batch);
-        });
-
-        $today = date('Y-m-d');
-
-        $annee = date('Y');
-
-        $annee_lettre = 'Diagramme à barres, année: ' . date('Y');
-
-        $count_today_individuelle = Individuelle::where("created_at", "LIKE", "{$today}%")->count();
-
-        $count_today_collective = Collective::where("created_at", "LIKE", "{$today}%")->count();
-
-        $count_operateurs = Operateur::where("statut_agrement", "agréé")->count();
-
-        $count_today = $count_today_individuelle + $count_today_collective;
-
-        $counts = DB::table('individuelles')
-            ->selectRaw('MONTH(created_at) as month, count(*) as count')
-            ->whereYear('created_at', $annee)
-            ->whereNull('deleted_at')
-            ->groupBy(DB::raw('MONTH(created_at)'))
-            ->pluck('count', 'month');
-
-        // Initialiser les variables avec 0 au cas où il manque un mois
-        $janvier   = $counts->get(1, 0);
-        $fevrier   = $counts->get(2, 0);
-        $mars      = $counts->get(3, 0);
-        $avril     = $counts->get(4, 0);
-        $mai       = $counts->get(5, 0);
-        $juin      = $counts->get(6, 0);
-        $juillet   = $counts->get(7, 0);
-        $aout      = $counts->get(8, 0);
-        $septembre = $counts->get(9, 0);
-        $octobre   = $counts->get(10, 0);
-        $novembre  = $counts->get(11, 0);
-        $decembre  = $counts->get(12, 0);
-
-        $masculin = Individuelle::join('users', 'users.id', 'individuelles.users_id')
-            ->select('individuelles.*')
-            ->where('users.civilite', "M.")
-            ->count();
-
-        $feminin = Individuelle::join('users', 'users.id', 'individuelles.users_id')
-            ->select('individuelles.*')
-            ->where('users.civilite', "Mme")
-            ->count();
-
-        $statuts = Individuelle::selectRaw('statut, count(*) as count')
-            ->whereIn('statut', ['Attente', 'Nouvelle', 'Retenue', 'Terminée', 'Rejetée'])
-            ->groupBy('statut')
-            ->pluck('count', 'statut');
-
-        $attente  = $statuts['Attente'] ?? 0;
-        $nouvelle = $statuts['Nouvelle'] ?? 0;
-        $retenue  = $statuts['Retenue'] ?? 0;
-        $terminer = $statuts['Terminée'] ?? 0;
-        $rejeter  = $statuts['Rejetée'] ?? 0;
-
-        $pourcentage_hommes = $individuelles->count() > 0
-            ? ($masculin / $individuelles->count()) * 100
-            : 0;
-
-        $pourcentage_femmes = $individuelles->count() > 0
-            ? ($feminin / $individuelles->count()) * 100
-            : 0;
-
-        $feminin_collective = Listecollective::where('civilite', "Mme")
-            ->count();
-
-        $masculin_collective = Listecollective::where('civilite', "M.")
-            ->count();
-
-
-        return view(
-            "home-page",
-            compact(
-                "total_user",
-                'roles',
-                'total_arrive',
-                'total_depart',
-                'total_individuelle',
-                "pourcentage_hommes",
-                "pourcentage_femmes",
-                'rejeter',
-                "terminer",
-                "retenue",
-                "nouvelle",
-                'attente',
-                "individuelles",
-                "collectives",
-                "modules",
-                "departements",
-                "count_today",
-                "count_operateurs",
-                'janvier',
-                'fevrier',
-                'mars',
-                'avril',
-                'mai',
-                'juin',
-                'juillet',
-                'aout',
-                'septembre',
-                'octobre',
-                'novembre',
-                'decembre',
-                'annee',
-                'annee_lettre',
-                'masculin',
-                'feminin',
-                'email_verified_at',
-                'total_interne',
-                'pourcentage_arrive',
-                'pourcentage_depart',
-                'pourcentage_interne',
-                'formations'
-            )
-        );
-    } */
-
     public function homePage()
     {
         $total_user = User::count();
@@ -248,10 +70,6 @@ class UserController extends Controller
 
         // Rôles
         $roles = Role::orderBy('created_at', 'desc')->get();
-
-        // Individuelles et collectives
-        /* $individuelles = Individuelle::select('id')->get();
-        $collectives = Collective::select('id')->get(); */
 
         // Départements et modules
         $departements = Departement::orderBy("created_at", "desc")->get();
@@ -304,9 +122,6 @@ class UserController extends Controller
         $terminer = $statuts['Terminée'] ?? 0;
         $rejeter  = $statuts['Rejetée'] ?? 0;
 
-        /* $pourcentage_hommes = $individuelles->count() > 0 ? ($masculin / $individuelles->count()) * 100 : 0;
-        $pourcentage_femmes = $individuelles->count() > 0 ? ($feminin / $individuelles->count()) * 100 : 0; */
-
         $feminin_collective = Listecollective::where('civilite', "Mme")->count();
         $masculin_collective = Listecollective::where('civilite', "M.")->count();
 
@@ -314,10 +129,14 @@ class UserController extends Controller
         $formations = Formation::with(['module', 'collectivemodule', 'emargements', 'emargementcollectives'])
             ->where('statut', 'En cours')
             ->orderBy('date_debut', 'desc')
-            ->paginate(10) // paginate au lieu de get()
+            ->paginate(5) // paginate au lieu de get()
             ->through(function ($formation) {
                 $isIndividuelle = !empty($formation->module?->name) && !empty($formation->duree_formation);
                 $isCollective = !empty($formation->collectivemodule?->module) && !empty($formation->duree_formation);
+
+                $dateDebut = $formation->date_debut;
+                $dateFin   = $formation->date_fin;
+                $dateEval  = $formation->date_pv;
 
                 $progress = null;
                 $color = '';
@@ -337,34 +156,47 @@ class UserController extends Controller
                     };
                 }
 
-                $date = $formation->date_debut ? \Carbon\Carbon::parse($formation->date_debut) : null;
+                /* $joursRestants = $dateFin
+                    ? now()->startOfDay()->diffInDays($dateFin->copy()->startOfDay(), false)
+                    : null; */
+
+                $joursRestants = $dateEval
+                    ? now()->startOfDay()->diffInDays($dateEval->copy()->startOfDay(), false)
+                    : null;
 
                 return [
                     'formation' => $formation,
                     'progress' => $progress,
                     'color' => $color,
-                    'date' => $date,
+                    'dateDebut' => $dateDebut,
+                    'dateFin' => $dateFin,
+                    'dateEval' => $dateEval,
+                    'joursRestants' => $joursRestants,
                     'isIndividuelle' => $isIndividuelle,
                     'isCollective' => $isCollective,
                 ];
             });
 
+        $user = Auth::user();
+
+        $globalProgress = Formation::where('statut', 'En cours')
+            ->withCount(['emargements', 'emargementcollectives'])
+            ->get()
+            ->avg(fn($f) => $f->duree_formation ? ($f->emargements_count / $f->duree_formation) * 100 : 0);
+
         return view('home-page', compact(
+            "user",
+            "globalProgress",
             "total_user",
             'roles',
             'total_arrive',
             'total_depart',
             'total_individuelle',
-            /* "pourcentage_hommes",
-            "pourcentage_femmes", */
             'rejeter',
             "terminer",
             "retenue",
             "nouvelle",
             'attente',
-            /* "individuelles",
-            "collectives", */
-            /* "modules", */
             "departements",
             "count_today",
             "count_operateurs",
@@ -403,29 +235,6 @@ class UserController extends Controller
 
     public function index()
     {
-        /* $total_count = User::get();
-        $total_count = number_format($total_count->count(), 0, ',', ' ');
-
-        $roles = Role::pluck('name', 'name')->all();
-
-        $user_liste = User::take(100)
-            ->latest()
-            ->get();
-
-        $count_demandeur = number_format($user_liste?->count(), 0, ',', ' ');
-
-        if ($count_demandeur < "1") {
-            $title = 'Aucun utilisateur';
-        } elseif ($count_demandeur == "1") {
-            $title = $count_demandeur . ' utilisateur sur un total de ' . $total_count;
-        } else {
-            $title = 'Liste des ' . $count_demandeur . ' derniers utilisateurs sur un total de ' . $total_count;
-        }
-
-        return view("user.index", compact("user_liste", "title", "roles")); */
-        // Nombre total d'utilisateurs (sans charger toute la table)
-        /* $count_raw   = User::count();
-        $total_count = number_format($count_raw, 0, ',', ' '); */
 
         $utilisateurs      = User::count();
         $totalUtilisateurs = number_format($utilisateurs, 0, ',', ' ');
@@ -435,17 +244,6 @@ class UserController extends Controller
 
         // Récupération des 500 derniers utilisateurs
         $utilisateurs = User::latest()->limit(500)->get();
-        /* $count_demandeur_raw = $utilisateurs->count();
-        $count_demandeur     = number_format($count_demandeur_raw, 0, ',', ' '); */
-
-        // Définition du titre avec des comparaisons correctes
-        /* if ($count_demandeur_raw < 1) {
-            $title = 'Aucun utilisateur';
-        } elseif ($count_demandeur_raw == 1) {
-            $title = '1 utilisateur sur un total de ' . $totalUtilisateurs;
-        } else {
-            $title = 'Liste des ' . $count_demandeur . ' derniers utilisateurs sur un total de ' . $total_count;
-        } */
 
         // Retour de la vue avec les données optimisées
         return view(

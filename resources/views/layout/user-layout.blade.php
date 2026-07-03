@@ -2324,6 +2324,47 @@
             transition: all 0.3s ease-in-out;
             box-shadow: 0 12px 25px rgba(242, 133, 0, 0.35);
         }
+
+        /* globalProgress */
+        .donut-chart {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: conic-gradient(#198754 calc(var(--p-terminee) * 1%),
+                    #ffc107 calc(var(--p-terminee) * 1%) calc((var(--p-terminee) + var(--p-encours)) * 1%),
+                    #e9ecef calc((var(--p-terminee) + var(--p-encours)) * 1%) 100%);
+            position: relative;
+        }
+
+        .donut-inner {
+            width: 122px;
+            height: 122px;
+            border-radius: 50%;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .legend-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+
+        .formations-table tbody tr {
+            border-bottom: 1px solid #f1f1f4;
+        }
+
+        .formations-table tbody tr:last-child {
+            border-bottom: none;
+        }
     </style>
 
 </head>

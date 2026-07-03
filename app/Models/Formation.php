@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use RealRashid\SweetAlert\Facades\Alert;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
+
 /**
  * Class Formation
  *
@@ -762,6 +764,27 @@ class Formation extends Model
             'du %s au %s',
             $this->date_debut->translatedFormat('d F Y'),
             $this->date_fin->translatedFormat('d F Y')
+        );
+    }
+
+    protected function dateFin(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => (empty($value) || str_starts_with($value, '0000-00-00')) ? null : Carbon::parse($value),
+        );
+    }
+
+    protected function dateDebut(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => (empty($value) || str_starts_with($value, '0000-00-00')) ? null : Carbon::parse($value),
+        );
+    }
+
+    protected function datePv(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => (empty($value) || str_starts_with($value, '0000-00-00')) ? null : Carbon::parse($value),
         );
     }
 }
