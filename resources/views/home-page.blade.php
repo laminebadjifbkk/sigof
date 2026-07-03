@@ -204,7 +204,7 @@
                                                             };
 
                                                             $badgeLabel = $isAVenir
-                                                                ? 'À venir'
+                                                                ? '-'
                                                                 : (is_null($progress)
                                                                     ? 'N/A'
                                                                     : ($progress >= 100
@@ -232,12 +232,16 @@
                                                             <td class="fw-semibold">
                                                                 {{ $libelle ?? 'N/A' }}
                                                                 <div class="text-muted small fw-normal">
+                                                                    <i class="bi bi-person"></i>
+                                                                    {{ $formation?->ingenieur?->user?->firstname . ' ' . $formation?->ingenieur?->user?->name ?? 'N/A' }}
+                                                                </div>
+                                                                <div class="text-muted small fw-normal">
                                                                     <i class="bi bi-geo-alt"></i>
                                                                     {{ $formation?->lieu ?? 'N/A' }}
                                                                 </div>
                                                                 <div class="text-muted small fw-normal">
-                                                                    <i class="bi bi-person"></i>
-                                                                    {{ $formation?->ingenieur?->user?->firstname . ' ' . $formation?->ingenieur?->user?->name ?? 'N/A' }}
+                                                                    <i class="bi bi-clock"></i>
+                                                                    {{ $formation?->duree_formation ? $formation->duree_formation . ' j' : 'N/A' }}
                                                                 </div>
                                                             </td>
                                                             {{-- <td class="small">
