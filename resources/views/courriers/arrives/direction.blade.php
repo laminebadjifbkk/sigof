@@ -195,8 +195,8 @@
                                                             'idcourrier' => $arrive->id,
                                                             'iddirection' => $direction->id,
                                                         ]) }}"
-                                                            class="btn btn-success btn-sm" title="Voir détails">
-                                                            <i class="bi bi-eye"></i>
+                                                            class="btn btn-outline-success btn-sm rounded-pill px-3" title="Voir détails">
+                                                           Ouvrir
                                                         </a>
                                                         {{-- <div class="filter">
                                                             <a class="icon" href="#" data-bs-toggle="dropdown">
