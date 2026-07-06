@@ -937,7 +937,7 @@
                                                     'idlocalite' => $formation->departement->region->id,
                                                 ]) }}"
                                                     class="btn btn-outline-primary btn-sm" target="_blank">
-                                                    <i class="bi bi-pencil" title="Changer module"></i>
+                                                    {{-- <i class="bi bi-pencil" title="Changer module"></i> --}}
                                                     <span class="d-none d-sm-inline">Changer module</span>
                                                 </a>
                                             @endcan

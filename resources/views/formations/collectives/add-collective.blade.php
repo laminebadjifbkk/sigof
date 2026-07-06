@@ -19,12 +19,15 @@
                 @endif
                 <div class="card border-0 shadow-sm">
                     <div class="card-header bg-white py-3">
-                        <h5 class="mb-0">
-                            {{-- <i class="bi bi-buildings-fill text-primary"></i> --}}
+                        <h5 class="mb-1 fw-bold">
+                            <i class="bi bi-buildings-fill text-primary me-2"></i>
                             Structures disponibles
                         </h5>
+                        <p class="text-muted mb-0 small">
+                            Seules les structures dont la demande est au statut <span class="fw-semibold text-success">«
+                                Conforme »</span> sont affichées.
+                        </p>
                     </div>
-
                     <div class="card-body">
 
                         <div class="table-responsive">
@@ -36,7 +39,6 @@
                                         <th class="text-center">Modules</th>
                                         <th>Responsable</th>
                                         <th width="80" class="text-center">
-                                            <i class="bi bi-gear"></i>
                                         </th>
                                     </tr>
                                 </thead>
@@ -64,7 +66,7 @@
                                             </td>
 
                                             <td>
-                                                {{ $collective?->prenom_responsable .' '. $collective?->nom_responsable ?? '-' }}
+                                                {{ $collective?->prenom_responsable . ' ' . $collective?->nom_responsable ?? '-' }}
                                             </td>
 
                                             <td class="text-center">
@@ -73,8 +75,10 @@
                                                     'idlocalite' => $formation->departement->region->id,
                                                     'idcollective' => $collective->id,
                                                 ]) }}"
-                                                    class="btn btn-outline-success btn-sm" title="Voir les modules">
-                                                    <i class="bi bi-eye"></i>
+                                                    class="btn btn-outline-success btn-sm rounded-pill px-3"
+                                                    title="Voir les modules">
+                                                    {{-- <i class="bi bi-eye"></i> --}}
+                                                    Ouvrir
                                                 </a>
                                             </td>
 

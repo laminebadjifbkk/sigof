@@ -1023,7 +1023,8 @@
                                                             class="bi bi-eye"></i></a>&nbsp;
                                                     <a href="{{ url('formationmodules', ['$idformation' => $formation->id, '$idlocalite' => $formation->departement->region->id]) }}"
                                                         class="btn btn-primary float-end btn-sm">
-                                                        <i class="bi bi-pencil" title="Changer module"></i></a>
+                                                        <i class="bi bi-pencil" title="Changer module"></i>
+                                                    </a>
                                                 @endcan
                                             </h5>
                                         </div>
