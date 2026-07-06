@@ -19,14 +19,18 @@
                 @endif
                 <div class="card border-0 shadow-sm">
                     <div class="card-header bg-white py-3">
-                        <h5 class="mb-1 fw-bold">
+                        <h5 class="mb-3 fw-bold">
                             <i class="bi bi-buildings-fill text-primary me-2"></i>
                             Structures disponibles
                         </h5>
-                        <p class="text-muted mb-0 small">
-                            Seules les structures dont la demande est au statut <span class="fw-semibold text-success">«
-                                Conforme »</span> sont affichées.
-                        </p>
+
+                        <div class="alert alert-info d-flex align-items-center mb-0 py-2">
+                            <i class="bi bi-info-circle-fill me-2"></i>
+                            <span>
+                                Seules les structures dont la demande est au statut
+                                <strong>« Conforme »</strong> sont disponibles pour la sélection.
+                            </span>
+                        </div>
                     </div>
                     <div class="card-body">
 
