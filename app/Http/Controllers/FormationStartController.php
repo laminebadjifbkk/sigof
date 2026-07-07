@@ -4,10 +4,14 @@
 
 /* namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Mail\FormationStartNotification;
 use App\Models\Formation;
+use App\Services\BrevoMailer;
 use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
+
+
 
 class FormationStartController extends Controller
 {
@@ -62,6 +66,32 @@ class FormationStartController extends Controller
 {
     public function send(Formation $formation)
     {
+
+        // Vérifier que la date de début est renseignée
+        if (empty($formation->date_debut)) {
+
+            Alert::error('Désolé !', "La date de démarrage de la formation n\'est pas renseignée.");
+            return redirect()->back();
+            /* return back()->with('error', 'La date de démarrage de la formation n\'est pas renseignée.'); */
+        }
+
+        // Vérifier que la date de début est atteinte
+        if ($formation->date_debut->isFuture()) {
+
+            Alert::error(
+                'Désolé !',
+                "Vous ne pouvez pas mettre cette formation en cours tant que sa date de démarrage ({$formation->date_debut->format('d/m/Y')}) n'est pas encore arrivée."
+            );
+
+            return redirect()->back();
+            /* return back()->with(
+                'error',
+                'Vous ne pouvez pas mettre cette formation en cours tant que sa date de démarrage ('
+                    . $formation->date_debut->format('d/m/Y')
+                    . ') n\'est pas encore arrivée.'
+            ); */
+        }
+
         $mailer = app(BrevoMailer::class);
 
         $label = "";
