@@ -63,12 +63,16 @@
                                             {{ $cm->objet }}
                                         </p>
 
-                                        <div class="small text-secondary">
+                                        {{-- <div class="small text-secondary">
                                             <i class="bi bi-calendar-event"></i>
                                             Du
                                             <strong>{{ $cm->date_depart->format('d/m/Y') }}</strong>
                                             au
                                             <strong>{{ $cm->date_retour->format('d/m/Y') }}</strong>
+                                        </div> --}}
+                                        <div class="small text-secondary">
+                                            <i class="bi bi-calendar-event"></i>
+                                            <strong>{{ $cm->periode_mission }}</strong>
                                         </div>
 
                                     </div>

@@ -226,4 +226,18 @@ class ParcMission extends Model
 
         return $result;
     }
+
+    public function getPeriodeMissionAttribute()
+    {
+        if (!$this->date_depart || !$this->date_retour) {
+            return '';
+        }
+
+        if ($this->date_depart->isSameDay($this->date_retour)) {
+            return $this->date_depart->format('d/m/Y');
+        }
+
+        return 'Du ' . $this->date_depart->format('d/m/Y')
+            . ' au ' . $this->date_retour->format('d/m/Y');
+    }
 }
