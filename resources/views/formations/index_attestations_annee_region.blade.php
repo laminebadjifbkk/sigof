@@ -168,7 +168,7 @@
                                                     'region' => $region->nom,
                                                 ]) }}"
                                                 class="btn btn-outline-primary btn-sm w-100">
-                                                Voir plus <i class="bi bi-arrow-right-short"></i>
+                                                Afficher <i class="bi bi-arrow-right-short"></i>
                                             </a>
 
                                         </div>
