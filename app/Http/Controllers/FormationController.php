@@ -470,8 +470,6 @@ class FormationController extends Controller
     {
         $statutFiltre = $request->query('attestation');
 
-        dd($statutFiltre);
-
         $region = Region::where('nom', $region)->firstOrFail();
 
         $baseQuery = Formation::where('annee', $annee)->where('statut', 'Terminée')
