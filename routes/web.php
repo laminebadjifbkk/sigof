@@ -752,6 +752,9 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/formations/{annee}/region/{region}', [FormationController::class, 'parAnneeRegion'])
             ->name('formations.parAnneeRegion');
 
+        Route::get('/attestations/{annee}/region/{region}', [FormationController::class, 'attestationsParAnneeRegion'])
+            ->name('attestations.attestationsParAnneeRegion');
+
         Route::get('/collectives/annee/{annee}', [CollectiveController::class, 'parAnnee'])
             ->name('collectives.parAnnee');
 

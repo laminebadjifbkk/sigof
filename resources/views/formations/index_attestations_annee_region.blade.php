@@ -12,7 +12,73 @@
             </ol>
         </nav>
     </div><!-- End Page Title -->
-    
+    {{-- <section class="section dashboard">
+        <div class="row">
+            <!-- Left side columns -->
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-12 pt-5">
+                        <div class="row">
+
+                            <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
+                                <div class="card info-card customers-card revenue-card shadow-sm" style="max-width: 220px;">
+                                    <div class="card-body p-2">
+                                        <h5 class="card-title text-truncate mb-1" title="Aujourd'hui"
+                                            style="font-size: 1rem;">
+                                            Aujourd'hui
+                                        </h5>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
+                                                style="width: 32px; height: 32px; font-size: 1.25rem;">
+                                                <i class="bi bi-calendar-date-fill"></i>
+                                            </div>
+                                            <div class="ps-2">
+                                                <h6 class="mb-0" style="font-size: 0.9rem;">{{ $count_today ?? '0' }}</h6>
+                                            </div>
+                                        </div>
+                                        <a href="#"
+                                            class="btn btn-outline-primary btn-sm w-100 d-flex align-items-center justify-content-center py-1"
+                                            style="font-size: 0.85rem; gap: 6px;">
+                                            Voir plus <i class="bi bi-arrow-right-short"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Sales Card -->
+                            @foreach ($groupes as $statut => $items)
+                                <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
+                                    <div class="card info-card sales-card shadow-sm" style="max-width: 220px;">
+                                        <div class="card-body p-2">
+                                            <h5 class="card-title text-truncate mb-1" title="{{ $statut }}"
+                                                style="font-size: 1rem;">
+                                                {{ $statut }}
+                                            </h5>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
+                                                    style="width: 32px; height: 32px; font-size: 1.25rem;">
+                                                    <i class="bi bi-people"></i>
+                                                </div>
+                                                <div class="ps-2">
+                                                    <h6 class="mb-0" style="font-size: 0.9rem;">
+                                                        {{ number_format($items->count(), 0, '', ' ') }}</h6>
+                                                </div>
+                                            </div>
+                                            <a href="{{ route('formations.parType', ['libelle' => $statut]) }}"
+                                                target="_blank"
+                                                class="btn btn-outline-primary btn-sm w-100 d-flex align-items-center justify-content-center py-1"
+                                                style="font-size: 0.85rem; gap: 6px;">
+                                                Voir plus <i class="bi bi-arrow-right-short"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> --}}
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
@@ -36,55 +102,129 @@
                             role="alert">{{ $error }}</div>
                     @endforeach
                 @endif
-
                 <div class="card">
                     <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h5>{{ $annee }}</h5>
-                            <a href="{{ route('showAttestations') }}" class="btn btn-outline-secondary btn-sm">
-                                <i class="bi bi-arrow-left-circle"></i> Retour à la liste
-                            </a>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-striped align-middle">
-                                <thead class="table-primary">
-                                    <tr>
-                                        <th>N°</th>
-                                        <th>Régions</th>
-                                        <th class="text-center">Effectifs</th>
-                                        <th class="text-center">%</th>
-                                        <th width="15%" class="text-center">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @php $i = 1; @endphp
-                                    @foreach ($groupes as $row)
-                                        <tr>
-                                            <td>{{ $i++ }}</td>
-                                            <td>{{ $row->nom }}</td>
-                                            <td class="text-center">{{ number_format($row->total, 0, '', ' ') }}</td>
-                                            <td class="text-center">
-                                                {{ $total ? round(($row->total * 100) / $total, 1) : 0 }} %
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('attestations.attestationsParAnneeRegion', [
+                        @can('user-show')
+                            <div class="row mb-4">
+
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h5>{{ $annee }} / {{ $region->nom }}</h5>
+                                    <a href="{{ route('formations.parAnnee', ['annee' => $annee]) }}"
+                                        class="btn btn-outline-secondary btn-sm">
+                                        <i class="bi bi-arrow-left-circle"></i> Retour à la liste
+                                    </a>
+                                </div>
+                                {{-- Carte Total --}}
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                                    <div class="card shadow-sm text-center p-2" style="min-height:140px; border-radius:10px;">
+                                        <h6 class="card-title mb-2 text-truncate" style="font-size:0.85rem;">
+                                            Total / {{ $region->nom }}
+                                        </h6>
+
+                                        <div class="d-flex flex-column align-items-center justify-content-center mb-2">
+                                            <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-1"
+                                                style="width:28px; height:28px;">
+                                                <i class="bi bi-people"></i>
+                                            </div>
+                                            <span class="h6 mb-0">{{ $totalFormations }}</span>
+                                        </div>
+
+                                        <div class="progress" style="height:6px;">
+                                            <div class="progress-bar bg-success" style="width:100%"></div>
+                                        </div>
+                                        <small class="text-muted">100%</small>
+                                    </div>
+                                </div>
+
+                                {{-- Cartes par statut --}}
+                                @foreach ($attestationPourcentages as $statut => $data)
+                                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
+                                        <div class="card shadow-sm text-center p-2"
+                                            style="min-height:120px; border-radius:10px;">
+
+                                            {{-- <h6 class="card-title mb-2 text-truncate" style="font-size:0.85rem;">
+                                                    {{ $statut }}
+                                                </h6> --}}
+
+                                            <span class="{{ $statut }}">
+                                                {{ $statut }}
+                                            </span>
+
+                                            <div class="mb-2 mt-2">
+                                                <span class="h6 mb-0">{{ number_format($data['count'], 0, '', ' ') }}</span>
+                                            </div>
+
+                                            <div class="mb-2">
+                                                <div class="progress" style="height:6px;">
+                                                    <div class="progress-bar bg-success"
+                                                        style="width: {{ $data['percent'] }}%;">
+                                                    </div>
+                                                </div>
+                                                <small class="text-muted">{{ $data['percent'] }}%</small>
+                                            </div>
+
+                                            <a href="{{ route('attestations.attestationsParAnneeRegion', [
                                                     'annee' => $annee,
-                                                    'region' => $row->nom,
+                                                    'region' => $region->nom,
                                                 ]) }}"
-                                                    class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center gap-1">
-                                                    Afficher <i class="bi bi-arrow-right-short"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                                                class="btn btn-outline-primary btn-sm w-100">
+                                                Voir plus <i class="bi bi-arrow-right-short"></i>
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                @endforeach
+
+                            </div>
+                        @endcan
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="card-body">
+                        {{-- <div class="pt-0">
+                            <button type="button" class="btn btn-primary float-end btn-rounded" data-bs-toggle="modal"
+                                data-bs-target="#AddFormationModal">
+                                <i class="bi bi-folder-plus" title="Ajouter"></i>
+                            </button>
+                        </div> --}}
+                        {{-- <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="card-title mb-0">{{ $title }}</h5>
+
+                            @can('formation-create')
+                                <div class="d-flex align-items-center gap-2">
+                                    <!-- Bouton Ajouter -->
+                                    <a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#AddFormationModal" title="Ajouter une formation">
+                                        Ajouter
+                                    </a>
+
+                                    <!-- Menu déroulant -->
+                                    <div class="dropdown">
+                                        <a href="#" class="btn btn-sm btn-light" data-bs-toggle="dropdown"
+                                            title="Options">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li>
+                                                <button type="button" class="dropdown-item" data-bs-toggle="modal"
+                                                    data-bs-target="#generate_rapportFormation">
+                                                    <i class="bi bi-file-earmark-text"></i> Générer suivi-convention
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            @endcan
+                            @can('suivi-formation')
+                                <div class="d-flex align-items-center gap-2">
+                                    <button type="button" class="dropdown-item" data-bs-toggle="modal"
+                                        data-bs-target="#generate_rapportFormation">
+                                        <i class="bi bi-file-earmark-text"></i> Générer suivi-convention
+                                    </button>
+                                </div>
+                            @endcan
+                        </div> --}}
 
                         <div class="pt-1">
                             <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
@@ -149,7 +289,8 @@
                                             <th width='15%'>Modules</th>
                                             <th width='15%'>Niveau qualif.</th>
                                             <th width='10%' class="text-center">Opérateurs</th>
-                                            <th width='5%' class="text-center">Statut</th>
+                                            <th width='5%' class="text-center">Type</th>
+                                            <th class="text-center">Ingénieur</th>
                                             @can('formation-show')
                                                 <th width='3%'><i class="bi bi-gear"></i></th>
                                             @endcan
@@ -178,8 +319,10 @@
                                                     {{ $formation?->operateur?->user?->username ?? ' ' }}
                                                 </td>
                                                 <td class="text-center">
-                                                    <a><span
-                                                            class="{{ $formation->statut }}">{{ $formation->statut }}</span></a>
+                                                    {{ $formation?->types_formation?->name }}
+                                                </td>
+                                                <td class="text-center">
+                                                    {{ $formation?->ingenieur?->name }}
                                                 </td>
                                                 @can('formation-show')
                                                     <td>
