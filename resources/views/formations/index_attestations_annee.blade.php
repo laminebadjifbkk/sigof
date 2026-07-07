@@ -12,7 +12,7 @@
             </ol>
         </nav>
     </div><!-- End Page Title -->
-    
+
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
@@ -139,93 +139,102 @@
                                 <table
                                     class="table datatables table-bordered table-hover align-middle justify-content-center"
                                     id="table-formations">
-                                    <thead class="table-success text-center">
+                                    <thead>
                                         <tr>
-                                            <th width='6%' class="text-center">Code</th>
-                                            <th width='8%' class="text-center">N° conv.</th>
-                                            {{-- <th width='15%'>Type demande</th> --}}
-                                            {{--  <th width='15%'>Localité</th> --}}
-                                            <th width='25%'>Bénéficiaires</th>
-                                            <th width='15%'>Modules</th>
-                                            <th width='15%'>Niveau qualif.</th>
-                                            <th width='10%' class="text-center">Opérateurs</th>
-                                            <th width='5%' class="text-center">Diplômes</th>
-                                            @can('formation-show')
-                                                <th width='3%'><i class="bi bi-gear"></i></th>
-                                            @endcan
+                                            <th>Bénéficiaires</th>
+                                            {{-- <th width='10%'>Région</th> --}}
+                                            <th>Modules</th>
+                                            <th>Opérateurs</th>
+                                            <th width='5%' class="text-center">Attestations</th>
+                                            <th width='3%'><i class="bi bi-gear"></i></th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php $i = 1; ?>
                                         @foreach ($formations as $formation)
                                             <tr>
-                                                <td style="text-align: center">{{ $formation?->code }}</td>
-                                                <td style="text-align: center">{{ $formation?->numero_convention }}</td>
-                                                {{-- <td>{{ $formation->types_formation->name ?? 'Non spécifié' }}</td> --}}
-                                                {{--  <td>{{ $formation->departement->region->nom ?? 'Non spécifié' }}</td> --}}
-                                                <td>{{ $formation?->name ?? ' ' }}</td>
-                                                {{-- <td>
-                                                <span
-                                                    class="{{ $formation->module->name ?? ($formation->collectivemodule->module ?? 'Aucun') }}">
-                                                    {{ $formation->module->name ?? ($formation->collectivemodule->module ?? 'Aucun') }}
-                                                </span>
-                                            </td> --}}
+                                                <td>{{ $formation?->name }}</td>
+                                                {{-- <td>{{ $formation->departement?->region?->nom }}</td> --}}
                                                 <td>
                                                     {{ $formation?->module?->name ?? ($formation?->collectivemodule?->module ?? '') }}
                                                 </td>
-                                                {{-- <td>{{ $formation->type_certification }}</td> --}}
-                                                <td>{{ $formation?->titre ?? $formation?->referentiel?->titre }}</td>
-                                                <td class="text-center">
-                                                    {{ $formation?->operateur?->user?->username ?? ' ' }}
+                                                <td>{{ $formation?->operateur?->user?->display_operateur ?? ' ' }}</td>
+                                                <td class="text-center"><a><span
+                                                            class="{{ $formation?->attestation }}">{{ $formation?->attestation }}</span></a>
                                                 </td>
-                                                <td class="text-center">
-                                                    <a><span
-                                                            class="{{ $formation->attestation }}">{{ $formation->attestation }}</span></a>
-                                                </td>
-                                                @can('formation-show')
-                                                    <td>
-                                                        <div class="d-flex align-items-center gap-2">
-                                                            <!-- Bouton Voir détails -->
-                                                            <a href="{{ route('formations.show', $formation) }}"
-                                                                class="btn btn-primary btn-sm" title="Voir les détails">
-                                                                <i class="bi bi-eye"></i>
-                                                            </a>
+                                                <td>
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <!-- Bouton Voir détails -->
+                                                        <a href="{{ route('formations.show', $formation) }}"
+                                                            class="btn btn-primary btn-sm" title="Voir les détails"
+                                                            target="_blank">
+                                                            <i class="bi bi-eye"></i>
+                                                        </a>
 
-                                                            <!-- Menu déroulant d'actions -->
-                                                            <div class="dropdown">
-                                                                <a href="#" class="btn btn-sm btn-light"
-                                                                    data-bs-toggle="dropdown" aria-expanded="false"
-                                                                    title="Plus d'actions">
-                                                                    <i class="bi bi-three-dots-vertical"></i>
-                                                                </a>
-                                                                <ul class="dropdown-menu dropdown-menu-end">
-                                                                    @can('formation-update')
-                                                                        <li>
-                                                                            <a href="{{ route('formations.edit', $formation) }}"
-                                                                                class="dropdown-item">
-                                                                                <i class="bi bi-pencil"></i> Modifier
-                                                                            </a>
-                                                                        </li>
-                                                                    @endcan
-                                                                    @can('formation-delete')
-                                                                        <li>
-                                                                            <form
-                                                                                action="{{ route('formations.destroy', $formation) }}"
-                                                                                method="POST" class="dropdown-item show_confirm">
-                                                                                @csrf
-                                                                                @method('DELETE')
-                                                                                <button type="submit"
-                                                                                    class="dropdown-item text-danger">
-                                                                                    <i class="bi bi-trash"></i> Supprimer
-                                                                                </button>
-                                                                            </form>
-                                                                        </li>
-                                                                    @endcan
-                                                                </ul>
+                                                        <!-- Bouton Statuer l'attestation -->
+                                                        <button class="btn btn-warning btn-sm mx-1" data-bs-toggle="modal"
+                                                            data-bs-target="#statuerAttestationModal-{{ $formation->id }}"
+                                                            title="Statuer l'attestation">
+                                                            <i class="bi bi-arrow-left-right"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <div class="modal fade" id="statuerAttestationModal-{{ $formation->id }}"
+                                                tabindex="-1" aria-labelledby="changerModuleLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-lg">
+                                                    <form action="{{ route('attestations.check', $formation->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="changerModuleLabel">
+                                                                    {{ $formation?->name }}</h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Fermer"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="mb-3">
+                                                                    <label for="attestation"
+                                                                        class="form-label">{{ $formation->module->name ?? ($formation->collectivemodule->module ?? 'Aucun') }}</label>
+                                                                    @php
+                                                                        $statuts = [
+                                                                            'Nouveau' => 'Nouveau',
+                                                                            'Attente' => 'Attente',
+                                                                            'En cours' => 'En cours',
+                                                                            'Signature' => 'Signature',
+                                                                            'Disponibles' => 'Disponibles',
+                                                                            'Délivrés' => 'Délivrés',
+                                                                        ];
+                                                                    @endphp
+
+                                                                    <select name="attestation" id="attestation"
+                                                                        class="form-select form-select-sm" required>
+                                                                        <option value="" disabled
+                                                                            {{ empty($formation?->attestation) ? 'selected' : '' }}>
+                                                                            -- Choisir --
+                                                                        </option>
+
+                                                                        @foreach ($statuts as $value => $label)
+                                                                            <option value="{{ $value }}"
+                                                                                {{ $formation?->attestation === $value ? 'selected' : '' }}>
+                                                                                {{ $label }}
+                                                                            </option>
+                                                                        @endforeach
+                                                                    </select>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary btn-sm"
+                                                                    data-bs-dismiss="modal">Fermer</button>
+                                                                <button type="submit"
+                                                                    class="btn btn-success btn-sm">Valider</button>
                                                             </div>
                                                         </div>
-                                                    </td>
-                                                @endcan
-                                            </tr>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         @endforeach
                                     </tbody>
                                 </table>
