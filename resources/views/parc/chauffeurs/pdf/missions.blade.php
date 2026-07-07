@@ -108,9 +108,11 @@
                     <td>{{ $mission->objet }}</td>
 
                     <td class="text-center">
-                        {{ $mission->date_depart->format('d/m/Y') }}
+                        {{-- {{ $mission->date_depart->format('d/m/Y') }}
                         au
-                        {{ $mission->date_retour->format('d/m/Y') }}
+                        {{ $mission->date_retour->format('d/m/Y') }} --}}
+
+                        {{ $mission->periode_mission }}
                     </td>
 
                     <td class="text-center">
