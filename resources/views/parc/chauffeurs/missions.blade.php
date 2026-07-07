@@ -22,7 +22,7 @@
 
                     <a href="{{ route('parc-chauffeurs.missions.pdf', $chauffeur->id) }}" class="btn btn-danger btn-sm">
                         <i class="bi bi-file-earmark-pdf"></i>
-                        Télécharger le récapitulatif
+                        Télécharger le récapitulatif PDF
                     </a>
 
                     <a href="{{ route('parc-chauffeurs.missions.excel', $chauffeur->id) }}" class="btn btn-success btn-sm">
