@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'ONFP - Détails du chauffeur')
+@section('title', 'Détails du chauffeur')
 
 @section('space-work')
     <section class="section register">
@@ -123,6 +123,10 @@
                         <i class="bi bi-trash"></i> Supprimer
                     </button>
                 </form>
+                <a href="{{ route('parc-chauffeurs.missions.pdf', $chauffeur->id) }}" class="btn btn-danger btn-sm">
+                    <i class="bi bi-file-earmark-pdf"></i>
+                    Télécharger le récapitulatif
+                </a>
             </div>
         </div>
     </section>
