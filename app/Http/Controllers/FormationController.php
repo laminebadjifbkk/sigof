@@ -156,7 +156,7 @@ class FormationController extends Controller
         );
     }
 
-    public function parAnnee(Request $request, $annee)
+    public function parAnnee(Request $request, int $annee)
     {
         $query = Formation::where('annee', $annee);
 
@@ -230,6 +230,100 @@ class FormationController extends Controller
 
         return view(
             "formations.index_annee",
+            compact(
+                "formations",
+                "modules",
+                "departements",
+                "regions",
+                "operateurs",
+                'types_formations',
+                'projets',
+                'programmes',
+                'numFormation',
+                'formations_annee',
+                'formations_statut',
+                'poles',
+                'groupes',
+                'affichees',
+                'annee',
+                'regionPourcentages',
+                'total',
+            )
+        );
+    }
+
+    public function attestationsParAnnee(Request $request, int $annee)
+    {
+        $query = Formation::where('annee', $annee)->where('statut', 'Terminée');
+
+        // =======================================
+        // Individuelles détaillées (max 100)
+        // =======================================
+        $formations = $query->latest()->limit(500)->get();
+
+        // Total pour l'année après filtres
+        $total = $query->count();
+        $affichees = $formations->count();
+
+        // =======================================
+        // Cartes par région pour cette année
+        // =======================================
+        $groupes = Formation::where('annee', $annee)->where('statut', 'Terminée')
+            ->join('formation_region', 'formations.id', '=', 'formation_region.formation_id')
+            ->join('regions', 'formation_region.region_id', '=', 'regions.id')
+            ->select('regions.id', 'regions.nom', DB::raw('COUNT(*) as total'))
+            ->groupBy('regions.id', 'regions.nom')
+            ->orderByDesc('total')
+            ->get();
+
+        $regionPourcentages = [];
+        foreach ($groupes as $row) {
+            $regionNom = $row->nom ?? 'Inconnu';
+            $regionPourcentages[$regionNom] = [
+                'count' => $row->total,
+                'percent' => $total ? round($row->total * 100 / $total, 1) : 0,
+            ];
+        }
+
+        $poles = Antenne::get();
+
+        $modules      = Module::orderBy("created_at", "desc")->get();
+        $departements = Departement::orderBy("created_at", "desc")->get();
+        $regions      = Region::orderBy("created_at", "desc")->get();
+        $operateurs   = Operateur::orderBy("created_at", "desc")->get();
+        $projets      = Projet::orderBy("created_at", "desc")->get();
+        $programmes   = Programme::orderBy("created_at", "desc")->get();
+        $types_formations = TypesFormation::orderBy("created_at", "desc")->get();
+
+        $an           = date('y');
+
+        $numFormation = DB::transaction(function () use ($an) {
+
+            $lastFormation = Formation::where('code', 'like', 'F' . $an . '%')
+                ->lockForUpdate()
+                ->orderByDesc('code')
+                ->first();
+
+            if ($lastFormation) {
+                $lastNumber = (int) substr($lastFormation->code, -4);
+                $nextNumber = $lastNumber + 1;
+            } else {
+                $nextNumber = 1;
+            }
+
+            return 'F' . $an . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
+        });
+
+        /* $title = 'Liste des formations'; */
+
+        $formations_annee = Formation::distinct()
+            ->get('annee');
+
+        $formations_statut = Formation::distinct()
+            ->get('statut');
+
+        return view(
+            "formations.index_attestations_annee",
             compact(
                 "formations",
                 "modules",
@@ -4868,16 +4962,27 @@ class FormationController extends Controller
         $attestations      = Formation::where('statut', 'Terminée')->get();
         $attestationsCount = Formation::count();
         // Regrouper par statut (y compris les null)
-        $groupes = $attestations->groupBy(function ($item) {
+        /* $groupes = $attestations->groupBy(function ($item) {
             return $item->attestation ?? 'Aucun statut';
-        });
+        }); */
 
-        $totalAttestations = number_format($attestationsCount, 0, ',', ' ');
+        $groupes = Formation::select(DB::raw('annee'))
+            ->selectRaw('COUNT(*) as total')
+            ->where('statut', 'Terminée')
+            ->groupBy('annee')
+            ->orderByDesc('annee')
+            ->paginate(1); // ← une ligne par page
 
         // Récupération des 100 dernières demandes
         $attestations = Formation::latest()->limit(500)->where('statut', 'Terminée')->get();
 
-        return view('formations.attestation', compact('attestations', 'groupes'));
+
+        $affichees = $attestations?->count();
+        $total     = $totalIndividuelles ?? ($attestations instanceof \Illuminate\Pagination\LengthAwarePaginator
+            ? $attestations->total()
+            : $attestations?->count());
+
+        return view('formations.attestation', compact('attestations', 'groupes', 'affichees', 'total'));
     }
 
     public function ajouterJours(Request $request)

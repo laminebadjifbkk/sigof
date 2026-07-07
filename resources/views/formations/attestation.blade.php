@@ -12,8 +12,7 @@
         </nav>
     </div>
 
-
-    <section class="section">
+    {{-- <section class="section">
         <div class="container-fluid">
             <!-- End Title -->
             <div class="row justify-content-center">
@@ -60,201 +59,273 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- End Bordered Tabs -->
                     </div>
                 </div>
             </div>
         </div>
-        <!-- End Modal -->
-        </div>
-        <!-- End Left side columns -->
-        <section class="section">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body">
-                            {{-- <h4 class="card-title">ATTESTATIONS</h4> --}}
+    </section> --}}
+    <!-- End Left side columns -->
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
 
-                            <div class="pt-1">
-                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped align-middle">
+                                <thead class="table-primary">
+                                    <tr>
+                                        <th style="width: 50px;">N°</th>
+                                        <th>Années</th>
+                                        <th class="text-center">Effectifs</th>
+                                        <th width="10%" class="text-center">Actions</th>
+                                    </tr>
+                                </thead>
 
-                                    {{-- Titre à gauche --}}
-                                    <div class="d-flex align-items-center gap-2">
-                                        <h6 class="mb-0 text-muted fw-semibold text-uppercase">
-                                            Liste des attestations
-                                        </h6>
-                                    </div>
-
-                                    {{-- Total au centre --}}
-                                    @php
-                                        $affichees = $attestations?->count(); // à adapter si tu fais une pagination
-                                        $total = $totalAttestations ?? $attestations?->count(); // en cas de pagination avec ->total()
-                                    @endphp
-
-                                    <div class="d-flex align-items-center gap-2 text-info fw-semibold">
-                                        <i class="bi bi-list-ul me-1"></i>
-                                        <span>
-                                            Affichage :
-                                            <span class="text-dark">{{ $affichees }}</span>
-                                            sur
-                                            <span class="text-dark">{{ $total }}</span> demandes
-                                        </span>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="table-responsive">
-                                <table
-                                    class="table datatables table-bordered table-hover align-middle justify-content-center"
-                                    id="table-formations">
-                                    <thead>
+                                <tbody id="missions-container">
+                                    @foreach ($groupes as $items)
                                         <tr>
-                                            <th>Bénéficiaires</th>
-                                            {{-- <th width='10%'>Région</th> --}}
-                                            <th>Modules</th>
-                                            <th>Opérateurs</th>
-                                            <th width='5%' class="text-center">Attestations</th>
-                                            <th width='3%'><i class="bi bi-gear"></i></th>
+                                            <td>
+                                                {{ ($groupes->currentPage() - 1) * $groupes->perPage() + $loop->iteration }}
+                                            </td>
+                                            <td>{{ $items->annee }}</td>
+                                            <td class="text-center">
+                                                {{ number_format($items->total, 0, '', ' ') }}
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="{{ route('attestations.attestationsParAnnee', ['annee' => $items->annee]) }}"
+                                                    class="btn btn-sm btn-outline-primary">
+                                                    Afficher
+                                                </a>
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php $i = 1; ?>
-                                        @foreach ($attestations as $formation)
-                                            <tr>
-                                                <td>{{ $formation?->name }}</td>
-                                                {{-- <td>{{ $formation->departement?->region?->nom }}</td> --}}
-                                                <td>
-                                                    {{ $formation?->module?->name ?? ($formation?->collectivemodule?->module ?? '') }}
-                                                </td>
-                                                <td>{{ $formation?->operateur?->user?->display_operateur ?? ' ' }}</td>
-                                                <td class="text-center"><a><span
-                                                            class="{{ $formation?->attestation }}">{{ $formation?->attestation }}</span></a>
-                                                </td>
-                                                <td>
-                                                    <div class="d-flex align-items-center gap-2">
-                                                        <!-- Bouton Voir détails -->
-                                                        <a href="{{ route('formations.show', $formation) }}"
-                                                            class="btn btn-primary btn-sm" title="Voir les détails"
-                                                            target="_blank">
-                                                            <i class="bi bi-eye"></i>
-                                                        </a>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
 
-                                                        <!-- Bouton Statuer l'attestation -->
-                                                        <button class="btn btn-warning btn-sm mx-1" data-bs-toggle="modal"
-                                                            data-bs-target="#statuerAttestationModal-{{ $formation->id }}"
-                                                            title="Statuer l'attestation">
-                                                            <i class="bi bi-arrow-left-right"></i>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <div class="modal fade" id="statuerAttestationModal-{{ $formation->id }}"
-                                                tabindex="-1" aria-labelledby="changerModuleLabel" aria-hidden="true">
-                                                <div class="modal-dialog modal-lg">
-                                                    <form action="{{ route('attestations.check', $formation->id) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="changerModuleLabel">
-                                                                    {{ $formation?->name }}</h5>
-                                                                <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal" aria-label="Fermer"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="mb-3">
-                                                                    <label for="attestation"
-                                                                        class="form-label">{{ $formation->module->name ?? ($formation->collectivemodule->module ?? 'Aucun') }}</label>
-                                                                    @php
-                                                                        $statuts = [
-                                                                            'Nouveau' => 'Nouveau',
-                                                                            'Attente' => 'Attente',
-                                                                            'En cours' => 'En cours',
-                                                                            'Signature' => 'Signature',
-                                                                            'Disponibles' => 'Disponibles',
-                                                                            'Délivrés' => 'Délivrés',
-                                                                        ];
-                                                                    @endphp
+                        {{-- Bouton Load More --}}
+                        @if ($groupes->hasMorePages())
+                            <div class="text-center mt-3">
+                                <a href="{{ $groupes->nextPageUrl() }}" id="loadMoreBtn" class="btn btn-info btn-sm">
+                                    Voir plus
+                                </a>
+                            </div>
+                        @endif
 
-                                                                    <select name="attestation" id="attestation"
-                                                                        class="form-select form-select-sm" required>
-                                                                        <option value="" disabled
-                                                                            {{ empty($formation?->attestation) ? 'selected' : '' }}>
-                                                                            -- Choisir --
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        {{-- <h4 class="card-title">ATTESTATIONS</h4> --}}
+
+                        <div class="pt-1">
+                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+
+                                {{-- Titre à gauche --}}
+                                <div class="d-flex align-items-center gap-2">
+                                    <h6 class="mb-0 text-muted fw-semibold text-uppercase">
+                                        Liste des attestations
+                                    </h6>
+                                </div>
+
+                                <div class="d-flex align-items-center gap-2 text-info fw-semibold">
+                                    <i class="bi bi-list-ul me-1"></i>
+                                    <span>
+                                        Affichage :
+                                        <span class="text-dark">{{ $affichees }}</span>
+                                        sur
+                                        <span class="text-dark">{{ $total }}</span> demandes
+                                    </span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table datatables table-bordered table-hover align-middle justify-content-center"
+                                id="table-formations">
+                                <thead>
+                                    <tr>
+                                        <th>Bénéficiaires</th>
+                                        {{-- <th width='10%'>Région</th> --}}
+                                        <th>Modules</th>
+                                        <th>Opérateurs</th>
+                                        <th width='5%' class="text-center">Attestations</th>
+                                        <th width='3%'><i class="bi bi-gear"></i></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @foreach ($attestations as $formation)
+                                        <tr>
+                                            <td>{{ $formation?->name }}</td>
+                                            {{-- <td>{{ $formation->departement?->region?->nom }}</td> --}}
+                                            <td>
+                                                {{ $formation?->module?->name ?? ($formation?->collectivemodule?->module ?? '') }}
+                                            </td>
+                                            <td>{{ $formation?->operateur?->user?->display_operateur ?? ' ' }}</td>
+                                            <td class="text-center"><a><span
+                                                        class="{{ $formation?->attestation }}">{{ $formation?->attestation }}</span></a>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <!-- Bouton Voir détails -->
+                                                    <a href="{{ route('formations.show', $formation) }}"
+                                                        class="btn btn-primary btn-sm" title="Voir les détails"
+                                                        target="_blank">
+                                                        <i class="bi bi-eye"></i>
+                                                    </a>
+
+                                                    <!-- Bouton Statuer l'attestation -->
+                                                    <button class="btn btn-warning btn-sm mx-1" data-bs-toggle="modal"
+                                                        data-bs-target="#statuerAttestationModal-{{ $formation->id }}"
+                                                        title="Statuer l'attestation">
+                                                        <i class="bi bi-arrow-left-right"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <div class="modal fade" id="statuerAttestationModal-{{ $formation->id }}"
+                                            tabindex="-1" aria-labelledby="changerModuleLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg">
+                                                <form action="{{ route('attestations.check', $formation->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="changerModuleLabel">
+                                                                {{ $formation?->name }}</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Fermer"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="mb-3">
+                                                                <label for="attestation"
+                                                                    class="form-label">{{ $formation->module->name ?? ($formation->collectivemodule->module ?? 'Aucun') }}</label>
+                                                                @php
+                                                                    $statuts = [
+                                                                        'Nouveau' => 'Nouveau',
+                                                                        'Attente' => 'Attente',
+                                                                        'En cours' => 'En cours',
+                                                                        'Signature' => 'Signature',
+                                                                        'Disponibles' => 'Disponibles',
+                                                                        'Délivrés' => 'Délivrés',
+                                                                    ];
+                                                                @endphp
+
+                                                                <select name="attestation" id="attestation"
+                                                                    class="form-select form-select-sm" required>
+                                                                    <option value="" disabled
+                                                                        {{ empty($formation?->attestation) ? 'selected' : '' }}>
+                                                                        -- Choisir --
+                                                                    </option>
+
+                                                                    @foreach ($statuts as $value => $label)
+                                                                        <option value="{{ $value }}"
+                                                                            {{ $formation?->attestation === $value ? 'selected' : '' }}>
+                                                                            {{ $label }}
                                                                         </option>
+                                                                    @endforeach
+                                                                </select>
 
-                                                                        @foreach ($statuts as $value => $label)
-                                                                            <option value="{{ $value }}"
-                                                                                {{ $formation?->attestation === $value ? 'selected' : '' }}>
-                                                                                {{ $label }}
-                                                                            </option>
-                                                                        @endforeach
-                                                                    </select>
-
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary btn-sm"
-                                                                    data-bs-dismiss="modal">Fermer</button>
-                                                                <button type="submit"
-                                                                    class="btn btn-success btn-sm">Valider</button>
                                                             </div>
                                                         </div>
-                                                    </form>
-                                                </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary btn-sm"
+                                                                data-bs-dismiss="modal">Fermer</button>
+                                                            <button type="submit"
+                                                                class="btn btn-success btn-sm">Valider</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                             </div>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                                        </div>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-    @endsection
-    @push('scripts')
-        <script>
-            new DataTable('#table-formations', {
-                layout: {
-                    topStart: {
-                        buttons: ['csv', 'excel', 'print'],
-                    }
+@endsection
+@push('scripts')
+    <script>
+        new DataTable('#table-formations', {
+            layout: {
+                topStart: {
+                    buttons: ['csv', 'excel', 'print'],
+                }
+            },
+            "order": [
+                [0, 'desc']
+            ],
+            language: {
+                "sProcessing": "Traitement en cours...",
+                "sSearch": "Rechercher&nbsp;:",
+                "sLengthMenu": "Afficher _MENU_ &eacute;l&eacute;ments",
+                "sInfo": "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                "sInfoEmpty": "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
+                "sInfoFiltered": "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                "sInfoPostFix": "",
+                "sLoadingRecords": "Chargement en cours...",
+                "sZeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                "sEmptyTable": "Aucune donn&eacute;e disponible dans le tableau",
+                "oPaginate": {
+                    "sFirst": "Premier",
+                    "sPrevious": "Pr&eacute;c&eacute;dent",
+                    "sNext": "Suivant",
+                    "sLast": "Dernier"
                 },
-                "order": [
-                    [0, 'desc']
-                ],
-                language: {
-                    "sProcessing": "Traitement en cours...",
-                    "sSearch": "Rechercher&nbsp;:",
-                    "sLengthMenu": "Afficher _MENU_ &eacute;l&eacute;ments",
-                    "sInfo": "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
-                    "sInfoEmpty": "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
-                    "sInfoFiltered": "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
-                    "sInfoPostFix": "",
-                    "sLoadingRecords": "Chargement en cours...",
-                    "sZeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",
-                    "sEmptyTable": "Aucune donn&eacute;e disponible dans le tableau",
-                    "oPaginate": {
-                        "sFirst": "Premier",
-                        "sPrevious": "Pr&eacute;c&eacute;dent",
-                        "sNext": "Suivant",
-                        "sLast": "Dernier"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": activer pour trier la colonne par ordre croissant",
-                        "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
-                    },
-                    "select": {
-                        "rows": {
-                            _: "%d lignes sÃ©lÃ©ctionnÃ©es",
-                            0: "Aucune ligne sÃ©lÃ©ctionnÃ©e",
-                            1: "1 ligne sÃ©lÃ©ctionnÃ©e"
-                        }
+                "oAria": {
+                    "sSortAscending": ": activer pour trier la colonne par ordre croissant",
+                    "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+                },
+                "select": {
+                    "rows": {
+                        _: "%d lignes sÃ©lÃ©ctionnÃ©es",
+                        0: "Aucune ligne sÃ©lÃ©ctionnÃ©e",
+                        1: "1 ligne sÃ©lÃ©ctionnÃ©e"
                     }
                 }
+            }
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            const missionsContainer = document.getElementById('missions-container');
+
+            if (!loadMoreBtn) return;
+
+            loadMoreBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                fetch(this.href)
+                    .then(res => res.text())
+                    .then(html => {
+
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(html, 'text/html');
+
+                        const newRows = doc.querySelectorAll('#missions-container tr');
+
+                        newRows.forEach(row => {
+                            missionsContainer.appendChild(row);
+                        });
+
+                        const newBtn = doc.getElementById('loadMoreBtn');
+
+                        if (newBtn) {
+                            this.href = newBtn.href;
+                        } else {
+                            this.remove();
+                        }
+                    })
+                    .catch(err => console.error('Erreur chargement :', err));
             });
-        </script>
-    @endpush
+        });
+    </script>
+@endpush
