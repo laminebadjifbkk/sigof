@@ -127,8 +127,9 @@ class UserController extends Controller
 
         // ✅ Formations en cours avec pré-calcul du progress et couleur
         $formations = Formation::with(['module', 'collectivemodule', 'emargements', 'emargementcollectives'])
-            ->where('statut', 'En cours')
-            ->orderBy('date_debut', 'desc')
+            ->whereIn('statut', ['En cours', 'Nouvelle'])
+            ->whereNotNull('date_debut')
+            ->orderByDesc('date_debut')
             ->paginate(5) // paginate au lieu de get()
             ->through(function ($formation) {
                 $isIndividuelle = !empty($formation->module?->name) && !empty($formation->duree_formation);

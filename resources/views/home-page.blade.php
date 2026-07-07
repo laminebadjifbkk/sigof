@@ -151,9 +151,10 @@
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between align-items-center mb-4">
                                             <h5 class="card-title mb-0">
-                                                Formations en cours
-                                                <span
-                                                    class="badge bg-warning text-white ms-1">{{ $formations->total() ?? $formations->count() }}</span>
+                                                Formations actives
+                                                <span class="badge bg-warning text-white ms-1">
+                                                    {{ $formations->total() ?? $formations->count() }}
+                                                </span>
                                             </h5>
                                             @if (Route::has('formations.index'))
                                                 <a href="{{ route('formations.index') }}"
@@ -209,7 +210,7 @@
                                                                     ? 'N/A'
                                                                     : ($progress >= 100
                                                                         ? 'Terminée'
-                                                                        : $progress . '%'));
+                                                                        : ' En cours - ' . $progress . '%'));
 
                                                             $joursClass = match (true) {
                                                                 is_null($jours) => 'text-muted',
