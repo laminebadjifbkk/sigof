@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateParcChauffeurRequest;
 use App\Models\Employee;
 use App\Models\ParcChauffeur;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ParcChauffeurController extends Controller
 {
@@ -199,4 +200,22 @@ class ParcChauffeurController extends Controller
 
         return view('parc.chauffeurs.missions', compact('chauffeur', 'missions'));
     }
+
+
+public function missionsPdf(ParcChauffeur $chauffeur)
+{
+    $missions = $chauffeur->employee
+        ->parcmissions()
+        ->orderByDesc('date_depart')
+        ->get();
+
+    $pdf = Pdf::loadView(
+        'parc.chauffeurs.pdf.missions',
+        compact('chauffeur', 'missions')
+    );
+
+    return $pdf->download(
+        'Recapitulatif_Missions_'.$chauffeur->employee->user->name.'.pdf'
+    );
+}
 }

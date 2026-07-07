@@ -4,11 +4,34 @@
 @section('space-work')
     <section class="section">
         <div class="container">
-            <div class="d-flex justify-content-between align-items-center mb-3">
+            {{-- <div class="d-flex justify-content-between align-items-center mb-3">
                 <h3>Missions de {{ $chauffeur->employee->user->firstname . ' ' . $chauffeur->employee->user->name }}</h3>
                 <a href="{{ url()->previous() }}" class="btn btn-outline-secondary btn-sm">
                     <i class="bi bi-arrow-left-circle"></i> Retour
                 </a>
+            </div> --}}
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+
+                <h3>
+                    Missions de {{ $chauffeur->employee->user->firstname }}
+                    {{ $chauffeur->employee->user->name }}
+                </h3>
+
+                <div>
+
+                    <a href="{{ route('parc-chauffeurs.missions.pdf', $chauffeur->id) }}" class="btn btn-danger btn-sm">
+                        <i class="bi bi-file-earmark-pdf"></i>
+                        Télécharger le récapitulatif
+                    </a>
+
+                    <a href="{{ url()->previous() }}" class="btn btn-outline-secondary btn-sm">
+                        <i class="bi bi-arrow-left-circle"></i>
+                        Retour
+                    </a>
+
+                </div>
+
             </div>
 
             @if ($missions->isEmpty())

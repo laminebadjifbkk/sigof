@@ -405,6 +405,10 @@ Route::group(['middleware' => ['XSS']], function () {
             [ArriveController::class, 'attachMultipleEmployees']
         )->name('arrives.attachMultipleEmployees');
 
+        Route::get(
+            '/parc-chauffeurs/{chauffeur}/missions/pdf',
+            [ParcChauffeurController::class, 'missionsPdf']
+        )->name('parc-chauffeurs.missions.pdf');
 
         Route::get('/ingenieurformations', [UserController::class, 'ingenieurformations'])->name('ingenieurformations');
 
