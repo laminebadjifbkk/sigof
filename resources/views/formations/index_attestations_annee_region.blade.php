@@ -136,18 +136,18 @@
                                     </div>
                                 </div>
 
-                                {{-- Cartes par statut --}}
-                                @foreach ($attestationPourcentages as $statut => $data)
+                                {{-- Cartes par attestation --}}
+                                @foreach ($attestationPourcentages as $attestation => $data)
                                     <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
                                         <div class="card shadow-sm text-center p-2"
                                             style="min-height:120px; border-radius:10px;">
 
                                             {{-- <h6 class="card-title mb-2 text-truncate" style="font-size:0.85rem;">
-                                                    {{ $statut }}
+                                                    {{ $attestation }}
                                                 </h6> --}}
 
-                                            <span class="{{ $statut }}">
-                                                {{ $statut }}
+                                            <span class="{{ $attestation }}">
+                                                {{ $attestation }}
                                             </span>
 
                                             <div class="mb-2 mt-2">
@@ -164,9 +164,10 @@
                                             </div>
 
                                             <a href="{{ route('attestations.attestationsParAnneeRegion', [
-                                                    'annee' => $annee,
-                                                    'region' => $region->nom,
-                                                ]) }}"
+                                                'annee' => $annee,
+                                                'region' => $region->nom,
+                                                'attestation' => $attestation,
+                                            ]) }}"
                                                 class="btn btn-outline-primary btn-sm w-100">
                                                 Afficher <i class="bi bi-arrow-right-short"></i>
                                             </a>
