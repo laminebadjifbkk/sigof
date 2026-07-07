@@ -18,7 +18,7 @@
             <th>Objet</th>
             <th>Période</th>
             <th>Nuitées</th>
-            <th>Taux</th>
+            <th>Taux nuitée</th>
             <th>Montant</th>
 
         </tr>
