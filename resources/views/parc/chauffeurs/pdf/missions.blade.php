@@ -15,7 +15,7 @@
         <tr style="background:#efefef">
 
             <th>N°</th>
-            <th>Référence</th>
+            <th>Objet</th>
             <th>Période</th>
             <th>Nuitées</th>
             <th>Taux</th>
@@ -42,7 +42,7 @@
 
                 <td>{{ $loop->iteration }}</td>
 
-                <td>{{ $mission->reference }}</td>
+                <td>{{ $mission->objet }}</td>
 
                 <td>
                     {{ $mission->date_depart->format('d/m/Y') }}
