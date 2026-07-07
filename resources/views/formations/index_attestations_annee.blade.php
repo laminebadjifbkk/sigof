@@ -149,7 +149,7 @@
                                             <th width='15%'>Modules</th>
                                             <th width='15%'>Niveau qualif.</th>
                                             <th width='10%' class="text-center">Opérateurs</th>
-                                            <th width='5%' class="text-center">Diplôme</th>
+                                            <th width='5%' class="text-center">Diplômes</th>
                                             @can('formation-show')
                                                 <th width='3%'><i class="bi bi-gear"></i></th>
                                             @endcan
