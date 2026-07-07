@@ -111,7 +111,7 @@
                                     <thead>
                                         <tr>
                                             <th>Bénéficiaires</th>
-                                            <th width='10%'>Région</th>
+                                            {{-- <th width='10%'>Région</th> --}}
                                             <th>Modules</th>
                                             <th>Opérateurs</th>
                                             <th width='5%' class="text-center">Attestations</th>
@@ -123,16 +123,11 @@
                                         @foreach ($attestations as $formation)
                                             <tr>
                                                 <td>{{ $formation?->name }}</td>
-                                                <td>{{ $formation->departement?->region?->nom }}</td>
+                                                {{-- <td>{{ $formation->departement?->region?->nom }}</td> --}}
                                                 <td>
-                                                    @isset($formation?->module?->name)
-                                                        {{ $formation?->module?->name }}
-                                                    @endisset
-                                                    @isset($formation?->collectivemodule?->module)
-                                                        {{ $formation?->collectivemodule?->module }}
-                                                    @endisset
+                                                    {{ $formation?->module?->name ?? ($formation?->collectivemodule?->module ?? '') }}
                                                 </td>
-                                                <td>{{ $formation?->operateur?->user?->username ?? ' ' }}</td>
+                                                <td>{{ $formation?->operateur?->user?->display_operateur ?? ' ' }}</td>
                                                 <td class="text-center"><a><span
                                                             class="{{ $formation?->attestation }}">{{ $formation?->attestation }}</span></a>
                                                 </td>
