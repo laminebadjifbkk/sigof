@@ -206,21 +206,31 @@ class ParcChauffeurController extends Controller
 
     public function missionsPdf(ParcChauffeur $chauffeur)
     {
-        $missions = $chauffeur->employee
-            ->parcmissions()
-            ->orderByDesc('date_depart')
-            ->get();
+        $missionsParMois = $chauffeur->employee->parcmissions()
+            ->orderBy('date_depart')
+            ->get()
+            ->groupBy(function ($mission) {
+                return $mission->date_depart->format('Y-m');
+            });
 
-        $pdf = Pdf::loadView(
+        $totalAnneeNuitees = $missionsParMois->flatten()->sum('nuitees');
+        $totalAnneeMontant = $missionsParMois->flatten()->sum('indemnites_total');
+
+        return Pdf::loadView(
             'parc.chauffeurs.pdf.missions',
-            compact('chauffeur', 'missions')
-        )->setPaper('A4', 'landscape'); // Mode paysage
-
-        return $pdf->download(
-            'Recapitulatif_Missions_' .
-                $chauffeur->employee->user->firstname . '_' .
-                $chauffeur->employee->user->name . '.pdf'
-        );
+            compact(
+                'chauffeur',
+                'missionsParMois',
+                'totalAnneeNuitees',
+                'totalAnneeMontant'
+            )
+        )
+            ->setPaper('A4', 'landscape')
+            ->download(
+                'Recapitulatif_Missions_' .
+                    $chauffeur->employee->user->firstname . '_' .
+                    $chauffeur->employee->user->name . '.pdf'
+            );
     }
 
     public function missionsExcel(ParcChauffeur $chauffeur)

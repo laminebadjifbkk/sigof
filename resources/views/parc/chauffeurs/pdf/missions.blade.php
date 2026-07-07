@@ -18,7 +18,7 @@
 
         h2 {
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
         p {
@@ -42,17 +42,26 @@
         }
 
         thead th {
-            background: #efefef;
+            background: #d9d9d9;
             text-align: center;
-        }
-
-        tbody td {
-            vertical-align: middle;
-        }
-
-        tfoot th {
-            background: #f5f5f5;
             font-weight: bold;
+        }
+
+        .mois {
+            background: #bfbfbf;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .total-mois {
+            background: #efefef;
+            font-weight: bold;
+        }
+
+        tfoot tr {
+            background: #d0d0d0;
+            font-weight: bold;
+            font-size: 12px;
         }
 
         .text-center {
@@ -76,6 +85,10 @@
         {{ $chauffeur->employee->user->name }}
     </p>
 
+    @php
+        $numero = 1;
+    @endphp
+
     <table>
 
         <thead>
@@ -84,62 +97,103 @@
                 <th width="40%">Objet</th>
                 <th width="20%">Période</th>
                 <th width="10%">Nuitées</th>
-                <th width="10%">Taux nuitée</th>
+                <th width="10%">Taux</th>
                 <th width="15%">Montant</th>
             </tr>
         </thead>
 
         <tbody>
 
-            @php
-                $totalNuitees = 0;
-                $totalMontant = 0;
-            @endphp
+            @foreach ($missionsParMois as $mois => $missions)
 
-            @foreach ($missions as $mission)
                 @php
-                    $totalNuitees += $mission->nuitees;
-                    $totalMontant += $mission->indemnites_total;
+                    $totalMoisNuitees = $missions->sum('nuitees');
+                    $totalMoisMontant = $missions->sum('indemnites_total');
                 @endphp
 
-                <tr>
-                    <td class="text-center">{{ $loop->iteration }}</td>
-
-                    <td>{{ $mission->objet }}</td>
-
-                    <td class="text-center">
-                        {{-- {{ $mission->date_depart->format('d/m/Y') }}
-                        au
-                        {{ $mission->date_retour->format('d/m/Y') }} --}}
-
-                        {{ $mission->periode_mission }}
-                    </td>
-
-                    <td class="text-center">
-                        {{ $mission->nuitees }}
-                    </td>
-
-                    <td class="text-right">
-                        {{ number_format($mission->taux_journalier, 0, ',', ' ') }}
-                    </td>
-
-                    <td class="text-right">
-                        {{ number_format($mission->indemnites_total, 0, ',', ' ') }} F CFA
+                <tr class="mois">
+                    <td colspan="6">
+                        {{ \Carbon\Carbon::parse($mois . '-01')->locale('fr')->translatedFormat('F Y') }}
                     </td>
                 </tr>
+
+                @foreach ($missions as $mission)
+
+                    <tr>
+
+                        <td class="text-center">
+                            {{ $numero++ }}
+                        </td>
+
+                        <td>
+                            {{ $mission->objet }}
+                        </td>
+
+                        <td class="text-center">
+                            {{ $mission->periode_mission }}
+                        </td>
+
+                        <td class="text-center">
+                            {{ $mission->nuitees }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ number_format($mission->taux_journalier, 0, ',', ' ') }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ number_format($mission->indemnites_total, 0, ',', ' ') }}
+                            F CFA
+                        </td>
+
+                    </tr>
+
+                @endforeach
+
+                <tr class="total-mois">
+
+                    <td colspan="3">
+                        Total {{ \Carbon\Carbon::parse($mois . '-01')->locale('fr')->translatedFormat('F Y') }}
+                    </td>
+
+                    <td class="text-center">
+                        {{ $totalMoisNuitees }}
+                    </td>
+
+                    <td></td>
+
+                    <td class="text-right">
+                        {{ number_format($totalMoisMontant, 0, ',', ' ') }}
+                        F CFA
+                    </td>
+
+                </tr>
+
             @endforeach
 
         </tbody>
 
         <tfoot>
+
             <tr>
-                <th colspan="3">TOTAL</th>
-                <th class="text-center">{{ $totalNuitees }}</th>
-                <th></th>
-                <th class="text-right">
-                    {{ number_format($totalMontant, 0, ',', ' ') }} F CFA
+
+                <th colspan="3">
+                    TOTAL GÉNÉRAL
                 </th>
+
+                <th class="text-center">
+                    {{ $totalAnneeNuitees }}
+                </th>
+
+                <th></th>
+
+                <th class="text-right">
+                    {{ number_format($totalAnneeMontant, 0, ',', ' ') }}
+                    F CFA
+                </th>
+
             </tr>
+
         </tfoot>
 
     </table>
