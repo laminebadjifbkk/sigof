@@ -201,7 +201,6 @@ class ParcChauffeurController extends Controller
         return view('parc.chauffeurs.missions', compact('chauffeur', 'missions'));
     }
 
-
     public function missionsPdf(ParcChauffeur $chauffeur)
     {
         $missions = $chauffeur->employee
@@ -212,10 +211,12 @@ class ParcChauffeurController extends Controller
         $pdf = Pdf::loadView(
             'parc.chauffeurs.pdf.missions',
             compact('chauffeur', 'missions')
-        );
+        )->setPaper('A4', 'landscape'); // Mode paysage
 
         return $pdf->download(
-            'Recapitulatif_Missions_' . $chauffeur->employee->user->firstname . '_' . $chauffeur->employee->user->name . '.pdf'
+            'Recapitulatif_Missions_' .
+                $chauffeur->employee->user->firstname . '_' .
+                $chauffeur->employee->user->name . '.pdf'
         );
     }
 }

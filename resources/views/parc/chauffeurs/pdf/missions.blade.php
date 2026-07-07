@@ -1,88 +1,147 @@
-<h2 style="text-align:center">
-    Récapitulatif des missions
-</h2>
+<!DOCTYPE html>
+<html lang="fr">
 
-<p>
-    <strong>Chauffeur :</strong>
-    {{ $chauffeur->employee->user->firstname }}
-    {{ $chauffeur->employee->user->name }}
-</p>
+<head>
+    <meta charset="UTF-8">
 
-<table width="100%" border="1" cellspacing="0" cellpadding="6">
+    <style>
+        @page {
+            size: A4 landscape;
+            margin: 15px;
+        }
 
-    <thead>
+        body {
+            font-family: DejaVu Sans, sans-serif;
+            font-size: 11px;
+            color: #000;
+        }
 
-        <tr style="background:#efefef">
+        h2 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
 
-            <th>N°</th>
-            <th>Objet</th>
-            <th>Période</th>
-            <th>Nuitées</th>
-            <th>Taux nuitée</th>
-            <th>Montant</th>
+        p {
+            margin-bottom: 15px;
+        }
 
-        </tr>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-    </thead>
+        table,
+        th,
+        td {
+            border: 1px solid #000;
+        }
 
-    <tbody>
+        th,
+        td {
+            padding: 6px;
+        }
 
-        @php
-            $totalNuitees = 0;
-            $totalMontant = 0;
-        @endphp
+        thead th {
+            background: #efefef;
+            text-align: center;
+        }
 
-        @foreach ($missions as $mission)
+        tbody td {
+            vertical-align: middle;
+        }
+
+        tfoot th {
+            background: #f5f5f5;
+            font-weight: bold;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h2>Récapitulatif des missions</h2>
+
+    <p>
+        <strong>Chauffeur :</strong>
+        {{ $chauffeur->employee->user->firstname }}
+        {{ $chauffeur->employee->user->name }}
+    </p>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th width="5%">N°</th>
+                <th width="40%">Objet</th>
+                <th width="20%">Période</th>
+                <th width="10%">Nuitées</th>
+                <th width="10%">Taux nuitée</th>
+                <th width="15%">Montant</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
             @php
-                $totalNuitees += $mission->nuitees;
-                $totalMontant += $mission->indemnites_total;
+                $totalNuitees = 0;
+                $totalMontant = 0;
             @endphp
 
+            @foreach ($missions as $mission)
+                @php
+                    $totalNuitees += $mission->nuitees;
+                    $totalMontant += $mission->indemnites_total;
+                @endphp
+
+                <tr>
+                    <td class="text-center">{{ $loop->iteration }}</td>
+
+                    <td>{{ $mission->objet }}</td>
+
+                    <td class="text-center">
+                        {{ $mission->date_depart->format('d/m/Y') }}
+                        au
+                        {{ $mission->date_retour->format('d/m/Y') }}
+                    </td>
+
+                    <td class="text-center">
+                        {{ $mission->nuitees }}
+                    </td>
+
+                    <td class="text-right">
+                        {{ number_format($mission->taux_journalier, 0, ',', ' ') }}
+                    </td>
+
+                    <td class="text-right">
+                        {{ number_format($mission->indemnites_total, 0, ',', ' ') }} F CFA
+                    </td>
+                </tr>
+            @endforeach
+
+        </tbody>
+
+        <tfoot>
             <tr>
-
-                <td>{{ $loop->iteration }}</td>
-
-                <td>{{ $mission->objet }}</td>
-
-                <td>
-                    {{ $mission->date_depart->format('d/m/Y') }}
-                    -
-                    {{ $mission->date_retour->format('d/m/Y') }}
-                </td>
-
-                <td align="center">
-                    {{ $mission->nuitees }}
-                </td>
-
-                <td align="right">
-                    {{ number_format($mission->taux_journalier, 0, ',', ' ') }}
-                </td>
-
-                <td align="right">
-                    {{ number_format($mission->indemnites_total, 0, ',', ' ') }}
-                </td>
-
+                <th colspan="3">TOTAL</th>
+                <th class="text-center">{{ $totalNuitees }}</th>
+                <th></th>
+                <th class="text-right">
+                    {{ number_format($totalMontant, 0, ',', ' ') }} F CFA
+                </th>
             </tr>
-        @endforeach
+        </tfoot>
 
-    </tbody>
+    </table>
 
-    <tfoot>
+</body>
 
-        <tr>
-
-            <th colspan="3">TOTAL</th>
-
-            <th>{{ $totalNuitees }}</th>
-
-            <th></th>
-
-            <th>
-                {{ number_format($totalMontant, 0, ',', ' ') }} F CFA
-            </th>
-
-        </tr>
-
-    </tfoot>
-
-</table>
+</html>
