@@ -25,6 +25,11 @@
                         Télécharger le récapitulatif
                     </a>
 
+                    <a href="{{ route('parc-chauffeurs.missions.excel', $chauffeur->id) }}" class="btn btn-success btn-sm">
+                        <i class="bi bi-file-earmark-excel"></i>
+                        Télécharger le récapitulatif Excel
+                    </a>
+
                     <a href="{{ url()->previous() }}" class="btn btn-outline-secondary btn-sm">
                         <i class="bi bi-arrow-left-circle"></i>
                         Retour

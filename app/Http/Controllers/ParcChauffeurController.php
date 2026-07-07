@@ -9,6 +9,9 @@ use App\Models\ParcChauffeur;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 
+use App\Exports\ChauffeurMissionsExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class ParcChauffeurController extends Controller
 {
     /* public function index()
@@ -217,6 +220,22 @@ class ParcChauffeurController extends Controller
             'Recapitulatif_Missions_' .
                 $chauffeur->employee->user->firstname . '_' .
                 $chauffeur->employee->user->name . '.pdf'
+        );
+    }
+
+    public function missionsExcel(ParcChauffeur $chauffeur)
+    {
+        $missions = $chauffeur->employee
+            ->parcmissions()
+            ->orderByDesc('date_depart')
+            ->get();
+
+        return Excel::download(
+            new ChauffeurMissionsExport($missions),
+            'Recapitulatif_Missions_' .
+                $chauffeur->employee->user->firstname . '_' .
+                $chauffeur->employee->user->name .
+                '.xlsx'
         );
     }
 }

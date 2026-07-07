@@ -410,6 +410,11 @@ Route::group(['middleware' => ['XSS']], function () {
             [ParcChauffeurController::class, 'missionsPdf']
         )->name('parc-chauffeurs.missions.pdf');
 
+        Route::get(
+            '/parc-chauffeurs/{chauffeur}/missions/excel',
+            [ParcChauffeurController::class, 'missionsExcel']
+        )->name('parc-chauffeurs.missions.excel');
+
         Route::get('/ingenieurformations', [UserController::class, 'ingenieurformations'])->name('ingenieurformations');
 
         Route::post('/autocomplete/fetch', [OperateurController::class, 'fetch'])->name('autocomplete.fetch');
