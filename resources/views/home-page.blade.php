@@ -209,7 +209,7 @@
                                                                 : (is_null($progress)
                                                                     ? 'N/A'
                                                                     : ($progress >= 100
-                                                                        ? 'Terminée'
+                                                                        ? 'Terminée - ' . $progress . '%'
                                                                         : ' En cours - ' . $progress . '%'));
 
                                                             $joursClass = match (true) {
