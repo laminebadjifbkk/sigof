@@ -22,13 +22,12 @@
                 $rowspan = $modules->count();
 
                 $lastValidation = collect($op->validationoperateurs)->sortByDesc('created_at')->first();
-                $i = 1;
             @endphp
 
             @foreach ($modules as $index => $module)
                 <tr>
                     @if ($index === 0)
-                        <td rowspan="{{ $rowspan }}">{{ $i++ }}</td>
+                        <td rowspan="{{ $rowspan }}">{{ $loop->iteration }}</td>
                         <td rowspan="{{ $rowspan }}">{{ $op?->user?->display_operateur }}</td>
                         <td rowspan="{{ $rowspan }}">{{ $op?->user?->adresse }}</td>
                         <td rowspan="{{ $rowspan }}">{{ $op?->user?->email }}</td>
