@@ -2,7 +2,6 @@
     <thead>
         <tr>
             <th>Opérateur</th>
-            <th>Sigle</th>
             <th>Adresse</th>
             <th>Email</th>
             <th>Téléphone</th>
@@ -27,8 +26,7 @@
             @foreach ($modules as $index => $module)
                 <tr>
                     @if ($index === 0)
-                        <td rowspan="{{ $rowspan }}">{{ $op?->user?->operateur }}</td>
-                        <td rowspan="{{ $rowspan }}">{{ $op?->user?->username }}</td>
+                        <td rowspan="{{ $rowspan }}">{{ $op?->user?->display_operateur }}</td>
                         <td rowspan="{{ $rowspan }}">{{ $op?->user?->adresse }}</td>
                         <td rowspan="{{ $rowspan }}">{{ $op?->user?->email }}</td>
                         <td rowspan="{{ $rowspan }}">{{ preg_replace('/\D+/', '', $op?->user?->telephone ?? '') }}
