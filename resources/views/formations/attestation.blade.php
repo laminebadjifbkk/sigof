@@ -148,7 +148,7 @@
                                 <thead>
                                     <tr>
                                         <th>Bénéficiaires</th>
-                                        {{-- <th width='10%'>Région</th> --}}
+                                        <th width='10%'>Région</th>
                                         <th>Modules</th>
                                         <th>Opérateurs</th>
                                         <th width='5%' class="text-center">Attestations</th>
@@ -160,7 +160,7 @@
                                     @foreach ($attestations as $formation)
                                         <tr>
                                             <td>{{ $formation?->name }}</td>
-                                            {{-- <td>{{ $formation->departement?->region?->nom }}</td> --}}
+                                            <td>{{ $formation->departement?->region?->nom }}</td>
                                             <td>
                                                 {{ $formation?->module?->name ?? ($formation?->collectivemodule?->module ?? '') }}
                                             </td>
