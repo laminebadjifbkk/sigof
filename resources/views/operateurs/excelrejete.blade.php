@@ -1,6 +1,7 @@
 <table>
     <thead>
         <tr>
+            <th>N°</th>
             <th>Opérateur</th>
             <th>Adresse</th>
             <th>Email</th>
@@ -21,18 +22,20 @@
                 $rowspan = $modules->count();
 
                 $lastValidation = collect($op->validationoperateurs)->sortByDesc('created_at')->first();
+                $i = 1;
             @endphp
 
             @foreach ($modules as $index => $module)
                 <tr>
                     @if ($index === 0)
+                        <td rowspan="{{ $rowspan }}">{{ i++ }}</td>
                         <td rowspan="{{ $rowspan }}">{{ $op?->user?->display_operateur }}</td>
                         <td rowspan="{{ $rowspan }}">{{ $op?->user?->adresse }}</td>
                         <td rowspan="{{ $rowspan }}">{{ $op?->user?->email }}</td>
                         <td rowspan="{{ $rowspan }}">{{ preg_replace('/\D+/', '', $op?->user?->telephone ?? '') }}
                         </td>
                         <td rowspan="{{ $rowspan }}">{{ $op?->user?->civilite }}</td>
-                        <td rowspan="{{ $rowspan }}">{{ $op?->user?->firstname .' '.$op?->user?->name }}</td>
+                        <td rowspan="{{ $rowspan }}">{{ $op?->user?->firstname . ' ' . $op?->user?->name }}</td>
                         <td rowspan="{{ $rowspan }}">{{ $op?->user?->fonction_responsable }}</td>
                     @endif
 
