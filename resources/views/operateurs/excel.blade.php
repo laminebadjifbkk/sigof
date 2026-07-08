@@ -6,6 +6,9 @@
             <th>Adresse</th>
             <th>Email</th>
             <th>Téléphone</th>
+            <th>Civilite responsable</th>
+            <th>Nom responsable</th>
+            <th>Fonction responsble</th>
             <th>Domaine</th>
             <th>Module</th>
             <th>Catégorie</th>
@@ -27,7 +30,11 @@
                         <td rowspan="{{ $rowspan }}">{{ $op?->user?->username }}</td>
                         <td rowspan="{{ $rowspan }}">{{ $op?->user?->adresse }}</td>
                         <td rowspan="{{ $rowspan }}">{{ $op?->user?->email }}</td>
-                        <td rowspan="{{ $rowspan }}">{{ preg_replace('/\D+/', '', $op?->user?->telephone ?? '') }}</td>
+                        <td rowspan="{{ $rowspan }}">{{ preg_replace('/\D+/', '', $op?->user?->telephone ?? '') }}
+                        </td>
+                        <td rowspan="{{ $rowspan }}">{{ $op?->user?->civilite }}</td>
+                        <td rowspan="{{ $rowspan }}">{{ $op?->user?->firstname . ' ' . $op?->user?->name }}</td>
+                        <td rowspan="{{ $rowspan }}">{{ $op?->user?->fonction_responsable }}</td>
                     @endif
 
                     <td>{{ $module?->domaine }}</td>
