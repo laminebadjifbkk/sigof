@@ -20,7 +20,7 @@
                     @endforeach
                 @endif
 
-                @can('imputer-courrier')
+                @can('imputer-courrier-employe')
                     <span class="d-flex mt-2 align-items-baseline">
                         <a href="{{ route('arrives.index') }}"
                             class="btn btn-outline-primary btn-sm d-flex align-items-center mb-4">
@@ -41,7 +41,7 @@
                     <div class="card border-info mb-3">
                         <div class="card-body pt-3">
                             <ul class="nav nav-tabs nav-tabs-bordered">
-                                @can('imputer-courrier')
+                                @can('imputer-courrier-employe')
                                     {{-- @can('imputer', $arrive) --}}
                                     <li class="nav-item">
                                         <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#imputer_courrier"
@@ -73,7 +73,7 @@
                                 </li>
                             </ul>
                             <div class="tab-content pt-0">
-                                @can('imputer-courrier')
+                                @can('imputer-courrier-employe')
                                     <div class="tab-pane fade show active pt-4" id="imputer_courrier">
                                         <div class="container-fluid">
 
