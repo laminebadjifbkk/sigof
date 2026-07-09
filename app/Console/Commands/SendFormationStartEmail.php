@@ -261,6 +261,7 @@ class SendFormationStartEmail extends Command
                     'luneba.ab@gmail.com',
                     'fatou.ba@onfp.sn',
                     'gueyesuntech3@gmail.com',
+                    'gibrile.faye@onfp.sn',
                 ];
 
                 /* $emails = collect($defaultEmails)

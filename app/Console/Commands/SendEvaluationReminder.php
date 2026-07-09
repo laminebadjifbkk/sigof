@@ -155,6 +155,7 @@ class SendEvaluationReminder extends Command
                     'luneba.ab@gmail.com',
                     'fatou.ba@onfp.sn',
                     'gueyesuntech3@gmail.com',
+                    'gibrile.faye@onfp.sn',
                     $formation?->ingenieur?->user?->email
                 ])
                     ->merge($formation?->onfpevaluateurs?->pluck('email') ?? [])
