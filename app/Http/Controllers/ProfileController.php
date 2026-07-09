@@ -330,7 +330,8 @@ class ProfileController extends Controller
         //Vérifier si l'employé est chef de Direction
         $isChefDirection = !is_null($user->employee?->direction?->chef);
 
-        $count_ingenieur_formations = $employee?->arrives?->count();
+        $count_ingenieur_formations = $employee?->user?->ingenieur?->formations?->count() ?? null;
+
 
         // Projet actif
         $projet = Projet::where("statut", "ouvert")->first();
