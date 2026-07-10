@@ -27,8 +27,8 @@
                         <div class="alert alert-info d-flex align-items-center mb-0 py-2">
                             <i class="bi bi-info-circle-fill me-2"></i>
                             <span>
-                                Seules les structures dont la demande est au statut
-                                <strong>« Conforme »</strong> sont disponibles pour la sélection.
+                                Seules les structures dont la demande est au statut est différent de
+                                <strong>« Nouvelle »</strong> sont disponibles pour la sélection.
                             </span>
                         </div>
                     </div>
