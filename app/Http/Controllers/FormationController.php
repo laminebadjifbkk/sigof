@@ -1858,10 +1858,9 @@ class FormationController extends Controller
         $formation = Formation::findOrFail($idformation);
         $localite  = Region::findOrFail($idlocalite);
 
-        $collectives = Collective::where([
-            'regions_id' => $idlocalite,
-            'statut_demande' => 'Conforme',
-        ])->get();
+        $collectives = Collective::where('regions_id', $idlocalite)
+            ->where('statut_demande', '!=', 'Nouvelle')
+            ->get();
 
         return view("formations.collectives.add-collective", compact('formation', 'collectives', 'localite'));
     }
