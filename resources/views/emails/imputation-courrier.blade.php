@@ -75,8 +75,8 @@
                                 <strong>Agents concernés :</strong>
 
                                 <ul style="margin-top:8px;">
-                                    @foreach ($arrive->users ?? [] as $u)
-                                        <li>{{ $u->firstname ?? '' }} {{ $u->name ?? '' }}</li>
+                                    @foreach ($arrive->employees ?? [] as $employe)
+                                        <li>{{ $employe->user->firstname ?? '' }} {{ $employe->user->name ?? '' }}</li>
                                     @endforeach
                                 </ul>
                             </div>
