@@ -186,23 +186,11 @@
                     </tr>
 
                     <tr class="heading">
-                        <td colspan="2"><b>{{ __('Code : ') }}</b>
-                            {{ $formation?->code }}
-                        </td>
-                        {{-- <td colspan="4"><b>{{ __('Niveau qualification : ') }}</b>
-                            @if ($formation?->type_certification !== 'Titre')
-                                {{ $formation?->titre ?? $formation?->referentiel?->titre }}
-                            @else
-                                @if (!empty($formation?->referentiel?->categorie))
-                                    {{ $formation?->referentiel?->categorie . ' de la ' . $formation?->referentiel?->convention?->name }}
-                                @endif
-                            @endif
-                        </td> --}}
-                        <td colspan="4">
+                        <td colspan="5">
                             <b>{{ __('Niveau qualification :') }}</b>
                             {{ $formation->niveauQualificationAffichage() }}
                         </td>
-                        <td colspan="5"><b>{{ __('Type certification : ') }}</b>
+                        <td colspan="6"><b>{{ __('Type certification : ') }}</b>
                             @if ($formation?->type_certification !== 'Titre')
                                 {{ $formation?->type_certification }}
                             @else
@@ -211,8 +199,11 @@
                         </td>
                     </tr>
 
-                    <tr class="heading">
-                        <td colspan="11"><b>{{ __('Bénéficiaires : ') }}</b>
+                    <tr class="heading">                        
+                        <td colspan="5"><b>{{ __('Code : ') }}</b>
+                            {{ $formation?->code . 'C' }}
+                        </td>
+                        <td colspan="6"><b>{{ __('Bénéficiaires : ') }}</b>
                             {{ $formation?->name }}
                         </td>
                     </tr>
