@@ -44,7 +44,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                    <div class="col-12 col-md-12 col-lg-8 col-sm-12 col-xs-12 col-xxl-12">
                                         <label for="name" class="form-label">Bénéficiaires<span
                                                 class="text-danger mx-1">*</span></label>
                                         <textarea name="name" id="name" rows="1"
@@ -56,7 +56,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    {{-- <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <label for="code" class="form-label">Code<span
                                                 class="text-danger mx-1">*</span></label>
                                         <div class="input-group has-validation">
@@ -69,7 +69,7 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <label for="departement" class="form-label">Département<span
@@ -411,7 +411,7 @@
 
                                     <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <label for="annee" class="form-label">Année</label>
-                                        <input type="number" name="annee" min="2024" step="1"
+                                        <input type="number" name="annee" min="2025" max="2035" step="1"
                                             value="{{ $formation?->annee ?? old('annee') }}"
                                             class="form-control form-control-sm @error('annee') is-invalid @enderror"
                                             id="annee" placeholder="Année">

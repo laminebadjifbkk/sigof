@@ -85,16 +85,7 @@ class FormationController extends Controller
             ? $formations->total()
             : $formations?->count());
 
-        /* $formations = Formation::select('*')->orderBy('created_at', 'desc')->get(); */
         $poles = Antenne::get();
-
-        /* $groupes = $formations->groupBy(function ($item) {
-            return $item->types_formation->name ?? 'Aucun type';
-        }); */
-
-
-        /* $today       = date('Y-m-d');
-        $count_today = Formation::where("created_at", "LIKE", "{$today}%")->count(); */
 
         $modules      = Module::orderBy("created_at", "desc")->get();
         $departements = Departement::orderBy("created_at", "desc")->get();
@@ -104,7 +95,7 @@ class FormationController extends Controller
         $programmes   = Programme::orderBy("created_at", "desc")->get();
         $types_formations = TypesFormation::orderBy("created_at", "desc")->get();
 
-        $anneeEnCours = date('Y');
+        /* $anneeEnCours = date('Y');
         $an           = date('y');
 
         $numFormation = DB::transaction(function () use ($an) {
@@ -122,7 +113,26 @@ class FormationController extends Controller
             }
 
             return 'F' . $an . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
-        });
+        }); */
+
+        /*  $annee = $request->input('annee', date('Y'));
+        $an = substr($annee, -2);
+
+        $numFormation = DB::transaction(function () use ($annee, $an) {
+
+            $lastFormation = Formation::where('annee', $annee)
+                ->lockForUpdate()
+                ->orderByDesc('code')
+                ->first();
+
+            $nextNumber = 1;
+
+            if ($lastFormation && preg_match('/(\d{4})$/', $lastFormation->code, $matches)) {
+                $nextNumber = ((int) $matches[1]) + 1;
+            }
+
+            return 'F' . $an . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
+        }); */
 
         /* $title = 'Liste des formations'; */
 
@@ -144,7 +154,7 @@ class FormationController extends Controller
                 'types_formations',
                 'projets',
                 'programmes',
-                'numFormation',
+                /* 'numFormation', */
                 /* 'title', */
                 'formations_annee',
                 'formations_statut',
@@ -599,7 +609,8 @@ class FormationController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            "code"               => "required|string|min:7|max:8|unique:formations,code",
+            /* "code"               => "required|string|min:7|max:8|unique:formations,code", */
+            "annee"               => "required|string|size:4",
             "name"               => "required|string",
             "intitule"           => "required|string",
             "departement"        => "required|string",
@@ -612,47 +623,6 @@ class FormationController extends Controller
 
         $types_formation = TypesFormation::where('name', $request->input('types_formation'))->get()->first();
         $departement     = Departement::where('nom', $request->input('departement'))->get()->first();
-
-        /* $anneeEnCours = date('Y');
-        $annee        = date('y');
-
-        $numFormation = Formation::join('types_formations', 'types_formations.id', 'formations.types_formations_id')
-            ->select('formations.*')
-            ->where('formations.annee', $anneeEnCours)
-            ->get()->last();
-
-        if (isset($numFormation)) {
-            $numFormation = Formation::join('types_formations', 'types_formations.id', 'formations.types_formations_id')
-                ->select('formations.*')
-                ->where('formations.annee', $anneeEnCours)
-                ->get()->last()->code;
-
-            $numFormation = ++$numFormation;
-        } else {
-            $numFormation = $annee . "0001";
-
-            $numFormation = 'F' . $numFormation;
-
-            $longueur = strlen($numFormation);
-
-            if ($longueur <= 1) {
-                $numFormation = strtoupper("00000" . $numFormation);
-            } elseif ($longueur >= 2 && $longueur < 3) {
-                $numFormation = strtoupper("0000" . $numFormation);
-            } elseif ($longueur >= 3 && $longueur < 4) {
-                $numFormation = strtoupper("000" . $numFormation);
-            } elseif ($longueur >= 4 && $longueur < 5) {
-                $numFormation = strtoupper("00" . $numFormation);
-            } elseif ($longueur >= 5 && $longueur < 6) {
-                $numFormation = strtoupper("0" . $numFormation);
-            } else {
-                $numFormation = strtoupper($numFormation);
-            }
-        } */
-
-        /* 
-        $total_count = Formation::get();
-        $total_count = number_format($total_count->count(), 0, ',', ' '); */
 
         $total_count = collect();
 
@@ -706,8 +676,34 @@ class FormationController extends Controller
             $autes_frais = null;
         }
 
+        $annee = $request->input('annee', date('Y')); // ex : "2026"
+        $an = substr($annee, -2);                     // "26"
+
+        $numFormation = DB::transaction(function () use ($annee, $an) {
+
+            /* $lastFormation = Formation::where('annee', $annee)
+                ->lockForUpdate()
+                ->orderByDesc('code')
+                ->first(); */
+
+            $lastFormation = Formation::where('annee', $annee)
+                ->where('code', 'like', 'F' . $an . '%')
+                ->lockForUpdate()
+                ->orderByRaw('CAST(RIGHT(code,4) AS UNSIGNED) DESC')
+                ->first();
+
+            if ($lastFormation) {
+                $lastNumber = (int) substr($lastFormation->code, -4);
+                $nextNumber = $lastNumber + 1;
+            } else {
+                $nextNumber = 1;
+            }
+
+            return 'F' . $an . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
+        });
+
         $formation = new Formation([
-            "code"                => $request->input('code'),
+            "code"                => $numFormation,
             "name"                => $request->input('name'),
             "intitule"            => $request->input('intitule'),
             "regions_id"          => $departement->region->id,
@@ -732,7 +728,7 @@ class FormationController extends Controller
             "programmes_id"       => $request->input('programme'),
             "choixoperateurs_id"  => $request->input('choixoperateur'),
             "statut"              => "Nouvelle",
-            /* "annee"               => $anneeEnCours, */
+            "annee"               => $request->input('annee'),
 
         ]);
 
@@ -792,8 +788,9 @@ class FormationController extends Controller
     public function update(Request $request, Formation $formation)
     {
         $this->validate($request, [
-            "code" => "required|string|unique:formations,code,{$formation->id}",
+            /* "code" => "required|string|unique:formations,code,{$formation->id}", */
             /* "name"               => "required|string|unique:formations,name,{$formation->id}", */
+            "annee"               => "required|string|size:4",
             "name"               => "required|string",
             "intitule"           => "required|string",
             "departement"        => "required|string",
@@ -808,7 +805,6 @@ class FormationController extends Controller
             "date_pv"            => "nullable|date|size:10|date_format:Y-m-d",
             "date_pv_finale"     => "nullable|date|size:10|date_format:Y-m-d",
             "lettre_mission"     => "nullable|string",
-            "annee"              => "required|numeric",
             "file_convention"    => ['sometimes', 'file', 'mimes:pdf', 'max:2048'],
             "detf_file"          => ['sometimes', 'file', 'mimes:pdf', 'max:1024'],
 
@@ -897,8 +893,35 @@ class FormationController extends Controller
         // Reformater en gardant les zéros initiaux (même longueur que l'original)
         $numero_lettre_mission = str_pad($numero_lettre_mission_int, strlen($numero_convention), '0', STR_PAD_LEFT);
 
+
+        $annee = $request->input('annee', date('Y')); // ex : "2026"
+        $an = substr($annee, -2);                     // "26"
+
+        $numFormation = DB::transaction(function () use ($annee, $an) {
+
+            /* $lastFormation = Formation::where('annee', $annee)
+                ->lockForUpdate()
+                ->orderByDesc('code')
+                ->first(); */
+
+            $lastFormation = Formation::where('annee', $annee)
+                ->where('code', 'like', 'F' . $an . '%')
+                ->lockForUpdate()
+                ->orderByRaw('CAST(RIGHT(code,4) AS UNSIGNED) DESC')
+                ->first();
+
+            if ($lastFormation) {
+                $lastNumber = (int) substr($lastFormation->code, -4);
+                $nextNumber = $lastNumber + 1;
+            } else {
+                $nextNumber = 1;
+            }
+
+            return 'F' . $an . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
+        });
+
         $formation->update([
-            "code"                     => $request->input('code'),
+            "code"                     => $numFormation,
             "name"                     => $request->input('name'),
             "intitule"                 => $request->input('intitule'),
             "regions_id"               => $request->input('region'),
