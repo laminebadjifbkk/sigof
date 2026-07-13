@@ -224,8 +224,7 @@
                                                         - {{ $formation->numero_convention }}
                                                     @endif
                                                     {{ $formation?->operateur?->user?->display_operateur }}
-                                            @endif
-                                            </option>
+                                                </option>
                                             @endforeach
                                         </select>
                                         @error('formation')

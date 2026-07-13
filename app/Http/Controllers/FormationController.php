@@ -3502,6 +3502,8 @@ class FormationController extends Controller
 
             $title = 'PV Evaluation de la formation en  ' . $formation?->module?->name;
 
+            $dateSignature = $formation?->date_pv_finale ?: $formation?->date_pv;
+
             $membres_jury  = explode(";", $formation->membres_jury);
             $count_membres = count($membres_jury);
 
@@ -3515,6 +3517,7 @@ class FormationController extends Controller
                 'title',
                 'membres_jury',
                 'count_membres',
+                'dateSignature',
             )));
 
             // (Optional) Setup the paper size and orientation (portrait ou landscape)
@@ -3624,6 +3627,7 @@ class FormationController extends Controller
         if ($formation->statut == "Terminée") {
 
             $title = 'PV Evaluation de la formation en  ' . $formation?->collectivemodule?->module;
+            $dateSignature = $formation?->date_pv_finale ?: $formation?->date_pv;
 
             $membres_jury  = explode(";", $formation->membres_jury);
             $count_membres = count($membres_jury);
@@ -3638,6 +3642,7 @@ class FormationController extends Controller
                 'title',
                 'membres_jury',
                 'count_membres',
+                'dateSignature',
             )));
 
             // (Optional) Setup the paper size and orientation (portrait ou landscape)

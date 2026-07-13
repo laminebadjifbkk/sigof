@@ -243,6 +243,12 @@
                             @endif
                         </td>
                     </tr>
+
+                    <tr class="heading">
+                        <td colspan="11"><b>{{ __('Bénéficiaires : ') }}</b>
+                            {{ $formation?->name }}
+                        </td>
+                    </tr>
                     <tr class="heading">
                         {{--  <td colspan="7">
                         <b>{{ __('Ingénieur en charge : ') }}</b>{{ $formation?->ingenieur?->name . '(' . $formation?->ingenieur?->initiale . ')' }}

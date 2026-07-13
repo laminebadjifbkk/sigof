@@ -210,6 +210,13 @@
                             @endif
                         </td>
                     </tr>
+
+                    <tr class="heading">
+                        <td colspan="11"><b>{{ __('Bénéficiaires : ') }}</b>
+                            {{ $formation?->name }}
+                        </td>
+                    </tr>
+
                     <tr class="heading">
                         {{--  <td colspan="7">
                         <b>{{ __('Ingénieur en charge : ') }}</b>{{ $formation?->ingenieur?->name . '(' . $formation?->ingenieur?->initiale . ')' }}
@@ -253,15 +260,13 @@
             </table>
         </div>
         <div class="no-page-break">
+
             <h4 style="margin-top: 2mm;">
                 <b><u>SIGNATURE DES MEMBRES DU JURY</u></b>
-                @if ($formation?->date_pv)
+
+                @if ($dateSignature)
                     <span style="float: right; font-style: italic">
-                        @if ($formation?->date_pv)
-                            {{ 'Fait à ' . remove_accents_uppercase($formation?->lieu ?? '') . ', le ' . ($formation?->date_pv_finale ?? $formation?->date_pv)?->translatedFormat('d F Y') }}
-                        @else
-                            {{ 'Fait à ' . remove_accents_uppercase($formation?->lieu ?? '') . ', le ' . ($formation?->date_pv_finale ?? $formation?->date_pv)?->translatedFormat('d F Y') }}
-                        @endif
+                        {{ 'Fait à ' . remove_accents_uppercase($formation?->lieu ?? '') . ', le ' . $dateSignature->translatedFormat('d F Y') }}
                     </span>
                 @endif
             </h4>
