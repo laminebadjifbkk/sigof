@@ -55,7 +55,7 @@
                                                 <th>Conv.</th>
                                                 <th>Operateur</th>
                                                 <th>Module formation</th>
-                                                <th>Lieu</th>
+                                               {{--  <th>Lieu</th> --}}
                                                 {{-- <th>Responsable</th> --}}
                                                 <th>Evaluateur(s)</th>
                                                 <th>ONFP</th>
@@ -72,11 +72,11 @@
                                             @foreach ($lettrevaluations as $lettrevaluation)
                                                 <tr>
                                                     <td>{{ $lettrevaluation?->formation?->numero_convention }}</td>
-                                                    <td>{{ $lettrevaluation?->formation?->operateur?->user?->username }}</td>
+                                                    <td>{{ $lettrevaluation?->formation?->operateur?->user?->display_operateur }}</td>
                                                     <td>
                                                         {{ $lettrevaluation?->formation->module->name ?? ($lettrevaluation?->formation->collectivemodule->module ?? 'Aucun') }}</span>
                                                     </td>
-                                                    <td>{{ $lettrevaluation?->formation?->lieu ?? 'Aucun' }} </td>
+                                                    {{-- <td>{{ $lettrevaluation?->formation?->lieu ?? 'Aucun' }} </td> --}}
                                                     {{-- <td>{{ $lettrevaluation?->titre }}</td> --}}
                                                     {{-- <td>
                                                         @foreach ($lettrevaluation?->formation?->evaluateurs as $index => $evaluateur)

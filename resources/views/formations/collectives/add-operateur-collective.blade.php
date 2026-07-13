@@ -49,7 +49,7 @@
                                 <div class="col-md-4 mb-2">
                                     <span class="text-secondary">Opérateur</span><br>
                                     <span
-                                        class="fs-5 text-dark">{{ $formation?->operateur?->user?->username ?? 'Aucun' }}</span>
+                                        class="fs-5 text-dark">{{ $formation?->operateur?->user?->display_operateur ?? 'Aucun' }}</span>
                                 </div>
                             </div>
                         </div>
