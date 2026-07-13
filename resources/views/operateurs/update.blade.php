@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'Modification opérateur ' . $operateur?->user?->username)
+@section('title', 'Modification opérateur ' . $operateur?->user?->display_operateur)
 @section('space-work')
     @can('operateur-update')
         <section class="section min-vh-0 d-flex flex-column align-items-center justify-content-center py-0">
@@ -113,7 +113,7 @@
                                                     class="text-danger mx-1">*</span></label>
                                             <textarea name="operateur" id="operateur" rows="1"
                                                 class="form-control form-control-sm @error('operateur') is-invalid @enderror"
-                                                placeholder="La raison sociale de l'opérateur">{{ old('operateur', $operateur?->user?->operateur) }}</textarea>
+                                                placeholder="La raison sociale de l'opérateur">{{ old('operateur', $operateur?->user?->display_operateur) }}</textarea>
                                             @error('operateur')
                                                 <span class="invalid-feedback" role="alert">
                                                     <div>{{ $message }}</div>
@@ -124,7 +124,7 @@
                                         <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                             <label for="username" class="form-label">Sigle</label>
                                             <input type="text" name="username"
-                                                value="{{ old('username', $operateur?->user?->username) }}"
+                                                value="{{ old('username', $operateur?->user?->display_operateur) }}"
                                                 class="form-control form-control-sm @error('username') is-invalid @enderror"
                                                 id="username" placeholder="Sigle">
                                             @error('username')
@@ -697,7 +697,7 @@
                                                     class="text-danger mx-1">*</span></label>
                                             <textarea name="operateur" id="operateur" rows="1"
                                                 class="form-control form-control-sm @error('operateur') is-invalid @enderror"
-                                                placeholder="La raison sociale de l'opérateur">{{ $operateur?->user?->operateur ?? old('operateur') }}</textarea>
+                                                placeholder="La raison sociale de l'opérateur">{{ $operateur?->user?->display_operateur ?? old('operateur') }}</textarea>
                                             @error('operateur')
                                                 <span class="invalid-feedback" role="alert">
                                                     <div>{{ $message }}</div>
@@ -709,7 +709,7 @@
                                             <label for="username" class="form-label">Sigle<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="text" name="username"
-                                                value="{{ $operateur?->user?->username ?? old('username') }}"
+                                                value="{{ $operateur?->user?->display_operateur ?? old('username') }}"
                                                 class="form-control form-control-sm @error('username') is-invalid @enderror"
                                                 id="username" placeholder="username">
                                             @error('username')

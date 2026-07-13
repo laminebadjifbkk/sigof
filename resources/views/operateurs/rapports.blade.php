@@ -57,7 +57,6 @@
                                         <tr>
                                             <th width="15%" class="text-center">N° agrément</th>
                                             <th width="45%">Opérateurs</th>
-                                            <th width="10%" class="text-center">Sigle</th>
                                             <th width="5%" class="text-center">Modules</th>
                                             <th width="5%" class="text-center">Formations</th>
                                             <th width="15%" class="text-center">Statut</th>
@@ -69,8 +68,7 @@
                                                 <tr>
 
                                                     <td>{{ $operateur?->numero_agrement }}</td>
-                                                    <td>{{ $operateur?->user?->operateur }}</td>
-                                                    <td style="text-align: center;">{{ $operateur?->user?->username }}</td>
+                                                    <td style="text-align: center;">{{ $operateur?->user?->display_operateur }}</td>
                                                     <td style="text-align: center;">
                                                         @foreach ($operateur->operateurmodules as $operateurmodule)
                                                             @if ($loop->last)

@@ -22,7 +22,7 @@ class FinAgrementMail extends Mailable
 
     public function build()
     {
-        return $this->subject("Renouvellement de votre agrément, {$this->operateur?->user?->username} !")
+        return $this->subject("Renouvellement de votre agrément, {$this->operateur?->user?->display_operateur} !")
                     ->view('emails.finagrement')
                     ->with('operateur', $this->operateur);
     }

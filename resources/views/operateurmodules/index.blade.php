@@ -72,7 +72,7 @@
                                             <td>{{ $operateurmodule?->module }}</td>
                                             <td>{{ $operateurmodule?->categorie }}</td>
                                             <td>
-                                                <a href="{{ route('operateurs.show', $operateurmodule?->operateur) }}">{{ $operateurmodule?->operateur?->user?->operateur . ' (' . $operateurmodule?->operateur?->user?->username . ')' }}
+                                                <a href="{{ route('operateurs.show', $operateurmodule?->operateur) }}">{{ $operateurmodule?->operateur?->user?->display_operateur }}
 
                                                 </a>
                                             </td>

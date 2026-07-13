@@ -645,7 +645,6 @@
                                                                 <th width="3%" class="text-center">Dossier</th>
                                                                 <th class="text-center">N° agrément</th>
                                                                 <th>Opérateurs</th>
-                                                                <th>Sigle</th>
                                                                 <th>Région</th>
                                                                 <th>Responsable</th>
                                                                 <th width="2%"><i class="bi bi-gear"></i></th>
@@ -658,8 +657,7 @@
                                                                         {{ $operateur?->numero_dossier }}
                                                                     </td>
                                                                     <td>{{ $operateur?->numero_agrement }}</td>
-                                                                    <td>{{ $operateur?->user?->operateur }}</td>
-                                                                    <td>{{ $operateur?->user?->username }}</td>
+                                                                    <td>{{ $operateur?->user?->display_operateur }}</td>
                                                                     <td>{{ $operateur?->region?->nom }}</td>
                                                                     <td>{{ $operateur?->user?->firstname . ' ' . $operateur?->user?->name }}
                                                                     </td>

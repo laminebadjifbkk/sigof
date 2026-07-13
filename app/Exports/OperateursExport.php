@@ -18,8 +18,8 @@ class OperateursExport implements FromCollection, WithHeadings
     {
         return $this->operateurs->map(function ($operateur) {
             return [
-                'Operateur' => $operateur?->user?->operateur ?? '',
-                'Sigle'     => $operateur?->user?->username ?? '',
+                'Operateur' => $operateur?->user?->display_operateur ?? '',
+                /* 'Sigle'     => $operateur?->user?->display_operateur ?? '', */
                 'Email'     => $operateur?->user?->email ?? '',
                 'Téléphone' => $operateur?->user?->telephone ?? '',
             ];
@@ -28,6 +28,6 @@ class OperateursExport implements FromCollection, WithHeadings
 
     public function headings(): array
     {
-        return ['Operateur', 'Sigle', 'Email', 'Téléphone'];
+        return ['Operateur',  'Email', 'Téléphone'];
     }
 }

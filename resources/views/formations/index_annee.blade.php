@@ -284,7 +284,7 @@
                                                 {{-- <td>{{ $formation->type_certification }}</td> --}}
                                                 <td>{{ $formation?->titre ?? $formation?->referentiel?->titre }}</td>
                                                 <td class="text-center">
-                                                    {{ $formation?->operateur?->user?->username ?? ' ' }}
+                                                    {{ $formation?->operateur?->user?->display_operateur ?? ' ' }}
                                                 </td>
                                                 <td class="text-center">
                                                     <a><span

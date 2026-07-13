@@ -17,8 +17,8 @@
         <strong>Lieu :</strong> {{ $individuelle?->departement?->nom . ', ' . $individuelle?->formation?->lieu }}<br>
         <strong>Dates :</strong> du {{ $individuelle?->formation?->date_debut?->format('d/m/Y') }} au
         {{ $individuelle?->formation?->date_fin?->format('d/m/Y') }}<br>
-        <strong>Opérateur :</strong> {{ $individuelle?->formation?->operateur?->user?->operateur }}
-        ({{ $individuelle?->formation?->operateur?->user?->username }}) <br>
+        <strong>Opérateur :</strong> {{ $individuelle?->formation?->operateur?->user?->display_operateur }}
+        ({{ $individuelle?->formation?->operateur?->user?->display_operateur }}) <br>
         <strong>Adresse :</strong>
         @if ($individuelle?->formation?->operateur?->user?->adresse)
             {{ $individuelle?->formation?->lieu . ' - ' . $individuelle?->formation?->operateur?->user?->adresse }}

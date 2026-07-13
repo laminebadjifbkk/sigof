@@ -90,11 +90,7 @@
             @endif
         </li>
         <li><strong>Opérateur :</strong>
-            @if ($formation?->operateur?->user?->username)
-                {{ $formation?->operateur?->user?->display_operateur }}
-            @else
-                Non disponible
-            @endif
+            {{ $formation?->operateur?->user?->display_operateur }}
         </li>
         <li><strong>Lieu formation :</strong>
             @if ($formation?->operateur?->user?->adresse)

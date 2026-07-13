@@ -87,7 +87,7 @@
                                                     <td>{{ $i + 1 }}</td>
                                                     <td>{{ $operateur->numero_agrement }}</td>
                                                     <td>{{ $operateur?->user?->display_operateur }}</td>
-                                                    {{-- <td>{{ $operateur?->user?->username }}</td> --}}
+                                                    {{-- <td>{{ $operateur?->user?->display_operateur }}</td> --}}
                                                     <td class="text-center">
                                                         @if ($operateur?->operateurmodules->isNotEmpty())
                                                             <span

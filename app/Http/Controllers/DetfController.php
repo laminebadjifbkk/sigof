@@ -389,7 +389,7 @@ class DetfController extends Controller
 
         // Préparer les infos dynamiques de l'opérateur
         $operateurLines = [
-            "Nom : {$detf->operateur?->user?->operateur}",
+            "Nom : {$detf->operateur?->user?->display_operateur}",
             "Agrément ONFP : {$detf->operateur?->numero_agrement}",
             "Statut : {$detf->operateur?->types_operateur?->name}",
             "Catégorie : {$detf->operateur?->user?->categorie}",

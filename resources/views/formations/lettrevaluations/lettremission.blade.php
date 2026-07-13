@@ -250,10 +250,7 @@
                                                 {{ ' T: ' . str_pad($formation->effectif_prevu, 2, '0', STR_PAD_LEFT) }}
                                             </p>
                                             <p><b>Opérateur d'exécution </b>:
-                                                {{ $formation?->operateur?->user?->operateur }}
-                                                @if (!empty($formation?->operateur?->user?->username))
-                                                    {{ '(' . $formation?->operateur?->user?->username . ')' }}
-                                                @endif
+                                                {{ $formation?->operateur?->user?->display_operateur }}
                                             </p>
                                             <p><b>Lieu de formation </b>:
                                                 {{ $formation?->lieu }}

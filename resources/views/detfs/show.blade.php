@@ -55,11 +55,7 @@
                             <small class="text-muted">Opérateur</small>
 
                             <div class="fw-semibold">
-                                {{ $detf->operateur?->user?->operateur ?? '-' }}
-
-                                @if ($detf->operateur?->user?->username)
-                                    ({{ $detf->operateur->user->username }})
-                                @endif
+                                {{ $detf->operateur?->user?->display_operateur ?? '-' }}
                             </div>
                         </div>
 

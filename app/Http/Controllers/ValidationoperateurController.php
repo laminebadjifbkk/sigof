@@ -136,7 +136,7 @@ class ValidationoperateurController extends Controller
 
         $validationoperateur->save();
 
-        Alert::success('Succès !', $operateur?->user?->username . " est " . $statut);
+        Alert::success('Succès !', $operateur?->user?->display_operateur . " est " . $statut);
 
         return redirect()->back();
     }

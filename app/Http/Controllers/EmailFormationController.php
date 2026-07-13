@@ -27,9 +27,8 @@ class EmailFormationController extends Controller
             $toUserName = strip_tags($Name, '<b><i><p><br>'); // Autorise seulement <b>, <i>, et <p>
 
             $message = $formation?->lieu . ', du ' . $formation?->date_debut?->format('d/m/Y') .
-            ' au ' . $formation?->date_fin?->format('d/m/Y') . '. <br> <b>Opérateur</b> : '
-            . $formation?->operateur?->user?->operateur .
-            ' (<b><i>' . $formation?->operateur?->user?->username . '</b></i>)' . '. <br>Pour toute information complémentaire, vous pouvez contacter le formateur au '
+            ' au ' . $formation?->date_fin?->format('d/m/Y') . '. <br> <b>Opérateur</b> : '.
+            ' <b>' . $formation?->operateur?->user?->display_operateur . '</b>' . '. <br>Pour toute information complémentaire, vous pouvez contacter le formateur au '
             .
             substr($formation?->operateur?->user?->fixe, 0, 2) .
             ' ' .
@@ -59,8 +58,7 @@ class EmailFormationController extends Controller
         $toUserName = 'Bonjour ! ' . $formation?->collectivemodule?->collective?->name_with_sigle;
 
         $message = $formation?->lieu . ', ' . $formation?->departement?->nom . ', du ' . $formation?->date_debut?->format('d/m/Y') .
-        ' au ' . $formation?->date_fin?->format('d/m/Y') . '. La formation sera assurée par l\'opérateur : ' . $formation?->operateur?->user?->operateur .
-        '(' . $formation?->operateur?->user?->username . ')' . '. Pour toute information complémentaire, vous pouvez contacter le '
+        ' au ' . $formation?->date_fin?->format('d/m/Y') . '. La formation sera assurée par l\'opérateur : ' . $formation?->operateur?->user?->display_operateur . '. Pour toute information complémentaire, vous pouvez contacter le '
         . $formation?->operateur?->user?->telephone . '.';
         $subject          = 'Notification démarrage formation !';
         $collectivemodule = 'Votre formation en ' . $formation?->collectivemodule?->module . ' a été sélectionnée.'

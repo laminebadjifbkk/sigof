@@ -86,7 +86,7 @@
                                                 @foreach ($operateurmodules as $operateurmodule)
                                                     {{-- @isset($operateur?->numero_agrement) --}}
                                                     <tr>
-                                                        <td>{{ $operateurmodule?->operateur?->user?->operateur . ' (' . $operateurmodule?->operateur?->user?->username . ')' }}
+                                                        <td>{{ $operateurmodule?->operateur?->user?->display_operateur }}
                                                         </td>
                                                         {{-- <td>{{ $operateurmodule?->operateur?->user?->adresse }}</td> --}}
                                                         <td>{{ $operateurmodule?->domaine }}</td>

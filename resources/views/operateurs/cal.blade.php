@@ -350,10 +350,9 @@
                                             <th width="3%" class="text-center">Dossier</th>
 
                                             <th width="15%" class="text-center">N° agrément</th>
-                                            @can('afficher-operateur-name')
-                                                <th width="40%">Opérateurs</th>
-                                            @endcan
-                                            <th>Sigle</th>
+
+                                            <th width="40%">Opérateurs</th>
+
                                             @can('afficher-operateur-email')
                                                 <th>Email</th>
                                             @endcan
@@ -389,10 +388,7 @@
                                                 <td class="text-center">{{ $operateur?->numero_dossier }}</td>
 
                                                 <td>{{ $operateur?->numero_agrement }}</td>
-                                                @can('afficher-operateur-name')
-                                                    <td>{{ $operateur?->user?->operateur }}</td>
-                                                @endcan
-                                                <td>{{ $operateur?->user?->username }}</td>
+                                                <td>{{ $operateur?->user?->display_operateur }}</td>
                                                 @can('afficher-operateur-email')
                                                     <td><a
                                                             href="mailto:{{ $operateur?->user?->email }}">{{ $operateur?->user?->email }}</a>

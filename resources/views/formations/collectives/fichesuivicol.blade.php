@@ -121,10 +121,7 @@
                             {{ $formation?->intitule }}
                         </td>
                         <td colspan="4"><b>{{ __('Opérateur : ') }}</b>
-                            @if (!empty($formation?->operateur?->user?->operateur))
-                                {{ $formation?->operateur?->user?->display_operateur }}
-                            @else
-                            @endif
+                            {{ $formation?->operateur?->user?->display_operateur }}
                         </td>
                     </tr>
                     <tr class="heading">

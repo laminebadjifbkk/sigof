@@ -152,7 +152,7 @@
                                         @if (isset($operateur))
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <h5 class="card-title">
-                                                    {{ $formation?->operateur?->name . '(' . $formation?->operateur?->user?->username . ')' }}
+                                                    {{ $formation?->operateur?->user?->display_operateur }}
                                                     <a class="btn btn-info btn-sm" title=""
                                                         href="{{ route('operateurs.show', $formation?->operateur?->id) }}"><i
                                                             class="bi bi-eye"></i></a>&nbsp;

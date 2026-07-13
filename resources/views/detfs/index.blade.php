@@ -138,7 +138,7 @@
                                     {{ $detf?->ingenieur?->user?->firstname . ' ' . $detf?->ingenieur?->user?->name }}
                                 </td>
                                 <td>
-                                    {{ $detf?->operateur?->user?->username ? $detf?->operateur?->user?->username : $detf?->operateur?->user?->operateur }}
+                                    {{ $detf?->operateur?->user?->display_operateur }}
                                 </td>
                                 <td class="text-center">
                                     <span class="etat-btn {{ $detf?->etat }}">

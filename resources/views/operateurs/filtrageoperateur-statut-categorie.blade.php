@@ -121,7 +121,6 @@
                                             @endcan
                                             <th class="text-center">N° agrément</th>
                                             <th width="25%">Opérateurs</th>
-                                            <th>Sigle</th>
                                             {{-- @can('afficher-operateur-email')
                                                 <th>Email</th>
                                             @endcan --}}
@@ -158,8 +157,7 @@
                                                     <td class="text-center">{{ $operateur?->numero_dossier }}</td>
                                                 @endcan
                                                 <td>{{ $operateur?->numero_agrement }}</td>
-                                                <td>{{ $operateur?->user?->operateur }}</td>
-                                                <td>{{ $operateur?->user?->username }}</td>
+                                                <td>{{ $operateur?->user?->display_operateur }}</td>
                                                 {{-- @can('afficher-operateur-email')
                                                     <td><a
                                                             href="mailto:{{ $operateur?->user?->email }}">{{ $operateur?->user?->email }}</a>

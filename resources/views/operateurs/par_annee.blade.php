@@ -378,7 +378,7 @@
                                                 @can('afficher-operateur-name')
                                                     <td>{{ $operateur?->user?->display_operateur }}</td>
                                                 @endcan
-                                                {{-- <td>{{ $operateur?->user?->username }}</td> --}}
+                                                {{-- <td>{{ $operateur?->user?->display_operateur }}</td> --}}
                                                 @can('afficher-operateur-email')
                                                     <td><a
                                                             href="mailto:{{ $operateur?->user?->email }}">{{ $operateur?->user?->email }}</a>

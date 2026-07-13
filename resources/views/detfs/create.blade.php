@@ -140,7 +140,7 @@
                                     @foreach ($operateurs as $operateur)
                                         <option value="{{ $operateur->id }}"
                                             {{ old('operateurs_id') == $operateur->id ? 'selected' : '' }}>
-                                            {{ $operateur?->user?->operateur }}
+                                            {{ $operateur?->user?->display_operateur }}
                                         </option>
                                     @endforeach
                                 </select>

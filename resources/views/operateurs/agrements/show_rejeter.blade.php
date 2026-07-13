@@ -66,7 +66,7 @@
                                                 @foreach ($operateurs as $operateur)
                                                     @isset($operateur?->numero_agrement)
                                                         <tr>
-                                                            <td>{{ $operateur?->user?->operateur . ' (' . $operateur?->user?->username . ')' }}
+                                                            <td>{{ $operateur?->user?->display_operateur }}
                                                             </td>
                                                             <td>{{ $operateur?->user?->adresse }}</td>
                                                             <td>{{ $operateur?->user?->email }}</td>

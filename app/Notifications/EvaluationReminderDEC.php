@@ -34,7 +34,7 @@ class EvaluationReminderDEC extends Notification
         $ingenieur = $this->formation?->ingenieur?->name ?? 'Non défini';
 
         // Nom de l'opérateur d'exécution
-        $operateur = $this->formation->operateur?->user?->operateur ?? 'Non défini';
+        $operateur = $this->formation->operateur?->user?->display_operateur ?? 'Non défini';
 
         return (new MailMessage)
             ->subject("Rappel ({$this->rappelNiveau}) : Évaluation de la formation")

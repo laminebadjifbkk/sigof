@@ -2308,11 +2308,11 @@ class OperateurController extends Controller
 
                 $operateur->save();
 
-                Alert::success("Succès !", "L'opérateur " . $operateur?->user?->username . ' a été retenu');
+                Alert::success("Succès !", "L'opérateur " . $operateur?->user?->display_operateur . ' a été retenu');
 
                 return redirect()->back();
             } else {
-                Alert::warning("Impossible ", "Car l'opérateur " . $operateur?->user?->username . ' a déjà été validé');
+                Alert::warning("Impossible ", "Car l'opérateur " . $operateur?->user?->display_operateur . ' a déjà été validé');
 
                 return redirect()->back();
             }
@@ -2370,7 +2370,7 @@ class OperateurController extends Controller
 
         $validationoperateur->save();
 
-        Alert::success('Succès !', $operateur?->user?->username . " est " . $request->statut);
+        Alert::success('Succès !', $operateur?->user?->display_operateur . " est " . $request->statut);
 
         return redirect()->back();
     }
@@ -2423,7 +2423,7 @@ class OperateurController extends Controller
 
         $validationoperateur->save();
 
-        Alert::success('Succès !', $operateur?->user?->username . " est " . $request->statut);
+        Alert::success('Succès !', $operateur?->user?->display_operateur . " est " . $request->statut);
 
         return redirect()->back();
     }
@@ -2460,7 +2460,7 @@ class OperateurController extends Controller
 
             $validateoperateur->save();
 
-            Alert::success("Succès !", "L'opérateur " . $operateur?->user?->username . ' a été agréé');
+            Alert::success("Succès !", "L'opérateur " . $operateur?->user?->display_operateur . ' a été agréé');
             return redirect()->back();
         }
     }
@@ -3218,7 +3218,7 @@ class OperateurController extends Controller
     {
         $operateur = Operateur::findOrFail($request->input('id'));
 
-        $title = 'Fiche de synthèse ' . $operateur?->user?->operateur;
+        $title = 'Fiche de synthèse ' . $operateur?->user?->display_operateur;
 
         $dompdf  = new Dompdf();
         $options = $dompdf->getOptions();
@@ -3242,7 +3242,7 @@ class OperateurController extends Controller
         // Render the HTML as PDF
         $dompdf->render();
 
-        $name = 'Fiche de synthèse ' . $operateur?->user?->operateur . '.pdf';
+        $name = 'Fiche de synthèse ' . $operateur?->user?->display_operateur . '.pdf';
 
         // Output the generated PDF to Browser
         $dompdf->stream($name, ['Attachment' => false]);
@@ -3447,7 +3447,7 @@ class OperateurController extends Controller
 
         $operateur = Operateur::findOrFail($request->id);
 
-        $title = 'Lettres agrément , ' . $operateur?->user?->operateur;
+        $title = 'Lettres agrément , ' . $operateur?->user?->display_operateur;
 
         $dompdf  = new Dompdf();
         $options = $dompdf->getOptions();
@@ -3464,7 +3464,7 @@ class OperateurController extends Controller
         // Render the HTML as PDF
         $dompdf->render();
 
-        $name = 'Lettres agrément opérateurs, ' . $operateur?->user?->operateur . '.pdf';
+        $name = 'Lettres agrément opérateurs, ' . $operateur?->user?->display_operateur . '.pdf';
 
         // Output the generated PDF to Browser
         $dompdf->stream($name, ['Attachment' => false]);
@@ -4135,7 +4135,7 @@ class OperateurController extends Controller
                 'date_cores'      => now(),
                 'annee'           => $anneeEnCours,
                 'objet'           => 'DEMANDE AGREMENT OPERATEUR',
-                'expediteur'      => $operateur?->user?->operateur,
+                'expediteur'      => $operateur?->user?->display_operateur,
                 'type'            => 'operateur',
                 "user_create_id"  => Auth::user()->id,
                 "user_update_id"  => Auth::user()->id,
@@ -4380,7 +4380,7 @@ class OperateurController extends Controller
             'date_cores'      => now(),
             'annee'           => $anneeEnCours,
             'objet'           => 'DEMANDE AGREMENT OPERATEUR',
-            'expediteur'      => $operateur?->user?->operateur,
+            'expediteur'      => $operateur?->user?->display_operateur,
             'type'            => 'operateur',
             "user_create_id"  => Auth::user()->id,
             "user_update_id"  => Auth::user()->id,

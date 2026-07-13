@@ -54,9 +54,7 @@
                                                         @if ($formation->numero_convention)
                                                             - {{ $formation->numero_convention }}
                                                         @endif
-                                                        @if ($formation?->operateur?->user?->username)
-                                                            - {{ $formation?->operateur?->user?->username }}
-                                                        @endif
+                                                        {{ $formation?->operateur?->user?->display_operateur }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -296,7 +294,8 @@
                                         <div class="col-12">
                                             <label for="recommandations" class="form-label">Recommandations</label>
                                             <textarea name="recommandations" id="recommandations" rows="5"
-                                                class="form-control form-control-sm @error('recommandations') is-invalid @enderror" placeholder="recommandationss">{{ old('recommandations', $lettrevaluation?->formation?->recommandations) }}</textarea>
+                                                class="form-control form-control-sm @error('recommandations') is-invalid @enderror"
+                                                placeholder="recommandationss">{{ old('recommandations', $lettrevaluation?->formation?->recommandations) }}</textarea>
                                             @error('recommandations')
                                                 <span class="invalid-feedback" role="alert">
                                                     <div>{{ $message }}</div>

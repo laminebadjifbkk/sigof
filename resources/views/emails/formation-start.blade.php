@@ -68,12 +68,7 @@
         </li>
 
         <li><strong>Opérateur :</strong>
-            @if ($formation?->operateur?->user?->username)
-                {{ $formation->operateur->user->operateur ?? '' }}
-                ({{ $formation->operateur->user->username }})
-            @else
-                -
-            @endif
+                {{ $formation->operateur->user->display_operateur ?? '' }}
         </li>
 
         <li><strong>Lieu formation :</strong>

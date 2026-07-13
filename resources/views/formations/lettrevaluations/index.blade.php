@@ -55,7 +55,7 @@
                                                 <th>Conv.</th>
                                                 <th>Operateur</th>
                                                 <th>Module formation</th>
-                                               {{--  <th>Lieu</th> --}}
+                                                {{--  <th>Lieu</th> --}}
                                                 {{-- <th>Responsable</th> --}}
                                                 <th>Evaluateur(s)</th>
                                                 <th>ONFP</th>
@@ -72,7 +72,8 @@
                                             @foreach ($lettrevaluations as $lettrevaluation)
                                                 <tr>
                                                     <td>{{ $lettrevaluation?->formation?->numero_convention }}</td>
-                                                    <td>{{ $lettrevaluation?->formation?->operateur?->user?->display_operateur }}</td>
+                                                    <td>{{ $lettrevaluation?->formation?->operateur?->user?->display_operateur }}
+                                                    </td>
                                                     <td>
                                                         {{ $lettrevaluation?->formation->module->name ?? ($lettrevaluation?->formation->collectivemodule->module ?? 'Aucun') }}</span>
                                                     </td>
@@ -222,10 +223,9 @@
                                                     @if ($formation->numero_convention)
                                                         - {{ $formation->numero_convention }}
                                                     @endif
-                                                    @if ($formation?->operateur?->user?->username)
-                                                        - {{ $formation?->operateur?->user?->username }}
-                                                    @endif
-                                                </option>
+                                                    {{ $formation?->operateur?->user?->display_operateur }}
+                                            @endif
+                                            </option>
                                             @endforeach
                                         </select>
                                         @error('formation')

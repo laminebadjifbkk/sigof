@@ -116,7 +116,7 @@
                                                             {{ $formation?->titre }}
                                                         @endif
                                                     </td>
-                                                    <td>{{ $formation?->operateur?->user?->username }}</td>
+                                                    <td>{{ $formation?->operateur?->user?->display_operateur }}</td>
                                                     <td>
                                                         @if (!empty($formation?->ingenieur?->initiale))
                                                             {{ $formation?->ingenieur?->name . ' (' . $formation?->ingenieur?->initiale . ')' }}

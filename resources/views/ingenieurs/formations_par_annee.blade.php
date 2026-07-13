@@ -122,7 +122,7 @@
                                                             @endif
                                                             {{-- {{ $formation->departement?->region?->nom }} --}}
                                                         </td>
-                                                        <td class="text-center">{{ $formation?->operateur?->user?->username }}
+                                                        <td class="text-center">{{ $formation?->operateur?->user?->display_operateur }}
                                                         </td>
                                                         <td class="text-center">
                                                             {{ number_format($formation?->frais_total ?? 0, 0, ',', ' ') }}

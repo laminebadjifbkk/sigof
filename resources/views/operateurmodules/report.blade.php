@@ -95,10 +95,6 @@
                                         <tr>
                                             {{-- <td>{{ $operateur?->numero_agrement }}</td> --}}
                                             <td>{{ $operateur?->user?->display_operateur }}</td>
-                                            {{-- <td>{{ $operateur?->user?->username }}</td> --}}
-                                            {{-- <td><a
-                                                    href="mailto:{{ $operateur?->user?->email }}">{{ $operateur?->user?->email }}</a>
-                                            </td> --}}
                                             <td>
                                                 <a href="tel:+221{{ $operateur?->user?->fixe }}">
                                                     {{ $operateur?->user?->fixe }}<br>

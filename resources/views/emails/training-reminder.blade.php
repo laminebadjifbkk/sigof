@@ -17,8 +17,8 @@
     <p>Cette formation se déroulera à <strong>{{ $formation?->lieu }}</strong> du
         <strong>{{ $formation?->date_debut?->format('d/m/Y') }}</strong> au
         <strong>{{ $formation?->date_fin?->format('d/m/Y') }}</strong>, et sera animée par
-        <strong>{{ $formation?->operateur?->user?->operateur }}
-            ({{ $formation?->operateur?->user?->username }})</strong>.
+        <strong>{{ $formation?->operateur?->user?->display_operateur }}
+            ({{ $formation?->operateur?->user?->display_operateur }})</strong>.
     </p>
 
     <p>ℹPour bien vous préparer, nous vous recommandons de consulter <a href="sigof.onfp.sn">votre espace
@@ -68,11 +68,7 @@
             @endif
         </li>
         <li><strong>Opérateur :</strong>
-            @if ($formation?->operateur?->user?->username)
-                {{ $formation?->operateur?->user?->display_operateur }}
-            @else
-                Non disponible
-            @endif
+            {{ $formation?->operateur?->user?->display_operateur }}
         </li>
         <li><strong>Lieu :</strong>
             @if ($formation?->lieu)

@@ -59,8 +59,8 @@
                                                 <td>{{ $operateurmodule?->operateur?->numero_agrement }}
                                                 </td>
                                                 <td>
-                                                    {{ $operateurmodule?->operateur?->user?->operateur }}</td>
-                                                <td class="text-center">{{ $operateurmodule?->operateur?->user?->username }}
+                                                    {{ $operateurmodule?->operateur?->user?->display_operateur }}</td>
+                                                <td class="text-center">{{ $operateurmodule?->operateur?->user?->display_operateur }}
                                                 </td>
                                                 <td class="text-center">
                                                     @foreach ($operateurmodule?->operateur?->operateurmodules as $operateurmodule)

@@ -55,7 +55,6 @@
                                     <tr>
                                         <th width="15%" class="text-center">N° agrément</th>
                                         <th>Opérateurs</th>
-                                        <th>Sigle</th>
                                         <th>Email</th>
                                         <th>Telephone</th>
                                         <th>Adresse</th>
@@ -70,8 +69,7 @@
                                     @foreach ($operateurs as $operateur)
                                         <tr>
                                             <td>{{ $operateur?->numero_agrement }}</td>
-                                            <td>{{ $operateur?->user?->operateur }}</td>
-                                            <td>{{ $operateur?->user?->username }}</td>
+                                            <td>{{ $operateur?->user?->display_operateur }}</td>
                                             <td><a
                                                     href="mailto:{{ $operateur?->user?->email }}">{{ $operateur?->user?->email }}</a>
                                             </td>

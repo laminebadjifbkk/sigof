@@ -58,7 +58,6 @@
                                             <tr>
                                                 <th width="15%">N° agrément</th>
                                                 <th width="40%">Opérateurs</th>
-                                                <th>Sigle</th>
                                                 <th>Telephone</th>
                                                 <th>Région</th>
                                                 <th>Responsable</th>
@@ -72,8 +71,7 @@
                                             @foreach ($operateurs as $operateur)
                                                 <tr>
                                                     <td>{{ $operateur?->numero_agrement }}</td>
-                                                    <td>{{ $operateur?->user?->operateur }}</td>
-                                                    <td>{{ $operateur?->user?->username }}</td>
+                                                    <td>{{ $operateur?->user?->display_operateur }}</td>
                                                     <td>
                                                         <a href="tel:+221{{ $operateur?->user?->fixe }}">
                                                             {{ $operateur?->user?->fixe }}<br>

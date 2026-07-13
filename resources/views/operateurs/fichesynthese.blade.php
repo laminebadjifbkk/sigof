@@ -177,8 +177,7 @@
                     <tbody>
                         <tr class="item">
                             <td><b>{{ __("DENOMINATION DE L'OPERATEUR") }}</b></td>
-                            <td colspan="8">{{ $operateur?->user?->operateur }}
-                               {{ $operateur?->user?->display_operateur }}
+                            <td colspan="8"> {{ $operateur?->user?->display_operateur }}
                             </td>
                             <td colspan="2" width="10%" style="text-align: center;">
                                 <b>{{ __('CONFORMITE') }}</b>

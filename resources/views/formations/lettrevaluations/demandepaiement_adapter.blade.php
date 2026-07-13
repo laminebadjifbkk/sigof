@@ -176,7 +176,7 @@
                     @if (!empty($formation?->date_pv_finale))
                         au {{ $formation?->date_pv_finale?->translatedFormat('d F Y') }}
                     @endif
-                    exécutée par l’opérateur {{ $formation?->operateur?->user?->operateur ?? ' ' }}
+                    exécutée par l’opérateur {{ $formation?->operateur?->user?->display_operateur ?? ' ' }}
                 </p>
             </div>
 

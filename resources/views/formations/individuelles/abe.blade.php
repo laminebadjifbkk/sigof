@@ -216,9 +216,6 @@
                                         <p style="text-align : justify;">
                                             <b>OPERATEUR </b> :
                                             {{ $formation?->operateur?->user?->display_operateur }}
-                                            {{-- @if (!empty($formation?->operateur?->user?->username))
-                                                {{ '(' . $formation?->operateur?->user?->username . ')' }}
-                                            @endif --}}
                                         </p>
                                         <p style="text-align : justify;">
                                             <span><b>MODULE </b> :

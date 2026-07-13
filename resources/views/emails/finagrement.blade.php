@@ -6,7 +6,7 @@
     <title>Renouvellement agrément</title>
 </head>
 <body>
-    <h3>Bonjour {{ $operateur?->user?->username }} !</h3>
+    <h3>Bonjour {{ $operateur?->user?->display_operateur }} !</h3>
     <p>Nous vous informons que le moment est venu de renouveler votre agrément. <br>
         Afin d'éviter toute interruption, nous vous invitons à vous connecter à votre compte et à soumettre votre demande dès maintenant. ⏳📜</p>
     <p>Nous restons à votre disposition pour toute assistance.</p>

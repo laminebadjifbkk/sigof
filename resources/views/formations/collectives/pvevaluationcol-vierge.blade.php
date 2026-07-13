@@ -237,9 +237,7 @@
                         <td colspan="5"><b>{{ __('Lieu : ') }}</b> {{ $formation?->lieu }}
                         </td>
                         <td colspan="6"><b>{{ __('Opérateur : ') }}</b>
-                            @if (!empty($formation?->operateur?->user?->operateur))
-                                {{ $formation?->operateur?->user?->display_operateur }}
-                            @endif
+                            {{ $formation?->operateur?->user?->display_operateur }}
                         </td>
                     </tr>
                     <tr class="heading">

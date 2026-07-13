@@ -61,7 +61,6 @@
                                                 <th width="5%" class="text-center">Dossier</th>
                                                 <th width="15%">N° agrément</th>
                                                 <th width="50%">Opérateurs</th>
-                                                <th width="10%">Sigle</th>
                                                 <th class="text-center">Modules</th>
                                                 <th width="15%" class="text-center">Statut</th>
                                                 <th><i class="bi bi-gear"></i></th>
@@ -74,8 +73,7 @@
                                                 <tr>
                                                     <td class="text-center">{{ $operateur?->numero_dossier }}</td>
                                                     <td>{{ $operateur?->numero_agrement }}</td>
-                                                    <td>{{ $operateur?->user?->operateur }}</td>
-                                                    <td>{{ $operateur?->user?->username }}</td>
+                                                    <td>{{ $operateur?->user?->display_operateur }}</td>
                                                     {{-- <td style="text-align: center;">
                                                         @foreach ($operateur?->operateurmodules as $operateurmodule)
                                                             @if ($loop->last)

@@ -48,11 +48,7 @@
             @endif
         </li>
         <li><strong>Opérateur :</strong>
-            @if ($formation?->operateur?->user?->username)
                 {{ $formation?->operateur?->user?->display_operateur }}
-            @else
-                Non disponible
-            @endif
         </li>
         <li><strong>Ingénieur en charge :</strong> {{ $formation?->ingenieur?->name ?? 'Non disponible' }}</li>
         <li><strong>Évaluateur(s) : </strong>

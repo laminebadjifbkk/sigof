@@ -155,7 +155,6 @@
                                         <th width="5%" class="text-center">Année</th>
                                         <th width="5%" class="text-center">Type</th>
                                         <th width="55%">Opérateurs</th>
-                                        <th width="10%">Sigle</th>
                                         <th width="15%" class="text-center">Statut</th>
                                         @can('agrement-show')
                                             <th width="3%"><i class="bi bi-gear"></i></th>
@@ -175,8 +174,7 @@
                                             </td>
                                             <td style="text-align: center"><span class="{{ $operateur->type_demande }}">
                                                     {{ $operateur?->type_demande }}</span></td>
-                                            <td>{{ $operateur?->user?->operateur }}</td>
-                                            <td>{{ $operateur?->user?->username }}</td>
+                                            <td>{{ $operateur?->user?->display_operateur }}</td>
                                             <td style="text-align: center"><span class="{{ $operateur->statut_agrement }}">
                                                     {{ $operateur?->statut_agrement }}</span></td>
                                             <td>

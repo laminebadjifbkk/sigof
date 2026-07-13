@@ -135,7 +135,7 @@
                                                     <td class="text-center">{{ $operateur?->numero_dossier }}</td>
                                                     <td>{{ $operateur?->numero_agrement }}</td>
                                                     <td>{{ $operateur?->user?->display_operateur }}</td>
-                                                    {{-- <td>{{ $operateur?->user?->username }}</td> --}}
+                                                    {{-- <td>{{ $operateur?->user?->display_operateur }}</td> --}}
                                                     {{-- <td style="text-align: center;">
                                                         @foreach ($operateur?->operateurmodules as $operateurmodule)
                                                             @if ($loop->last)

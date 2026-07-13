@@ -96,7 +96,7 @@
                                                 </td>
                                                 {{-- <td>{{ $formation->type_certification }}</td> --}}
                                                 <td>{{ $formation?->titre ?? $formation?->referentiel?->titre }}</td>
-                                                <td>{{ $formation?->operateur?->user?->username ?? ' ' }}</td>
+                                                <td>{{ $formation?->operateur?->user?->display_operateur ?? ' ' }}</td>
                                                 <td class="text-center">
                                                     <a><span
                                                             class="{{ $formation->statut }}">{{ $formation->statut }}</span></a>
