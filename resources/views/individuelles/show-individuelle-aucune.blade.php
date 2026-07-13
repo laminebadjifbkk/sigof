@@ -148,7 +148,8 @@
                                 </div>
 
                                 <div class="col-12 col-md-6 col-lg-4 mb-0">
-                                    <label for="date naissance" class="form-label">Date naissance</label>
+                                    <label for="date naissance" class="form-label">Date naissance<span
+                                            class="text-danger mx-1">*</span></label>
                                     <input type="text" name="date_naissance"
                                         value="{{ old('date_naissance', optional($user?->date_naissance)->format('d/m/Y')) }}"
                                         class="form-control form-control-sm @error('date_naissance') is-invalid @enderror"
