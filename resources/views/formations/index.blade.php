@@ -386,7 +386,7 @@
                                         <label for="annee" class="form-label">Année<span
                                                 class="text-danger mx-1">*</span></label>
                                         <div class="input-group has-validation">
-                                            <input type="number" min="2025" max="2035" name="annee" value="{{ old('annee') }}"
+                                            <input type="number" min="2024" max="2080" name="annee" value="{{ old('annee') }}"
                                                 class="form-control form-control-sm @error('annee') is-invalid @enderror"
                                                 id="annee" placeholder="annee">
                                             @error('annee')

@@ -894,15 +894,10 @@ class FormationController extends Controller
         $numero_lettre_mission = str_pad($numero_lettre_mission_int, strlen($numero_convention), '0', STR_PAD_LEFT);
 
 
-        $annee = $request->input('annee', date('Y')); // ex : "2026"
+        /* $annee = $request->input('annee', date('Y')); // ex : "2026"
         $an = substr($annee, -2);                     // "26"
 
         $numFormation = DB::transaction(function () use ($annee, $an) {
-
-            /* $lastFormation = Formation::where('annee', $annee)
-                ->lockForUpdate()
-                ->orderByDesc('code')
-                ->first(); */
 
             $lastFormation = Formation::where('annee', $annee)
                 ->where('code', 'like', 'F' . $an . '%')
@@ -918,10 +913,10 @@ class FormationController extends Controller
             }
 
             return 'F' . $an . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
-        });
+        }); */
 
         $formation->update([
-            "code"                     => $numFormation,
+            /* "code"                     => $numFormation, */
             "name"                     => $request->input('name'),
             "intitule"                 => $request->input('intitule'),
             "regions_id"               => $request->input('region'),

@@ -411,7 +411,7 @@
 
                                     <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <label for="annee" class="form-label">Année</label>
-                                        <input type="number" name="annee" min="2025" max="2035" step="1"
+                                        <input type="number" name="annee" min="2024" max="2080" step="1"
                                             value="{{ $formation?->annee ?? old('annee') }}"
                                             class="form-control form-control-sm @error('annee') is-invalid @enderror"
                                             id="annee" placeholder="Année">
