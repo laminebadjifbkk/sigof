@@ -29,7 +29,7 @@
                                 <img src="{{ asset($user?->getImage()) }}" alt="Profil" class="profile-image">
                             </a>
                             <h2 class="pt-1 d-flex flex-column align-items-center text-center">
-                                {{ $user?->username }}
+                                {{ $user?->username ?: $user?->operateur }}
                                 <br>
                                 @if ($user?->last_activity && \Carbon\Carbon::parse($user->last_activity)->diffInMinutes(now()) < 5)
                                     <span class="text-success">En ligne</span>
