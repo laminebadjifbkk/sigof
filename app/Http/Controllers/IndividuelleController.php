@@ -373,7 +373,7 @@ class IndividuelleController extends Controller
             'niveau_etude'           => ['required', 'string', 'max:250'],
             'diplome_academique'     => ['required', 'string', 'max:250'],
             'diplome_professionnel'  => ['required', 'string', 'max:250'],
-            'specialite_diplome_professionnel'  => ['required', 'string', 'max:250'],
+            'specialite_diplome_professionnel'  => ['nullable', 'string', 'max:250'],
             'projet_poste_formation' => ['required', 'string', 'max:250'],
             'projetprofessionnel'    => ['required', 'string', 'max:500'],
             'qualification'          => ['nullable', 'string', 'max:500'],
