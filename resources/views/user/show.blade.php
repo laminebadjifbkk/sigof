@@ -45,8 +45,8 @@
                         </a>
 
                         <h2 class="pt-1 d-flex flex-column align-items-center text-center">
-                            @if ($user?->operateurs?->isNotEmpty())
-                                {{ $user?->username }}
+                            @if ($user?->operateur)
+                                {{ $user?->display_operateur }}
                             @else
                                 {{ $user?->civilite . ' ' . $user?->firstname . ' ' . $user?->name ?? $user?->username }}
                             @endif
