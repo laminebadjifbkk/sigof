@@ -175,7 +175,7 @@
                                                         <th>Début</th>
                                                         <th>Fin</th>
                                                         <th>Évaluation</th>
-                                                        <th class="text-center"></th>
+                                                        <th class="text-center">JOURS</th>
                                                         <th></th>
                                                     </tr>
                                                 </thead>
