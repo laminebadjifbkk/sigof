@@ -90,7 +90,7 @@
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Opérateurs</th>
-                                                    {{-- <th class="text-center">Modules</th> --}}
+                                                    <th class="text-center">N° agrément</th>
                                                     <th class="text-center">Formations</th>
                                                     <th class="text-center">Statut</th>
                                                     <th><i class="bi bi-gear"></i></th>
@@ -125,6 +125,7 @@
                                                                 @endif
                                                             @endforeach
                                                         </td> --}}
+                                                        <td>{{ $operateur?->numero_agrement }}</td>
                                                         <td class="text-center">
                                                             @foreach ($operateur?->formations as $formation)
                                                                 @if ($loop->last)
