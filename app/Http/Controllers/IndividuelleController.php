@@ -1393,7 +1393,7 @@ class IndividuelleController extends Controller
         ));
     }
 
-    public function generateRapport(Request $request)
+    /* public function generateRapport(Request $request)
     {
         $this->checkAccess();
         $this->validate($request, [
@@ -1435,6 +1435,45 @@ class IndividuelleController extends Controller
             'to_date',
             'title'
         ));
+    } */
+
+    public function generateRapport(Request $request)
+    {
+        $this->checkAccess();
+
+        $request->validate([
+            'from_date' => ['required', 'date'],
+            'to_date'   => ['required', 'date'],
+        ]);
+
+        $fromDate = Carbon::parse($request->from_date);
+        $toDate   = Carbon::parse($request->to_date);
+
+        $individuelles = Individuelle::whereBetween(
+            DB::raw('DATE(created_at)'),
+            [$fromDate->toDateString(), $toDate->toDateString()]
+        )->get();
+
+        $count = $individuelles->count();
+
+        $periode = $fromDate->isSameDay($toDate)
+            ? 'le ' . $fromDate->format('d/m/Y')
+            : 'entre le ' . $fromDate->format('d/m/Y') . ' et le ' . $toDate->format('d/m/Y');
+
+        if ($count === 0) {
+            $title = "aucune demande individuelle reçue {$periode}";
+        } elseif ($count === 1) {
+            $title = "1 demande individuelle reçue {$periode}";
+        } else {
+            $title = "{$count} demandes individuelles reçues {$periode}";
+        }
+
+        return view('individuelles.rapports', [
+            'individuelles' => $individuelles,
+            'from_date'     => $fromDate->format('d/m/Y'),
+            'to_date'       => $toDate->format('d/m/Y'),
+            'title'         => $title,
+        ]);
     }
 
     public function generateReport(Request $request)

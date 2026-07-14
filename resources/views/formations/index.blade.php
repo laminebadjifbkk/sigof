@@ -386,7 +386,8 @@
                                         <label for="annee" class="form-label">Année<span
                                                 class="text-danger mx-1">*</span></label>
                                         <div class="input-group has-validation">
-                                            <input type="number" min="2024" max="2080" name="annee" value="{{ old('annee') }}"
+                                            <input type="number" min="2024" max="2080" name="annee"
+                                                value="{{ old('annee') }}"
                                                 class="form-control form-control-sm @error('annee') is-invalid @enderror"
                                                 id="annee" placeholder="annee">
                                             @error('annee')
@@ -679,6 +680,27 @@
                                     </select>
 
                                     @error('pole_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <div>{{ $message }}</div>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="form-label">De<span class="text-danger mx-1">*</span></label>
+                                    <input type="date" name="from_date"
+                                        class="form-control form-control-sm @error('from_date') is-invalid @enderror from_date">
+                                    @error('from_date')
+                                        <span class="invalid-feedback" role="alert">
+                                            <div>{{ $message }}</div>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">À<span class="text-danger mx-1">*</span></label>
+                                    <input type="date" name="to_date"
+                                        class="form-control form-control-sm @error('to_date') is-invalid @enderror to_date">
+                                    @error('to_date')
                                         <span class="invalid-feedback" role="alert">
                                             <div>{{ $message }}</div>
                                         </span>
