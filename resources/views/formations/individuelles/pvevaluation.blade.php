@@ -211,7 +211,7 @@
 </head>
 
 <body>
-    <div style="text-align: center;">
+    <div style="text-align: center; font-size: 10px; line-height: 13px;">
         <b>REPUBLIQUE DU SENEGAL<br></b>
         Un Peuple - Un But - Une Foi<br>
         <b>********<br>

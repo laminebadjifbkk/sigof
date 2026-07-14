@@ -215,7 +215,7 @@
         <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/entete_lettre_mission.png'))) }}"
             style="width: 100%; max-width: 300px" />
     </h6> --}}
-    <div style="text-align: center;">
+    <div style="text-align: center; font-size: 10px; line-height: 13px;">
         <b>REPUBLIQUE DU SENEGAL<br></b>
         Un Peuple - Un But - Une Foi<br>
         <b>********<br>
