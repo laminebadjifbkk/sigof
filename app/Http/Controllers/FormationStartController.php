@@ -98,7 +98,7 @@ class FormationStartController extends Controller
 
         $defaultEmails = [
             'lamine.badji@onfp.sn',
-            'ouly.toure@onfp.sn',
+            /* 'ouly.toure@onfp.sn',
             'dado.toure@onfp.sn',
             'amsatou.paye@onfp.sn',
             'SerigneMansourSy.FALL@onfp.sn',
@@ -117,7 +117,7 @@ class FormationStartController extends Controller
             'luneba.ab@gmail.com',
             'fatou.ba@onfp.sn',
             'gueyesuntech3@gmail.com',
-            'gibrile.faye@onfp.sn',
+            'gibrile.faye@onfp.sn', */
         ];
 
         $emails = collect($defaultEmails)

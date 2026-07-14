@@ -32,8 +32,8 @@
                         <div class="p-1 mb-4 border rounded bg-light shadow-sm">
                             <div class="row text-center fw-semibold">
                                 <div class="col-md-4 mb-2">
-                                    <span class="text-secondary">👥 Ingénieur</span><br>
-                                    <span class="fs-5 text-dark">{{ $ingenieur ?? 'Aucun' }}</span>
+                                    <span class="text-secondary">Ingénieur</span><br>
+                                    <span class="fs-5 text-dark">{{ $formation?->ingenieur?->user?->firstname . ' ' . $formation?->ingenieur?->user?->name ?? 'Aucun' }}</span>
                                 </div>
                             </div>
                         </div>

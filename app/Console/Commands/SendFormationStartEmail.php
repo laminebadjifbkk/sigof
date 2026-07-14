@@ -352,6 +352,8 @@ class SendFormationStartEmail extends Command
                     ->sort()
                     ->values();
 
+                dd($emails);
+
                 if ($emails->isEmpty()) {
                     $this->warn("Aucun destinataire pour la formation #{$formation->id}");
                     continue;

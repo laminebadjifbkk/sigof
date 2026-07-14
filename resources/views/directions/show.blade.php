@@ -256,7 +256,7 @@
                                                                 <td>
                                                                     @can('show', $direction?->chef?->user)
                                                                         <span class="d-flex mt-2 align-items-baseline"><a
-                                                                                href="{{ url('employes/' . $direction?->chef?->id) }}"
+                                                                                href="{{ route('employes.show', $direction->chef) }}"
                                                                                 class="btn btn-warning btn-sm mx-1"
                                                                                 title="Donner permission"><i
                                                                                     class="bi bi-eye"></i></a>
@@ -268,7 +268,7 @@
                                                                                     class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                                                     @can('update', $direction?->chef?->user)
                                                                                         <li><a class="dropdown-item btn btn-sm mx-1"
-                                                                                                href="{{ url('employes/' . $direction?->chef?->id . '/edit') }}"
+                                                                                                href="{{ route('employes.edit', $direction->chef) }}"
                                                                                                 class="mx-1"><i
                                                                                                     class="bi bi-pencil"></i>
                                                                                                 Modifier</a>
@@ -277,7 +277,7 @@
                                                                                     @can('delete', $direction?->chef?->user)
                                                                                         <li>
                                                                                             <form
-                                                                                                action="{{ url('employes', $direction?->chef?->id) }}"
+                                                                                                action="{{ url('employes', $direction?->chef) }}"
                                                                                                 method="post">
                                                                                                 @csrf
                                                                                                 @method('DELETE')
