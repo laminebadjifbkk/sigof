@@ -128,7 +128,7 @@ class SendEvaluationReminder extends Command
                 continue;
             }
 
-            foreach ($formations as $formation) {
+            /* foreach ($formations as $formation) {
 
                 // Destinataires
                 $emails = collect([
@@ -197,6 +197,78 @@ class SendEvaluationReminder extends Command
                     } catch (\Exception $e) {
 
                         $this->error("✖ Erreur {$email} : " . $e->getMessage());
+                    }
+                }
+            } */
+
+            foreach ($formations as $formation) {
+
+                $emails = collect([
+                    'lamine.badji@onfp.sn',
+                    'ouly.toure@onfp.sn',
+                    'dado.toure@onfp.sn',
+                    'amsatou.paye@onfp.sn',
+                    'SerigneMansourSy.FALL@onfp.sn',
+                    'MaimounaGadio.AW@onfp.sn',
+                    'ramet.ndiaye@onfp.sn',
+                    'ticana92@gmail.com',
+                    'binamcheikhou@gmail.com',
+                    'seckseynabou27@gmail.com',
+                    'seynabou.seck@onfp.sn',
+                    'mamebigue.ciss@onfp.sn',
+                    'gorgui.ndiaye@onfp.sn',
+                    'mohamadou.soumare@onfp.sn',
+                    's.fall@onfp.sn',
+                    'a.drame@onfp.sn',
+                    'elhadjigorgui.diouf@onfp.sn',
+                    'kanealkhalifa94@gmail.com',
+                    'luneba.ab@gmail.com',
+                    'fatou.ba@onfp.sn',
+                    'gueyesuntech3@gmail.com',
+                    'gibrile.faye@onfp.sn',
+
+                    // Chef de direction de l'ingénieur
+                    data_get($formation, 'ingenieur.user.employee.direction.chef.user.email'),
+
+                    // Ingénieur
+                    data_get($formation, 'ingenieur.user.email'),
+                ])
+                    ->merge($formation->onfpevaluateurs?->pluck('email') ?? collect())
+                    ->filter(fn($email) => filled($email))
+                    ->unique()
+                    ->sort()
+                    ->values();
+
+                if ($emails->isEmpty()) {
+                    $this->warn("Aucun destinataire pour la formation #{$formation->id}");
+                    continue;
+                }
+
+                $subject = sprintf(
+                    'Rappel évaluation : %s (%s)',
+                    $formation->intitule,
+                    $label
+                );
+
+                $htmlContent = view('emails.evaluation-reminder-dec', [
+                    'formation' => $formation,
+                    'label'     => $label,
+                ])->render();
+
+                foreach ($emails as $email) {
+                    try {
+                        $mailer->sendEmail(
+                            [
+                                'email' => $email,
+                                'name'  => 'Destinataire',
+                            ],
+                            $subject,
+                            $htmlContent
+                        );
+
+                        $this->info("✔ {$email}");
+                    } catch (\Throwable $e) {
+                        $this->error("✖ {$email} : {$e->getMessage()}");
                     }
                 }
             }

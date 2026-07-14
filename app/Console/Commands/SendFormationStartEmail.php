@@ -234,7 +234,7 @@ class SendFormationStartEmail extends Command
                 continue;
             }
 
-            foreach ($formations as $formation) {
+            /* foreach ($formations as $formation) {
 
                 // Emails fixes
                 $defaultEmails = [
@@ -263,15 +263,6 @@ class SendFormationStartEmail extends Command
                     'gueyesuntech3@gmail.com',
                     'gibrile.faye@onfp.sn',
                 ];
-
-                /* $emails = collect($defaultEmails)
-                    ->merge([
-                        $formation?->ingenieur?->user?->email,
-                        $formation?->ingenieur?->user?->employee?->chef?->user?->email,
-                    ])
-                    ->filter()
-                    ->unique()
-                    ->values(); */
 
                 $emails = collect($defaultEmails)
                     ->merge(array_filter([
@@ -312,6 +303,89 @@ class SendFormationStartEmail extends Command
                         $this->info("✔ Email envoyé à {$email} pour {$moduleName}");
                     } catch (\Exception $e) {
                         $this->error("✖ {$email} | {$moduleName} : " . $e->getMessage());
+                    }
+                }
+            } */
+
+            // À déclarer une seule fois avant le foreach($formations)
+            $defaultRecipients = collect([
+                'lamine.badji@onfp.sn',
+                'ouly.toure@onfp.sn',
+                'dado.toure@onfp.sn',
+                'amsatou.paye@onfp.sn',
+                //'bara.lo@onfp.sn',
+                'SerigneMansourSy.FALL@onfp.sn',
+                //'aissatou.deme@tresor.gouv.sn',
+                'MaimounaGadio.AW@onfp.sn',
+                'ramet.ndiaye@onfp.sn',
+                'ticana92@gmail.com',
+                'binamcheikhou@gmail.com',
+                'seckseynabou27@gmail.com',
+                'seynabou.seck@onfp.sn',
+                'mamebigue.ciss@onfp.sn',
+                'gorgui.ndiaye@onfp.sn',
+                'mohamadou.soumare@onfp.sn',
+                's.fall@onfp.sn',
+                'a.drame@onfp.sn',
+                'elhadjigorgui.diouf@onfp.sn',
+                'kanealkhalifa94@gmail.com',
+                'luneba.ab@gmail.com',
+                'fatou.ba@onfp.sn',
+                'gueyesuntech3@gmail.com',
+                'gibrile.faye@onfp.sn',
+            ]);
+
+            foreach ($formations as $formation) {
+
+                $emails = $defaultRecipients
+                    ->merge([
+                        // Ingénieur
+                        data_get($formation, 'ingenieur.user.email'),
+
+                        // Chef de la direction de l'ingénieur
+                        data_get($formation, 'ingenieur.user.employee.direction.chef.user.email'),
+                    ])
+                    ->filter(fn($email) => filled($email))
+                    ->map(fn($email) => strtolower(trim($email)))
+                    ->filter(fn($email) => filter_var($email, FILTER_VALIDATE_EMAIL))
+                    ->unique()
+                    ->sort()
+                    ->values();
+
+                if ($emails->isEmpty()) {
+                    $this->warn("Aucun destinataire pour la formation #{$formation->id}");
+                    continue;
+                }
+
+                $moduleName = data_get($formation, 'module.name')
+                    ?? data_get($formation, 'collectivemodule.module')
+                    ?? 'Module non défini';
+
+                $subject = sprintf(
+                    'Démarrage formation : %s (%s)',
+                    $moduleName,
+                    $label
+                );
+
+                $htmlContent = view('emails.formation-start', [
+                    'formation' => $formation,
+                    'label'     => $label,
+                ])->render();
+
+                foreach ($emails as $email) {
+                    try {
+                        $mailer->sendEmail(
+                            [
+                                'email' => $email,
+                                'name'  => 'Destinataire',
+                            ],
+                            $subject,
+                            $htmlContent
+                        );
+
+                        $this->info("✔ {$email} | {$moduleName}");
+                    } catch (\Throwable $e) {
+                        $this->error("✖ {$email} | {$moduleName} : {$e->getMessage()}");
                     }
                 }
             }

@@ -123,7 +123,7 @@ class FormationStartController extends Controller
         $emails = collect($defaultEmails)
             ->merge([
                 data_get($formation, 'ingenieur.user.email'),
-                data_get($formation, 'ingenieur.user.employee.chef.user.email'),
+                data_get($formation, 'ingenieur.user.employee.direction.chef.user.email'),
             ])
             ->filter()
             ->map(fn($email) => strtolower(trim($email)))
