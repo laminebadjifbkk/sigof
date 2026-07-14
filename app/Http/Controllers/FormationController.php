@@ -3503,6 +3503,7 @@ class FormationController extends Controller
             $title = 'PV Evaluation de la formation en  ' . $formation?->module?->name;
 
             $dateSignature = $formation?->date_pv_finale ?: $formation?->date_pv;
+            $evaluateurs = collect($formation?->evaluateurs)->merge($formation?->onfpevaluateurs);
 
             $membres_jury  = explode(";", $formation->membres_jury);
             $count_membres = count($membres_jury);
@@ -3518,6 +3519,7 @@ class FormationController extends Controller
                 'membres_jury',
                 'count_membres',
                 'dateSignature',
+                'evaluateurs',
             )));
 
             // (Optional) Setup the paper size and orientation (portrait ou landscape)
@@ -3560,11 +3562,16 @@ class FormationController extends Controller
         $options->setDefaultFont('DejaVu Sans');
         $dompdf->setOptions($options);
 
+        $dateSignature = $formation?->date_pv_finale ?: $formation?->date_pv;
+        $evaluateurs = collect($formation?->evaluateurs)->merge($formation?->onfpevaluateurs);
+
         $dompdf->loadHtml(view('formations.individuelles.pvevaluation-vierge', compact(
             'formation',
             'title',
             'membres_jury',
             'count_membres',
+            'dateSignature',
+            'evaluateurs',
         )));
 
         // (Optional) Setup the paper size and orientation (portrait ou landscape)
@@ -3628,6 +3635,7 @@ class FormationController extends Controller
 
             $title = 'PV Evaluation de la formation en  ' . $formation?->collectivemodule?->module;
             $dateSignature = $formation?->date_pv_finale ?: $formation?->date_pv;
+            $evaluateurs = collect($formation?->evaluateurs)->merge($formation?->onfpevaluateurs);
 
             $membres_jury  = explode(";", $formation->membres_jury);
             $count_membres = count($membres_jury);
@@ -3643,6 +3651,7 @@ class FormationController extends Controller
                 'membres_jury',
                 'count_membres',
                 'dateSignature',
+                'evaluateurs',
             )));
 
             // (Optional) Setup the paper size and orientation (portrait ou landscape)
@@ -3668,6 +3677,9 @@ class FormationController extends Controller
 
         $title = 'PV Evaluation de la formation en  ' . $formation?->collectivemodule?->module;
 
+        $dateSignature = $formation?->date_pv_finale ?: $formation?->date_pv;
+        $evaluateurs = collect($formation?->evaluateurs)->merge($formation?->onfpevaluateurs);
+
         $membres_jury  = explode(";", $formation->membres_jury);
         $count_membres = count($membres_jury);
 
@@ -3681,6 +3693,8 @@ class FormationController extends Controller
             'title',
             'membres_jury',
             'count_membres',
+            'dateSignature',
+            'evaluateurs',
         )));
 
         // (Optional) Setup the paper size and orientation (portrait ou landscape)

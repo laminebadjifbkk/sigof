@@ -245,9 +245,6 @@
                 <div class="table-responsive">
                     <table class="table-noborder" style="width: 100%;">
                         <tbody>
-                            @php
-                                $evaluateurs = collect($formation?->evaluateurs)->merge($formation?->onfpevaluateurs);
-                            @endphp
 
                             @foreach ($evaluateurs->chunk(3) as $trio)
                                 <tr>
