@@ -225,7 +225,13 @@
                 style="width: 100%; max-width: 180px" />
         </b>
     </div>
-    <div class="invoice-box" style="font-size: {{ $compact ? '9px' : '11px' }}; line-height: {{ $compact ? '11px' : '15px' }};">
+
+    @php
+        $nbBeneficiaires = $formation->listecollectivesSelectionnees->count();
+        $compact = $nbBeneficiaires > 20; // seuil à ajuster
+    @endphp
+    <div class="invoice-box"
+        style="font-size: {{ $compact ? '9px' : '11px' }}; line-height: {{ $compact ? '11px' : '15px' }};">
         <div class="table-responsive">
             <table class="table table-bordered">
                 <thead>
@@ -298,10 +304,6 @@
                 </thead>
                 <tbody>
                     <?php $i = 1; ?>
-                    @php
-                        $nbBeneficiaires = $formation->listecollectivesSelectionnees->count();
-                        $compact = $nbBeneficiaires > 20; // seuil à ajuster
-                    @endphp
                     {{-- @foreach ($formation->listecollectives->where('statut', 'Sélectionné') as $listecollective) --}}
                     @foreach ($formation->listecollectivesSelectionnees as $listecollective)
                         <tr class="item" style="text-align: center;">
