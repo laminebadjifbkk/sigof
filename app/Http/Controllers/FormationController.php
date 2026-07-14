@@ -3504,6 +3504,8 @@ class FormationController extends Controller
 
             $dateSignature = $formation?->date_pv_finale ?: $formation?->date_pv;
             $evaluateurs = collect($formation?->evaluateurs)->merge($formation?->onfpevaluateurs);
+            $nbBeneficiaires = $formation->listecollectivesSelectionnees->count();
+            $compact = $nbBeneficiaires > 20; // seuil à ajuster
 
             $membres_jury  = explode(";", $formation->membres_jury);
             $count_membres = count($membres_jury);
@@ -3520,6 +3522,7 @@ class FormationController extends Controller
                 'count_membres',
                 'dateSignature',
                 'evaluateurs',
+                'compact',
             )));
 
             // (Optional) Setup the paper size and orientation (portrait ou landscape)
@@ -3564,6 +3567,8 @@ class FormationController extends Controller
 
         $dateSignature = $formation?->date_pv_finale ?: $formation?->date_pv;
         $evaluateurs = collect($formation?->evaluateurs)->merge($formation?->onfpevaluateurs);
+        $nbBeneficiaires = $formation->listecollectivesSelectionnees->count();
+        $compact = $nbBeneficiaires > 20; // seuil à ajuster
 
         $dompdf->loadHtml(view('formations.individuelles.pvevaluation-vierge', compact(
             'formation',
@@ -3572,6 +3577,7 @@ class FormationController extends Controller
             'count_membres',
             'dateSignature',
             'evaluateurs',
+            'compact',
         )));
 
         // (Optional) Setup the paper size and orientation (portrait ou landscape)
@@ -3636,6 +3642,8 @@ class FormationController extends Controller
             $title = 'PV Evaluation de la formation en  ' . $formation?->collectivemodule?->module;
             $dateSignature = $formation?->date_pv_finale ?: $formation?->date_pv;
             $evaluateurs = collect($formation?->evaluateurs)->merge($formation?->onfpevaluateurs);
+            $nbBeneficiaires = $formation->listecollectivesSelectionnees->count();
+            $compact = $nbBeneficiaires > 20; // seuil à ajuster
 
             $membres_jury  = explode(";", $formation->membres_jury);
             $count_membres = count($membres_jury);
@@ -3652,6 +3660,7 @@ class FormationController extends Controller
                 'count_membres',
                 'dateSignature',
                 'evaluateurs',
+                'compact',
             )));
 
             // (Optional) Setup the paper size and orientation (portrait ou landscape)
@@ -3679,6 +3688,8 @@ class FormationController extends Controller
 
         $dateSignature = $formation?->date_pv_finale ?: $formation?->date_pv;
         $evaluateurs = collect($formation?->evaluateurs)->merge($formation?->onfpevaluateurs);
+        $nbBeneficiaires = $formation->listecollectivesSelectionnees->count();
+        $compact = $nbBeneficiaires > 20; // seuil à ajuster
 
         $membres_jury  = explode(";", $formation->membres_jury);
         $count_membres = count($membres_jury);
@@ -3695,6 +3706,7 @@ class FormationController extends Controller
             'count_membres',
             'dateSignature',
             'evaluateurs',
+            'compact',
         )));
 
         // (Optional) Setup the paper size and orientation (portrait ou landscape)
