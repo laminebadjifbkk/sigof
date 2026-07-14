@@ -349,7 +349,7 @@
                             @if ($personne->fonction)
                                 <br><em>{{ $personne->fonction }}</em>
                             @endif
-                            <div style="border-bottom: 1px solid #000; height: 12px; margin-top: 3mm;"></div>
+                            {{-- <div style="border-bottom: 1px solid #000; height: 12px; margin-top: 3mm;"></div> --}}
                         </td>
                     @endforeach
                     @for ($i = $trio->count(); $i < 3; $i++)
