@@ -1970,6 +1970,11 @@
             color: #ffffff;
         }
 
+        .Attente {
+            background-color: #6C757D;
+            color: #ffffff;
+        }
+
         .En_cours {
             background-color: #17A2B8;
             color: #ffffff;
