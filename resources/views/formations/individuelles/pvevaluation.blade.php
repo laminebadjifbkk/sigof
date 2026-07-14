@@ -4,6 +4,61 @@
 <head>
     <meta charset="utf-8" />
     <title>{{ $title }}</title>
+    {{-- <style>
+        @page {
+            margin: 0cm 0cm;
+        }
+
+        .invoice-box {
+            max-width: 1000px;
+            margin: auto;
+            padding: 30px;
+            font-size: 12px;
+            line-height: 20px;
+            color:rgb(0, 0, 0);
+            ;
+        }
+
+        .rtl {
+            imputation: rtl;
+        }
+
+        .invoice-box table tr.heading td {
+            background: rgb(255, 255, 255);
+            border: 1px solid #000000;
+            font-weight: bold;
+        }
+
+        .invoice-box table tr.total td {
+            border-top: 2px solid #eee;
+            border-bottom: 1px solid #eee;
+            border-left: 1px solid #eee;
+            border-right: 1px solid #eee;
+            background: #eee;
+            font-weight: bold;
+        }
+
+        .invoice-box table tr.item td {
+            border: 1px solid #000000;
+        }
+
+        table {
+            border-left: 0px solid rgb(0, 0, 0);
+            border-right: 0;
+            border-top: 0px solid rgb(0, 0, 0);
+            border-bottom: 0;
+            width: 100%;
+            border-spacing: 0px;
+        }
+
+        table td,
+        table th {
+            border-left: 0;
+            border-right: 0px solid rgb(0, 0, 0);
+            border-top: 0;
+            border-bottom: 0px solid rgb(0, 0, 0);
+        }
+    </style> --}}
     <style>
         /* @page {
             size: 21cm 29.7cm;
@@ -14,15 +69,16 @@
         @page {
             size: A4 landscape;
             margin-top: 1cm;
-            margin-bottom: 0cm;
+            margin-bottom: 2.2cm;
+            /* espace réservé pour le footer sur CHAQUE page */
         }
 
         .invoice-box {
             max-width: 1000px;
             margin: auto;
             /* padding: 30px; */
-            font-size: 11px;
-            line-height: 18px;
+            font-size: 10px;
+            line-height: 13px;
             color: rgb(0, 0, 0);
             ;
         }
@@ -39,19 +95,42 @@
             font-weight: bold;
         }
 
+        .invoice-box table tr.total td {
+            /* border-top: 2px solid #eee;
+            border-bottom: 1px solid #eee;
+            border-left: 1px solid #eee;
+            border-right: 1px solid #eee; */
+            /* background: #eee;
+            font-weight: normal; */
+        }
+
+        /* .invoice-box table tr.item td {
+            border: 1px solid #000000;
+        } */
+
         table {
+            /* border-left: 0px solid rgb(0, 0, 0);
+            border-right: 0;
+            border-top: 0px solid rgb(0, 0, 0);
+            border-bottom: 0; */
             width: 100%;
+            /* border-spacing: 0px; */
             border-collapse: collapse;
         }
 
         table td,
         table th {
+            /* border-left: 0;
+            border-right: 0px solid rgb(0, 0, 0);
+            border-top: 0;
+            border-bottom: 0px solid rgb(0, 0, 0); */
             border: 1px solid;
         }
 
         footer {
             position: fixed;
-            bottom: 0;
+            bottom: -1.8cm;
+            /* ajuster pour repositionner dans la marge réservée */
             left: 0;
             right: 0;
             background-color: #ffffff;
@@ -64,6 +143,17 @@
             border-top: 2px solid #5D4037;
             /* ligne visible */
             z-index: 1000;
+        }
+
+        /*éviter qu'une ligne du tableau soit coupée entre deux pages*/
+        table tr {
+            page-break-inside: avoid;
+        }
+
+        /*Réduire les marges des blocs signature*/
+        .no-page-break h4 {
+            margin-top: 1mm;
+            margin-bottom: 1mm;
         }
 
         .page-number {
@@ -110,31 +200,6 @@
             break-inside: avoid;
             /* pour compatibilité avec certains moteurs */
         }
-
-
-        .header-text {
-            font-size: 10px;
-            /* réduit la taille du texte, ajuste selon besoin */
-            line-height: 1.2;
-            /* compacité verticale */
-            text-align: center;
-        }
-
-        .header-text b {
-            font-size: 11px;
-            /* tu peux ajuster pour les titres */
-        }
-
-        .header-text em {
-            font-size: 9px;
-            /* texte en italique plus petit */
-        }
-
-        body {
-            margin: 0;
-            padding-bottom: 30px;
-            /* hauteur approximative du footer */
-        }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="//db.onlinewebfonts.com/c/dd79278a2e4c4a2090b763931f2ada53?family=ArialW02-Regular" rel="stylesheet"
@@ -156,7 +221,8 @@
                 style="width: 100%; max-width: 300px" />
         </b>
     </div>
-    <div class="invoice-box">
+    <div class="invoice-box"
+        style="font-size: {{ $compact ? '9px' : '11px' }}; line-height: {{ $compact ? '11px' : '15px' }};">
         <div class="table-responsive">
             <table class="table table-bordered">
                 <thead>
@@ -199,7 +265,7 @@
                         </td>
                     </tr>
 
-                    <tr class="heading">                        
+                    <tr class="heading">
                         <td colspan="5"><b>{{ __('Code : ') }}</b>
                             {{ $formation?->code . 'C' }}
                         </td>
@@ -250,7 +316,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="no-page-break">
+        {{-- <div class="no-page-break">
 
             <h4 style="margin-top: 2mm;">
                 <b><u>SIGNATURE DES MEMBRES DU JURY</u></b>
@@ -262,7 +328,6 @@
                 @endif
             </h4>
             <div style="margin-top: 0; padding-top: 0;">
-                {{-- Table des évaluateurs (3 par ligne) --}}
                 <div class="table-responsive">
                     <table class="table-noborder" style="width: 100%;">
                         <tbody>
@@ -282,7 +347,6 @@
                                         </td>
                                     @endforeach
 
-                                    {{-- Compléter la ligne s'il y a moins de 3 évaluateurs --}}
                                     @for ($i = $trio->count(); $i < 3; $i++)
                                         <td style="width: 30%;"></td>
                                     @endfor
@@ -291,8 +355,6 @@
                         </tbody>
                     </table>
                 </div>
-
-                {{-- Table des autres membres du jury --}}
 
                 <div class="table-responsive">
                     <table class="table-noborder" style="width: 100%;">
@@ -320,7 +382,51 @@
                     </table>
                 </div>
             </div>
-        </div>
+        </div> --}}
+        <table class="table-noborder" style="width: 100%; margin-top: 2mm;">
+            <tr>
+                <td colspan="3" style="padding: 0 0 3mm 0;">
+                    <b><u>SIGNATURE DES MEMBRES DU JURY</u></b>
+                    @if ($dateSignature)
+                        <span style="float: right; font-style: italic">
+                            {{ 'Fait à ' . remove_accents_uppercase($formation?->lieu ?? '') . ', le ' . $dateSignature->translatedFormat('d F Y') }}
+                        </span>
+                    @endif
+                </td>
+            </tr>
+            @foreach ($evaluateurs->chunk(3) as $trio)
+                <tr style="page-break-inside: avoid;">
+                    @foreach ($trio as $personne)
+                        <td style="width: 33%; vertical-align: top; padding: 2mm 3mm;">
+                            <strong>{{ $personne->name }} {{ $personne->lastname }}</strong>
+                            @if ($personne->fonction)
+                                <br><em>{{ $personne->fonction }}</em>
+                            @endif
+                            {{-- <div style="border-bottom: 1px solid #000; height: 12px; margin-top: 3mm;"></div> --}}
+                        </td>
+                    @endforeach
+                    @for ($i = $trio->count(); $i < 3; $i++)
+                        <td style="width: 33%;"></td>
+                    @endfor
+                </tr>
+            @endforeach
+
+            @if (!empty($membres_jury))
+                @foreach (collect($membres_jury)->chunk(2) as $ligne)
+                    <tr style="page-break-inside: avoid;">
+                        @foreach ($ligne as $item)
+                            <td colspan="2" style="width: 50%; vertical-align: top; padding: 2mm 3mm;">
+                                <strong>{{ $item }}</strong>
+                                <div style="height: 18px;"></div>
+                            </td>
+                        @endforeach
+                        @if (count($ligne) < 2)
+                            <td colspan="2"></td>
+                        @endif
+                    </tr>
+                @endforeach
+            @endif
+        </table>
     </div>
 
     <footer>
