@@ -161,6 +161,7 @@
                                     <button type="submit" class="btn btn-outline-primary btn-sm"><i
                                             class="bi bi-check2-circle"></i>&nbsp;Sélectionner</button>
                                 </div>
+                            </div>
                         </form>
                     </div>
                 </div>

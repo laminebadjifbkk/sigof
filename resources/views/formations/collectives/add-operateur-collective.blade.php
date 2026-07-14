@@ -60,40 +60,48 @@
                                     <label for="#">Choisir tout</label>
                                     <input type="checkbox" class="form-check-input" id="checkAll">
                                 </div> --}}
-                        <div class="col-md-12 pt-5">
-                            <div class="table-responsive">
-                                <table class="m-2 table datatables align-middle" id="table-operateurs">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Opérateurs</th>
-                                            {{-- <th class="text-center">Modules</th> --}}
-                                            <th class="text-center">Formations</th>
-                                            <th class="text-center">Statut</th>
-                                            <th><i class="bi bi-gear"></i></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php $i = 1; ?>
-                                        @foreach ($operateurs as $operateur)
-                                            {{-- @isset($operateur?->numero_agrement) --}}
-                                            @php
-                                                $selected = in_array($operateur->id, $operateurFormation);
-                                            @endphp
-                                            <tr class="{{ $selected ? 'table-success' : '' }}">
-                                                <td>
-                                                    <input type="checkbox" name="operateur" value="{{ $operateur?->id }}"
-                                                        {{ in_array($operateur?->id, $operateurFormation) ? 'checked' : '' }}
-                                                        class="form-check-input operateurs-checkbox @error('operateur') is-invalid @enderror">
-                                                    @error('operateur')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <div>{{ $message }}</div>
-                                                        </span>
-                                                    @enderror
-                                                    {{-- {{ $operateur?->numero_agrement }} --}}
-                                                </td>
-                                                <td>{{ $operateur?->user?->display_operateur }}</td>
-                                                {{-- <td style="text-align: center;">
+
+                        <form method="post"
+                            action="{{ url('formationcollectiveoperateurs', ['$idformation' => $formation->id, '$idcollectivemodule' => $formation->collectivemodule->id, '$idlocalite' => $formation->departement->id]) }}"
+                            enctype="multipart/form-data" class="row g-3">
+                            @csrf
+                            @method('PUT')
+                            <div class="row mb-3">
+                                <div class="col-md-12 pt-5">
+                                    <div class="table-responsive">
+                                        <table class="m-2 table datatables align-middle" id="table-operateurs">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Opérateurs</th>
+                                                    {{-- <th class="text-center">Modules</th> --}}
+                                                    <th class="text-center">Formations</th>
+                                                    <th class="text-center">Statut</th>
+                                                    <th><i class="bi bi-gear"></i></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php $i = 1; ?>
+                                                @foreach ($operateurs as $operateur)
+                                                    {{-- @isset($operateur?->numero_agrement) --}}
+                                                    @php
+                                                        $selected = in_array($operateur->id, $operateurFormation);
+                                                    @endphp
+                                                    <tr class="{{ $selected ? 'table-success' : '' }}">
+                                                        <td>
+                                                            <input type="checkbox" name="operateur"
+                                                                value="{{ $operateur?->id }}"
+                                                                {{ in_array($operateur?->id, $operateurFormation) ? 'checked' : '' }}
+                                                                class="form-check-input operateurs-checkbox @error('operateur') is-invalid @enderror">
+                                                            @error('operateur')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <div>{{ $message }}</div>
+                                                                </span>
+                                                            @enderror
+                                                            {{-- {{ $operateur?->numero_agrement }} --}}
+                                                        </td>
+                                                        <td>{{ $operateur?->user?->display_operateur }}</td>
+                                                        {{-- <td style="text-align: center;">
                                                             @foreach ($operateur?->operateurmodules as $operateurmodule)
                                                                 @if ($loop->last)
                                                                     <a href="#"><span
@@ -101,29 +109,31 @@
                                                                 @endif
                                                             @endforeach
                                                         </td> --}}
-                                                <td class="text-center">
-                                                    @foreach ($operateur?->formations as $formation)
-                                                        @if ($loop->last)
-                                                            <a href="#"><span
-                                                                    class="badge bg-info">{{ $loop->count }}</span></a>
-                                                        @endif
-                                                    @endforeach
-                                                </td>
-                                                <td class="text-center">
-                                                    <span class=" {{ $operateur?->statut_agrement }}">
-                                                        {{ $operateur?->statut_agrement }}</span>
-                                                </td>
-                                                <td>
-                                                    <span class="d-flex align-items-baseline"><a
-                                                            href="{{ route('operateurs.show', $operateur) }}"
-                                                            target="_blank" class="btn btn-primary btn-sm"
-                                                            title="voir détails" target="_blank"><i
-                                                                class="bi bi-eye"></i></a>
-                                                        <div class="filter">
-                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                    class="bi bi-three-dots"></i></a>
-                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                {{-- <li>
+                                                        <td class="text-center">
+                                                            @foreach ($operateur?->formations as $formation)
+                                                                @if ($loop->last)
+                                                                    <a href="#"><span
+                                                                            class="badge bg-info">{{ $loop->count }}</span></a>
+                                                                @endif
+                                                            @endforeach
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <span class=" {{ $operateur?->statut_agrement }}">
+                                                                {{ $operateur?->statut_agrement }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="d-flex align-items-baseline"><a
+                                                                    href="{{ route('operateurs.show', $operateur) }}"
+                                                                    target="_blank" class="btn btn-primary btn-sm"
+                                                                    title="voir détails" target="_blank"><i
+                                                                        class="bi bi-eye"></i></a>
+                                                                <div class="filter">
+                                                                    <a class="icon" href="#"
+                                                                        data-bs-toggle="dropdown"><i
+                                                                            class="bi bi-three-dots"></i></a>
+                                                                    <ul
+                                                                        class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                        {{-- <li>
                                                                                 <button type="button"
                                                                                     class="dropdown-item btn btn-sm mx-1"
                                                                                     data-bs-toggle="modal"
@@ -144,21 +154,22 @@
                                                                                             class="bi bi-trash"></i>Supprimer</button>
                                                                                 </form>
                                                                             </li> --}}
-                                                            </ul>
-                                                        </div>
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                            {{-- @endisset --}}
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                                                    </ul>
+                                                                </div>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                    {{-- @endisset --}}
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-outline-primary btn-sm"><i
+                                            class="bi bi-check2-circle"></i>&nbsp;Sélectionner</button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-outline-primary btn-sm"><i
-                                    class="bi bi-check2-circle"></i>&nbsp;Sélectionner</button>
-                        </div>
                         </form>
                     </div>
                 </div>
