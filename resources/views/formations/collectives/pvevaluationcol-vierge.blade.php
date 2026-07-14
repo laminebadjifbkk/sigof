@@ -69,15 +69,16 @@
         @page {
             size: A4 landscape;
             margin-top: 1cm;
-            margin-bottom: 0cm;
+            margin-bottom: 2.2cm;
+            /* espace réservé pour le footer sur CHAQUE page */
         }
 
         .invoice-box {
             max-width: 1000px;
             margin: auto;
             /* padding: 30px; */
-            font-size: 11px;
-            line-height: 15px;
+            font-size: 10px;
+            line-height: 13px;
             color: rgb(0, 0, 0);
             ;
         }
@@ -128,7 +129,8 @@
 
         footer {
             position: fixed;
-            bottom: 0;
+            bottom: -1.8cm;
+            /* ajuster pour repositionner dans la marge réservée */
             left: 0;
             right: 0;
             background-color: #ffffff;
@@ -141,6 +143,11 @@
             border-top: 2px solid #5D4037;
             /* ligne visible */
             z-index: 1000;
+        }
+
+        /*éviter qu'une ligne du tableau soit coupée entre deux pages*/
+        table tr {
+            page-break-inside: avoid;
         }
 
         .page-number {
@@ -209,7 +216,7 @@
             MINISTERE DE L'EMPLOI ET DE LA FORMATION PROFESSIONNELLE ET TECHNIQUE<br>
             ********<br><br>
             <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
-                style="width: 100%; max-width: 300px" />
+                style="width: 100%; max-width: 180px" />
         </b>
     </div>
     <div class="invoice-box">
