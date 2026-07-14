@@ -60,7 +60,23 @@
                                     <label for="#">Choisir tout</label>
                                     <input type="checkbox" class="form-check-input" id="checkAll">
                                 </div> --}}
-
+                        <div class="p-1 mb-4 border rounded bg-light shadow-sm">
+                            <div class="row text-center fw-semibold">
+                                <div class="col-md-4 mb-2">
+                                    <span class="text-secondary">Région</span><br>
+                                    <span class="fs-5 text-dark">{{ $localite->nom ?? 'Aucune' }}</span>
+                                </div>
+                                <div class="col-md-4 mb-2">
+                                    <span class="text-secondary">Module</span><br>
+                                    <span class="fs-5 text-dark">{{ $collectivemodule?->module ?? 'Aucun' }}</span>
+                                </div>
+                                <div class="col-md-4 mb-2">
+                                    <span class="text-secondary">Opérateur</span><br>
+                                    <span
+                                        class="fs-5 text-dark">{{ $formation?->operateur?->user?->display_operateur ?? 'Aucun' }}</span>
+                                </div>
+                            </div>
+                        </div>
                         <form method="post"
                             action="{{ url('formationcollectiveoperateurs', ['$idformation' => $formation->id, '$idcollectivemodule' => $formation->collectivemodule->id, '$idlocalite' => $formation->departement->id]) }}"
                             enctype="multipart/form-data" class="row g-3">
