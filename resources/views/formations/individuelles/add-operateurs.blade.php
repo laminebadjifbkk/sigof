@@ -67,7 +67,7 @@
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Opérateurs</th>
-                                                    {{-- <th class="text-center">Modules</th> --}}
+                                                    <th class="text-center">N° agrément</th>
                                                     <th class="text-center">Formations</th>
                                                     <th class="text-center">Statut</th>
                                                     <th><i class="bi bi-gear"></i></th>
@@ -95,6 +95,7 @@
                                                             {{-- {{ $operateur?->numero_agrement }} --}}
                                                         </td>
                                                         <td>{{ $operateur?->user?->display_operateur }}</td>
+                                                        <td>{{ $operateur?->numero_agrement }}</td>
                                                         {{-- <td style="text-align: center;">
                                                             <span
                                                                 class="badge bg-info">{{ count($operateur?->operateurmodules) }}</span>
