@@ -374,7 +374,6 @@
                 @endforeach
             @endif
         </table> --}}
-
         <table class="table-noborder" style="width: 100%; margin-top: 2mm;">
 
             {{-- Titre + premier trio d'évaluateurs fusionnés dans un seul <tr> --}}
@@ -399,8 +398,7 @@
                                         @if ($personne->fonction)
                                             <br><em>{{ $personne->fonction }}</em>
                                         @endif
-                                        <div style="border-bottom: 1px solid #000; height: 12px; margin-top: 3mm;">
-                                        </div>
+                                        <div style="height: 12px; margin-top: 3mm;"></div>
                                     </td>
                                 @endforeach
                                 @for ($i = $evaluateurs->chunk(3)->first()->count(); $i < 3; $i++)
@@ -421,7 +419,7 @@
                             @if ($personne->fonction)
                                 <br><em>{{ $personne->fonction }}</em>
                             @endif
-                            <div style="border-bottom: 1px solid #000; height: 12px; margin-top: 3mm;"></div>
+                            <div style="height: 12px; margin-top: 3mm;"></div>
                         </td>
                     @endforeach
                     @for ($i = $trio->count(); $i < 3; $i++)
