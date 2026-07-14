@@ -1747,7 +1747,7 @@
         }
 
 
-        .attente {
+        .attente .Attente {
             background-color: #6C757D;
             color: #ffffff;
             padding: 6px 12px;
@@ -1827,6 +1827,7 @@
         .terminer,
         .confirmer,
         .Terminée,
+        .Validée,
         .agréé {
             background-color: #198754;
             color: #ffffff;
