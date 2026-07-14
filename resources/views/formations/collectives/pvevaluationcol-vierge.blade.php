@@ -341,7 +341,7 @@
                         </span>
                     @endif
 
-                    <table style="width: 100%; border-collapse: collapse; margin-top: 2mm;">
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 1mm;">
                         <tr>
                             @if ($evaluateurs->isNotEmpty())
                                 @foreach ($evaluateurs->chunk(3)->first() as $personne)

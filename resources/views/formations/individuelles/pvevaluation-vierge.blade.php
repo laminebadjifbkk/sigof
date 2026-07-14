@@ -393,7 +393,7 @@
                 </div>
             </div>
         </div> --}}
-        <table class="table-noborder" style="width: 100%; margin-top: 2mm;">
+        <table class="table-noborder" style="width: 100%; margin-top: 1mm;">
             <tr style="page-break-inside: avoid;">
                 <td colspan="3" style="padding: 0 0 3mm 0;">
                     <b><u>SIGNATURE DES MEMBRES DU JURY</u></b>
