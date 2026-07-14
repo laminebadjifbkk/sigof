@@ -125,6 +125,8 @@ class FormationStartController extends Controller
                 data_get($formation, 'ingenieur.user.email'),
                 data_get($formation, 'ingenieur.user.employee.direction.chef.user.email'),
             ])
+
+            ->merge($formation->onfpevaluateurs?->pluck('email') ?? collect())
             ->filter()
             ->map(fn($email) => strtolower(trim($email)))
             ->unique()

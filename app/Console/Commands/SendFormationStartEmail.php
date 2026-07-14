@@ -337,7 +337,7 @@ class SendFormationStartEmail extends Command
 
             foreach ($formations as $formation) {
 
-                $emails = $defaultRecipients
+                /* $emails = $defaultRecipients
                     ->merge([
                         // Ingénieur
                         data_get($formation, 'ingenieur.user.email'),
@@ -347,12 +347,26 @@ class SendFormationStartEmail extends Command
                     ])
                     ->filter(fn($email) => filled($email))
                     ->map(fn($email) => strtolower(trim($email)))
+                    ->merge($formation->onfpevaluateurs?->pluck('email') ?? collect())
+                    ->filter(fn($email) => filter_var($email, FILTER_VALIDATE_EMAIL))
+                    ->unique()
+                    ->sort()
+                    ->values(); */
+                $emails = $defaultRecipients
+                    ->merge([
+                        // Ingénieur
+                        data_get($formation, 'ingenieur.user.email'),
+
+                        // Chef de la direction de l'ingénieur
+                        data_get($formation, 'ingenieur.user.employee.direction.chef.user.email'),
+                    ])
+                    ->merge($formation->onfpevaluateurs?->pluck('email') ?? collect())
+                    ->filter(fn($email) => filled($email))
+                    ->map(fn($email) => strtolower(trim($email)))
                     ->filter(fn($email) => filter_var($email, FILTER_VALIDATE_EMAIL))
                     ->unique()
                     ->sort()
                     ->values();
-
-                dd($emails);
 
                 if ($emails->isEmpty()) {
                     $this->warn("Aucun destinataire pour la formation #{$formation->id}");
