@@ -168,14 +168,14 @@
                                             <table class="table align-middle formations-table">
                                                 <thead>
                                                     <tr class="text-uppercase text-muted small">
-                                                        <th>Conv.</th>
+                                                        <th>N° conv.</th>
                                                         <th>Formation</th>
                                                         {{-- <th>Ingénieur</th> --}}
                                                         <th class="text-center">Progression</th>
-                                                        <th>Date début</th>
-                                                        <th>Date fin</th>
+                                                        <th>Début</th>
+                                                        <th>Fin</th>
                                                         <th>Évaluation</th>
-                                                        <th class="text-center">Jours restants</th>
+                                                        <th class="text-center"></th>
                                                         <th></th>
                                                     </tr>
                                                 </thead>
