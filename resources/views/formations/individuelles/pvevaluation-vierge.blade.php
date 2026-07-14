@@ -283,8 +283,8 @@
                         <td rowspan="2" class="item" style="text-align: center;"><b>Prénom</b></td>
                         <td rowspan="2" class="item" style="text-align: center;"><b>NOM</b></td>
                         <td rowspan="2" class="item" style="text-align: center; width: 10%;"><b>Date nais.</b></td>
-                        <td rowspan="2" class="item" style="text-align: center;"><b>Lieu naissance</b></td>
-                        <td rowspan="2" class="item" style="text-align: center; width: 10%;"><b>Téléphone</b></td>
+                        <td rowspan="3" class="item" style="text-align: center;"><b>Lieu naissance</b></td>
+                        <td rowspan="1" class="item" style="text-align: center; width: 10%;"><b>Téléphone</b></td>
                         <td colspan="3" style="text-align: center;"><b>{{ __('DECISION DU JURY') }}</b>
                         </td>
                     </tr>
