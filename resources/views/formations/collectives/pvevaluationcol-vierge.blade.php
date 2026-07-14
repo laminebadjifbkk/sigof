@@ -330,7 +330,7 @@
             </h4>
         </div> --}}
         {{-- retirer "no-page-break" ici --}}
-        {{-- <table class="table-noborder" style="width: 100%; margin-top: 2mm;">
+        <table class="table-noborder" style="width: 100%; margin-top: 2mm;">
             <tr>
                 <td colspan="3" style="padding: 0 0 3mm 0;">
                     <b><u>SIGNATURE DES MEMBRES DU JURY</u></b>
@@ -350,76 +350,6 @@
                                 <br><em>{{ $personne->fonction }}</em>
                             @endif
                             <div style="border-bottom: 1px solid #000; height: 12px; margin-top: 3mm;"></div>
-                        </td>
-                    @endforeach
-                    @for ($i = $trio->count(); $i < 3; $i++)
-                        <td style="width: 33%;"></td>
-                    @endfor
-                </tr>
-            @endforeach
-
-            @if (!empty($membres_jury))
-                @foreach (collect($membres_jury)->chunk(2) as $ligne)
-                    <tr style="page-break-inside: avoid;">
-                        @foreach ($ligne as $item)
-                            <td colspan="2" style="width: 50%; vertical-align: top; padding: 2mm 3mm;">
-                                <strong>{{ $item }}</strong>
-                                <div style="height: 18px;"></div>
-                            </td>
-                        @endforeach
-                        @if (count($ligne) < 2)
-                            <td colspan="2"></td>
-                        @endif
-                    </tr>
-                @endforeach
-            @endif
-        </table> --}}
-        <table class="table-noborder" style="width: 100%; margin-top: 2mm;">
-
-            {{-- Titre + premier trio d'évaluateurs fusionnés dans un seul <tr> --}}
-            <tr style="page-break-inside: avoid;">
-                <td colspan="3" style="padding: 0;">
-                    <table style="width: 100%; border-collapse: collapse;">
-                        <tr>
-                            <td colspan="3" style="padding: 0 0 3mm 0; border: none;">
-                                <b><u>SIGNATURE DES MEMBRES DU JURY</u></b>
-                                @if ($dateSignature)
-                                    <span style="float: right; font-style: italic">
-                                        {{ 'Fait à ' . remove_accents_uppercase($formation?->lieu ?? '') . ', le ' . $dateSignature->translatedFormat('d F Y') }}
-                                    </span>
-                                @endif
-                            </td>
-                        </tr>
-                        @if ($evaluateurs->isNotEmpty())
-                            <tr>
-                                @foreach ($evaluateurs->chunk(3)->first() as $personne)
-                                    <td style="width: 33%; vertical-align: top; padding: 2mm 3mm; border: none;">
-                                        <strong>{{ $personne->name }} {{ $personne->lastname }}</strong>
-                                        @if ($personne->fonction)
-                                            <br><em>{{ $personne->fonction }}</em>
-                                        @endif
-                                        <div style="height: 12px; margin-top: 3mm;"></div>
-                                    </td>
-                                @endforeach
-                                @for ($i = $evaluateurs->chunk(3)->first()->count(); $i < 3; $i++)
-                                    <td style="width: 33%; border: none;"></td>
-                                @endfor
-                            </tr>
-                        @endif
-                    </table>
-                </td>
-            </tr>
-
-            {{-- Trios suivants d'évaluateurs (à partir du 2e chunk) --}}
-            @foreach ($evaluateurs->chunk(3)->skip(1) as $trio)
-                <tr style="page-break-inside: avoid;">
-                    @foreach ($trio as $personne)
-                        <td style="width: 33%; vertical-align: top; padding: 2mm 3mm;">
-                            <strong>{{ $personne->name }} {{ $personne->lastname }}</strong>
-                            @if ($personne->fonction)
-                                <br><em>{{ $personne->fonction }}</em>
-                            @endif
-                            <div style="height: 12px; margin-top: 3mm;"></div>
                         </td>
                     @endforeach
                     @for ($i = $trio->count(); $i < 3; $i++)
