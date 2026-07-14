@@ -211,14 +211,14 @@
 </head>
 
 <body>
-    <div class="header-text">
+    <div style="text-align: center;">
         <b>REPUBLIQUE DU SENEGAL<br></b>
-        <em class="text-muted">Un Peuple - Un But - Une Foi</em><br>
+        Un Peuple - Un But - Une Foi<br>
         <b>********<br>
             MINISTERE DE L'EMPLOI ET DE LA FORMATION PROFESSIONNELLE ET TECHNIQUE<br>
-            <br>
+            ********<br><br>
             <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
-                style="width: 100%; max-width: 300px" />
+                style="width: 100%; max-width: 180px" />
         </b>
     </div>
     <div class="invoice-box"
@@ -284,7 +284,8 @@
                         <td rowspan="2" class="item" style="text-align: center;"><b>Prénom</b></td>
                         <td rowspan="2" class="item" style="text-align: center;"><b>NOM</b></td>
                         <td rowspan="2" class="item" style="text-align: center; width: 8%;"><b>Date nais.</b></td>
-                        <td rowspan="2" class="item" style="text-align: center; width: 17%;"><b>Lieu naissance</b></td>
+                        <td rowspan="2" class="item" style="text-align: center; width: 17%;"><b>Lieu naissance</b>
+                        </td>
                         <td rowspan="2" class="item" style="text-align: center; width: 8%;"><b>Téléphone</b></td>
                         <td colspan="3" style="text-align: center;"><b>{{ __('DECISION DU JURY') }}</b>
                         </td>
