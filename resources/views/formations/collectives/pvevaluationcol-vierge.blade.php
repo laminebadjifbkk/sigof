@@ -333,80 +333,56 @@
                 @endif
             </h4>
         </div> --}}
-        <div class="no-page-break">
+        <table class="table-noborder no-page-break" style="width: 100%; margin-top: 2mm;">
+            <tr>
+                <td colspan="3" style="padding: 0 0 3mm 0;">
+                    <b><u>SIGNATURE DES MEMBRES DU JURY</u></b>
+                    @if ($dateSignature)
+                        <span style="float: right; font-style: italic">
+                            {{ 'Fait à ' . remove_accents_uppercase($formation?->lieu ?? '') . ', le ' . $dateSignature->translatedFormat('d F Y') }}
+                        </span>
+                    @endif
+                </td>
+            </tr>
 
-            <h4 style="margin-top: 2mm;">
-                <b><u>SIGNATURE DES MEMBRES DU JURY</u></b>
-
-                @if ($dateSignature)
-                    <span style="float: right; font-style: italic">
-                        {{ 'Fait à ' . remove_accents_uppercase($formation?->lieu ?? '') . ', le ' . $dateSignature->translatedFormat('d F Y') }}
-                    </span>
-                @endif
-            </h4>
-            <div style="margin-top: 0; padding-top: 0;">
-                {{-- Table des évaluateurs (3 par ligne) --}}
-                <div class="table-responsive">
-                    <table class="table-noborder" style="width: 100%;">
-                        <tbody>
-                            @php
-                                $evaluateurs = collect($formation?->evaluateurs)->merge($formation?->onfpevaluateurs);
-                            @endphp
-
-                            @foreach ($evaluateurs->chunk(3) as $trio)
-                                <tr>
-                                    @foreach ($trio as $personne)
-                                        <td style="width: 30%;">
-                                            <div class="d-flex align-items-start mb-0">
-                                                <div>
-                                                    <strong>{{ $personne->name }} {{ $personne->lastname }}</strong>
-                                                    @if ($personne->fonction)
-                                                        <br><em class="text-muted">{{ $personne->fonction }}</em>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                            <div class="border-bottom" style="height: 15px;"></div>
-                                        </td>
-                                    @endforeach
-
-                                    {{-- Compléter la ligne s'il y a moins de 3 évaluateurs --}}
-                                    @for ($i = $trio->count(); $i < 3; $i++)
-                                        <td style="width: 30%;"></td>
-                                    @endfor
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-
-                {{-- Table des autres membres du jury --}}
-                <div class="table-responsive">
-                    <table class="table-noborder" style="width: 100%;">
-                        <tbody>
-                            @if (!empty($membres_jury))
-                                @foreach (collect($membres_jury)->chunk(2) as $ligne)
-                                    <tr>
-                                        @foreach ($ligne as $item)
-                                            <td style="width: 50%; vertical-align: top; padding-bottom: 1rem;">
-                                                <div class="d-flex align-items-start mb-1">
-                                                    <i class="bi bi-people-fill text-dark me-2 mt-1"></i>
-                                                    <div><strong>{{ $item }}</strong></div>
-                                                </div>
-                                                <div style="height: 40px;"></div>
-                                            </td>
-                                        @endforeach
-
-                                        @if (count($ligne) < 2)
-                                            <td></td>
-                                        @endif
-                                    </tr>
-                                @endforeach
+            {{-- Évaluateurs (3 par ligne) --}}
+            @php
+                $evaluateurs = collect($formation?->evaluateurs)->merge($formation?->onfpevaluateurs);
+            @endphp
+            @foreach ($evaluateurs->chunk(3) as $trio)
+                <tr style="page-break-inside: avoid;">
+                    @foreach ($trio as $personne)
+                        <td style="width: 33%; vertical-align: top; padding: 2mm 3mm;">
+                            <strong>{{ $personne->name }} {{ $personne->lastname }}</strong>
+                            @if ($personne->fonction)
+                                <br><em>{{ $personne->fonction }}</em>
                             @endif
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+                            <div style="border-bottom: 1px solid #000; height: 12px; margin-top: 3mm;"></div>
+                        </td>
+                    @endforeach
+                    @for ($i = $trio->count(); $i < 3; $i++)
+                        <td style="width: 33%;"></td>
+                    @endfor
+                </tr>
+            @endforeach
+
+            {{-- Autres membres du jury --}}
+            @if (!empty($membres_jury))
+                @foreach (collect($membres_jury)->chunk(2) as $ligne)
+                    <tr style="page-break-inside: avoid;">
+                        @foreach ($ligne as $item)
+                            <td colspan="2" style="width: 50%; vertical-align: top; padding: 2mm 3mm;">
+                                <strong>{{ $item }}</strong>
+                                <div style="height: 18px;"></div>
+                            </td>
+                        @endforeach
+                        @if (count($ligne) < 2)
+                            <td colspan="2"></td>
+                        @endif
+                    </tr>
+                @endforeach
+            @endif
+        </table>
     </div>
 
     <footer>
