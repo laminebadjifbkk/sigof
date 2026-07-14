@@ -809,6 +809,7 @@ class FormationController extends Controller
             "detf_file"          => ['sometimes', 'file', 'mimes:pdf', 'max:1024'],
 
             "regions" => "required|array|min:1",
+            'onfpevaluateur.*' => 'exists:onfpevaluateurs,id',
         ]);
 
         // Simplification des champs simples
@@ -952,7 +953,7 @@ class FormationController extends Controller
             "date_pv_finale"           => $date_pv_finale,
             /* "evaluateurs_id"        =>   $request->input('evaluateur'), */
             /* "onfpevaluateurs_id"       => $onfpevaluateur, */
-            "attestation"              => $request->statut,
+            /* "attestation"              => $request->statut, */
             "duree_formation"          => $duree_formation,
             "date_etat"                => $date_etat,
             "indemnite_transport_jour" => $indemnite_transport_jour,
@@ -963,6 +964,7 @@ class FormationController extends Controller
 
         /* $formation->evaluateurs()->sync($request->evaluateur); */
         /* $formation->onfpevaluateurs()->sync($request->onfpevaluateur); */
+        $formation->onfpevaluateurs()->sync($request->onfpevaluateur);
 
         $regionNames = $request->regions; // ["Dakar", "DIOURBEL", "KOLDA"]
 

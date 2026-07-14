@@ -674,26 +674,6 @@
                                     </div> --}}
 
                                     {{-- <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                        <label for="onfpevaluateur" class="form-label">Evaluateur ONFP<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <select name="onfpevaluateur[]" id="eonfpevaluateurSelected"
-                                            class="form-select form-select-sm @error('onfpevaluateur') is-invalid @enderror"
-                                            multiple aria-label="Select" data-placeholder="Choisir">
-                                            @foreach ($onfpevaluateurs as $onfpevaluateur)
-                                                <option value="{{ $onfpevaluateur->id }}"
-                                                    @if (collect(old('onfpevaluateur', $formation?->onfpevaluateurs?->pluck('id')->toArray()))->contains($onfpevaluateur->id)) selected @endif>
-                                                    {{ $onfpevaluateur->name . ' ' . $onfpevaluateur->lastname }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('onfpevaluateur')
-                                            <span class="invalid-feedback" role="alert">
-                                                <div>{{ $message }}</div>
-                                            </span>
-                                        @enderror
-                                    </div> --}}
-
-                                    <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <div class="mb-3">
                                             <label for="statut" class="form-label">Statut attestations<span
                                                     class="text-danger mx-1">*</span></label>
@@ -720,7 +700,7 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <div class="mb-3">
@@ -751,6 +731,42 @@
                                                 </span>
                                             @enderror
                                         </div>
+                                    </div>
+
+                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <label for="onfpevaluateur" class="form-label">Evaluateur ONFP</label>
+                                        {{-- <select name="onfpevaluateur[]" id="eonfpevaluateurSelected"
+                                            class="form-select form-select-sm @error('onfpevaluateur') is-invalid @enderror"
+                                            multiple aria-label="Select" data-placeholder="Choisir">
+                                            @foreach ($onfpevaluateurs as $onfpevaluateur)
+                                                <option value="{{ $onfpevaluateur->id }}"
+                                                    @if (collect(old('onfpevaluateur', $formation?->onfpevaluateurs?->pluck('id')->toArray()))->contains($onfpevaluateur->id)) selected @endif>
+                                                    {{ $onfpevaluateur->name . ' ' . $onfpevaluateur->lastname }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('onfpevaluateur')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror --}}
+
+                                        <select name="onfpevaluateur[]" id="onfpevaluateurSelected"
+                                            class="form-select form-select-sm @error('onfpevaluateur') is-invalid @enderror"
+                                            multiple aria-label="Select" data-placeholder="Choisir">
+                                            @foreach ($onfpevaluateurs as $onfpevaluateur)
+                                                <option value="{{ $onfpevaluateur->id }}"
+                                                    @if (collect(old('onfpevaluateur', $formation?->onfpevaluateurs?->pluck('id')->toArray()))->contains(
+                                                            $onfpevaluateur->id)) selected @endif>
+                                                    {{ $onfpevaluateur->name . ' ' . $onfpevaluateur->lastname }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('onfpevaluateur')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
                                     </div>
 
                                     <div class="col-12">
