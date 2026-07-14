@@ -310,7 +310,7 @@ class SendFormationStartEmail extends Command
             // À déclarer une seule fois avant le foreach($formations)
             $defaultRecipients = collect([
                 'lamine.badji@onfp.sn',
-                'ouly.toure@onfp.sn',
+                /* 'ouly.toure@onfp.sn', */
                 'dado.toure@onfp.sn',
                 'amsatou.paye@onfp.sn',
                 //'bara.lo@onfp.sn',

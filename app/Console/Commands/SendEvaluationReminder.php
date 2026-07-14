@@ -205,7 +205,7 @@ class SendEvaluationReminder extends Command
 
                 $emails = collect([
                     'lamine.badji@onfp.sn',
-                    'ouly.toure@onfp.sn',
+                    /* 'ouly.toure@onfp.sn', */
                     'dado.toure@onfp.sn',
                     'amsatou.paye@onfp.sn',
                     'SerigneMansourSy.FALL@onfp.sn',
