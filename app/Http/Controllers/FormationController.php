@@ -692,6 +692,8 @@ class FormationController extends Controller
                 ->orderByRaw('CAST(RIGHT(code,4) AS UNSIGNED) DESC')
                 ->first();
 
+            dd($lastFormation->code);
+
             if ($lastFormation) {
                 $lastNumber = (int) substr($lastFormation->code, -4);
                 $nextNumber = $lastNumber + 1;
