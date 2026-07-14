@@ -333,9 +333,8 @@
                 @endif
             </h4>
         </div> --}}
-        {{-- retirer "no-page-break" ici --}}
         <table class="table-noborder" style="width: 100%; margin-top: 2mm;">
-            <tr>
+            <tr style="page-break-after: avoid;"> {{-- empêche la coupure juste après ce titre --}}
                 <td colspan="3" style="padding: 0 0 3mm 0;">
                     <b><u>SIGNATURE DES MEMBRES DU JURY</u></b>
                     @if ($dateSignature)
@@ -346,11 +345,8 @@
                 </td>
             </tr>
 
-            @php
-                $evaluateurs = collect($formation?->evaluateurs)->merge($formation?->onfpevaluateurs);
-            @endphp
             @foreach ($evaluateurs->chunk(3) as $trio)
-                <tr style="page-break-inside: avoid;"> {{-- garder ici --}}
+                <tr style="page-break-inside: avoid;">
                     @foreach ($trio as $personne)
                         <td style="width: 33%; vertical-align: top; padding: 2mm 3mm;">
                             <strong>{{ $personne->name }} {{ $personne->lastname }}</strong>
@@ -368,7 +364,7 @@
 
             @if (!empty($membres_jury))
                 @foreach (collect($membres_jury)->chunk(2) as $ligne)
-                    <tr style="page-break-inside: avoid;"> {{-- garder ici --}}
+                    <tr style="page-break-inside: avoid;">
                         @foreach ($ligne as $item)
                             <td colspan="2" style="width: 50%; vertical-align: top; padding: 2mm 3mm;">
                                 <strong>{{ $item }}</strong>
