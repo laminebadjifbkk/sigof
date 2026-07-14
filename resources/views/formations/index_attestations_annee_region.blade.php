@@ -286,8 +286,8 @@
                                             {{-- <th width='10%'>Région</th> --}}
                                             <th>Modules</th>
                                             <th>Opérateurs</th>
-                                            <th width='5%' class="text-center">Attestations</th>
-                                            <th width='3%'><i class="bi bi-gear"></i></th>
+                                            {{-- <th width='5%' class="text-center">Attestations</th> --}}
+                                            <th><i class="bi bi-gear"></i></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -300,10 +300,11 @@
                                                     {{ $formation?->module?->name ?? ($formation?->collectivemodule?->module ?? '') }}
                                                 </td>
                                                 <td>{{ $formation?->operateur?->user?->display_operateur ?? ' ' }}</td>
-                                                <td class="text-center"><a><span
+                                                {{-- <td class="text-center"><a><span
                                                             class="{{ $formation?->attestation }}">{{ $formation?->attestation }}</span></a>
-                                                </td>
-                                                <td>
+                                                </td> --}}
+
+                                                {{-- <td>
                                                     <div class="d-flex align-items-center gap-2">
                                                         <!-- Bouton Voir détails -->
                                                         <a href="{{ route('formations.show', $formation) }}"
@@ -319,6 +320,41 @@
                                                             <i class="bi bi-arrow-left-right"></i>
                                                         </button>
                                                     </div>
+                                                </td> --}}
+
+                                                <td>
+                                                    @can('attestation-reussite-view')
+                                                        <div class="d-flex flex-wrap align-items-center gap-2">
+
+                                                            @if (!$formation->pdf_attestations_path)
+                                                                <a href="{{ route('formations.attestations.lancer', $formation->id) }}"
+                                                                    class="btn btn-primary btn-sm">
+                                                                    <i class="bi bi-file-earmark-plus me-1"></i>
+                                                                    Générer {{ $formation->type_certification }}
+                                                                </a>
+                                                            @elseif ($formation->pdf_attestations_path === 'en_cours')
+                                                                <button class="btn btn-warning btn-sm" disabled>
+                                                                    <span class="spinner-border spinner-border-sm me-2"></span>
+                                                                    Génération en cours...
+                                                                </button>
+
+                                                                <meta http-equiv="refresh" content="10">
+                                                            @else
+                                                                <a href="{{ route('formations.attestations.telecharger', $formation->id) }}"
+                                                                    class="btn btn-danger btn-sm">
+                                                                    <i class="bi bi-file-earmark-pdf-fill me-1"></i>
+                                                                    Télécharger
+                                                                </a>
+
+                                                                <a href="{{ route('formations.attestations.lancer', $formation->id) }}"
+                                                                    class="btn btn-outline-primary btn-sm">
+                                                                    <i class="bi bi-arrow-repeat me-1"></i>
+                                                                    Régénérer
+                                                                </a>
+                                                            @endif
+
+                                                        </div>
+                                                    @endcan
                                                 </td>
                                             </tr>
                                             <div class="modal fade" id="statuerAttestationModal-{{ $formation->id }}"
