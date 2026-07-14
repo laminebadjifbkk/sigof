@@ -333,7 +333,8 @@
                 @endif
             </h4>
         </div> --}}
-        <table class="table-noborder no-page-break" style="width: 100%; margin-top: 2mm;">
+        {{-- retirer "no-page-break" ici --}}
+        <table class="table-noborder" style="width: 100%; margin-top: 2mm;">
             <tr>
                 <td colspan="3" style="padding: 0 0 3mm 0;">
                     <b><u>SIGNATURE DES MEMBRES DU JURY</u></b>
@@ -345,12 +346,11 @@
                 </td>
             </tr>
 
-            {{-- Évaluateurs (3 par ligne) --}}
             @php
                 $evaluateurs = collect($formation?->evaluateurs)->merge($formation?->onfpevaluateurs);
             @endphp
             @foreach ($evaluateurs->chunk(3) as $trio)
-                <tr style="page-break-inside: avoid;">
+                <tr style="page-break-inside: avoid;"> {{-- garder ici --}}
                     @foreach ($trio as $personne)
                         <td style="width: 33%; vertical-align: top; padding: 2mm 3mm;">
                             <strong>{{ $personne->name }} {{ $personne->lastname }}</strong>
@@ -366,10 +366,9 @@
                 </tr>
             @endforeach
 
-            {{-- Autres membres du jury --}}
             @if (!empty($membres_jury))
                 @foreach (collect($membres_jury)->chunk(2) as $ligne)
-                    <tr style="page-break-inside: avoid;">
+                    <tr style="page-break-inside: avoid;"> {{-- garder ici --}}
                         @foreach ($ligne as $item)
                             <td colspan="2" style="width: 50%; vertical-align: top; padding: 2mm 3mm;">
                                 <strong>{{ $item }}</strong>
