@@ -168,7 +168,7 @@
                                             <table class="table align-middle formations-table">
                                                 <thead>
                                                     <tr class="text-uppercase text-muted small">
-                                                        <th>N° conv.</th>
+                                                        <th>Conv.</th>
                                                         <th>Formation</th>
                                                         {{-- <th>Ingénieur</th> --}}
                                                         <th class="text-center">Progression</th>
