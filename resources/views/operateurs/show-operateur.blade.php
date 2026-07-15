@@ -501,7 +501,7 @@
                                             @if (isset($op->file8))
                                                 <span
                                                     class="badge bg-info text-white d-inline-flex align-items-center px-2 py-1">
-                                                    Demande déjà certifiée
+                                                    <i class="bi bi-check-circle me-1"></i> Demande déjà certifiée
                                                 </span>
                                             @else
                                                 <button type="button" class="btn btn-sm btn-outline-primary me-1"
