@@ -422,7 +422,48 @@
                             </div>
                             <div class="card-body px-4">
                                 @foreach ($sections as $section)
-                                    
+                                    <div
+                                        class="d-flex justify-content-between align-items-center border-bottom py-1 position-relative">
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi {{ $section['icon'] }} me-2"></i>
+                                            {{ $section['label'] }}
+                                            @if (isset($section['count']))
+                                                <span
+                                                    class="badge {{ $section['badge'] ?? ($section['count'] === 0 ? 'bg-danger' : 'bg-info') }} position-absolute top-50 start-50 translate-middle-y"
+                                                    style="transform: translateX(-50%);">
+                                                    {{ $section['count'] }}
+                                                </span>
+                                            @endif
+                                        </div>
+                                        <div>
+                                            @if (
+                                                !empty($section['route']) &&
+                                                    in_array($op?->statut_agrement, [
+                                                        'Nouveau',
+                                                        'À corriger',
+                                                        'rejeté',
+                                                        'Non conforme',
+                                                        'Conforme',
+                                                        'Injoignable',
+                                                        'Indisponible',
+                                                        'Retiré',
+                                                        'sous réserve',
+                                                    ]))
+                                                @can('voir-statut-agrement')
+                                                    <a href="{{ $section['route'] }}" target="_blank"
+                                                        class="btn btn-sm btn-outline-success">
+                                                        <i class="bi bi-pencil-square me-1"></i> Ajouter / Modifier
+                                                    </a>
+                                                @endcan
+                                            @elseif(!empty($section['modal']))
+                                                <button class="btn btn-sm btn-outline-success" title="Modifier"
+                                                    data-bs-toggle="modal" data-bs-target="#{{ $section['modal'] }}"
+                                                    {{ $op?->statut_agrement === 'agréé' ? 'disabled' : '' }}>
+                                                    <i class="bi bi-pencil-square me-1"></i> Ajouter / Modifier
+                                                </button>
+                                            @endif
+                                        </div>
+                                    </div>
                                 @endforeach
 
                                 {{-- État demande --}}
