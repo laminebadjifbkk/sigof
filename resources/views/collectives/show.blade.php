@@ -383,11 +383,11 @@
 
                                                                     @if ($hasCIN && $hasRC && $hasModule && $hasBeneficiaries)
                                                                         <span class="text-success fw-bold fs-5">
-                                                                            ✅ Demande complète
+                                                                            Demande complète
                                                                         </span>
                                                                     @else
                                                                         <span class="text-danger fw-bold fs-5 d-block">
-                                                                            ⚠ Demande incomplète !
+                                                                            Demande incomplète !
                                                                         </span>
 
                                                                         <div class="text-danger fs-6">

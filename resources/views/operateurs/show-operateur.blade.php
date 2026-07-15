@@ -496,7 +496,8 @@
                                     </div>
 
                                     <div class="flex-shrink-0">
-                                        @if ($statut_demande === 'complète' && !in_array($op?->statut_agrement, ['agréé', 'rejeté', 'sous réserve']))
+                                        {{-- @if ($statut_demande === 'complète' && !in_array($op?->statut_agrement, ['agréé', 'rejeté', 'sous réserve'])) --}}
+                                        @if ($statut_demande === 'complète')
                                             <button type="button" class="btn btn-sm btn-outline-primary me-1"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#certificationModal{{ $op->id }}">
