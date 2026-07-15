@@ -448,6 +448,7 @@
                                                         'Indisponible',
                                                         'Retiré',
                                                         'sous réserve',
+                                                        'agréé',
                                                     ]))
                                                 @can('voir-statut-agrement')
                                                     <a href="{{ $section['route'] }}" target="_blank"

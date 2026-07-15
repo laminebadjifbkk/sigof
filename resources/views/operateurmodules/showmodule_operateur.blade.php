@@ -195,44 +195,46 @@
                                 @endcan
 
                                 <div class="col-12 mb-0">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <h5 class="card-title">DOMAINES DE COMPETENCES OU PROGRAMMES DE FORMATION</h5>
-                                        <span class="card-title d-flex align-items-baseline">Statut
-                                            :&nbsp;
-                                            <span class="{{ $operateur?->statut_agrement }} text-white btn-sm">
-                                                {{ $operateur?->statut_agrement }}</span>
-                                            @can('agrement-view')
-                                                <div class="filter">
-                                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                            class="bi bi-three-dots"></i></a>
-                                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                        @can('fichesynthese-view')
-                                                            <li>
-                                                                <form action="{{ route('ficheSyntheseOperateur') }}"
-                                                                    method="post" target="_blank">
-                                                                    @csrf
-                                                                    <input type="hidden" name="id"
-                                                                        value="{{ $operateur?->id }}">
-                                                                    <button class="btn btn-sm mx-1">Fiche synthèse</button>
-                                                                </form>
-                                                            </li>
-                                                        @endcan
-                                                        @can('lettreagrement-view')
-                                                            <li>
-                                                                <form action="{{ route('lettreOperateur') }}" method="post"
-                                                                    target="_blank">
-                                                                    @csrf
-                                                                    <input type="hidden" name="id"
-                                                                        value="{{ $operateur?->id }}">
-                                                                    <button class="btn btn-sm mx-1">Lettre agrément</button>
-                                                                </form>
-                                                            </li>
-                                                        @endcan
-                                                    </ul>
-                                                </div>
-                                            @endcan
-                                        </span>
-                                    </div>
+                                    @can('update-operateur')
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h5 class="card-title">DOMAINES DE COMPETENCES OU PROGRAMMES DE FORMATION</h5>
+                                            <span class="card-title d-flex align-items-baseline">Statut
+                                                :&nbsp;
+                                                <span class="{{ $operateur?->statut_agrement }} text-white btn-sm">
+                                                    {{ $operateur?->statut_agrement }}</span>
+                                                @can('agrement-view')
+                                                    <div class="filter">
+                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                class="bi bi-three-dots"></i></a>
+                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                            @can('fichesynthese-view')
+                                                                <li>
+                                                                    <form action="{{ route('ficheSyntheseOperateur') }}"
+                                                                        method="post" target="_blank">
+                                                                        @csrf
+                                                                        <input type="hidden" name="id"
+                                                                            value="{{ $operateur?->id }}">
+                                                                        <button class="btn btn-sm mx-1">Fiche synthèse</button>
+                                                                    </form>
+                                                                </li>
+                                                            @endcan
+                                                            @can('lettreagrement-view')
+                                                                <li>
+                                                                    <form action="{{ route('lettreOperateur') }}" method="post"
+                                                                        target="_blank">
+                                                                        @csrf
+                                                                        <input type="hidden" name="id"
+                                                                            value="{{ $operateur?->id }}">
+                                                                        <button class="btn btn-sm mx-1">Lettre agrément</button>
+                                                                    </form>
+                                                                </li>
+                                                            @endcan
+                                                        </ul>
+                                                    </div>
+                                                @endcan
+                                            </span>
+                                        </div>
+                                    @endcan
                                     <div class="row g-3">
                                         <table
                                             class="table table-bordered table-hover datatables align-middle justify-content-center"
