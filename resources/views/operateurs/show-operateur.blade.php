@@ -498,13 +498,21 @@
                                     <div class="flex-shrink-0">
                                         {{-- @if ($statut_demande === 'complète' && !in_array($op?->statut_agrement, ['agréé', 'rejeté', 'sous réserve'])) --}}
                                         @if ($statut_demande === 'complète')
-                                            <button type="button" class="btn btn-sm btn-outline-primary me-1"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#certificationModal{{ $op->id }}">
-                                                <i class="bi bi-pencil-square me-1"></i> Cliquez ici pour certifier et
-                                                soumettre votre
-                                                dossier
-                                            </button>
+                                            @if (isset($op->file8))
+                                                <span
+                                                    class="badge bg-warning text-dark d-inline-flex align-items-center px-2 py-1">
+                                                    <i class="btn btn-sm btn-outline-primary me-1"></i> Demande déjà
+                                                    certifiée
+                                                </span>
+                                            @else
+                                                <button type="button" class="btn btn-sm btn-outline-primary me-1"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#certificationModal{{ $op->id }}">
+                                                    <i class="bi bi-pencil-square me-1"></i> Cliquez ici pour certifier et
+                                                    soumettre votre
+                                                    dossier
+                                                </button>
+                                            @endif
                                         @else
                                             <span
                                                 class="badge bg-warning text-dark d-inline-flex align-items-center px-2 py-1">
