@@ -195,7 +195,7 @@
                                 @endcan
 
                                 <div class="col-12 mb-0">
-                                    @can('update-operateur')
+                                    {{-- @can('update-operateur')
                                         <div class="d-flex justify-content-between align-items-center">
                                             <h5 class="card-title">DOMAINES DE COMPETENCES OU PROGRAMMES DE FORMATION</h5>
                                             <span class="card-title d-flex align-items-baseline">Statut
@@ -234,7 +234,7 @@
                                                 @endcan
                                             </span>
                                         </div>
-                                    @endcan
+                                    @endcan --}}
                                     <div class="row g-3">
                                         <table
                                             class="table table-bordered table-hover datatables align-middle justify-content-center"
