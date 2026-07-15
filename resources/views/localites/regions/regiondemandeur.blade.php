@@ -114,6 +114,7 @@
                                             <th width="15%">Prénom & NOM</th>
                                             <th>Date nais.</th>
                                             <th>Lieu nais.</th>
+                                            <th>Adresse</th>
                                             <th>Module</th>
                                             <th>Téléphone</th>
                                             <th width="5%" class="text-center">Dépôt</th>
@@ -132,6 +133,7 @@
                                                 </td>
                                                 <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
                                                 <td>{{ $individuelle?->user?->lieu_naissance }}</td>
+                                                <td>{{ $individuelle?->user?->adresse }}</td>
                                                 <td>{{ $individuelle?->module?->name }}</td>
                                                 <td><a href="tel:+221{{ $individuelle?->user?->telephone }}">{{ $individuelle?->user?->telephone }}</a></td>
                                                 <td class="text-center">
