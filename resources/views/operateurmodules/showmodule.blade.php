@@ -195,7 +195,7 @@
                                 @endcan
 
                                 <div class="col-12 mb-0">
-                                    <div class="d-flex justify-content-between align-items-center">
+                                    {{-- <div class="d-flex justify-content-between align-items-center">
                                         <h5 class="card-title">DOMAINES DE COMPETENCES OU PROGRAMMES DE FORMATION</h5>
                                         <span class="card-title d-flex align-items-baseline">Statut
                                             :&nbsp;
@@ -232,7 +232,7 @@
                                                 </div>
                                             @endcan
                                         </span>
-                                    </div>
+                                    </div> --}}
                                     <div class="row g-3">
                                         <table
                                             class="table table-bordered table-hover datatables align-middle justify-content-center"
