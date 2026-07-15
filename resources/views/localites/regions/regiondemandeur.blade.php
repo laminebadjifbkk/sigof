@@ -115,6 +115,7 @@
                                             <th>Date nais.</th>
                                             <th>Lieu nais.</th>
                                             <th>Module</th>
+                                            <th>Téléphone</th>
                                             <th width="5%" class="text-center">Dépôt</th>
                                             <th class="text-center">Statut</th>
                                             <th class="text-center">#</th>
@@ -132,6 +133,7 @@
                                                 <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
                                                 <td>{{ $individuelle?->user?->lieu_naissance }}</td>
                                                 <td>{{ $individuelle?->module?->name }}</td>
+                                                <td><a href="tel:+221{{ $individuelle?->user?->telephone }}">{{ $individuelle?->user?->telephone }}</a></td>
                                                 <td class="text-center">
                                                     @if ($individuelle?->date_depot)
                                                         {{ $individuelle?->date_depot?->format('d/m/Y') }}
