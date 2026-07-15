@@ -500,7 +500,7 @@
                                         @if ($statut_demande === 'complète')
                                             @if (isset($op->file8))
                                                 <span
-                                                    class="badge bg-info text-dark d-inline-flex align-items-center px-2 py-1">
+                                                    class="badge bg-info text-white d-inline-flex align-items-center px-2 py-1">
                                                     Demande déjà certifiée
                                                 </span>
                                             @else
