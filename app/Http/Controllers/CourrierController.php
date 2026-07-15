@@ -214,8 +214,23 @@ class CourrierController extends Controller
             'mouhamet.ndime@onfp.sn',
         ];
 
+        /*      $emails = collect($defaultEmails)
+            ->merge($arrive->employees->users->pluck('email'))
+            ->filter()
+            ->map(fn($email) => strtolower(trim($email)))
+            ->filter(fn($email) => filter_var($email, FILTER_VALIDATE_EMAIL))
+            ->unique()
+            ->values();
+
+        if ($emails->isEmpty()) {
+            Alert::warning('Attention', 'Aucun destinataire valide trouvé.');
+            return redirect()->back();
+        } */
+
         $emails = collect($defaultEmails)
-            ->merge($arrive->users->pluck('email'))
+            ->merge(
+                $arrive->employees->pluck('user.email')
+            )
             ->filter()
             ->map(fn($email) => strtolower(trim($email)))
             ->filter(fn($email) => filter_var($email, FILTER_VALIDATE_EMAIL))
