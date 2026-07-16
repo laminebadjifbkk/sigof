@@ -29,6 +29,7 @@
 
         <main class="dash-main page-enter">
             @yield('content')
+            <div class="sidebar-overlay" id="sidebarOverlay"></div>
         </main>
     </div>
     @include('partials.user-modal') {{-- juste avant les scripts --}}

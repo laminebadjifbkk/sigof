@@ -5,7 +5,7 @@
   les autres liens sont à brancher sur vos futurs contrôleurs (Candidatures,
   Traducteurs, Formations, Délégations, Rapports, Paramètres).
 --}}
-<aside class="dash-sidebar">
+<aside class="dash-sidebar" id="dashSidebar">
     <div class="dash-brand">
         <svg width="30" height="27" viewBox="0 0 38 34">
             <use href="#bulle-teranga" fill="var(--black)" />
