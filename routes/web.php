@@ -136,7 +136,7 @@ Route::post('/connexion', [AuthenticatedCandidateSessionController::class, 'stor
 // Si vous n'avez pas encore de flux "mot de passe oublié", pointez-le
 // temporairement vers la page de connexion pour éviter une route manquante :
 Route::get('/inscription', [RegisteredCandidateController::class, 'create'])->name('inscription');
-Route::post('/inscription', [RegisteredCandidateController::class, 'store'])->name('register.store');
+Route::post('/inscription', [RegisteredCandidateController::class, 'store'])->name('inscription.store');
 
 Route::get('/mot-de-passe/oublie', [PasswordResetLinkController::class, 'created'])->name('mot-de-passe.request');
 Route::post('/mot-de-passe/email', [PasswordResetLinkController::class, 'email'])->name('mot-de-passe.email');
