@@ -26,5 +26,5 @@
     <a href="#" class="dash-link"><span class="ic"></span>Paramètres</a>
   </nav>
 
-  <div class="dash-foot">ONFP × COJO<br>SIGOF v1.0 — Dakar 2026</div>
+  <div class="dash-foot">ONFP × COJO<br>SIGOF v1.0 - Dakar 2026</div>
 </aside>

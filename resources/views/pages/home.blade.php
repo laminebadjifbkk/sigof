@@ -14,7 +14,7 @@
     </svg>
     <div class="container">
       <div>
-        <p class="eyebrow">Partenariat ONFP × COJO — Dakar 2026</p>
+        <p class="eyebrow">Partenariat ONFP × COJO - Dakar 2026</p>
         <h1>Devenez la voix<br>des <em>Jeux</em> de la jeunesse.</h1>
         <p class="lead">Cette plateforme ouvre les inscriptions pour le programme de formation et de mobilisation des traducteurs et interprètes appelés à accompagner les délégations des Jeux Olympiques de la Jeunesse Dakar 2026.</p>
         <div class="hero-ctas">
@@ -31,7 +31,7 @@
             <span style="background:var(--navy)"></span>
             <span style="background:var(--black)"></span>
           </div>
-          <p class="quote">« Afrig Dalal, Ndakaaru Jëmël — l'Afrique accueille, Dakar célèbre. Chaque langue parlée est une porte ouverte sur les Jeux. »</p>
+          <p class="quote">« Afrig Dalal, Ndakaaru Jëmël - l'Afrique accueille, Dakar célèbre. Chaque langue parlée est une porte ouverte sur les Jeux. »</p>
           <p class="who">Motto Dakar 2026 · Programme traducteurs ONFP</p>
         </div>
       </div>
@@ -43,7 +43,7 @@
       <div class="stat"><div class="num">40</div><div class="label">Postes de traducteurs à pourvoir</div></div>
       <div class="stat"><div class="num">10</div><div class="label">Langues de spécialisation</div></div>
       <div class="stat"><div class="num">21–35</div><div class="label">Tranche d'âge éligible</div></div>
-      <div class="stat"><div class="num">31 oct.</div><div class="label">Ouverture des Jeux — 2026</div></div>
+      <div class="stat"><div class="num">31 oct.</div><div class="label">Ouverture des Jeux - 2026</div></div>
     </div>
   </div>
 
@@ -77,7 +77,7 @@
   <section class="block" style="padding-top:0;">
     <div class="container">
       <div class="block-head">
-        <p class="eyebrow">YLP — Critères de sélection par langue</p>
+        <p class="eyebrow">YLP - Critères de sélection par langue</p>
         <h2>10 langues de spécialisation, 40 postes ouverts</h2>
         <p>Chaque poste correspond à une langue de spécialisation (LV1). Le niveau requis est évalué à la fois dans cette langue et en français, langue de travail du programme.</p>
       </div>
@@ -170,8 +170,8 @@
           <table class="levels-table">
             <thead><tr><th>Langue</th><th>Niveau minimum</th></tr></thead>
             <tbody>
-              <tr><td>LV1 — langue de spécialisation</td><td><b>C1</b></td></tr>
-              <tr><td>LV2 — langue vivante 2</td><td><b>B2</b></td></tr>
+              <tr><td>LV1 - langue de spécialisation</td><td><b>C1</b></td></tr>
+              <tr><td>LV2 - langue vivante 2</td><td><b>B2</b></td></tr>
               <tr><td>Français</td><td><b>C1</b> minimum</td></tr>
               <tr><td>Anglais</td><td><b>C1/B2</b> (C1 si profil bilingue)</td></tr>
             </tbody>
@@ -204,7 +204,7 @@
         <span class="partner-word">Minstère de la Formation Professionnelle</span>
         <span class="partner-word">Ministère de la Jeunesse</span>
       </div>
-      {{-- <p class="partner-note">Gabarit de démonstration — à remplacer par les logos officiels ONFP / COJO avant mise en production.</p> --}}
+      {{-- <p class="partner-note">Gabarit de démonstration - à remplacer par les logos officiels ONFP / COJO avant mise en production.</p> --}}
     </div>
   </div>
 @endsection

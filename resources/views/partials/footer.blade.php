@@ -1,4 +1,4 @@
-{{-- partials/footer.blade.php — utilisé par layouts/app.blade.php (pas affiché sur le dashboard) --}}
+{{-- partials/footer.blade.php - utilisé par layouts/app.blade.php (pas affiché sur le dashboard) --}}
 <footer class="site" id="siteFooter">
   <div class="container">
     <div class="footer-grid">
@@ -33,14 +33,14 @@
         <h5>Contact</h5>
         <ul>
           <li>contact@contact.sn</li>
-          <li>+221 33 800 00 00</li>
+          <li>+221 33 000 00 00</li>
           <li>Dakar, Sénégal</li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span class="motto">Afrig Dalal, Ndakaaru Jëmël — L'Afrique accueille, Dakar célèbre.</span>
-      <span class="motto">© {{ date('Y') }} ONFP × COJO — SIGOF.</span>
+      <span class="motto">Afrig Dalal, Ndakaaru Jëmël - L'Afrique accueille, Dakar célèbre.</span>
+      <span class="motto">© {{ date('Y') }} ONFP × COJO - SIGOF.</span>
     </div>
   </div>
 </footer>
