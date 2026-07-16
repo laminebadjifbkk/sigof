@@ -1,6 +1,6 @@
 @auth
-<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+<div class="modal fade modal-top-right" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
         <div class="modal-content sigof-modal">
             <button type="button" class="modal-close" data-bs-dismiss="modal" aria-label="Fermer">✕</button>
             <div class="modal-body">
@@ -15,7 +15,7 @@
                 </div>
                 <form method="POST" action="{{ route('deconnexion') }}" class="modal-logout-form">
                     @csrf
-                    <button type="submit" class="btn btn-primary text-white btn-block nav-cta-logout">Se déconnecter</button>
+                    <button type="submit" class="btn btn-sm btn-primary text-white btn-block nav-cta-logout">Se déconnecter</button>
                 </form>
             </div>
         </div>

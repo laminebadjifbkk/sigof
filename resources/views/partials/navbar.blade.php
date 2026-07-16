@@ -22,9 +22,11 @@
                 </svg>
             </span>
             <div class="brand-text">
-                <span class="sigof">SIGOF</span>
-                <span class="sub">ONFP — Traducteurs officiels</span>
+                <a href="{{ route('dashboard') }}">
+                    <span class="sigof">ONFP YLP</span>
+                </a>
             </div>
+            @guest
             <div class="brand-divider"></div>
             <div class="dakar-chip">
                 <span class="bulle-mark"><svg width="16" height="14" viewBox="0 0 38 34">
@@ -32,15 +34,16 @@
                     </svg></span>
                 DAKAR 2026 · JOJ
             </div>
+            @endguest
         </div>
 
         <nav class="main-nav" id="mainNav">
-            <a href="{{ route('home') }}" class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">Accueil</a>
             @guest
+            <a href="{{ route('home') }}" class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">Accueil</a>
             <a href="{{ route('connexion') }}" class="nav-link {{ request()->routeIs('connexion') ? 'active' : '' }}">Connexion</a>
             <a href="{{ route('inscription') }}" class="nav-link {{ request()->routeIs('inscription') ? 'active' : '' }}">Inscription</a>
-            @endguest
             <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard*') ? 'active' : '' }}">Espace admin</a>
+            @endguest
         </nav>
 
         <div class="nav-actions">
