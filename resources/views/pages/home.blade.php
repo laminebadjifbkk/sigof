@@ -18,7 +18,7 @@
         <h1>Devenez la voix<br>des <em>Jeux</em> de la jeunesse.</h1>
         <p class="lead">Cette plateforme ouvre les inscriptions pour le programme de formation et de mobilisation des traducteurs et interprètes appelés à accompagner les délégations des Jeux Olympiques de la Jeunesse Dakar 2026.</p>
         <div class="hero-ctas">
-          <a href="{{ route('register') }}" class="btn btn-primary">Je m'inscris comme traducteur</a>
+          <a href="{{ route('inscription') }}" class="btn btn-primary">Je m'inscris comme traducteur</a>
           <a href="{{ route('connexion') }}" class="btn btn-ghost">Accéder à mon espace</a>
         </div>
       </div>
