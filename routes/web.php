@@ -135,13 +135,14 @@ Route::get('/connexion', [AuthenticatedCandidateSessionController::class, 'creat
 Route::post('/connexion', [AuthenticatedCandidateSessionController::class, 'store'])->name('login.attempt');
 // Si vous n'avez pas encore de flux "mot de passe oublié", pointez-le
 // temporairement vers la page de connexion pour éviter une route manquante :
-/* Route::get('/mot-de-passe-oublie', [AuthenticatedCandidateSessionController::class, 'created'])->name('mot-de-passe.request'); */
-Route::get('/mot-de-passe/oublie', [PasswordResetLinkController::class, 'created'])
-    ->middleware('guest')
-    ->name('mot-de-passe.request');
-
 Route::get('/inscription', [RegisteredCandidateController::class, 'create'])->name('inscription');
 Route::post('/inscription', [RegisteredCandidateController::class, 'store'])->name('register.store');
+
+Route::get('/mot-de-passe/oublie', [PasswordResetLinkController::class, 'created'])->name('mot-de-passe.request');
+Route::post('/mot-de-passe/email', [PasswordResetLinkController::class, 'email'])->name('mot-de-passe.email');
+Route::get('/mot-de-passe/reinitialiser/{token}', [PasswordResetLinkController::class, 'reset'])->name('mot-de-passe.reset');
+Route::post('/mot-de-passe/reinitialiser', [PasswordResetLinkController::class, 'update'])->name('mot-de-passe.update');
+
 
 // ---------- Espace admin (à protéger avec vos middlewares : auth, rôle admin…) ----------
 Route::middleware(['auth', 'can:access-admin'])->group(function () {

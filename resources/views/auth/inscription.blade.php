@@ -34,7 +34,7 @@
                 {{-- Le stepper est géré en JS (sigof.js) : "Étape suivante" avance visuellement,
              et c'est le clic final ("Envoyer ma candidature") qui doit soumettre ce
              formulaire vers votre contrôleur (adapter regNext dans sigof.js si besoin). --}}
-                <form id="registerForm" method="POST" action="{{ route('register.store') }}" enctype="multipart/form-data">
+                <form id="registerForm" method="POST" action="{{ route('inscription.store') }}" enctype="multipart/form-data">
                     @csrf
 
                     <div class="reg-step active" data-step="1">
