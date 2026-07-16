@@ -7,7 +7,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  /* ---------- Menu mobile (navbar) ---------- */
+  /* ---------- Menu mobile (navbar, utilisateur invité) ---------- */
   const menuToggle = document.getElementById('menuToggle');
   const mainNav = document.getElementById('mainNav');
   if (menuToggle && mainNav) {
@@ -22,6 +22,26 @@ document.addEventListener('DOMContentLoaded', () => {
   const sidebarToggle = document.getElementById('sidebarToggle');
   const dashSidebar = document.getElementById('dashSidebar');
   const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+  if (sidebarToggle && dashSidebar) {
+    const closeSidebar = () => {
+      dashSidebar.classList.remove('open');
+      sidebarOverlay?.classList.remove('show');
+      sidebarToggle.setAttribute('aria-expanded', 'false');
+    };
+
+    sidebarToggle.addEventListener('click', () => {
+      const isOpen = dashSidebar.classList.toggle('open');
+      sidebarOverlay?.classList.toggle('show', isOpen);
+      sidebarToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    sidebarOverlay?.addEventListener('click', closeSidebar);
+
+    dashSidebar.querySelectorAll('.dash-link').forEach(link => {
+      link.addEventListener('click', closeSidebar);
+    });
+  }
 
   if (sidebarToggle && dashSidebar) {
     const closeSidebar = () => {

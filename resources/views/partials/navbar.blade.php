@@ -48,8 +48,8 @@
 
         <div class="nav-actions">
             @guest
-            <a href="{{ route('connexion') }}" class="btn btn-ghost btn-sm nav-cta-login">Se connecter</a>
-            <a href="{{ route('inscription') }}" class="btn btn-primary btn-sm nav-cta-register">Je m'inscris</a>
+            <a href="{{ route('connexion') }}" class="btn btn-ghost btn-sm nav-cta-register">Se connecter</a>
+            <a href="{{ route('inscription') }}" class="btn btn-primary btn-sm nav-cta-login">Je m'inscris</a>
             @else
             <button type="button" class="avatar-bubble" data-bs-toggle="modal" data-bs-target="#userModal" title="{{ trim((Auth::user()->civilite ?? '').' '.(Auth::user()->firstname ?? '').' '.(Auth::user()->name ?? '')) }}">
                 {{ Auth::check() ? Str::upper(Str::substr(Auth::user()->firstname, 0, 1)).''.Str::upper(Str::substr(Auth::user()->name, 0, 1)) : 'FN' }}
@@ -57,9 +57,9 @@
             @endguest
 
             @guest
-            <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mainNav">
+            <!--  <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mainNav">
                 <span></span><span></span><span></span>
-            </button>
+            </button> -->
             @else
             <button class="menu-toggle" id="sidebarToggle" aria-label="Ouvrir le menu latéral" aria-expanded="false" aria-controls="dashSidebar">
                 <span></span><span></span><span></span>

@@ -1620,33 +1620,7 @@ table.data-table tr:hover td {
   }
 
   .dash-sidebar {
-    display: flex;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 250px;
-    max-width: 80vw;
-    transform: translateX(-100%);
-    transition: transform .25s ease;
-    z-index: 45;
-    box-shadow: 12px 0 30px rgba(0, 0, 0, 0.25);
-  }
-
-  .dash-sidebar.open {
-    transform: translateX(0);
-  }
-
-  .sidebar-overlay {
     display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.4);
-    z-index: 44;
-  }
-
-  .sidebar-overlay.show {
-    display: block;
   }
 
   .kpi-grid {
@@ -1668,7 +1642,6 @@ table.data-table tr:hover td {
     flex-direction: column;
     padding: 10px;
     gap: 6px;
-    z-index: 40;
   }
 
   nav.main-nav.open {
@@ -1679,10 +1652,13 @@ table.data-table tr:hover td {
     display: block;
   }
 
+  /* Navbar mobile : un seul CTA visible (Se connecter). "Je m'inscris" reste
+       accessible via le lien "Inscription" du menu burger. */
   .nav-cta-register {
     display: none;
   }
 
+  /* Idem côté utilisateur connecté : on garde uniquement "Se déconnecter" */
   .nav-user-chip {
     display: none;
   }
@@ -1847,35 +1823,41 @@ button.avatar-bubble:hover {
 
 /* aside */
 
-.dash-sidebar {
-  display: flex;
-  /* on annule le display:none existant */
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 250px;
-  max-width: 80vw;
-  transform: translateX(-100%);
-  transition: transform .25s ease;
-  z-index: 45;
-  /* sous le header (50), au-dessus du contenu */
-  box-shadow: 12px 0 30px rgba(0, 0, 0, 0.25);
-}
+@media (max-width: 980px) {
+  .dash-shell {
+    grid-template-columns: 1fr;
+  }
 
-.dash-sidebar.open {
-  transform: translateX(0);
-}
+  .dash-sidebar {
+    display: flex;
+    /* on annule le display:none existant */
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 250px;
+    max-width: 80vw;
+    transform: translateX(-100%);
+    transition: transform .25s ease;
+    z-index: 45;
+    /* sous le header (50), au-dessus du contenu */
+    box-shadow: 12px 0 30px rgba(0, 0, 0, 0.25);
+  }
 
-/* overlay derrière la sidebar ouverte */
-.sidebar-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 44;
-}
+  .dash-sidebar.open {
+    transform: translateX(0);
+  }
 
-.sidebar-overlay.show {
-  display: block;
+  /* overlay derrière la sidebar ouverte */
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 44;
+  }
+
+  .sidebar-overlay.show {
+    display: block;
+  }
 }
