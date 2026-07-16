@@ -109,7 +109,42 @@ use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Formula;
 
 
 
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\RegisteredCandidateController;
+use App\Http\Controllers\DashboardController;
 
+/*
+|--------------------------------------------------------------------------
+| Routes SIGOF x Dakar 2026
+|--------------------------------------------------------------------------
+| Squelette minimal correspondant aux route() utilisés dans les vues Blade
+| fournies (navbar, footer, pages, auth, dashboard). Remplacez les
+| contrôleurs par les vôtres, ou adaptez les noms de route si votre
+| application en a déjà (ex: si vous utilisez Laravel Breeze/Fortify pour
+| l'auth, gardez leurs routes et retirez juste les doublons ci-dessous).
+*/
+
+// ---------- Public ----------
+Route::get('/ylp', [PageController::class, 'home'])->name('ylphome');
+
+// ---------- Authentification candidat ----------
+Route::get('/connexion', [AuthenticatedSessionController::class, 'create'])->name('login');
+Route::post('/connexion', [AuthenticatedSessionController::class, 'store'])->name('login.attempt');
+// Si vous n'avez pas encore de flux "mot de passe oublié", pointez-le
+// temporairement vers la page de connexion pour éviter une route manquante :
+Route::get('/mot-de-passe-oublie', [AuthenticatedSessionController::class, 'create'])->name('password.request');
+
+Route::get('/inscription', [RegisteredCandidateController::class, 'create'])->name('register');
+Route::post('/inscription', [RegisteredCandidateController::class, 'store'])->name('register.store');
+
+// ---------- Espace admin (à protéger avec vos middlewares : auth, rôle admin…) ----------
+Route::middleware(['auth', 'can:access-admin'])->group(function () {
+    Route::get('/admin', [DashboardController::class, 'index'])->name('dashboard');
+    // Route::get('/admin/candidatures', [DashboardController::class, 'candidatures'])->name('dashboard.candidatures');
+    // Route::get('/admin/traducteurs', [DashboardController::class, 'traducteurs'])->name('dashboard.traducteurs');
+    // ... branchez ici les futurs liens de partials/sidebar.blade.php
+});
 
 
 

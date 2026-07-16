@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
@@ -59,6 +59,44 @@
         </main>
     </div>
     @include('sweetalert::alert')
+</body>
+
+</html>
+ --}}
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@yield('title', 'SIGOF') · Dakar 2026 — Programme des traducteurs officiels</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap"
+        rel="stylesheet">
+
+    {{-- En Blade "classique" (asset()). Si vous utilisez Vite, remplacez par :
+       @vite(['resources/css/sigof.css', 'resources/js/sigof.js']) --}}
+    <link rel="stylesheet" href="{{ asset('assets/css/sigof.css') }}">
+
+    @stack('styles')
+</head>
+
+<body>
+
+    @include('partials.svg-defs')
+    @include('partials.navbar')
+
+    <main class="page-enter">
+        @yield('content')
+    </main>
+
+    @include('partials.footer')
+
+    <script src="{{ asset('assets/js/sigof.js') }}"></script>
+    @stack('scripts')
 </body>
 
 </html>
