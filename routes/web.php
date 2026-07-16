@@ -6,7 +6,10 @@ use App\Http\Controllers\ArriveController;
 use App\Http\Controllers\ArrondissementController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AttestationController;
+use App\Http\Controllers\Auth\AuthenticatedCandidateSessionController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\Auth\RegisteredCandidateController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BudgetLabelController;
 use App\Http\Controllers\CategorieController;
@@ -19,6 +22,7 @@ use App\Http\Controllers\CommuneController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ConventionController;
 use App\Http\Controllers\CourrierController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DecisionController;
 use App\Http\Controllers\DecretController;
 use App\Http\Controllers\DemandeurController;
@@ -62,6 +66,7 @@ use App\Http\Controllers\OperateurequipementController;
 use App\Http\Controllers\OperateurformateurController;
 use App\Http\Controllers\OperateurlocaliteController;
 use App\Http\Controllers\OperateurmoduleController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\ParcAffectationController;
 use App\Http\Controllers\ParcChauffeurController;
 use App\Http\Controllers\ParcDepenseController;
@@ -94,25 +99,22 @@ use App\Http\Controllers\ValidationformationController;
 use App\Http\Controllers\ValidationIndividuelleController;
 use App\Http\Controllers\ValidationmoduleController;
 use App\Http\Controllers\ValidationoperateurController;
+
+
+
+
+
+
+
+
+
+
 use App\Http\Controllers\VerificationAttestationController;
 use App\Models\Arrive;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Formula;
 
-
-
-
-
-
-
-
-
-
-use App\Http\Controllers\PageController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Auth\RegisteredCandidateController;
-use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -129,13 +131,16 @@ use App\Http\Controllers\DashboardController;
 Route::get('/ylp', [PageController::class, 'home'])->name('ylphome');
 
 // ---------- Authentification candidat ----------
-Route::get('/connexion', [AuthenticatedSessionController::class, 'create'])->name('login');
-Route::post('/connexion', [AuthenticatedSessionController::class, 'store'])->name('login.attempt');
+Route::get('/connexion', [AuthenticatedCandidateSessionController::class, 'create'])->name('connexion');
+Route::post('/connexion', [AuthenticatedCandidateSessionController::class, 'store'])->name('login.attempt');
 // Si vous n'avez pas encore de flux "mot de passe oublié", pointez-le
 // temporairement vers la page de connexion pour éviter une route manquante :
-Route::get('/mot-de-passe-oublie', [AuthenticatedSessionController::class, 'create'])->name('password.request');
+/* Route::get('/mot-de-passe-oublie', [AuthenticatedCandidateSessionController::class, 'created'])->name('mot-de-passe.request'); */
+Route::get('/mot-de-passe/oublie', [PasswordResetLinkController::class, 'created'])
+    ->middleware('guest')
+    ->name('mot-de-passe.request');
 
-Route::get('/inscription', [RegisteredCandidateController::class, 'create'])->name('register');
+Route::get('/inscription', [RegisteredCandidateController::class, 'create'])->name('inscription');
 Route::post('/inscription', [RegisteredCandidateController::class, 'store'])->name('register.store');
 
 // ---------- Espace admin (à protéger avec vos middlewares : auth, rôle admin…) ----------

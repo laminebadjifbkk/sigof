@@ -96,6 +96,15 @@
     @include('partials.footer')
 
     <script src="{{ asset('assets/js/sigof.js') }}"></script>
+
+    <script>
+        document.querySelectorAll('.upload-box input[type="file"]').forEach(input => {
+            input.addEventListener('change', function() {
+                const fileName = this.files.length ? this.files[0].name : 'Aucun fichier sélectionné';
+                this.closest('.upload-box').querySelector('.file-name').textContent = fileName;
+            });
+        });
+    </script>
     @stack('scripts')
 </body>
 

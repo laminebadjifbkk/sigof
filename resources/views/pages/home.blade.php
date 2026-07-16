@@ -16,10 +16,10 @@
       <div>
         <p class="eyebrow">Partenariat ONFP × COJO — Dakar 2026</p>
         <h1>Devenez la voix<br>des <em>Jeux</em> de la jeunesse.</h1>
-        <p class="lead">Le SIGOF ouvre les inscriptions pour le programme de formation et de mobilisation des traducteurs et interprètes appelés à accompagner les délégations des Jeux Olympiques de la Jeunesse Dakar 2026.</p>
+        <p class="lead">Cette plateforme ouvre les inscriptions pour le programme de formation et de mobilisation des traducteurs et interprètes appelés à accompagner les délégations des Jeux Olympiques de la Jeunesse Dakar 2026.</p>
         <div class="hero-ctas">
           <a href="{{ route('register') }}" class="btn btn-primary">Je m'inscris comme traducteur</a>
-          <a href="{{ route('login') }}" class="btn btn-ghost">Accéder à mon espace</a>
+          <a href="{{ route('connexion') }}" class="btn btn-ghost">Accéder à mon espace</a>
         </div>
       </div>
       <div class="hero-visual">
@@ -201,10 +201,10 @@
       <div class="partners-row">
         <span class="partner-word">ONFP</span>
         <span class="partner-word">COJO · YOGOC Dakar 2026</span>
-        <span class="partner-word">SIGOF</span>
+        <span class="partner-word">Minstère de la Formation Professionnelle</span>
         <span class="partner-word">Ministère de la Jeunesse</span>
       </div>
-      <p class="partner-note">Gabarit de démonstration — à remplacer par les logos officiels ONFP / COJO avant mise en production.</p>
+      {{-- <p class="partner-note">Gabarit de démonstration — à remplacer par les logos officiels ONFP / COJO avant mise en production.</p> --}}
     </div>
   </div>
 @endsection

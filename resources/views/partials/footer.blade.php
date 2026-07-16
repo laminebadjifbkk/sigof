@@ -15,9 +15,9 @@
       <div>
         <h5>Programme</h5>
         <ul>
-          <li><a href="{{ route('home') }}">Présentation</a></li>
-          <li><a href="{{ route('register') }}">S'inscrire</a></li>
-          <li><a href="{{ route('login') }}">Espace candidat</a></li>
+          <li><a href="{{ route('ylphome') }}">Présentation</a></li>
+          <li><a href="{{ route('inscription') }}">S'inscrire</a></li>
+          <li><a href="{{ route('connexion') }}">Espace candidat</a></li>
           <li><a href="{{ route('dashboard') }}">Espace admin</a></li>
         </ul>
       </div>
@@ -25,14 +25,14 @@
         <h5>Partenaires</h5>
         <ul>
           <li>ONFP</li>
-          <li>COJO — YOGOC Dakar 2026</li>
+          <li>COJO - YOGOC Dakar 2026</li>
           <li>Ministère de la Jeunesse</li>
         </ul>
       </div>
       <div>
         <h5>Contact</h5>
         <ul>
-          <li>traducteurs@onfp.sn</li>
+          <li>contact@contact.sn</li>
           <li>+221 33 800 00 00</li>
           <li>Dakar, Sénégal</li>
         </ul>
