@@ -145,7 +145,7 @@ Route::post('/mot-de-passe/reinitialiser', [PasswordResetLinkController::class, 
 
 
 // ---------- Espace admin (à protéger avec vos middlewares : auth, rôle admin…) ----------
-Route::middleware(['auth', 'can:access-admin'])->group(function () {
+Route::middleware(['authylp', 'can:access-admin'])->group(function () {
     Route::get('/admin', [DashboardController::class, 'index'])->name('dashboard');
     // Route::get('/admin/candidatures', [DashboardController::class, 'candidatures'])->name('dashboard.candidatures');
     // Route::get('/admin/traducteurs', [DashboardController::class, 'traducteurs'])->name('dashboard.traducteurs');
