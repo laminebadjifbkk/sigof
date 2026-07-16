@@ -10,7 +10,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap"
         rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ asset('assets/css/sigof.css') }}">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css">
 
@@ -21,6 +21,7 @@
 <body>
 
     @include('partials.svg-defs')
+    @include('partials.navbar')
 
     {{-- Le dashboard n'affiche pas la navbar/footer publics : sidebar + topbar suffisent --}}
     <div class="dash-shell">
@@ -30,8 +31,10 @@
             @yield('content')
         </main>
     </div>
+    @include('partials.user-modal') {{-- juste avant les scripts --}}
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('assets/js/sigof.js') }}"></script>
     <script src="https://cdn.datatables.net/2.3.2/js/dataTables.min.js"></script>
 

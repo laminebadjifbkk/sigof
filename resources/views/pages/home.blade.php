@@ -21,6 +21,19 @@
           <a href="{{ route('inscription') }}" class="btn btn-primary">Je m'inscris comme traducteur</a>
           <a href="{{ route('connexion') }}" class="btn btn-ghost">Accéder à mon espace</a>
         </div>
+        
+        {{-- Compte à rebours vers l'ouverture des Jeux (31 octobre 2026, 00:00 UTC = heure de Dakar).
+             $gamesOpeningDate est passé par PageController@home ; valeur de secours ci-dessous si absent. --}}
+        <div class="countdown" id="heroCountdown" data-target="{{ $gamesOpeningDate ?? '2026-10-31T00:00:00+00:00' }}" role="timer" aria-live="off" aria-label="Compte à rebours avant l'ouverture des Jeux">
+          <div class="cd-item"><span class="cd-num" data-cd="days">00</span><span class="cd-label">Jours</span></div>
+          <span class="cd-sep">:</span>
+          <div class="cd-item"><span class="cd-num" data-cd="hours">00</span><span class="cd-label">Heures</span></div>
+          <span class="cd-sep">:</span>
+          <div class="cd-item"><span class="cd-num" data-cd="minutes">00</span><span class="cd-label">Min</span></div>
+          <span class="cd-sep">:</span>
+          <div class="cd-item"><span class="cd-num" data-cd="seconds">00</span><span class="cd-label">Sec</span></div>
+        </div>
+        <p class="countdown-caption">avant l'ouverture des JOJ - Dakar, 31 octobre 2026</p>
       </div>
       <div class="hero-visual">
         <div class="hero-bubble-card">
@@ -32,7 +45,7 @@
             <span style="background:var(--black)"></span>
           </div>
           <p class="quote">« Afrig Dalal, Ndakaaru Jëmël - l'Afrique accueille, Dakar célèbre. Chaque langue parlée est une porte ouverte sur les Jeux. »</p>
-          <p class="who">Motto Dakar 2026 · Programme traducteurs ONFP</p>
+          <p class="who">Motto Dakar 2026</p>
         </div>
       </div>
     </div>
@@ -42,7 +55,7 @@
     <div class="container">
       <div class="stat"><div class="num">40</div><div class="label">Postes de traducteurs à pourvoir</div></div>
       <div class="stat"><div class="num">10</div><div class="label">Langues de spécialisation</div></div>
-      <div class="stat"><div class="num">21–35</div><div class="label">Tranche d'âge éligible</div></div>
+      <div class="stat"><div class="num">21-35</div><div class="label">Tranche d'âge éligible</div></div>
       <div class="stat"><div class="num">31 oct.</div><div class="label">Ouverture des Jeux - 2026</div></div>
     </div>
   </div>

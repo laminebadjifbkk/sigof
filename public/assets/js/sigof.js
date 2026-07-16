@@ -83,4 +83,38 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* ---------- Compte à rebours vers l'ouverture des Jeux ---------- */
+  const countdownEl = document.getElementById('heroCountdown');
+  if (countdownEl) {
+    const target = new Date(countdownEl.dataset.target).getTime();
+    const pad = (n) => String(Math.max(n, 0)).padStart(2, '0');
+
+    const nums = {
+      days: countdownEl.querySelector('[data-cd="days"]'),
+      hours: countdownEl.querySelector('[data-cd="hours"]'),
+      minutes: countdownEl.querySelector('[data-cd="minutes"]'),
+      seconds: countdownEl.querySelector('[data-cd="seconds"]'),
+    };
+
+    let timer;
+
+    const tick = () => {
+      const diff = target - Date.now();
+
+      if (diff <= 0) {
+        clearInterval(timer);
+        countdownEl.outerHTML = '<p class="countdown-live">🎉 Les Jeux Olympiques de la Jeunesse Dakar 2026 sont ouverts !</p>';
+        return;
+      }
+
+      nums.days.textContent = pad(Math.floor(diff / 86400000));
+      nums.hours.textContent = pad(Math.floor((diff % 86400000) / 3600000));
+      nums.minutes.textContent = pad(Math.floor((diff % 3600000) / 60000));
+      nums.seconds.textContent = pad(Math.floor((diff % 60000) / 1000));
+    };
+
+    tick();
+    timer = setInterval(tick, 1000);
+  }
+
 });

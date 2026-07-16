@@ -138,6 +138,10 @@ Route::post('/connexion', [AuthenticatedCandidateSessionController::class, 'stor
 Route::get('/inscription', [RegisteredCandidateController::class, 'create'])->name('inscription');
 Route::post('/inscription', [RegisteredCandidateController::class, 'store'])->name('inscription.store');
 
+Route::post('/deconnexion', [AuthenticatedCandidateSessionController::class, 'destroy'])
+    ->middleware('auth')
+    ->name('deconnexion');
+
 Route::get('/mot-de-passe/oublie', [PasswordResetLinkController::class, 'created'])->name('mot-de-passe.request');
 Route::post('/mot-de-passe/email', [PasswordResetLinkController::class, 'email'])->name('mot-de-passe.email');
 Route::get('/mot-de-passe/reinitialiser/{token}', [PasswordResetLinkController::class, 'reset'])->name('mot-de-passe.reset');

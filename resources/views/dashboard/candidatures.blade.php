@@ -13,7 +13,7 @@
                 <span>🔍</span>
                 <input type="text" id="tableSearch" placeholder="Rechercher un candidat…">
             </div>
-            <div class="avatar-bubble">{{ Auth::check() ? Str::upper(Str::substr(Auth::user()->name, 0, 2)) : 'FN' }}</div>
+            <!-- <div class="avatar-bubble">{{ Auth::check() ? Str::upper(Str::substr(Auth::user()->name, 0, 2)) : 'FN' }}</div> -->
         </div>
     </div>
 
