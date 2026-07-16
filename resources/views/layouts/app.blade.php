@@ -80,6 +80,7 @@
     {{-- En Blade "classique" (asset()). Si vous utilisez Vite, remplacez par :
        @vite(['resources/css/sigof.css', 'resources/js/sigof.js']) --}}
     <link rel="stylesheet" href="{{ asset('assets/css/sigof.css') }}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css">
 
     @stack('styles')
 </head>
@@ -105,6 +106,10 @@
             });
         });
     </script>
+    <script src="{{ asset('assets/js/sigof.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
     @stack('scripts')
 </body>
 

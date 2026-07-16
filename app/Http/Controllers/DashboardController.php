@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Candidature;
+use App\Models\Individuelle;
+
 class DashboardController extends Controller
 {
     public function index()
@@ -15,5 +18,16 @@ class DashboardController extends Controller
         ];
 
         return view('dashboard.index', compact('kpis'));
+    }
+
+
+    public function candidatures()
+    {
+
+        $candidatures = Individuelle::whereHas('user', function ($query) {
+            $query->whereNotNull('firstname');
+        })->get();
+
+        return view('dashboard.candidatures', compact('candidatures'));
     }
 }
