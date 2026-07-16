@@ -32,14 +32,14 @@
                 <span class="bulle-mark"><svg width="16" height="14" viewBox="0 0 38 34">
                         <use href="#bulle-teranga" fill="var(--cream)" />
                     </svg></span>
-                DAKAR 2026 · JOJ
+                JOJ DAKAR 2026
             </div>
             @endguest
         </div>
 
         <nav class="main-nav" id="mainNav">
             @guest
-            <a href="{{ route('home') }}" class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">Accueil</a>
+            <a href="{{ route('ylphome') }}" class="nav-link {{ request()->routeIs('ylphome') ? 'active' : '' }}">Accueil</a>
             <a href="{{ route('connexion') }}" class="nav-link {{ request()->routeIs('connexion') ? 'active' : '' }}">Connexion</a>
             <a href="{{ route('inscription') }}" class="nav-link {{ request()->routeIs('inscription') ? 'active' : '' }}">Inscription</a>
             <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard*') ? 'active' : '' }}">Espace admin</a>
