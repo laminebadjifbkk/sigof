@@ -236,7 +236,7 @@
                                         <p>
                                             <span>
                                                 <b>REF CONVENTION D'ASSISTANCE </b> :
-                                                {{ $formation?->numero_convention . '/ONFP/DG/DIOF/' . $formation->ingenieur->initiale . ' du ' . $formation?->date_convention?->format('d/m/Y') }}
+                                                {{ $formation?->numero_convention . '/ONFP/DG/DIOF/' . $formation?->ingenieur?->initiale . ' du ' . $formation?->date_convention?->format('d/m/Y') }}
                                             </span>
                                         </p>
                                         <p>

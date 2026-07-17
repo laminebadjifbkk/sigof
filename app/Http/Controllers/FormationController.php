@@ -41,6 +41,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
 use NumberToWords\NumberToWords;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Str;
 
 class FormationController extends Controller
 {
@@ -4178,7 +4179,7 @@ class FormationController extends Controller
 
         if ($formation->statut == "Terminée") {
 
-            $title = 'Attestation de bonne execution ' . $formation?->operateur?->user?->display_operateur . ' en ' . $formation?->module?->name;
+            $title = 'Attestation de bonne execution ' . $formation?->operateur?->user?->operateur . ' en ' . $formation?->module?->name;
 
             $membres_jury  = explode(";", $formation->membres_jury);
             $count_membres = count($membres_jury);
@@ -4216,9 +4217,19 @@ class FormationController extends Controller
             // Render the HTML as PDF
             $dompdf->render();
 
-            $name = 'Attestation de bonne execution ' . $formation?->operateur?->user?->display_operateur . ' en ' . $formation?->module?->name . '.pdf';
+            /* $name = 'Attestation de bonne execution ' . $formation?->operateur?->user?->display_operateur . ' en ' . $formation?->module?->name . '.pdf'; */
 
-            // Output the generated PDF to Browser
+            $name = Str::of(
+                'Attestation de bonne execution '
+                    . $formation?->operateur?->user?->operateur
+                    . ' en '
+                    . $formation?->module?->name
+            )
+                ->replaceMatches('/[\/\\\\:*?"<>|]+/', '-')
+                ->trim()
+                ->append('.pdf')
+                ->toString();
+
             $dompdf->stream($name, ['Attachment' => false]);
         } else {
             Alert::warning('Désolé !', "La formation n'est pas encore terminée.");
@@ -4333,8 +4344,9 @@ class FormationController extends Controller
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
 
+
         $name = 'Attestation de bonne execution ' .
-            $formation?->operateur?->user?->display_operateur .
+            $formation?->operateur?->user?->operateur .
             ' en ' .
             $formation?->module?->name .
             '.pdf';
@@ -4443,8 +4455,21 @@ class FormationController extends Controller
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
 
-        $name = 'Attestation de bonne execution ' .
+        /*   $name = 'Attestation de bonne execution ' .
             $formation?->operateur?->user?->display_operateur .
+            ' en ' .
+            $formation?->collectivemodule?->module .
+            '.pdf';
+
+        $pdfContent = $dompdf->output();
+
+        return response()->streamDownload(
+            fn() => print($pdfContent),
+            $name
+        ); */
+        
+        $name = 'Attestation de bonne execution ' .
+            $formation?->operateur?->user?->operateur .
             ' en ' .
             $formation?->collectivemodule?->module .
             '.pdf';
