@@ -81,7 +81,7 @@
                 <div class="reg-step" data-step="2">
                     <h3>Langue de spécialisation (LV1)</h3>
                     <div class="field"><label>Langue choisie - niveau C1 requis</label>
-                        <select name="langue_specialisation" id="specLang">
+                        <!-- <select name="langue_specialisation" id="specLang">
                             <option value="anglais_bilingue">Anglais (profil bilingue) - 3 postes - C1</option>
                             <option value="arabe">Arabe - 6 postes - C1</option>
                             <option value="espagnol" selected>Espagnol - 7 postes - C1</option>
@@ -92,6 +92,19 @@
                             <option value="allemand">Allemand - 4 postes - C1</option>
                             <option value="russe">Russe - 2 postes - C1</option>
                             <option value="italien">Italien - 4 postes - C1</option>
+                        </select>
+                        @error('langue_specialisation') <span class="field-error">{{ $message }}</span> @enderror -->
+                        <select name="langue_specialisation" id="specLang">
+                            <option value="" disabled @selected(!old('langue_specialisation'))>-- Choisissez une langue --</option>
+                            @foreach ($languesSpecialisations as $langue)
+                            <option
+                                value="{{ $langue->code }}"
+                                @selected(old('langue_specialisation', '' )==$langue->code)
+                                >
+                                {{ $langue->nom }}
+                                <!-- {{ $langue->nom }} - {{ $langue->postes_disponibles }} candidat{{ $langue->postes_disponibles > 1 ? 's' : '' }} à former - {{ $langue->niveau_langue_requis }} -->
+                            </option>
+                            @endforeach
                         </select>
                         @error('langue_specialisation') <span class="field-error">{{ $message }}</span> @enderror
                     </div>

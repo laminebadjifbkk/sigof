@@ -91,6 +91,58 @@
             font-size: 12.5px;
             margin-top: 4px;
         }
+
+        .confirmation-card {
+            max-width: 560px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 12px;
+            padding: 40px 32px;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .confirmation-icon {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .confirmation-ref {
+            margin: 24px 0;
+            padding: 16px;
+            background: var(--gray-50, #f7f7f7);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .ref-label {
+            font-size: 12.5px;
+            color: var(--gray-700);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .ref-value {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 12.5px;
+            font-weight: 600;
+        }
+
+        .badge-pending {
+            background: #fff8e1;
+            color: #8a6d00;
+        }
     </style>
     @stack('styles')
 </head>

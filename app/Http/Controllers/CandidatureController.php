@@ -14,22 +14,22 @@ class CandidatureController extends Controller
 {
     public function create()
     {
-        return view('candidatures.inscription');
+        $languesSpecialisations = LanguesSpecialisation::orderBy('nom')->get();
+        return view('candidatures.inscription', compact('languesSpecialisations'));
     }
 
     public function store(StoreCandidatureRequest $request)
     {
-        dd("ok");
         $validated = $request->validated();
 
         $langue = LanguesSpecialisation::where('code', $validated['langue_specialisation'])->firstOrFail();
 
         // Vérifie qu'il reste des postes disponibles pour cette langue
-        if ($langue->candidatures()->count() >= $langue->postes_disponibles) {
+        /* if ($langue->candidatures()->count() >= $langue->postes_disponibles) {
             return back()
                 ->withInput()
                 ->withErrors(['langue_specialisation' => 'Il n\'y a plus de postes disponibles pour cette langue.']);
-        }
+        } */
 
         $candidature = DB::transaction(function () use ($request, $validated, $langue) {
             $user = User::create([
@@ -69,7 +69,7 @@ class CandidatureController extends Controller
                 'statut'                       => 'en_attente',
             ]);
         });
-
+        session(['last_candidature_id' => $candidature->id]);
         return redirect()
             ->route('inscription.confirmation', $candidature->id)
             ->with('success', 'Votre candidature a bien été envoyée.');
@@ -77,6 +77,11 @@ class CandidatureController extends Controller
 
     public function confirmation(Candidature $candidature)
     {
-        return view('inscription.confirmation', compact('candidature'));
+        if (session('last_candidature_id') !== $candidature->id) {
+            abort(403);
+        }
+
+        $candidature->load('user', 'langueSpecialisation');
+        return view('candidatures.confirmation', compact('candidature'));
     }
 }

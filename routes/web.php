@@ -1334,8 +1334,8 @@ Route::group(['middleware' => ['XSS']], function () {
     Route::post('/inscription/verifier', [InscriptioncontactController::class, 'check'])
         ->name('inscriptioncontact.check');
 
-    Route::get('/inscription/{id}/confirmation', [InscriptioncontactController::class, 'confirmation'])
-        ->name('inscription.confirmation');
+  /*   Route::get('/inscription/{id}/confirmation', [InscriptioncontactController::class, 'confirmation'])
+        ->name('inscription.confirmation'); */
 
     /* Route::get('/inscription/{id}/questions', [InscriptionController::class, 'questions'])
         ->name('inscription.questions'); */
