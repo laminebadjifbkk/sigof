@@ -25,7 +25,7 @@
             <span class="ic"></span>Vue d'ensemble
         </a>
         <a href="{{ route('dashboard.candidatures') }}"
-            class="dash-link {{ request()->routeIs('dashboard.candidatures') ? 'active' : '' }}" class="dash-link"><span
+            class="dash-link {{ request()->routeIs('dashboard.candidatures') ? 'active' : '' }}"><span
                 class="ic"></span>Candidatures</a>
         <a href="#" class="dash-link"><span class="ic"></span>Traducteurs formés</a>
         <a href="#" class="dash-link"><span class="ic"></span>Formations COJO</a>

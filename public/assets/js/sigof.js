@@ -43,27 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  if (sidebarToggle && dashSidebar) {
-    const closeSidebar = () => {
-      dashSidebar.classList.remove('open');
-      sidebarOverlay?.classList.remove('show');
-      sidebarToggle.setAttribute('aria-expanded', 'false');
-    };
-
-    sidebarToggle.addEventListener('click', () => {
-      const isOpen = dashSidebar.classList.toggle('open');
-      sidebarOverlay?.classList.toggle('show', isOpen);
-      sidebarToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    });
-
-    sidebarOverlay?.addEventListener('click', closeSidebar);
-
-    // Fermer automatiquement après clic sur un lien (navigation)
-    dashSidebar.querySelectorAll('.dash-link').forEach(link => {
-      link.addEventListener('click', closeSidebar);
-    });
-  }
-
   /* ---------- Étape d'inscription (stepper) ---------- */
   const stepItems = document.querySelectorAll('.step-item');
   const regSteps = document.querySelectorAll('.reg-step');
