@@ -4237,7 +4237,7 @@ class FormationController extends Controller
         }
     }
 
-    public function abeEvaluationlettre(Request $request, $idformation)
+    public function abeEvaluationlettre(Request $request, int $idformation)
     {
         $formation = Formation::findOrFail($idformation);
 

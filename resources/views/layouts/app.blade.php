@@ -70,7 +70,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'SIGOF') · Dakar 2026 — Programme des traducteurs officiels</title>
+    <title>@yield('title', 'SIGOF') · Dakar 2026 - Programme des traducteurs officiels</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link

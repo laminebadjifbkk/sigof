@@ -6,7 +6,7 @@
     <div class="dash-topbar">
         <div>
             <h2>Vue d'ensemble</h2>
-            <p class="muted-sub">Traitement des candidatures — programme traducteurs Dakar 2026</p>
+            <p class="muted-sub">Traitement des candidatures - programme traducteurs Dakar 2026</p>
         </div>
         <div class="topbar-right">
             <div class="search-box">
