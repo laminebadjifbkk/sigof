@@ -18,45 +18,48 @@
     </div>
 
     <div class="panel">
-        <div class="table-responsive">
-            <h3>Liste des candidatures</h3>
-            <table class="data-table table datatables align-middle" id="dataTableCandidature">
-                <thead>
+    <div class="table-responsive">
+        <h3>Liste des candidatures</h3>
+        <table class="data-table table datatables align-middle" id="dataTableCandidature">
+            <thead>
+                <tr>
+                    <th>Candidat</th>
+                    <th>Langue (LV1)</th>
+                    <th>Niveau</th>
+                    <th>Zone</th>
+                    <th>Statut</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($candidatures ?? [] as $c)
                     <tr>
-                        <th>Candidat</th>
-                        <th>Langue (LV1)</th>
-                        <th>Niveau</th>
-                        <th>Zone</th>
-                        <th>Statut</th>
-                        <th>Date</th>
+                        <td>
+                            <div class="row-name">
+                                <span class="mini-avatar">{{ Str::upper(Str::substr($c?->user?->firstname, 0, 1) . Str::substr($c?->user?->name, 0, 1)) }}</span>
+                                {{ $c?->user?->firstname }} {{ $c?->user?->name }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="lang-tags">
+                                <span class="lang-tag">{{ $c->langue_specialisation }}</span>
+                                <span class="lang-tag">Français</span>
+                            </div>
+                        </td>
+                        <td>{{ $c->niveau }}</td>
+                        <td>{{ $c->zone }}</td>
+                        <td><span class="status-pill {{ $c->statut }}">{{ ucfirst($c->statut) }}</span></td>
+                        <td>{{ $c?->user?->date_naissance?->format('d/m/Y') }}</td>
                     </tr>
-                </thead>
-                <tbody>
-                    @forelse($candidatures ?? [] as $c)
-                        <tr>
-                            <td>
-                                <div class="row-name"><span
-                                        class="mini-avatar">{{ Str::upper(Str::substr($c?->user?->firstname, 0, 1) . Str::substr($c?->user?->name, 0, 1)) }}</span>{{ $c?->user?->firstname }}
-                                    {{ $c?->user?->name }}</div>
-                            </td>
-                            <td>
-                                <div class="lang-tags"><span class="lang-tag">{{ $c->langue_specialisation }}</span><span
-                                        class="lang-tag">Français</span></div>
-                            </td>
-                            <td>{{ $c->niveau }}</td>
-                            <td>{{ $c->zone }}</td>
-                            <td><span class="status-pill {{ $c->statut }}">{{ ucfirst($c->statut) }}</span></td>
-                            <td>{{ $c?->user?->date_naissance?->format('d/m/Y') }}</td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="6">Aucune candidature pour le moment.</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
+                @empty
+                    <tr>
+                        <td colspan="6" class="empty-row">Aucune candidature pour le moment.</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
     </div>
+</div>
 @endsection
 
 @push('scripts')
