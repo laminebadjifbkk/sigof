@@ -24,6 +24,8 @@ class CandidatureController extends Controller
         return redirect()->back()
             ->with('error', 'Les candidatures ne sont pas encore ouvertes.');
 
+            /* N'oublions pas d'ajouter le role JOJ ou YLP */
+
         $validated = $request->validated();
 
         $langue = LanguesSpecialisation::where('code', $validated['langue_specialisation'])->firstOrFail();
