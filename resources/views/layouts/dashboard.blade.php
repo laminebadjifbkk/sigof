@@ -44,6 +44,8 @@
     <script src="https://cdn.datatables.net/buttons/3.2.5/js/buttons.print.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <!-- reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site_key') }}"></script>
     @stack('scripts')
 </body>
 
