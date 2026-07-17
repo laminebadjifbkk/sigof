@@ -103,23 +103,12 @@ use App\Http\Controllers\ValidationoperateurController;
 
 
 
-
-
-
-
-
-
 use App\Http\Controllers\VerificationAttestationController;
+use App\Http\Controllers\CandidatureController;
 use App\Models\Arrive;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Formula;
-
-
-
-
-
-
 
 
 
@@ -179,8 +168,8 @@ Route::group(['middleware' => ['XSS']], function () {
     Route::post('/connexion', [AuthenticatedCandidateSessionController::class, 'store'])->name('login.attempt');
     // Si vous n'avez pas encore de flux "mot de passe oublié", pointez-le
     // temporairement vers la page de connexion pour éviter une route manquante :
-    Route::get('/inscription', [RegisteredCandidateController::class, 'create'])->name('inscription');
-    Route::post('/inscription', [RegisteredCandidateController::class, 'store'])->name('inscription.store');
+    /* Route::get('/inscription', [RegisteredCandidateController::class, 'create'])->name('inscription');
+    Route::post('/inscription', [RegisteredCandidateController::class, 'store'])->name('inscription.store'); */
 
     Route::post('/deconnexion', [AuthenticatedCandidateSessionController::class, 'destroy'])
         ->middleware('auth')
@@ -191,7 +180,6 @@ Route::group(['middleware' => ['XSS']], function () {
     Route::get('/mot-de-passe/reinitialiser/{token}', [PasswordResetLinkController::class, 'reset'])->name('mot-de-passe.reset');
     Route::post('/mot-de-passe/reinitialiser', [PasswordResetLinkController::class, 'update'])->name('mot-de-passe.update');
 
-
     // ---------- Espace admin (à protéger avec vos middlewares : auth, rôle admin…) ----------
     Route::middleware(['authylp', 'can:access-admin-ylp'])->group(function () {
         Route::get('/admin/ylp', [DashboardController::class, 'index'])->name('dashboard');
@@ -199,6 +187,10 @@ Route::group(['middleware' => ['XSS']], function () {
         // Route::get('/admin/traducteurs', [DashboardController::class, 'traducteurs'])->name('dashboard.traducteurs');
         // ... branchez ici les futurs liens de partials/sidebar.blade.php
     });
+
+    Route::get('/inscription', [CandidatureController::class, 'create'])->name('inscription');
+    Route::post('/inscription', [CandidatureController::class, 'store'])->name('inscription.store');
+    Route::get('/inscription/confirmation/{candidature}', [CandidatureController::class, 'confirmation'])->name('inscription.confirmation');
 
 
 

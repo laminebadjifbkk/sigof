@@ -6,29 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script type="text/javascript">
-    function callbackThen(response) {
-        // read Promise object
-        response.json().then(function(data) {
-            console.log(data);
-            if(data.success && data.score > 0.5) {
-                console.log('valid recpatcha');
-            } else {
-                document.getElementById('registerForm').addEventListener('submit', function(event) {
-                    event.preventDefault();
-                    alert('recpatcha error');
-                });
-            }
-        });
-    }
-    
-    function callbackCatch(error){
-        console.error('Error:', error)
-    }
+        function callbackThen(response) {
+            // read Promise object
+            response.json().then(function(data) {
+                console.log(data);
+                if (data.success && data.score > 0.5) {
+                    console.log('valid recpatcha');
+                } else {
+                    document.getElementById('registerForm').addEventListener('submit', function(event) {
+                        event.preventDefault();
+                        alert('recpatcha error');
+                    });
+                }
+            });
+        }
+
+        function callbackCatch(error) {
+            console.error('Error:', error)
+        }
     </script>
-        
+
     {!! htmlScriptTagJsApi([
-        'callback_then' => 'callbackThen',
-        'callback_catch' => 'callbackCatch',
+    'callback_then' => 'callbackThen',
+    'callback_catch' => 'callbackCatch',
     ]) !!}
     <title>{{ config('app.name', 'ONFP') }}</title>
 
@@ -46,11 +46,11 @@
 
         <!-- Page Heading -->
         @if (isset($header))
-            <header class="bg-white dark:bg-gray-800 shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            </header>
+        <header class="bg-white dark:bg-gray-800 shadow">
+            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                {{ $header }}
+            </div>
+        </header>
         @endif
 
         <!-- Page Content -->
@@ -62,7 +62,7 @@
 </body>
 
 </html>
- --}}
+--}}
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -109,6 +109,138 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const totalSteps = 5;
+            let currentStep = 1;
+
+            const steps = document.querySelectorAll('.reg-step');
+            const stepItems = document.querySelectorAll('.step-item');
+            const nextBtn = document.getElementById('regNext');
+            const backBtn = document.getElementById('regBack');
+            const submitBtn = document.getElementById('regSubmit');
+            const form = document.getElementById('registerForm');
+
+            const labels = {
+                langue_specialisation: {
+                    anglais_bilingue: 'Anglais (profil bilingue)',
+                    arabe: 'Arabe',
+                    espagnol: 'Espagnol',
+                    portugais: 'Portugais',
+                    chinois: 'Chinois (Mandarin)',
+                    japonais: 'Japonais',
+                    coreen: 'Coréen',
+                    allemand: 'Allemand',
+                    russe: 'Russe',
+                    italien: 'Italien'
+                },
+                diplome: {
+                    licence: 'Licence',
+                    master: 'Master',
+                    doctorat: 'Doctorat',
+                    certification: 'Certification linguistique reconnue'
+                },
+                langue_maternelle: {
+                    wolof: 'Wolof',
+                    francais: 'Français',
+                    pulaar: 'Pulaar',
+                    serere: 'Sérère',
+                    autre: 'Autre'
+                },
+                niveau_francais: {
+                    c1: 'C1',
+                    c2: 'C2 / Bilingue'
+                },
+                langue_vivante_2: {
+                    anglais: 'Anglais',
+                    espagnol: 'Espagnol',
+                    arabe: 'Arabe',
+                    portugais: 'Portugais',
+                    aucune: 'Aucune'
+                },
+                zone: {
+                    diamniadio: 'Diamniadio Olympic Stadium',
+                    dakar_centre: 'Dakar centre',
+                    saly: 'Saly - Petite Côte',
+                    indifferent: 'Indifférent'
+                }
+            };
+
+            function fieldValue(name) {
+                const el = form.querySelector(`[name="${name}"]`);
+                return el ? el.value : '';
+            }
+
+            function labelFor(name) {
+                const val = fieldValue(name);
+                return (labels[name] && labels[name][val]) ? labels[name][val] : (val || '—');
+            }
+
+            function fileNameFor(name) {
+                const el = form.querySelector(`[name="${name}"]`);
+                return (el && el.files.length) ? el.files[0].name : 'Aucun fichier';
+            }
+
+            function buildRecap() {
+                document.getElementById('recap-nom').textContent = `${fieldValue('prenom')} ${fieldValue('nom')}`;
+                document.getElementById('recap-email').textContent = fieldValue('email') || '—';
+                document.getElementById('recap-telephone').textContent = fieldValue('telephone') || '—';
+                document.getElementById('recap-date_naissance').textContent = fieldValue('date_naissance') || '—';
+
+                document.getElementById('recap-langue_specialisation').textContent = labelFor('langue_specialisation');
+                document.getElementById('recap-certification').textContent = fieldValue('certification') || 'Aucune';
+                document.getElementById('recap-diplome').textContent = labelFor('diplome');
+                document.getElementById('recap-langue_maternelle').textContent = labelFor('langue_maternelle');
+                document.getElementById('recap-niveau_francais').textContent = labelFor('niveau_francais');
+                document.getElementById('recap-langue_vivante_2').textContent = labelFor('langue_vivante_2');
+
+                document.getElementById('recap-disponible_debut').textContent = fieldValue('disponible_debut') || '—';
+                document.getElementById('recap-disponible_fin').textContent = fieldValue('disponible_fin') || '—';
+                document.getElementById('recap-zone').textContent = labelFor('zone');
+                document.getElementById('recap-delegation_souhaitee').textContent = fieldValue('delegation_souhaitee') || 'Non précisé';
+
+                document.getElementById('recap-piece_identite').textContent = fileNameFor('piece_identite');
+                document.getElementById('recap-diplome_fichier').textContent = fileNameFor('diplome_fichier');
+                document.getElementById('recap-certification_fichier').textContent = fileNameFor('certification_fichier');
+                document.getElementById('recap-cv').textContent = fileNameFor('cv');
+            }
+
+            function showStep(step) {
+                steps.forEach(s => s.classList.toggle('active', parseInt(s.dataset.step) === step));
+                stepItems.forEach(s => s.classList.toggle('current', parseInt(s.dataset.step) === step));
+
+                backBtn.style.display = step === 1 ? 'none' : 'inline-flex';
+                nextBtn.style.display = step === totalSteps ? 'none' : 'inline-flex';
+                submitBtn.style.display = step === totalSteps ? 'inline-flex' : 'none';
+
+                if (step === totalSteps) buildRecap();
+            }
+
+            nextBtn.addEventListener('click', function() {
+                if (currentStep < totalSteps) {
+                    currentStep++;
+                    showStep(currentStep);
+                }
+            });
+
+            backBtn.addEventListener('click', function() {
+                if (currentStep > 1) {
+                    currentStep--;
+                    showStep(currentStep);
+                }
+            });
+
+            // Affiche le nom du fichier choisi dans chaque upload-box
+            document.querySelectorAll('.upload-box input[type="file"]').forEach(function(input) {
+                input.addEventListener('change', function() {
+                    const span = input.closest('.upload-box').querySelector('.file-name');
+                    if (span && input.files.length) span.textContent = input.files[0].name;
+                });
+            });
+
+            showStep(currentStep);
+        });
+    </script>
     @stack('scripts')
 </body>
 
