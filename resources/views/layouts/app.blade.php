@@ -177,13 +177,17 @@
             }
         }
 
+        /* ==========================================================================
+   Alerts (messages flash + erreurs de validation)
+   ========================================================================== */
+
         .alert {
-            padding: 14px 16px;
-            border-radius: 8px;
-            margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 10px;
+            padding: 14px 16px;
+            margin-bottom: 20px;
+            border-radius: 8px;
         }
 
         .alert-success {
@@ -192,18 +196,33 @@
             color: #2e7d32;
         }
 
-        .alert-success .alert-icon-bg {
-            fill: #2e7d32;
-        }
-
         .alert-danger {
             background: #fdecea;
             border: 1px solid #f5c2c0;
             color: #842029;
         }
 
-        .alert-danger .alert-icon-bg {
-            fill: #c0392b;
+        .alert-icon-bg {
+            fill: currentColor;
+        }
+
+        /* Variante empilée : titre + liste d'erreurs (ex. $errors->all()) */
+        .alert-list {
+            display: block;
+        }
+
+        .alert-list strong {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .alert-list ul {
+            margin: 0 0 0 20px;
+            padding: 0;
+        }
+
+        .alert-list li {
+            margin-bottom: 2px;
         }
     </style>
     @stack('styles')

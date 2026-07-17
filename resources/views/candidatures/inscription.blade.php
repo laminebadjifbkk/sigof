@@ -62,9 +62,9 @@
                 @endif
 
                 @if ($errors->any())
-                <div class="alert alert-danger">
+                <div class="alert alert-danger alert-list">
                     <strong>Veuillez corriger les erreurs suivantes avant de continuer :</strong>
-                    <ul style="margin:8px 0 0 20px;">
+                    <ul>
                         @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
                         @endforeach
