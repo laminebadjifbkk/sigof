@@ -116,45 +116,6 @@ use Illuminate\Support\Facades\Route;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Formula;
 
 
-/*
-|--------------------------------------------------------------------------
-| Routes SIGOF x Dakar 2026
-|--------------------------------------------------------------------------
-| Squelette minimal correspondant aux route() utilisés dans les vues Blade
-| fournies (navbar, footer, pages, auth, dashboard). Remplacez les
-| contrôleurs par les vôtres, ou adaptez les noms de route si votre
-| application en a déjà (ex: si vous utilisez Laravel Breeze/Fortify pour
-| l'auth, gardez leurs routes et retirez juste les doublons ci-dessous).
-*/
-
-// ---------- Public ----------
-Route::get('/ylp', [PageController::class, 'home'])->name('ylphome');
-
-// ---------- Authentification candidat ----------
-Route::get('/connexion', [AuthenticatedCandidateSessionController::class, 'create'])->name('connexion');
-Route::post('/connexion', [AuthenticatedCandidateSessionController::class, 'store'])->name('login.attempt');
-// Si vous n'avez pas encore de flux "mot de passe oublié", pointez-le
-// temporairement vers la page de connexion pour éviter une route manquante :
-Route::get('/inscription', [RegisteredCandidateController::class, 'create'])->name('inscription');
-Route::post('/inscription', [RegisteredCandidateController::class, 'store'])->name('inscription.store');
-
-Route::post('/deconnexion', [AuthenticatedCandidateSessionController::class, 'destroy'])
-    ->middleware('auth')
-    ->name('deconnexion');
-
-Route::get('/mot-de-passe/oublie', [PasswordResetLinkController::class, 'created'])->name('mot-de-passe.request');
-Route::post('/mot-de-passe/email', [PasswordResetLinkController::class, 'email'])->name('mot-de-passe.email');
-Route::get('/mot-de-passe/reinitialiser/{token}', [PasswordResetLinkController::class, 'reset'])->name('mot-de-passe.reset');
-Route::post('/mot-de-passe/reinitialiser', [PasswordResetLinkController::class, 'update'])->name('mot-de-passe.update');
-
-
-// ---------- Espace admin (à protéger avec vos middlewares : auth, rôle admin…) ----------
-Route::middleware(['authylp', 'can:access-admin-ylp'])->group(function () {
-    Route::get('/admin/ylp', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/admin/candidatures', [DashboardController::class, 'candidatures'])->name('dashboard.candidatures');
-    // Route::get('/admin/traducteurs', [DashboardController::class, 'traducteurs'])->name('dashboard.traducteurs');
-    // ... branchez ici les futurs liens de partials/sidebar.blade.php
-});
 
 
 
@@ -195,6 +156,54 @@ Route::delete('/permissions/{permission}', [PermissionController::class, 'destro
     ->name('permissions.destroy'); */
 
 Route::group(['middleware' => ['XSS']], function () {
+
+
+
+
+    /*
+|--------------------------------------------------------------------------
+| Routes SIGOF x Dakar 2026
+|--------------------------------------------------------------------------
+| Squelette minimal correspondant aux route() utilisés dans les vues Blade
+| fournies (navbar, footer, pages, auth, dashboard). Remplacez les
+| contrôleurs par les vôtres, ou adaptez les noms de route si votre
+| application en a déjà (ex: si vous utilisez Laravel Breeze/Fortify pour
+| l'auth, gardez leurs routes et retirez juste les doublons ci-dessous).
+*/
+
+    // ---------- Public ----------
+    Route::get('/ylp', [PageController::class, 'home'])->name('ylphome');
+
+    // ---------- Authentification candidat ----------
+    Route::get('/connexion', [AuthenticatedCandidateSessionController::class, 'create'])->name('connexion');
+    Route::post('/connexion', [AuthenticatedCandidateSessionController::class, 'store'])->name('login.attempt');
+    // Si vous n'avez pas encore de flux "mot de passe oublié", pointez-le
+    // temporairement vers la page de connexion pour éviter une route manquante :
+    Route::get('/inscription', [RegisteredCandidateController::class, 'create'])->name('inscription');
+    Route::post('/inscription', [RegisteredCandidateController::class, 'store'])->name('inscription.store');
+
+    Route::post('/deconnexion', [AuthenticatedCandidateSessionController::class, 'destroy'])
+        ->middleware('auth')
+        ->name('deconnexion');
+
+    Route::get('/mot-de-passe/oublie', [PasswordResetLinkController::class, 'created'])->name('mot-de-passe.request');
+    Route::post('/mot-de-passe/email', [PasswordResetLinkController::class, 'email'])->name('mot-de-passe.email');
+    Route::get('/mot-de-passe/reinitialiser/{token}', [PasswordResetLinkController::class, 'reset'])->name('mot-de-passe.reset');
+    Route::post('/mot-de-passe/reinitialiser', [PasswordResetLinkController::class, 'update'])->name('mot-de-passe.update');
+
+
+    // ---------- Espace admin (à protéger avec vos middlewares : auth, rôle admin…) ----------
+    Route::middleware(['authylp', 'can:access-admin-ylp'])->group(function () {
+        Route::get('/admin/ylp', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/admin/candidatures', [DashboardController::class, 'candidatures'])->name('dashboard.candidatures');
+        // Route::get('/admin/traducteurs', [DashboardController::class, 'traducteurs'])->name('dashboard.traducteurs');
+        // ... branchez ici les futurs liens de partials/sidebar.blade.php
+    });
+
+
+
+
+
     Route::get('/', [UneController::class, 'unePage'])->name('accueil');
 
     Route::get('/login', [ProfileController::class, 'loginPage'])->name('login');

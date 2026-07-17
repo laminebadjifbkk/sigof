@@ -49,7 +49,7 @@
     <div class="dash-grid">
         <div class="panel">
             <h3>Répartition par langue de spécialisation</h3>
-            <p class="panel-sub">Candidatures reçues — 5 langues les plus demandées sur 10</p>
+            <p class="panel-sub">Candidatures reçues - 5 langues les plus demandées sur 10</p>
             <div class="bar-chart">
                 <div class="bar-col"><span class="bar-val">132</span>
                     <div class="bar" style="height:100%; background:var(--gold);"></div><span
@@ -88,9 +88,9 @@
                         stroke-dasharray="10 90" stroke-dashoffset="-65" transform="rotate(-90 21 21)" />
                 </svg>
                 <ul class="donut-legend">
-                    <li><span class="sw" style="background:var(--green)"></span>Validées — 60 %</li>
-                    <li><span class="sw" style="background:var(--gold)"></span>En attente — 30 %</li>
-                    <li><span class="sw" style="background:var(--brick)"></span>Rejetées — 10 %</li>
+                    <li><span class="sw" style="background:var(--green)"></span>Validées - 60 %</li>
+                    <li><span class="sw" style="background:var(--gold)"></span>En attente - 30 %</li>
+                    <li><span class="sw" style="background:var(--brick)"></span>Rejetées - 10 %</li>
                 </ul>
             </div>
         </div>
