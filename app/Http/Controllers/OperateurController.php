@@ -1989,7 +1989,7 @@ class OperateurController extends Controller
             'Non-fonctionnaire' => 'NF',
         ];
 
-        $user_files = File::whereNull('file')
+        /* $user_files = File::whereNull('file')
             ->whereNull('users_id')
             ->whereIn('sigle', [
                 'Ninea/RC',
@@ -2011,7 +2011,7 @@ class OperateurController extends Controller
             ])
             ->orderBy('sigle', 'asc')
             ->distinct()
-            ->get();
+            ->get(); */
 
         // ✅ Déjà chargé (pas de requête supplémentaire)
         $dateAgrement = $operateur->commissionagrements->first();
@@ -2263,7 +2263,6 @@ class OperateurController extends Controller
 
     public function showModule(string $uuid)
     {
-
         $user = auth()->user();
 
         $operateur = Operateur::where('uuid', $uuid)
