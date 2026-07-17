@@ -41,21 +41,38 @@
             <form id="registerForm" method="POST" action="{{ route('inscription.store') }}" enctype="multipart/form-data">
                 @csrf
 
+                @if ($errors->any())
+                <div class="alert alert-danger" style="background:#fdecea; border:1px solid #f5c2c0; color:#842029; padding:14px 16px; border-radius:8px; margin-bottom:20px;">
+                    <strong>Veuillez corriger les erreurs suivantes avant de continuer :</strong>
+                    <ul style="margin:8px 0 0 20px;">
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+
                 <div class="reg-step active" data-step="1">
                     <h3>Informations personnelles</h3>
                     <div class="field-row">
                         <div class="field"><label>Prénom</label><input type="text" name="prenom"
-                                value="{{ old('prenom') }}" placeholder="Awa"></div>
+                                value="{{ old('prenom') }}" placeholder="Awa">
+                            @error('prenom') <span class="field-error">{{ $message }}</span> @enderror</div>
                         <div class="field"><label>Nom</label><input type="text" name="nom"
-                                value="{{ old('nom') }}" placeholder="Diop"></div>
+                                value="{{ old('nom') }}" placeholder="Diop">
+                            @error('nom') <span class="field-error">{{ $message }}</span> @enderror</div>
                     </div>
                     <div class="field"><label>Adresse e-mail</label><input type="email" name="email"
-                            value="{{ old('email') }}" placeholder="awa.diop@exemple.sn"></div>
+                            value="{{ old('email') }}" placeholder="awa.diop@exemple.sn">
+                        @error('email') <span class="field-error">{{ $message }}</span> @enderror</div>
                     <div class="field-row">
                         <div class="field"><label>Téléphone</label><input type="tel" name="telephone"
-                                value="{{ old('telephone') }}" placeholder="+221 77 000 00 00"></div>
+                                value="{{ old('telephone') }}" placeholder="77 000 00 00">
+                            @error('telephone') <span class="field-error">{{ $message }}</span> @enderror</div>
                         <div class="field"><label>Date de naissance</label><input type="date" name="date_naissance"
-                                value="{{ old('date_naissance') }}"></div>
+                                value="{{ old('date_naissance') }}">
+                            @error('date_naissance') <span class="field-error">{{ $message }}</span> @enderror
+                        </div>
                     </div>
                     <p class="lang-note" style="margin-top:2px;">Programme ouvert aux candidats de 21 à 35 ans à la date
                         de clôture des inscriptions.</p>
@@ -76,6 +93,7 @@
                             <option value="russe">Russe - 2 postes - C1</option>
                             <option value="italien">Italien - 4 postes - C1</option>
                         </select>
+                        @error('langue_specialisation') <span class="field-error">{{ $message }}</span> @enderror
                     </div>
                     <div class="field-row">
                         <div class="field"><label>Certification obtenue (si applicable)</label><input type="text"
@@ -88,6 +106,7 @@
                                 <option value="doctorat">Doctorat</option>
                                 <option value="certification">Certification linguistique reconnue</option>
                             </select>
+                            @error('certification') <span class="field-error">{{ $message }}</span> @enderror
                         </div>
                     </div>
                     <h3 style="margin-top:24px;">Autres langues</h3>
@@ -100,12 +119,14 @@
                                 <option value="serere">Sérère</option>
                                 <option value="autre">Autre</option>
                             </select>
+                            @error('langue_maternelle') <span class="field-error">{{ $message }}</span> @enderror
                         </div>
                         <div class="field"><label>Niveau de français - C1 minimum</label>
                             <select name="niveau_francais">
                                 <option value="c1">C1</option>
                                 <option value="c2" selected>C2 / Bilingue</option>
                             </select>
+                            @error('niveau_francais') <span class="field-error">{{ $message }}</span> @enderror
                         </div>
                     </div>
                     <div class="field"><label>Langue vivante 2 (LV2) - niveau B2 minimum</label>
@@ -116,6 +137,7 @@
                             <option value="portugais">Portugais</option>
                             <option value="aucune">Aucune</option>
                         </select>
+                        @error('langue_vivante_2') <span class="field-error">{{ $message }}</span> @enderror
                     </div>
                 </div>
 
@@ -126,6 +148,7 @@
                                 name="disponible_debut" value="{{ old('disponible_debut') }}"></div>
                         <div class="field"><label>Disponible jusqu'au</label><input type="date"
                                 name="disponible_fin" value="{{ old('disponible_fin') }}"></div>
+                        @error('disponible_debut') <span class="field-error">{{ $message }}</span> @enderror
                     </div>
                     <div class="field"><label>Zone / site préféré</label>
                         <select name="zone">
@@ -134,21 +157,16 @@
                             <option value="saly">Saly - Petite Côte</option>
                             <option value="indifferent">Indifférent</option>
                         </select>
+                        @error('zone') <span class="field-error">{{ $message }}</span> @enderror
                     </div>
                     <div class="field"><label>Délégation ou discipline souhaitée (optionnel)</label><input
                             type="text" name="delegation_souhaitee" value="{{ old('delegation_souhaitee') }}"
                             placeholder="Ex : Beach handball, Athlétisme…"></div>
+                    @error('delegation_souhaitee') <span class="field-error">{{ $message }}</span> @enderror
                 </div>
 
                 <div class="reg-step" data-step="4">
                     <h3>Documents justificatifs</h3>
-
-                    {{-- <label class="upload-box" for="file-identite" style="display:block; cursor:pointer;">
-                            <strong>Pièce d'identité</strong>Glissez un fichier ou cliquez pour parcourir (PDF, JPG - 5 Mo
-                            max)
-                            <input type="file" id="file-identite" name="piece_identite" accept=".pdf,.jpg,.jpeg,.png"
-                                hidden>
-                        </label> --}}
                     <label class="upload-box" for="file-identite" style="display:block; cursor:pointer;">
                         <strong>Pièce d'identité</strong><br>
                         <span class="file-name">Glissez un fichier ou cliquez pour parcourir (PDF, JPG, JPEG, PNG - 5 Mo
@@ -156,6 +174,7 @@
 
                         <input type="file" id="file-identite" name="piece_identite" accept=".pdf,.jpg,.jpeg,.png"
                             hidden>
+                        @error('piece_identite') <span class="field-error">{{ $message }}</span> @enderror
                     </label>
                     <label class="upload-box" for="file-diplome" style="display:block; cursor:pointer;">
                         <strong>Diplôme (Licence / Master ou équivalent)</strong><br>
@@ -163,18 +182,21 @@
                             max)</span>
                         <input type="file" id="file-diplome" name="diplome_fichier" accept=".pdf,.jpg,.jpeg,.png"
                             hidden>
+                        @error('file-diplome') <span class="field-error">{{ $message }}</span> @enderror
                     </label>
                     <label class="upload-box" for="file-certif" style="display:block; cursor:pointer;">
                         <strong>Certification linguistique</strong><br>
                         <span class="file-name">Glissez un fichier ou cliquez pour parcourir (TOEIC, DELE, HSK, JLPT… selon la langue choisie (PDF
                             - 5 Mo max))</span>
                         <input type="file" id="file-certif" name="certification_fichier" accept=".pdf" hidden>
+                        @error('certification_fichier') <span class="field-error">{{ $message }}</span> @enderror
                     </label>
                     <label class="upload-box" for="file-cv" style="display:block; cursor:pointer;">
                         <strong>CV à jour</strong><br>
                         <span class="file-name">Glissez un fichier ou cliquez pour parcourir (PDF, JPG, JPEG, PNG - 5 Mo
                             max)</span>
                         <input type="file" id="file-cv" name="cv" accept=".pdf" hidden>
+                        @error('cv') <span class="field-error">{{ $message }}</span> @enderror
                     </label>
 
                     <label class="checkline" style="font-size:13.5px;">
@@ -182,6 +204,7 @@
                         J'atteste l'exactitude des informations fournies et j'accepte la charte du programme ONFP ×
                         COJO.
                     </label>
+                    @error('attestation') <span class="field-error">{{ $message }}</span> @enderror
                 </div>
 
                 <div class="reg-actions">

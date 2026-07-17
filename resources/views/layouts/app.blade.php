@@ -73,6 +73,7 @@
     <title>@yield('title', 'SIGOF') · Dakar 2026 - Programme des traducteurs officiels</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
+
     <link
         href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap"
         rel="stylesheet">
@@ -82,6 +83,15 @@
     <link rel="stylesheet" href="{{ asset('assets/css/sigof.css') }}">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css">
 
+    <style>
+        .field-error,
+        .recap-block .field-error {
+            color: #c0392b !important;
+            display: block;
+            font-size: 12.5px;
+            margin-top: 4px;
+        }
+    </style>
     @stack('styles')
 </head>
 
