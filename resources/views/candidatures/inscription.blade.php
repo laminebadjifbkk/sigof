@@ -41,8 +41,28 @@
             <form id="registerForm" method="POST" action="{{ route('inscription.store') }}" enctype="multipart/form-data">
                 @csrf
 
+                @if (session('success'))
+                <div class="alert alert-success">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;">
+                        <circle cx="12" cy="12" r="11" class="alert-icon-bg" />
+                        <path d="M7 12.5l3 3 7-7" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <span>{{ session('success') }}</span>
+                </div>
+                @endif
+
+                @if (session('error'))
+                <div class="alert alert-danger">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;">
+                        <circle cx="12" cy="12" r="11" class="alert-icon-bg" />
+                        <path d="M8 8l8 8M16 8l-8 8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <span>{{ session('error') }}</span>
+                </div>
+                @endif
+
                 @if ($errors->any())
-                <div class="alert alert-danger" style="background:#fdecea; border:1px solid #f5c2c0; color:#842029; padding:14px 16px; border-radius:8px; margin-bottom:20px;">
+                <div class="alert alert-danger">
                     <strong>Veuillez corriger les erreurs suivantes avant de continuer :</strong>
                     <ul style="margin:8px 0 0 20px;">
                         @foreach ($errors->all() as $error)

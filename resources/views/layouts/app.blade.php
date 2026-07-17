@@ -176,6 +176,35 @@
                 display: none !important;
             }
         }
+
+        .alert {
+            padding: 14px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .alert-success {
+            background: #e8f5e9;
+            border: 1px solid #a5d6a7;
+            color: #2e7d32;
+        }
+
+        .alert-success .alert-icon-bg {
+            fill: #2e7d32;
+        }
+
+        .alert-danger {
+            background: #fdecea;
+            border: 1px solid #f5c2c0;
+            color: #842029;
+        }
+
+        .alert-danger .alert-icon-bg {
+            fill: #c0392b;
+        }
     </style>
     @stack('styles')
 </head>

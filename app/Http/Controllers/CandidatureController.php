@@ -21,7 +21,9 @@ class CandidatureController extends Controller
 
     public function store(StoreCandidatureRequest $request)
     {
-        return redirect()->back();
+        return redirect()->back()
+            ->with('error', 'Les candidatures ne sont pas encore ouvertes.');
+
         $validated = $request->validated();
 
         $langue = LanguesSpecialisation::where('code', $validated['langue_specialisation'])->firstOrFail();
@@ -105,7 +107,7 @@ class CandidatureController extends Controller
     public function confirmation(Candidature $candidature)
     {
         /* Ceci est pour protéger les url avec les id part 2/2 */
-       /*  if (session('last_candidature_id') !== $candidature->id) {
+        /*  if (session('last_candidature_id') !== $candidature->id) {
             abort(403);
         } */
 
