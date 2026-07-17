@@ -26,7 +26,7 @@ class DashboardController extends Controller
 
         $candidatures = Individuelle::whereHas('user', function ($query) {
             $query->whereNotNull('firstname');
-        })->get();
+        })->limit(100)->get();
 
         return view('dashboard.candidatures', compact('candidatures'));
     }
