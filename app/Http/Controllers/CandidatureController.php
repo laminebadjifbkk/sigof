@@ -21,6 +21,7 @@ class CandidatureController extends Controller
 
     public function store(StoreCandidatureRequest $request)
     {
+        return redirect()->back();
         $validated = $request->validated();
 
         $langue = LanguesSpecialisation::where('code', $validated['langue_specialisation'])->firstOrFail();
