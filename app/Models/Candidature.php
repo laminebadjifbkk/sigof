@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Str;
 
 class Candidature extends Model
 {
@@ -45,6 +46,15 @@ class Candidature extends Model
         'disponible_fin'   => 'date',
         'attestation'      => 'boolean',
     ];
+
+    protected static function booted()
+    {
+        static::creating(function ($candidature) {
+            if (empty($candidature->uuid)) {
+                $candidature->uuid = (string) Str::uuid();
+            }
+        });
+    }
 
     public function user(): BelongsTo
     {

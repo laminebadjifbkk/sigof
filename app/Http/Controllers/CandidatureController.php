@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Http\UploadedFile;
 
 class CandidatureController extends Controller
 {
@@ -42,12 +43,13 @@ class CandidatureController extends Controller
                 'password'       => Hash::make(Str::random(16)), // mot de passe temporaire
             ]);
 
-            $piecePath = $request->file('piece_identite')->store('candidatures/pieces_identite', 'public');
-            $diplomePath = $request->file('diplome_fichier')->store('candidatures/diplomes', 'public');
-            $cvPath = $request->file('cv')->store('candidatures/cv', 'public');
+            $piecePath = $this->storeUploadedFile($request->file('piece_identite'), 'candidatures/pieces_identite');
+            $diplomePath = $this->storeUploadedFile($request->file('diplome_fichier'), 'candidatures/diplomes');
+            $cvPath = $this->storeUploadedFile($request->file('cv'), 'candidatures/cv');
             $certifPath = $request->hasFile('certification_fichier')
-                ? $request->file('certification_fichier')->store('candidatures/certifications', 'public')
+                ? $this->storeUploadedFile($request->file('certification_fichier'), 'candidatures/certifications')
                 : null;
+
 
             return Candidature::create([
                 'users_id'                   => $user->id,
@@ -69,17 +71,42 @@ class CandidatureController extends Controller
                 'statut'                       => 'en_attente',
             ]);
         });
-        session(['last_candidature_id' => $candidature->id]);
+
+        /* Ceci est pour protéger les url avec les id part 1/2 */
+        /* session(['last_candidature_id' => $candidature->id]); */
         return redirect()
-            ->route('inscription.confirmation', $candidature->id)
+            ->route('inscription.confirmation', $candidature)
             ->with('success', 'Votre candidature a bien été envoyée.');
+    }
+
+    /**
+     * Génère un nom de fichier lisible et unique à partir du nom original.
+     * Format : nom-original-slugifie-{uuid-court}.extension
+     */
+    private function storeUploadedFile(UploadedFile $file, string $directory): string
+    {
+        $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+        $extension    = $file->getClientOriginalExtension();
+
+        $slug   = Str::slug($originalName); // supprime accents, espaces, caractères spéciaux
+        $unique = Str::substr(Str::uuid()->toString(), 0, 8); // identifiant court mais unique
+
+        // Sécurité : si le nom slugifié est vide (nom de fichier uniquement en caractères spéciaux)
+        $slug = $slug ?: 'fichier';
+
+        $filename = "{$slug}-{$unique}.{$extension}";
+
+        $file->storeAs($directory, $filename, 'public');
+
+        return "{$directory}/{$filename}";
     }
 
     public function confirmation(Candidature $candidature)
     {
-        if (session('last_candidature_id') !== $candidature->id) {
+        /* Ceci est pour protéger les url avec les id part 2/2 */
+       /*  if (session('last_candidature_id') !== $candidature->id) {
             abort(403);
-        }
+        } */
 
         $candidature->load('user', 'langueSpecialisation');
         return view('candidatures.confirmation', compact('candidature'));

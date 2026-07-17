@@ -143,6 +143,39 @@
             background: #fff8e1;
             color: #8a6d00;
         }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+
+            #printable-receipt,
+            #printable-receipt * {
+                visibility: visible;
+            }
+
+            #printable-receipt {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                margin: 0;
+                box-shadow: none;
+                border: none;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            /* Optionnel : cache aussi le header/footer/nav de votre layouts.app si présents */
+            header,
+            footer,
+            nav,
+            .navbar {
+                display: none !important;
+            }
+        }
     </style>
     @stack('styles')
 </head>

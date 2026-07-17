@@ -5,7 +5,7 @@
 @section('content')
 <div class="register-wrap">
     <div class="container">
-        <div class="confirmation-card">
+        <div class="confirmation-card" id="printable-receipt">
             <div class="confirmation-icon">
                 <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
                     <circle cx="12" cy="12" r="11" stroke="#2e7d32" stroke-width="1.5" fill="#e8f5e9" />
@@ -40,11 +40,11 @@
             <p style="color:var(--gray-700); font-size:13.5px; margin-top:16px;">
                 Conservez ce numéro de dossier, il pourra vous être demandé pour toute question relative à votre candidature.
             </p>
-
-            <div class="reg-actions" style="justify-content:center; margin-top:24px;">
-                <a href="{{ route('ylphome') }}" class="btn btn-ghost btn-sm">Retour à l'accueil</a>
-                <button type="button" class="btn btn-primary btn-sm" onclick="window.print()">Imprimer le récapitulatif</button>
-            </div>
+        </div>
+        <div class="reg-actions" style="justify-content:center; margin-top:24px;">
+            <a href="{{ route('ylphome') }}" class="btn btn-ghost btn-sm">Retour à l'accueil</a>
+            &nbsp;
+            <button type="button" class="btn btn-primary btn-sm" onclick="window.print()">Imprimer le récapitulatif</button>
         </div>
     </div>
 </div>
