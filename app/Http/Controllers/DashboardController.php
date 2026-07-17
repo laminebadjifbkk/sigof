@@ -17,7 +17,14 @@ class DashboardController extends Controller
             'mobilises' => 97,
         ];
 
-        return view('dashboard.index', compact('kpis'));
+        $candidatures = Individuelle::whereHas('user', function ($query) {
+            $query->whereNotNull('firstname');
+        })
+            ->latest() // équivaut à orderBy('created_at', 'desc')
+            ->take(5)
+            ->get();
+
+        return view('dashboard.index', compact('kpis', 'candidatures'));
     }
 
 
