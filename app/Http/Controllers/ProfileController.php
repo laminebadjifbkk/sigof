@@ -243,6 +243,10 @@ class ProfileController extends Controller
             return redirect()->route('profil.choisir');
         }
 
+        if ($user && ($user->hasAnyRole('YLP') || $user->roles->isEmpty())) {
+            return redirect()->route('dashboard');
+        }
+
         $email = $user->email;
 
         // Formulaire
