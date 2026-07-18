@@ -63,7 +63,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="6" class="empty-row">Aucune candidature pour le moment.</td>
+                    <td colspan="5" class="empty-row">Aucune candidature pour le moment.</td>
                 </tr>
                 @endforelse
             </tbody>
