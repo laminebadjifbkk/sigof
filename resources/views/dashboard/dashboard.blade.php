@@ -105,9 +105,10 @@
                     <th>Candidat</th>
                     <th>Langue (LV1)</th>
                     <th>Niveau</th>
-                    <th>Zone</th>
+                    <!-- <th>Zone</th> -->
                     <th>Statut</th>
                     <th>Date</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -126,7 +127,7 @@
                         </div>
                     </td>
                     <td>{{ $c->niveau_francais }}</td>
-                    <td>{{ $c->zone_label }}</td>
+                    <!-- <td>{{ $c->zone_label }}</td> -->
                     <td>
                         <!-- <span class="status-pill {{ $c->statut }}">{{ ucfirst($c->statut) }}</span> -->
                         <span class="status-pill {{ $c->statut_classe }}">{{ $c->statut_label }}</span>
@@ -135,6 +136,11 @@
                         <span title="{{ $c?->created_at?->format('d/m/Y à H:i') }}">
                             {{ $c?->created_at?->diffForHumans() }}
                         </span>
+                    </td>
+                    <td>
+                        <a href="{{ route('candidatures.show', $c) }}" class="btn btn-sm btn-outline">
+                            Voir
+                        </a>
                     </td>
                 </tr>
                 @empty

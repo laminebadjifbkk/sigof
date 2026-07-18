@@ -55,7 +55,7 @@
                     </td>
                     <!-- <td>{{ $c?->user?->date_naissance?->format('d/m/Y') }}</td> -->
                     <td>
-                        <a href="{{ route('candidatures.show', $c->id) }}" class="btn btn-sm btn-outline">
+                        <a href="{{ route('candidatures.show', $c) }}" class="btn btn-sm btn-outline">
                             Voir
                         </a>
                     </td>

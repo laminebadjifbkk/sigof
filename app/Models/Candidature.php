@@ -47,6 +47,11 @@ class Candidature extends Model
         'attestation'      => 'boolean',
     ];
 
+    public function getRouteKeyName(): string
+    {
+        return 'uuid';
+    }
+
     protected static function booted()
     {
         static::creating(function ($candidature) {

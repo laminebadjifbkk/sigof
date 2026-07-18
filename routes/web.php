@@ -196,7 +196,7 @@ Route::group(['middleware' => ['XSS']], function () {
 
     Route::get('/inscription', [CandidatureController::class, 'create'])->name('inscription');
     Route::post('/inscription', [CandidatureController::class, 'store'])->name('inscription.store');
-    Route::get('/inscription/confirmation/{candidature:uuid}', [CandidatureController::class, 'confirmation'])
+    Route::get('/inscription/confirmation/{candidature}', [CandidatureController::class, 'confirmation'])
         ->name('inscription.confirmation');
 
 

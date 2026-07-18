@@ -44,7 +44,7 @@
         </p>
     </div>
 
-    <form action="{{ route('candidatures.update', $candidature->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('candidatures.update', $candidature) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -157,12 +157,12 @@
         @endforeach
 
         <!-- <div class="reg-actions" style="justify-content:space-between; margin-top:24px;">
-            <a href="{{ route('candidatures.show', $candidature->id) }}" class="btn btn-ghost btn-sm">← Annuler</a>
+            <a href="{{ route('candidatures.show', $candidature) }}" class="btn btn-ghost btn-sm">← Annuler</a>
             <button type="submit" class="btn btn-primary btn-sm">Enregistrer les modifications</button>
         </div> -->
 
         <div class="reg-actions" style="justify-content:space-between; margin-top:24px;">
-            <a href="{{ route('candidatures.show', $candidature->id) }}" class="btn btn-ghost btn-sm">← Annuler</a>
+            <a href="{{ route('candidatures.show', $candidature) }}" class="btn btn-ghost btn-sm">← Annuler</a>
             <button type="submit" class="btn btn-primary btn-sm">Enregistrer les modifications</button>
         </div>
     </form>

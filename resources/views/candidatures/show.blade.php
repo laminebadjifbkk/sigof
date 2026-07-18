@@ -121,7 +121,7 @@
 
 <div class="panel">
     <h3>Traitement de la candidature</h3>
-    <form action="{{ route('candidatures.statut', $candidature->id) }}" method="POST">
+    <form action="{{ route('candidatures.statut', $candidature) }}" method="POST">
         @csrf
         @method('PATCH')
 
@@ -149,10 +149,10 @@
         <a href="{{ route('candidatures.index') }}" class="btn btn-ghost btn-sm">← Retour à la liste</a>
 
         <div style="display:flex; gap:10px;">
-            <a href="{{ route('candidatures.edit', $candidature->id) }}" class="btn btn-outline btn-sm">
+            <a href="{{ route('candidatures.edit', $candidature) }}" class="btn btn-outline btn-sm">
                 Modifier
             </a>
-            <form action="{{ route('candidatures.destroy', $candidature->id) }}" method="POST"
+            <form action="{{ route('candidatures.destroy', $candidature) }}" method="POST"
                 onsubmit="return confirm('Confirmer la suppression définitive de cette candidature ? Cette action est irréversible.');">
                 @csrf
                 @method('DELETE')

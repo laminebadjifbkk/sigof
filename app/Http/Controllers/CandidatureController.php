@@ -212,7 +212,7 @@ class CandidatureController extends Controller
         $candidature->update($validated);
 
         return redirect()
-            ->route('candidatures.show', $candidature->id)
+            ->route('candidatures.show', $candidature)
             ->with('success', 'La candidature a été mise à jour.');
     }
 
@@ -226,7 +226,7 @@ class CandidatureController extends Controller
         $candidature->update($validated);
 
         return redirect()
-            ->route('candidatures.show', $candidature->id)
+            ->route('candidatures.show', $candidature)
             ->with('success', 'Le statut de la candidature a été mis à jour.');
     }
 
