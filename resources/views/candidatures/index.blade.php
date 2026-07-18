@@ -8,13 +8,14 @@
         <h2>Candidatures reçues</h2>
         <p class="muted-sub">Suivi des candidatures - programme traducteurs Dakar 2026</p>
     </div>
-    <div class="topbar-right">
+    <!-- <div class="topbar-right">
         <div class="search-box">
             <span>🔍</span>
             <input type="text" id="tableSearch" placeholder="Rechercher un candidat…">
         </div>
-        <!-- <div class="avatar-bubble">{{ Auth::check() ? Str::upper(Str::substr(Auth::user()->name, 0, 2)) : 'FN' }}</div> -->
-    </div>
+        <div class="avatar-bubble">{{ Auth::check() ? Str::upper(Str::substr(Auth::user()->name, 0, 2)) : 'FN' }}</div> 
+    </div> 
+    -->
 </div>
 
 <div class="panel">
