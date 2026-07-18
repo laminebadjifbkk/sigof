@@ -13,15 +13,18 @@ class DashboardController extends Controller
         $total     = Candidature::count();
         $validees  = Candidature::where('statut', 'validee')->count();
         $attente   = Candidature::where('statut', 'en_attente')->count();
+        $rejete   = Candidature::where('statut', 'rejetee')->count();
         $mobilises = Candidature::where('statut', 'validee')->count(); // à ajuster si "mobilisé" a une définition différente de "validée"
 
         $kpis = [
             'total'     => $total,
             'validees'  => $validees,
             'attente'   => $attente,
+            'rejete'   => $rejete,
             'mobilises' => $mobilises,
             // Candidatures créées durant les 7 derniers jours
             'nouvelles_semaine' => Candidature::where('created_at', '>=', now()->subDays(7))->count(),
+            'aujourdhui' => Candidature::where('created_at', '>=', now()->subDays(1))->count(),
         ];
 
         // Répartition par langue de spécialisation (top 5)
