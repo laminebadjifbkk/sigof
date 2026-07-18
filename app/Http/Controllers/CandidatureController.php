@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Http\UploadedFile;
+use Spatie\Permission\Models\Role;
 
 class CandidatureController extends Controller
 {
@@ -21,10 +22,10 @@ class CandidatureController extends Controller
 
     public function store(StoreCandidatureRequest $request)
     {
-        return redirect()->back()
-            ->with('error', 'Les candidatures ne sont pas encore ouvertes.');
+        /* return redirect()->back()
+            ->with('error', 'Les candidatures ne sont pas encore ouvertes.'); */
 
-            /* N'oublions pas d'ajouter le role JOJ ou YLP */
+        /* N'oublions pas d'ajouter le role JOJ ou YLP */
 
         $validated = $request->validated();
 
@@ -47,6 +48,13 @@ class CandidatureController extends Controller
                 'date_naissance' => $validated['date_naissance'],
                 'password'       => Hash::make(Str::random(16)), // mot de passe temporaire
             ]);
+
+            // Attribution du rôle
+            $role = Role::where('name', 'YLP')->first();
+
+            if ($role) {
+                $user->assignRole($role);
+            }
 
             $piecePath = $this->storeUploadedFile($request->file('piece_identite'), 'candidatures/pieces_identite');
             $diplomePath = $this->storeUploadedFile($request->file('diplome_fichier'), 'candidatures/diplomes');

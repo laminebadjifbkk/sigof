@@ -134,6 +134,7 @@
                                 placeholder="Ex : DELE C1, HSK 5…"></div>
                         <div class="field"><label>Diplôme le plus élevé</label>
                             <select name="diplome">
+                                <option value="">-- Choisissez --</option>
                                 <option value="licence">Licence</option>
                                 <option value="master">Master</option>
                                 <option value="doctorat">Doctorat</option>
@@ -146,24 +147,28 @@
                     <div class="field-row">
                         <div class="field"><label>Langue maternelle</label>
                             <select name="langue_maternelle">
+                                <option value="">-- Choisissez --</option>
                                 <option value="wolof">Wolof</option>
                                 <option value="francais">Français</option>
                                 <option value="pulaar">Pulaar</option>
                                 <option value="serere">Sérère</option>
+                                <option value="diola">Diola</option>
                                 <option value="autre">Autre</option>
                             </select>
                             @error('langue_maternelle') <span class="field-error">{{ $message }}</span> @enderror
                         </div>
                         <div class="field"><label>Niveau de français - C1 minimum</label>
                             <select name="niveau_francais">
+                                <option value="">-- Choisissez --</option>
                                 <option value="c1">C1</option>
-                                <option value="c2" selected>C2 / Bilingue</option>
+                                <option value="c2">C2 / Bilingue</option>
                             </select>
                             @error('niveau_francais') <span class="field-error">{{ $message }}</span> @enderror
                         </div>
                     </div>
                     <div class="field"><label>Langue vivante 2 (LV2) - niveau B2 minimum</label>
                         <select name="langue_vivante_2">
+                            <option value="">-- Choisissez --</option>
                             <option value="anglais">Anglais</option>
                             <option value="espagnol">Espagnol</option>
                             <option value="arabe">Arabe</option>
@@ -185,6 +190,7 @@
                     </div>
                     <div class="field"><label>Zone / site préféré</label>
                         <select name="zone">
+                            <option value="">-- Choisissez --</option>
                             <option value="diamniadio">Diamniadio Olympic Stadium</option>
                             <option value="dakar_centre">Dakar centre</option>
                             <option value="saly">Saly - Petite Côte</option>
@@ -221,14 +227,14 @@
                         <strong>Certification linguistique</strong><br>
                         <span class="file-name">Glissez un fichier ou cliquez pour parcourir (TOEIC, DELE, HSK, JLPT… selon la langue choisie (PDF
                             - 5 Mo max))</span>
-                        <input type="file" id="file-certif" name="certification_fichier" accept=".pdf" hidden>
+                        <input type="file" id="file-certif" name="certification_fichier" accept=".pdf,.jpg,.jpeg,.png" hidden>
                         @error('certification_fichier') <span class="field-error">{{ $message }}</span> @enderror
                     </label>
                     <label class="upload-box" for="file-cv" style="display:block; cursor:pointer;">
                         <strong>CV à jour</strong><br>
                         <span class="file-name">Glissez un fichier ou cliquez pour parcourir (PDF, JPG, JPEG, PNG - 5 Mo
                             max)</span>
-                        <input type="file" id="file-cv" name="cv" accept=".pdf" hidden>
+                        <input type="file" id="file-cv" name="cv" accept=".pdf,.jpg,.jpeg,.png" hidden>
                         @error('cv') <span class="field-error">{{ $message }}</span> @enderror
                     </label>
 
