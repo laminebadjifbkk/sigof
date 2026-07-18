@@ -28,7 +28,8 @@
                     <th>Niveau</th>
                     <th>Zone</th>
                     <th>Statut</th>
-                    <th>Date</th>
+                    <!-- <th>Date</th> -->
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -52,7 +53,12 @@
                         <!-- <span class="status-pill {{ $c->statut }}">{{ ucfirst($c->statut) }}</span> -->
                         <span class="status-pill {{ $c->statut_classe }}">{{ $c->statut_label }}</span>
                     </td>
-                    <td>{{ $c?->user?->date_naissance?->format('d/m/Y') }}</td>
+                    <!-- <td>{{ $c?->user?->date_naissance?->format('d/m/Y') }}</td> -->
+                    <td>
+                        <a href="{{ route('candidatures.show', $c->id) }}" class="btn btn-sm btn-outline">
+                            Voir
+                        </a>
+                    </td>
                 </tr>
                 @empty
                 <tr>

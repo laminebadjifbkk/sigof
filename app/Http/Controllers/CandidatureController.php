@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Http\UploadedFile;
 use Spatie\Permission\Models\Role;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class CandidatureController extends Controller
 {
@@ -24,8 +27,11 @@ class CandidatureController extends Controller
     {
         $candidatures = Candidature::whereHas('user', function ($query) {
             $query->whereNotNull('firstname');
-        })->latest() // équivaut à orderBy('created_at', 'desc')
-            ->limit(100)->get();
+        })
+            ->whereHas('langueSpecialisation')
+            ->latest()
+            ->limit(100)
+            ->get();
 
         return view('candidatures.index', compact('candidatures'));
     }
@@ -133,5 +139,117 @@ class CandidatureController extends Controller
 
         $candidature->load('user', 'langueSpecialisation');
         return view('candidatures.confirmation', compact('candidature'));
+    }
+
+    public function show(Candidature $candidature)
+    {
+        $candidature->load('user', 'langueSpecialisation');
+
+        $documents = [
+            'Pièce d\'identité' => $candidature->piece_identite_path,
+            'Diplôme'           => $candidature->diplome_fichier_path,
+            'Certification'     => $candidature->certification_fichier_path,
+            'CV'                => $candidature->cv_path,
+        ];
+
+        return view('candidatures.show', compact('candidature', 'documents'));
+    }
+
+    public function edit(Candidature $candidature)
+    {
+        $candidature->load('user', 'langueSpecialisation');
+        $languesSpecialisations = LanguesSpecialisation::orderBy('nom')->get();
+
+        $currentFiles = [
+            'piece_identite'        => ['label' => 'Pièce d\'identité',      'path' => $candidature->piece_identite_path],
+            'diplome_fichier'       => ['label' => 'Diplôme',                 'path' => $candidature->diplome_fichier_path],
+            'certification_fichier' => ['label' => 'Certification',           'path' => $candidature->certification_fichier_path],
+            'cv'                     => ['label' => 'CV',                      'path' => $candidature->cv_path],
+        ];
+
+        return view('candidatures.edit', compact('candidature', 'languesSpecialisations', 'currentFiles'));
+    }
+
+    public function update(Request $request, Candidature $candidature)
+    {
+        $validated = $request->validate([
+            'diplome'               => ['required', 'string'],
+            'langue_maternelle'     => ['required', 'string'],
+            'niveau_francais'       => ['required', 'string'],
+            'langue_vivante_2'      => ['nullable', 'string'],
+            'disponible_debut'      => ['required', 'date'],
+            'disponible_fin'        => ['required', 'date', 'after_or_equal:disponible_debut'],
+            'zone'                  => ['required', 'string'],
+            'delegation_souhaitee'  => ['nullable', 'string'],
+
+            // Fichiers optionnels : uniquement validés s'ils sont envoyés
+            'piece_identite'         => ['nullable', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:5120'],
+            'diplome_fichier'        => ['nullable', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:5120'],
+            'certification_fichier'  => ['nullable', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:5120'],
+            'cv'                      => ['nullable', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:5120'],
+        ]);
+
+        // Correspondance champ formulaire -> [colonne base, dossier de stockage]
+        $fileMap = [
+            'piece_identite'        => ['column' => 'piece_identite_path',        'dir' => 'candidatures/pieces_identite'],
+            'diplome_fichier'       => ['column' => 'diplome_fichier_path',       'dir' => 'candidatures/diplomes'],
+            'certification_fichier' => ['column' => 'certification_fichier_path', 'dir' => 'candidatures/certifications'],
+            'cv'                     => ['column' => 'cv_path',                    'dir' => 'candidatures/cv'],
+        ];
+
+        foreach ($fileMap as $field => $info) {
+            if ($request->hasFile($field)) {
+                // Supprime l'ancien fichier avant d'écrire le nouveau
+                $oldPath = $candidature->{$info['column']};
+                if ($oldPath && Storage::disk('public')->exists($oldPath)) {
+                    Storage::disk('public')->delete($oldPath);
+                }
+
+                $validated[$info['column']] = $this->storeUploadedFile($request->file($field), $info['dir']);
+            }
+        }
+
+        $candidature->update($validated);
+
+        return redirect()
+            ->route('candidatures.show', $candidature->id)
+            ->with('success', 'La candidature a été mise à jour.');
+    }
+
+    public function updateStatut(Request $request, Candidature $candidature)
+    {
+        $validated = $request->validate([
+            'statut'            => ['required', Rule::in(['en_attente', 'validee', 'rejetee'])],
+            'commentaire_admin' => ['nullable', 'string', 'max:1000'],
+        ]);
+
+        $candidature->update($validated);
+
+        return redirect()
+            ->route('candidatures.show', $candidature->id)
+            ->with('success', 'Le statut de la candidature a été mis à jour.');
+    }
+
+    public function destroy(Candidature $candidature)
+    {
+        // Supprime les fichiers physiques associés avant de supprimer l'enregistrement
+        foreach (
+            [
+                $candidature->piece_identite_path,
+                $candidature->diplome_fichier_path,
+                $candidature->certification_fichier_path,
+                $candidature->cv_path,
+            ] as $path
+        ) {
+            if ($path && Storage::disk('public')->exists($path)) {
+                Storage::disk('public')->delete($path);
+            }
+        }
+
+        $candidature->delete();
+
+        return redirect()
+            ->route('candidatures.index')
+            ->with('success', 'La candidature a été supprimée.');
     }
 }

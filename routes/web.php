@@ -186,9 +186,12 @@ Route::group(['middleware' => ['XSS']], function () {
         /* Route::get('/admin/candidatures', [DashboardController::class, 'candidatures'])->name('dashboard.candidatures'); */
 
 
-        Route::resource('/candidatures', CandidatureController::class);
+        Route::resource('/candidatures', CandidatureController::class)->except(['create', 'store']);
         // Route::get('/admin/traducteurs', [DashboardController::class, 'traducteurs'])->name('dashboard.traducteurs');
         // ... branchez ici les futurs liens de partials/sidebar.blade.php
+
+        Route::patch('/candidatures/{candidature}/statut', [CandidatureController::class, 'updateStatut'])
+            ->name('candidatures.statut');
     });
 
     Route::get('/inscription', [CandidatureController::class, 'create'])->name('inscription');

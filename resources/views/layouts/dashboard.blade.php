@@ -49,6 +49,92 @@
             background: #f0f0f0;
             color: #616161;
         }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-top: 12px;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .detail-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            color: var(--gray-500, #888);
+        }
+
+        .detail-value {
+            font-size: 14.5px;
+            font-weight: 500;
+        }
+
+        .documents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-top: 12px;
+        }
+
+        .document-card {
+            border: 1px solid var(--gray-200, #eee);
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: flex-start;
+        }
+
+        .document-label {
+            font-weight: 600;
+            font-size: 13.5px;
+        }
+
+        .document-preview img {
+            max-width: 100%;
+            max-height: 140px;
+            border-radius: 6px;
+            object-fit: cover;
+        }
+
+        .document-file-link {
+            display: inline-block;
+            padding: 8px 12px;
+            background: var(--gray-50, #f7f7f7);
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .document-missing {
+            font-size: 13px;
+            color: var(--gray-500, #999);
+            font-style: italic;
+        }
+
+        .btn-success {
+            background: #2e7d32;
+            color: #fff;
+            border: none;
+        }
+
+        .btn-danger {
+            background: #c0392b;
+            color: #fff;
+            border: none;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--gray-300, #ddd);
+            color: inherit;
+        }
     </style>
     @stack('styles')
 </head>
