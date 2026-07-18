@@ -69,7 +69,7 @@
         <div class="kpi-top"><span class="kpi-label">Traducteurs mobilisés</span><span class="kpi-dot"
                 style="background:var(--brick)"></span></div>
         <div class="kpi-num">{{ $kpis['mobilises'] }}</div>
-        <div class="kpi-delta" style="color:var(--brick);">Sur {{ config('candidatures.objectif_traducteurs', 150) }} requis</div>
+        <div class="kpi-delta" style="color:var(--brick);">Sur {{ config('candidatures.objectif_traducteurs', 40) }} requis</div>
     </div>
 </div>
 
