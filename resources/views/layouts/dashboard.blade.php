@@ -15,6 +15,41 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css">
 
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.2.5/css/buttons.dataTables.min.css">
+    <style>
+        .status-pill {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 12.5px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .status-en-attente {
+            background: #fff8e1;
+            color: #8a6d00;
+        }
+
+        .status-validee {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-rejetee {
+            background: #fdecea;
+            color: #842029;
+        }
+
+        .status-en-cours {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .status-inconnu {
+            background: #f0f0f0;
+            color: #616161;
+        }
+    </style>
     @stack('styles')
 </head>
 

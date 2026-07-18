@@ -120,12 +120,17 @@
                         </div>
                     </td>
                     <td>
-                        <div class="lang-tags"><span class="lang-tag">{{ $c->langue_specialisation }}</span><span
-                                class="lang-tag">Français</span></div>
+                        <div class="lang-tags">
+                            <span class="lang-tag">{{ $c->langueSpecialisation->nom }}</span>
+                            <span class="lang-tag">Français</span>
+                        </div>
                     </td>
-                    <td>{{ $c->niveau }}</td>
-                    <td>{{ $c->zone }}</td>
-                    <td><span class="status-pill {{ $c->statut }}">{{ ucfirst($c->statut) }}</span></td>
+                    <td>{{ $c->niveau_francais }}</td>
+                    <td>{{ $c->zone_label }}</td>
+                    <td>
+                        <!-- <span class="status-pill {{ $c->statut }}">{{ ucfirst($c->statut) }}</span> -->
+                        <span class="status-pill {{ $c->statut_classe }}">{{ $c->statut_label }}</span>
+                    </td>
                     <td>
                         <span title="{{ $c?->created_at?->format('d/m/Y à H:i') }}">
                             {{ $c?->created_at?->diffForHumans() }}

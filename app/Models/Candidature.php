@@ -92,4 +92,33 @@ class Candidature extends Model
     {
         return $query->where('statut', 'rejetee');
     }
+
+    private const STATUTS = [
+        'en_attente' => ['label' => 'En attente', 'classe' => 'status-en-attente'],
+        'validee'    => ['label' => 'Validée',    'classe' => 'status-validee'],
+        'rejetee'    => ['label' => 'Rejetée',    'classe' => 'status-rejetee'],
+        'en_cours'   => ['label' => 'En cours',   'classe' => 'status-en-cours'],
+    ];
+
+    private const ZONES = [
+        'diamniadio'    => 'Diamniadio Olympic Stadium',
+        'dakar_centre'  => 'Dakar centre',
+        'saly'          => 'Saly - Petite Côte',
+        'indifferent'   => 'Indifférent',
+    ];
+
+    public function getStatutLabelAttribute(): string
+    {
+        return self::STATUTS[$this->statut]['label'] ?? ucfirst($this->statut);
+    }
+
+    public function getStatutClasseAttribute(): string
+    {
+        return self::STATUTS[$this->statut]['classe'] ?? 'status-inconnu';
+    }
+
+    public function getZoneLabelAttribute(): string
+    {
+        return self::ZONES[$this->zone] ?? ucfirst(str_replace('_', ' ', $this->zone ?? ''));
+    }
 }
