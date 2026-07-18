@@ -62,9 +62,9 @@
                     </td>
                 </tr>
                 @empty
-                <tr>
+                <!-- <tr>
                     <td colspan="6" class="empty-row">Aucune candidature pour le moment.</td>
-                </tr>
+                </tr> -->
                 @endforelse
             </tbody>
         </table>
