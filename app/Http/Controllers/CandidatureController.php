@@ -20,6 +20,16 @@ class CandidatureController extends Controller
         return view('candidatures.inscription', compact('languesSpecialisations'));
     }
 
+    public function index()
+    {
+        $candidatures = Candidature::whereHas('user', function ($query) {
+            $query->whereNotNull('firstname');
+        })->latest() // équivaut à orderBy('created_at', 'desc')
+            ->limit(100)->get();
+
+        return view('dashboard.candidatures', compact('candidatures'));
+    }
+
     public function store(StoreCandidatureRequest $request)
     {
         /* return redirect()->back()

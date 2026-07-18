@@ -183,7 +183,10 @@ Route::group(['middleware' => ['XSS']], function () {
     // ---------- Espace admin (à protéger avec vos middlewares : auth, rôle admin…) ----------
     Route::middleware(['authylp', 'can:access-admin-ylp'])->group(function () {
         Route::get('/admin/ylp', [DashboardController::class, 'index'])->name('dashboard');
-        Route::get('/admin/candidatures', [DashboardController::class, 'candidatures'])->name('dashboard.candidatures');
+        /* Route::get('/admin/candidatures', [DashboardController::class, 'candidatures'])->name('dashboard.candidatures'); */
+
+
+        Route::resource('/candidatures', CandidatureController::class);
         // Route::get('/admin/traducteurs', [DashboardController::class, 'traducteurs'])->name('dashboard.traducteurs');
         // ... branchez ici les futurs liens de partials/sidebar.blade.php
     });

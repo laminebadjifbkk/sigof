@@ -17,7 +17,7 @@ class DashboardController extends Controller
             'mobilises' => 97,
         ];
 
-        $candidatures = Individuelle::whereHas('user', function ($query) {
+        $candidatures = Candidature::whereHas('user', function ($query) {
             $query->whereNotNull('firstname');
         })
             ->latest() // équivaut à orderBy('created_at', 'desc')
@@ -28,7 +28,8 @@ class DashboardController extends Controller
     }
 
 
-    public function candidatures()
+    /* Déplacer dans CandidatureController */
+ /*    public function candidatures()
     {
 
         $candidatures = Individuelle::whereHas('user', function ($query) {
@@ -36,5 +37,5 @@ class DashboardController extends Controller
         })->limit(100)->get();
 
         return view('dashboard.candidatures', compact('candidatures'));
-    }
+    } */
 }
