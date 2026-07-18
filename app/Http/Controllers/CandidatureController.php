@@ -27,7 +27,7 @@ class CandidatureController extends Controller
         })->latest() // équivaut à orderBy('created_at', 'desc')
             ->limit(100)->get();
 
-        return view('dashboard.candidatures', compact('candidatures'));
+        return view('candidatures.index', compact('candidatures'));
     }
 
     public function store(StoreCandidatureRequest $request)

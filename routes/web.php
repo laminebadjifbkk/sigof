@@ -182,7 +182,7 @@ Route::group(['middleware' => ['XSS']], function () {
 
     // ---------- Espace admin (à protéger avec vos middlewares : auth, rôle admin…) ----------
     Route::middleware(['authylp', 'can:access-admin-ylp'])->group(function () {
-        Route::get('/admin/ylp', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/admin/ylp', [DashboardController::class, 'dashboard'])->name('dashboard');
         /* Route::get('/admin/candidatures', [DashboardController::class, 'candidatures'])->name('dashboard.candidatures'); */
 
 

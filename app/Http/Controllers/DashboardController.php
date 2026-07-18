@@ -7,7 +7,7 @@ use App\Models\Individuelle;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function dashboard()
     {
         // Exemple de données à remplacer par vos vraies requêtes (Eloquent).
         $kpis = [
@@ -24,7 +24,7 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
-        return view('dashboard.index', compact('kpis', 'candidatures'));
+        return view('dashboard.dashboard', compact('kpis', 'candidatures'));
     }
 
 

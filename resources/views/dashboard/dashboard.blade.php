@@ -126,7 +126,11 @@
                     <td>{{ $c->niveau }}</td>
                     <td>{{ $c->zone }}</td>
                     <td><span class="status-pill {{ $c->statut }}">{{ ucfirst($c->statut) }}</span></td>
-                    <td>{{ $c?->user?->date_naissance?->format('d/m/Y') }}</td>
+                    <td>
+                        <span title="{{ $c?->created_at?->format('d/m/Y à H:i') }}">
+                            {{ $c?->created_at?->diffForHumans() }}
+                        </span>
+                    </td>
                 </tr>
                 @empty
                 <tr>
