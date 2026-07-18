@@ -27,7 +27,7 @@
         <a href="{{ route('candidatures.index') }}"
             class="dash-link {{ request()->routeIs('candidatures.index') ? 'active' : '' }}"><span
                 class="ic"></span>Candidatures</a>
-        <a href="#" class="dash-link"><span class="ic"></span>Traducteurs formés</a>
+        <a href="{{ route('sessions-formation.index')}}" class="dash-link {{ request()->routeIs('sessions-formation.index') ? 'active' : '' }}"><span class="ic"></span>Traducteurs formés</a>
         <a href="#" class="dash-link"><span class="ic"></span>Formations COJO</a>
         <a href="#" class="dash-link"><span class="ic"></span>Délégations</a>
         <a href="#" class="dash-link"><span class="ic"></span>Rapports</a>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCandidatureRequest;
 use App\Models\Candidature;
 use App\Models\LanguesSpecialisation;
+use App\Models\FormationsTraducteur;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -224,6 +225,14 @@ class CandidatureController extends Controller
         ]);
 
         $candidature->update($validated);
+
+        // Créé automatiquement le suivi de formation dès la validation
+        if ($validated['statut'] === 'validee') {
+            FormationsTraducteur::firstOrCreate(
+                ['candidature_id' => $candidature->id],
+                ['statut_formation' => 'non_inscrit']
+            );
+        }
 
         return redirect()
             ->route('candidatures.show', $candidature)

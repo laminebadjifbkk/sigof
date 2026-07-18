@@ -52,28 +52,29 @@
                 style="background:var(--navy)"></span></div>
         <div class="kpi-num">{{ $kpis['total'] }}</div>
         <div class="kpi-delta">+{{ $kpis['aujourdhui'] }} aujourd'hui</div>
-        <!-- <div class="kpi-delta">+{{ $kpis['nouvelles_semaine'] }} cette semaine</div> -->
-    </div>
-    <div class="kpi-card">
-        <div class="kpi-top"><span class="kpi-label">Validées</span><span class="kpi-dot"
-                style="background:var(--green)"></span></div>
-        <div class="kpi-num">{{ $kpis['validees'] }}</div>
-        <div class="kpi-delta">{{ $kpis['total'] > 0 ? round(($kpis['validees'] / $kpis['total']) * 100) : 0 }} % du total</div>
-    </div>
-    <div class="kpi-card">
-        <div class="kpi-top"><span class="kpi-label">En attente</span><span class="kpi-dot"
-                style="background:var(--gold)"></span></div>
-        <div class="kpi-num">{{ $kpis['attente'] }}</div>
-        <!-- <div class="kpi-delta" style="color:#8A6416;">À traiter</div> -->
-        <div class="kpi-delta" style="color:#8A6416;">{{ $kpis['total'] > 0 ? round(($kpis['attente'] / $kpis['total']) * 100) : 0 }} % à traiter du total</div>
-    </div>
-    <div class="kpi-card">
-        <div class="kpi-top"><span class="kpi-label">Rejetées</span><span class="kpi-dot"
-                style="background:var(--brick)"></span></div>
-        <div class="kpi-num">{{ $kpis['rejete'] }}</div>
-        <div class="kpi-delta" style="color:var(--brick);">{{ $kpis['total'] > 0 ? round(($kpis['rejete'] / $kpis['total']) * 100) : 0 }} % du total</div>
-    </div>
-    <!-- <div class="kpi-card">
+        {{-- <div class="kpi-delta">+{{ $kpis['nouvelles_semaine'] }} cette semaine
+    </div> --}}
+</div>
+<div class="kpi-card">
+    <div class="kpi-top"><span class="kpi-label">Validées</span><span class="kpi-dot"
+            style="background:var(--green)"></span></div>
+    <div class="kpi-num">{{ $kpis['validees'] }}</div>
+    <div class="kpi-delta">{{ $kpis['total'] > 0 ? round(($kpis['validees'] / $kpis['total']) * 100) : 0 }} % du total</div>
+</div>
+<div class="kpi-card">
+    <div class="kpi-top"><span class="kpi-label">En attente</span><span class="kpi-dot"
+            style="background:var(--gold)"></span></div>
+    <div class="kpi-num">{{ $kpis['attente'] }}</div>
+    <!-- <div class="kpi-delta" style="color:#8A6416;">À traiter</div> -->
+    <div class="kpi-delta" style="color:#8A6416;">{{ $kpis['total'] > 0 ? round(($kpis['attente'] / $kpis['total']) * 100) : 0 }} % à traiter du total</div>
+</div>
+<div class="kpi-card">
+    <div class="kpi-top"><span class="kpi-label">Rejetées</span><span class="kpi-dot"
+            style="background:var(--brick)"></span></div>
+    <div class="kpi-num">{{ $kpis['rejete'] }}</div>
+    <div class="kpi-delta" style="color:var(--brick);">{{ $kpis['total'] > 0 ? round(($kpis['rejete'] / $kpis['total']) * 100) : 0 }} % du total</div>
+</div>
+<!-- <div class="kpi-card">
         <div class="kpi-top"><span class="kpi-label">Traducteurs mobilisés</span><span class="kpi-dot"
                 style="background:var(--brick)"></span></div>
         <div class="kpi-num">{{ $kpis['mobilises'] }}</div>

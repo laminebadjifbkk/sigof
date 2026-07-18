@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Candidature extends Model
 {
@@ -125,5 +126,10 @@ class Candidature extends Model
     public function getZoneLabelAttribute(): string
     {
         return self::ZONES[$this->zone] ?? ucfirst(str_replace('_', ' ', $this->zone ?? ''));
+    }
+
+    public function formation(): HasOne
+    {
+        return $this->hasOne(FormationsTraducteur::class);
     }
 }

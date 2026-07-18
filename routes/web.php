@@ -105,6 +105,7 @@ use App\Http\Controllers\ValidationoperateurController;
 
 use App\Http\Controllers\VerificationAttestationController;
 use App\Http\Controllers\CandidatureController;
+use App\Http\Controllers\SessionFormationController;
 use App\Models\Arrive;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
@@ -192,6 +193,10 @@ Route::group(['middleware' => ['XSS']], function () {
 
         Route::patch('/candidatures/{candidature}/statut', [CandidatureController::class, 'updateStatut'])
             ->name('candidatures.statut');
+
+        /* Route::resource('sessions-formation', SessionFormationController::class); */
+        Route::resource('sessions-formation', SessionFormationController::class)
+            ->parameters(['sessions-formation' => 'session']);
     });
 
     Route::get('/inscription', [CandidatureController::class, 'create'])->name('inscription');
