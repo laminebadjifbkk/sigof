@@ -91,7 +91,7 @@
             "sInfoPostFix": "",
             "sLoadingRecords": "Chargement en cours...",
             "sZeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",
-            "sEmptyTable": "Aucune donn&eacute;e disponible dans le tableau",
+            "sEmptyTable": "Aucune candidature disponible dans ce tableau pour le moment.",
             "oPaginate": {
                 "sFirst": "Premier",
                 "sPrevious": "Pr&eacute;c&eacute;dent",
