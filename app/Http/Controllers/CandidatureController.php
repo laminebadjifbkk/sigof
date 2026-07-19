@@ -24,7 +24,7 @@ class CandidatureController extends Controller
         return view('candidatures.inscription', compact('languesSpecialisations'));
     }
 
-    public function index()
+    /*     public function index()
     {
         $candidatures = Candidature::whereHas('user', function ($query) {
             $query->whereNotNull('firstname');
@@ -35,6 +35,34 @@ class CandidatureController extends Controller
             ->get();
 
         return view('candidatures.index', compact('candidatures'));
+    } */
+
+    public function index()
+    {
+        $langues = LanguesSpecialisation::query()
+            ->withCount(['candidatures' => function ($query) {
+                $query->whereHas('user', function ($q) {
+                    $q->whereNotNull('firstname');
+                });
+            }])
+            ->having('candidatures_count', '>', 0)
+            ->orderByDesc('candidatures_count')
+            ->get();
+
+        return view('candidatures.index', compact('langues'));
+    }
+
+    public function parLangue(LanguesSpecialisation $langue)
+    {
+        $candidatures = Candidature::where('langue_specialisation_id', $langue->id)
+            ->whereHas('user', function ($query) {
+                $query->whereNotNull('firstname');
+            })
+            ->latest()
+            ->limit(100)
+            ->get();
+
+        return view('candidatures.par_langue', compact('candidatures', 'langue'));
     }
 
     public function store(StoreCandidatureRequest $request)

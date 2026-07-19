@@ -82,7 +82,6 @@
        @vite(['resources/css/sigof.css', 'resources/js/sigof.js']) --}}
     <link rel="stylesheet" href="{{ asset('assets/css/sigof.css') }}">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css">
-
     <style>
         .field-error,
         .recap-block .field-error {

@@ -106,6 +106,7 @@ use App\Http\Controllers\ValidationoperateurController;
 use App\Http\Controllers\VerificationAttestationController;
 use App\Http\Controllers\CandidatureController;
 use App\Http\Controllers\SessionFormationController;
+use App\Http\Controllers\LanguesSpecialisationController;
 use App\Models\Arrive;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
@@ -203,6 +204,9 @@ Route::group(['middleware' => ['XSS']], function () {
 
         Route::delete('/sessions-formation/{session}/retirer/{formationTraducteur}', [SessionFormationController::class, 'retirerTraducteur'])
             ->name('sessions-formation.retirer');
+        Route::get('candidatures/langue/{langue}', [CandidatureController::class, 'parLangue'])->name('candidatures.parLangue');
+
+        Route::resource('langues', LanguesSpecialisationController::class);
     });
 
     Route::get('/inscription', [CandidatureController::class, 'create'])->name('inscription');
