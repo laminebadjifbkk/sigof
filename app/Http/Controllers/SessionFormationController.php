@@ -169,7 +169,8 @@ class SessionFormationController extends Controller
             ...$data,
             'date_evaluation' => now(),
             'evalue_par' => auth()->id(),
-            'statut_formation' => $data['resultat_evaluation'] === 'reussi' ? 'complete' : 'en_cours',
+            /* 'statut_formation' => $data['resultat_evaluation'] === 'reussi' ? 'complete' : 'en_cours', */
+            'statut_formation' => $data['resultat_evaluation'] === 'reussi' ? 'complete' : 'complete',
         ]);
 
         return back()->with('success', 'Évaluation enregistrée avec succès.');

@@ -156,7 +156,7 @@
                                 <div class="modal-body">
                                     <div class="field">
                                         <label for="note_evaluation_{{ $participant->id }}">Note (/20)</label>
-                                        <input type="number" step="0.01" min="0" max="20" name="note_evaluation"
+                                        <input type="number" step="0.1" min="0" max="20" name="note_evaluation"
                                             id="note_evaluation_{{ $participant->id }}" class="form-control"
                                             value="{{ $participant->note_evaluation }}">
                                     </div>
