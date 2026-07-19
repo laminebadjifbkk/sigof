@@ -30,11 +30,11 @@
         </div>
         <div class="detail-item">
             <span class="detail-label">Formateur</span>
-            <span class="detail-value">{{ $session->formateur ?? '—' }}</span>
+            <span class="detail-value">{{ $session->formateur ?? '-' }}</span>
         </div>
         <div class="detail-item">
             <span class="detail-label">Lieu</span>
-            <span class="detail-value">{{ $session->lieu ?? '—' }}</span>
+            <span class="detail-value">{{ $session->lieu ?? '-' }}</span>
         </div>
         <div class="detail-item">
             <span class="detail-label">Participants</span>
@@ -186,10 +186,10 @@
                     </div>
                 </div>
                 @empty
-               <!--  <tr>
+                <!--  <tr>
                     <td colspan="6" class="empty-row">Aucun traducteur affecté à cette session pour le moment.</td>
-                </tr>
-                @endforelse -->
+                </tr> -->
+                @endforelse
             </tbody>
         </table>
     </div>
