@@ -146,7 +146,7 @@
 
 <div class="panel">
     <div class="reg-actions" style="justify-content:space-between;">
-        <a href="{{ route('candidatures.index') }}" class="btn btn-ghost btn-sm">← Retour à la liste</a>
+        <a href="{{ route('candidatures.index') }}" class="btn btn-ghost btn-sm">Retour à la liste</a>
 
         <div style="display:flex; gap:10px;">
             <a href="{{ route('candidatures.edit', $candidature) }}" class="btn btn-outline btn-sm">

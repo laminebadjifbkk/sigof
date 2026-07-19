@@ -197,6 +197,12 @@ Route::group(['middleware' => ['XSS']], function () {
         /* Route::resource('sessions-formation', SessionFormationController::class); */
         Route::resource('sessions-formation', SessionFormationController::class)
             ->parameters(['sessions-formation' => 'session']);
+
+        Route::post('/sessions-formation/{session}/affecter', [SessionFormationController::class, 'affecterTraducteurs'])
+            ->name('sessions-formation.affecter');
+
+        Route::delete('/sessions-formation/{session}/retirer/{formationTraducteur}', [SessionFormationController::class, 'retirerTraducteur'])
+            ->name('sessions-formation.retirer');
     });
 
     Route::get('/inscription', [CandidatureController::class, 'create'])->name('inscription');

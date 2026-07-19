@@ -6,6 +6,8 @@ use App\Models\LanguesSpecialisation;
 use App\Models\SessionsFormationTraducteur;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Models\Candidature;
+use App\Models\FormationsTraducteur;
 
 class SessionFormationController extends Controller
 {
@@ -37,11 +39,32 @@ class SessionFormationController extends Controller
             ->with('success', 'La session de formation a été créée.');
     }
 
-    public function show(SessionsFormationTraducteur $session)
+    /* public function show(SessionsFormationTraducteur $session)
     {
         $session->load('langueSpecialisation', 'participants.candidature.user');
 
         return view('candidatures.sessions-formation.show', ['session' => $session]);
+    } */
+
+    public function show(SessionsFormationTraducteur $session)
+    {
+        $session->load('langueSpecialisation', 'participants.candidature.user');
+
+        // Candidatures validées, pas encore affectées à une session
+        $candidaturesDisponibles = Candidature::with('user', 'langueSpecialisation')
+            ->where('statut', 'validee')
+            ->whereDoesntHave('formation', function ($query) {
+                $query->whereNotNull('session_formation_id');
+            })
+            ->when($session->langue_specialisation_id, function ($query) use ($session) {
+                $query->where('langue_specialisation_id', $session->langue_specialisation_id);
+            })
+            ->get();
+
+        return view('candidatures.sessions-formation.show', [
+            'session'                  => $session,
+            'candidaturesDisponibles' => $candidaturesDisponibles,
+        ]);
     }
 
     public function edit(SessionsFormationTraducteur $session)
@@ -92,5 +115,45 @@ class SessionFormationController extends Controller
             'statut'                     => ['required', Rule::in(['planifiee', 'en_cours', 'terminee', 'annulee'])],
             'description'                => ['nullable', 'string', 'max:2000'],
         ]);
+    }
+
+    public function affecterTraducteurs(Request $request, SessionsFormationTraducteur $session)
+    {
+        $validated = $request->validate([
+            'candidature_ids'   => ['required', 'array', 'min:1'],
+            'candidature_ids.*' => ['exists:candidatures,id'],
+        ]);
+
+        foreach ($validated['candidature_ids'] as $candidatureId) {
+            FormationsTraducteur::updateOrCreate(
+                ['candidature_id' => $candidatureId],
+                [
+                    'session_formation_id' => $session->id,
+                    'statut_formation'     => 'inscrit',
+                ]
+            );
+        }
+
+        $count = count($validated['candidature_ids']);
+
+        return redirect()
+            ->route('sessions-formation.show', $session)
+            ->with('success', $count . ' traducteur(s) affecté(s) à cette session.');
+    }
+
+    public function retirerTraducteur(SessionsFormationTraducteur $session, FormationsTraducteur $formationTraducteur)
+    {
+        if ($formationTraducteur->session_formation_id !== $session->id) {
+            abort(404);
+        }
+
+        $formationTraducteur->update([
+            'session_formation_id' => null,
+            'statut_formation'     => 'non_inscrit',
+        ]);
+
+        return redirect()
+            ->route('sessions-formation.show', $session)
+            ->with('success', 'Le traducteur a été retiré de cette session.');
     }
 }

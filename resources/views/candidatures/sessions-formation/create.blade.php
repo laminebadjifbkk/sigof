@@ -87,7 +87,7 @@
         </div>
 
         <div class="reg-actions" style="justify-content:space-between; margin-top:24px;">
-            <a href="{{ route('sessions-formation.index') }}" class="btn btn-ghost btn-sm">← Annuler</a>
+            <a href="{{ route('sessions-formation.index') }}" class="btn btn-ghost btn-sm">Annuler</a>
             <button type="submit" class="btn btn-primary btn-sm">Créer la session</button>
         </div>
     </form>

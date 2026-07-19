@@ -6,7 +6,7 @@
 <div class="dash-topbar">
     <div>
         <h2>{{ $session->nom }}</h2>
-        <p class="muted-sub">{{ $session->date_debut->format('d/m/Y') }} → {{ $session->date_fin->format('d/m/Y') }} · {{ $session->lieu ?? 'Lieu non défini' }}</p>
+        <p class="muted-sub">{{ $session->date_debut->format('d/m/Y') .' - '. $session->date_fin->format('d/m/Y') }} · {{ $session->lieu ?? 'Lieu non défini' }}</p>
     </div>
     <div class="topbar-right">
         <span class="status-pill {{ $session->statut_classe }}">{{ $session->statut_label }}</span>
@@ -56,6 +56,7 @@
                     <th>Langue (LV1)</th>
                     <th>Statut formation</th>
                     <th>Attestation</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -71,10 +72,18 @@
                         —
                         @endif
                     </td>
+                    <td>
+                        <form action="{{ route('sessions-formation.retirer', [$session, $participant]) }}" method="POST"
+                            onsubmit="return confirm('Retirer ce traducteur de la session ?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-ghost btn-sm" style="color:#c0392b;">Retirer</button>
+                        </form>
+                    </td>
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="4" class="empty-row">Aucun traducteur affecté à cette session pour le moment.</td>
+                    <td colspan="5" class="empty-row">Aucun traducteur affecté à cette session pour le moment.</td>
                 </tr>
                 @endforelse
             </tbody>
@@ -83,8 +92,74 @@
 </div>
 
 <div class="panel">
+    <h3>Affecter des traducteurs à cette session</h3>
+
+    @if ($candidaturesDisponibles->isEmpty())
+    <p class="muted-sub">
+        Aucun candidat validé disponible pour affectation
+        @if ($session->langue_specialisation_id)
+        (langue : {{ $session->langueSpecialisation->nom }})
+        @endif
+        pour le moment.
+    </p>
+    @else
+    <form action="{{ route('sessions-formation.affecter', $session) }}" method="POST">
+        @csrf
+
+        <div class="field">
+            <label>Sélectionnez les candidats à affecter</label>
+
+            @if ($candidaturesDisponibles->isEmpty())
+            <p class="muted-sub">Aucun candidat disponible pour affectation.</p>
+            @else
+            <div class="table-responsive">
+                <table class="data-table table align-middle">
+                    <thead>
+                        <tr>
+                            <th style="width:40px;">
+                                <input type="checkbox" id="selectAllCandidats">
+                            </th>
+                            <th>Candidat</th>
+                            <th>Langue (LV1)</th>
+                            <th>Zone souhaitée</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($candidaturesDisponibles as $candidature)
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="candidature_ids[]" value="{{ $candidature->id }}" class="candidat-checkbox">
+                            </td>
+                            <td>
+                                <div class="row-name">
+                                    <span class="mini-avatar">
+                                        {{ Str::upper(Str::substr($candidature->user->firstname, 0, 1) . Str::substr($candidature->user->name, 0, 1)) }}
+                                    </span>
+                                    {{ $candidature->user->firstname }} {{ $candidature->user->name }}
+                                </div>
+                            </td>
+                            <td>{{ $candidature->langueSpecialisation->nom }}</td>
+                            <td>{{ $candidature->zone_label }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            @endif
+
+            @error('candidature_ids') <span class="field-error">{{ $message }}</span> @enderror
+        </div>
+
+        <div class="reg-actions" style="justify-content:flex-end; margin-top:16px;">
+            <button type="submit" class="btn btn-primary btn-sm">Affecter les traducteurs sélectionnés</button>
+        </div>
+    </form>
+    @endif
+</div>
+
+<div class="panel">
     <div class="reg-actions" style="justify-content:space-between;">
-        <a href="{{ route('sessions-formation.index') }}" class="btn btn-ghost btn-sm">← Retour à la liste</a>
+        <a href="{{ route('sessions-formation.index') }}" class="btn btn-ghost btn-sm">Retour à la liste</a>
         <div style="display:flex; gap:10px;">
             <a href="{{ route('sessions-formation.edit', $session) }}" class="btn btn-outline btn-sm">Modifier</a>
             <form action="{{ route('sessions-formation.destroy', $session) }}" method="POST"
@@ -97,3 +172,18 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectAll = document.getElementById('selectAllCandidats');
+        if (!selectAll) return;
+
+        const checkboxes = document.querySelectorAll('.candidat-checkbox');
+
+        selectAll.addEventListener('change', function() {
+            checkboxes.forEach(cb => cb.checked = selectAll.checked);
+        });
+    });
+</script>
+@endpush
