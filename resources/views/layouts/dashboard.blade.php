@@ -135,6 +135,27 @@
             border: 1px solid var(--gray-300, #ddd);
             color: inherit;
         }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem 1.5rem;
+        }
+
+        .form-grid .field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-grid .field.full-width {
+            grid-column: 1 / -1;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     @stack('styles')
