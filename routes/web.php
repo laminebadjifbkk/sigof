@@ -207,6 +207,8 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('candidatures/langue/{langue}', [CandidatureController::class, 'parLangue'])->name('candidatures.parLangue');
 
         Route::resource('langues', LanguesSpecialisationController::class);
+        Route::post('sessions-formation/{session}/participants/{participant}/evaluer', [SessionFormationController::class, 'evaluer'])
+            ->name('sessions-formation.evaluer');
     });
 
     Route::get('/inscription', [CandidatureController::class, 'create'])->name('inscription');

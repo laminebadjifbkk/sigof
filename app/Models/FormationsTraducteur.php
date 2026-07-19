@@ -14,10 +14,17 @@ class FormationsTraducteur extends Model
         'attestation_path',
         'date_attestation',
         'commentaire',
+        'note_evaluation',
+        'resultat_evaluation',
+        'commentaire_evaluation',
+        'date_evaluation',
+        'evalue_par',
     ];
 
     protected $casts = [
         'date_attestation' => 'date',
+        'date_evaluation' => 'date',
+        'note_evaluation' => 'decimal:2',
     ];
 
     private const STATUTS = [
@@ -26,6 +33,12 @@ class FormationsTraducteur extends Model
         'en_cours'    => ['label' => 'En cours',    'classe' => 'status-en-cours'],
         'complete'    => ['label' => 'Complétée',   'classe' => 'status-validee'],
         'absent'      => ['label' => 'Absent',      'classe' => 'status-rejetee'],
+    ];
+
+    private const RESULTATS = [
+        'reussi'     => ['label' => 'Réussi',     'classe' => 'status-validee'],
+        'echoue'     => ['label' => 'Échoué',     'classe' => 'status-rejetee'],
+        'rattrapage' => ['label' => 'Rattrapage', 'classe' => 'status-en-attente'],
     ];
 
     public function getStatutFormationLabelAttribute(): string
@@ -38,6 +51,16 @@ class FormationsTraducteur extends Model
         return self::STATUTS[$this->statut_formation]['classe'] ?? 'status-inconnu';
     }
 
+    public function getResultatEvaluationLabelAttribute(): string
+    {
+        return self::RESULTATS[$this->resultat_evaluation]['label'] ?? 'Non évalué';
+    }
+
+    public function getResultatEvaluationClasseAttribute(): string
+    {
+        return self::RESULTATS[$this->resultat_evaluation]['classe'] ?? 'status-inconnu';
+    }
+
     public function candidature(): BelongsTo
     {
         return $this->belongsTo(Candidature::class);
@@ -46,5 +69,10 @@ class FormationsTraducteur extends Model
     public function session(): BelongsTo
     {
         return $this->belongsTo(SessionsFormationTraducteur::class, 'session_formation_id');
+    }
+
+    public function evaluateur(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'evalue_par');
     }
 }

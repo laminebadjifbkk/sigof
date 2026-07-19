@@ -156,4 +156,22 @@ class SessionFormationController extends Controller
             ->route('sessions-formation.show', $session)
             ->with('success', 'Le traducteur a été retiré de cette session.');
     }
+
+    public function evaluer(Request $request, SessionsFormationTraducteur $session, FormationsTraducteur $participant)
+    {
+        $data = $request->validate([
+            'note_evaluation' => 'nullable|numeric|min:0|max:20',
+            'resultat_evaluation' => 'required|in:reussi,echoue,rattrapage',
+            'commentaire_evaluation' => 'nullable|string|max:1000',
+        ]);
+
+        $participant->update([
+            ...$data,
+            'date_evaluation' => now(),
+            'evalue_par' => auth()->id(),
+            'statut_formation' => $data['resultat_evaluation'] === 'reussi' ? 'complete' : 'en_cours',
+        ]);
+
+        return back()->with('success', 'Évaluation enregistrée avec succès.');
+    }
 }

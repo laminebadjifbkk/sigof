@@ -46,7 +46,7 @@
     @endif
 </div>
 
-<div class="panel">
+<!-- <div class="panel">
     <h3>Traducteurs affectés</h3>
     <div class="table-responsive">
         <table class="data-table table align-middle">
@@ -69,7 +69,7 @@
                         @if ($participant->attestation_path)
                         <a href="{{ asset('storage/' . $participant->attestation_path) }}" target="_blank">Voir</a>
                         @else
-                        —
+                        -
                         @endif
                     </td>
                     <td>
@@ -86,6 +86,110 @@
                     <td colspan="5" class="empty-row">Aucun traducteur affecté à cette session pour le moment.</td>
                 </tr>
                 @endforelse
+            </tbody>
+        </table>
+    </div>
+</div> -->
+
+
+<div class="panel">
+    <h3>Traducteurs affectés</h3>
+    <div class="table-responsive">
+        <table class="data-table table align-middle">
+            <thead>
+                <tr>
+                    <th>Candidat</th>
+                    <th>Langue (LV1)</th>
+                    <th>Statut formation</th>
+                    <th>Évaluation</th>
+                    <th>Attestation</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($session->participants as $participant)
+                <tr>
+                    <td>{{ $participant->candidature->user->firstname }} {{ $participant->candidature->user->name }}</td>
+                    <td>{{ $participant->candidature->langueSpecialisation->nom }}</td>
+                    <td><span class="status-pill {{ $participant->statut_formation_classe }}">{{ $participant->statut_formation_label }}</span></td>
+                    <td>
+                        @if ($participant->resultat_evaluation)
+                        <span class="status-pill {{ $participant->resultat_evaluation_classe }}">
+                            {{ $participant->resultat_evaluation_label }}
+                            @if ($participant->note_evaluation)
+                            ({{ $participant->note_evaluation }}/20)
+                            @endif
+                        </span>
+                        @else
+                        <span class="text-muted">Non évalué</span>
+                        @endif
+                    </td>
+                    <td>
+                        @if ($participant->attestation_path)
+                        <a href="{{ asset('storage/' . $participant->attestation_path) }}" target="_blank">Voir</a>
+                        @else
+                        -
+                        @endif
+                    </td>
+                    <td class="d-flex gap-1">
+                        <button type="button" class="btn btn-sm btn-outline" data-bs-toggle="modal" data-bs-target="#evalModal{{ $participant->id }}">
+                            {{ $participant->resultat_evaluation ? 'Modifier' : 'Évaluer' }}
+                        </button>
+                        <form action="{{ route('sessions-formation.retirer', [$session, $participant]) }}" method="POST"
+                            onsubmit="return confirm('Retirer ce traducteur de la session ?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-ghost btn-sm" style="color:#c0392b;">Retirer</button>
+                        </form>
+                    </td>
+                </tr>
+
+                <div class="modal fade" id="evalModal{{ $participant->id }}" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form action="{{ route('sessions-formation.evaluer', [$session, $participant]) }}" method="POST">
+                                @csrf
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Évaluer {{ $participant->candidature->user->firstname }} {{ $participant->candidature->user->name }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="field">
+                                        <label for="note_evaluation_{{ $participant->id }}">Note (/20)</label>
+                                        <input type="number" step="0.01" min="0" max="20" name="note_evaluation"
+                                            id="note_evaluation_{{ $participant->id }}" class="form-control"
+                                            value="{{ $participant->note_evaluation }}">
+                                    </div>
+
+                                    <div class="field" style="margin-top:12px;">
+                                        <label for="resultat_evaluation_{{ $participant->id }}">Résultat</label>
+                                        <select name="resultat_evaluation" id="resultat_evaluation_{{ $participant->id }}" class="form-control" required>
+                                            <option value="">-- Sélectionner --</option>
+                                            <option value="reussi" @selected($participant->resultat_evaluation === 'reussi')>Réussi</option>
+                                            <option value="rattrapage" @selected($participant->resultat_evaluation === 'rattrapage')>Rattrapage</option>
+                                            <option value="echoue" @selected($participant->resultat_evaluation === 'echoue')>Échoué</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="field" style="margin-top:12px;">
+                                        <label for="commentaire_evaluation_{{ $participant->id }}">Commentaire</label>
+                                        <textarea name="commentaire_evaluation" id="commentaire_evaluation_{{ $participant->id }}"
+                                            class="form-control" rows="3">{{ $participant->commentaire_evaluation }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-ghost btn-sm" data-bs-dismiss="modal">Annuler</button>
+                                    <button type="submit" class="btn btn-primary btn-sm">Enregistrer l'évaluation</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                @empty
+               <!--  <tr>
+                    <td colspan="6" class="empty-row">Aucun traducteur affecté à cette session pour le moment.</td>
+                </tr>
+                @endforelse -->
             </tbody>
         </table>
     </div>
