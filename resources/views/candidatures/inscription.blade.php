@@ -72,7 +72,7 @@
                 </div>
                 @endif
 
-                <div class="reg-step active" data-step="1">
+                <!-- <div class="reg-step active" data-step="1">
                     <h3>Informations personnelles</h3>
                     <div class="field-row">
                         <div class="field"><label>Prénom</label><input type="text" name="prenom"
@@ -94,6 +94,94 @@
                             @error('date_naissance') <span class="field-error">{{ $message }}</span> @enderror
                         </div>
                     </div>
+                    <p class="lang-note" style="margin-top:2px;">Programme ouvert aux candidats de 21 à 35 ans à la date
+                        de clôture des inscriptions.</p>
+                </div> -->
+
+                <div class="reg-step active" data-step="1">
+                    <h3>Informations personnelles</h3>
+
+                    <!-- <div class="field">
+                        <label>Civilité</label>
+                        <div class="civility-toggle">
+                            <input type="radio" name="civilite" id="civilite_m" value="M." {{ old('civilite') === 'M.' ? 'checked' : '' }}>
+                            <label for="civilite_m" class="civility-option">M.</label>
+
+                            <input type="radio" name="civilite" id="civilite_mme" value="Mme" {{ old('civilite') === 'Mme' ? 'checked' : '' }}>
+                            <label for="civilite_mme" class="civility-option">Mme</label>
+                        </div>
+                        @error('civilite') <span class="field-error">{{ $message }}</span> @enderror
+                    </div> -->
+
+                    <div class="field">
+                        <label>Civilité</label>
+                        <select name="civilite">
+                            <option value="">-- Sélectionner --</option>
+                            <option value="M." {{ old('civilite') === 'M.' ? 'selected' : '' }}>M.</option>
+                            <option value="Mme" {{ old('civilite') === 'Mme' ? 'selected' : '' }}>Mme</option>
+                        </select>
+                        @error('civilite') <span class="field-error">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="field-row">
+                        <div class="field"><label>Prénom</label><input type="text" name="prenom"
+                                value="{{ old('prenom') }}" placeholder="Awa">
+                            @error('prenom') <span class="field-error">{{ $message }}</span> @enderror</div>
+                        <div class="field"><label>Nom</label><input type="text" name="nom"
+                                value="{{ old('nom') }}" placeholder="Diop">
+                            @error('nom') <span class="field-error">{{ $message }}</span> @enderror</div>
+                    </div>
+
+                    <div class="field"><label>Adresse e-mail</label><input type="email" name="email"
+                            value="{{ old('email') }}" placeholder="awa.diop@exemple.sn">
+                        @error('email') <span class="field-error">{{ $message }}</span> @enderror</div>
+
+                    <div class="field-row">
+                        <div class="field"><label>Téléphone</label><input type="tel" name="telephone"
+                                value="{{ old('telephone') }}" placeholder="77 000 00 00">
+                            @error('telephone') <span class="field-error">{{ $message }}</span> @enderror</div>
+                        <div class="field"><label>Date de naissance</label><input type="date" name="date_naissance"
+                                value="{{ old('date_naissance') }}">
+                            @error('date_naissance') <span class="field-error">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Lieu de naissance</label>
+                        <input type="text" name="lieu_naissance" value="{{ old('lieu_naissance') }}" placeholder="Dakar">
+                        @error('lieu_naissance') <span class="field-error">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="field">
+                        <label>Adresse</label>
+                        <input type="text" name="adresse" value="{{ old('adresse') }}" placeholder="Cité Keur Gorgui, Villa 12">
+                        @error('adresse') <span class="field-error">{{ $message }}</span> @enderror
+                    </div>
+
+                    <!-- <div class="field">
+                        <label>Région</label>
+                        <select name="region">
+                            <option value="">-- Sélectionner une région --</option>
+                            @foreach (['Dakar', 'Thiès', 'Diourbel', 'Fatick', 'Kaffrine', 'Kaolack', 'Kédougou', 'Kolda', 'Louga', 'Matam', 'Saint-Louis', 'Sédhiou', 'Tambacounda', 'Ziguinchor'] as $region)
+                            <option value="{{ $region }}" {{ old('region') === $region ? 'selected' : '' }}>{{ $region }}</option>
+                            @endforeach
+                        </select>
+                        @error('region') <span class="field-error">{{ $message }}</span> @enderror
+                    </div> -->
+
+                    <div class="field">
+                        <label>Région</label>
+                        <select name="region_id">
+                            <option value="">-- Sélectionner une région --</option>
+                            @foreach ($regions as $region)
+                            <option value="{{ $region->id }}" {{ (string) old('region_id') === (string) $region->id ? 'selected' : '' }}>
+                                {{ $region->nom }}
+                            </option>
+                            @endforeach
+                        </select>
+                        @error('region_id') <span class="field-error">{{ $message }}</span> @enderror
+                    </div>
+
                     <p class="lang-note" style="margin-top:2px;">Programme ouvert aux candidats de 21 à 35 ans à la date
                         de clôture des inscriptions.</p>
                 </div>
@@ -258,12 +346,16 @@
                         Vérifiez vos informations avant l'envoi définitif. Vous pouvez revenir en arrière pour corriger.
                     </p>
 
-                    <div class="recap-block">
+                    <!-- <div class="recap-block">
                         <h4>Profil</h4>
+                        <p><strong>Civilité :</strong> <span id="recap-civilite"></span></p>
                         <p><strong>Nom complet :</strong> <span id="recap-nom"></span></p>
                         <p><strong>E-mail :</strong> <span id="recap-email"></span></p>
                         <p><strong>Téléphone :</strong> <span id="recap-telephone"></span></p>
                         <p><strong>Date de naissance :</strong> <span id="recap-date_naissance"></span></p>
+                        <p><strong>Lieu de naissance :</strong> <span id="recap-lieu_naissance"></span></p>
+                        <p><strong>Adresse :</strong> <span id="recap-adresse"></span></p>
+                        <p><strong>Région :</strong> <span id="recap-region"></span></p>
                     </div>
 
                     <div class="recap-block">
@@ -289,6 +381,133 @@
                         <p><strong>Diplôme :</strong> <span id="recap-diplome_fichier"></span></p>
                         <p><strong>Certification :</strong> <span id="recap-certification_fichier"></span></p>
                         <p><strong>CV :</strong> <span id="recap-cv"></span></p>
+                    </div> -->
+                    <div class="recap-wrapper">
+
+                        <div class="recap-card">
+                            <div class="recap-card-header">
+                                <span class="recap-icon">👤</span>
+                                <h4>Profil</h4>
+                            </div>
+                            <div class="recap-grid">
+                                <div class="recap-item">
+                                    <span class="recap-label">Civilité</span>
+                                    <span class="recap-value" id="recap-civilite"></span>
+                                </div>
+                                <div class="recap-item">
+                                    <span class="recap-label">Nom complet</span>
+                                    <span class="recap-value" id="recap-nom"></span>
+                                </div>
+                                <div class="recap-item">
+                                    <span class="recap-label">E-mail</span>
+                                    <span class="recap-value" id="recap-email"></span>
+                                </div>
+                                <div class="recap-item">
+                                    <span class="recap-label">Téléphone</span>
+                                    <span class="recap-value" id="recap-telephone"></span>
+                                </div>
+                                <div class="recap-item">
+                                    <span class="recap-label">Date de naissance</span>
+                                    <span class="recap-value" id="recap-date_naissance"></span>
+                                </div>
+                                <div class="recap-item">
+                                    <span class="recap-label">Lieu de naissance</span>
+                                    <span class="recap-value" id="recap-lieu_naissance"></span>
+                                </div>
+                                <div class="recap-item recap-item-full">
+                                    <span class="recap-label">Adresse</span>
+                                    <span class="recap-value" id="recap-adresse"></span>
+                                </div>
+                                <div class="recap-item">
+                                    <span class="recap-label">Région</span>
+                                    <span class="recap-value" id="recap-region"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="recap-card">
+                            <div class="recap-card-header">
+                                <span class="recap-icon">🌍</span>
+                                <h4>Langues</h4>
+                            </div>
+                            <div class="recap-grid">
+                                <div class="recap-item">
+                                    <span class="recap-label">Langue de spécialisation</span>
+                                    <span class="recap-value" id="recap-langue_specialisation"></span>
+                                </div>
+                                <div class="recap-item">
+                                    <span class="recap-label">Certification obtenue</span>
+                                    <span class="recap-value" id="recap-certification"></span>
+                                </div>
+                                <div class="recap-item">
+                                    <span class="recap-label">Diplôme</span>
+                                    <span class="recap-value" id="recap-diplome"></span>
+                                </div>
+                                <div class="recap-item">
+                                    <span class="recap-label">Langue maternelle</span>
+                                    <span class="recap-value" id="recap-langue_maternelle"></span>
+                                </div>
+                                <div class="recap-item">
+                                    <span class="recap-label">Niveau de français</span>
+                                    <span class="recap-value" id="recap-niveau_francais"></span>
+                                </div>
+                                <div class="recap-item">
+                                    <span class="recap-label">Langue vivante 2</span>
+                                    <span class="recap-value" id="recap-langue_vivante_2"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="recap-card">
+                            <div class="recap-card-header">
+                                <span class="recap-icon">📅</span>
+                                <h4>Disponibilité</h4>
+                            </div>
+                            <div class="recap-grid">
+                                <div class="recap-item">
+                                    <span class="recap-label">Du</span>
+                                    <span class="recap-value" id="recap-disponible_debut"></span>
+                                </div>
+                                <div class="recap-item">
+                                    <span class="recap-label">Au</span>
+                                    <span class="recap-value" id="recap-disponible_fin"></span>
+                                </div>
+                                <div class="recap-item">
+                                    <span class="recap-label">Zone</span>
+                                    <span class="recap-value" id="recap-zone"></span>
+                                </div>
+                                <div class="recap-item">
+                                    <span class="recap-label">Délégation souhaitée</span>
+                                    <span class="recap-value" id="recap-delegation_souhaitee"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="recap-card">
+                            <div class="recap-card-header">
+                                <span class="recap-icon">📎</span>
+                                <h4>Documents</h4>
+                            </div>
+                            <div class="recap-doc-list">
+                                <div class="recap-doc">
+                                    <span class="recap-doc-name">Pièce d'identité</span>
+                                    <span class="recap-doc-file" id="recap-piece_identite"></span>
+                                </div>
+                                <div class="recap-doc">
+                                    <span class="recap-doc-name">Diplôme</span>
+                                    <span class="recap-doc-file" id="recap-diplome_fichier"></span>
+                                </div>
+                                <div class="recap-doc">
+                                    <span class="recap-doc-name">Certification</span>
+                                    <span class="recap-doc-file" id="recap-certification_fichier"></span>
+                                </div>
+                                <div class="recap-doc">
+                                    <span class="recap-doc-name">CV</span>
+                                    <span class="recap-doc-file" id="recap-cv"></span>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </form>

@@ -17,11 +17,15 @@ class StoreCandidatureRequest extends FormRequest
     {
         return [
             // Étape 1 — Profil (table users)
+            'civilite'       => 'required|in:M.,Mme',
             'prenom'         => ['required', 'string', 'max:200'],
             'nom'            => ['required', 'string', 'max:200'],
             'email'          => ['required', 'email', 'max:200', 'unique:users,email'],
             'telephone'      => ['required', 'string', 'max:200'],
             'date_naissance' => ['required', 'date', 'before_or_equal:today'],
+            'lieu_naissance' => 'required|string|max:255',
+            'adresse'        => 'required|string|max:255',
+            'region_id'      => 'required|exists:regions,id',
 
             // Étape 2 — Langues
             'langue_specialisation' => ['required', 'string', 'exists:langues_specialisations,code'],
@@ -40,8 +44,8 @@ class StoreCandidatureRequest extends FormRequest
             // Étape 4 — Documents
             'piece_identite'          => ['required', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:5120'],
             'diplome_fichier'         => ['required', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:5120'],
-            'certification_fichier'   => ['nullable', 'file', 'mimes:pdf', 'max:5120'],
-            'cv'                       => ['required', 'file', 'mimes:pdf', 'max:5120'],
+            'certification_fichier'   => ['nullable', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:5120'],
+            'cv'                       => ['required', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:5120'],
             'attestation'              => ['required', 'accepted'],
         ];
     }

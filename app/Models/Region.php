@@ -106,4 +106,9 @@ class Region extends Model
 			'formation_id'
 		)->withTimestamps();
 	}
+
+	public function candidatures()
+	{
+		return $this->hasMany(Candidature::class, 'regions_id');
+	}
 }

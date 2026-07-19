@@ -6,7 +6,7 @@
 <div class="dash-topbar">
     <div>
         <h2>{{ $candidature->user->firstname }} {{ $candidature->user->name }}</h2>
-        <p class="muted-sub">Candidature #{{ str_pad($candidature->id, 6, '0', STR_PAD_LEFT) }} — déposée le {{ $candidature->created_at->format('d/m/Y à H:i') }}</p>
+        <p class="muted-sub">Candidature #{{ str_pad($candidature->id, 6, '0', STR_PAD_LEFT) }} - déposée le {{ $candidature->created_at->format('d/m/Y à H:i') }}</p>
     </div>
     <div class="topbar-right">
         <span class="status-pill {{ $candidature->statut_classe }}">{{ $candidature->statut_label }}</span>
@@ -25,6 +25,10 @@
     <h3>Informations personnelles</h3>
     <div class="detail-grid">
         <div class="detail-item">
+            <span class="detail-label">Civilité</span>
+            <span class="detail-value">{{ $candidature->user->civilite ?? '-' }}</span>
+        </div>
+        <div class="detail-item">
             <span class="detail-label">Nom complet</span>
             <span class="detail-value">{{ $candidature->user->firstname }} {{ $candidature->user->name }}</span>
         </div>
@@ -40,6 +44,18 @@
             <span class="detail-label">Date de naissance</span>
             <span class="detail-value">{{ $candidature->user->date_naissance?->format('d/m/Y') }}</span>
         </div>
+        <div class="detail-item">
+            <span class="detail-label">Lieu de naissance</span>
+            <span class="detail-value">{{ $candidature->user->lieu_naissance ?? '-' }}</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Adresse</span>
+            <span class="detail-value">{{ $candidature->user->adresse ?? '-' }}</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Région</span>
+            <span class="detail-value">{{ $candidature->region->nom ?? '-' }}</span>
+        </div>
     </div>
 </div>
 
@@ -48,7 +64,7 @@
     <div class="detail-grid">
         <div class="detail-item">
             <span class="detail-label">Langue de spécialisation (LV1)</span>
-            <span class="detail-value">{{ $candidature->langueSpecialisation->nom }} — {{ $candidature->langueSpecialisation->niveau_langue_requis }}</span>
+            <span class="detail-value">{{ $candidature->langueSpecialisation->nom }} - {{ $candidature->langueSpecialisation->niveau_langue_requis }}</span>
         </div>
         <div class="detail-item">
             <span class="detail-label">Certification obtenue</span>

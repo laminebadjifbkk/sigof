@@ -6,6 +6,7 @@ use App\Http\Requests\StoreCandidatureRequest;
 use App\Models\Candidature;
 use App\Models\LanguesSpecialisation;
 use App\Models\FormationsTraducteur;
+use App\Models\Region;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -20,8 +21,9 @@ class CandidatureController extends Controller
 {
     public function create()
     {
+        $regions = Region::orderBy('nom')->get();
         $languesSpecialisations = LanguesSpecialisation::orderBy('nom')->get();
-        return view('candidatures.inscription', compact('languesSpecialisations'));
+        return view('candidatures.inscription', compact('languesSpecialisations', 'regions'));
     }
 
     /*     public function index()
@@ -67,10 +69,8 @@ class CandidatureController extends Controller
 
     public function store(StoreCandidatureRequest $request)
     {
-        return redirect()->back()
-            ->with('error', 'Les candidatures ne sont pas encore ouvertes.');
-
-        /* N'oublions pas d'ajouter le role JOJ ou YLP */
+        /* return redirect()->back()
+            ->with('error', 'Les candidatures ne sont pas encore ouvertes.'); */
 
         $validated = $request->validated();
 
@@ -86,11 +86,14 @@ class CandidatureController extends Controller
         $candidature = DB::transaction(function () use ($request, $validated, $langue) {
             $user = User::create([
                 'uuid'           => (string) Str::uuid(),
+                'civilite'      => $validated['civilite'],
                 'firstname'      => $validated['prenom'],
                 'name'           => $validated['nom'],
                 'email'          => $validated['email'],
                 'telephone'      => $validated['telephone'],
                 'date_naissance' => $validated['date_naissance'],
+                'lieu_naissance' => $validated['lieu_naissance'],
+                'adresse'        => $validated['adresse'],
                 'password'       => Hash::make(Str::random(16)), // mot de passe temporaire
             ]);
 
@@ -121,6 +124,7 @@ class CandidatureController extends Controller
                 'disponible_fin'              => $validated['disponible_fin'],
                 'zone'                         => $validated['zone'],
                 'delegation_souhaitee'        => $validated['delegation_souhaitee'] ?? null,
+                'regions_id'                  => $validated['region_id'] ?? null,
                 'piece_identite_path'         => $piecePath,
                 'diplome_fichier_path'        => $diplomePath,
                 'certification_fichier_path'  => $certifPath,

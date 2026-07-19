@@ -172,6 +172,10 @@ Route::group(['middleware' => ['XSS']], function () {
     // temporairement vers la page de connexion pour éviter une route manquante :
     /* Route::get('/inscription', [RegisteredCandidateController::class, 'create'])->name('inscription');
     Route::post('/inscription', [RegisteredCandidateController::class, 'store'])->name('inscription.store'); */
+    Route::get('/inscription', [CandidatureController::class, 'create'])->name('inscription');
+    Route::post('/inscription', [CandidatureController::class, 'store'])->name('inscription.store');
+    Route::get('/inscription/confirmation/{candidature}', [CandidatureController::class, 'confirmation'])
+        ->name('inscription.confirmation');
 
     Route::post('/deconnexion', [AuthenticatedCandidateSessionController::class, 'destroy'])
         ->middleware('auth')
@@ -210,12 +214,6 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::post('sessions-formation/{session}/participants/{participant}/evaluer', [SessionFormationController::class, 'evaluer'])
             ->name('sessions-formation.evaluer');
     });
-
-    Route::get('/inscription', [CandidatureController::class, 'create'])->name('inscription');
-    Route::post('/inscription', [CandidatureController::class, 'store'])->name('inscription.store');
-    Route::get('/inscription/confirmation/{candidature}', [CandidatureController::class, 'confirmation'])
-        ->name('inscription.confirmation');
-
 
 
     Route::get('/', [UneController::class, 'unePage'])->name('accueil');

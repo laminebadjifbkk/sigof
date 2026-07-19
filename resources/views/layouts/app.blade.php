@@ -223,6 +223,154 @@
         .alert-list li {
             margin-bottom: 2px;
         }
+
+        .civility-toggle {
+            display: inline-flex;
+            border: 1px solid #d9dde3;
+            border-radius: 8px;
+            overflow: hidden;
+            width: fit-content;
+        }
+
+        .civility-toggle input[type="radio"] {
+            display: none;
+        }
+
+        .civility-option {
+            padding: 8px 24px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #555;
+            background: #fff;
+            transition: all 0.15s ease;
+            margin: 0;
+        }
+
+        .civility-toggle input[type="radio"]:checked+.civility-option {
+            background: #2563eb;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .civility-option:hover {
+            background: #f3f4f6;
+        }
+
+        .civility-toggle input[type="radio"]:checked+.civility-option:hover {
+            background: #2563eb;
+        }
+
+        .recap-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 12px;
+        }
+
+        .recap-card {
+            background: #fff;
+            border: 1px solid #e6e4de;
+            border-radius: 12px;
+            padding: 18px 20px;
+        }
+
+        .recap-card-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f0efe9;
+        }
+
+        .recap-icon {
+            font-size: 16px;
+        }
+
+        .recap-card-header h4 {
+            margin: 0;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            color: #2b2b28;
+        }
+
+        .recap-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px 20px;
+        }
+
+        .recap-item {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .recap-item-full {
+            grid-column: 1 / -1;
+        }
+
+        .recap-label {
+            font-size: 11.5px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            color: #9a978d;
+        }
+
+        .recap-value {
+            font-size: 14.5px;
+            color: #23221f;
+            font-weight: 500;
+        }
+
+        .recap-value:empty::after {
+            content: '—';
+            color: #c4c1b8;
+            font-weight: 400;
+        }
+
+        .recap-doc-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .recap-doc {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            background: #faf9f6;
+            border: 1px solid #eeece5;
+            border-radius: 8px;
+        }
+
+        .recap-doc-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #4a4842;
+        }
+
+        .recap-doc-file {
+            font-size: 13px;
+            color: #706e66;
+            text-align: right;
+        }
+
+        @media (max-width: 600px) {
+            .recap-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .recap-doc {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+        }
     </style>
     @stack('styles')
 </head>
@@ -310,12 +458,26 @@
 
             function fieldValue(name) {
                 const el = form.querySelector(`[name="${name}"]`);
-                return el ? el.value : '';
+                if (!el) return '';
+
+                // Gère les groupes de radios (ex: civilite)
+                if (el.type === 'radio') {
+                    const checked = form.querySelector(`[name="${name}"]:checked`);
+                    return checked ? checked.value : '';
+                }
+
+                return el.value;
+            }
+
+            function selectTextFor(name) {
+                const el = form.querySelector(`[name="${name}"]`);
+                if (!el || el.tagName !== 'SELECT') return '';
+                return el.selectedOptions.length ? el.selectedOptions[0].textContent.trim() : '';
             }
 
             function labelFor(name) {
                 const val = fieldValue(name);
-                return (labels[name] && labels[name][val]) ? labels[name][val] : (val || '—');
+                return (labels[name] && labels[name][val]) ? labels[name][val] : (val || '-');
             }
 
             function fileNameFor(name) {
@@ -323,11 +485,22 @@
                 return (el && el.files.length) ? el.files[0].name : 'Aucun fichier';
             }
 
+            function formatDate(value) {
+                if (!value) return '';
+                const [year, month, day] = value.split('-');
+                if (!year || !month || !day) return value;
+                return `${day}/${month}/${year}`;
+            }
+
             function buildRecap() {
+                document.getElementById('recap-civilite').textContent = fieldValue('civilite') || '-';
                 document.getElementById('recap-nom').textContent = `${fieldValue('prenom')} ${fieldValue('nom')}`;
-                document.getElementById('recap-email').textContent = fieldValue('email') || '—';
-                document.getElementById('recap-telephone').textContent = fieldValue('telephone') || '—';
-                document.getElementById('recap-date_naissance').textContent = fieldValue('date_naissance') || '—';
+                document.getElementById('recap-email').textContent = fieldValue('email') || '-';
+                document.getElementById('recap-telephone').textContent = fieldValue('telephone') || '-';
+                document.getElementById('recap-date_naissance').textContent = formatDate(fieldValue('date_naissance')) || '-';
+                document.getElementById('recap-lieu_naissance').textContent = fieldValue('lieu_naissance') || '-';
+                document.getElementById('recap-adresse').textContent = fieldValue('adresse') || '-';
+                document.getElementById('recap-region').textContent = selectTextFor('region_id') || '-';
 
                 document.getElementById('recap-langue_specialisation').textContent = labelFor('langue_specialisation');
                 document.getElementById('recap-certification').textContent = fieldValue('certification') || 'Aucune';
@@ -336,8 +509,8 @@
                 document.getElementById('recap-niveau_francais').textContent = labelFor('niveau_francais');
                 document.getElementById('recap-langue_vivante_2').textContent = labelFor('langue_vivante_2');
 
-                document.getElementById('recap-disponible_debut').textContent = fieldValue('disponible_debut') || '—';
-                document.getElementById('recap-disponible_fin').textContent = fieldValue('disponible_fin') || '—';
+                document.getElementById('recap-disponible_debut').textContent = formatDate(fieldValue('disponible_debut')) || '-';
+                document.getElementById('recap-disponible_fin').textContent = formatDate(fieldValue('disponible_fin')) || '-';
                 document.getElementById('recap-zone').textContent = labelFor('zone');
                 document.getElementById('recap-delegation_souhaitee').textContent = fieldValue('delegation_souhaitee') || 'Non précisé';
 

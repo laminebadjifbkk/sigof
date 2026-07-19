@@ -16,6 +16,7 @@ class Candidature extends Model
     protected $fillable = [
         'users_id',
         'langue_specialisation_id',
+        'regions_id',
 
         // Étape 2 — Langues
         'certification_obtenue',
@@ -131,5 +132,10 @@ class Candidature extends Model
     public function formation(): HasOne
     {
         return $this->hasOne(FormationsTraducteur::class);
+    }
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class, 'regions_id')->latest();
     }
 }
