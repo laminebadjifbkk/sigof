@@ -153,15 +153,6 @@
         <h3>Statut des candidatures</h3>
         <p class="panel-sub">Sur {{ $kpis['total'] }} dossiers reçus</p>
         <div class="donut-wrap">
-            @php
-            // Conversion pourcentage -> longueur d'arc sur circonférence 100 (rayon 15.9 en SVG normalisé)
-            $valideesLen = $statutStats['validees_pct'];
-            $attenteLen = $statutStats['attente_pct'];
-            $rejeteesLen = $statutStats['rejetees_pct'];
-
-            $offsetAttente = 100 - $valideesLen;
-            $offsetRejetees = 100 - $valideesLen - $attenteLen;
-            @endphp
             <svg width="140" height="140" viewBox="0 0 42 42">
                 <circle cx="21" cy="21" r="15.9" fill="transparent" stroke="var(--gray-200)" stroke-width="6" />
                 <circle cx="21" cy="21" r="15.9" fill="transparent" stroke="var(--green)" stroke-width="6"

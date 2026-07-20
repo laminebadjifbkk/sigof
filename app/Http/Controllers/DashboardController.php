@@ -62,6 +62,26 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
-        return view('dashboard.dashboard', compact('kpis', 'languageStats', 'maxLangueTotal', 'statutStats', 'candidatures'));
+        // Conversion pourcentage -> longueur d'arc sur circonférence 100 (rayon 15.9 en SVG normalisé)
+        $valideesLen = $statutStats['validees_pct'];
+        $attenteLen = $statutStats['attente_pct'];
+        $rejeteesLen = $statutStats['rejetees_pct'];
+
+        $offsetAttente = 100 - $valideesLen;
+        $offsetRejetees = 100 - $valideesLen - $attenteLen;
+
+        return view(
+            'dashboard.dashboard',
+            compact(
+                'kpis',
+                'languageStats',
+                'maxLangueTotal',
+                'statutStats',
+                'candidatures',
+                'valideesLen',
+                'attenteLen',
+                'rejeteesLen'
+            )
+        );
     }
 }
