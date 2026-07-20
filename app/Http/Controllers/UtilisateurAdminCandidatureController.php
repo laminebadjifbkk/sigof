@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Region;
+use App\Models\Candidature;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Password;
 use Spatie\Permission\Models\Role;
@@ -11,6 +12,11 @@ use Illuminate\Support\Facades\Hash;
 
 class UtilisateurAdminCandidatureController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:langues.voir')->only(['index', 'show']);
+        $this->middleware('permission:langues.gerer')->only(['create', 'store', 'edit', 'update', 'destroy']);
+    }
     /*  public function index()
     {
         $utilisateurs = User::with('roles')
@@ -34,14 +40,18 @@ class UtilisateurAdminCandidatureController extends Controller
 
     public function index()
     {
-        $utilisateurs = User::with('roles')
+        /* $utilisateurs = User::with('roles')
             ->role(['YLP', 'JOJ', 'lecture-seule'])
             ->whereHas('candidatures')
             ->withCount('candidatures')
             ->orderBy('name')
+            ->get(); */
+
+        $candidatures = Candidature::with('user')
+            ->whereHas('user')
             ->get();
 
-        return view('parametres.utilisateurs.index', compact('utilisateurs'));
+        return view('parametres.utilisateurs.index', compact('candidatures'));
     }
 
     public function create()

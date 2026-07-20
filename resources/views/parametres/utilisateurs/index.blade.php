@@ -33,30 +33,30 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($utilisateurs as $u)
+                @forelse ($candidatures as $c)
                 <tr>
-                    <td>{{ $u->civilite }} {{ $u->firstname }} {{ $u->name }}</td>
-                    <td>{{ $u->email }}</td>
+                    <td>{{ $c?->user?->civilite }} {{ $c?->user?->firstname }} {{ $c?->user?->name }}</td>
+                    <td>{{ $c->user->email }}</td>
                     <td>
-                        @if ($u->candidatures_count > 0)
+                        @if ($c->candidatures_count > 0)
                         <span class="status-pill status-inconnu">Candidat</span>
                         @else
                         <span class="status-pill status-validee">Admin</span>
                         @endif
                     </td>
                     <td>
-                        @forelse ($u->roles as $role)
+                        @forelse ($c->user->roles as $role)
                         <span class="status-pill status-en-attente">{{ $role->name }}</span>
                         @empty
                         <span class="text-muted">-</span>
                         @endforelse
                     </td>
                     <td class="d-flex gap-1">
-                        <a href="{{ route('utilisateurs.edit', $u) }}" class="btn btn-sm btn-outline" title="Modifier">
+                        <a href="{{ route('utilisateurs.edit', $c->user) }}" class="btn btn-sm btn-outline" title="Modifier">
                             <i class="bi bi-pencil"></i>
                         </a>
-                        @if ($u->id !== auth()->id())
-                        <form action="{{ route('utilisateurs.destroy', $u) }}" method="POST" onsubmit="return confirm('Supprimer ce compte ?');">
+                        @if ($c->user->id !== auth()->id())
+                        <form action="{{ route('utilisateurs.destroy', $c->user) }}" method="POST" onsubmit="return confirm('Supprimer ce compte ?');">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger" title="Supprimer">
