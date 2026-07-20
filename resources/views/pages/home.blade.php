@@ -122,12 +122,11 @@
             </div>
         </div>
     </section>
-
+    {{--
     <section class="block" style="padding-top:0;">
         <div class="container">
             <div class="block-head">
                 <p class="eyebrow">YLP - Critères de sélection par langue</p>
-                {{-- <p class="eyebrow">Youth Linguists Programme (YLP) - Critères de sélection par langue</p> --}}
                 <h2>10 langues de spécialisation, 40 postes ouverts</h2>
                 <p>Chaque poste correspond à une langue de spécialisation (LV1). Le niveau requis est évalué à la fois dans
                     cette langue et en français, langue de travail du programme.</p>
@@ -205,6 +204,122 @@
                 Diplôme minimum requis pour toutes les langues : <strong>Licence</strong> ou niveau équivalent.
             </h4>
         </div>
+    </section> --}}
+
+
+    <section class="block" style="padding-top:0;">
+        <div class="container">
+            <div class="block-head">
+                <p class="eyebrow">YLP - Critères de sélection par langue</p>
+                {{-- <p class="eyebrow">Youth Linguists Programme (YLP) - Critères de sélection par langue</p> --}}
+                <h2>10 langues de spécialisation, 40 postes ouverts</h2>
+                <p>Chaque poste correspond à une langue de spécialisation (LV1). Le niveau requis est évalué à la fois dans
+                    cette langue et en français, langue de travail du programme.</p>
+                <p class="trilingue-note">
+                    Les profils Arabe, Espagnol, Portugais, Chinois, Japonais, Coréen, Allemand, Russe et Italien sont
+                    des profils <strong>trilingues</strong> : Français + Anglais, en plus de leur langue de spécialisation.
+                </p>
+            </div>
+
+            <div class="lang-grid">
+                <div class="lang-card">
+                    <div class="lc-top">
+                        <span class="lc-name">Anglais<br><small class="lc-profile">Profil bilingue</small></span>
+                        <span class="lc-posts">3 postes</span>
+                    </div>
+                    <div class="lc-row"><span>Niveau langue</span><b>C1</b></div>
+                    <div class="lc-row"><span>Niveau français</span><b>C1</b></div>
+                    <div class="lc-cert">TOEIC · IELTS · TOEFL</div>
+                </div>
+                <div class="lang-card">
+                    <div class="lc-top">
+                        <span class="lc-name">Arabe<br><small class="lc-profile">Profil trilingue</small></span>
+                        <span class="lc-posts">6 postes</span>
+                    </div>
+                    <div class="lc-row"><span>Niveau langue</span><b>C1</b></div>
+                    <div class="lc-row"><span>Niveau français</span><b>C1/B2</b></div>
+                    <div class="lc-cert">ALPT</div>
+                </div>
+                <div class="lang-card">
+                    <div class="lc-top">
+                        <span class="lc-name">Espagnol<br><small class="lc-profile">Profil trilingue</small></span>
+                        <span class="lc-posts">7 postes</span>
+                    </div>
+                    <div class="lc-row"><span>Niveau langue</span><b>C1</b></div>
+                    <div class="lc-row"><span>Niveau français</span><b>C1/B2</b></div>
+                    <div class="lc-cert">DELE</div>
+                </div>
+                <div class="lang-card">
+                    <div class="lc-top">
+                        <span class="lc-name">Portugais<br><small class="lc-profile">Profil trilingue</small></span>
+                        <span class="lc-posts">4 postes</span>
+                    </div>
+                    <div class="lc-row"><span>Niveau langue</span><b>C1</b></div>
+                    <div class="lc-row"><span>Niveau français</span><b>C1/B2</b></div>
+                    <div class="lc-cert">CAPLE</div>
+                </div>
+                <div class="lang-card">
+                    <div class="lc-top">
+                        <span class="lc-name">Chinois<br><small class="lc-profile">Mandarin · Profil
+                                trilingue</small></span>
+                        <span class="lc-posts">4 postes</span>
+                    </div>
+                    <div class="lc-row"><span>Niveau langue</span><b>C1</b></div>
+                    <div class="lc-row"><span>Niveau français</span><b>C1/B2</b></div>
+                    <div class="lc-cert">HSK 5+</div>
+                </div>
+                <div class="lang-card">
+                    <div class="lc-top">
+                        <span class="lc-name">Japonais<br><small class="lc-profile">Profil trilingue</small></span>
+                        <span class="lc-posts">4 postes</span>
+                    </div>
+                    <div class="lc-row"><span>Niveau langue</span><b>C1</b></div>
+                    <div class="lc-row"><span>Niveau français</span><b>C1/B2</b></div>
+                    <div class="lc-cert">JLPT N2+</div>
+                </div>
+                <div class="lang-card">
+                    <div class="lc-top">
+                        <span class="lc-name">Coréen<br><small class="lc-profile">Profil trilingue</small></span>
+                        <span class="lc-posts">2 postes</span>
+                    </div>
+                    <div class="lc-row"><span>Niveau langue</span><b>C1</b></div>
+                    <div class="lc-row"><span>Niveau français</span><b>C1/B2</b></div>
+                    <div class="lc-cert">TOPIK 4+</div>
+                </div>
+                <div class="lang-card">
+                    <div class="lc-top">
+                        <span class="lc-name">Allemand<br><small class="lc-profile">Profil trilingue</small></span>
+                        <span class="lc-posts">4 postes</span>
+                    </div>
+                    <div class="lc-row"><span>Niveau langue</span><b>C1</b></div>
+                    <div class="lc-row"><span>Niveau français</span><b>C1/B2</b></div>
+                    <div class="lc-cert">Goethe C1</div>
+                </div>
+                <div class="lang-card">
+                    <div class="lc-top">
+                        <span class="lc-name">Russe<br><small class="lc-profile">Profil trilingue</small></span>
+                        <span class="lc-posts">2 postes</span>
+                    </div>
+                    <div class="lc-row"><span>Niveau langue</span><b>C1</b></div>
+                    <div class="lc-row"><span>Niveau français</span><b>C1/B2</b></div>
+                    <div class="lc-cert">TORFL</div>
+                </div>
+                <div class="lang-card">
+                    <div class="lc-top">
+                        <span class="lc-name">Italien<br><small class="lc-profile">Profil trilingue</small></span>
+                        <span class="lc-posts">4 postes</span>
+                    </div>
+                    <div class="lc-row"><span>Niveau langue</span><b>C1</b></div>
+                    <div class="lc-row"><span>Niveau français</span><b>C1/B2</b></div>
+                    <div class="lc-cert">CILS · CELI</div>
+                </div>
+            </div>
+
+            <p class="lang-note">
+                <span aria-hidden="true" style="font-size:20px;">ℹ️</span>
+                Diplôme minimum requis pour toutes les langues : <strong>Licence</strong> ou niveau équivalent.
+            </p>
+        </div>
     </section>
 
     <section class="block" style="padding-top:0;">
@@ -221,7 +336,7 @@
                         spécialisation choisie</li>
                     <li class="elig-item"><span class="elig-check">✓</span>Démontrer une maîtrise de la langue de
                         spécialisation conforme aux niveaux définis par le programme</li>
-                    <li class="elig-item"><span class="elig-check">✓</span>Maîtriser le français au niveau requis</li>
+                    <li class="elig-item"><span class="elig-check">✓</span>Maîtriser le français et l’anglais au niveau requis</li>
                     <li class="elig-item"><span class="elig-check">✓</span>Posséder de solides compétences rédactionnelles
                         et orales</li>
                     <li class="elig-item"><span class="elig-check">✓</span>Être disponible pour l'ensemble de la formation
@@ -244,10 +359,10 @@
                                 <td>LV1 - langue de spécialisation</td>
                                 <td><b>C1</b></td>
                             </tr>
-                            <tr>
+                           {{--  <tr>
                                 <td>LV2 - langue vivante 2</td>
                                 <td><b>B2</b></td>
-                            </tr>
+                            </tr> --}}
                             <tr>
                                 <td>Français</td>
                                 <td><b>C1</b> minimum</td>

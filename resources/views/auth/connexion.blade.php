@@ -8,7 +8,7 @@
       <div>
         <p class="eyebrow">Espace traducteur</p>
         <h2>Retrouvez votre parcours de formation en un instant.</h2>
-        <p>Suivez l'état de votre candidature, vos modules de formation et votre affectation auprès des délégations Dakar 2026.</p>
+        <p>Suivez l'état de votre candidature et votre affectation auprès des délégations Dakar 2026.</p>
       </div>
       <div class="lang-dots" style="margin-top:30px;">
         <span style="background:var(--gold)"></span><span style="background:var(--green)"></span>
