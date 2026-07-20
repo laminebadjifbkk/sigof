@@ -60,7 +60,7 @@ class LanguesSpecialisationController extends Controller
     {
         return $request->validate([
             'nom' => 'required|string|max:255',
-            'code' => 'required|string|max:10|unique:langues_specialisations,code' . ($ignoreId ? ",$ignoreId" : ''),
+            'code' => 'required|string|max:20|unique:langues_specialisations,code' . ($ignoreId ? ",$ignoreId" : ''),
             'postes_disponibles' => 'required|integer|min:0',
             'niveau_langue_requis' => 'required|string|max:255',
             'niveau_francais_requis' => 'required|string|max:255',
