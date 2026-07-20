@@ -16,7 +16,7 @@
         @method('PUT')
 
         @if ($estCandidat)
-        <div class="field">
+        <!--  <div class="field">
             <label>Civilité</label>
             <div class="field-row">
                 <label class="radio-inline">
@@ -28,6 +28,15 @@
                     Mme
                 </label>
             </div>
+            @error('civilite') <span class="field-error">{{ $message }}</span> @enderror
+        </div> -->
+        <div class="field">
+            <label for="civilite">Civilité</label>
+            <select name="civilite" id="civilite" required>
+                <option value="">-- Sélectionner --</option>
+                <option value="M." {{ old('civilite', $utilisateur->civilite) === 'M.' ? 'selected' : '' }}>M.</option>
+                <option value="Mme" {{ old('civilite', $utilisateur->civilite) === 'Mme' ? 'selected' : '' }}>Mme</option>
+            </select>
             @error('civilite') <span class="field-error">{{ $message }}</span> @enderror
         </div>
         @endif
@@ -76,22 +85,10 @@
                 @error('adresse') <span class="field-error">{{ $message }}</span> @enderror
             </div>
 
-            <div class="field full-width">
-                <label for="region_id">Région</label>
-                <select name="region_id" id="region_id" required>
-                    <option value="">-- Sélectionner une région --</option>
-                    @foreach ($regions as $region)
-                    <option value="{{ $region->id }}" {{ (string) old('region_id', $utilisateur->region_id) === (string) $region->id ? 'selected' : '' }}>
-                        {{ $region->nom }}
-                    </option>
-                    @endforeach
-                </select>
-                @error('region_id') <span class="field-error">{{ $message }}</span> @enderror
-            </div>
-            @else
+            {{-- @else --}}
             <div class="field full-width">
                 <label for="role">Rôle</label>
-                <select name="role" id="role" required>
+                <select name="roles[]" id="role" required>
                     @foreach ($roles as $role)
                     <option value="{{ $role->name }}" {{ $utilisateur->hasRole($role->name) ? 'selected' : '' }}>
                         {{ ucfirst(str_replace('-', ' ', $role->name)) }}

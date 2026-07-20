@@ -48,7 +48,7 @@
                         @forelse ($u->roles as $role)
                         <span class="status-pill status-en-attente">{{ $role->name }}</span>
                         @empty
-                        <span class="text-muted">—</span>
+                        <span class="text-muted">-</span>
                         @endforelse
                     </td>
                     <td class="d-flex gap-1">

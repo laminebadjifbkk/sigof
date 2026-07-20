@@ -7,6 +7,7 @@ use App\Models\Region;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Password;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
 
 class UtilisateurAdminCandidatureController extends Controller
 {
@@ -44,7 +45,7 @@ class UtilisateurAdminCandidatureController extends Controller
 
     public function create()
     {
-        $roles = Role::whereIn('name', ['super-admin', 'admin', 'lecture-seule'])->get();
+        $roles = Role::whereIn('name', ['YLP', 'JOJ', 'lecture-seule'])->get();
 
         return view('parametres.utilisateurs.create', compact('roles'));
     }
@@ -63,7 +64,7 @@ class UtilisateurAdminCandidatureController extends Controller
             'firstname' => $data['firstname'],
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'password' => Hash::make($data['password']),
         ]);
 
         $user->assignRole($data['role']);
@@ -75,10 +76,10 @@ class UtilisateurAdminCandidatureController extends Controller
     {
         $estCandidat = $utilisateur->candidatures()->exists();
 
-        $roles = Role::whereIn('name', ['super-admin', 'admin', 'lecture-seule'])->get();
-        $regions = $estCandidat ? Region::orderBy('nom')->get() : collect();
+        $roles = Role::whereIn('name', ['YLP', 'JOJ', 'lecture-seule'])->get();
+        /* $regions = $estCandidat ? Region::orderBy('nom')->get() : collect(); */
 
-        return view('parametres.utilisateurs.edit', compact('utilisateur', 'roles', 'regions', 'estCandidat'));
+        return view('parametres.utilisateurs.edit', compact('utilisateur', 'roles', 'estCandidat'));
     }
 
     public function update(Request $request, User $utilisateur)
@@ -98,11 +99,10 @@ class UtilisateurAdminCandidatureController extends Controller
                 'date_naissance' => 'required|date',
                 'lieu_naissance' => 'required|string|max:255',
                 'adresse' => 'required|string|max:255',
-                'region_id' => 'required|exists:regions,id',
             ];
         } else {
             $rules += [
-                'role' => 'required|exists:roles,name',
+                'roles' => 'required|exists:roles,name',
             ];
         }
 
@@ -116,8 +116,8 @@ class UtilisateurAdminCandidatureController extends Controller
                 'name' => $data['name'],
                 'email' => $data['email'],
             ]);
-            $utilisateur->syncRoles([$data['role']]);
         }
+        $utilisateur->syncRoles($request->roles);
 
         return redirect()->route('utilisateurs.index')->with('success', 'Informations mises à jour avec succès.');
     }
