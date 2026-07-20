@@ -203,7 +203,10 @@
                 <tr>
                     <td>
                         <div class="row-name"><span
-                                class="mini-avatar">{{ Str::upper(Str::substr($c?->user?->firstname, 0, 1) . Str::substr($c?->user?->name, 0, 1)) }}</span>{{ $c?->user?->firstname }}
+                                class="mini-avatar">{{ Str::upper(Str::substr($c?->user?->firstname, 0, 1) . Str::substr($c?->user?->name, 0, 1)) }}</span>
+                                {{ $c?->user?->civilite }}
+                                {{ $c?->user?->firstname }}
+                                {{ $c?->user?->firstname }}
                             {{ $c?->user?->name }}
                         </div>
                     </td>

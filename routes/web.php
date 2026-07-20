@@ -191,7 +191,6 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/admin/ylp', [DashboardController::class, 'dashboard'])->name('dashboard');
         /* Route::get('/admin/candidatures', [DashboardController::class, 'candidatures'])->name('dashboard.candidatures'); */
 
-
         Route::resource('/candidatures', CandidatureController::class)->except(['create', 'store']);
         // Route::get('/admin/traducteurs', [DashboardController::class, 'traducteurs'])->name('dashboard.traducteurs');
         // ... branchez ici les futurs liens de partials/sidebar.blade.php

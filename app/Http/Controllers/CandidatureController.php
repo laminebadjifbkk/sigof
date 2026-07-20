@@ -26,7 +26,7 @@ class CandidatureController extends Controller
         return view('candidatures.inscription', compact('languesSpecialisations', 'regions'));
     }
 
-    /*     public function index()
+    public function index()
     {
         $candidatures = Candidature::whereHas('user', function ($query) {
             $query->whereNotNull('firstname');
@@ -35,13 +35,9 @@ class CandidatureController extends Controller
             ->latest()
             ->limit(100)
             ->get();
-
         return view('candidatures.index', compact('candidatures'));
-    } */
 
-    public function index()
-    {
-        $langues = LanguesSpecialisation::query()
+        /* $langues = LanguesSpecialisation::query()
             ->withCount(['candidatures' => function ($query) {
                 $query->whereHas('user', function ($q) {
                     $q->whereNotNull('firstname');
@@ -51,7 +47,7 @@ class CandidatureController extends Controller
             ->orderByDesc('candidatures_count')
             ->get();
 
-        return view('candidatures.index', compact('langues'));
+        return view('candidatures.index_langue', compact('langues')); */
     }
 
     public function parLangue(LanguesSpecialisation $langue)

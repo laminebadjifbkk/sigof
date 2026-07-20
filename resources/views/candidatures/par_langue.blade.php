@@ -1,12 +1,12 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Candidatures — ' . $langue->nom)
+@section('title', 'Candidatures - ' . $langue->nom)
 
 @section('content')
 <div class="dash-topbar">
     <div>
         <a href="{{ route('candidatures.index') }}" class="btn btn-sm btn-outline">&larr; Retour aux langues</a>
-        <h2>Candidatures — {{ $langue->nom }}</h2>
+        <h2>Candidatures - {{ $langue->nom }}</h2>
         <p class="muted-sub">{{ $candidatures->count() }} candidature(s) reçue(s)</p>
     </div>
 </div>
