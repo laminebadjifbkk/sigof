@@ -35,6 +35,7 @@ class UtilisateurAdminCandidatureController extends Controller
     public function index()
     {
         $utilisateurs = User::with('roles')
+            ->role(['YLP', 'JOJ', 'lecture-seule'])
             ->whereHas('candidatures')
             ->withCount('candidatures')
             ->orderBy('name')
