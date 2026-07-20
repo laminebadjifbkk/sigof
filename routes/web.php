@@ -107,6 +107,7 @@ use App\Http\Controllers\VerificationAttestationController;
 use App\Http\Controllers\CandidatureController;
 use App\Http\Controllers\SessionFormationController;
 use App\Http\Controllers\LanguesSpecialisationController;
+use App\Http\Controllers\RapportController;
 use App\Models\Arrive;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
@@ -177,10 +178,6 @@ Route::group(['middleware' => ['XSS']], function () {
     Route::get('/inscription/confirmation/{candidature}', [CandidatureController::class, 'confirmation'])
         ->name('inscription.confirmation');
 
-    Route::post('/deconnexion', [AuthenticatedCandidateSessionController::class, 'destroy'])
-        ->middleware('auth')
-        ->name('deconnexion');
-
     Route::get('/mot-de-passe/oublie', [PasswordResetLinkController::class, 'created'])->name('mot-de-passe.request');
     Route::post('/mot-de-passe/email', [PasswordResetLinkController::class, 'email'])->name('mot-de-passe.email');
     Route::get('/mot-de-passe/reinitialiser/{token}', [PasswordResetLinkController::class, 'reset'])->name('mot-de-passe.reset');
@@ -188,6 +185,9 @@ Route::group(['middleware' => ['XSS']], function () {
 
     // ---------- Espace admin (à protéger avec vos middlewares : auth, rôle admin…) ----------
     Route::middleware(['authylp', 'can:access-admin-ylp'])->group(function () {
+        Route::post('/deconnexion', [AuthenticatedCandidateSessionController::class, 'destroy'])
+            ->middleware('auth')
+            ->name('deconnexion');
         Route::get('/admin/ylp', [DashboardController::class, 'dashboard'])->name('dashboard');
         /* Route::get('/admin/candidatures', [DashboardController::class, 'candidatures'])->name('dashboard.candidatures'); */
 
@@ -212,6 +212,9 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::resource('langues', LanguesSpecialisationController::class);
         Route::post('sessions-formation/{session}/participants/{participant}/evaluer', [SessionFormationController::class, 'evaluer'])
             ->name('sessions-formation.evaluer');
+
+        Route::get('rapports', [RapportController::class, 'index'])->name('rapports.index');
+        Route::get('rapports/export', [RapportController::class, 'export'])->name('rapports.export');
     });
 
 

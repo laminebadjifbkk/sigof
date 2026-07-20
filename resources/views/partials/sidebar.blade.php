@@ -33,7 +33,9 @@
         <a href="{{ route('langues.index') }}"
             class="dash-link {{ request()->routeIs('langues.index') ? 'active' : '' }}"><span
                 class="ic"></span>Langues</a>
-        <a href="#" class="dash-link"><span class="ic"></span>Rapports</a>
+        <a href="{{ route('rapports.index') }}" class="dash-link {{ request()->routeIs('rapports.index') ? 'active' : '' }}">
+            <span class="ic"></span>Rapports
+        </a>
         <a href="#" class="dash-link"><span class="ic"></span>Paramètres</a>
     </nav>
 

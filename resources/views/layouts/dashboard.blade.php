@@ -156,8 +156,90 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .kpi-grid-compact {
+            grid-template-columns: repeat(2, 1fr);
+            margin-bottom: 0;
+        }
+
+        .kpi-card {
+            background: #fff;
+            border: 1px solid #e6e4de;
+            border-radius: 12px;
+            padding: 16px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .kpi-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            color: #9a978d;
+        }
+
+        .kpi-value {
+            font-size: 26px;
+            font-weight: 700;
+            color: #23221f;
+        }
+
+        .kpi-success {
+            color: #2e7d32;
+        }
+
+        .kpi-warning {
+            color: #b58900;
+        }
+
+        .kpi-danger {
+            color: #c0392b;
+        }
+
+        .kpi-sub {
+            font-size: 12px;
+            color: #9a978d;
+        }
+
+        .rapport-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .rapport-col {
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 900px) {
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .rapport-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     @stack('styles')
 </head>
 
