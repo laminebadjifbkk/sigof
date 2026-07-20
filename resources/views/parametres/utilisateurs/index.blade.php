@@ -63,9 +63,9 @@
                     </td>
                 </tr>
                 @empty
-                <tr>
+                <!-- <tr>
                     <td colspan="5" class="empty-row">Aucun utilisateur pour le moment.</td>
-                </tr>
+                </tr> -->
                 @endforelse
             </tbody>
         </table>
