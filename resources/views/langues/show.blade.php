@@ -8,6 +8,11 @@
         <a href="{{ route('langues.index') }}" class="btn btn-sm btn-outline">&larr; Retour</a>
         <h2>{{ $langue->nom }}</h2>
     </div>
+    <div>
+        <a href="{{ route('candidatures.parLangue', $langue) }}" class="btn btn-sm btn-outline">
+            Voir les candidats
+        </a>
+    </div>
     <div class="topbar-right">
         <a href="{{ route('langues.edit', $langue) }}" class="btn btn-outline">Modifier</a>
     </div>

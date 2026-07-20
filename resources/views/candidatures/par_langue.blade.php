@@ -45,9 +45,9 @@
                     </td>
                 </tr>
                 @empty
-                <tr>
+                <!-- <tr>
                     <td colspan="5" class="empty-row">Aucune candidature pour cette langue.</td>
-                </tr>
+                </tr> -->
                 @endforelse
             </tbody>
         </table>

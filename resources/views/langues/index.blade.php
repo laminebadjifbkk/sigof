@@ -30,7 +30,7 @@
                     <!-- <th>Niveau français requis</th> -->
                     <!-- <th>Diplôme minimum</th> -->
                     <th>Certification recommandée</th>
-                    <!-- <th>Candidatures</th> -->
+                    <th>Candidatures</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -44,7 +44,7 @@
                     <!-- <td>{{ $langue->niveau_francais_requis }}</td> -->
                     <!-- <td>{{ $langue->diplome_minimum }}</td> -->
                     <td>{{ $langue->certification_recommandee ?? '-' }}</td>
-                    <!-- <td><span class="status-pill">{{ $langue->candidatures_count }}</span></td> -->
+                    <td><span class="status-pill">{{ $langue->candidatures_count }}</span></td>
                     <!-- <td class="d-flex gap-1">
                         <a href="{{ route('langues.show', $langue) }}" class="btn btn-sm btn-outline">Voir</a>
                         <a href="{{ route('langues.edit', $langue) }}" class="btn btn-sm btn-outline">Modifier</a>
