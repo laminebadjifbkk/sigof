@@ -27,7 +27,8 @@
                 <tr>
                     <th>Nom</th>
                     <th>E-mail</th>
-                    <th>Type</th>
+                    <th>Téléphone</th>
+                    <th>Date de naissance</th>
                     <th>Rôle</th>
                     <th>Actions</th>
                 </tr>
@@ -37,13 +38,8 @@
                 <tr>
                     <td>{{ $c?->user?->civilite }} {{ $c?->user?->firstname }} {{ $c?->user?->name }}</td>
                     <td>{{ $c->user->email }}</td>
-                    <td>
-                        @if ($c->candidatures_count > 0)
-                        <span class="status-pill status-inconnu">Candidat</span>
-                        @else
-                        <span class="status-pill status-validee">Admin</span>
-                        @endif
-                    </td>
+                    <td>{{ $c?->user?->telephone ?? '-' }}</td>
+                    <td>{{ $c?->user?->date_naissance?->format('d/m/Y') ?? '-' }}</td>
                     <td>
                         @forelse ($c->user->roles as $role)
                         <span class="status-pill status-en-attente">{{ $role->name }}</span>
