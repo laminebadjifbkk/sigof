@@ -13,6 +13,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /*  implements MustVerifyEmail */
 
@@ -401,5 +402,10 @@ class User extends Authenticatable
             !empty($this->ninea) &&
             !empty($this->fonction_responsable) &&
             !empty($this->email);
+    }
+
+    public function candidatures(): HasMany
+    {
+        return $this->hasMany(Candidature::class, 'users_id');
     }
 }

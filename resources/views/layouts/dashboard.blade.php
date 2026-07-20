@@ -236,6 +236,34 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        .export-filters {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr) auto;
+            gap: 12px;
+            align-items: end;
+        }
+
+        .export-submit {
+            display: flex;
+        }
+
+        .export-submit .btn {
+            width: 100%;
+            height: 38px;
+        }
+
+        @media (max-width: 900px) {
+            .export-filters {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .export-filters {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 

@@ -107,7 +107,8 @@ use App\Http\Controllers\VerificationAttestationController;
 use App\Http\Controllers\CandidatureController;
 use App\Http\Controllers\SessionFormationController;
 use App\Http\Controllers\LanguesSpecialisationController;
-use App\Http\Controllers\RapportController;
+use App\Http\Controllers\RapportCandidatureController;
+use App\Http\Controllers\UtilisateurAdminCandidatureController;
 use App\Models\Arrive;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
@@ -213,8 +214,18 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::post('sessions-formation/{session}/participants/{participant}/evaluer', [SessionFormationController::class, 'evaluer'])
             ->name('sessions-formation.evaluer');
 
-        Route::get('rapports', [RapportController::class, 'index'])->name('rapports.index');
-        Route::get('rapports/export', [RapportController::class, 'export'])->name('rapports.export');
+        Route::get('rapports', [RapportCandidatureController::class, 'index'])->name('rapports.index');
+        Route::get('rapports/export', [RapportCandidatureController::class, 'export'])->name('rapports.export');
+
+        // Gestion des utilisateurs admin — super-admin uniquement
+        Route::resource('parametres/utilisateurs', UtilisateurAdminCandidatureController::class)
+            ->names('utilisateurs');
+        Route::get('parametres/utilisateurs', [UtilisateurAdminCandidatureController::class, 'index'])->name('utilisateurs.index');
+        Route::get('parametres/utilisateurs/create', [UtilisateurAdminCandidatureController::class, 'create'])->name('utilisateurs.create');
+        Route::post('parametres/utilisateurs', [UtilisateurAdminCandidatureController::class, 'store'])->name('utilisateurs.store');
+        Route::get('parametres/utilisateurs/{utilisateur}/edit', [UtilisateurAdminCandidatureController::class, 'edit'])->name('utilisateurs.edit');
+        Route::put('parametres/utilisateurs/{utilisateur}', [UtilisateurAdminCandidatureController::class, 'update'])->name('utilisateurs.update');
+        Route::delete('parametres/utilisateurs/{utilisateur}', [UtilisateurAdminCandidatureController::class, 'destroy'])->name('utilisateurs.destroy');
     });
 
 

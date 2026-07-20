@@ -8,13 +8,67 @@
         <h2>Rapports</h2>
         <p class="muted-sub">Suivi statistique - programme traducteurs Dakar 2026</p>
     </div>
-    <div class="topbar-right">
+   <!--  <div class="topbar-right">
         <a href="{{ route('rapports.export') }}" class="btn btn-outline btn-sm">Exporter (CSV)</a>
-    </div>
+    </div> -->
+</div>
+
+<div class="panel">
+    <h3>Filtrer l'export</h3>
+    <form action="{{ route('rapports.export') }}" method="GET" class="export-filters">
+        <div class="field">
+            <label for="statut">Statut</label>
+            <select name="statut" id="statut">
+                <option value="">Tous</option>
+                <option value="nouvelle">Nouvelle</option>
+                <option value="en_attente">En attente</option>
+                <option value="validee">Validée</option>
+                <option value="rejetee">Rejetée</option>
+                <option value="conforme">Conforme</option>
+                <option value="non_conforme">Non conforme</option>
+                <option value="forme">Formé</option>
+            </select>
+        </div>
+
+        <div class="field">
+            <label for="langue_specialisation_id">Langue</label>
+            <select name="langue_specialisation_id" id="langue_specialisation_id">
+                <option value="">Toutes</option>
+                @foreach ($parLangue as $langue)
+                <option value="{{ $langue->id }}">{{ $langue->nom }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="field">
+            <label for="zone">Zone</label>
+            <select name="zone" id="zone">
+                <option value="">Toutes</option>
+                <option value="diamniadio">Diamniadio Olympic Stadium</option>
+                <option value="dakar_centre">Dakar centre</option>
+                <option value="saly">Saly - Petite Côte</option>
+                <option value="indifferent">Indifférent</option>
+            </select>
+        </div>
+
+        <div class="field">
+            <label for="date_debut">Du</label>
+            <input type="date" name="date_debut" id="date_debut">
+        </div>
+
+        <div class="field">
+            <label for="date_fin">Au</label>
+            <input type="date" name="date_fin" id="date_fin">
+        </div>
+
+        <div class="field export-submit">
+            <button type="submit" class="btn btn-primary btn-sm">Télécharger le CSV</button>
+        </div>
+    </form>
 </div>
 
 <!-- KPIs -->
-<div class="kpi-grid">
+<div class="kpi-grid pt-3">
     <div class="kpi-card">
         <span class="kpi-label">Candidatures reçues</span>
         <span class="kpi-value">{{ $totalCandidatures }}</span>
@@ -138,7 +192,7 @@
         }
 
         const data = window.rapportData;
-        
+
 
         const palette = ['#2563eb', '#16a34a', '#d97706', '#dc2626', '#7c3aed', '#0891b2'];
 

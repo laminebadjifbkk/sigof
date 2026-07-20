@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class LanguesSpecialisationController extends Controller
 {
+    // Dans LanguesSpecialisationController
+    public function __construct()
+    {
+        $this->middleware('permission:langues.voir')->only(['index', 'show']);
+        $this->middleware('permission:langues.gerer')->only(['create', 'store', 'edit', 'update', 'destroy']);
+    }
+
     public function index()
     {
         $langues = LanguesSpecialisation::withCount('candidatures')

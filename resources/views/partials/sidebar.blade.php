@@ -36,7 +36,12 @@
         <a href="{{ route('rapports.index') }}" class="dash-link {{ request()->routeIs('rapports.index') ? 'active' : '' }}">
             <span class="ic"></span>Rapports
         </a>
-        <a href="#" class="dash-link"><span class="ic"></span>Paramètres</a>
+        <!-- <a href="#" class="dash-link"><span class="ic"></span>Paramètres</a> -->
+        @role('super-admin')
+        <a href="{{ route('utilisateurs.index') }}" class="dash-link {{ request()->routeIs('utilisateurs.*') ? 'active' : '' }}">
+            <span class="ic"></span>Paramètres
+        </a>
+        @endrole
     </nav>
 
     <div class="dash-foot">ONFP × COJO<br>SIGOF v1.0 - Dakar 2026</div>
