@@ -10,7 +10,7 @@
           </svg>
           <span class="sigof" style="color:var(--cream);">SIGOF</span>
         </div>
-        <p style="margin-top:14px;">Plateforme du partenariat ONFP × COJO pour la formation et la mobilisation des traducteurs officiels des Jeux Olympiques de la Jeunesse Dakar 2026.</p>
+        <p style="margin-top:14px;">Plateforme du partenariat ONFP × COJOJ pour la formation et la mobilisation des traducteurs officiels des Jeux Olympiques de la Jeunesse Dakar 2026.</p>
       </div>
       <div>
         <h5>Programme</h5>
@@ -25,7 +25,7 @@
         <h5>Partenaires</h5>
         <ul>
           <li>ONFP</li>
-          <li>COJO - YOGOC Dakar 2026</li>
+          <li>COJOJ - YOGOC Dakar 2026</li>
           <li>Ministère de la Jeunesse</li>
         </ul>
       </div>
@@ -40,7 +40,7 @@
     </div>
     <div class="footer-bottom">
       <span class="motto">Afrig Dalal, Ndakaaru Jëmël - L'Afrique accueille, Dakar célèbre.</span>
-      <span class="motto">© {{ date('Y') }} ONFP × COJO - SIGOF.</span>
+      <span class="motto">© {{ date('Y') }} ONFP × COJOJ - SIGOF.</span>
     </div>
   </div>
 </footer>

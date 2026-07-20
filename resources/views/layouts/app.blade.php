@@ -371,6 +371,12 @@
                 gap: 4px;
             }
         }
+
+        .brand-logo {
+            height: 44px;
+            width: auto;
+            display: block;
+        }
     </style>
     @stack('styles')
 </head>
@@ -497,26 +503,33 @@
                 document.getElementById('recap-nom').textContent = `${fieldValue('prenom')} ${fieldValue('nom')}`;
                 document.getElementById('recap-email').textContent = fieldValue('email') || '-';
                 document.getElementById('recap-telephone').textContent = fieldValue('telephone') || '-';
-                document.getElementById('recap-date_naissance').textContent = formatDate(fieldValue('date_naissance')) || '-';
+                document.getElementById('recap-date_naissance').textContent = formatDate(fieldValue(
+                    'date_naissance')) || '-';
                 document.getElementById('recap-lieu_naissance').textContent = fieldValue('lieu_naissance') || '-';
                 document.getElementById('recap-adresse').textContent = fieldValue('adresse') || '-';
                 document.getElementById('recap-region').textContent = selectTextFor('region_id') || '-';
 
-                document.getElementById('recap-langue_specialisation').textContent = labelFor('langue_specialisation');
-                document.getElementById('recap-certification').textContent = fieldValue('certification') || 'Aucune';
+                document.getElementById('recap-langue_specialisation').textContent = labelFor(
+                    'langue_specialisation');
+                document.getElementById('recap-certification').textContent = fieldValue('certification') ||
+                'Aucune';
                 document.getElementById('recap-diplome').textContent = labelFor('diplome');
                 document.getElementById('recap-langue_maternelle').textContent = labelFor('langue_maternelle');
                 document.getElementById('recap-niveau_francais').textContent = labelFor('niveau_francais');
                 document.getElementById('recap-langue_vivante_2').textContent = labelFor('langue_vivante_2');
 
-                document.getElementById('recap-disponible_debut').textContent = formatDate(fieldValue('disponible_debut')) || '-';
-                document.getElementById('recap-disponible_fin').textContent = formatDate(fieldValue('disponible_fin')) || '-';
+                document.getElementById('recap-disponible_debut').textContent = formatDate(fieldValue(
+                    'disponible_debut')) || '-';
+                document.getElementById('recap-disponible_fin').textContent = formatDate(fieldValue(
+                    'disponible_fin')) || '-';
                 document.getElementById('recap-zone').textContent = labelFor('zone');
-                document.getElementById('recap-delegation_souhaitee').textContent = fieldValue('delegation_souhaitee') || 'Non précisé';
+                document.getElementById('recap-delegation_souhaitee').textContent = fieldValue(
+                    'delegation_souhaitee') || 'Non précisé';
 
                 document.getElementById('recap-piece_identite').textContent = fileNameFor('piece_identite');
                 document.getElementById('recap-diplome_fichier').textContent = fileNameFor('diplome_fichier');
-                document.getElementById('recap-certification_fichier').textContent = fileNameFor('certification_fichier');
+                document.getElementById('recap-certification_fichier').textContent = fileNameFor(
+                    'certification_fichier');
                 document.getElementById('recap-cv').textContent = fileNameFor('cv');
             }
 

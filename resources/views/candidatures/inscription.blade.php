@@ -7,7 +7,7 @@
         <div class="container">
             <div class="register-head">
                 <p class="eyebrow" style="justify-content:center;">Inscription traducteur</p>
-                <h2>Créez votre profil YLP</h2>
+                <h2>Créez votre profil</h2>
                 <p style="color:var(--gray-700); margin-top:8px;">Quatre étapes pour rejoindre le vivier des traducteurs
                     Dakar 2026.</p>
             </div>
@@ -319,7 +319,7 @@
                         <label class="checkline" style="font-size:13.5px;">
                             <input type="checkbox" name="attestation" value="1">
                             J'atteste l'exactitude des informations fournies et j'accepte la charte du programme ONFP ×
-                            COJO.
+                            COJOJ.
                         </label>
                         @error('attestation')
                             <span class="field-error">{{ $message }}</span>

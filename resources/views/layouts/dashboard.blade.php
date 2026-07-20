@@ -264,6 +264,12 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        .brand-logo {
+            height: 34px;
+            width: auto;
+            display: block;
+        }
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
