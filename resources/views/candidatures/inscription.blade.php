@@ -200,19 +200,24 @@
                         <div class="field-row">
                             <div class="field"><label>Langue maternelle</label>
                                 <select name="langue_maternelle">
-                                    <option value="">-- Choisissez --</option>
-                                    <option value="wolof">Wolof</option>
-                                    <option value="francais">Français</option>
-                                    <option value="pulaar">Pulaar</option>
-                                    <option value="serere">Sérère</option>
-                                    <option value="diola">Diola</option>
-                                    <option value="autre">Autre</option>
+                                    <option value="" @selected(!old('langue_maternelle'))>-- Choisissez --</option>
+                                    <option value="francais" @selected(old('langue_maternelle') == 'francais')>Français</option>
+                                    <option value="anglais" @selected(old('langue_maternelle') == 'anglais')>Anglais</option>
+                                    <option value="arabe" @selected(old('langue_maternelle') == 'arabe')>Arabe</option>
+                                    <option value="espagnol" @selected(old('langue_maternelle') == 'espagnol')>Espagnol</option>
+                                    <option value="portugais" @selected(old('langue_maternelle') == 'portugais')>Portugais</option>
+                                    <option value="chinois" @selected(old('langue_maternelle') == 'chinois')>Chinois</option>
+                                    <option value="japonais" @selected(old('langue_maternelle') == 'japonais')>Japonais</option>
+                                    <option value="coreen" @selected(old('langue_maternelle') == 'coreen')>Coréen</option>
+                                    <option value="allemand" @selected(old('langue_maternelle') == 'allemand')>Allemand</option>
+                                    <option value="russe" @selected(old('langue_maternelle') == 'russe')>Russe</option>
+                                    <option value="italien" @selected(old('langue_maternelle') == 'italien')>Italien</option>
                                 </select>
                                 @error('langue_maternelle')
                                     <span class="field-error">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="field"><label>Niveau de français - C1 minimum</label>
+                            <div class="field"><label>Niveau de français</label>
                                 <select name="niveau_francais">
                                     <option value="">-- Choisissez --</option>
                                     <option value="c1">C1</option>
@@ -226,11 +231,15 @@
                         <div class="field"><label>Langue vivante 2 (LV2) - niveau B2 minimum</label>
                             <select name="langue_vivante_2">
                                 <option value="">-- Choisissez --</option>
-                                <option value="anglais">Anglais</option>
-                                <option value="espagnol">Espagnol</option>
                                 <option value="arabe">Arabe</option>
+                                <option value="espagnol">Espagnol</option>
                                 <option value="portugais">Portugais</option>
-                                <option value="aucune">Aucune</option>
+                                <option value="chinois">Chinois</option>
+                                <option value="japonais">Japonais</option>
+                                <option value="coreen">Coreen</option>
+                                <option value="allemand">Allemand</option>
+                                <option value="russe">Russe</option>
+                                <option value="italien">Italien</option>
                             </select>
                             @error('langue_vivante_2')
                                 <span class="field-error">{{ $message }}</span>
@@ -252,10 +261,9 @@
                         <div class="field"><label>Zone / site préféré</label>
                             <select name="zone">
                                 <option value="">-- Choisissez --</option>
-                                <option value="diamniadio">Diamniadio Olympic Stadium</option>
-                                <option value="dakar_centre">Dakar centre</option>
-                                <option value="saly">Saly - Petite Côte</option>
-                                <option value="indifferent">Indifférent</option>
+                                <option value="diamniadio">Diamniadio</option>
+                                <option value="dakar_centre">Dakar</option>
+                                <option value="saly">Saly</option>
                             </select>
                             @error('zone')
                                 <span class="field-error">{{ $message }}</span>
@@ -295,7 +303,7 @@
                             @enderror
                         </label>
                         <label class="upload-box" for="file-certif" style="display:block; cursor:pointer;">
-                            <strong>Certification linguistique</strong><br>
+                            <strong>Certifications linguistiques (Optionnel mais recommandé)</strong><br>
                             <span class="file-name">Glissez un fichier ou cliquez pour parcourir (TOEIC, DELE, HSK, JLPT…
                                 selon la langue choisie (PDF
                                 - 5 Mo max))</span>
