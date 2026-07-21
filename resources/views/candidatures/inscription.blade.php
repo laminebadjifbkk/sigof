@@ -324,7 +324,7 @@
                             @enderror
                         </label>
 
-                        <label class="upload-box" for="file-video" style="display:block; cursor:pointer;">
+                        {{-- <label class="upload-box" for="file-video" style="display:block; cursor:pointer;">
                             <strong>Vidéo de présentation (Optionnel)</strong><br>
                             <span class="file-name">Glissez un fichier ou cliquez pour parcourir (MP4, MOV - 2 min max, 30
                                 Mo max)</span>
@@ -332,7 +332,7 @@
                             @error('video_presentation')
                                 <span class="field-error">{{ $message }}</span>
                             @enderror
-                        </label>
+                        </label> --}}
 
                         <label class="checkline" style="font-size:13.5px;">
                             <input type="checkbox" name="attestation" value="1">
