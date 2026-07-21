@@ -46,6 +46,12 @@ class StoreCandidatureRequest extends FormRequest
             'diplome_fichier'         => ['required', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:5120'],
             'certification_fichier'   => ['nullable', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:5120'],
             'cv'                       => ['required', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:5120'],
+            'video_presentation' => [
+                'nullable',
+                'file',
+                'mimes:mp4,mov',
+                'max:30720', // 30 Mo en Ko (30 * 1024)
+            ],
             'attestation'              => ['required', 'accepted'],
         ];
     }
@@ -62,7 +68,31 @@ class StoreCandidatureRequest extends FormRequest
                     );
                 }
             }
+
+            // Vérification de la durée de la vidéo (2 minutes max)
+            if ($this->hasFile('video_presentation') && $this->file('video_presentation')->isValid()) {
+                $duration = $this->getVideoDuration($this->file('video_presentation'));
+
+                if ($duration !== null && $duration > 120) {
+                    $validator->errors()->add(
+                        'video_presentation',
+                        'La vidéo de présentation ne doit pas dépasser 2 minutes (durée actuelle : ' . gmdate('i:s', $duration) . ').'
+                    );
+                }
+            }
         });
+    }
+
+    /**
+     * Récupère la durée d'une vidéo en secondes via ffprobe (nécessite FFmpeg installé sur le serveur).
+     */
+    private function getVideoDuration($file): ?float
+    {
+        $path = $file->getRealPath();
+
+        $ffprobe = shell_exec("ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 " . escapeshellarg($path) . " 2>&1");
+
+        return $ffprobe ? (float) trim($ffprobe) : null;
     }
 
     public function messages(): array
