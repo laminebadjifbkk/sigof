@@ -373,7 +373,7 @@
         }
 
         .brand-logo {
-            height: 44px;
+            height: 54px;
             width: auto;
             display: block;
         }
@@ -383,7 +383,7 @@
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 32px;
+            gap: 50px;
         }
 
         .partner-item {
