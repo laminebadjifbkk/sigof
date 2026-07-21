@@ -10,7 +10,7 @@
 --}}
 <header class="site">
     <div class="header-inner">
-        <div class="brand-lockup">
+        {{-- <div class="brand-lockup">
             <span class="bulle-mark">
                 <svg width="38" height="34" viewBox="0 0 38 34">
                     <use href="#bulle-teranga" />
@@ -28,16 +28,16 @@
             </div>
             @guest
             <div class="brand-divider"></div>
-            {{-- <div class="dakar-chip">
+            <div class="dakar-chip">
                 <span class="bulle-mark"><svg width="16" height="14" viewBox="0 0 38 34">
                         <use href="#bulle-teranga" fill="var(--cream)" />
                     </svg></span>
                 JOJ DAKAR 2026
-            </div> --}}
+            </div>
             @endguest
-        </div>
+        </div> --}}
 
-        {{-- <div class="brand-lockup">
+        <div class="brand-lockup">
             <span class="bulle-mark">
                 <img src="{{ asset('images/logo-ylp.png') }}" alt="Dakar 2026 - Youth Linguists Programme"
                     class="brand-logo">
@@ -49,14 +49,14 @@
             </div>
              @guest
                 <div class="brand-divider"></div>
-                <div class="dakar-chip">
+                {{-- <div class="dakar-chip">
                     <span class="bulle-mark"><svg width="16" height="14" viewBox="0 0 38 34">
                             <use href="#bulle-teranga" fill="var(--cream)" />
                         </svg></span>
                     YLP
-                </div>
+                </div> --}}
             @endguest
-        </div> --}}
+        </div>
 
         <nav class="main-nav" id="mainNav">
             @guest

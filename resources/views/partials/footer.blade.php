@@ -4,14 +4,18 @@
         <div class="footer-grid">
             <div>
                 <div class="footer-brand">
-                    <svg width="32" height="29" viewBox="0 0 38 34">
+                    {{-- <svg width="32" height="29" viewBox="0 0 38 34">
                         <use href="#bulle-teranga" fill="var(--cream)" />
                         <circle cx="10" cy="16" r="3" fill="var(--gold)" />
                         <circle cx="18" cy="12" r="3" fill="var(--green)" />
                         <circle cx="26" cy="16" r="3" fill="var(--brick)" />
                         <circle cx="14" cy="21" r="3" fill="var(--navy)" />
                         <circle cx="22" cy="21" r="3" fill="var(--black)" />
-                    </svg>
+                    </svg> --}}
+                    <span class="bulle-mark">
+                        <img src="{{ asset('images/logo-ylp.png') }}" alt="Dakar 2026 - Youth Linguists Programme"
+                            class="brand-logo">
+                    </span>
                     <span class="sigof" style="color:var(--cream);">SIGOF</span>
                 </div>
                 <p style="margin-top:14px;">Plateforme du partenariat ONFP × COJOJ pour la formation et la mobilisation
@@ -35,8 +39,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://www.olympics.com/cio/dakar-2026" target="_blank" rel="noopener"
-                           >
+                        <a href="https://www.olympics.com/cio/dakar-2026" target="_blank" rel="noopener">
                             COJOJ-Dakar 2026
                         </a>
                     </li>
@@ -46,8 +49,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://astra-sn.com/?utm_source=chatgpt.com" target="_blank" rel="noopener"
-                           >
+                        <a href="https://astra-sn.com/?utm_source=chatgpt.com" target="_blank" rel="noopener">
                             ASTRA
                         </a>
                     </li>
