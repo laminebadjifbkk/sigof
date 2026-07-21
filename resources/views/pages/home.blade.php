@@ -420,9 +420,9 @@
 
     <div class="partners-strip">
         <div class="container">
-            <div class="block-head">
+            {{-- <div class="block-head">
                 <p class="eyebrow">Logos des partenaires officiels du COJOJ</p>
-            </div>
+            </div> --}}
 
             <div class="partners-row">
                 <a href="https://www.onfp.sn" target="_blank" rel="noopener" class="partner-item">
@@ -432,10 +432,10 @@
                     <img src="{{ asset('images/logo-ylp.png') }}" alt="COJOJ Dakar 2026" class="partner-logo">
                 </a>
                 <a href="https://www.ucad.sn" target="_blank" rel="noopener" class="partner-item">
-                    <img src="{{ asset('assets/img/LOGO-UCAD.png') }}" alt="UCAD" class="partner-logo">
+                    <img src="{{ asset('assets/img/logo_ucad.png') }}" alt="UCAD" class="partner-logo">
                 </a>
                 <a href="https://astra-sn.com/?utm_source=chatgpt.com" target="_blank" rel="noopener" class="partner-item">
-                    <img src="{{ asset('assets/img/astra.png') }}" alt="ASTRA" class="partner-logo">
+                    <img src="{{ asset('assets/img/logo_astra.png') }}" alt="ASTRA" class="partner-logo">
                 </a>
             </div>
             {{-- <h1 class="partner-note">Logos des partenaires officiels du programme.</h1> --}}

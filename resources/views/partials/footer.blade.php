@@ -13,7 +13,7 @@
                         <circle cx="22" cy="21" r="3" fill="var(--black)" />
                     </svg> --}}
                     <span class="bulle-mark">
-                        <img src="{{ asset('images/logo-ylp.png') }}" alt="Dakar 2026 - Youth Linguists Programme"
+                        <img src="{{ asset('images/logo-ylp.jpg') }}" alt="Dakar 2026 - Youth Linguists Programme"
                             class="brand-logo">
                     </span>
                     <span class="sigof" style="color:var(--cream);">SIGOF</span>
