@@ -28,12 +28,12 @@
             </div>
             @guest
             <div class="brand-divider"></div>
-            <div class="dakar-chip">
+            {{-- <div class="dakar-chip">
                 <span class="bulle-mark"><svg width="16" height="14" viewBox="0 0 38 34">
                         <use href="#bulle-teranga" fill="var(--cream)" />
                     </svg></span>
                 JOJ DAKAR 2026
-            </div>
+            </div> --}}
             @endguest
         </div>
 
