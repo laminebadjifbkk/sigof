@@ -315,10 +315,10 @@
                 </div>
             </div>
 
-            <p class="lang-note">
-                <span aria-hidden="true" style="font-size:20px;">ℹ️</span>
+            <h4>
+                <span aria-hidden="true" style="font-size:20px;"></span>
                 Diplôme minimum requis pour toutes les langues : <strong>Licence</strong> ou niveau équivalent.
-            </p>
+            </h4>
         </div>
     </section>
 
@@ -336,7 +336,8 @@
                         spécialisation choisie</li>
                     <li class="elig-item"><span class="elig-check">✓</span>Démontrer une maîtrise de la langue de
                         spécialisation conforme aux niveaux définis par le programme</li>
-                    <li class="elig-item"><span class="elig-check">✓</span>Maîtriser le français et l’anglais au niveau requis</li>
+                    <li class="elig-item"><span class="elig-check">✓</span>Maîtriser le français et l’anglais au niveau
+                        requis</li>
                     <li class="elig-item"><span class="elig-check">✓</span>Posséder de solides compétences rédactionnelles
                         et orales</li>
                     <li class="elig-item"><span class="elig-check">✓</span>Être disponible pour l'ensemble de la formation
@@ -359,7 +360,7 @@
                                 <td>LV1 - langue de spécialisation</td>
                                 <td><b>C1</b></td>
                             </tr>
-                           {{--  <tr>
+                            {{--  <tr>
                                 <td>LV2 - langue vivante 2</td>
                                 <td><b>B2</b></td>
                             </tr> --}}
