@@ -39,15 +39,17 @@
 
         <div class="brand-lockup">
             <span class="bulle-mark">
-                <img src="{{ asset('images/logo-ylp.png') }}" alt="Dakar 2026 - Youth Linguists Programme"
-                    class="brand-logo">
+                <a href="{{ route('ylphome') }}">
+                    <img src="{{ asset('images/logo-ylp.png') }}" alt="Dakar 2026 - Youth Linguists Programme"
+                        class="brand-logo">
+                </a>
             </span>
             <div class="brand-text">
                 <a href="{{ route('ylphome') }}">
                     <span class="sigof">SIGOF</span>
                 </a>
             </div>
-             @guest
+            @guest
                 <div class="brand-divider"></div>
                 {{-- <div class="dakar-chip">
                     <span class="bulle-mark"><svg width="16" height="14" viewBox="0 0 38 34">
