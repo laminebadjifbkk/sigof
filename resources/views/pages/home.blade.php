@@ -434,7 +434,7 @@
                 <a href="https://www.ucad.sn" target="_blank" rel="noopener" class="partner-item">
                     <img src="{{ asset('assets/img/LOGO-UCAD.png') }}" alt="UCAD" class="partner-logo">
                 </a>
-                <a href="#" target="_blank" rel="noopener" class="partner-item">
+                <a href="https://astra-sn.com/?utm_source=chatgpt.com" target="_blank" rel="noopener" class="partner-item">
                     <img src="{{ asset('assets/img/astra.png') }}" alt="ASTRA" class="partner-logo">
                 </a>
             </div>
