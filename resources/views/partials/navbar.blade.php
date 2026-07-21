@@ -23,7 +23,7 @@
             </span>
             <div class="brand-text">
                 <a href="{{ route('dashboard') }}">
-                    <span class="sigof">ONFP YLP</span>
+                    <span class="sigof">SIGOF</span>
                 </a>
             </div>
             @guest
