@@ -6,7 +6,7 @@
   <div class="auth-wrap">
     <div class="auth-side">
       <div>
-        <p class="eyebrow">Espace traducteur</p>
+        <p class="eyebrow">Espace Junior Linguist Operators</p>
         <h2>Choisissez un nouveau mot de passe sécurisé.</h2>
         <p>Une fois validé, vous retrouverez immédiatement l'accès à votre espace et au suivi de votre candidature Dakar 2026.</p>
       </div>

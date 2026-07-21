@@ -6,7 +6,7 @@
   <div class="auth-wrap">
     <div class="auth-side">
       <div>
-        <p class="eyebrow">Espace traducteur</p>
+        <p class="eyebrow">Espace Junior Linguist Operators</p>
         <h2>On vous aide à retrouver l'accès à votre espace.</h2>
         <p>Indiquez l'adresse e-mail utilisée lors de votre inscription : nous vous envoyons un lien sécurisé pour choisir un nouveau mot de passe.</p>
       </div>

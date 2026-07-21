@@ -138,7 +138,7 @@ class SessionFormationController extends Controller
 
         return redirect()
             ->route('sessions-formation.show', $session)
-            ->with('success', $count . ' traducteur(s) affecté(s) à cette session.');
+            ->with('success', $count . ' JLO affecté(s) à cette session.');
     }
 
     public function retirerTraducteur(SessionsFormationTraducteur $session, FormationsTraducteur $formationTraducteur)
@@ -154,7 +154,7 @@ class SessionFormationController extends Controller
 
         return redirect()
             ->route('sessions-formation.show', $session)
-            ->with('success', 'Le traducteur a été retiré de cette session.');
+            ->with('success', 'Le JLO a été retiré de cette session.');
     }
 
     public function evaluer(Request $request, SessionsFormationTraducteur $session, FormationsTraducteur $participant)

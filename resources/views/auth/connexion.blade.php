@@ -6,7 +6,7 @@
   <div class="auth-wrap">
     <div class="auth-side">
       <div>
-        <p class="eyebrow">Espace traducteur</p>
+        <p class="eyebrow">Espace Junior Linguist Operators</p>
         <h2>Retrouvez votre parcours de formation en un instant.</h2>
         <p>Suivez l'état de votre candidature et votre affectation auprès des délégations Dakar 2026.</p>
       </div>
@@ -45,7 +45,7 @@
           </div>
           <button class="btn btn-primary btn-block" type="submit">Se connecter</button>
         </form>
-        <p class="auth-switch">Pas encore de compte ? <a href="{{ route('inscription') }}" class="link-accent">Créer mon profil traducteur</a></p>
+        <p class="auth-switch">Pas encore de compte ? <a href="{{ route('inscription') }}" class="link-accent">Créer mon profil Junior Linguist Operators</a></p>
       </div>
     </div>
   </div>

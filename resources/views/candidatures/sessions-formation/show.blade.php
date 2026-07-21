@@ -74,7 +74,7 @@
                     </td>
                     <td>
                         <form action="{{ route('sessions-formation.retirer', [$session, $participant]) }}" method="POST"
-                            onsubmit="return confirm('Retirer ce traducteur de la session ?');">
+                            onsubmit="return confirm('Retirer ce JLO de la session ?');">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-ghost btn-sm" style="color:#c0392b;">Retirer</button>
@@ -83,7 +83,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="5" class="empty-row">Aucun traducteur affecté à cette session pour le moment.</td>
+                    <td colspan="5" class="empty-row">Aucun JLO affecté à cette session pour le moment.</td>
                 </tr>
                 @endforelse
             </tbody>
@@ -136,7 +136,7 @@
                             {{ $participant->resultat_evaluation ? 'Modifier' : 'Évaluer' }}
                         </button>
                         <form action="{{ route('sessions-formation.retirer', [$session, $participant]) }}" method="POST"
-                            onsubmit="return confirm('Retirer ce traducteur de la session ?');">
+                            onsubmit="return confirm('Retirer ce JLO de la session ?');">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-ghost btn-sm" style="color:#c0392b;">Retirer</button>
@@ -187,7 +187,7 @@
                 </div>
                 @empty
                 <!--  <tr>
-                    <td colspan="6" class="empty-row">Aucun traducteur affecté à cette session pour le moment.</td>
+                    <td colspan="6" class="empty-row">Aucun JLO affecté à cette session pour le moment.</td>
                 </tr> -->
                 @endforelse
             </tbody>
