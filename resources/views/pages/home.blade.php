@@ -406,7 +406,7 @@
         </div>
     </section>
 
-    <div class="partners-strip">
+    {{-- <div class="partners-strip">
         <div class="container">
             <div class="partners-row">
                 <span class="partner-word">ONFP</span>
@@ -414,7 +414,28 @@
                 <span class="partner-word">UCAD</span>
                 <span class="partner-word">ASTRA</span>
             </div>
-            {{-- <p class="partner-note">Gabarit de démonstration - à remplacer par les logos officiels ONFP / COJOJ avant mise en production.</p> --}}
+
+        </div>
+    </div> --}}
+
+    <div class="partners-strip">
+        <div class="container">
+            <div class="partners-row">
+                <a href="https://www.onfp.sn" target="_blank" rel="noopener" class="partner-item">
+                    <img src="{{ asset('assets/img/logo.png') }}" alt="ONFP" class="partner-logo">
+                </a>
+                <a href="#" target="_blank" rel="noopener" class="partner-item">
+                    <img src="{{ asset('images/logo-ylp.png') }}" alt="COJOJ Dakar 2026"
+                        class="partner-logo">
+                </a>
+                <a href="https://www.ucad.sn" target="_blank" rel="noopener" class="partner-item">
+                    <img src="{{ asset('assets/img/LOGO-UCAD.png') }}" alt="UCAD" class="partner-logo">
+                </a>
+                <a href="#" target="_blank" rel="noopener" class="partner-item">
+                    <img src="{{ asset('assets/img/astra.png') }}" alt="ASTRA" class="partner-logo">
+                </a>
+            </div>
+            <p class="partner-note">Logos des partenaires officiels du programme.</p>
         </div>
     </div>
 @endsection

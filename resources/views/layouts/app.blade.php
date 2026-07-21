@@ -377,6 +377,36 @@
             width: auto;
             display: block;
         }
+
+        .partners-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 32px;
+        }
+
+        .partner-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .partner-logo {
+            height: 38px;
+            max-width: 160px;
+            width: auto;
+            object-fit: contain;
+            filter: grayscale(100%);
+            opacity: .65;
+            transition: filter .2s ease, opacity .2s ease, transform .15s ease;
+        }
+
+        .partner-item:hover .partner-logo {
+            filter: grayscale(0%);
+            opacity: 1;
+            transform: translateY(-2px);
+        }
     </style>
     @stack('styles')
 </head>
@@ -512,7 +542,7 @@
                 document.getElementById('recap-langue_specialisation').textContent = labelFor(
                     'langue_specialisation');
                 document.getElementById('recap-certification').textContent = fieldValue('certification') ||
-                'Aucune';
+                    'Aucune';
                 document.getElementById('recap-diplome').textContent = labelFor('diplome');
                 document.getElementById('recap-langue_maternelle').textContent = labelFor('langue_maternelle');
                 document.getElementById('recap-niveau_francais').textContent = labelFor('niveau_francais');
