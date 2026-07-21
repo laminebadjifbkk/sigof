@@ -1,46 +1,70 @@
 {{-- partials/footer.blade.php - utilisé par layouts/app.blade.php (pas affiché sur le dashboard) --}}
 <footer class="site" id="siteFooter">
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <div class="footer-brand">
-          <svg width="32" height="29" viewBox="0 0 38 34"><use href="#bulle-teranga" fill="var(--cream)"/>
-            <circle cx="10" cy="16" r="3" fill="var(--gold)"/><circle cx="18" cy="12" r="3" fill="var(--green)"/>
-            <circle cx="26" cy="16" r="3" fill="var(--brick)"/><circle cx="14" cy="21" r="3" fill="var(--navy)"/><circle cx="22" cy="21" r="3" fill="var(--black)"/>
-          </svg>
-          <span class="sigof" style="color:var(--cream);">SIGOF</span>
+    <div class="container">
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand">
+                    <svg width="32" height="29" viewBox="0 0 38 34">
+                        <use href="#bulle-teranga" fill="var(--cream)" />
+                        <circle cx="10" cy="16" r="3" fill="var(--gold)" />
+                        <circle cx="18" cy="12" r="3" fill="var(--green)" />
+                        <circle cx="26" cy="16" r="3" fill="var(--brick)" />
+                        <circle cx="14" cy="21" r="3" fill="var(--navy)" />
+                        <circle cx="22" cy="21" r="3" fill="var(--black)" />
+                    </svg>
+                    <span class="sigof" style="color:var(--cream);">SIGOF</span>
+                </div>
+                <p style="margin-top:14px;">Plateforme du partenariat ONFP × COJOJ pour la formation et la mobilisation
+                    des traducteurs officiels des Jeux Olympiques de la Jeunesse Dakar 2026.</p>
+            </div>
+            <div>
+                <h5>Programme</h5>
+                <ul>
+                    <li><a href="{{ route('ylphome') }}">Présentation</a></li>
+                    <li><a href="{{ route('inscription') }}">S'inscrire</a></li>
+                    <li><a href="{{ route('connexion') }}">Espace candidat</a></li>
+                    <li><a href="{{ route('dashboard') }}">Espace admin</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5>Partenaires</h5>
+                <ul>
+                    <li>
+                        <a href="https://www.onfp.sn" target="_blank" rel="noopener">
+                            ONFP
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.olympics.com/cio/dakar-2026" target="_blank" rel="noopener"
+                           >
+                            COJOJ-Dakar 2026
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.ucad.sn" target="_blank" rel="noopener">
+                            UCAD
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://astra-sn.com/?utm_source=chatgpt.com" target="_blank" rel="noopener"
+                           >
+                            ASTRA
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h5>Contact</h5>
+                <ul>
+                    <li>onfp@onfp.sn</li>
+                    <li>+221 33 827 92 51</li>
+                    <li>Dakar, Sénégal</li>
+                </ul>
+            </div>
         </div>
-        <p style="margin-top:14px;">Plateforme du partenariat ONFP × COJOJ pour la formation et la mobilisation des traducteurs officiels des Jeux Olympiques de la Jeunesse Dakar 2026.</p>
-      </div>
-      <div>
-        <h5>Programme</h5>
-        <ul>
-          <li><a href="{{ route('ylphome') }}">Présentation</a></li>
-          <li><a href="{{ route('inscription') }}">S'inscrire</a></li>
-          <li><a href="{{ route('connexion') }}">Espace candidat</a></li>
-          <li><a href="{{ route('dashboard') }}">Espace admin</a></li>
-        </ul>
-      </div>
-      <div>
-        <h5>Partenaires</h5>
-        <ul>
-          <li>ONFP</li>
-          <li>COJOJ-Dakar 2026</li>
-          <li>Ministère de la Jeunesse</li>
-        </ul>
-      </div>
-      <div>
-        <h5>Contact</h5>
-        <ul>
-          <li>onfp@onfp.sn</li>
-          <li>+221 33 827 92 51</li>
-          <li>Dakar, Sénégal</li>
-        </ul>
-      </div>
+        <div class="footer-bottom">
+            <span class="motto">Afrig Dalal, Ndakaaru Jëmël - L'Afrique accueille, Dakar célèbre.</span>
+            <span class="motto">© {{ date('Y') }} ONFP × COJOJ - SIGOF.</span>
+        </div>
     </div>
-    <div class="footer-bottom">
-      <span class="motto">Afrig Dalal, Ndakaaru Jëmël - L'Afrique accueille, Dakar célèbre.</span>
-      <span class="motto">© {{ date('Y') }} ONFP × COJOJ - SIGOF.</span>
-    </div>
-  </div>
 </footer>
