@@ -65,8 +65,8 @@ class CandidatureController extends Controller
 
     public function store(StoreCandidatureRequest $request)
     {
-        return redirect()->back()
-            ->with('error', 'Les candidatures ne sont pas encore ouvertes.');
+        /* return redirect()->back()
+            ->with('error', 'Les candidatures ne sont pas encore ouvertes.'); */
 
         $validated = $request->validated();
 

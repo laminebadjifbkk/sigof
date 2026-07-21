@@ -13,15 +13,34 @@ class StoreCandidatureRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation(): void
+    {
+        $telephone = $this->telephone ?? '';
+
+        // Supprime les espaces, tirets, parenthèses, etc.
+        $telephone = preg_replace('/\D+/', '', $telephone);
+
+        // Supprime le préfixe international du Sénégal
+        if (str_starts_with($telephone, '00221')) {
+            $telephone = substr($telephone, 5);
+        } elseif (str_starts_with($telephone, '221')) {
+            $telephone = substr($telephone, 3);
+        }
+
+        $this->merge([
+            'telephone' => $telephone,
+        ]);
+    }
+
     public function rules(): array
     {
         return [
             // Étape 1 — Profil (table users)
             'civilite'       => 'required|in:M.,Mme',
-            'prenom'         => ['required', 'string', 'max:200'],
-            'nom'            => ['required', 'string', 'max:200'],
-            'email'          => ['required', 'email', 'max:200', 'unique:users,email'],
-            'telephone'      => ['required', 'string', 'max:200'],
+            'prenom'         => ['required', 'string', 'max:100'],
+            'nom'            => ['required', 'string', 'max:50'],
+            'email'          => ['required', 'email', 'max:100', 'unique:users,email'],
+            'telephone'      => ['required', 'digits:9'],
             'date_naissance' => ['required', 'date', 'before_or_equal:today'],
             'lieu_naissance' => 'required|string|max:255',
             'adresse'        => 'required|string|max:255',
@@ -42,10 +61,10 @@ class StoreCandidatureRequest extends FormRequest
             'delegation_souhaitee'  => ['nullable', 'string', 'max:255'],
 
             // Étape 4 — Documents
-            'piece_identite'          => ['required', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:5120'],
-            'diplome_fichier'         => ['required', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:5120'],
-            'certification_fichier'   => ['nullable', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:5120'],
-            'cv'                       => ['required', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:5120'],
+            'piece_identite'          => ['required', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:1024'],
+            'diplome_fichier'         => ['required', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:2048'],
+            'certification_fichier'   => ['nullable', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:1024'],
+            'cv'                       => ['required', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:2048'],
             'attestation'              => ['required', 'accepted'],
         ];
     }
