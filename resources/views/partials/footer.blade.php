@@ -25,15 +25,15 @@
         <h5>Partenaires</h5>
         <ul>
           <li>ONFP</li>
-          <li>COJOJ - YOGOC Dakar 2026</li>
+          <li>COJOJ-Dakar 2026</li>
           <li>Ministère de la Jeunesse</li>
         </ul>
       </div>
       <div>
         <h5>Contact</h5>
         <ul>
-          <li>contact@contact.sn</li>
-          <li>+221 33 000 00 00</li>
+          <li>onfp@onfp.sn</li>
+          <li>+221 33 827 92 51</li>
           <li>Dakar, Sénégal</li>
         </ul>
       </div>
