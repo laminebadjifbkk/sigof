@@ -32,9 +32,17 @@ class CandidatePasswordResetController extends Controller
             : back()->withErrors(['email' => __($status)]);
     }
 
-    public function reset(Request $request, string $token)
+    /*     public function reset(Request $request, string $token)
     {
         return view('auth.password.reset', [
+            'token' => $token,
+            'email' => $request->query('email'),
+        ]);
+    } */
+
+    public function reset(Request $request, string $token)
+    {
+        return view('auth.password.candidate-password-reset', [
             'token' => $token,
             'email' => $request->query('email'),
         ]);
