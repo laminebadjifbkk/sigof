@@ -21,11 +21,6 @@ class PasswordResetLinkController extends Controller
         return view('auth.forgot-password');
     }
 
-    public function created(): View
-    {
-        return view('auth.password.request');
-    }
-
     /**
      * Handle an incoming password reset link request.
      *
@@ -50,19 +45,6 @@ class PasswordResetLinkController extends Controller
             ? back()->with('status', __($status))
             : back()->withInput($request->only('email'))
             ->withErrors(['email' => __($status)]);
-    }
-
-
-    /** Envoie le lien de réinitialisation par e-mail. */
-    public function email(Request $request)
-    {
-        $request->validate(['email' => ['required', 'email']]);
-
-        $status = Password::sendResetLink($request->only('email'));
-
-        return $status === Password::RESET_LINK_SENT
-            ? back()->with('status', __($status))
-            : back()->withErrors(['email' => __($status)]);
     }
 
     /** Affiche le formulaire "Nouveau mot de passe" (arrivée depuis le lien e-mail). */
