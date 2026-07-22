@@ -186,9 +186,6 @@ Route::group(['middleware' => ['XSS']], function () {
     Route::post('/mot-de-passe/email', [CandidatePasswordResetController::class, 'send'])
         ->name('mot-de-passe.email');
 
-    Route::get('/mot-de-passe/reinitialiser/{token}', [CandidatePasswordResetController::class, 'reset'])
-        ->name('mot-de-passe.reset');
-
     Route::post('/mot-de-passe/reinitialiser', [CandidatePasswordResetController::class, 'update'])
         ->name('mot-de-passe.update');
 
