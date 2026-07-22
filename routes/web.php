@@ -9,6 +9,7 @@ use App\Http\Controllers\AttestationController;
 use App\Http\Controllers\Auth\AuthenticatedCandidateSessionController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\Auth\CandidatePasswordResetController;
 use App\Http\Controllers\Auth\RegisteredCandidateController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BudgetLabelController;
@@ -179,10 +180,17 @@ Route::group(['middleware' => ['XSS']], function () {
     Route::get('/inscription/confirmation/{candidature}', [CandidatureController::class, 'confirmation'])
         ->name('inscription.confirmation');
 
-    Route::get('/mot-de-passe/oublie', [PasswordResetLinkController::class, 'created'])->name('mot-de-passe.request');
-    Route::post('/mot-de-passe/email', [PasswordResetLinkController::class, 'email'])->name('mot-de-passe.email');
-    Route::get('/mot-de-passe/reinitialiser/{token}', [PasswordResetLinkController::class, 'reset'])->name('mot-de-passe.reset');
-    Route::post('/mot-de-passe/reinitialiser', [PasswordResetLinkController::class, 'update'])->name('mot-de-passe.update');
+    Route::get('/mot-de-passe-oublie', [CandidatePasswordResetController::class, 'request'])
+        ->name('mot-de-passe.request');
+
+    Route::post('/mot-de-passe/email', [CandidatePasswordResetController::class, 'send'])
+        ->name('mot-de-passe.email');
+
+    Route::get('/mot-de-passe/reinitialiser/{token}', [CandidatePasswordResetController::class, 'reset'])
+        ->name('mot-de-passe.reset');
+
+    Route::post('/mot-de-passe/reinitialiser', [CandidatePasswordResetController::class, 'update'])
+        ->name('mot-de-passe.update');
 
     // ---------- Espace admin (à protéger avec vos middlewares : auth, rôle admin…) ----------
     Route::middleware(['authylp', 'can:access-admin-ylp'])->group(function () {
@@ -733,7 +741,7 @@ Route::group(['middleware' => ['XSS']], function () {
 
         Route::get('/operateur/{statut}', [OperateurController::class, 'filtrerOperateurParStatut'])
             ->name('operateurs.parStatut');
-        /* 
+        /*
         Route::get('/operateurscommission/{statut}/{commission}', [OperateurController::class, 'filtrerOperateurParStatutCommission'])
             ->name('operateurs.parStatutCommission'); */
 
