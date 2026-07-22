@@ -7,7 +7,7 @@
         <div class="container">
             <div class="register-head">
                 <p class="eyebrow" style="justify-content:center;">Inscription Junior Linguist Operators</p>
-                <h2>Créez votre profil</h2>
+                <h2>Inscrivez-vous</h2>
                 <p style="color:var(--gray-700); margin-top:8px;">Quatre étapes pour rejoindre le vivier des traducteurs
                     Dakar 2026.</p>
             </div>
@@ -485,6 +485,7 @@
                         </div>
                     </div>
                 </form>
+                <p class="auth-switch">Vous avez déjà un compte ? <a href="{{ route('connexion') }}" class="link-accent">Connectez-vous</a></p>
             </div>
         </div>
     </div>

@@ -23,7 +23,7 @@ class CandidatureController extends Controller
     {
         $regions = Region::orderBy('nom')->get();
         $languesSpecialisations = LanguesSpecialisation::orderBy('nom')->get();
-        return view('candidatures.inscription', compact('languesSpecialisations', 'regions'));
+        return view('auth.inscription', compact('languesSpecialisations', 'regions'));
     }
 
     public function index()

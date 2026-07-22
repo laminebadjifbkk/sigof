@@ -23,8 +23,8 @@
     <div class="auth-form-col">
       <div class="auth-card">
         <span class="eyebrow" style="margin-bottom:14px;">Connexion</span>
-        <h3>Bon retour</h3>
-        <p class="muted">Connectez-vous à votre espace SIGOF.</p>
+        <h3>Connectez-vous</h3>
+        <p class="muted">Connectez-vous à votre compte.</p>
 
         {{-- Adaptez l'action à votre contrôleur d'authentification (ex: AuthenticatedSessionController) --}}
         <form method="POST" action="{{ route('login.attempt') }}">
@@ -45,7 +45,7 @@
           </div>
           <button class="btn btn-primary btn-block" type="submit">Se connecter</button>
         </form>
-        <p class="auth-switch">Pas encore de compte ? <a href="{{ route('inscription') }}" class="link-accent">Créer mon profil Junior Linguist Operators</a></p>
+        <p class="auth-switch">Pas encore de compte ? <a href="{{ route('inscription') }}" class="link-accent">Créer mon profil</a></p>
       </div>
     </div>
   </div>
