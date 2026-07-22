@@ -75,8 +75,8 @@
 
         <div class="nav-actions">
             @guest
-                <a href="{{ route('connexion') }}" class="btn btn-ghost btn-sm nav-cta-login">Se connecter</a>
-                <a href="{{ route('inscription') }}" class="btn btn-primary btn-sm nav-cta-register">Je m'inscris</a>
+                <a href="{{ route('inscription') }}" class="btn btn-ghost btn-sm nav-cta-login">Je m'inscris</a>
+                <a href="{{ route('connexion') }}" class="btn btn-primary btn-sm nav-cta-register">Se connecter</a>
             @else
                 <button type="button" class="avatar-bubble" data-bs-toggle="modal" data-bs-target="#userModal"
                     title="{{ trim((Auth::user()->civilite ?? '') . ' ' . (Auth::user()->firstname ?? '') . ' ' . (Auth::user()->name ?? '')) }}">
