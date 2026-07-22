@@ -32,7 +32,7 @@ class ResetPasswordNotification extends Notification
 
     protected function resetUrl(mixed $notifiable): string
     {
-        return url(route('mot-de-passe.reset', [
+        return url(route('password.reset', [
             'token' => $this->token,
             'email' => $notifiable->getEmailForPasswordReset(),
         ], false));
