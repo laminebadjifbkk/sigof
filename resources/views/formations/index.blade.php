@@ -265,7 +265,7 @@
                                             <th>Opérateurs</th>
                                             <th width='5%' class="text-center">Statut</th>
                                             @can('formation-show')
-                                                <th width='3%'><i class="bi bi-gear"></i></th>
+                                                <th width='3%'><i class="bi bi-gear"></i>Actions</th>
                                             @endcan
                                         </tr>
                                     </thead>
@@ -368,6 +368,7 @@
                             <div class="card-header text-center bg-gradient-default">
                                 <h1 class="h4 text-black mb-0">CRÉER FORMATION</h1>
                             </div>
+                            <input type="hidden" name="ingenieur" value="">
                             <div class="modal-body">
                                 <div class="row g-3">
                                     <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">

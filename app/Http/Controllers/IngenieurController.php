@@ -10,6 +10,7 @@ use App\Models\Listecollective;
 use App\Models\Module;
 use App\Models\Operateur;
 use App\Models\Region;
+use App\Models\Antenne;
 use App\Models\TypesFormation;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -156,6 +157,14 @@ class IngenieurController extends Controller
         $groupes = $ingenieur->formations
             ->groupBy(fn($item) => $item->annee ?? 'Aucune');
 
+        $formations_annee = Formation::distinct()
+            ->get('annee');
+
+        $formations_statut = Formation::distinct()
+            ->get('statut');
+
+        $poles = Antenne::get();
+
         return view(
             'ingenieurs.show',
             compact(
@@ -169,12 +178,15 @@ class IngenieurController extends Controller
                 'affichees',
                 'total',
                 'formations',
+                'formations_annee',
+                'formations_statut',
+                'poles',
                 'groupes'
             )
         );
     }
 
-    public function destroy($id)
+    public function destroy(int $id)
     {
         $ingenieur = Ingenieur::find($id);
         $ingenieur->delete();
