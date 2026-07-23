@@ -44,11 +44,19 @@
                         class="brand-logo">
                 </a>
             </span>
-            <div class="brand-text">
+            {{-- <div class="brand-text">
                 <a href="{{ route('ylphome') }}">
                     <span class="sigof">SIGOF</span>
                 </a>
-            </div>
+            </div> --}}
+
+            <div class="brand-divider"></div>
+            <span class="bulle-mark">
+                <a href="{{ route('ylphome') }}">
+                    <img src="{{ asset('assets/img/logo.png') }}" alt="LOGO ONFP"
+                        class="brand-logo">
+                </a>
+            </span>
             @guest
                 <div class="brand-divider"></div>
                 {{-- <div class="dakar-chip">
