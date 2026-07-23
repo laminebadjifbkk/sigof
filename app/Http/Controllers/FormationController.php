@@ -5415,7 +5415,7 @@ class FormationController extends Controller
             }
         }
 
-        if ($request->filled('ingenieur')) {
+        /*         if ($request->filled('ingenieur')) {
             if ($request->ingenieur === 'null') {
                 $title .= ' - TOUS LES INGENEIURS';
             } else {
@@ -5423,6 +5423,17 @@ class FormationController extends Controller
                 if ($ingenieur && $ingenieur->name !== null) {
                     $title .= ' - INGÉNIEUR : ' . strtoupper($ingenieur->name);
                 }
+            }
+        } */
+
+        if ($request->filled('ingenieur')) {
+            if ($request->ingenieur === 'null') {
+                $query->whereNull('ingenieurs_id');
+                $title .= ' - TOUS LES INGENEIURS';
+            } else {
+                $ingenieur = Ingenieur::find($request->ingenieur);
+                $query->where('ingenieurs_id', $request->ingenieur);
+                $title .= ' - INGÉNIEUR : ' . strtoupper($ingenieur->name);
             }
         }
 
