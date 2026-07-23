@@ -601,25 +601,30 @@
 
         <div class="modal fade" id="generate_rapportFormation" tabindex="-1" role="dialog"
             aria-labelledby="generate_rapportFormationLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="card-header text-center bg-gradient-default">
-                        <h1 class="h4 text-black mb-0">Générer rapport</h1>
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border-0 shadow">
+                    <div class="modal-header text-white"
+                        style="background: linear-gradient(135deg, #2c3e50 0%, #4a6fa5 100%);">
+                        <h1 class="h5 mb-0">
+                            <i class="bi bi-file-earmark-bar-graph me-2"></i>Générer un rapport
+                        </h1>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Fermer"></button>
                     </div>
+
                     <form method="post" action="{{ route('formations.reports') }}">
                         @csrf
-                        <div class="modal-body">
+                        <div class="modal-body px-4 py-4">
                             <div class="row g-3">
-                                <div class="col-12">
-                                    <label for="annee" class="form-label">Année<span
-                                            class="text-danger mx-1">*</span></label>
+
+                                <div class="col-md-6">
+                                    <label for="annee" class="form-label fw-semibold">
+                                        Année <span class="text-danger">*</span>
+                                    </label>
                                     <select name="annee"
                                         class="form-select form-select-sm @error('annee') is-invalid @enderror"
-                                        aria-label="Select" id="select-field-formation-annee-rapport"
-                                        data-placeholder="Choisir année">
-                                        <option value="{{ old('annee') }}">
-                                            {{ old('annee') }}
-                                        </option>
+                                        id="select-field-formation-annee-rapport" data-placeholder="Choisir année">
+                                        <option value="{{ old('annee') }}">{{ old('annee') }}</option>
                                         @foreach ($formations_annee as $anneeformation)
                                             <option value="{{ $anneeformation->annee }}">
                                                 {{ $anneeformation->annee }}
@@ -627,22 +632,18 @@
                                         @endforeach
                                     </select>
                                     @error('annee')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
+                                        <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror
                                 </div>
 
-                                <div class="col-12">
-                                    <label for="region" class="form-label">Statut<span
-                                            class="text-danger mx-1">*</span></label>
+                                <div class="col-md-6">
+                                    <label for="statut" class="form-label fw-semibold">
+                                        Statut <span class="text-danger">*</span>
+                                    </label>
                                     <select name="statut"
                                         class="form-select form-select-sm @error('statut') is-invalid @enderror"
-                                        aria-label="Select" id="select-field-formation-region-rapport"
-                                        data-placeholder="Choisir statut">
-                                        <option value="{{ old('statut') }}">
-                                            {{ old('statut') }}
-                                        </option>
+                                        id="select-field-formation-region-rapport" data-placeholder="Choisir statut">
+                                        <option value="{{ old('statut') }}">{{ old('statut') }}</option>
                                         <option value="Tous">Tous</option>
                                         @foreach ($formations_statut as $statutformation)
                                             <option value="{{ $statutformation->statut }}">
@@ -651,26 +652,21 @@
                                         @endforeach
                                     </select>
                                     @error('statut')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
+                                        <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror
                                 </div>
 
                                 <div class="col-12">
-                                    <label for="pole" class="form-label">
-                                        Pôle <span class="text-danger mx-1">*</span>
+                                    <label for="pole_id" class="form-label fw-semibold">
+                                        Pôle <span class="text-danger">*</span>
                                     </label>
                                     <select name="pole_id"
                                         class="form-select form-select-sm @error('pole_id') is-invalid @enderror"
                                         id="select-field-formation-pole-rapport" data-placeholder="Choisir pôle">
-
                                         <option value="">-- Choisir un pôle --</option>
-
                                         <option value="Tous" {{ old('pole_id') == 'Tous' ? 'selected' : '' }}>
                                             Tous
                                         </option>
-
                                         @foreach ($poles as $pole)
                                             <option value="{{ $pole->id }}"
                                                 {{ old('pole_id') == $pole->id ? 'selected' : '' }}>
@@ -678,44 +674,64 @@
                                             </option>
                                         @endforeach
                                     </select>
-
                                     @error('pole_id')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
+                                        <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror
                                 </div>
 
-                                <div class="col-12">
-                                    <label class="form-label">De<span class="text-danger mx-1">*</span></label>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">
+                                        De <span class="text-danger">*</span>
+                                    </label>
                                     <input type="date" name="from_date"
                                         class="form-control form-control-sm @error('from_date') is-invalid @enderror from_date">
                                     @error('from_date')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
+                                        <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="col-12">
-                                    <label class="form-label">À<span class="text-danger mx-1">*</span></label>
+
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">
+                                        À <span class="text-danger">*</span>
+                                    </label>
                                     <input type="date" name="to_date"
                                         class="form-control form-control-sm @error('to_date') is-invalid @enderror to_date">
                                     @error('to_date')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
+                                        <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror
                                 </div>
-                            </div>
 
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary btn-sm"
-                                    data-bs-dismiss="modal">Fermer</button>
-                                <div class="text-center">
-                                    <button type="submit"
-                                        class="btn btn-primary btn-block submit_rapport btn-sm">Générer</button>
+                                <div class="col-12">
+                                    <hr class="my-1">
                                 </div>
+
+                                <div class="col-md-6">
+                                    <label for="age_limite_jeunes" class="form-label fw-semibold">
+                                        Âge limite "jeunes" <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="input-group input-group-sm">
+                                        <input type="number" name="age_limite_jeunes" min="1" max="99"
+                                            value="{{ old('age_limite_jeunes', 35) }}"
+                                            class="form-control @error('age_limite_jeunes') is-invalid @enderror"
+                                            id="age_limite_jeunes">
+                                        <span class="input-group-text">ans</span>
+                                        @error('age_limite_jeunes')
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <small class="text-muted">Par défaut : 35 ans</small>
+                                </div>
+
                             </div>
+                        </div>
+
+                        <div class="modal-footer border-0 pt-0">
+                            <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">
+                                Fermer
+                            </button>
+                            <button type="submit" class="btn btn-primary btn-sm submit_rapport">
+                                <i class="bi bi-download me-1"></i>Générer
+                            </button>
                         </div>
                     </form>
                 </div>

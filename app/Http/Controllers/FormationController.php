@@ -5219,10 +5219,12 @@ class FormationController extends Controller
             'to_date'   => ['required', 'date'],
             'statut'    => ['required', 'string'],
             'pole_id'   => ['required'],
+            'age_limite_jeunes'   => ['required', 'integer', 'min:15', 'max:45'],
         ]);
 
         $fromDate = Carbon::parse($request->from_date);
         $toDate   = Carbon::parse($request->to_date);
+        $ageLimite = (int) $request->age_limite_jeunes;
 
         $query = Formation::whereBetween('date_debut', [
             $fromDate->startOfDay(),
@@ -5248,18 +5250,18 @@ class FormationController extends Controller
                         ->where('users.civilite', 'Mme');
                 },
                 // Individuelles : jeunes (<= 35 ans), via date_naissance sur users
-                'individuelles as formes_ind_jeunes_count' => function ($q) {
+                'individuelles as formes_ind_jeunes_count' => function ($q) use ($ageLimite) {
                     $q->join('users', 'users.id', '=', 'individuelles.users_id')
                         ->whereNotNull('users.date_naissance')
-                        ->whereRaw('TIMESTAMPDIFF(YEAR, users.date_naissance, NOW()) <= 35');
+                        ->whereRaw("TIMESTAMPDIFF(YEAR, users.date_naissance, NOW()) <= ?", [$ageLimite]);
                 },
                 // Listecollectives : civilite directement en colonne (pas de join)
                 'listecollectives as formes_col_h_count' => fn($q) => $q->where('civilite', 'M.'),
                 'listecollectives as formes_col_f_count' => fn($q) => $q->where('civilite', 'Mme'),
                 // Listecollectives : jeunes (<= 35 ans), via date_naissance en colonne propre
-                'listecollectives as formes_col_jeunes_count' => function ($q) {
+                'listecollectives as formes_col_jeunes_count' => function ($q) use ($ageLimite) {
                     $q->whereNotNull('date_naissance')
-                        ->whereRaw('TIMESTAMPDIFF(YEAR, date_naissance, NOW()) <= 35');
+                        ->whereRaw("TIMESTAMPDIFF(YEAR, date_naissance, NOW()) <= ?", [$ageLimite]);
                 },
             ]);
 
