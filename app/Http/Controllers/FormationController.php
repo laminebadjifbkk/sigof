@@ -841,7 +841,9 @@ class FormationController extends Controller
             "choixoperateurs_id"  => $request->input('choixoperateur'),
             "statut"              => "Nouvelle",
             "annee"               => $request->input('annee'),
-            "ingenieurs_id"       => $request->input('ingenieur'),
+            'ingenieurs_id' => $request->filled('ingenieur')
+                ? $request->ingenieur
+                : null,
 
         ]);
 

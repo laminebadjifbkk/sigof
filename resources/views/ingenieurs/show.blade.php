@@ -120,7 +120,7 @@
                                                         <li>
                                                             <button type="button" class="dropdown-item" data-bs-toggle="modal"
                                                                 data-bs-target="#generate_rapportFormation">
-                                                                <i class="bi bi-file-earmark-text"></i> Générer suivi-convention
+                                                                <i class="bi bi-file-earmark-text"></i> Suivi-convention {{ $ingenieur->name }}
                                                             </button>
                                                         </li>
                                                     </ul>
