@@ -205,14 +205,14 @@ class FormationController extends Controller
             'code'        => 'nullable|string',
             'intitule'       => 'nullable|string',
             'name'  => 'nullable|string',
-            'operateur'     => 'nullable|string',
+            'numero_convention'     => 'nullable|string',
         ]);
 
         if (
             $request?->code == null
             && $request?->intitule == null
             && $request->name == null
-            && $request->operateur == null
+            && $request->numero_convention == null
         ) {
             Alert::warning('Attention', 'Veuillez renseigner au moins un champ pour effectuer une recherche.');
             return redirect()->back();
@@ -222,6 +222,7 @@ class FormationController extends Controller
             ->where('formations.code', 'LIKE', "%{$request?->code}%")
             ->where('formations.intitule', 'LIKE', "%{$request?->intitule}%")
             ->where('formations.name', 'LIKE', "%{$request?->name}%")
+            ->where('formations.numero_convention', 'LIKE', "%{$request?->numero_convention}%")
             ->distinct()
             ->get();
 

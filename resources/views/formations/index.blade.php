@@ -791,10 +791,24 @@
                                 <div class="col-12">
                                     <div class="form-floating">
                                         <input type="text" name="name" value="{{ old('name') }}"
-                                            class="form-control @error('name') is-invalid @enderror"
-                                            id="name" placeholder="Bénéficiaires">
+                                            class="form-control @error('name') is-invalid @enderror" id="name"
+                                            placeholder="Bénéficiaires">
                                         <label for="name"><i class="bi bi-person me-1"></i>Bénéficiaires</label>
                                         @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="text" name="numero_convention" value="{{ old('numero_convention') }}"
+                                            class="form-control @error('numero_convention') is-invalid @enderror" id="numero_convention"
+                                            placeholder="Numéro convention">
+                                        <label for="numero_convention"><i class="bi bi-hash me-1"></i>Numéro convention</label>
+                                        @error('numero_convention')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
                                             </span>
