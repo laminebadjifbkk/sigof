@@ -5239,7 +5239,7 @@ class FormationController extends Controller
                 'ingenieur',
             ])
             ->withCount([
-                // Individuelles : civilite directement via users_id
+                // Individuelles : civilite via users_id (join nécessaire)
                 'individuelles as formes_ind_h_count' => function ($q) {
                     $q->join('users', 'users.id', '=', 'individuelles.users_id')
                         ->where('users.civilite', 'M.');
@@ -5248,17 +5248,9 @@ class FormationController extends Controller
                     $q->join('users', 'users.id', '=', 'individuelles.users_id')
                         ->where('users.civilite', 'Mme');
                 },
-                // Listecollectives : civilite via collectives -> users
-                'listecollectives as formes_col_h_count' => function ($q) {
-                    $q->join('collectives', 'collectives.id', '=', 'listecollectives.collectives_id')
-                        ->join('users', 'users.id', '=', 'collectives.users_id')
-                        ->where('users.civilite', 'M.');
-                },
-                'listecollectives as formes_col_f_count' => function ($q) {
-                    $q->join('collectives', 'collectives.id', '=', 'listecollectives.collectives_id')
-                        ->join('users', 'users.id', '=', 'collectives.users_id')
-                        ->where('users.civilite', 'Mme');
-                },
+                // Listecollectives : civilite directement en colonne (pas de join)
+                'listecollectives as formes_col_h_count' => fn($q) => $q->where('civilite', 'M.'),
+                'listecollectives as formes_col_f_count' => fn($q) => $q->where('civilite', 'Mme'),
             ]);
 
         if ($request->statut !== 'Tous') {
