@@ -256,12 +256,12 @@
                                     <thead class="table-success text-center">
                                         <tr>
                                             <th width='6%' class="text-center">Code</th>
-                                            <th width='8%' class="text-center">N° conv.</th>
+                                            <th width='8%' class="text-center">Conv.</th>
                                             {{-- <th width='15%'>Type demande</th> --}}
                                             {{--  <th width='15%'>Localité</th> --}}
                                             <th width='25%'>Bénéficiaires</th>
                                             <th>Modules</th>
-                                            <th>Niveau qualif.</th>
+                                            <th>Qualif.</th>
                                             <th>Opérateurs</th>
                                             <th width='5%' class="text-center">Statut</th>
                                             @can('formation-show')
