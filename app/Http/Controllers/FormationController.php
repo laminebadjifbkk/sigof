@@ -5286,7 +5286,7 @@ class FormationController extends Controller
             ? 'DU ' . $fromDate->format('d/m/Y')
             : 'DU ' . $fromDate->format('d/m/Y') . ' AU ' . $toDate->format('d/m/Y');
 
-        $title = 'SUIVI DES CONVENTIONS ' . $periode;
+        $title = 'SUIVI DES CONVENTIONS ' . $periode . ', age des jeunes est fixée à ' . $ageLimite;
 
         if ($request->statut !== 'Tous') {
             $title .= ' - ' . strtoupper($request->statut);
