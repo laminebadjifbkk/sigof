@@ -5380,6 +5380,12 @@ class FormationController extends Controller
                 },
             ]);
 
+        $periode = $fromDate->isSameDay($toDate)
+            ? 'DU ' . $fromDate->format('d/m/Y')
+            : 'DU ' . $fromDate->format('d/m/Y') . ' AU ' . $toDate->format('d/m/Y');
+
+        $title = 'SUIVI DES CONVENTIONS ' . $periode . ', avec age des jeunes fixée à ' . $ageLimite;
+
         if ($request->statut !== 'Tous') {
             $query->where('statut', $request->statut);
         }
@@ -5400,16 +5406,15 @@ class FormationController extends Controller
                 $query->whereNull('ingenieurs_id');
             } else {
                 $query->where('ingenieurs_id', $request->ingenieur);
+
+                $ingenieur = Ingenieur::find($request->ingenieur);
+                if ($ingenieur && $ingenieur->name !== null) {
+                    $title .= ' - INGÉNIEUR : ' . strtoupper($ingenieur->name);
+                }
             }
         }
 
         $formations = $query->get();
-
-        $periode = $fromDate->isSameDay($toDate)
-            ? 'DU ' . $fromDate->format('d/m/Y')
-            : 'DU ' . $fromDate->format('d/m/Y') . ' AU ' . $toDate->format('d/m/Y');
-
-        $title = 'SUIVI DES CONVENTIONS ' . $periode . ', avec age des jeunes fixée à ' . $ageLimite;
 
         if ($request->statut !== 'Tous') {
             $title .= ' - ' . strtoupper($request->statut);
