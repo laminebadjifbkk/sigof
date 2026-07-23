@@ -5403,7 +5403,10 @@ class FormationController extends Controller
 
         if ($request->filled('ingenieur')) {
             if ($request->ingenieur === 'null') {
-                $query->whereNull('ingenieurs_id');
+                $query->where(function ($q) {
+                    $q->whereNull('ingenieurs_id')
+                        ->orWhere('ingenieurs_id', '');
+                });
             } else {
                 $query->where('ingenieurs_id', $request->ingenieur);
 
