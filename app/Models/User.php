@@ -74,7 +74,6 @@ class User extends Authenticatable
         'cin',
         'file_cin',
         'file_diplome',
-
         'operateur',
         'web',
         'typestructure',
@@ -387,7 +386,7 @@ class User extends Authenticatable
         return $this->hasMany(HistoriquePriseEnCharge::class);
     }
 
-    //display_operateur 
+    //display_operateur
     public function getDisplayOperateurAttribute()
     {
         return $this->operateur

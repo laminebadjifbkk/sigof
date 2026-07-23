@@ -168,58 +168,113 @@ class FormationController extends Controller
     }
 
 
+    private function checkAccess()
+    {
+        $userRoles = Auth::user()->roles->pluck('name')->toArray();
+
+        $allowedRoles = [
+            'super-admin',
+            'Employe',
+            'admin',
+            'DIOF',
+            'ADIOF',
+            'Ingenieur',
+            'DEC',
+            'Antenne',
+            'AntKD',
+            'AntKL',
+            'AntSL',
+            'AntKG',
+            'AntMT',
+            'AntDL',
+            'AntZG',
+            'AntTH',
+            'CAR',
+            'DG'
+        ];
+
+        if (empty(array_intersect($userRoles, $allowedRoles))) {
+            abort(403, 'Accès non autorisé');
+        }
+    }
+
     public function rechercherOperateur(Request $request)
     {
-        dd("ok");
         $this->checkAccess();
         $this->validate($request, [
-            'numero'       => 'nullable|string',
-            'cin'       => 'nullable|string',
-            'name'      => 'nullable|string',
-            'firstname' => 'nullable|string',
-            'telephone' => 'nullable|string',
-            'email'     => 'nullable|email',
+            'code'        => 'nullable|string',
+            'intitule'       => 'nullable|string',
+            'name'  => 'nullable|string',
+            'operateur'     => 'nullable|string',
         ]);
 
-        if ($request?->numero == null && $request?->cin == null && $request->firstname == null && $request->telephone == null && $request->name == null && $request->email == null) {
+        if (
+            $request?->code == null
+            && $request?->intitule == null
+            && $request->name == null
+            && $request->operateur == null
+        ) {
             Alert::warning('Attention', 'Veuillez renseigner au moins un champ pour effectuer une recherche.');
             return redirect()->back();
         }
 
-        $individuelles = Individuelle::join('users', 'users.id', 'individuelles.users_id')
-            ->select('individuelles.*')
-            ->where('numero', 'LIKE', "%{$request?->numero}%")
-            ->where('users.firstname', 'LIKE', "%{$request?->firstname}%")
-            ->where('users.name', 'LIKE', "%{$request?->name}%")
-            ->where('users.cin', 'LIKE', "%{$request?->cin}%")
-            ->where('users.telephone', 'LIKE', "%{$request?->telephone}%")
-            ->where('users.email', 'LIKE', "%{$request?->email}%")
+        $formations = Formation::select('formations.*')
+            ->where('formations.code', 'LIKE', "%{$request?->code}%")
+            ->where('formations.intitule', 'LIKE', "%{$request?->intitule}%")
+            ->where('formations.name', 'LIKE', "%{$request?->name}%")
             ->distinct()
             ->get();
 
-        $groupes = Individuelle::select(DB::raw('YEAR(date_depot) as annee'))
+        $groupes = Formation::select(DB::raw('annee'))
             ->selectRaw('COUNT(*) as total')
             ->groupBy('annee')
             ->orderByDesc('annee')
             ->paginate(1); // ← une ligne par page
 
-        $totalIndividuelles = number_format($individuelles?->count(), 0, ',', ' ');
 
-        $departements = Departement::select('id', 'nom')->orderBy('nom', 'ASC')->get();
+        $affichees = $formations?->count();
+        $total     = $totalIndividuelles ?? ($formations instanceof \Illuminate\Pagination\LengthAwarePaginator
+            ? $formations->total()
+            : $formations?->count());
 
-        $affichees = $individuelles?->count();
-        $total     = $totalIndividuelles ?? ($individuelles instanceof \Illuminate\Pagination\LengthAwarePaginator
-            ? $individuelles->total()
-            : $individuelles?->count());
+        $poles = Antenne::get();
 
-        return view('individuelles.index', compact(
-            'individuelles',
-            'departements',
-            'totalIndividuelles',
-            'affichees',
-            'total',
-            'groupes'
-        ));
+        $modules      = Module::orderBy("created_at", "desc")->get();
+        $departements = Departement::orderBy("created_at", "desc")->get();
+        $regions      = Region::orderBy("created_at", "desc")->get();
+        $operateurs   = Operateur::orderBy("created_at", "desc")->get();
+        $projets      = Projet::orderBy("created_at", "desc")->get();
+        $programmes   = Programme::orderBy("created_at", "desc")->get();
+        $types_formations = TypesFormation::orderBy("created_at", "desc")->get();
+
+        $formations_annee = Formation::distinct()
+            ->get('annee');
+
+        $formations_statut = Formation::distinct()
+            ->get('statut');
+
+        return view(
+            "formations.index",
+            compact(
+                /* "count_today", */
+                "formations",
+                "modules",
+                "departements",
+                "regions",
+                "operateurs",
+                'types_formations',
+                'projets',
+                'programmes',
+                /* 'numFormation', */
+                /* 'title', */
+                'formations_annee',
+                'formations_statut',
+                'poles',
+                'groupes',
+                'affichees',
+                'total',
+            )
+        );
     }
 
     public function parAnnee(Request $request, int $annee)

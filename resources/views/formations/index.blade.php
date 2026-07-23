@@ -744,7 +744,7 @@
         {{-- RECHERCHE AVANCEE --}}
         <div class="modal fade" id="generate_rapport" tabindex="-1" role="dialog"
             aria-labelledby="generate_rapportLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-dialog modal-dialog modal-lg">
                 <div class="modal-content border-0 shadow-lg rounded-4">
                     <div class="modal-header text-white"
                         style="background: linear-gradient(135deg, #2c3e50 0%, #4a6fa5 100%);">
@@ -762,11 +762,11 @@
 
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <input type="text" name="numero" value="{{ old('numero') }}"
-                                            class="form-control @error('numero') is-invalid @enderror" id="numero"
-                                            placeholder="Numéro">
-                                        <label for="numero"><i class="bi bi-hash me-1"></i>Numéro</label>
-                                        @error('numero')
+                                        <input type="text" name="code" value="{{ old('code') }}"
+                                            class="form-control @error('code') is-invalid @enderror" id="code"
+                                            placeholder="Code">
+                                        <label for="code"><i class="bi bi-hash me-1"></i>Code</label>
+                                        @error('code')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
                                             </span>
@@ -776,11 +776,11 @@
 
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <input type="text" name="initule" value="{{ old('initule') }}"
-                                            class="form-control @error('initule') is-invalid @enderror" id="initule"
+                                        <input type="text" name="intitule" value="{{ old('intitule') }}"
+                                            class="form-control @error('intitule') is-invalid @enderror" id="intitule"
                                             placeholder="Intitulé">
-                                        <label for="initule"><i class="bi bi-card-text me-1"></i>Intitulé</label>
-                                        @error('initule')
+                                        <label for="intitule"><i class="bi bi-card-text me-1"></i>Intitulé</label>
+                                        @error('intitule')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
                                             </span>
@@ -790,11 +790,11 @@
 
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <input type="text" name="beneficiaire" value="{{ old('beneficiaire') }}"
-                                            class="form-control @error('beneficiaire') is-invalid @enderror"
-                                            id="beneficiaire" placeholder="Bénéficiaires">
-                                        <label for="beneficiaire"><i class="bi bi-person me-1"></i>Bénéficiaires</label>
-                                        @error('beneficiaire')
+                                        <input type="text" name="name" value="{{ old('name') }}"
+                                            class="form-control @error('name') is-invalid @enderror"
+                                            id="name" placeholder="Bénéficiaires">
+                                        <label for="name"><i class="bi bi-person me-1"></i>Bénéficiaires</label>
+                                        @error('name')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
                                             </span>
@@ -802,7 +802,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <div class="form-floating">
                                         <input type="text" name="operateur" value="{{ old('operateur') }}"
                                             class="form-control @error('operateur') is-invalid @enderror" id="operateur"
@@ -814,7 +814,7 @@
                                             </span>
                                         @enderror
                                     </div>
-                                </div>
+                                </div> --}}
 
                             </div>
                         </div>
