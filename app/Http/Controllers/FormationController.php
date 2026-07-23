@@ -5409,7 +5409,9 @@ class FormationController extends Controller
             }
         }
 
-        dd(Formation::whereNull('ingenieurs_id')->pluck('date_debut'));
+        dd(Formation::whereNull('ingenieurs_id')
+            ->whereBetween('date_debut', ['2026-11-01 00:00:00', '2026-12-31 23:59:59'])
+            ->count());
 
         $formations = $query->get();
 
