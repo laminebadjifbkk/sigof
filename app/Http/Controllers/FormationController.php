@@ -5239,10 +5239,26 @@ class FormationController extends Controller
                 'ingenieur',
             ])
             ->withCount([
-                'individuelles as formes_ind_h_count'   => fn($q) => $q->where('civilite', 'M.'),
-                'individuelles as formes_ind_f_count'   => fn($q) => $q->where('civilite', 'Mme'),
-                'listecollectives as formes_col_h_count' => fn($q) => $q->where('civilite', 'M.'),
-                'listecollectives as formes_col_f_count' => fn($q) => $q->where('civilite', 'Mme'),
+                // Individuelles : civilite directement via users_id
+                'individuelles as formes_ind_h_count' => function ($q) {
+                    $q->join('users', 'users.id', '=', 'individuelles.users_id')
+                        ->where('users.civilite', 'M.');
+                },
+                'individuelles as formes_ind_f_count' => function ($q) {
+                    $q->join('users', 'users.id', '=', 'individuelles.users_id')
+                        ->where('users.civilite', 'Mme');
+                },
+                // Listecollectives : civilite via collectives -> users
+                'listecollectives as formes_col_h_count' => function ($q) {
+                    $q->join('collectives', 'collectives.id', '=', 'listecollectives.collectives_id')
+                        ->join('users', 'users.id', '=', 'collectives.users_id')
+                        ->where('users.civilite', 'M.');
+                },
+                'listecollectives as formes_col_f_count' => function ($q) {
+                    $q->join('collectives', 'collectives.id', '=', 'listecollectives.collectives_id')
+                        ->join('users', 'users.id', '=', 'collectives.users_id')
+                        ->where('users.civilite', 'Mme');
+                },
             ]);
 
         if ($request->statut !== 'Tous') {
@@ -5250,8 +5266,6 @@ class FormationController extends Controller
         }
 
         if ($request->pole_id !== 'Tous') {
-
-            // Récupération des régions du pôle
             $regionIds = Region::whereHas('antennes', function ($q) use ($request) {
                 $q->where('antennes.id', $request->pole_id)
                     ->whereNull('antennesregions.deleted_at');
@@ -5264,7 +5278,6 @@ class FormationController extends Controller
 
         $formations = $query->get();
 
-        // Construction du titre
         $periode = $fromDate->isSameDay($toDate)
             ? 'DU ' . $fromDate->format('d/m/Y')
             : 'DU ' . $fromDate->format('d/m/Y') . ' AU ' . $toDate->format('d/m/Y');
