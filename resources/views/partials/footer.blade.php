@@ -16,7 +16,13 @@
                         <img src="{{ asset('images/logo-ylp.jpg') }}" alt="Dakar 2026 - Youth Linguists Programme"
                             class="brand-logo">
                     </span>
-                    <span class="sigof" style="color:var(--cream);">SIGOF</span>
+                    {{-- <span class="sigof" style="color:var(--cream);">SIGOF</span> --}}
+                    <div class="brand-divider"></div>
+                    <span class="bulle-mark">
+                        <a href="{{ route('ylphome') }}">
+                            <img src="{{ asset('assets/img/logo.jpg') }}" alt="LOGO ONFP" class="brand-logo">
+                        </a>
+                    </span>
                 </div>
                 <p style="margin-top:14px;">Plateforme du partenariat ONFP × COJOJ pour la formation et la mobilisation
                     des traducteurs officiels des Jeux Olympiques de la Jeunesse Dakar 2026.</p>
