@@ -5395,6 +5395,15 @@ class FormationController extends Controller
             });
         }
 
+
+        if ($request->filled('ingenieur')) {
+            if ($request->ingenieur === 'null') {
+                $query->whereNull('ingenieurs_id');
+            } else {
+                $ingenieur = Ingenieur::find($request->ingenieur);
+            }
+        }
+
         $formations = $query->get();
 
         $periode = $fromDate->isSameDay($toDate)
@@ -5425,17 +5434,6 @@ class FormationController extends Controller
                 }
             }
         } */
-
-        if ($request->filled('ingenieur')) {
-            if ($request->ingenieur === 'null') {
-                $query->whereNull('ingenieurs_id');
-                $title .= ' - TOUS LES INGENEIURS';
-            } else {
-                $ingenieur = Ingenieur::find($request->ingenieur);
-                $query->where('ingenieurs_id', $request->ingenieur);
-                $title .= ' - INGÉNIEUR : ' . strtoupper($ingenieur->name);
-            }
-        }
 
         return view('formations.reports', [
             'formations' => $formations,
