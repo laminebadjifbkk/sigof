@@ -87,9 +87,16 @@
                                                     <td>{{ $formation?->prevue_h }}</td>
                                                     <td>{{ $formation?->prevue_f }}</td>
                                                     <td>{{ $formation?->effectif_prevu }}</td>
-                                                    <td>{{ $formation?->forme_h }}</td>
-                                                    <td>{{ $formation?->forme_f }}</td>
-                                                    <td></td>
+                                                    <td>{{ $formation->formes_ind_h_count + $formation->formes_col_h_count }}
+                                                    </td>
+                                                    <td>{{ $formation->formes_ind_f_count + $formation->formes_col_f_count }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $formation->formes_ind_h_count +
+                                                            $formation->formes_col_h_count +
+                                                            $formation->formes_ind_f_count +
+                                                            $formation->formes_col_f_count }}
+                                                    </td>
                                                     <td>{{ $formation?->total }}</td>
                                                     <td>{{ $formation?->date_debut?->format('d/m/Y') }}</td>
                                                     <td>{{ $formation?->date_fin?->format('d/m/Y') }}</td>
