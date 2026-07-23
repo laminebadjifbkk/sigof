@@ -629,7 +629,7 @@
                         @csrf
                         <div class="modal-body px-4 py-4">
                             <div class="row g-3">
-
+                                <input type="hidden" name="ingenieur" value="null">
                                 <div class="col-md-6">
                                     <label for="annee" class="form-label fw-semibold">
                                         Année <span class="text-danger">*</span>
