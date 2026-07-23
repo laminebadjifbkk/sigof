@@ -91,13 +91,13 @@
                                                     </td>
                                                     <td>{{ $formation->formes_ind_f_count + $formation->formes_col_f_count }}
                                                     </td>
+                                                    <td></td>
                                                     <td>
                                                         {{ $formation->formes_ind_h_count +
                                                             $formation->formes_col_h_count +
                                                             $formation->formes_ind_f_count +
                                                             $formation->formes_col_f_count }}
                                                     </td>
-                                                    <td>{{ $formation?->total }}</td>
                                                     <td>{{ $formation?->date_debut?->format('d/m/Y') }}</td>
                                                     <td>{{ $formation?->date_fin?->format('d/m/Y') }}</td>
                                                     <td>
