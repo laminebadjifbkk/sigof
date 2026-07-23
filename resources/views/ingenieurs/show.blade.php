@@ -120,7 +120,8 @@
                                                         <li>
                                                             <button type="button" class="dropdown-item" data-bs-toggle="modal"
                                                                 data-bs-target="#generate_rapportFormation">
-                                                                <i class="bi bi-file-earmark-text"></i> Suivi-convention {{ $ingenieur->name }}
+                                                                <i class="bi bi-file-earmark-text"></i> Suivi-convention
+                                                                {{ $ingenieur->name }}
                                                             </button>
                                                         </li>
                                                     </ul>
@@ -583,27 +584,27 @@
                 </div>
 
                 <!-- Edit ingenieur -->
-                @foreach ($ingenieurs as $ingenieur)
-                    <div class="modal fade" id="EditingenieurModal{{ $ingenieur->id }}" tabindex="-1" role="dialog"
-                        aria-labelledby="EditingenieurModalLabel{{ $ingenieur->id }}" aria-hidden="true">
+                @foreach ($ingenieurs as $ing)
+                    <div class="modal fade" id="EditingenieurModal{{ $ing->id }}" tabindex="-1" role="dialog"
+                        aria-labelledby="EditingenieurModalLabel{{ $ing->id }}" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <form method="post" action="{{ route('ingenieurs.update', $ingenieur->id) }}"
+                                <form method="post" action="{{ route('ingenieurs.update', $ing->id) }}"
                                     enctype="multipart/form-data" class="row g-3">
                                     @csrf
                                     @method('patch')
-                                    <div class="modal-header" id="EditingenieurModalLabel{{ $ingenieur->id }}">
+                                    <div class="modal-header" id="EditingenieurModalLabel{{ $ing->id }}">
                                         <h5 class="modal-title"><i class="bi bi-pencil" title="Ajouter"></i> Modifier
                                             ingénieurs
                                         </h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
-                                    <input type="hidden" name="id" value="{{ $ingenieur->id }}">
+                                    <input type="hidden" name="id" value="{{ $ing->id }}">
                                     <div class="modal-body">
                                         <div class="form-floating mb-3">
                                             <input type="text" name="matricule"
-                                                value="{{ $ingenieur->matricule ?? old('matricule') }}"
+                                                value="{{ $ing->matricule ?? old('matricule') }}"
                                                 class="form-control form-control-sm @error('matricule') is-invalid @enderror"
                                                 id="matricule" placeholder="Matricule" autofocus>
                                             @error('matricule')
@@ -615,7 +616,7 @@
                                         </div>
                                         <div class="form-floating mb-3">
                                             <input type="text" name="name"
-                                                value="{{ $ingenieur->name ?? old('name') }}"
+                                                value="{{ $ing->name ?? old('name') }}"
                                                 class="form-control form-control-sm @error('name') is-invalid @enderror"
                                                 id="name" placeholder="Ingénieur" autofocus>
                                             @error('name')
@@ -628,7 +629,7 @@
                                         </div>
                                         <div class="form-floating mb-3">
                                             <input type="text" name="initiale"
-                                                value="{{ $ingenieur->initiale ?? old('initiale') }}"
+                                                value="{{ $ing->initiale ?? old('initiale') }}"
                                                 class="form-control form-control-sm @error('initiale') is-invalid @enderror"
                                                 id="initiale" placeholder="initiale">
                                             @error('initiale')
@@ -640,7 +641,7 @@
                                         </div>
                                         <div class="form-floating mb-3">
                                             <input type="text" name="specialite"
-                                                value="{{ $ingenieur->specialite ?? old('specialite') }}"
+                                                value="{{ $ing->specialite ?? old('specialite') }}"
                                                 class="form-control form-control-sm @error('specialite') is-invalid @enderror"
                                                 id="specialite" placeholder="specialite">
                                             @error('specialite')
@@ -652,7 +653,7 @@
                                         </div>
                                         <div class="form-floating mb-3">
                                             <input type="text" name="fonction"
-                                                value="{{ $ingenieur->fonction ?? old('fonction') }}"
+                                                value="{{ $ing->fonction ?? old('fonction') }}"
                                                 class="form-control form-control-sm @error('fonction') is-invalid @enderror"
                                                 id="fonction" placeholder="fonction">
                                             @error('specialite')
@@ -664,7 +665,7 @@
                                         </div>
                                         <div class="form-floating mb-3">
                                             <input type="text" name="email"
-                                                value="{{ $ingenieur->email ?? old('email') }}"
+                                                value="{{ $ing->email ?? old('email') }}"
                                                 class="form-control form-control-sm @error('email') is-invalid @enderror"
                                                 id="email" placeholder="email">
                                             @error('email')
@@ -676,7 +677,7 @@
                                         </div>
                                         <div class="form-floating mb-3">
                                             <input type="text" name="telephone"
-                                                value="{{ $ingenieur->telephone ?? old('telephone') }}"
+                                                value="{{ $ing->telephone ?? old('telephone') }}"
                                                 class="form-control form-control-sm @error('telephone') is-invalid @enderror"
                                                 id="telephone" placeholder="Telephone">
                                             @error('telephone')
@@ -699,6 +700,7 @@
                         </div>
                     </div>
                 @endforeach
+
                 <div class="modal fade" id="generate_rapportFormation" tabindex="-1" role="dialog"
                     aria-labelledby="generate_rapportFormationLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
@@ -716,7 +718,7 @@
                                 @csrf
                                 <div class="modal-body px-4 py-4">
                                     <div class="row g-3">
-
+                                        <input type="hidden" name="ingenieur" value="{{ $ingenieur->id }}">
                                         <div class="col-md-6">
                                             <label for="annee" class="form-label fw-semibold">
                                                 Année <span class="text-danger">*</span>

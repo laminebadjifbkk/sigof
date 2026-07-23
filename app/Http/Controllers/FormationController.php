@@ -5333,6 +5333,7 @@ class FormationController extends Controller
             'to_date'   => ['required', 'date'],
             'statut'    => ['required', 'string'],
             'pole_id'   => ['required'],
+            'ingenieur' => ['nullable', 'string'],
             'age_limite_jeunes'   => ['required', 'integer', 'min:15', 'max:45'],
         ]);
 
@@ -5411,6 +5412,17 @@ class FormationController extends Controller
 
             if ($pole) {
                 $title .= ' - ' . strtoupper($pole->name ?? $pole->libelle ?? $pole->code);
+            }
+        }
+
+        if ($request->filled('ingenieur')) {
+            if ($request->ingenieur === 'null') {
+                $title .= ' - TOUS LES INGENEIURS';
+            } else {
+                $ingenieur = Ingenieur::find($request->ingenieur);
+                if ($ingenieur && $ingenieur->name !== null) {
+                    $title .= ' - INGÉNIEUR : ' . strtoupper($ingenieur->name);
+                }
             }
         }
 
