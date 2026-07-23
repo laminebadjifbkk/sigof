@@ -19,12 +19,6 @@
             </div>
         @endforeach
     @endif
-    {{--  <div class="d-flex justify-content-between align-items-center mt-3">
-        <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('formations.index') }}"
-                class="btn btn-success btn-sm" title="retour"><i class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
-            <p> | retour</p>
-        </span>
-    </div> --}}
     <section class="section">
         <div class="row">
             <div class="col-12">
@@ -75,12 +69,13 @@
                                                     <td>{{ $formation?->departement?->region?->nom }}</td>
                                                     <td>{{ $formation?->lieu }}</td>
                                                     <td>
-                                                        @if (!empty($formation?->module?->name))
+                                                        {{-- @if (!empty($formation?->module?->name))
                                                             {{ $formation?->module?->name }}
                                                         @elseif (!empty($formation?->collectivemodule?->module))
                                                             {{ $formation?->collectivemodule?->module }}
                                                         @else
-                                                        @endif
+                                                        @endif --}}
+                                                        {{ $formation?->module?->name ?: $formation?->collectivemodule?->module }}
                                                     </td>
                                                     <td>{{ $formation->types_formation?->name }}</td>
                                                     <td>{{ $formation?->name }}</td>

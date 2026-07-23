@@ -4467,7 +4467,7 @@ class FormationController extends Controller
             fn() => print($pdfContent),
             $name
         ); */
-        
+
         $name = 'Attestation de bonne execution ' .
             $formation?->operateur?->user?->operateur .
             ' en ' .
@@ -5149,7 +5149,7 @@ class FormationController extends Controller
             'title'
         ));
     } */
-
+    /*
     public function generateReport(Request $request)
     {
         $request->validate([
@@ -5166,6 +5166,84 @@ class FormationController extends Controller
             $fromDate->startOfDay(),
             $toDate->endOfDay(),
         ]);
+
+        if ($request->statut !== 'Tous') {
+            $query->where('statut', $request->statut);
+        }
+
+        if ($request->pole_id !== 'Tous') {
+
+            // Récupération des régions du pôle
+            $regionIds = Region::whereHas('antennes', function ($q) use ($request) {
+                $q->where('antennes.id', $request->pole_id)
+                    ->whereNull('antennesregions.deleted_at');
+            })->pluck('id');
+
+            $query->whereHas('departement', function ($q) use ($regionIds) {
+                $q->whereIn('regions_id', $regionIds);
+            });
+        }
+
+        $formations = $query->get();
+
+        // Construction du titre
+        $periode = $fromDate->isSameDay($toDate)
+            ? 'DU ' . $fromDate->format('d/m/Y')
+            : 'DU ' . $fromDate->format('d/m/Y') . ' AU ' . $toDate->format('d/m/Y');
+
+        $title = 'SUIVI DES CONVENTIONS ' . $periode;
+
+        if ($request->statut !== 'Tous') {
+            $title .= ' - ' . strtoupper($request->statut);
+        }
+
+        if ($request->pole_id !== 'Tous') {
+            $pole = Antenne::find($request->pole_id);
+
+            if ($pole) {
+                $title .= ' - ' . strtoupper($pole->name ?? $pole->libelle ?? $pole->code);
+            }
+        }
+
+        return view('formations.reports', [
+            'formations' => $formations,
+            'title'      => $title,
+            'from_date'  => $fromDate->format('d/m/Y'),
+            'to_date'    => $toDate->format('d/m/Y'),
+        ]);
+    } */
+
+    public function generateReport(Request $request)
+    {
+        $request->validate([
+            'from_date' => ['required', 'date'],
+            'to_date'   => ['required', 'date'],
+            'statut'    => ['required', 'string'],
+            'pole_id'   => ['required'],
+        ]);
+
+        $fromDate = Carbon::parse($request->from_date);
+        $toDate   = Carbon::parse($request->to_date);
+
+        $query = Formation::whereBetween('date_debut', [
+            $fromDate->startOfDay(),
+            $toDate->endOfDay(),
+        ])
+            ->with([
+                'departement.region',
+                'module',
+                'collectivemodule',
+                'types_formation',
+                'referentiel.convention',
+                'operateur.user',
+                'ingenieur',
+            ])
+            ->withCount([
+                'individuelles as formes_ind_h_count'   => fn($q) => $q->where('civilite', 'M.'),
+                'individuelles as formes_ind_f_count'   => fn($q) => $q->where('civilite', 'Mme'),
+                'listecollectives as formes_col_h_count' => fn($q) => $q->where('civilite', 'M.'),
+                'listecollectives as formes_col_f_count' => fn($q) => $q->where('civilite', 'Mme'),
+            ]);
 
         if ($request->statut !== 'Tous') {
             $query->where('statut', $request->statut);
