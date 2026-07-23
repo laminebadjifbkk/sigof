@@ -5403,17 +5403,9 @@ class FormationController extends Controller
 
         if ($request->filled('ingenieur')) {
             if ($request->ingenieur === 'null') {
-                $query->where(function ($q) {
-                    $q->whereNull('ingenieurs_id')
-                        ->orWhere('ingenieurs_id', '');
-                });
+                $query->where('ingenieurs_id', '');
             } else {
                 $query->where('ingenieurs_id', $request->ingenieur);
-
-                $ingenieur = Ingenieur::find($request->ingenieur);
-                if ($ingenieur && $ingenieur->name !== null) {
-                    $title .= ' - INGÉNIEUR : ' . strtoupper($ingenieur->name);
-                }
             }
         }
 
