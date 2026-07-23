@@ -288,8 +288,16 @@
                                                 </td>
                                                 {{-- <td>{{ $formation->type_certification }}</td> --}}
                                                 <td>{{ $formation?->titre ?? $formation?->referentiel?->titre }}</td>
-                                                <td>
+                                                {{-- <td>
                                                     {{ $formation?->operateur?->user?->display_operateur ?? ' ' }}
+                                                </td> --}}
+                                                <td class="text-center">
+                                                    @if ($formation?->operateur?->user?->display_operateur)
+                                                        <i class="bi bi-check-circle-fill text-success"
+                                                            title="{{ $formation->operateur->user->display_operateur }}"></i>
+                                                    @else
+                                                        <span class="text-muted fst-italic">Aucun</span>
+                                                    @endif
                                                 </td>
                                                 <td class="text-center">
                                                     <a><span
@@ -804,10 +812,12 @@
 
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <input type="text" name="numero_convention" value="{{ old('numero_convention') }}"
-                                            class="form-control @error('numero_convention') is-invalid @enderror" id="numero_convention"
-                                            placeholder="Numéro convention">
-                                        <label for="numero_convention"><i class="bi bi-hash me-1"></i>Numéro convention</label>
+                                        <input type="text" name="numero_convention"
+                                            value="{{ old('numero_convention') }}"
+                                            class="form-control @error('numero_convention') is-invalid @enderror"
+                                            id="numero_convention" placeholder="Numéro convention">
+                                        <label for="numero_convention"><i class="bi bi-hash me-1"></i>Numéro
+                                            convention</label>
                                         @error('numero_convention')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
