@@ -5409,7 +5409,7 @@ class FormationController extends Controller
             }
         }
 
-        dd($query->toSql(), $query->getBindings());
+        dd(Formation::whereNull('ingenieurs_id')->count());
 
         $formations = $query->get();
 
