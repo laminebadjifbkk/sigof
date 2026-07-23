@@ -5212,7 +5212,6 @@ class FormationController extends Controller
             'to_date'    => $toDate->format('d/m/Y'),
         ]);
     } */
-
     public function generateReport(Request $request)
     {
         $request->validate([
@@ -5248,9 +5247,20 @@ class FormationController extends Controller
                     $q->join('users', 'users.id', '=', 'individuelles.users_id')
                         ->where('users.civilite', 'Mme');
                 },
+                // Individuelles : jeunes (<= 35 ans), via date_naissance sur users
+                'individuelles as formes_ind_jeunes_count' => function ($q) {
+                    $q->join('users', 'users.id', '=', 'individuelles.users_id')
+                        ->whereNotNull('users.date_naissance')
+                        ->whereRaw('TIMESTAMPDIFF(YEAR, users.date_naissance, NOW()) <= 35');
+                },
                 // Listecollectives : civilite directement en colonne (pas de join)
                 'listecollectives as formes_col_h_count' => fn($q) => $q->where('civilite', 'M.'),
                 'listecollectives as formes_col_f_count' => fn($q) => $q->where('civilite', 'Mme'),
+                // Listecollectives : jeunes (<= 35 ans), via date_naissance en colonne propre
+                'listecollectives as formes_col_jeunes_count' => function ($q) {
+                    $q->whereNotNull('date_naissance')
+                        ->whereRaw('TIMESTAMPDIFF(YEAR, date_naissance, NOW()) <= 35');
+                },
             ]);
 
         if ($request->statut !== 'Tous') {

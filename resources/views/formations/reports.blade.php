@@ -91,7 +91,8 @@
                                                     </td>
                                                     <td>{{ $formation->formes_ind_f_count + $formation->formes_col_f_count }}
                                                     </td>
-                                                    <td></td>
+                                                    <td>{{ $formation->formes_ind_jeunes_count + $formation->formes_col_jeunes_count }}
+                                                    </td>
                                                     <td>
                                                         {{ $formation->formes_ind_h_count +
                                                             $formation->formes_col_h_count +
