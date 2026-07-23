@@ -145,7 +145,7 @@
                                             </a>
                                             <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="modal"
                                                 data-bs-target="#generate_rapport">
-                                                Rechercher plus
+                                                Recherche avancée
                                             </button>
                                         </div>
                                     @endcan

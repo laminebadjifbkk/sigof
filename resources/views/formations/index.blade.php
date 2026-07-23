@@ -223,6 +223,10 @@
                                             data-bs-target="#AddFormationModal" title="Ajouter une formation">
                                             Ajouter
                                         </a>
+                                        <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="modal"
+                                            data-bs-target="#generate_rapport">
+                                            Rechercher avancée
+                                        </button>
                                         @can('suivi-convention')
                                             <div class="dropdown">
                                                 <a href="#" class="btn btn-sm btn-light" data-bs-toggle="dropdown"
@@ -731,6 +735,96 @@
                             </button>
                             <button type="submit" class="btn btn-primary btn-sm submit_rapport">
                                 <i class="bi bi-download me-1"></i>Générer
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {{-- RECHERCHE AVANCEE --}}
+        <div class="modal fade" id="generate_rapport" tabindex="-1" role="dialog"
+            aria-labelledby="generate_rapportLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content border-0 shadow-lg rounded-4">
+                    <div class="modal-header text-white"
+                        style="background: linear-gradient(135deg, #2c3e50 0%, #4a6fa5 100%);">
+                        <h1 class="h5 mb-0">
+                            <i class="bi bi-search me-2"></i>Rechercher une formation
+                        </h1>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Fermer"></button>
+                    </div>
+
+                    <form method="post" action="{{ route('formations.report') }}">
+                        @csrf
+                        <div class="modal-body p-4">
+                            <div class="row g-3">
+
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="text" name="numero" value="{{ old('numero') }}"
+                                            class="form-control @error('numero') is-invalid @enderror" id="numero"
+                                            placeholder="Numéro">
+                                        <label for="numero"><i class="bi bi-hash me-1"></i>Numéro</label>
+                                        @error('numero')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="text" name="initule" value="{{ old('initule') }}"
+                                            class="form-control @error('initule') is-invalid @enderror" id="initule"
+                                            placeholder="Intitulé">
+                                        <label for="initule"><i class="bi bi-card-text me-1"></i>Intitulé</label>
+                                        @error('initule')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="text" name="beneficiaire" value="{{ old('beneficiaire') }}"
+                                            class="form-control @error('beneficiaire') is-invalid @enderror"
+                                            id="beneficiaire" placeholder="Bénéficiaires">
+                                        <label for="beneficiaire"><i class="bi bi-person me-1"></i>Bénéficiaires</label>
+                                        @error('beneficiaire')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="text" name="operateur" value="{{ old('operateur') }}"
+                                            class="form-control @error('operateur') is-invalid @enderror" id="operateur"
+                                            placeholder="Opérateurs">
+                                        <label for="operateur"><i class="bi bi-diagram-3 me-1"></i>Opérateurs</label>
+                                        @error('operateur')
+                                            <span class="invalid-feedback" role="alert">
+                                                <div>{{ $message }}</div>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="modal-footer border-0 pt-0 pb-4 px-4">
+                            <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">
+                                <i class="bi bi-x-lg me-1"></i>Fermer
+                            </button>
+                            <button type="submit" class="btn btn-primary rounded-pill px-4 submit_rapport">
+                                <i class="bi bi-search me-1"></i>Rechercher
                             </button>
                         </div>
                     </form>

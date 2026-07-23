@@ -615,6 +615,9 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('individuelles/index', [IndividuelleController::class, 'index'])->name('individuelles.report');
         Route::post('individuelles/index', [IndividuelleController::class, 'generateReport']);
 
+        Route::get('formations/index', [FormationController::class, 'index'])->name('formations.report');
+        Route::post('formations/index', [FormationController::class, 'rechercherOperateur']);
+
         Route::get('modules/index', [ModuleController::class, 'index'])->name('modules.report');
         Route::post('modules/index', [ModuleController::class, 'generateReport']);
 
