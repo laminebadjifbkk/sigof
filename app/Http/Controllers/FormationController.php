@@ -60,8 +60,8 @@ class FormationController extends Controller
     public function index(Request $request)
     {
         // Total global
-        $total = Formation::count();
-        $totalFormations = number_format($total, 0, ',', ' ');
+        /* $total = Formation::count();
+        $totalFormations = number_format($total, 0, ',', ' '); */
 
         $query = Formation::query();
 

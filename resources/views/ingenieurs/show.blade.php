@@ -79,46 +79,93 @@
                     @endif
                     <div class="card">
                         <div class="card-body">
-                            <div class="card-body">
-                                {{-- <h5 class="card-title">Ingénieur : {{ $ingenieur->name }}</h5> --}}
-                                <h5 class="card-title">Liste des formations</h5>
-                                {{-- <h5 class="card-title">Liste des formations de {{ $ingenieur->name }}</h5> --}}
-                                @if ($ingenieur->formations->isNotEmpty())
-                                    <div class="table-responsive">
-                                        <table class="table datatables align-middle justify-content-center"
-                                            id="table-formations">
-                                            <thead>
+                            <div class="pt-1">
+                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+
+                                    {{-- Titre à gauche --}}
+                                    <div class="d-flex align-items-center gap-2">
+                                        <h6 class="mb-0 text-muted fw-semibold text-uppercase">
+                                            Liste des formations
+                                        </h6>
+                                    </div>
+
+                                    <div class="d-flex align-items-center gap-2 text-info fw-semibold">
+                                        <i class="bi bi-list-ul me-1"></i>
+                                        <span>
+                                            Affichage :
+                                            <span class="text-dark">{{ $affichees }}</span>
+                                            sur
+                                            <span class="text-dark">{{ $total }}</span> demandes
+                                        </span>
+                                    </div>
+
+                                    {{-- Boutons à droite --}}
+                                    @can('formation-create')
+                                        <div class="d-flex align-items-center gap-2">
+                                            <a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                                data-bs-target="#AddFormationModal" title="Ajouter une formation">
+                                                Ajouter
+                                            </a>
+                                            <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="modal"
+                                                data-bs-target="#generate_rapport">
+                                                Rechercher avancée
+                                            </button>
+                                            @can('suivi-convention')
+                                                <div class="dropdown">
+                                                    <a href="#" class="btn btn-sm btn-light" data-bs-toggle="dropdown"
+                                                        title="Options">
+                                                        <i class="bi bi-three-dots-vertical"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li>
+                                                            <button type="button" class="dropdown-item" data-bs-toggle="modal"
+                                                                data-bs-target="#generate_rapportFormation">
+                                                                <i class="bi bi-file-earmark-text"></i> Générer suivi-convention
+                                                            </button>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            @endcan
+                                        </div>
+                                    @endcan
+
+                                </div>
+                            </div>
+                            @if ($ingenieur->formations->isNotEmpty())
+                                <div class="table-responsive">
+                                    <table class="table datatables align-middle justify-content-center" id="table-formations">
+                                        <thead>
+                                            <tr>
+                                                {{-- <th class="text-center" width="2%">Code</th> --}}
+                                                <th>Type</th>
+                                                <th>Intitulé formation</th>
+                                                <th>Modules</th>
+                                                <th>Régions</th>
+                                                <th class="text-center">Statut</th>
+                                                <th width='3%'>#</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php $i = 1; ?>
+                                            @foreach ($ingenieur->formations as $formation)
                                                 <tr>
-                                                    {{-- <th class="text-center" width="2%">Code</th> --}}
-                                                    <th>Type</th>
-                                                    <th>Intitulé formation</th>
-                                                    <th>Modules</th>
-                                                    <th>Régions</th>
-                                                    <th class="text-center">Statut</th>
-                                                    <th width='3%'>#</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php $i = 1; ?>
-                                                @foreach ($ingenieur->formations as $formation)
-                                                    <tr>
-                                                        {{-- <td class="text-center">{{ $formation?->code }}</td> --}}
-                                                        <td><a href="#">{{ $formation->types_formation?->name }}</a></td>
-                                                        <td>{{ $formation?->name }}</td>
-                                                        <td>
-                                                            {{ $formation?->module?->name ?? ($formation?->collectivemodule?->module ?? '') }}
-                                                        </td>
-                                                        <td>
-                                                            {{-- {{ $formation->departement?->region?->nom }} --}}
-                                                            @if ($formation->regions->isNotEmpty())
-                                                                <span>
-                                                                    {{ $formation->regions->pluck('nom')->join(', ') }}
-                                                                </span>
-                                                            @else
-                                                                <span class="fs-5 text-muted">Aucune</span>
-                                                            @endif
-                                                        </td>
-                                                        {{-- <td>
+                                                    {{-- <td class="text-center">{{ $formation?->code }}</td> --}}
+                                                    <td><a href="#">{{ $formation->types_formation?->name }}</a></td>
+                                                    <td>{{ $formation?->name }}</td>
+                                                    <td>
+                                                        {{ $formation?->module?->name ?? ($formation?->collectivemodule?->module ?? '') }}
+                                                    </td>
+                                                    <td>
+                                                        {{-- {{ $formation->departement?->region?->nom }} --}}
+                                                        @if ($formation->regions->isNotEmpty())
+                                                            <span>
+                                                                {{ $formation->regions->pluck('nom')->join(', ') }}
+                                                            </span>
+                                                        @else
+                                                            <span class="fs-5 text-muted">Aucune</span>
+                                                        @endif
+                                                    </td>
+                                                    {{-- <td>
                                                         @isset($formation?->module?->name)
                                                             {{ $formation?->module?->name }}
                                                         @endisset
@@ -126,59 +173,56 @@
                                                             {{ $formation?->collectivemodule?->module }}
                                                         @endisset
                                                     </td> --}}
-                                                        <td class="text-center"><a href="#"><span
-                                                                    class="{{ $formation?->statut }}">{{ $formation?->statut }}</span></a>
-                                                        </td>
-                                                        <td>
-                                                            <span class="d-flex align-items-baseline"><a
-                                                                    href="{{ route('formations.show', $formation) }}"
-                                                                    class="btn btn-primary btn-sm" title="voir détails"><i
-                                                                        class="bi bi-eye"></i></a>
-                                                                <div class="filter">
-                                                                    <a class="icon" href="#"
-                                                                        data-bs-toggle="dropdown"><i
-                                                                            class="bi bi-three-dots"></i></a>
-                                                                    <ul
-                                                                        class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                        <li>
-                                                                            <button type="button"
-                                                                                class="dropdown-item btn btn-sm mx-1"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#EditingenieurModal{{ $ingenieur->id }}">
-                                                                                <i class="bi bi-pencil" title="Modifier"></i>
-                                                                                Modifier
-                                                                            </button>
-                                                                        </li>
-                                                                        <li>
-                                                                            <form
-                                                                                action="{{ route('formations.destroy', $formation) }}"
-                                                                                method="post">
-                                                                                @csrf
-                                                                                @method('DELETE')
-                                                                                <button type="submit"
-                                                                                    class="dropdown-item show_confirm"
-                                                                                    title="Supprimer"><i
-                                                                                        class="bi bi-trash"></i>Supprimer</button>
-                                                                            </form>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                @else
-                                    <div class="alert alert-info bg-warning text-light border-0 alert-dismissible fade show"
-                                        role="alert">
-                                        <strong>Aucune formation attribuée à cet ingénieur.</strong>
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                            aria-label="Close"></button>
-                                    </div>
-                                @endif
-                            </div>
+                                                    <td class="text-center"><a href="#"><span
+                                                                class="{{ $formation?->statut }}">{{ $formation?->statut }}</span></a>
+                                                    </td>
+                                                    <td>
+                                                        <span class="d-flex align-items-baseline"><a
+                                                                href="{{ route('formations.show', $formation) }}"
+                                                                class="btn btn-primary btn-sm" title="voir détails"><i
+                                                                    class="bi bi-eye"></i></a>
+                                                            <div class="filter">
+                                                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                        class="bi bi-three-dots"></i></a>
+                                                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                                    <li>
+                                                                        <button type="button"
+                                                                            class="dropdown-item btn btn-sm mx-1"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#EditingenieurModal{{ $ingenieur->id }}">
+                                                                            <i class="bi bi-pencil" title="Modifier"></i>
+                                                                            Modifier
+                                                                        </button>
+                                                                    </li>
+                                                                    <li>
+                                                                        <form
+                                                                            action="{{ route('formations.destroy', $formation) }}"
+                                                                            method="post">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit"
+                                                                                class="dropdown-item show_confirm"
+                                                                                title="Supprimer"><i
+                                                                                    class="bi bi-trash"></i>Supprimer</button>
+                                                                        </form>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            @else
+                                <div class="alert alert-info bg-warning text-light border-0 alert-dismissible fade show"
+                                    role="alert">
+                                    <strong>Aucune formation attribuée à cet ingénieur.</strong>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                            @endif
                         </div>
                     </div>
                     <div class="card">

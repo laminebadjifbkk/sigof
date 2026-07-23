@@ -14,6 +14,7 @@ use App\Models\TypesFormation;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\DB;
 
 class IngenieurController extends Controller
 {
@@ -27,7 +28,8 @@ class IngenieurController extends Controller
         // or with specific guard
         /* $this->middleware(['role_or_permission:super-admin']); */
     }
-    public function index()
+
+    public function index(Request $request)
     {
         $ingenieurs = Ingenieur::orderBy("created_at", "desc")->get();
 
@@ -70,7 +72,7 @@ class IngenieurController extends Controller
         return redirect()->back();
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
         $ingenieur = Ingenieur::findOrFail($id);
 
@@ -124,7 +126,7 @@ class IngenieurController extends Controller
         return redirect()->back();
     }
 
-    public function show($id)
+    public function show(Request $request, int $id)
     {
         $ingenieur        = Ingenieur::findOrFail($id);
         $modules          = Module::orderBy("created_at", "desc")->get();
@@ -134,21 +136,22 @@ class IngenieurController extends Controller
         $types_formations = TypesFormation::orderBy("created_at", "desc")->get();
         $ingenieurs       = Ingenieur::orderBy("created_at", "desc")->get();
 
-        /* $groupes = $ingenieur->formations
-            ->flatMap(function ($formation) {
-                // Si aucune région
-                if ($formation->regions->isEmpty()) {
-                    return collect([
-                        'Aucune région' => collect([$formation])
-                    ]);
-                }
 
-                // Sinon, une entrée par région
-                return $formation->regions->mapWithKeys(function ($region) use ($formation) {
-                    return [$region->nom => $formation];
-                });
-            })
-            ->groupBy(fn($formation, $region) => $region); */
+        $query = Formation::query();
+
+        if ($statut = $request->query('statut')) {
+            $query->where('statut', $statut);
+        }
+
+        $formations = $query
+            ->latest()
+            ->limit(200)
+            ->get();
+
+        $affichees = $formations?->count();
+        $total     = $totalIndividuelles ?? ($formations instanceof \Illuminate\Pagination\LengthAwarePaginator
+            ? $formations->total()
+            : $formations?->count());
 
         $groupes = $ingenieur->formations
             ->groupBy(fn($item) => $item->annee ?? 'Aucune');
@@ -163,6 +166,9 @@ class IngenieurController extends Controller
                 'operateurs',
                 'types_formations',
                 'ingenieurs',
+                'affichees',
+                'total',
+                'formations',
                 'groupes'
             )
         );
