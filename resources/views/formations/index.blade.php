@@ -262,7 +262,7 @@
                                             <th width='25%'>Bénéficiaires</th>
                                             <th>Modules</th>
                                             <th>Niveau qualif.</th>
-                                            <th width='15%'>Opérateurs</th>
+                                            <th>Opérateurs</th>
                                             <th width='5%' class="text-center">Statut</th>
                                             @can('formation-show')
                                                 <th width='3%'><i class="bi bi-gear"></i></th>
