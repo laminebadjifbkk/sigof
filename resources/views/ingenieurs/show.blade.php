@@ -110,7 +110,7 @@
                                                 data-bs-target="#generate_rapport">
                                                 Rechercher avancée
                                             </button>
-                                            @can('suivi-convention')
+                                            @can('suivi-convention-ingenieur')
                                                 <div class="dropdown">
                                                     <a href="#" class="btn btn-sm btn-light" data-bs-toggle="dropdown"
                                                         title="Options">
