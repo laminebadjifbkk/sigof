@@ -87,7 +87,7 @@ class OperateurlocaliteController extends Controller
         ]);
 
         $operateurlocalite = Operateurlocalite::findOrFail($id);
-        if (! in_array($operateurlocalite->operateur->statut_agrement, ['Nouveau', 'Extension', 'Renouvellement', 'À corriger'])) {
+        if (! in_array($operateurlocalite->operateur->statut_agrement, ['Nouveau', 'Extension', 'Renouvellement', 'À corriger', 'sous réserve'])) {
             Alert::warning('Attention ! ', 'Action impossible');
             return redirect()->back();
         }
