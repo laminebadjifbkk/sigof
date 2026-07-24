@@ -93,7 +93,7 @@
                                                         title="Voir détails">
                                                         <i class="bi bi-eye"></i>
                                                     </a>
-                                                    @can('devenir-operateur-agrement-ouvert')
+                                                    @can('create-equipements')
                                                         <div class="dropdown">
                                                             <a class="btn btn-sm btn-light" href="#"
                                                                 data-bs-toggle="dropdown" aria-expanded="false" title="Actions">

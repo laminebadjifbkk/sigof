@@ -77,7 +77,7 @@
                                                     href="" class="btn btn-outline-info btn-sm mx-1"
                                                     title="Voir détails">
                                                     <i class="bi bi-eye"></i></a>
-                                                @can('devenir-operateur-agrement-ouvert')
+                                                @can('create-localites')
                                                     <div class="filter">
                                                         <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                                 class="bi bi-three-dots"></i></a>
