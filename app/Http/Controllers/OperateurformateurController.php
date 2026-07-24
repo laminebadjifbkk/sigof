@@ -7,6 +7,7 @@ use App\Models\ValidationOperateurFormateur;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Storage;
 
 class OperateurformateurController extends Controller
 {
@@ -119,7 +120,7 @@ class OperateurformateurController extends Controller
         $user = auth()->user();
         /* if ($operateurformateur->operateur->statut_agrement != 'Nouveau') { */
         if (
-            ! in_array($operateurformateur->operateur->statut_agrement, ['Nouveau', 'Extension', 'Renouvellement', 'Conforme'])
+            ! in_array($operateurformateur->operateur->statut_agrement, ['Nouveau', 'Extension', 'Renouvellement', 'Conforme', 'À corriger', 'sous réserve'])
             && ! $user->hasRole('super-admin')
         ) {
             Alert::warning('Attention ! ', 'action impossible');

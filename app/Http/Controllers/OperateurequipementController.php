@@ -43,7 +43,7 @@ class OperateurequipementController extends Controller
         ]);
 
         $operateurequipement = Operateurequipement::findOrFail($id);
-        if (! in_array($operateurequipement->operateur->statut_agrement, ['Nouveau', 'Extension', 'Renouvellement', 'À corriger'])) {
+        if (! in_array($operateurequipement->operateur->statut_agrement, ['Nouveau', 'Extension', 'Renouvellement', 'À corriger', 'sous réserve'])) {
             /* if ($operateurequipement->statut !== 'Nouveau') { */
             Alert::warning('Attention ! ', 'action impossible');
             return redirect()->back();
@@ -73,7 +73,7 @@ class OperateurequipementController extends Controller
     {
         $operateurequipement = Operateurequipement::find($id);
 
-        if (! in_array($operateurequipement->operateur->statut_agrement, ['Nouveau', 'Extension', 'Renouvellement'])) {
+        if (! in_array($operateurequipement->operateur->statut_agrement, ['Nouveau', 'Extension', 'Renouvellement', 'À corriger', 'sous réserve'])) {
             Alert::warning('Attention ! ', 'action impossible');
             return redirect()->back();
         } else {
