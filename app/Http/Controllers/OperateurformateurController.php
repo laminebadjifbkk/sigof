@@ -64,7 +64,7 @@ class OperateurformateurController extends Controller
         $user               = auth()->user();
         /* if ($operateurformateur->operateur->statut_agrement != 'Nouveau') { */
         if (
-            ! in_array($operateurformateur->operateur->statut_agrement, ['Nouveau', 'Extension', 'Renouvellement', 'Conforme', 'À corriger'])
+            ! in_array($operateurformateur->operateur->statut_agrement, ['Nouveau', 'Extension', 'Renouvellement', 'Conforme', 'À corriger', 'sous réserve'])
             /* && ! $user->hasRole('super-admin'
             ) */
         ) {
