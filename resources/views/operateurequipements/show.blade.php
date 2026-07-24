@@ -1,5 +1,6 @@
 @extends('layout.user-layout')
-@section('title', $operateur?->user?->display_operateur . ' | ' . remove_accents_uppercase('infrastructures et équipements'))
+@section('title', $operateur?->user?->display_operateur . ' | ' . remove_accents_uppercase('infrastructures et
+    équipements'))
 @section('space-work')
 
     <section class="section">
@@ -19,20 +20,23 @@
 
                 {{-- Alertes --}}
                 @if ($message = Session::get('status'))
-                    <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show" role="alert">
+                    <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
+                        role="alert">
                         <strong>{{ $message }}</strong>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
                 @if ($message = Session::get('danger'))
-                    <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert">
+                    <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show"
+                        role="alert">
                         <strong>{{ $message }}</strong>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
                 @if ($errors->any())
                     @foreach ($errors->all() as $error)
-                        <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert">
+                        <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show"
+                            role="alert">
                             <strong>{{ $error }}</strong>
                         </div>
                     @endforeach
@@ -45,14 +49,16 @@
                             <h5 class="mb-0 text-uppercase fw-bold text-primary">
                                 <i class="bi bi-building-gear me-2"></i> Infrastructures / Équipements
                             </h5>
-                            @can('devenir-operateur-agrement-ouvert')
-                                @can('agrement-visible-par-op')
-                                    <button type="button" class="btn btn-primary btn-sm d-flex align-items-center shadow-sm"
-                                        data-bs-toggle="modal" data-bs-target="#AddRefModal">
-                                        <i class="bi bi-plus-circle me-2"></i> Ajouter
-                                    </button>
-                                @endcan
+                            {{-- @can('devenir-operateur-agrement-ouvert')
+                                @can('agrement-visible-par-op') --}}
+                            @can('create-equipements')
+                                <button type="button" class="btn btn-primary btn-sm d-flex align-items-center shadow-sm"
+                                    data-bs-toggle="modal" data-bs-target="#AddRefModal">
+                                    <i class="bi bi-plus-circle me-2"></i> Ajouter
+                                </button>
                             @endcan
+                            {{--  @endcan
+                            @endcan --}}
                         </div>
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover align-middle">
@@ -83,7 +89,8 @@
                                             </td>
                                             <td>
                                                 <div class="d-flex justify-content-center align-items-center gap-2">
-                                                    <a href="#" class="btn btn-outline-info btn-sm" title="Voir détails">
+                                                    <a href="#" class="btn btn-outline-info btn-sm"
+                                                        title="Voir détails">
                                                         <i class="bi bi-eye"></i>
                                                     </a>
                                                     @can('devenir-operateur-agrement-ouvert')
@@ -101,12 +108,14 @@
                                                                     </button>
                                                                 </li>
                                                                 <li>
-                                                                    <form action="{{ route('operateurequipements.destroy', $operateurequipement->id) }}"
+                                                                    <form
+                                                                        action="{{ route('operateurequipements.destroy', $operateurequipement->id) }}"
                                                                         method="POST"
                                                                         onsubmit="return confirm('Confirmer la suppression ?')">
                                                                         @csrf
                                                                         @method('DELETE')
-                                                                        <button type="submit" class="dropdown-item text-danger">
+                                                                        <button type="submit"
+                                                                            class="dropdown-item text-danger">
                                                                             <i class="bi bi-trash me-2"></i>Supprimer
                                                                         </button>
                                                                     </form>
@@ -152,33 +161,47 @@
                             <input type="text" name="designation" value="{{ old('designation') }}"
                                 class="form-control form-control-sm @error('designation') is-invalid @enderror"
                                 placeholder="Ex. : Salles de cours ou Ordinateurs" required>
-                            @error('designation')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            @error('designation')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Quantité <span class="text-danger">*</span></label>
                             <input type="number" name="quantite" min="0" value="{{ old('quantite') }}"
                                 class="form-control form-control-sm @error('quantite') is-invalid @enderror"
                                 placeholder="Ex. : 5" required>
-                            @error('quantite')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            @error('quantite')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label class="form-label fw-semibold">État <span class="text-danger">*</span></label>
-                            <select name="etat" class="form-select form-select-sm @error('etat') is-invalid @enderror" required>
+                            <select name="etat" class="form-select form-select-sm @error('etat') is-invalid @enderror"
+                                required>
                                 <option value="">-- Choisir --</option>
-                                <option value="Neuf(ve)"  {{ old('etat') == 'Neuf(ve)'  ? 'selected' : '' }}>Neuf(ve)</option>
-                                <option value="Bon etat"  {{ old('etat') == 'Bon etat'  ? 'selected' : '' }}>Bon état</option>
-                                <option value="Usé(e)"    {{ old('etat') == 'Usé(e)'    ? 'selected' : '' }}>Usé(e)</option>
+                                <option value="Neuf(ve)" {{ old('etat') == 'Neuf(ve)' ? 'selected' : '' }}>Neuf(ve)
+                                </option>
+                                <option value="Bon etat" {{ old('etat') == 'Bon etat' ? 'selected' : '' }}>Bon état
+                                </option>
+                                <option value="Usé(e)" {{ old('etat') == 'Usé(e)' ? 'selected' : '' }}>Usé(e)</option>
                             </select>
-                            @error('etat')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            @error('etat')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Type <span class="text-danger">*</span></label>
-                            <select name="type" class="form-select form-select-sm @error('type') is-invalid @enderror" required>
+                            <select name="type" class="form-select form-select-sm @error('type') is-invalid @enderror"
+                                required>
                                 <option value="">-- Choisir --</option>
-                                <option value="Infrastructure" {{ old('type') == 'Infrastructure' ? 'selected' : '' }}>Infrastructure</option>
-                                <option value="Equipement"    {{ old('type') == 'Equipement'    ? 'selected' : '' }}>Équipement</option>
+                                <option value="Infrastructure" {{ old('type') == 'Infrastructure' ? 'selected' : '' }}>
+                                    Infrastructure</option>
+                                <option value="Equipement" {{ old('type') == 'Equipement' ? 'selected' : '' }}>
+                                    Équipement</option>
                             </select>
-                            @error('type')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            @error('type')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
 
@@ -216,12 +239,15 @@
 
                         <div class="modal-body px-4 py-4">
                             <div class="mb-3">
-                                <label class="form-label fw-semibold">Désignation <span class="text-danger">*</span></label>
+                                <label class="form-label fw-semibold">Désignation <span
+                                        class="text-danger">*</span></label>
                                 <input type="text" name="designation"
                                     value="{{ old('designation', $operateurequipement->designation) }}"
                                     class="form-control form-control-sm @error('designation') is-invalid @enderror"
                                     placeholder="Ex. : Salles de cours ou Ordinateurs" required>
-                                @error('designation')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                @error('designation')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Quantité <span class="text-danger">*</span></label>
@@ -229,26 +255,44 @@
                                     value="{{ old('quantite', $operateurequipement->quantite) }}"
                                     class="form-control form-control-sm @error('quantite') is-invalid @enderror"
                                     placeholder="Ex. : 5" required>
-                                @error('quantite')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                @error('quantite')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">État <span class="text-danger">*</span></label>
-                                <select name="etat" class="form-select form-select-sm @error('etat') is-invalid @enderror" required>
+                                <select name="etat"
+                                    class="form-select form-select-sm @error('etat') is-invalid @enderror" required>
                                     <option value="">-- Choisir l'état --</option>
-                                    <option value="Neuf(ve)"  {{ old('etat', $operateurequipement->etat) == 'Neuf(ve)'  ? 'selected' : '' }}>Neuf(ve)</option>
-                                    <option value="Bon etat"  {{ old('etat', $operateurequipement->etat) == 'Bon etat'  ? 'selected' : '' }}>Bon état</option>
-                                    <option value="Usé(e)"    {{ old('etat', $operateurequipement->etat) == 'Usé(e)'    ? 'selected' : '' }}>Usé(e)</option>
+                                    <option value="Neuf(ve)"
+                                        {{ old('etat', $operateurequipement->etat) == 'Neuf(ve)' ? 'selected' : '' }}>
+                                        Neuf(ve)</option>
+                                    <option value="Bon etat"
+                                        {{ old('etat', $operateurequipement->etat) == 'Bon etat' ? 'selected' : '' }}>Bon
+                                        état</option>
+                                    <option value="Usé(e)"
+                                        {{ old('etat', $operateurequipement->etat) == 'Usé(e)' ? 'selected' : '' }}>
+                                        Usé(e)</option>
                                 </select>
-                                @error('etat')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                @error('etat')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Type <span class="text-danger">*</span></label>
-                                <select name="type" class="form-select form-select-sm @error('type') is-invalid @enderror" required>
+                                <select name="type"
+                                    class="form-select form-select-sm @error('type') is-invalid @enderror" required>
                                     <option value="">-- Choisir le type --</option>
-                                    <option value="Infrastructure" {{ old('type', $operateurequipement->type) == 'Infrastructure' ? 'selected' : '' }}>Infrastructure</option>
-                                    <option value="Equipement"    {{ old('type', $operateurequipement->type) == 'Equipement'    ? 'selected' : '' }}>Équipement</option>
+                                    <option value="Infrastructure"
+                                        {{ old('type', $operateurequipement->type) == 'Infrastructure' ? 'selected' : '' }}>
+                                        Infrastructure</option>
+                                    <option value="Equipement"
+                                        {{ old('type', $operateurequipement->type) == 'Equipement' ? 'selected' : '' }}>
+                                        Équipement</option>
                                 </select>
-                                @error('type')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                @error('type')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 

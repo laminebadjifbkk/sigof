@@ -1,6 +1,5 @@
 @extends('layout.user-layout')
-@section('title', $operateur?->user?->display_operateur . ' | ' .
-    remove_accents_uppercase('localités'))
+@section('title', $operateur?->user?->display_operateur . ' | ' . remove_accents_uppercase('localités'))
 @section('space-work')
 
     <section class="section register">
@@ -43,14 +42,17 @@
                             <h5 class="mb-0 text-uppercase fw-bold text-primary">
                                 <i class="bi bi-person-lines-fill me-2"></i> LOCALITES
                             </h5>
-                            @can('devenir-operateur-agrement-ouvert')
-                                @can('agrement-visible-par-op')
-                                    <button type="button" class="btn btn-primary btn-sm d-flex align-items-center shadow-sm"
-                                        data-bs-toggle="modal" data-bs-target="#AddlocaliteModal">
-                                        <i class="bi bi-plus-circle me-2"></i> Ajouter
-                                    </button>
-                                @endcan
+                            {{-- @can('devenir-operateur-agrement-ouvert')
+                                @can('agrement-visible-par-op') --}}
+                            @can('create-references')
+                                <button type="button" class="btn btn-primary btn-sm d-flex align-items-center shadow-sm"
+                                    data-bs-toggle="modal" data-bs-target="#AddlocaliteModal">
+                                    <i class="bi bi-plus-circle me-2"></i> Ajouter
+                                </button>
                             @endcan
+
+                            {{-- @endcan
+                            @endcan --}}
                         </div>
 
                         <table

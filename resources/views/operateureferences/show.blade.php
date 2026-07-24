@@ -57,14 +57,16 @@
                             <h5 class="mb-0 text-uppercase fw-bold text-primary">
                                 <i class="bi bi-person-lines-fill me-2"></i> EXPERIENCES ET REFERENCES PROFESSIONNELLES
                             </h5>
-                            @can('devenir-operateur-agrement-ouvert')
-                                @can('agrement-visible-par-op')
-                                    <button type="button" class="btn btn-primary btn-sm d-flex align-items-center shadow-sm"
-                                        data-bs-toggle="modal" data-bs-target="#AddRefModal">
-                                        <i class="bi bi-plus-circle me-2"></i> Ajouter
-                                    </button>
-                                @endcan
+                            {{-- @can('devenir-operateur-agrement-ouvert')
+                                @can('agrement-visible-par-op') --}}
+                            @can('create-references')
+                                <button type="button" class="btn btn-primary btn-sm d-flex align-items-center shadow-sm"
+                                    data-bs-toggle="modal" data-bs-target="#AddRefModal">
+                                    <i class="bi bi-plus-circle me-2"></i> Ajouter
+                                </button>
                             @endcan
+                            {{--  @endcan
+                            @endcan --}}
                         </div>
                         <!-- Table with stripped rows -->
                         <table
@@ -244,14 +246,14 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="contact" class="form-label">Contact<span class="text-danger">*</span></label>
+                                <label for="contact" class="form-label">Contact<span
+                                        class="text-danger">*</span></label>
                                 {{-- <input type="number" name="contact" min="0" value="{{ old('contact') }}"
                                     class="form-control form-control-sm @error('contact') is-invalid @enderror"
                                     placeholder="Téléphone / contact"> --}}
                                 <input name="contact" type="text" maxlength="12"
                                     class="form-control form-control-sm @error('contact') is-invalid @enderror"
-                                    id="contact_secondaire"
-                                    value="{{ old('contact') }}" autocomplete="tel"
+                                    id="contact_secondaire" value="{{ old('contact') }}" autocomplete="tel"
                                     placeholder="Téléphone">
                                 @error('contact')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -259,7 +261,8 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="description" class="form-label">Description<span class="text-danger">*</span></label>
+                                <label for="description" class="form-label">Description<span
+                                        class="text-danger">*</span></label>
                                 <textarea name="description" id="description" rows="4"
                                     class="form-control form-control-sm @error('description') is-invalid @enderror"
                                     placeholder="Description de l'activité">{{ old('description') }}</textarea>
