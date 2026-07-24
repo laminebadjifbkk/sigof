@@ -44,7 +44,7 @@
                             </h5>
                             {{-- @can('devenir-operateur-agrement-ouvert')
                                 @can('agrement-visible-par-op') --}}
-                            @can('create-references')
+                            @can('create-localites')
                                 <button type="button" class="btn btn-primary btn-sm d-flex align-items-center shadow-sm"
                                     data-bs-toggle="modal" data-bs-target="#AddlocaliteModal">
                                     <i class="bi bi-plus-circle me-2"></i> Ajouter
