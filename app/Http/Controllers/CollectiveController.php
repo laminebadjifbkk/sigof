@@ -73,6 +73,7 @@ class CollectiveController extends Controller
             ->orderBy('created_at', 'desc') // explicite
             ->limit(100)
             ->get();
+
         $totalAffichees = $collectives->count();
 
         $today = now()->toDateString();

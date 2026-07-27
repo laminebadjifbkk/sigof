@@ -210,7 +210,7 @@
                                     <i class="bi bi-list-ul me-1"></i>
                                     <span>
                                         Affichage :
-                                        <span class="text-dark">{{ $affichees }}</span>
+                                        <span class="text-dark">{{ $totalAffichees }}</span>
                                         sur
                                         <span class="text-dark">{{ $total }}</span> demandes
                                     </span>

@@ -74,8 +74,10 @@ class FormationController extends Controller
 
         $formations = $query
             ->latest()
-            ->limit(200)
+            ->limit(100)
             ->get();
+
+        $totalAffichees = $formations->count();
 
         $groupes = Formation::select(DB::raw('annee'))
             ->selectRaw('COUNT(*) as total')
@@ -159,6 +161,7 @@ class FormationController extends Controller
                 'poles',
                 'groupes',
                 'affichees',
+                'totalAffichees',
                 'total',
             )
         );
