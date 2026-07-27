@@ -788,15 +788,10 @@ class FormationController extends Controller
             $autes_frais = null;
         }
 
-        $annee = $request->input('annee', date('Y')); // ex : "2026"
+        /*  $annee = $request->input('annee', date('Y')); // ex : "2026"
         $an = substr($annee, -2);                     // "26"
 
         $numFormation = DB::transaction(function () use ($annee, $an) {
-
-            /* $lastFormation = Formation::where('annee', $annee)
-                ->lockForUpdate()
-                ->orderByDesc('code')
-                ->first(); */
 
             $lastFormation = Formation::where('annee', $annee)
                 ->where('code', 'like', 'F' . $an . '%')
@@ -812,7 +807,27 @@ class FormationController extends Controller
             }
 
             return 'F' . $an . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
+        }); */
+
+        $annee = $request->input('annee', date('Y'));
+        $an = substr($annee, -2);
+
+        $numFormation = DB::transaction(function () use ($an) {
+
+            $lastFormation = Formation::lockForUpdate()
+                ->latest('id')
+                ->first();
+
+            if ($lastFormation) {
+                $lastNumber = (int) substr($lastFormation->code, -4);
+                $nextNumber = $lastNumber + 1;
+            } else {
+                $nextNumber = 1;
+            }
+
+            return 'F' . $an . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
         });
+
 
         $formation = new Formation([
             "code"                => $numFormation,
@@ -841,9 +856,9 @@ class FormationController extends Controller
             "choixoperateurs_id"  => $request->input('choixoperateur'),
             "statut"              => "Nouvelle",
             "annee"               => $request->input('annee'),
-            'ingenieurs_id' => $request->filled('ingenieur')
+            /* 'ingenieurs_id' => $request->filled('ingenieur')
                 ? $request->ingenieur
-                : null,
+                : null, */
 
         ]);
 
