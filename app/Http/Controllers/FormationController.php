@@ -69,6 +69,9 @@ class FormationController extends Controller
             $query->where('statut', $statut);
         }
 
+        $affichees = Formation::count();
+        $total = number_format($affichees, 0, ',', ' ');
+
         $formations = $query
             ->latest()
             ->limit(200)
@@ -79,12 +82,6 @@ class FormationController extends Controller
             ->groupBy('annee')
             ->orderByDesc('annee')
             ->paginate(1); // ← une ligne par page
-
-
-        $affichees = $formations?->count();
-        $total     = $totalIndividuelles ?? ($formations instanceof \Illuminate\Pagination\LengthAwarePaginator
-            ? $formations->total()
-            : $formations?->count());
 
         $poles = Antenne::get();
 
