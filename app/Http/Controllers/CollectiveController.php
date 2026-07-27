@@ -66,14 +66,13 @@ class CollectiveController extends Controller
     {
         $collectivesQuery = Collective::query();
 
-        $collectives = $collectivesQuery
-            ->orderBy('created_at', 'desc') // explicite
-            ->limit(1000)
-            ->get();
-
         $totalDemandesCount = Collective::count();
         $totalDemandes = number_format($totalDemandesCount, 0, ',', ' ');
 
+        $collectives = $collectivesQuery
+            ->orderBy('created_at', 'desc') // explicite
+            ->limit(100)
+            ->get();
         $totalAffichees = $collectives->count();
 
         $today = now()->toDateString();
