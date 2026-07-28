@@ -233,10 +233,13 @@ class FormationController extends Controller
             ->paginate(1); // ← une ligne par page
 
 
-        $affichees = $formations?->count();
+        /* $affichees = $formations?->count();
         $total     = $totalIndividuelles ?? ($formations instanceof \Illuminate\Pagination\LengthAwarePaginator
             ? $formations->total()
-            : $formations?->count());
+            : $formations?->count()); */
+
+        $affichees = Formation::count();
+        $total = number_format($affichees, 0, ',', ' ');
 
         $poles = Antenne::get();
 
@@ -253,6 +256,9 @@ class FormationController extends Controller
 
         $formations_statut = Formation::distinct()
             ->get('statut');
+
+
+        $totalAffichees = $formations->count();
 
         return view(
             "formations.index",
@@ -273,6 +279,7 @@ class FormationController extends Controller
                 'poles',
                 'groupes',
                 'affichees',
+                'totalAffichees',
                 'total',
             )
         );
