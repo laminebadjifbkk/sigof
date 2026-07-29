@@ -335,7 +335,7 @@
 
                                                             @if (!$formation->pdf_attestations_path)
                                                                 <a href="{{ route('formations.attestations.lancer', $formation->id) }}"
-                                                                    class="btn btn-primary btn-sm">
+                                                                    class="btn btn-success btn-sm">
                                                                     <i class="bi bi-file-earmark-plus me-1"></i>
                                                                     Générer {{ $formation->type_certification }}
                                                                 </a>
