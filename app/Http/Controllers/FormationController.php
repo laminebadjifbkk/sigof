@@ -451,6 +451,15 @@ class FormationController extends Controller
         $formations_statut = Formation::distinct()
             ->get('statut');
 
+        $statuts = [
+            'Nouveau' => 'Nouveau',
+            'Attente' => 'Attente',
+            'En cours' => 'En cours',
+            'Signature' => 'Signature',
+            'Disponibles' => 'Disponibles',
+            'Délivrés' => 'Délivrés',
+        ];
+
         return view(
             "formations.index_attestations_annee",
             compact(
@@ -471,6 +480,7 @@ class FormationController extends Controller
                 'annee',
                 'regionPourcentages',
                 'total',
+                'statuts'
             )
         );
     }
@@ -694,6 +704,15 @@ class FormationController extends Controller
         $formations_statut = Formation::distinct()
             ->get('statut');
 
+        $statuts = [
+            'Nouveau' => 'Nouveau',
+            'Attente' => 'Attente',
+            'En cours' => 'En cours',
+            'Signature' => 'Signature',
+            'Disponibles' => 'Disponibles',
+            'Délivrés' => 'Délivrés',
+        ];
+
         return view(
             "formations.index_attestations_annee_region",
             compact(
@@ -716,6 +735,7 @@ class FormationController extends Controller
                 'attestationPourcentages',
                 'totalFormations',
                 'total',
+                'statuts'
             )
         );
     }

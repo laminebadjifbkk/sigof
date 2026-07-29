@@ -113,7 +113,7 @@
                                             data-bs-target="#AddFormationModal" title="Ajouter une formation">
                                             Ajouter
                                         </a>
-                                        @can('suivi-convention')
+                                        {{-- @can('suivi-convention')
                                             <div class="dropdown">
                                                 <a href="#" class="btn btn-sm btn-light" data-bs-toggle="dropdown"
                                                     title="Options">
@@ -127,7 +127,7 @@
                                                         </button>
                                                     </li>
                                                 </ul>
-                                            </div>
+                                            </div> --}}
                                         @endcan
                                     </div>
                                 @endcan
@@ -197,16 +197,6 @@
                                                                 <div class="mb-3">
                                                                     <label for="attestation"
                                                                         class="form-label">{{ $formation->module->name ?? ($formation->collectivemodule->module ?? 'Aucun') }}</label>
-                                                                    @php
-                                                                        $statuts = [
-                                                                            'Nouveau' => 'Nouveau',
-                                                                            'Attente' => 'Attente',
-                                                                            'En cours' => 'En cours',
-                                                                            'Signature' => 'Signature',
-                                                                            'Disponibles' => 'Disponibles',
-                                                                            'Délivrés' => 'Délivrés',
-                                                                        ];
-                                                                    @endphp
 
                                                                     <select name="attestation" id="attestation"
                                                                         class="form-select form-select-sm" required>

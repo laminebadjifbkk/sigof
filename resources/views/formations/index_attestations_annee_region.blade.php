@@ -286,7 +286,7 @@
                                             {{-- <th width='10%'>Région</th> --}}
                                             <th>Modules</th>
                                             <th>Opérateurs</th>
-                                            {{-- <th width='5%' class="text-center">Attestations</th> --}}
+                                            <th width='5%' class="text-center"></th>
                                             <th><i class="bi bi-gear"></i></th>
                                         </tr>
                                     </thead>
@@ -321,6 +321,13 @@
                                                         </button>
                                                     </div>
                                                 </td> --}}
+
+                                                <td>
+                                                    <a href="{{ route('formations.show', $formation) }}"
+                                                        class="btn btn-primary btn-sm" title="Voir les détails">
+                                                        <i class="bi bi-eye"></i>
+                                                    </a>
+                                                </td>
 
                                                 <td>
                                                     @can('attestation-reussite-view')
@@ -374,17 +381,6 @@
                                                                 <div class="mb-3">
                                                                     <label for="attestation"
                                                                         class="form-label">{{ $formation->module->name ?? ($formation->collectivemodule->module ?? 'Aucun') }}</label>
-                                                                    @php
-                                                                        $statuts = [
-                                                                            'Nouveau' => 'Nouveau',
-                                                                            'Attente' => 'Attente',
-                                                                            'En cours' => 'En cours',
-                                                                            'Signature' => 'Signature',
-                                                                            'Disponibles' => 'Disponibles',
-                                                                            'Délivrés' => 'Délivrés',
-                                                                        ];
-                                                                    @endphp
-
                                                                     <select name="attestation" id="attestation"
                                                                         class="form-select form-select-sm" required>
                                                                         <option value="" disabled
