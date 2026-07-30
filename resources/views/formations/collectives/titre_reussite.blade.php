@@ -298,7 +298,7 @@
         .signature-block .fait-le {
             font-weight: bold;
             font-style: italic;
-            margin-top: 12mm;
+            margin-top: 15mm;
             position: relative;
             right: 36mm;
         }
