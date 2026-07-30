@@ -472,7 +472,7 @@
         <div class="qr-zone">
             <img src="data:image/png;base64,{{ $qrCodeBase64 }}" alt="QR Code">
             <p class="qr-label"><strong>Vérifier l'authenticité</strong></p>
-            <p class="text-intro-numero"><strong>{{ $listecollective?->numero_attestation }}</strong></p>
+            <p class="text-intro-numero"><strong>{{ $individuelle?->numero_attestation }}</strong></p>
         </div>
 
         <div class="content">
