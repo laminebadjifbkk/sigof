@@ -298,7 +298,7 @@
         .signature-block .fait-le {
             font-weight: bold;
             font-style: italic;
-            margin-top: 15mm;
+            margin-top: 12mm;
             position: relative;
             right: 36mm;
         }
@@ -418,8 +418,8 @@
         /* ── QR code ── */
         .qr-zone {
             position: absolute;
-            bottom: 10mm;
-            left: 13mm;
+            bottom: 26mm;
+            left: 28mm;
             /* au lieu de margin-left, plus fiable en position absolute */
             z-index: 1;
             width: 30mm;
@@ -453,7 +453,7 @@
             line-height: 1.1;
             text-align: center;
             letter-spacing: 0.5px;
-            font-size: 8pt;
+            font-size: 9pt;
             font-weight: bold;
             font-style: italic;
         }
