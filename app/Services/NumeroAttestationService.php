@@ -53,13 +53,13 @@ class NumeroAttestationService
         $codeType = match (strtolower($typeFormation)) {
             'collective'   => 'C',
             'individuelle' => 'I',
-            default        => 'X',
+            default        => '',
         };
 
         $codeQualification = match (strtolower(trim($niveauQualification))) {
             'attestation'            => 'A',
             'titre de qualification' => 'T',
-            default                  => 'X',
+            default                  => '',
         };
 
         $sequenceFormatee = str_pad((string) $sequence, 6, '0', STR_PAD_LEFT);
