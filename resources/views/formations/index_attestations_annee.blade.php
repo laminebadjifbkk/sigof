@@ -113,7 +113,8 @@
                                             data-bs-target="#AddFormationModal" title="Ajouter une formation">
                                             Ajouter
                                         </a>
-                                        {{-- @can('suivi-convention')
+                                        {{--
+                                        @can('suivi-convention')
                                             <div class="dropdown">
                                                 <a href="#" class="btn btn-sm btn-light" data-bs-toggle="dropdown"
                                                     title="Options">
@@ -127,8 +128,9 @@
                                                         </button>
                                                     </li>
                                                 </ul>
-                                            </div> --}}
+                                            </div>
                                         @endcan
+                                        --}}
                                     </div>
                                 @endcan
 
