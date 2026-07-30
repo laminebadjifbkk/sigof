@@ -275,7 +275,7 @@ class AttestationController extends Controller
             return view('attestations.invalide');
         }
     }
-    /* 
+    /*
     public function verifier(Request $request)
     {
         try {
@@ -439,7 +439,7 @@ class AttestationController extends Controller
         $viewName = match ($niveauQualification) {
             'Attestation' => 'formations.individuelles.attestation_reussite',
             'Titre de qualification' => 'formations.individuelles.titre_reussite',
-            default => 'formations.individuelles.attestation_reussite',
+            default => 'formations.individuelles.titre_reussite',
         };
 
         $html = View::make($viewName, compact(
@@ -545,7 +545,7 @@ class AttestationController extends Controller
         $name = 'Attestation_Reussite_' . $individuelle->user->firstname . '_' . $individuelle->user->name . '.pdf';
         return $dompdf->stream($name, ['Attachment' => true]);
     } */
-    /* 
+    /*
 
     public function telechargerToutesAttestationsReussite(int $formationId)
     {
@@ -755,7 +755,7 @@ class AttestationController extends Controller
                 $viewName = match ($niveauQualification) {
                     'Attestation' => 'formations.individuelles.attestation_reussite',
                     'Titre de qualification' => 'formations.individuelles.titre_reussite',
-                    default => 'formations.individuelles.attestation_reussite',
+                    default => 'formations.individuelles.titre_reussite',
                 };
 
                 // Rendu HTML → PDF
@@ -980,7 +980,7 @@ class AttestationController extends Controller
         $viewName = match ($niveauQualification) {
             'Attestation' => 'formations.collectives.attestation_reussite',
             'Titre de qualification' => 'formations.collectives.titre_reussite',
-            default => 'formations.collectives.attestation_reussite',
+            default => 'formations.collectives.titre_reussite',
         };
 
         $html = View::make($viewName, compact(
@@ -1303,7 +1303,7 @@ class AttestationController extends Controller
                 $viewName = match ($niveauQualification) {
                     'Attestation' => 'formations.collectives.attestation_reussite',
                     'Titre de qualification' => 'formations.collectives.titre_reussite',
-                    default => 'formations.collectives.attestation_reussite',
+                    default => 'formations.collectives.titre_reussite',
                 };
 
                 $html = View::make($viewName, compact(

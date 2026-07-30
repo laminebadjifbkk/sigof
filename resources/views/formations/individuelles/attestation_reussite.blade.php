@@ -382,7 +382,7 @@
             line-height: 1.1;
             text-align: center;
             letter-spacing: 0.5px;
-            font-size: 9pt;
+            font-size: 8pt;
             font-weight: bold;
             font-style: italic;
         }
