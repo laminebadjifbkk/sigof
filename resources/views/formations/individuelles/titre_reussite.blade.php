@@ -271,14 +271,12 @@
             font-style: normal;
         }
 
-        /* ── Pied : date + signature ── */
-        /* ── Pied : date + signature ───────────────────────────── */
         .footer {
             position: absolute;
             right: 20mm;
-            bottom: 31mm;
+            bottom: 27mm;
+            /* était 16mm → descend le bloc de 5mm */
             width: auto;
-
             display: flex;
             justify-content: flex-end;
             align-items: flex-end;
@@ -413,14 +411,14 @@
             left: 28mm;
             /* au lieu de margin-left, plus fiable en position absolute */
             z-index: 1;
-            width: 30mm;
+            width: 25mm;
             /* largeur fixe = empêche le débordement/troncature du texte */
             text-align: center;
         }
 
         .qr-zone img {
-            width: 22mm;
-            height: 22mm;
+            width: 18mm;
+            height: 18mm;
             display: block;
             margin: 0 auto;
             padding: 0;
@@ -488,7 +486,7 @@
 
             {{-- Logo --}}
             <div class="logo-wrap">
-                <img class="logo-onfp"
+                <img
                     src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo_sigle.png'))) }}"
                     alt="Logo ONFP" />
             </div>
