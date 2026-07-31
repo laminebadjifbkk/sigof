@@ -244,7 +244,7 @@
         }
 
         .corps .text-intro-numero {
-            font-size: 9pt;
+            font-size: 8pt;
             font-weight: normal;
             font-family: Candara, Calibri, "Trebuchet MS", Arial, sans-serif;
             letter-spacing: 1px;
