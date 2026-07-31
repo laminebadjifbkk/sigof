@@ -271,14 +271,12 @@
             font-style: normal;
         }
 
-        /* ── Pied : date + signature ── */
-        /* ── Pied : date + signature ───────────────────────────── */
         .footer {
             position: absolute;
             right: 20mm;
-            bottom: 31mm;
+            bottom: 28mm;
+            /* était 16mm → descend le bloc de 5mm */
             width: auto;
-
             display: flex;
             justify-content: flex-end;
             align-items: flex-end;
@@ -303,14 +301,6 @@
             right: 36mm;
         }
 
-        /* Fonction */
-        .signature-block .titre-sig {
-            font-size: 12pt;
-            font-weight: normal;
-            font-weight: bold;
-            margin: 1mm 0 15mm 0;
-        }
-
         .signature-block .titre-sig {
             font-size: 12pt;
             font-weight: bold;
@@ -326,6 +316,8 @@
             padding: 0;
             line-height: 1;
             margin-right: 12mm;
+            position: relative;
+            transform: translateY(-4mm);
         }
 
         .signature-block>*:last-child {

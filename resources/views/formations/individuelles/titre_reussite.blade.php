@@ -274,7 +274,7 @@
         .footer {
             position: absolute;
             right: 20mm;
-            bottom: 27mm;
+            bottom: 28mm;
             /* était 16mm → descend le bloc de 5mm */
             width: auto;
             display: flex;
@@ -316,6 +316,8 @@
             padding: 0;
             line-height: 1;
             margin-right: 12mm;
+            position: relative;
+            transform: translateY(-4mm);
         }
 
         .signature-block>*:last-child {
@@ -486,8 +488,7 @@
 
             {{-- Logo --}}
             <div class="logo-wrap">
-                <img
-                    src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo_sigle.png'))) }}"
+                <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo_sigle.png'))) }}"
                     alt="Logo ONFP" />
             </div>
 
