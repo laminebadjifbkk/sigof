@@ -281,7 +281,7 @@
                         <h3>Documents justificatifs</h3>
                         <label class="upload-box" for="file-identite" style="display:block; cursor:pointer;">
                             <strong>Pièce d'identité</strong><br>
-                            <span class="file-name">Glissez un fichier ou cliquez pour parcourir (PDF, JPG, JPEG, PNG - 5
+                            <span class="file-name">Glissez un fichier ou cliquez pour parcourir (PDF, JPG, JPEG, PNG - 2
                                 Mo
                                 max)</span>
 
@@ -293,7 +293,7 @@
                         </label>
                         <label class="upload-box" for="file-diplome" style="display:block; cursor:pointer;">
                             <strong>Diplôme (Licence / Master ou équivalent)</strong><br>
-                            <span class="file-name">Glissez un fichier ou cliquez pour parcourir (PDF, JPG, JPEG, PNG - 5
+                            <span class="file-name">Glissez un fichier ou cliquez pour parcourir (PDF, JPG, JPEG, PNG - 2
                                 Mo
                                 max)</span>
                             <input type="file" id="file-diplome" name="diplome_fichier" accept=".pdf,.jpg,.jpeg,.png"
@@ -306,7 +306,7 @@
                             <strong>Certifications linguistiques (Optionnel mais recommandé)</strong><br>
                             <span class="file-name">Glissez un fichier ou cliquez pour parcourir (TOEIC, DELE, HSK, JLPT…
                                 selon la langue choisie (PDF
-                                - 5 Mo max))</span>
+                                - 2 Mo max))</span>
                             <input type="file" id="file-certif" name="certification_fichier"
                                 accept=".pdf,.jpg,.jpeg,.png" hidden>
                             @error('certification_fichier')
@@ -315,7 +315,7 @@
                         </label>
                         <label class="upload-box" for="file-cv" style="display:block; cursor:pointer;">
                             <strong>CV à jour</strong><br>
-                            <span class="file-name">Glissez un fichier ou cliquez pour parcourir (PDF, JPG, JPEG, PNG - 5
+                            <span class="file-name">Glissez un fichier ou cliquez pour parcourir (PDF, JPG, JPEG, PNG - 2
                                 Mo
                                 max)</span>
                             <input type="file" id="file-cv" name="cv" accept=".pdf,.jpg,.jpeg,.png" hidden>
