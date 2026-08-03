@@ -44,7 +44,7 @@
                                         {{ Str::upper(Str::substr($c?->user?->firstname ?? '', 0, 1) . Str::substr($c?->user?->name ?? '', 0, 1)) }}
                                     </span>
 
-                                    {{ trim(($c?->user?->civilite ?? '') . ' ' . ($c?->user?->firstname ?? '') . ' ' . ($c?->user?->name ?? '')) }}
+                                    {{ trim(($c?->user?->civilite ?? '')) }}
                                 </div>
                             </td>
                             <td>
