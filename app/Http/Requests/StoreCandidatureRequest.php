@@ -61,9 +61,9 @@ class StoreCandidatureRequest extends FormRequest
             'delegation_souhaitee'  => ['nullable', 'string', 'max:255'],
 
             // Étape 4 — Documents
-            'piece_identite'          => ['required', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:1024'],
+            'piece_identite'          => ['required', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:2048'],
             'diplome_fichier'         => ['required', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:2048'],
-            'certification_fichier'   => ['nullable', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:1024'],
+            'certification_fichier'   => ['nullable', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:2048'],
             'cv'                       => ['required', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:2048'],
             'attestation'              => ['required', 'accepted'],
         ];
@@ -92,7 +92,7 @@ class StoreCandidatureRequest extends FormRequest
             'unique'    => 'Cette adresse e-mail est déjà utilisée.',
             'accepted'  => 'Vous devez accepter la charte du programme.',
             'mimes'     => 'Le format du fichier :attribute n\'est pas accepté.',
-            'max'       => 'Le fichier :attribute dépasse la taille maximale autorisée (5 Mo).',
+            'max'       => 'Le fichier :attribute dépasse la taille maximale autorisée (2 Mo).',
         ];
     }
 }
