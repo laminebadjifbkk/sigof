@@ -212,10 +212,10 @@ class CandidatureController extends Controller
             'delegation_souhaitee'  => ['nullable', 'string'],
 
             // Fichiers optionnels : uniquement validés s'ils sont envoyés
-            'piece_identite'         => ['nullable', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:5120'],
-            'diplome_fichier'        => ['nullable', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:5120'],
-            'certification_fichier'  => ['nullable', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:5120'],
-            'cv'                      => ['nullable', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:5120'],
+            'piece_identite'         => ['nullable', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:2048'],
+            'diplome_fichier'        => ['nullable', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:2048'],
+            'certification_fichier'  => ['nullable', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:2048'],
+            'cv'                      => ['nullable', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:2048'],
         ]);
 
         // Correspondance champ formulaire -> [colonne base, dossier de stockage]
