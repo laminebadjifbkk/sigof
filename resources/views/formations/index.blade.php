@@ -411,22 +411,6 @@
                                         </div>
                                     </div>
 
-                                    {{-- <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                        <label for="code" class="form-label">Code<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <div class="input-group has-validation">
-                                            <input type="text" name="code"
-                                                value="{{ $numFormation ?? old('code') }}"
-                                                class="form-control form-control-sm @error('code') is-invalid @enderror"
-                                                id="code" placeholder="code">
-                                            @error('code')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <div>{{ $message }}</div>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div> --}}
-
                                     <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <label for="departement" class="form-label">Département<span
                                                 class="text-danger mx-1">*</span></label>
@@ -597,6 +581,22 @@
                                                 <div>{{ $message }}</div>
                                             </span>
                                         @enderror
+                                    </div>
+
+                                    <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                        <label for="code" class="form-label">Code<span
+                                                class="text-danger mx-1">*</span></label>
+                                        <div class="input-group has-validation">
+                                            <input type="text" name="code"
+                                                value="{{ $numFormation ?? old('code') }}"
+                                                class="form-control form-control-sm @error('code') is-invalid @enderror"
+                                                id="code" placeholder="code">
+                                            @error('code')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
 
                                 </div>

@@ -18,9 +18,9 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-sm-12 pt-2">
-                                        <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('formations.show', $formation) }}"
-                                                class="btn btn-success btn-sm" title="retour"><i
-                                                    class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
+                                        <span class="d-flex mt-2 align-items-baseline"><a
+                                                href="{{ route('formations.show', $formation) }}" class="btn btn-success btn-sm"
+                                                title="retour"><i class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                                             <p> | Formations</p>
                                         </span>
                                     </div>
@@ -56,22 +56,7 @@
                                         @enderror
                                     </div>
 
-                                    {{-- <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                        <label for="code" class="form-label">Code<span
-                                                class="text-danger mx-1">*</span></label>
-                                        <div class="input-group has-validation">
-                                            <input type="text" name="code" value="{{ $formation?->code ?? old('code') }}"
-                                                class="form-control form-control-sm @error('code') is-invalid @enderror"
-                                                id="code" placeholder="Numéro de correspondance">
-                                            @error('code')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <div>{{ $message }}</div>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div> --}}
-
-                                    <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                         <label for="departement" class="form-label">Département<span
                                                 class="text-danger mx-1">*</span></label>
                                         <select name="departement"
@@ -92,7 +77,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                         <label for="lieu" class="form-label">Lieu formation<span
                                                 class="text-danger mx-1">*</span></label>
                                         <input type="text" name="lieu" value="{{ $formation?->lieu ?? old('lieu') }}"
@@ -105,7 +90,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                         <label for="types_formation" class="form-label">Type demande<span
                                                 class="text-danger mx-1">*</span></label>
                                         <select name="types_formation"
@@ -126,6 +111,22 @@
                                                 <div>{{ $message }}</div>
                                             </span>
                                         @enderror
+                                    </div>
+
+                                    <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
+                                        <label for="code" class="form-label">Code<span
+                                                class="text-danger mx-1">*</span></label>
+                                        <div class="input-group has-validation">
+                                            <input type="text" name="code"
+                                                value="{{ $formation?->code ?? old('code') }}"
+                                                class="form-control form-control-sm @error('code') is-invalid @enderror"
+                                                id="code" placeholder="Numéro de correspondance">
+                                            @error('code')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
 
                                     <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
@@ -482,8 +483,8 @@
                                         <label for="lettre_mission_file" class="form-label">Fichier</label>
                                         @if (!empty($formation?->lettre_mission_file))
                                             <div>
-                                                <a class="btn btn-outline-secondary btn-sm" title="LM Evaluateur" target="_blank"
-                                                    href="{{ asset($formation->getFileLM()) }}">
+                                                <a class="btn btn-outline-secondary btn-sm" title="LM Evaluateur"
+                                                    target="_blank" href="{{ asset($formation->getFileLM()) }}">
                                                     <i class="bi bi-file-earmark-pdf"></i>
                                                 </a>
                                             </div>

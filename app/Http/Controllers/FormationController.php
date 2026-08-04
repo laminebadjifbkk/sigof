@@ -95,7 +95,7 @@ class FormationController extends Controller
         $programmes   = Programme::orderBy("created_at", "desc")->get();
         $types_formations = TypesFormation::orderBy("created_at", "desc")->get();
 
-        /* $anneeEnCours = date('Y');
+        $anneeEnCours = date('Y');
         $an           = date('y');
 
         $numFormation = DB::transaction(function () use ($an) {
@@ -113,7 +113,7 @@ class FormationController extends Controller
             }
 
             return 'F' . $an . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
-        }); */
+        });
 
         /*  $annee = $request->input('annee', date('Y'));
         $an = substr($annee, -2);
@@ -154,7 +154,7 @@ class FormationController extends Controller
                 'types_formations',
                 'projets',
                 'programmes',
-                /* 'numFormation', */
+                'numFormation',
                 /* 'title', */
                 'formations_annee',
                 'formations_statut',
@@ -272,7 +272,7 @@ class FormationController extends Controller
                 'types_formations',
                 'projets',
                 'programmes',
-                /* 'numFormation', */
+                'numFormation',
                 /* 'title', */
                 'formations_annee',
                 'formations_statut',
@@ -748,7 +748,7 @@ class FormationController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            /* "code"               => "required|string|min:7|max:8|unique:formations,code", */
+            "code"               => "required|string|min:7|max:8|unique:formations,code",
             "annee"               => "required|string|size:4",
             "name"               => "required|string",
             "intitule"           => "required|string",
@@ -836,7 +836,7 @@ class FormationController extends Controller
             return 'F' . $an . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
         }); */
 
-        $annee = $request->input('annee', date('Y'));
+        /* $annee = $request->input('annee', date('Y'));
         $an = substr($annee, -2);
 
         $numFormation = DB::transaction(function () use ($an) {
@@ -853,11 +853,10 @@ class FormationController extends Controller
             }
 
             return 'F' . $an . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
-        });
-
+        }); */
 
         $formation = new Formation([
-            "code"                => $numFormation,
+            "code"                => $request->input('code'),
             "name"                => $request->input('name'),
             "intitule"            => $request->input('intitule'),
             "regions_id"          => $departement->region->id,
@@ -945,7 +944,7 @@ class FormationController extends Controller
     public function update(Request $request, Formation $formation)
     {
         $this->validate($request, [
-            /* "code" => "required|string|unique:formations,code,{$formation->id}", */
+            "code" => "required|string|unique:formations,code,{$formation->id}",
             /* "name"               => "required|string|unique:formations,name,{$formation->id}", */
             "annee"               => "required|string|size:4",
             "name"               => "required|string",
@@ -1074,7 +1073,7 @@ class FormationController extends Controller
         }); */
 
         $formation->update([
-            /* "code"                     => $numFormation, */
+            "code"                     => $request->input('code'),
             "name"                     => $request->input('name'),
             "intitule"                 => $request->input('intitule'),
             "regions_id"               => $request->input('region'),
