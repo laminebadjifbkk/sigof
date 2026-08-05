@@ -95,7 +95,6 @@ class FormationController extends Controller
         $programmes   = Programme::orderBy("created_at", "desc")->get();
         $types_formations = TypesFormation::orderBy("created_at", "desc")->get();
 
-        $anneeEnCours = date('Y');
         $an           = date('y');
 
         $numFormation = DB::transaction(function () use ($an) {
@@ -259,6 +258,25 @@ class FormationController extends Controller
 
 
         $totalAffichees = $formations->count();
+
+        $an           = date('y');
+
+        $numFormation = DB::transaction(function () use ($an) {
+
+            $lastFormation = Formation::where('code', 'like', 'F' . $an . '%')
+                ->lockForUpdate()
+                ->orderByDesc('code')
+                ->first();
+
+            if ($lastFormation) {
+                $lastNumber = (int) substr($lastFormation->code, -4);
+                $nextNumber = $lastNumber + 1;
+            } else {
+                $nextNumber = 1;
+            }
+
+            return 'F' . $an . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
+        });
 
         return view(
             "formations.index",
