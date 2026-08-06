@@ -42,8 +42,8 @@ class StoreArriveRequest extends FormRequest
             ],
             "numero_reponse"      => ["string", "min:6", "max:15", "nullable"],
             'annee'               => ['required', 'numeric', 'min:2022'],
-            'expediteur'          => ['required', 'string', 'max:200'],
-            'objet'               => ['required', 'string', 'max:200'],
+            'expediteur'          => ['required', 'string', 'max:300'],
+            'objet'               => ['required', 'string', 'max:300'],
             'scan'                => ['nullable', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:10000'],
         ];
     }
