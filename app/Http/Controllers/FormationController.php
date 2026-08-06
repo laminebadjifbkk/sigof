@@ -5822,7 +5822,7 @@ class FormationController extends Controller
 
         $name = 'Lettre_mission_formation_code_' . $formation->code . '.pdf';
         // Output the generated PDF to Browser
-        return $dompdf->stream($name, ['Attachment' => true]);
+        return $dompdf->stream($name, ['Attachment' => false]);
     }
 
     public function downloadDemandePaiement($formationId)
