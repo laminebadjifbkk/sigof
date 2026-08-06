@@ -134,7 +134,7 @@
 
                                     <div class="col-12">
                                         <label class="form-label">Expéditeur <span class="text-danger">*</span></label>
-                                        <textarea name="expediteur" rows="2" placeholder="Propritaire du courrier"
+                                        <textarea name="expediteur" rows="4" placeholder="Propritaire du courrier"
                                             class="form-control form-control-sm @error('expediteur') is-invalid @enderror">{{ old('expediteur') }}</textarea>
                                         @error('expediteur')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -143,7 +143,7 @@
 
                                     <div class="col-12">
                                         <label class="form-label">Objet <span class="text-danger">*</span></label>
-                                        <textarea name="objet" rows="2" placeholder="Objet sur le courrier"
+                                        <textarea name="objet" rows="4" placeholder="Objet sur le courrier"
                                             class="form-control form-control-sm @error('objet') is-invalid @enderror">{{ old('objet') }}</textarea>
                                         @error('objet')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -179,7 +179,7 @@
 
                                     <div class="col-12">
                                         <label class="form-label">Observations</label>
-                                        <textarea name="observation" rows="2"
+                                        <textarea name="observation" rows="4" placeholder="Observations"
                                             class="form-control form-control-sm @error('observation') is-invalid @enderror">{{ old('observation') }}</textarea>
                                         @error('observation')
                                             <div class="invalid-feedback">{{ $message }}</div>
