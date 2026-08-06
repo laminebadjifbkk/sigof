@@ -258,7 +258,7 @@ class LettrevaluationController extends Controller
         $dompdf->render();
 
         $name = 'Demande_paiement_' . $formation->code . '.pdf';
-        return $dompdf->stream($name, ['Attachment' => true]);
+        return $dompdf->stream($name, ['Attachment' => false]);
     }
 
     public function telechargerlettreMission(Lettrevaluation $lettrevaluation)
