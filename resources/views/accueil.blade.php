@@ -439,17 +439,17 @@
 
                         <div class="info-wrapper">
                             <div class="row gy-4">
-                                <div class="col-lg-6">
+                                <div class="col-lg-8">
                                     <div class="profile d-flex align-items-center gap-3">
-                                        <img src="{{ asset('asset/img/dg.png') }}" alt="DG ONFP"
+                                        <img src="{{ asset('asset/img/directrice.jpeg') }}" alt="DG ONFP"
                                             class="profile-image">
                                         <div>
-                                            <h4 class="profile-name"><b>M. Lamine Bara LO</b></h4>
-                                            <p class="profile-position">Directeur Général</p>
+                                            <h4 class="profile-name"><b>Dr. Mame Awa NDOYE</b></h4>
+                                            <p class="profile-position">Directrice Générale</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-8">
                                     <div class="contact-info d-flex align-items-center gap-2">
                                         <i class="bi bi-telephone-fill"></i>
                                         <div>
@@ -466,8 +466,8 @@
                             <div class="images position-relative" data-aos="zoom-out" data-aos-delay="400">
                                 <img src="{{ asset('asset/img/about5.jpg') }}" alt="Image 5"
                                     class="img-fluid main-image rounded-4">
-                                <img src="{{ asset('asset/img/about2.jpg') }}" alt="Image 2"
-                                    class="img-fluid small-image rounded-4">
+                                {{-- <img src="{{ asset('asset/img/about2.jpg') }}" alt="Image 2"
+                                    class="img-fluid small-image rounded-4"> --}}
                             </div>
                             <div class="experience-badge floating">
                                 <h3>{{ $anciennete }}+ <span>ans</span></h3>
