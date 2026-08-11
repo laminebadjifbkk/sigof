@@ -9,8 +9,9 @@
                 <div class="footer-contact pt-0">
                     <p>Direction générale</p>
                     <p>Sipres 1, lot 2 - 2 voies liberté 6 extension VDN, Dakar</p>
-                    <p class="mt-3"><strong>Téléphone : </strong> <span><a href="tel:+2211338279251">+221 33 827
+                    <p class="mt-3"><strong>Téléphone fixe : </strong> <span><a href="tel:+2211338279251">+221 33 827
                                 92 51</a></span></p>
+                    <p class="mt-3"><strong>Téléphone portable : </strong> <span><a href="tel:+2211338279251">+221 78 780 44 11</a></span></p>
                     <p><strong>Email : </strong> <span><a href="mailto:onfp@onfp.sn">onfp@onfp.sn</a></span></p>
                 </div>
                 <div class="social-links d-flex mt-4">
@@ -22,7 +23,7 @@
                             class="bi bi-linkedin"></i></a>
                     <a href="https://www.youtube.com/@CelluleCommunicationONFP/shorts" target="_blank"><i
                             class="bi bi-youtube"></i></a>
-                    <a href="https://wa.me/221772911838" target="_blank"><i class="bi bi-whatsapp"></i></a>
+                    <a href="https://wa.me/221787804411" target="_blank"><i class="bi bi-whatsapp"></i></a>
                 </div>
             </div>
 
