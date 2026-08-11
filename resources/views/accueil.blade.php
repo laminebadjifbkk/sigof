@@ -449,7 +449,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-8">
+                                {{-- <div class="col-lg-8">
                                     <div class="contact-info d-flex align-items-center gap-2">
                                         <i class="bi bi-telephone-fill"></i>
                                         <div>
@@ -457,7 +457,7 @@
                                             <p class="contact-number">+221 33 827 92 51</p>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -466,8 +466,8 @@
                             <div class="images position-relative" data-aos="zoom-out" data-aos-delay="400">
                                 <img src="{{ asset('asset/img/about5.jpg') }}" alt="Image 5"
                                     class="img-fluid main-image rounded-4">
-                                {{-- <img src="{{ asset('asset/img/about2.jpg') }}" alt="Image 2"
-                                    class="img-fluid small-image rounded-4"> --}}
+                                <img src="{{ asset('asset/img/directrice.jpeg') }}" alt="Image 2"
+                                    class="img-fluid small-image rounded-4">
                             </div>
                             <div class="experience-badge floating">
                                 <h3>{{ $anciennete }}+ <span>ans</span></h3>
