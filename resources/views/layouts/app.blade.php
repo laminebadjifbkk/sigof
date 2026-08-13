@@ -412,7 +412,7 @@
         .hero {
             background:
                 linear-gradient(180deg, rgba(212, 241, 249, 0.7) 0%, rgba(212, 241, 249, 0.55) 100%),
-                url('{{ asset('assets/img/ylp-campaign-photo.jpg') }}') right bottom / 78% auto no-repeat;
+                url('{{ asset('assets/img/ylp-campaign-photo.jpg') }}') right bottom / 68% auto no-repeat;
             background-color: #D4F1F9;
         }
 
@@ -625,6 +625,7 @@
             color: var(--gray-500);
             margin-top: 5px;
         }
+
     </style>
     @stack('styles')
 </head>

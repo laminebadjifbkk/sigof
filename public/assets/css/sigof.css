@@ -463,7 +463,7 @@ nav.main-nav {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
 }
 
 .hero-bubble-card {
