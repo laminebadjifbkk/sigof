@@ -625,7 +625,7 @@ section.block {
 }
 
 .lang-card {
-  border: 2px solid var(--black);
+  border: 2px solid var(--green);
   border-radius: 20px 20px 20px 6px;
   padding: 16px;
   background: var(--cream);
@@ -634,7 +634,7 @@ section.block {
 
 .lang-card:hover {
   transform: translateY(-3px);
-  box-shadow: 6px 6px 0 var(--black);
+  box-shadow: 6px 6px 0 var(--green);
 }
 
 .lang-card .lc-top {

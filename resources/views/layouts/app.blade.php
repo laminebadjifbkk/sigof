@@ -647,6 +647,33 @@
             color: var(--gray-500);
             margin-top: 5px;
         }
+
+        .lang-card {
+            border: 2px solid var(--green);
+            border-radius: 20px 20px 20px 6px;
+            padding: 16px;
+            background: var(--cream);
+            transition: transform .15s ease, box-shadow .15s ease;
+        }
+
+        .lang-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 6px 6px 0 var(--green);
+        }
+
+
+        .prog-card {
+            border: 2px solid var(--green);
+            border-radius: 26px 26px 26px 6px;
+            padding: 26px;
+            background: var(--cream);
+            transition: transform .15s ease, box-shadow .15s ease;
+        }
+
+        .prog-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 8px 8px 0 var(--green);
+        }
     </style>
     @stack('styles')
 </head>
