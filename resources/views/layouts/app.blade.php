@@ -625,7 +625,6 @@
             color: var(--gray-500);
             margin-top: 5px;
         }
-
     </style>
     @stack('styles')
 </head>

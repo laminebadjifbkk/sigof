@@ -15,8 +15,8 @@
         </svg>
         <div class="container">
             <div>
-                <p class="eyebrow">Youth Linguists Programme (YLP)</p>
-                <h1>Rejoins le <em>YLP</em></h1>
+                {{-- <p class="eyebrow">Youth Linguists Programme (YLP)</p> --}}
+                <h1>Rejoins le <em>Youth Linguists Programme</em></h1>
                 <p class="eyebrow">Partenariat ONFP × COJOJ - Dakar 2026</p>
                 <p class="lead">
                     Cette plateforme ouvre les inscriptions au programme de formation et de mobilisation des Junior
@@ -27,10 +27,8 @@
                     <a href="{{ route('connexion') }}" class="btn btn-ghost">Accéder à mon espace</a>
                 </div>
 
-                {{-- Compte à rebours vers l'ouverture des Jeux (31 octobre 2026, 00:00 UTC = heure de Dakar).
-             $gamesOpeningDate est passé par PageController@home ; valeur de secours ci-dessous si absent. --}}
                 <div class="countdown" id="heroCountdown"
-                    data-target="{{ $gamesOpeningDate ?? '2026-10-01T00:00:00+00:00' }}" role="timer" aria-live="off"
+                    data-target="{{ '2026-10-01T00:00:00+00:00' }}" role="timer" aria-live="off"
                     aria-label="Compte à rebours avant le démarrage des formations">
                     <div class="cd-item"><span class="cd-num" data-cd="days">00</span><span class="cd-label">Jours</span>
                     </div>
