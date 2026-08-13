@@ -688,6 +688,14 @@
                 margin-top: 3cm;
             }
         }
+
+        .dash-sidebar {
+            background: var(--green);
+            color: var(--cream);
+            padding: 26px 18px;
+            display: flex;
+            flex-direction: column;
+        }
     </style>
     @stack('styles')
 </head>
