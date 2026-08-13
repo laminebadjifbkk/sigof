@@ -70,7 +70,6 @@ class CandidatureController extends Controller
 
     public function store(StoreCandidatureRequest $request)
     {
-        dd($request->input("langue_specialisation"));
         /* return redirect()->back()
             ->with('error', 'Les candidatures ne sont pas encore ouvertes.'); */
 
@@ -134,7 +133,7 @@ class CandidatureController extends Controller
                 'date_naissance' => $validated['date_naissance'],
                 'lieu_naissance' => $validated['lieu_naissance'],
                 'adresse'        => $validated['adresse'],
-                'diplome_academique' => $validated['diplome_academique'],
+                'diplome_academique' => $validated['diplome'],
                 'password'       => Hash::make(Str::random(16)), // mot de passe temporaire
             ]);
 
@@ -144,7 +143,7 @@ class CandidatureController extends Controller
                 'numero'                           => $numero_individuelle,
                 'adresse'                          => $request->input('adresse'),
                 'telephone'                        => $request->input('telephone'),
-                'diplome_academique'               => $request->input('diplome_academique'),
+                'diplome_academique'               => $request->input('diplome'),
                 "departements_id"                  => $departement->id,
                 "regions_id"                       => $regionid,
                 "modules_id"                       => $module->id,

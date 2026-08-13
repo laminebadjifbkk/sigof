@@ -76,8 +76,8 @@
                         <h3>Informations personnelles</h3>
 
                         <div class="field-row">
-                            <div class="field"><label>CIN <span class="required-marker">*</span></label><input type="text" name="cin"
-                                    value="{{ old('cin') }}" placeholder="1099200200090">
+                            <div class="field"><label>CIN <span class="required-marker">*</span></label><input
+                                    type="text" name="cin" value="{{ old('cin') }}" placeholder="1099200200090">
                                 @error('cin')
                                     <span class="field-error">{{ $message }}</span>
                                 @enderror
@@ -96,34 +96,37 @@
                         </div>
 
                         <div class="field-row">
-                            <div class="field"><label>Prénom <span class="required-marker">*</span></label><input type="text" name="prenom"
-                                    value="{{ old('prenom') }}" placeholder="Awa">
+                            <div class="field"><label>Prénom <span class="required-marker">*</span></label><input
+                                    type="text" name="prenom" value="{{ old('prenom') }}" placeholder="Awa">
                                 @error('prenom')
                                     <span class="field-error">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="field"><label>Nom <span class="required-marker">*</span></label><input type="text" name="nom"
-                                    value="{{ old('nom') }}" placeholder="Diop">
+                            <div class="field"><label>Nom <span class="required-marker">*</span></label><input
+                                    type="text" name="nom" value="{{ old('nom') }}" placeholder="Diop">
                                 @error('nom')
                                     <span class="field-error">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="field"><label>Adresse e-mail <span class="required-marker">*</span></label><input type="email" name="email"
-                                value="{{ old('email') }}" placeholder="awa.diop@exemple.sn">
+                        <div class="field"><label>Adresse e-mail <span class="required-marker">*</span></label><input
+                                type="email" name="email" value="{{ old('email') }}"
+                                placeholder="awa.diop@exemple.sn">
                             @error('email')
                                 <span class="field-error">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="field-row">
-                            <div class="field"><label>Téléphone <span class="required-marker">*</span></label><input type="tel" name="telephone"
-                                    value="{{ old('telephone') }}" placeholder="77 000 00 00">
+                            <div class="field"><label>Téléphone <span class="required-marker">*</span></label><input
+                                    type="tel" name="telephone" value="{{ old('telephone') }}"
+                                    placeholder="77 000 00 00">
                                 @error('telephone')
                                     <span class="field-error">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="field"><label>Date de naissance <span class="required-marker">*</span></label><input type="date"
+                            <div class="field"><label>Date de naissance <span
+                                        class="required-marker">*</span></label><input type="date"
                                     name="date_naissance" value="{{ old('date_naissance') }}">
                                 @error('date_naissance')
                                     <span class="field-error">{{ $message }}</span>
@@ -186,21 +189,26 @@
                     </div>
 
                     <div class="reg-step" data-step="2">
-                        <h3>Niveau d'étude</h3>
-                        <div class="field"><label>Diplôme académique <span class="required-marker">*</span></label>
-                            <input type="text" name="diplome_academique" value="{{ old('diplome_academique') }}"
-                                placeholder="Master 2 en anglais">
-                            @error('diplome_academique')
+                        <h3>Diplôme et langue de spécialisation (LV1)</h3>
+                        <div class="field"><label>Diplôme le plus élevé <span class="required-marker">*</span></label>
+                            <select name="diplome">
+                                <option value="">-- Choisissez --</option>
+                                <option value="licence">Licence</option>
+                                <option value="master">Master</option>
+                                <option value="doctorat">Doctorat</option>
+                                <option value="certification">Certification linguistique reconnue</option>
+                            </select>
+                            @error('certification')
                                 <span class="field-error">{{ $message }}</span>
                             @enderror
                         </div>
-                        <h3>Langue de spécialisation (LV1)</h3>
-                        <div class="field"><label>Langue choisie - niveau C1 requis <span class="required-marker">*</span></label>
+                        <div class="field"><label>Langue choisie - niveau C1 requis <span
+                                    class="required-marker">*</span></label>
                             <select name="langue_specialisation" id="specLang">
                                 <option value="" disabled @selected(!old('langue_specialisation'))>-- Choisissez une langue --
                                 </option>
                                 @foreach ($languesSpecialisations as $langue)
-                                    <option value="{{ $langue->code }}" @selected(old('langue_specialisation', '') == $langue->code)>
+                                    <option value="{{ $langue->nom }}" @selected(old('langue_specialisation', '') == $langue->nom)>
                                         {{ $langue->nom }}
                                         <!-- {{ $langue->nom }} - {{ $langue->postes_disponibles }} candidat{{ $langue->postes_disponibles > 1 ? 's' : '' }} à former - {{ $langue->niveau_langue_requis }} -->
                                     </option>
@@ -210,23 +218,9 @@
                                 <span class="field-error">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="field-row">
-                            <div class="field"><label>Certification obtenue (si applicable)</label><input type="text"
-                                    name="certification" value="{{ old('certification') }}"
-                                    placeholder="Ex : DELE C1, HSK 5…"></div>
-                            <div class="field"><label>Diplôme le plus élevé</label>
-                                <select name="diplome">
-                                    <option value="">-- Choisissez --</option>
-                                    <option value="licence">Licence</option>
-                                    <option value="master">Master</option>
-                                    <option value="doctorat">Doctorat</option>
-                                    <option value="certification">Certification linguistique reconnue</option>
-                                </select>
-                                @error('certification')
-                                    <span class="field-error">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
+                        <div class="field"><label>Certification obtenue (si applicable)</label><input type="text"
+                                name="certification" value="{{ old('certification') }}"
+                                placeholder="Ex : DELE C1, HSK 5…"></div>
                         <h3 style="margin-top:24px;">Autres langues</h3>
                         <div class="field-row">
                             <div class="field"><label>Langue maternelle <span class="required-marker">*</span></label>
@@ -259,7 +253,8 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="field"><label>Langue vivante 2 (LV2) - niveau B2 minimum <span class="required-marker">*</span></label>
+                        <div class="field"><label>Langue vivante 2 (LV2) - niveau B2 minimum <span
+                                    class="required-marker">*</span></label>
                             <select name="langue_vivante_2">
                                 <option value="">-- Choisissez --</option>
                                 <option value="arabe">Arabe</option>
@@ -281,9 +276,11 @@
                     <div class="reg-step" data-step="3">
                         <h3>Disponibilité et affectation</h3>
                         <div class="field-row">
-                            <div class="field"><label>Disponible à partir du <span class="required-marker">*</span></label><input type="date"
+                            <div class="field"><label>Disponible à partir du <span
+                                        class="required-marker">*</span></label><input type="date"
                                     name="disponible_debut" value="{{ old('disponible_debut') }}"></div>
-                            <div class="field"><label>Disponible jusqu'au <span class="required-marker">*</span></label><input type="date"
+                            <div class="field"><label>Disponible jusqu'au <span
+                                        class="required-marker">*</span></label><input type="date"
                                     name="disponible_fin" value="{{ old('disponible_fin') }}"></div>
                             @error('disponible_debut')
                                 <span class="field-error">{{ $message }}</span>
@@ -323,7 +320,8 @@
                             @enderror
                         </label>
                         <label class="upload-box" for="file-diplome" style="display:block; cursor:pointer;">
-                            <strong>Diplôme (Licence / Master ou équivalent) <span class="required-marker">*</span></strong><br>
+                            <strong>Diplôme (Licence / Master ou équivalent) <span
+                                    class="required-marker">*</span></strong><br>
                             <span class="file-name">Glissez un fichier ou cliquez pour parcourir (PDF, JPG, JPEG, PNG - 2
                                 Mo
                                 max)</span>
@@ -427,9 +425,13 @@
                                         <span class="recap-label">Adresse</span>
                                         <span class="recap-value" id="recap-adresse"></span>
                                     </div>
-                                    <div class="recap-item">
+                                    {{-- <div class="recap-item">
                                         <span class="recap-label">Région</span>
                                         <span class="recap-value" id="recap-region"></span>
+                                    </div> --}}
+                                    <div class="recap-item">
+                                        <span class="recap-label">Département</span>
+                                        <span class="recap-value" id="recap-departement"></span>
                                     </div>
                                 </div>
                             </div>
@@ -440,10 +442,6 @@
                                     <h4>Cursus</h4>
                                 </div>
                                 <div class="recap-grid">
-                                    <div class="recap-item">
-                                        <span class="recap-label">Diplôme académique</span>
-                                        <span class="recap-value" id="recap-diplome_academique"></span>
-                                    </div>
                                     <div class="recap-item">
                                         <span class="recap-label">Langue de spécialisation</span>
                                         <span class="recap-value" id="recap-langue_specialisation"></span>

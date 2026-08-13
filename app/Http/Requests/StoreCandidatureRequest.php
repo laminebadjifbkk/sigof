@@ -54,8 +54,7 @@ class StoreCandidatureRequest extends FormRequest
             'departement_id' => ['required', 'exists:departements,id'],
 
             // Étape 2 — Langues
-            'diplome_academique'    => 'required|string|max:255',
-            'langue_specialisation' => ['required', 'string', 'exists:langues_specialisations,code'],
+            'langue_specialisation' => ['required', 'string', 'exists:langues_specialisations,nom'],
             'certification'         => ['nullable', 'string', 'max:255'],
             'diplome'                => ['required', Rule::in(['licence', 'master', 'doctorat', 'certification'])],
             'langue_maternelle'      => ['required', 'string', 'max:200'],

@@ -824,10 +824,8 @@
                     'date_naissance')) || '-';
                 document.getElementById('recap-lieu_naissance').textContent = fieldValue('lieu_naissance') || '-';
                 document.getElementById('recap-adresse').textContent = fieldValue('adresse') || '-';
-                document.getElementById('recap-departement').textContent = selectTextFor('departement_id') || '-';
+                document.getElementById('recap-departement').textContent = fieldValue('departement_id') || '-';
 
-                document.getElementById('recap-diplome_academique').textContent = labelFor(
-                    'diplome_academique');
                 document.getElementById('recap-langue_specialisation').textContent = labelFor(
                     'langue_specialisation');
                 document.getElementById('recap-certification').textContent = fieldValue('certification') ||
