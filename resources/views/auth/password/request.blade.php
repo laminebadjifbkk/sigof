@@ -3,69 +3,6 @@
 @section('title', 'Mot de passe oublié')
 
 @section('content')
-    <style>
-        /* --- Charte "Youth Linguists Programme" (identique à la vue Connexion) --- */
-        .auth-side {
-            background: linear-gradient(180deg, #D4F1F9 0%, #E8F8FC 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .auth-side .eyebrow {
-            color: var(--green);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            font-size: 12.5px;
-        }
-
-        .auth-side h2 {
-            font-family: 'Bricolage Grotesque', sans-serif;
-            font-weight: 800;
-            color: #131416;
-            line-height: 1.15;
-        }
-
-
-
-        .auth-side .ylp-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 22px;
-            padding: 8px 14px;
-            background: #fff;
-            border-radius: 999px;
-            font-size: 12.5px;
-            font-weight: 700;
-            color: #131416;
-            box-shadow: 0 2px 8px rgba(19, 20, 22, 0.08);
-        }
-
-        .auth-side .ylp-badge .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--green);
-        }
-
-        .auth-side .rings-deco {
-            opacity: 0.9;
-        }
-
-        .auth-form-col .auth-card {
-            border-top: 4px solid var(--green);
-        }
-
-        .auth-card .btn-primary {
-            background: var(--green);
-            border-color: var(--green);
-        }
-
-        .auth-card .link-accent {
-            color: var(--green);
-        }
-    </style>
 
     <div class="auth-wrap">
         <div class="auth-side">

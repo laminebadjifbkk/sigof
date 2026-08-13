@@ -1,38 +1,4 @@
 {{-- partials/footer.blade.php - utilisé par layouts/app.blade.php (pas affiché sur le dashboard) --}}
-
-<style>
-    #siteFooter {
-        background: var(--green) !important;
-        color: #fff !important;
-    }
-
-    #siteFooter p,
-    #siteFooter li,
-    #siteFooter .motto {
-        color: rgba(255, 255, 255, 0.85) !important;
-    }
-
-    #siteFooter h5 {
-        color: #fff !important;
-    }
-
-    #siteFooter a {
-        color: #fff !important;
-    }
-
-    #siteFooter a:hover {
-        color: var(--gold) !important;
-    }
-
-    #siteFooter .brand-divider {
-        background: rgba(255, 255, 255, 0.25) !important;
-    }
-
-    #siteFooter .footer-bottom {
-        border-top-color: rgba(255, 255, 255, 0.2) !important;
-    }
-</style>
-
 <footer class="site" id="siteFooter">
     <div class="container">
         <div class="footer-grid">

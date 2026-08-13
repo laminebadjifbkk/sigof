@@ -407,6 +407,195 @@
             opacity: 1;
             transform: translateY(-2px);
         }
+
+        /* Nouveau style pour la page home */
+        .hero {
+            background:
+                linear-gradient(180deg, rgba(212, 241, 249, 0.7) 0%, rgba(212, 241, 249, 0.55) 100%),
+                url('{{ asset('assets/img/ylp-campaign-photo.jpg') }}') right bottom / 78% auto no-repeat;
+            background-color: #D4F1F9;
+        }
+
+        /* Le texte du hero était pensé pour un fond sombre : on repasse en couleurs
+           sombres pour rester lisible sur le nouveau fond clair. !important car sigof.css
+           applique déjà une couleur claire à ces éléments avec une spécificité plus forte. */
+        .hero .eyebrow {
+            color: var(--green) !important;
+        }
+
+        .hero .eyebrow em {
+            color: var(--green) !important;
+            font-style: normal;
+        }
+
+        .hero h1 {
+            color: #131416 !important;
+        }
+
+        .hero h1 em {
+            color: var(--green) !important;
+            font-style: italic;
+        }
+
+        .hero .lead {
+            color: #23221f !important;
+            opacity: 1 !important;
+        }
+
+        .hero .countdown-caption {
+            color: #4a4842 !important;
+        }
+
+        .hero .btn-ghost {
+            color: #131416 !important;
+            border-color: #131416 !important;
+        }
+
+        .hero .btn-ghost:hover {
+            background: rgba(19, 20, 22, 0.06) !important;
+        }
+
+        .hero .cd-num {
+            color: var(--green) !important;
+        }
+
+        .stat-strip {
+            background: var(--green) !important;
+            color: #fff !important;
+        }
+
+        .hero .btn-primary {
+            background: var(--green) !important;
+            border-color: var(--green) !important;
+            color: #fff !important;
+        }
+
+        .hero-bubble-card {
+            background: #fff;
+            box-shadow: 0 8px 28px rgba(19, 20, 22, 0.12);
+        }
+
+        .hero-bubble-card .quote,
+        .hero-bubble-card .who {
+            color: #131416;
+        }
+
+        /* Nouveau footer */
+        #siteFooter {
+            background: var(--green) !important;
+            color: #fff !important;
+        }
+
+        #siteFooter p,
+        #siteFooter li,
+        #siteFooter .motto {
+            color: rgba(255, 255, 255, 0.85) !important;
+        }
+
+        #siteFooter h5 {
+            color: #fff !important;
+        }
+
+        #siteFooter a {
+            color: #fff !important;
+        }
+
+        #siteFooter a:hover {
+            color: var(--gold) !important;
+        }
+
+        #siteFooter .brand-divider {
+            background: rgba(255, 255, 255, 0.25) !important;
+        }
+
+        #siteFooter .footer-bottom {
+            border-top-color: rgba(255, 255, 255, 0.2) !important;
+        }
+
+        /* Page de connexion et de changement de mot de passe */
+        .auth-side {
+            background: linear-gradient(180deg, #D4F1F9 0%, #E8F8FC 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-side .ylp-brandbar {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 34px;
+            flex-wrap: wrap;
+        }
+
+        .auth-side .ylp-brandbar img {
+            height: 40px;
+            width: auto;
+            display: block;
+        }
+
+        .auth-side .ylp-brandbar .divider {
+            width: 1px;
+            height: 28px;
+            background: rgba(19, 20, 22, 0.15);
+        }
+
+        .auth-side .eyebrow {
+            color: var(--green);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            font-size: 12.5px;
+        }
+
+        .auth-side h2 {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-weight: 800;
+            color: #131416;
+            line-height: 1.15;
+        }
+
+        .auth-side h2 em {
+            color: var(--green);
+            font-style: italic;
+        }
+
+        .auth-side .ylp-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 22px;
+            padding: 8px 14px;
+            background: #fff;
+            border-radius: 999px;
+            font-size: 12.5px;
+            font-weight: 700;
+            color: #131416;
+            box-shadow: 0 2px 8px rgba(19, 20, 22, 0.08);
+        }
+
+        .auth-side .ylp-badge .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--green);
+        }
+
+        .auth-side .rings-deco {
+            opacity: 0.9;
+        }
+
+        .auth-form-col .auth-card {
+            border-top: 4px solid var(--green);
+        }
+
+        .auth-card .btn-primary {
+            background: var(--green);
+            border-color: var(--green);
+        }
+
+        .auth-card .link-accent {
+            color: var(--green);
+        }
     </style>
     @stack('styles')
 </head>
