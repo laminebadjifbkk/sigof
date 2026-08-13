@@ -674,6 +674,14 @@
             transform: translateY(-4px);
             box-shadow: 8px 8px 0 var(--green);
         }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            top: 4cm;
+        }
     </style>
     @stack('styles')
 </head>
