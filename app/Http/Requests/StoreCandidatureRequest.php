@@ -16,9 +16,11 @@ class StoreCandidatureRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         $telephone = $this->telephone ?? '';
+        $cin = $this->cin ?? '';
 
         // Supprime les espaces, tirets, parenthèses, etc.
         $telephone = preg_replace('/\D+/', '', $telephone);
+        $cin = preg_replace('/\D+/', '', $cin);
 
         // Supprime le préfixe international du Sénégal
         if (str_starts_with($telephone, '00221')) {
@@ -30,12 +32,16 @@ class StoreCandidatureRequest extends FormRequest
         $this->merge([
             'telephone' => $telephone,
         ]);
+        $this->merge([
+            'cin' => $cin,
+        ]);
     }
 
     public function rules(): array
     {
         return [
             // Étape 1 — Profil (table users)
+            'cin'            => ['required', 'min:13', 'max:14', 'unique:users,cin'],
             'civilite'       => 'required|in:M.,Mme',
             'prenom'         => ['required', 'string', 'max:100'],
             'nom'            => ['required', 'string', 'max:50'],
@@ -44,9 +50,11 @@ class StoreCandidatureRequest extends FormRequest
             'date_naissance' => ['required', 'date', 'before_or_equal:today'],
             'lieu_naissance' => 'required|string|max:255',
             'adresse'        => 'required|string|max:255',
-            'region_id'      => 'required|exists:regions,id',
+            /* 'region_id'      => 'required|exists:regions,id', */
+            'departement_id' => ['required', 'exists:departements,id'],
 
             // Étape 2 — Langues
+            'diplome_academique'    => 'required|string|max:255',
             'langue_specialisation' => ['required', 'string', 'exists:langues_specialisations,code'],
             'certification'         => ['nullable', 'string', 'max:255'],
             'diplome'                => ['required', Rule::in(['licence', 'master', 'doctorat', 'certification'])],

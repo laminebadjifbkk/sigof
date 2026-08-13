@@ -18,7 +18,7 @@
                 </div>
                 <div class="step-line"></div>
                 <div class="step-item" data-step="2">
-                    <div class="step-circle">2</div><span class="step-label">Langues</span>
+                    <div class="step-circle">2</div><span class="step-label">Cursus</span>
                 </div>
                 <div class="step-line"></div>
                 <div class="step-item" data-step="3">
@@ -75,26 +75,34 @@
                     <div class="reg-step active" data-step="1">
                         <h3>Informations personnelles</h3>
 
-                        <div class="field">
-                            <label>Civilité</label>
-                            <select name="civilite">
-                                <option value="">-- Sélectionner --</option>
-                                <option value="M." {{ old('civilite') === 'M.' ? 'selected' : '' }}>M.</option>
-                                <option value="Mme" {{ old('civilite') === 'Mme' ? 'selected' : '' }}>Mme</option>
-                            </select>
-                            @error('civilite')
-                                <span class="field-error">{{ $message }}</span>
-                            @enderror
+                        <div class="field-row">
+                            <div class="field"><label>CIN <span class="required-marker">*</span></label><input type="text" name="cin"
+                                    value="{{ old('cin') }}" placeholder="1099200200090">
+                                @error('cin')
+                                    <span class="field-error">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="field">
+                                <label>Civilité <span class="required-marker">*</span></label>
+                                <select name="civilite">
+                                    <option value="">-- Sélectionner --</option>
+                                    <option value="M." {{ old('civilite') === 'M.' ? 'selected' : '' }}>M.</option>
+                                    <option value="Mme" {{ old('civilite') === 'Mme' ? 'selected' : '' }}>Mme</option>
+                                </select>
+                                @error('civilite')
+                                    <span class="field-error">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
 
                         <div class="field-row">
-                            <div class="field"><label>Prénom</label><input type="text" name="prenom"
+                            <div class="field"><label>Prénom <span class="required-marker">*</span></label><input type="text" name="prenom"
                                     value="{{ old('prenom') }}" placeholder="Awa">
                                 @error('prenom')
                                     <span class="field-error">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="field"><label>Nom</label><input type="text" name="nom"
+                            <div class="field"><label>Nom <span class="required-marker">*</span></label><input type="text" name="nom"
                                     value="{{ old('nom') }}" placeholder="Diop">
                                 @error('nom')
                                     <span class="field-error">{{ $message }}</span>
@@ -102,21 +110,21 @@
                             </div>
                         </div>
 
-                        <div class="field"><label>Adresse e-mail</label><input type="email" name="email"
+                        <div class="field"><label>Adresse e-mail <span class="required-marker">*</span></label><input type="email" name="email"
                                 value="{{ old('email') }}" placeholder="awa.diop@exemple.sn">
                             @error('email')
                                 <span class="field-error">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="field-row">
-                            <div class="field"><label>Téléphone</label><input type="tel" name="telephone"
+                            <div class="field"><label>Téléphone <span class="required-marker">*</span></label><input type="tel" name="telephone"
                                     value="{{ old('telephone') }}" placeholder="77 000 00 00">
                                 @error('telephone')
                                     <span class="field-error">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="field"><label>Date de naissance</label><input type="date" name="date_naissance"
-                                    value="{{ old('date_naissance') }}">
+                            <div class="field"><label>Date de naissance <span class="required-marker">*</span></label><input type="date"
+                                    name="date_naissance" value="{{ old('date_naissance') }}">
                                 @error('date_naissance')
                                     <span class="field-error">{{ $message }}</span>
                                 @enderror
@@ -124,7 +132,7 @@
                         </div>
 
                         <div class="field">
-                            <label>Lieu de naissance</label>
+                            <label>Lieu de naissance <span class="required-marker">*</span></label>
                             <input type="text" name="lieu_naissance" value="{{ old('lieu_naissance') }}"
                                 placeholder="Dakar">
                             @error('lieu_naissance')
@@ -133,7 +141,7 @@
                         </div>
 
                         <div class="field">
-                            <label>Adresse</label>
+                            <label>Adresse <span class="required-marker">*</span></label>
                             <input type="text" name="adresse" value="{{ old('adresse') }}"
                                 placeholder="Cité Keur Gorgui, Villa 12">
                             @error('adresse')
@@ -142,7 +150,22 @@
                         </div>
 
                         <div class="field">
-                            <label>Région</label>
+                            <label>Département <span class="required-marker">*</span></label>
+                            <select name="departement_id">
+                                <option value="">-- Sélectionner un département --</option>
+                                @foreach ($departements as $departement)
+                                    <option value="{{ $departement->id }}"
+                                        {{ (string) old('departement_id') === (string) $departement->id ? 'selected' : '' }}>
+                                        {{ $departement->nom }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('departement_id')
+                                <span class="field-error">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        {{-- <div class="field">
+                            <label>Région <span class="required-marker">*</span></label>
                             <select name="region_id">
                                 <option value="">-- Sélectionner une région --</option>
                                 @foreach ($regions as $region)
@@ -155,7 +178,7 @@
                             @error('region_id')
                                 <span class="field-error">{{ $message }}</span>
                             @enderror
-                        </div>
+                        </div> --}}
 
                         <p class="lang-note" style="margin-top:2px;">Programme ouvert aux candidats de 21 à 35 ans à la
                             date
@@ -163,8 +186,16 @@
                     </div>
 
                     <div class="reg-step" data-step="2">
+                        <h3>Niveau d'étude</h3>
+                        <div class="field"><label>Diplôme académique <span class="required-marker">*</span></label>
+                            <input type="text" name="diplome_academique" value="{{ old('diplome_academique') }}"
+                                placeholder="Master 2 en anglais">
+                            @error('diplome_academique')
+                                <span class="field-error">{{ $message }}</span>
+                            @enderror
+                        </div>
                         <h3>Langue de spécialisation (LV1)</h3>
-                        <div class="field"><label>Langue choisie - niveau C1 requis</label>
+                        <div class="field"><label>Langue choisie - niveau C1 requis <span class="required-marker">*</span></label>
                             <select name="langue_specialisation" id="specLang">
                                 <option value="" disabled @selected(!old('langue_specialisation'))>-- Choisissez une langue --
                                 </option>
@@ -198,7 +229,7 @@
                         </div>
                         <h3 style="margin-top:24px;">Autres langues</h3>
                         <div class="field-row">
-                            <div class="field"><label>Langue maternelle</label>
+                            <div class="field"><label>Langue maternelle <span class="required-marker">*</span></label>
                                 <select name="langue_maternelle">
                                     <option value="" @selected(!old('langue_maternelle'))>-- Choisissez --</option>
                                     <option value="francais" @selected(old('langue_maternelle') == 'francais')>Français</option>
@@ -217,7 +248,7 @@
                                     <span class="field-error">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="field"><label>Niveau de français</label>
+                            <div class="field"><label>Niveau de français <span class="required-marker">*</span></label>
                                 <select name="niveau_francais">
                                     <option value="">-- Choisissez --</option>
                                     <option value="c1">C1</option>
@@ -228,7 +259,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="field"><label>Langue vivante 2 (LV2) - niveau B2 minimum</label>
+                        <div class="field"><label>Langue vivante 2 (LV2) - niveau B2 minimum <span class="required-marker">*</span></label>
                             <select name="langue_vivante_2">
                                 <option value="">-- Choisissez --</option>
                                 <option value="arabe">Arabe</option>
@@ -250,9 +281,9 @@
                     <div class="reg-step" data-step="3">
                         <h3>Disponibilité et affectation</h3>
                         <div class="field-row">
-                            <div class="field"><label>Disponible à partir du</label><input type="date"
+                            <div class="field"><label>Disponible à partir du <span class="required-marker">*</span></label><input type="date"
                                     name="disponible_debut" value="{{ old('disponible_debut') }}"></div>
-                            <div class="field"><label>Disponible jusqu'au</label><input type="date"
+                            <div class="field"><label>Disponible jusqu'au <span class="required-marker">*</span></label><input type="date"
                                     name="disponible_fin" value="{{ old('disponible_fin') }}"></div>
                             @error('disponible_debut')
                                 <span class="field-error">{{ $message }}</span>
@@ -280,7 +311,7 @@
                     <div class="reg-step" data-step="4">
                         <h3>Documents justificatifs</h3>
                         <label class="upload-box" for="file-identite" style="display:block; cursor:pointer;">
-                            <strong>Pièce d'identité</strong><br>
+                            <strong>Pièce d'identité <span class="required-marker">*</span></strong><br>
                             <span class="file-name">Glissez un fichier ou cliquez pour parcourir (PDF, JPG, JPEG, PNG - 2
                                 Mo
                                 max)</span>
@@ -292,7 +323,7 @@
                             @enderror
                         </label>
                         <label class="upload-box" for="file-diplome" style="display:block; cursor:pointer;">
-                            <strong>Diplôme (Licence / Master ou équivalent)</strong><br>
+                            <strong>Diplôme (Licence / Master ou équivalent) <span class="required-marker">*</span></strong><br>
                             <span class="file-name">Glissez un fichier ou cliquez pour parcourir (PDF, JPG, JPEG, PNG - 2
                                 Mo
                                 max)</span>
@@ -314,7 +345,7 @@
                             @enderror
                         </label>
                         <label class="upload-box" for="file-cv" style="display:block; cursor:pointer;">
-                            <strong>CV à jour</strong><br>
+                            <strong>CV à jour <span class="required-marker">*</span></strong><br>
                             <span class="file-name">Glissez un fichier ou cliquez pour parcourir (PDF, JPG, JPEG, PNG - 2
                                 Mo
                                 max)</span>
@@ -365,6 +396,10 @@
                                 </div>
                                 <div class="recap-grid">
                                     <div class="recap-item">
+                                        <span class="recap-label">CIN</span>
+                                        <span class="recap-value" id="recap-cin"></span>
+                                    </div>
+                                    <div class="recap-item">
                                         <span class="recap-label">Civilité</span>
                                         <span class="recap-value" id="recap-civilite"></span>
                                     </div>
@@ -402,9 +437,13 @@
                             <div class="recap-card">
                                 <div class="recap-card-header">
                                     {{-- <span class="recap-icon">🌍</span> --}}
-                                    <h4>Langues</h4>
+                                    <h4>Cursus</h4>
                                 </div>
                                 <div class="recap-grid">
+                                    <div class="recap-item">
+                                        <span class="recap-label">Diplôme académique</span>
+                                        <span class="recap-value" id="recap-diplome_academique"></span>
+                                    </div>
                                     <div class="recap-item">
                                         <span class="recap-label">Langue de spécialisation</span>
                                         <span class="recap-value" id="recap-langue_specialisation"></span>
@@ -485,7 +524,8 @@
                         </div>
                     </div>
                 </form>
-                <p class="auth-switch">Vous avez déjà un compte ? <a href="{{ route('connexion') }}" class="link-accent">Connectez-vous</a></p>
+                <p class="auth-switch">Vous avez déjà un compte ? <a href="{{ route('connexion') }}"
+                        class="link-accent">Connectez-vous</a></p>
             </div>
         </div>
     </div>

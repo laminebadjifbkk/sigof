@@ -689,6 +689,10 @@
             }
         }
 
+        .required-marker {
+            color: var(--danger, red);
+            margin-left: 0.5px;
+        }
     </style>
     @stack('styles')
 </head>
@@ -811,6 +815,7 @@
             }
 
             function buildRecap() {
+                document.getElementById('recap-cin').textContent = fieldValue('cin') || '-';
                 document.getElementById('recap-civilite').textContent = fieldValue('civilite') || '-';
                 document.getElementById('recap-nom').textContent = `${fieldValue('prenom')} ${fieldValue('nom')}`;
                 document.getElementById('recap-email').textContent = fieldValue('email') || '-';
@@ -819,8 +824,10 @@
                     'date_naissance')) || '-';
                 document.getElementById('recap-lieu_naissance').textContent = fieldValue('lieu_naissance') || '-';
                 document.getElementById('recap-adresse').textContent = fieldValue('adresse') || '-';
-                document.getElementById('recap-region').textContent = selectTextFor('region_id') || '-';
+                document.getElementById('recap-departement').textContent = selectTextFor('departement_id') || '-';
 
+                document.getElementById('recap-diplome_academique').textContent = labelFor(
+                    'diplome_academique');
                 document.getElementById('recap-langue_specialisation').textContent = labelFor(
                     'langue_specialisation');
                 document.getElementById('recap-certification').textContent = fieldValue('certification') ||

@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCandidatureRequest;
 use App\Models\Candidature;
+use App\Models\Departement;
 use App\Models\LanguesSpecialisation;
 use App\Models\FormationsTraducteur;
+use App\Models\Individuelle;
 use App\Models\Region;
+use App\Models\Projet;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -16,14 +19,16 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use Carbon\Carbon;
 
 class CandidatureController extends Controller
 {
     public function create()
     {
         $regions = Region::orderBy('nom')->get();
+        $departements = Departement::orderBy('nom')->get();
         $languesSpecialisations = LanguesSpecialisation::orderBy('nom')->get();
-        return view('auth.inscription', compact('languesSpecialisations', 'regions'));
+        return view('auth.inscription', compact('languesSpecialisations', 'regions', 'departements'));
     }
 
     public function index()
@@ -65,8 +70,9 @@ class CandidatureController extends Controller
 
     public function store(StoreCandidatureRequest $request)
     {
-        return redirect()->back()
-            ->with('error', 'Les candidatures ne sont pas encore ouvertes.');
+        dd($request->input("langue_specialisation"));
+        /* return redirect()->back()
+            ->with('error', 'Les candidatures ne sont pas encore ouvertes.'); */
 
         $validated = $request->validated();
 
@@ -79,9 +85,47 @@ class CandidatureController extends Controller
                 ->withErrors(['langue_specialisation' => 'Il n\'y a plus de postes disponibles pour cette langue.']);
         } */
 
-        $candidature = DB::transaction(function () use ($request, $validated, $langue) {
+
+        $dateString = Carbon::now()->format('d/m/Y');                 // Convertir en chaîne formatée
+        $date_depot = Carbon::createFromFormat('d/m/Y', $dateString); // Parser la chaîne correctement
+        $anneeEnCours = date('Y');
+
+        // Récupérer le dernier numéro existant
+        $numero_individuelle = Individuelle::join('users', 'users.id', 'individuelles.users_id')
+            ->where('date_depot', 'LIKE', "{$anneeEnCours}%")
+            ->orderBy('individuelles.id', 'desc')
+            ->value('numero');
+
+        if ($numero_individuelle) {
+            $numero_individuelle = ++$numero_individuelle; // Incrémenter le dernier numéro
+        } else {
+            $numero_individuelle = 'I' . $anneeEnCours . "00001"; // Nouveau numéro
+        }
+
+        // Vérifier l'unicité du numéro
+        while (Individuelle::where('numero', $numero_individuelle)->exists()) {
+            // Si le numéro existe déjà, incrémenter encore plus (ajouter 1 à la partie numérique)
+            $numero_individuelle = 'I' . str_pad((int) substr($numero_individuelle, 1) + 1, 6, '0', STR_PAD_LEFT);
+        }
+
+        // Normalisation avec des zéros à gauche (6 chiffres minimum après le préfixe)
+        $numero_individuelle = strtoupper($numero_individuelle);
+
+        $departement = Departement::findOrFail($request->input('departement_id'));
+
+        $regionid = $departement->region->id;
+
+        $module = DB::table('modules')
+            ->where('name', $request->input("langue_specialisation"))
+            ->whereNull('deleted_at') // ou ->where('is_deleted', false)
+            ->first();
+
+        $projet = Projet::where('sigle', 'YLP')->first();
+
+        $candidature = DB::transaction(function () use ($request, $validated, $langue, $departement, $regionid, $module, $date_depot, $numero_individuelle, $projet) {
             $user = User::create([
                 'uuid'           => (string) Str::uuid(),
+                'cin'      => $validated['cin'],
                 'civilite'      => $validated['civilite'],
                 'firstname'      => $validated['prenom'],
                 'name'           => $validated['nom'],
@@ -90,8 +134,25 @@ class CandidatureController extends Controller
                 'date_naissance' => $validated['date_naissance'],
                 'lieu_naissance' => $validated['lieu_naissance'],
                 'adresse'        => $validated['adresse'],
+                'diplome_academique' => $validated['diplome_academique'],
                 'password'       => Hash::make(Str::random(16)), // mot de passe temporaire
             ]);
+
+            Individuelle::create([
+                'uuid'           => (string) Str::uuid(),
+                'date_depot'                       => $date_depot,
+                'numero'                           => $numero_individuelle,
+                'adresse'                          => $request->input('adresse'),
+                'telephone'                        => $request->input('telephone'),
+                'diplome_academique'               => $request->input('diplome_academique'),
+                "departements_id"                  => $departement->id,
+                "regions_id"                       => $regionid,
+                "modules_id"                       => $module->id,
+                'statut'                           => 'Nouvelle',
+                'users_id'                         => $user->id,
+                'projets_id'                       => $projet->id,
+            ]);
+
 
             // Attribution du rôle
             $role = Role::where('name', 'YLP')->first();
