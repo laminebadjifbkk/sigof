@@ -378,6 +378,12 @@
             display: block;
         }
 
+        .brand-logo-onfp {
+            height: 50px;
+            width: auto;
+            display: block;
+        }
+
         .partners-row {
             display: flex;
             align-items: center;

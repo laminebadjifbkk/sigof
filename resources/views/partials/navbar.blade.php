@@ -39,6 +39,11 @@
 
         <div class="brand-lockup">
             <span class="bulle-mark">
+
+                <a href="{{ route('ylphome') }}">
+                    <img src="{{ asset('assets/img/logo.png') }}" alt="LOGO ONFP" class="brand-logo-onfp">
+                </a>
+                <div class="brand-divider"></div>
                 <a href="{{ route('ylphome') }}">
                     <img src="{{ asset('images/logo-ylp.png') }}" alt="Dakar 2026 - Youth Linguists Programme"
                         class="brand-logo">
@@ -50,15 +55,15 @@
                 </a>
             </div> --}}
 
-            <div class="brand-divider"></div>
+            {{-- <div class="brand-divider"></div>
             <span class="bulle-mark">
                 <a href="{{ route('ylphome') }}">
                     <img src="{{ asset('assets/img/logo.png') }}" alt="LOGO ONFP"
                         class="brand-logo">
                 </a>
-            </span>
+            </span> --}}
             @guest
-                <div class="brand-divider"></div>
+                {{-- <div class="brand-divider"></div> --}}
                 {{-- <div class="dakar-chip">
                     <span class="bulle-mark"><svg width="16" height="14" viewBox="0 0 38 34">
                             <use href="#bulle-teranga" fill="var(--cream)" />
