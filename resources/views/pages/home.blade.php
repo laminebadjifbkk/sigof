@@ -44,7 +44,7 @@
                 </div>
                 <p class="countdown-caption">avant le démarrage des formations, 01 octobre 2026</p>
             </div>
-            {{-- <div class="hero-visual">
+            <div class="hero-visual">
                 <div class="hero-bubble-card">
                     <div class="lang-dots">
                         <span style="background:var(--gold)"></span>
@@ -57,7 +57,7 @@
                         parlée est une porte ouverte sur les Jeux. »</p>
                     <p class="who">Motto Dakar 2026</p>
                 </div>
-            </div> --}}
+            </div>
         </div>
     </div>
 
