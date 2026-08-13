@@ -270,6 +270,275 @@
             width: auto;
             display: block;
         }
+
+
+
+        .hero {
+            background:
+                linear-gradient(180deg, rgba(212, 241, 249, 0.7) 0%, rgba(212, 241, 249, 0.55) 100%),
+                url('{{ asset('assets/img/ylp-campaign-photo.jpg') }}') right bottom / 68% auto no-repeat;
+            background-color: #D4F1F9;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                background:
+                    linear-gradient(180deg, rgba(212, 241, 249, 0.7) 0%, rgba(212, 241, 249, 0.55) 100%),
+                    url('{{ asset('assets/img/ylp-campaign-photo.jpg') }}') center top / 75% auto no-repeat;
+                background-color: #D4F1F9;
+            }
+        }
+
+        /* Le texte du hero était pensé pour un fond sombre : on repasse en couleurs
+           sombres pour rester lisible sur le nouveau fond clair. !important car sigof.css
+           applique déjà une couleur claire à ces éléments avec une spécificité plus forte. */
+        .hero .eyebrow {
+            color: var(--green) !important;
+        }
+
+        .hero .eyebrow em {
+            color: var(--green) !important;
+            font-style: normal;
+        }
+
+        .hero h1 {
+            color: #131416 !important;
+        }
+
+        .hero h1 em {
+            color: var(--green) !important;
+            font-style: italic;
+        }
+
+        .hero .lead {
+            color: #23221f !important;
+            opacity: 1 !important;
+        }
+
+        .hero .countdown-caption {
+            color: #4a4842 !important;
+        }
+
+        .hero .btn-ghost {
+            color: #131416 !important;
+            border-color: #131416 !important;
+        }
+
+        .hero .btn-ghost:hover {
+            background: rgba(19, 20, 22, 0.06) !important;
+        }
+
+        .hero .cd-num {
+            color: var(--green) !important;
+        }
+
+        .stat-strip {
+            background: var(--green) !important;
+            color: #fff !important;
+        }
+
+        .hero .btn-primary {
+            background: var(--green) !important;
+            border-color: var(--green) !important;
+            color: #fff !important;
+        }
+
+        .hero-bubble-card {
+            background: #fff;
+            box-shadow: 0 8px 28px rgba(19, 20, 22, 0.12);
+        }
+
+        .hero-bubble-card .quote,
+        .hero-bubble-card .who {
+            color: #131416;
+        }
+
+        /* Nouveau footer */
+        #siteFooter {
+            background: var(--green) !important;
+            color: #fff !important;
+        }
+
+        #siteFooter p,
+        #siteFooter li,
+        #siteFooter .motto {
+            color: rgba(255, 255, 255, 0.85) !important;
+        }
+
+        #siteFooter h5 {
+            color: #fff !important;
+        }
+
+        #siteFooter a {
+            color: #fff !important;
+        }
+
+        #siteFooter a:hover {
+            color: var(--gold) !important;
+        }
+
+        #siteFooter .brand-divider {
+            background: rgba(255, 255, 255, 0.25) !important;
+        }
+
+        #siteFooter .footer-bottom {
+            border-top-color: rgba(255, 255, 255, 0.2) !important;
+        }
+
+        /* Page de connexion et de changement de mot de passe */
+        .auth-side {
+            background: linear-gradient(180deg, #D4F1F9 0%, #E8F8FC 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-side .ylp-brandbar {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 34px;
+            flex-wrap: wrap;
+        }
+
+        .auth-side .ylp-brandbar img {
+            height: 40px;
+            width: auto;
+            display: block;
+        }
+
+        .auth-side .ylp-brandbar .divider {
+            width: 1px;
+            height: 28px;
+            background: rgba(19, 20, 22, 0.15);
+        }
+
+        .auth-side .eyebrow {
+            color: var(--green);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            font-size: 12.5px;
+        }
+
+        .auth-side h2 {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-weight: 800;
+            color: #131416;
+            line-height: 1.15;
+        }
+
+        .auth-side h2 em {
+            color: var(--green);
+            font-style: italic;
+        }
+
+        .auth-side .ylp-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 22px;
+            padding: 8px 14px;
+            background: #fff;
+            border-radius: 999px;
+            font-size: 12.5px;
+            font-weight: 700;
+            color: #131416;
+            box-shadow: 0 2px 8px rgba(19, 20, 22, 0.08);
+        }
+
+        .auth-side .ylp-badge .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--green);
+        }
+
+        .auth-side .rings-deco {
+            opacity: 0.9;
+        }
+
+        .auth-form-col .auth-card {
+            border-top: 4px solid var(--green);
+        }
+
+        .auth-card .btn-primary {
+            background: var(--green);
+            border-color: var(--green);
+        }
+
+        .auth-card .link-accent {
+            color: var(--green);
+        }
+
+        .cd-item {
+            background: rgba(255, 255, 255, 0.06);
+            border: 2px solid rgba(255, 255, 255, 0.28);
+            border-radius: 16px 16px 16px 4px;
+            padding: 10px 14px;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .cd-num {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 26px;
+            font-weight: 600;
+            color: var(--gold);
+            line-height: 1;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .cd-label {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 9.5px;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: var(--gray-500);
+            margin-top: 5px;
+        }
+
+        .lang-card {
+            border: 2px solid var(--green);
+            border-radius: 20px 20px 20px 6px;
+            padding: 16px;
+            background: var(--cream);
+            transition: transform .15s ease, box-shadow .15s ease;
+        }
+
+        .lang-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 6px 6px 0 var(--green);
+        }
+
+
+        .prog-card {
+            border: 2px solid var(--green);
+            border-radius: 26px 26px 26px 6px;
+            padding: 26px;
+            background: var(--cream);
+            transition: transform .15s ease, box-shadow .15s ease;
+        }
+
+        .prog-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 8px 8px 0 var(--green);
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            top: 4cm;
+        }
+
+        @media (max-width: 980px) {
+            .hero .container>div:first-child {
+                margin-top: 3cm;
+            }
+        }
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
