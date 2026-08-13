@@ -16,7 +16,7 @@
         <div class="container">
             <div>
                 <p class="eyebrow">Youth Linguists Programme (YLP)</p>
-                <h1>Devenez la voix<br>des <em>Jeux</em> de la jeunesse.</h1>
+                <h1>Rejoins le <em>YLP</em></h1>
                 <p class="eyebrow">Partenariat ONFP × COJOJ - Dakar 2026</p>
                 <p class="lead">
                     Cette plateforme ouvre les inscriptions au programme de formation et de mobilisation des Junior
@@ -74,7 +74,7 @@
                 <div class="label">Langues de spécialisation</div>
             </div>
             <div class="stat">
-                <div class="num">21-35</div>
+                <div class="num">21-35 (ans)</div>
                 <div class="label">Tranche d'âge éligible</div>
             </div>
             <div class="stat">

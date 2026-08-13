@@ -596,6 +596,35 @@
         .auth-card .link-accent {
             color: var(--green);
         }
+
+        .cd-item {
+            background: rgba(255, 255, 255, 0.06);
+            border: 2px solid rgba(255, 255, 255, 0.28);
+            border-radius: 16px 16px 16px 4px;
+            padding: 10px 14px;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .cd-num {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 26px;
+            font-weight: 600;
+            color: var(--gold);
+            line-height: 1;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .cd-label {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 9.5px;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: var(--gray-500);
+            margin-top: 5px;
+        }
     </style>
     @stack('styles')
 </head>
