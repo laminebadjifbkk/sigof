@@ -1192,7 +1192,7 @@ footer.site {
 }
 
 .dash-sidebar {
-  background: var(--black);
+  background: var(--green);
   color: var(--cream);
   padding: 26px 18px;
   display: flex;
