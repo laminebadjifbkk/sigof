@@ -415,11 +415,27 @@
         }
 
         /* Nouveau style pour la page home */
+        /*.hero {
+            background:
+                linear-gradient(180deg, rgba(212, 241, 249, 0.7) 0%, rgba(212, 241, 249, 0.55) 100%),
+                url('{{ asset('assets/img/ylp-campaign-photo.jpg') }}') right bottom / 68% auto no-repeat;
+            background-color: #D4F1F9;
+        }*/
+
         .hero {
             background:
                 linear-gradient(180deg, rgba(212, 241, 249, 0.7) 0%, rgba(212, 241, 249, 0.55) 100%),
                 url('{{ asset('assets/img/ylp-campaign-photo.jpg') }}') right bottom / 68% auto no-repeat;
             background-color: #D4F1F9;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                background:
+                    linear-gradient(180deg, rgba(212, 241, 249, 0.7) 0%, rgba(212, 241, 249, 0.55) 100%),
+                    url('{{ asset('assets/img/ylp-campaign-photo.jpg') }}') center top / 75% auto no-repeat;
+                background-color: #D4F1F9;
+            }
         }
 
         /* Le texte du hero était pensé pour un fond sombre : on repasse en couleurs
