@@ -539,6 +539,44 @@
                 margin-top: 3cm;
             }
         }
+
+
+        /* --- Nouvelle charte graphique : fond noir de la sidebar remplacé par le vert --- */
+        .dash-sidebar {
+            background: var(--green) !important;
+        }
+
+        .dash-brand {
+            border-bottom-color: rgba(255, 255, 255, 0.15) !important;
+        }
+
+        #dashSidebar .dash-link {
+            color: #fff !important;
+            font-weight: 700 !important;
+        }
+
+        .dash-link:hover {
+            background: rgba(255, 255, 255, 0.12) !important;
+            color: #fff !important;
+        }
+
+        .dash-link.active {
+            background: var(--gold) !important;
+            color: var(--black) !important;
+        }
+
+        .dash-link .ic {
+            background: rgba(255, 255, 255, 0.5) !important;
+        }
+
+        .dash-link.active .ic {
+            background: var(--black) !important;
+        }
+
+        .dash-foot {
+            border-top-color: rgba(255, 255, 255, 0.15) !important;
+            color: rgba(255, 255, 255, 0.6) !important;
+        }
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 

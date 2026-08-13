@@ -5,6 +5,7 @@
   les autres liens sont à brancher sur vos futurs contrôleurs (Candidatures,
   Traducteurs, Formations, Délégations, Rapports, Paramètres).
 --}}
+
 <aside class="dash-sidebar" id="dashSidebar">
     <div class="dash-brand">
         <svg width="30" height="27" viewBox="0 0 38 34">
@@ -25,31 +26,33 @@
             <span class="ic"></span>Vue d'ensemble
         </a>
         @can('candidatures.voir')
-        <a href="{{ route('candidatures.index') }}"
-            class="dash-link {{ request()->routeIs('candidatures.index') ? 'active' : '' }}"><span
-                class="ic"></span>Candidatures</a>
+            <a href="{{ route('candidatures.index') }}"
+                class="dash-link {{ request()->routeIs('candidatures.index') ? 'active' : '' }}"><span
+                    class="ic"></span>Candidatures</a>
         @endcan
 
         @can('formations.voir')
-        <a href="{{ route('sessions-formation.index')}}"
-            class="dash-link {{ request()->routeIs('sessions-formation.index') ? 'active' : '' }}">
-            <span class="ic"></span>Formations</a>
+            <a href="{{ route('sessions-formation.index') }}"
+                class="dash-link {{ request()->routeIs('sessions-formation.index') ? 'active' : '' }}">
+                <span class="ic"></span>Formations</a>
         @endcan
         @can('langues.voir')
-        <a href="{{ route('langues.index') }}"
-            class="dash-link {{ request()->routeIs('langues.index') ? 'active' : '' }}"><span
-                class="ic"></span>Langues</a>
+            <a href="{{ route('langues.index') }}"
+                class="dash-link {{ request()->routeIs('langues.index') ? 'active' : '' }}"><span
+                    class="ic"></span>Langues</a>
         @endcan
         @can('rapports.voir')
-        <a href="{{ route('rapports.index') }}" class="dash-link {{ request()->routeIs('rapports.index') ? 'active' : '' }}">
-            <span class="ic"></span>Rapports
-        </a>
+            <a href="{{ route('rapports.index') }}"
+                class="dash-link {{ request()->routeIs('rapports.index') ? 'active' : '' }}">
+                <span class="ic"></span>Rapports
+            </a>
         @endcan
         <!-- <a href="#" class="dash-link"><span class="ic"></span>Paramètres</a> -->
         @role('super-admin')
-        <a href="{{ route('utilisateurs.index') }}" class="dash-link {{ request()->routeIs('utilisateurs.*') ? 'active' : '' }}">
-            <span class="ic"></span>Paramètres
-        </a>
+            <a href="{{ route('utilisateurs.index') }}"
+                class="dash-link {{ request()->routeIs('utilisateurs.*') ? 'active' : '' }}">
+                <span class="ic"></span>Paramètres
+            </a>
         @endrole
     </nav>
 
