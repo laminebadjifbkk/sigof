@@ -682,6 +682,12 @@
             justify-content: left;
             top: 4cm;
         }
+
+        @media (max-width: 980px) {
+            .hero .container>div:first-child {
+                margin-top: 3cm;
+            }
+        }
     </style>
     @stack('styles')
 </head>
