@@ -167,6 +167,8 @@ Route::group(['middleware' => ['XSS']], function () {
 
     // ---------- Public ----------
     Route::get('/ylp', [PageController::class, 'home'])->name('ylphome');
+    
+    /* Route::get('/candidature-joj-dakar-2026', [PageController::class, 'home'])->name('ylphome'); */
 
     // ---------- Authentification candidat ----------
     Route::get('/connexion', [AuthenticatedCandidateSessionController::class, 'create'])->name('connexion');
