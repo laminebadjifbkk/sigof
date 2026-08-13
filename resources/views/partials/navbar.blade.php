@@ -41,12 +41,11 @@
             <span class="bulle-mark">
 
                 <a href="{{ route('ylphome') }}">
-                    <img src="{{ asset('assets/img/logo.png') }}" alt="LOGO ONFP" class="brand-logo-onfp">
-                </a>
-                <div class="brand-divider"></div>
-                <a href="{{ route('ylphome') }}">
                     <img src="{{ asset('images/logo-ylp.png') }}" alt="Dakar 2026 - Youth Linguists Programme"
                         class="brand-logo">
+                </a>
+                <a href="{{ route('ylphome') }}">
+                    <img src="{{ asset('assets/img/logo.png') }}" alt="LOGO ONFP" class="brand-logo-onfp">
                 </a>
             </span>
             {{-- <div class="brand-text">
