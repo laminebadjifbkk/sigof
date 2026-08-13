@@ -3,105 +3,12 @@
 @section('title', 'Connexion')
 
 @section('content')
-<style>
-    /* --- Charte "Youth Linguists Programme" (visuel de campagne) --- */
-    .auth-side {
-        background: linear-gradient(180deg, #D4F1F9 0%, #E8F8FC 100%);
-        position: relative;
-        overflow: hidden;
-    }
-
-    .auth-side .ylp-brandbar {
-        display: flex;
-        align-items: center;
-        gap: 18px;
-        margin-bottom: 34px;
-        flex-wrap: wrap;
-    }
-
-    .auth-side .ylp-brandbar img {
-        height: 40px;
-        width: auto;
-        display: block;
-    }
-
-    .auth-side .ylp-brandbar .divider {
-        width: 1px;
-        height: 28px;
-        background: rgba(19, 20, 22, 0.15);
-    }
-
-    .auth-side .eyebrow {
-        color: var(--green);
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.04em;
-        font-size: 12.5px;
-    }
-
-    .auth-side h2 {
-        font-family: 'Bricolage Grotesque', sans-serif;
-        font-weight: 800;
-        color: #131416;
-        line-height: 1.15;
-    }
-
-    .auth-side h2 em {
-        color: var(--green);
-        font-style: italic;
-    }
-
-    .auth-side .ylp-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        margin-top: 22px;
-        padding: 8px 14px;
-        background: #fff;
-        border-radius: 999px;
-        font-size: 12.5px;
-        font-weight: 700;
-        color: #131416;
-        box-shadow: 0 2px 8px rgba(19, 20, 22, 0.08);
-    }
-
-    .auth-side .ylp-badge .dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: var(--green);
-    }
-
-    .auth-side .rings-deco {
-        opacity: 0.9;
-    }
-
-    .auth-form-col .auth-card {
-        border-top: 4px solid var(--green);
-    }
-
-    .auth-card .btn-primary {
-        background: var(--green);
-        border-color: var(--green);
-    }
-
-    .auth-card .link-accent {
-        color: var(--green);
-    }
-</style>
-
   <div class="auth-wrap">
     <div class="auth-side">
-     {{--  <div class="ylp-brandbar">
-        <img src="{{ asset('images/logo-ylp.png') }}" alt="Youth Linguists Programme - Dakar 2026">
-        <span class="divider"></span>
-        <img src="{{ asset('assets/img/logo.png') }}" alt="ONFP">
-      </div> --}}
       <div>
         <p class="eyebrow">Espace Junior Linguist Operators</p>
-        <h2>Retrouvez votre parcours de formation <em>en un instant</em>.</h2>
-        {{-- <p>Suivez l'état de votre candidature et votre affectation auprès des délégations Dakar 2026.</p> --}}
-        <span class="ylp-badge"><span class="dot"></span> Youth Linguists Programme · Dakar 2026</span>
+        <h2>Retrouvez votre parcours de formation en un instant.</h2>
+        <p>Suivez l'état de votre candidature et votre affectation auprès des délégations Dakar 2026.</p>
       </div>
       <div class="lang-dots" style="margin-top:30px;">
         <span style="background:var(--gold)"></span><span style="background:var(--green)"></span>

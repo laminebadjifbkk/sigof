@@ -2,83 +2,6 @@
 
 @section('title', 'ONFP - Youth Linguists Programme (YLP)')
 
-@push('styles')
-    <style>
-        /* --- Nouvelle charte graphique : fond noir du hero remplacé par le bleu ciel
-           de la campagne YLP, avec la photo des 3 candidats en arrière-plan --- */
-        .hero {
-            background:
-                linear-gradient(180deg, rgba(212, 241, 249, 0.7) 0%, rgba(212, 241, 249, 0.55) 100%),
-                url('{{ asset('assets/img/ylp-campaign-photo.jpg') }}') right bottom / 78% auto no-repeat;
-            background-color: #D4F1F9;
-        }
-
-        /* Le texte du hero était pensé pour un fond sombre : on repasse en couleurs
-           sombres pour rester lisible sur le nouveau fond clair. !important car sigof.css
-           applique déjà une couleur claire à ces éléments avec une spécificité plus forte. */
-        .hero .eyebrow {
-            color: var(--green) !important;
-        }
-
-        .hero .eyebrow em {
-            color: var(--green) !important;
-            font-style: normal;
-        }
-
-        .hero h1 {
-            color: #131416 !important;
-        }
-
-        .hero h1 em {
-            color: var(--green) !important;
-            font-style: italic;
-        }
-
-        .hero .lead {
-            color: #23221f !important;
-            opacity: 1 !important;
-        }
-
-        .hero .countdown-caption {
-            color: #4a4842 !important;
-        }
-
-        .hero .btn-ghost {
-            color: #131416 !important;
-            border-color: #131416 !important;
-        }
-
-        .hero .btn-ghost:hover {
-            background: rgba(19, 20, 22, 0.06) !important;
-        }
-
-        .hero .cd-num {
-            color: var(--green) !important;
-        }
-
-        .stat-strip {
-            background: var(--green) !important;
-            color: #fff !important;
-        }
-
-        .hero .btn-primary {
-            background: var(--green) !important;
-            border-color: var(--green) !important;
-            color: #fff !important;
-        }
-
-        .hero-bubble-card {
-            background: #fff;
-            box-shadow: 0 8px 28px rgba(19, 20, 22, 0.12);
-        }
-
-        .hero-bubble-card .quote,
-        .hero-bubble-card .who {
-            color: #131416;
-        }
-    </style>
-@endpush
-
 @section('content')
 
     <div class="hero">
@@ -199,11 +122,96 @@
             </div>
         </div>
     </section>
+    {{--
+    <section class="block" style="padding-top:0;">
+        <div class="container">
+            <div class="block-head">
+                <p class="eyebrow">YLP - Critères de sélection par langue</p>
+                <h2>10 langues de spécialisation, 40 postes ouverts</h2>
+                <p>Chaque poste correspond à une langue de spécialisation (LV1). Le niveau requis est évalué à la fois dans
+                    cette langue et en français, langue de travail du programme.</p>
+            </div>
+
+            <div class="lang-grid">
+                <div class="lang-card">
+                    <div class="lc-top"><span class="lc-name">Anglais<br><small
+                                style="font-weight:400; font-size:11px; color:var(--gray-500);">profil
+                                bilingue</small></span><span class="lc-posts">3 postes</span></div>
+                    <div class="lc-row"><span>Niveau langue</span><b>C1</b></div>
+                    <div class="lc-row"><span>Niveau français</span><b>C1</b></div>
+                    <div class="lc-cert">TOEIC · IELTS · TOEFL</div>
+                </div>
+                <div class="lang-card">
+                    <div class="lc-top"><span class="lc-name">Arabe</span><span class="lc-posts">6 postes</span></div>
+                    <div class="lc-row"><span>Niveau langue</span><b>C1</b></div>
+                    <div class="lc-row"><span>Niveau français</span><b>C1/B2</b></div>
+                    <div class="lc-cert">ALPT</div>
+                </div>
+                <div class="lang-card">
+                    <div class="lc-top"><span class="lc-name">Espagnol</span><span class="lc-posts">7 postes</span></div>
+                    <div class="lc-row"><span>Niveau langue</span><b>C1</b></div>
+                    <div class="lc-row"><span>Niveau français</span><b>C1/B2</b></div>
+                    <div class="lc-cert">DELE</div>
+                </div>
+                <div class="lang-card">
+                    <div class="lc-top"><span class="lc-name">Portugais</span><span class="lc-posts">4 postes</span>
+                    </div>
+                    <div class="lc-row"><span>Niveau langue</span><b>C1</b></div>
+                    <div class="lc-row"><span>Niveau français</span><b>C1/B2</b></div>
+                    <div class="lc-cert">CAPLE</div>
+                </div>
+                <div class="lang-card">
+                    <div class="lc-top"><span class="lc-name">Chinois<br><small
+                                style="font-weight:400; font-size:11px; color:var(--gray-500);">Mandarin</small></span><span
+                            class="lc-posts">4 postes</span></div>
+                    <div class="lc-row"><span>Niveau langue</span><b>C1</b></div>
+                    <div class="lc-row"><span>Niveau français</span><b>C1/B2</b></div>
+                    <div class="lc-cert">HSK 5+</div>
+                </div>
+                <div class="lang-card">
+                    <div class="lc-top"><span class="lc-name">Japonais</span><span class="lc-posts">4 postes</span></div>
+                    <div class="lc-row"><span>Niveau langue</span><b>C1</b></div>
+                    <div class="lc-row"><span>Niveau français</span><b>C1/B2</b></div>
+                    <div class="lc-cert">JLPT N2+</div>
+                </div>
+                <div class="lang-card">
+                    <div class="lc-top"><span class="lc-name">Coréen</span><span class="lc-posts">2 postes</span></div>
+                    <div class="lc-row"><span>Niveau langue</span><b>C1</b></div>
+                    <div class="lc-row"><span>Niveau français</span><b>C1/B2</b></div>
+                    <div class="lc-cert">TOPIK 4+</div>
+                </div>
+                <div class="lang-card">
+                    <div class="lc-top"><span class="lc-name">Allemand</span><span class="lc-posts">4 postes</span></div>
+                    <div class="lc-row"><span>Niveau langue</span><b>C1</b></div>
+                    <div class="lc-row"><span>Niveau français</span><b>C1/B2</b></div>
+                    <div class="lc-cert">Goethe C1</div>
+                </div>
+                <div class="lang-card">
+                    <div class="lc-top"><span class="lc-name">Russe</span><span class="lc-posts">2 postes</span></div>
+                    <div class="lc-row"><span>Niveau langue</span><b>C1</b></div>
+                    <div class="lc-row"><span>Niveau français</span><b>C1/B2</b></div>
+                    <div class="lc-cert">TORFL</div>
+                </div>
+                <div class="lang-card">
+                    <div class="lc-top"><span class="lc-name">Italien</span><span class="lc-posts">4 postes</span></div>
+                    <div class="lc-row"><span>Niveau langue</span><b>C1</b></div>
+                    <div class="lc-row"><span>Niveau français</span><b>C1/B2</b></div>
+                    <div class="lc-cert">CILS · CELI</div>
+                </div>
+            </div>
+            <h4>
+                <span aria-hidden="true" style="font-size:20px;"></span>
+                Diplôme minimum requis pour toutes les langues : <strong>Licence</strong> ou niveau équivalent.
+            </h4>
+        </div>
+    </section> --}}
+
 
     <section class="block" style="padding-top:0;">
         <div class="container">
             <div class="block-head">
                 <p class="eyebrow">YLP - Critères de sélection par langue</p>
+                {{-- <p class="eyebrow">Youth Linguists Programme (YLP) - Critères de sélection par langue</p> --}}
                 <h2>10 langues de spécialisation, 40 postes ouverts</h2>
                 <p>Chaque poste correspond à une langue de spécialisation (LV1). Le niveau requis est évalué à la fois dans
                     cette langue et en français, langue de travail du programme.</p>
@@ -352,6 +360,10 @@
                                 <td>LV1 - langue de spécialisation</td>
                                 <td><b>C1</b></td>
                             </tr>
+                            {{--  <tr>
+                                <td>LV2 - langue vivante 2</td>
+                                <td><b>B2</b></td>
+                            </tr> --}}
                             <tr>
                                 <td>Français</td>
                                 <td><b>C1</b> minimum</td>
@@ -394,8 +406,24 @@
         </div>
     </section>
 
+    {{-- <div class="partners-strip">
+        <div class="container">
+            <div class="partners-row">
+                <span class="partner-word">ONFP</span>
+                <span class="partner-word">COJOJ Dakar 2026</span>
+                <span class="partner-word">UCAD</span>
+                <span class="partner-word">ASTRA</span>
+            </div>
+
+        </div>
+    </div> --}}
+
     <div class="partners-strip">
         <div class="container">
+            {{-- <div class="block-head">
+                <p class="eyebrow">Logos des partenaires officiels du COJOJ</p>
+            </div> --}}
+
             <div class="partners-row">
                 <a href="https://www.onfp.sn" target="_blank" rel="noopener" class="partner-item">
                     <img src="{{ asset('assets/img/logo.png') }}" alt="ONFP" class="partner-logo">
@@ -406,11 +434,11 @@
                 <a href="https://www.ucad.sn" target="_blank" rel="noopener" class="partner-item">
                     <img src="{{ asset('assets/img/logo_ucad.png') }}" alt="UCAD" class="partner-logo">
                 </a>
-                <a href="https://astra-sn.com/?utm_source=chatgpt.com" target="_blank" rel="noopener"
-                    class="partner-item">
+                <a href="https://astra-sn.com/?utm_source=chatgpt.com" target="_blank" rel="noopener" class="partner-item">
                     <img src="{{ asset('assets/img/logo_astra.png') }}" alt="ASTRA" class="partner-logo">
                 </a>
             </div>
+            {{-- <h1 class="partner-note">Logos des partenaires officiels du programme.</h1> --}}
         </div>
     </div>
 @endsection
