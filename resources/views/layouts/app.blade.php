@@ -698,7 +698,7 @@
             border-bottom-color: rgba(255, 255, 255, 0.15) !important;
         }
 
-        .dash-link {
+        #dashSidebar .dash-link {
             color: #fff !important;
             font-weight: 700 !important;
         }
