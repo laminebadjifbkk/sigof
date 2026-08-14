@@ -824,7 +824,7 @@
                     'date_naissance')) || '-';
                 document.getElementById('recap-lieu_naissance').textContent = fieldValue('lieu_naissance') || '-';
                 document.getElementById('recap-adresse').textContent = fieldValue('adresse') || '-';
-                document.getElementById('recap-departement').textContent = fieldValue('departement_id') || '-';
+                document.getElementById('recap-departement').textContent = fieldValue('departement') || '-';
 
                 document.getElementById('recap-langue_specialisation').textContent = labelFor(
                     'langue_specialisation');
@@ -839,9 +839,9 @@
                     'disponible_debut')) || '-';
                 document.getElementById('recap-disponible_fin').textContent = formatDate(fieldValue(
                     'disponible_fin')) || '-';
-                document.getElementById('recap-zone').textContent = labelFor('zone');
+                /* document.getElementById('recap-zone').textContent = labelFor('zone');
                 document.getElementById('recap-delegation_souhaitee').textContent = fieldValue(
-                    'delegation_souhaitee') || 'Non précisé';
+                    'delegation_souhaitee') || 'Non précisé'; */
 
                 document.getElementById('recap-piece_identite').textContent = fileNameFor('piece_identite');
                 document.getElementById('recap-diplome_fichier').textContent = fileNameFor('diplome_fichier');

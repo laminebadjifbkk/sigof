@@ -154,16 +154,16 @@
 
                         <div class="field">
                             <label>Département <span class="required-marker">*</span></label>
-                            <select name="departement_id">
+                            <select name="departement">
                                 <option value="">-- Sélectionner un département --</option>
                                 @foreach ($departements as $departement)
-                                    <option value="{{ $departement->id }}"
-                                        {{ (string) old('departement_id') === (string) $departement->id ? 'selected' : '' }}>
+                                    <option value="{{ $departement->nom }}"
+                                        {{ (string) old('departement') === (string) $departement->nom ? 'selected' : '' }}>
                                         {{ $departement->nom }}
                                     </option>
                                 @endforeach
                             </select>
-                            @error('departement_id')
+                            @error('departement')
                                 <span class="field-error">{{ $message }}</span>
                             @enderror
                         </div>
@@ -286,7 +286,7 @@
                                 <span class="field-error">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="field"><label>Zone / site préféré</label>
+                        {{-- <div class="field"><label>Zone / site préféré</label>
                             <select name="zone">
                                 <option value="">-- Choisissez --</option>
                                 <option value="diamniadio">Diamniadio</option>
@@ -296,13 +296,13 @@
                             @error('zone')
                                 <span class="field-error">{{ $message }}</span>
                             @enderror
-                        </div>
-                        <div class="field"><label>Délégation ou discipline souhaitée (optionnel)</label><input
+                        </div> --}}
+                        {{-- <div class="field"><label>Délégation ou discipline souhaitée (optionnel)</label><input
                                 type="text" name="delegation_souhaitee" value="{{ old('delegation_souhaitee') }}"
                                 placeholder="Ex : Beach handball, Athlétisme…"></div>
                         @error('delegation_souhaitee')
                             <span class="field-error">{{ $message }}</span>
-                        @enderror
+                        @enderror --}}
                     </div>
 
                     <div class="reg-step" data-step="4">
@@ -421,6 +421,10 @@
                                         <span class="recap-label">Lieu de naissance</span>
                                         <span class="recap-value" id="recap-lieu_naissance"></span>
                                     </div>
+                                    <div class="recap-item">
+                                        <span class="recap-label">Département</span>
+                                        <span class="recap-value" id="recap-departement"></span>
+                                    </div>
                                     <div class="recap-item recap-item-full">
                                         <span class="recap-label">Adresse</span>
                                         <span class="recap-value" id="recap-adresse"></span>
@@ -429,10 +433,6 @@
                                         <span class="recap-label">Région</span>
                                         <span class="recap-value" id="recap-region"></span>
                                     </div> --}}
-                                    <div class="recap-item">
-                                        <span class="recap-label">Département</span>
-                                        <span class="recap-value" id="recap-departement"></span>
-                                    </div>
                                 </div>
                             </div>
 
@@ -483,14 +483,14 @@
                                         <span class="recap-label">Au</span>
                                         <span class="recap-value" id="recap-disponible_fin"></span>
                                     </div>
-                                    <div class="recap-item">
+                                    {{-- <div class="recap-item">
                                         <span class="recap-label">Zone</span>
                                         <span class="recap-value" id="recap-zone"></span>
                                     </div>
                                     <div class="recap-item">
                                         <span class="recap-label">Délégation souhaitée</span>
                                         <span class="recap-value" id="recap-delegation_souhaitee"></span>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
 

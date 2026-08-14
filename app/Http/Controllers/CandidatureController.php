@@ -110,7 +110,8 @@ class CandidatureController extends Controller
         // Normalisation avec des zéros à gauche (6 chiffres minimum après le préfixe)
         $numero_individuelle = strtoupper($numero_individuelle);
 
-        $departement = Departement::findOrFail($request->input('departement_id'));
+        /* $departement = Departement::findOrFail($request->input('departement_id')); */
+        $departement = Departement::where('nom', $request->input('departement'))->first();
 
         $regionid = $departement->region->id;
 
