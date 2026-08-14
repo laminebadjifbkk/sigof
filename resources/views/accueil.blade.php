@@ -441,7 +441,7 @@
                             <div class="row gy-4">
                                 <div class="col-lg-8">
                                     <div class="profile d-flex align-items-center gap-3">
-                                        <img src="{{ asset('asset/img/directrice.jpeg') }}" alt="DG ONFP"
+                                        <img src="{{ asset('asset/img/dg_onfp.jpeg') }}" alt="DG ONFP"
                                             class="profile-image">
                                         <div>
                                             <h4 class="profile-name"><b>Dr. Mame Awa NDOYE</b></h4>
@@ -466,7 +466,7 @@
                             <div class="images position-relative" data-aos="zoom-out" data-aos-delay="400">
                                 <img src="{{ asset('asset/img/about5.jpg') }}" alt="Image 5"
                                     class="img-fluid main-image rounded-4">
-                                <img src="{{ asset('asset/img/directrice.jpeg') }}" alt="Image 2"
+                                <img src="{{ asset('asset/img/dg_onfp.jpeg') }}" alt="Image 2"
                                     class="img-fluid small-image rounded-4">
                             </div>
                             <div class="experience-badge floating">
