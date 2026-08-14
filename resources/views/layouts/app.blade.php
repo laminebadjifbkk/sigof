@@ -465,7 +465,7 @@
         }
 
         .hero .countdown-caption {
-            color: #4a4842 !important;
+            color: #ff0000 !important;
         }
 
         .hero .btn-ghost {
