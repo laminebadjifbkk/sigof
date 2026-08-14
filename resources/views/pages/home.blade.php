@@ -28,7 +28,7 @@
                 </div>
 
                 <div class="countdown" id="heroCountdown"
-                    data-target="{{ '2026-08-17T00:00:00+00:00' }}" role="timer" aria-live="off"
+                    data-target="{{ '2026-08-17T08:00:00+00:00' }}" role="timer" aria-live="off"
                     aria-label="Compte à rebours avant le démarrage des dépôts">
                     <div class="cd-item"><span class="cd-num" data-cd="days">00</span><span class="cd-label">Jours</span>
                     </div>
