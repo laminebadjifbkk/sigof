@@ -28,8 +28,8 @@
                 </div>
 
                 <div class="countdown" id="heroCountdown"
-                    data-target="{{ '2026-10-01T00:00:00+00:00' }}" role="timer" aria-live="off"
-                    aria-label="Compte à rebours avant le démarrage des formations">
+                    data-target="{{ '2026-08-17T00:00:00+00:00' }}" role="timer" aria-live="off"
+                    aria-label="Compte à rebours avant le démarrage des dépôts">
                     <div class="cd-item"><span class="cd-num" data-cd="days">00</span><span class="cd-label">Jours</span>
                     </div>
                     <span class="cd-sep">:</span>
@@ -42,7 +42,7 @@
                     <div class="cd-item"><span class="cd-num" data-cd="seconds">00</span><span class="cd-label">Sec</span>
                     </div>
                 </div>
-                <p class="countdown-caption">avant le démarrage des formations, 01 octobre 2026</p>
+                <p class="countdown-caption" style="color: red;">avant le démarrage des dépôts</p>
             </div>
             <div class="hero-visual">
                 <div class="hero-bubble-card">
