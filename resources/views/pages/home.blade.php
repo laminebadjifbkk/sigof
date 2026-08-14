@@ -23,7 +23,7 @@
                     Linguists Operators (JLO) (interprètes de liaison) appelés à accompagner les délégations des Jeux
                     Olympiques de la Jeunesse Dakar 2026.</p>
                 <div class="hero-ctas">
-                    <a href="{{ route('inscription') }}" class="btn btn-primary">Je m'inscris comme JLO</a>
+                    <a href="{{ route('inscription') }}" class="btn btn-primary">Je m'inscris</a>
                     <a href="{{ route('connexion') }}" class="btn btn-ghost">Accéder à mon espace</a>
                 </div>
 
