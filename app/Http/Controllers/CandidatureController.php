@@ -70,8 +70,8 @@ class CandidatureController extends Controller
 
     public function store(StoreCandidatureRequest $request)
     {
-        return redirect()->back()
-            ->with('error', 'Les candidatures ne sont pas encore ouvertes.');
+        /* return redirect()->back()
+            ->with('error', 'Les candidatures ne sont pas encore ouvertes.'); */
 
         $validated = $request->validated();
 
@@ -180,7 +180,7 @@ class CandidatureController extends Controller
                 'disponible_debut'            => $validated['disponible_debut'],
                 'disponible_fin'              => $validated['disponible_fin'],
                 'zone'                         => $validated['zone'],
-                'delegation_souhaitee'        => $validated['delegation_souhaitee'] ?? null,
+                /* 'delegation_souhaitee'        => $validated['delegation_souhaitee'] ?? null, */
                 'regions_id'                  => $validated['region_id'] ?? null,
                 'piece_identite_path'         => $piecePath,
                 'diplome_fichier_path'        => $diplomePath,

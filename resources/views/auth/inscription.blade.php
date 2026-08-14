@@ -286,7 +286,7 @@
                                 <span class="field-error">{{ $message }}</span>
                             @enderror
                         </div>
-                        {{-- <div class="field"><label>Zone / site préféré</label>
+                        <div class="field"><label>Zone / site préféré</label>
                             <select name="zone">
                                 <option value="">-- Choisissez --</option>
                                 <option value="diamniadio">Diamniadio</option>
@@ -296,7 +296,7 @@
                             @error('zone')
                                 <span class="field-error">{{ $message }}</span>
                             @enderror
-                        </div> --}}
+                        </div>
                         {{-- <div class="field"><label>Délégation ou discipline souhaitée (optionnel)</label><input
                                 type="text" name="delegation_souhaitee" value="{{ old('delegation_souhaitee') }}"
                                 placeholder="Ex : Beach handball, Athlétisme…"></div>
@@ -483,11 +483,11 @@
                                         <span class="recap-label">Au</span>
                                         <span class="recap-value" id="recap-disponible_fin"></span>
                                     </div>
-                                    {{-- <div class="recap-item">
+                                    <div class="recap-item">
                                         <span class="recap-label">Zone</span>
                                         <span class="recap-value" id="recap-zone"></span>
                                     </div>
-                                    <div class="recap-item">
+                                    {{-- <div class="recap-item">
                                         <span class="recap-label">Délégation souhaitée</span>
                                         <span class="recap-value" id="recap-delegation_souhaitee"></span>
                                     </div> --}}

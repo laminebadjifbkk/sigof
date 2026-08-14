@@ -64,8 +64,8 @@ class StoreCandidatureRequest extends FormRequest
             // Étape 3 — Disponibilité et affectation
             'disponible_debut'     => ['required', 'date'],
             'disponible_fin'       => ['required', 'date', 'after_or_equal:disponible_debut'],
-            /* 'zone'                  => ['required', Rule::in(['diamniadio', 'dakar_centre', 'saly', 'indifferent'])],
-            'delegation_souhaitee'  => ['nullable', 'string', 'max:255'], */
+            'zone'                  => ['required', Rule::in(['diamniadio', 'dakar_centre', 'saly', 'indifferent'])],
+            /* 'delegation_souhaitee'  => ['nullable', 'string', 'max:255'], */
 
             // Étape 4 — Documents
             'piece_identite'          => ['required', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:2048'],

@@ -839,8 +839,8 @@
                     'disponible_debut')) || '-';
                 document.getElementById('recap-disponible_fin').textContent = formatDate(fieldValue(
                     'disponible_fin')) || '-';
-                /* document.getElementById('recap-zone').textContent = labelFor('zone');
-                document.getElementById('recap-delegation_souhaitee').textContent = fieldValue(
+                document.getElementById('recap-zone').textContent = labelFor('zone');
+                /* document.getElementById('recap-delegation_souhaitee').textContent = fieldValue(
                     'delegation_souhaitee') || 'Non précisé'; */
 
                 document.getElementById('recap-piece_identite').textContent = fileNameFor('piece_identite');
