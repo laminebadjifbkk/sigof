@@ -393,7 +393,7 @@
                         </span>
                     @endif
 
-                    <table style="width: 100%; border-collapse: collapse; margin-top: 0mm;">
+                    {{-- <table style="width: 100%; border-collapse: collapse; margin-top: 0mm;">
                         <tr>
                             @if ($evaluateurs->isNotEmpty())
                                 @foreach ($evaluateurs->chunk(3)->first() as $personne)
@@ -409,6 +409,27 @@
                                 @endfor
                             @endif
                         </tr>
+                    </table> --}}
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 1mm;">
+                        @foreach ($evaluateurs->chunk(3) as $groupe)
+                            <tr>
+                                @foreach ($groupe as $personne)
+                                    <td style="width: 33%; vertical-align: top; padding: 0 3mm; border: none;">
+                                        <strong>{{ $personne->name }} {{ $personne->lastname }}</strong>
+
+                                        @if (!empty($personne->fonction))
+                                            <br>
+                                            <em>{{ $personne->fonction }}</em>
+                                        @endif
+                                    </td>
+                                @endforeach
+
+                                {{-- Compléter les colonnes manquantes --}}
+                                @for ($i = $groupe->count(); $i < 3; $i++)
+                                    <td style="width: 33%; border: none;"></td>
+                                @endfor
+                            </tr>
+                        @endforeach
                     </table>
                 </td>
             </tr>
