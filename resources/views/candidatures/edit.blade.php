@@ -55,8 +55,9 @@
                 <label for="region">Département</label>
                 {{-- <input type="text" name="region" id="region" class="form-control" value="{{ old('region', $utilisateur->region) }}" required> --}}
                 <select name="departement" required>
-                    <option value="{{ $candidature->region->nom ?? old('departement') }}">-- Sélectionner un
-                        département --</option>
+                    <option value="{{ $candidature->region->nom ?? old('departement') }}">
+                        {{ $candidature->region->nom ?? old('departement') }}
+                    </option>
                     @foreach ($departements as $departement)
                         <option value="{{ $departement->nom }}"
                             {{ (string) old('departement') === (string) $departement->nom ? 'selected' : '' }}>
@@ -197,9 +198,9 @@
             @endforeach
 
             <!-- <div class="reg-actions" style="justify-content:space-between; margin-top:24px;">
-                        <a href="{{ route('candidatures.show', $candidature) }}" class="btn btn-ghost btn-sm">Annuler</a>
-                        <button type="submit" class="btn btn-primary btn-sm">Enregistrer les modifications</button>
-                    </div> -->
+                            <a href="{{ route('candidatures.show', $candidature) }}" class="btn btn-ghost btn-sm">Annuler</a>
+                            <button type="submit" class="btn btn-primary btn-sm">Enregistrer les modifications</button>
+                        </div> -->
 
             <div class="reg-actions" style="justify-content:space-between; margin-top:24px;">
                 <a href="{{ route('candidatures.show', $candidature) }}" class="btn btn-ghost btn-sm">Annuler</a>
