@@ -70,8 +70,23 @@ class CandidatureController extends Controller
 
     public function store(StoreCandidatureRequest $request)
     {
-        return redirect()->back()
-            ->with('error', 'Les candidatures ne sont pas encore ouvertes.');
+        /* return redirect()->back()
+            ->with('error', 'Les candidatures ne sont pas encore ouvertes.'); */
+
+        $dateOuverture  = Carbon::create(2026, 8, 17, 8, 0, 0, 'Africa/Tunis');
+        $dateFermeture  = Carbon::create(2026, 8, 23, 17, 0, 0, 'Africa/Tunis');
+        $maintenant     = Carbon::now('Africa/Tunis');
+
+        if ($maintenant->lt($dateOuverture)) {
+            return redirect()->back()
+                ->with('error', 'Les candidatures ne sont pas encore ouvertes.');
+        }
+
+        if ($maintenant->gt($dateFermeture)) {
+            return redirect()->back()
+                ->with('error', 'Les candidatures sont désormais fermées.');
+        }
+
 
         $validated = $request->validated();
 

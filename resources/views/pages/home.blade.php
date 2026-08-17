@@ -42,7 +42,7 @@
                     <div class="cd-item"><span class="cd-num" data-cd="seconds">00</span><span class="cd-label">Sec</span>
                     </div>
                 </div>
-                <p class="countdown-caption" style="color: red;">avant le démarrage des dépôts, 17 août 2026</p>
+                <p class="countdown-caption">avant le démarrage des dépôts, 17 août 2026</p>
             </div>
             <div class="hero-visual">
                 <div class="hero-bubble-card">
