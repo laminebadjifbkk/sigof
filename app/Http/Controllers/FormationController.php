@@ -3745,7 +3745,11 @@ class FormationController extends Controller
         $dompdf->setOptions($options);
 
         $dateSignature = $formation?->date_pv_finale ?: $formation?->date_pv;
-        $evaluateurs = collect($formation?->evaluateurs)->merge($formation?->onfpevaluateurs);
+        /* $evaluateurs = collect($formation?->evaluateurs)->merge($formation?->onfpevaluateurs); */
+
+        $evaluateurs = collect($formation?->evaluateurs ?? [])
+            ->merge(collect($formation?->onfpevaluateurs ?? []))
+            ->values();
         $nbBeneficiaires = $formation->listecollectivesSelectionnees->count();
         $compact = $nbBeneficiaires > 20; // seuil à ajuster
 
@@ -3870,7 +3874,11 @@ class FormationController extends Controller
         $title = 'PV Evaluation de la formation en  ' . $formation?->collectivemodule?->module;
 
         $dateSignature = $formation?->date_pv_finale ?: $formation?->date_pv;
-        $evaluateurs = collect($formation?->evaluateurs)->merge($formation?->onfpevaluateurs);
+        /* $evaluateurs = collect($formation?->evaluateurs)->merge($formation?->onfpevaluateurs); */
+
+        $evaluateurs = collect($formation?->evaluateurs ?? [])
+            ->merge(collect($formation?->onfpevaluateurs ?? []))
+            ->values();
         $nbBeneficiaires = $formation->listecollectivesSelectionnees->count();
         $compact = $nbBeneficiaires > 20; // seuil à ajuster
 
