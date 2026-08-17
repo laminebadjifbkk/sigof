@@ -265,6 +265,7 @@ class CandidatureController extends Controller
     {
         $candidature->load('user', 'langueSpecialisation');
         $languesSpecialisations = LanguesSpecialisation::orderBy('nom')->get();
+        $departements = Departement::orderBy('nom')->get();
 
         $currentFiles = [
             'piece_identite'        => ['label' => 'Pièce d\'identité',      'path' => $candidature->piece_identite_path],
@@ -273,7 +274,7 @@ class CandidatureController extends Controller
             'cv'                     => ['label' => 'CV',                      'path' => $candidature->cv_path],
         ];
 
-        return view('candidatures.edit', compact('candidature', 'languesSpecialisations', 'currentFiles'));
+        return view('candidatures.edit', compact('candidature', 'languesSpecialisations', 'currentFiles', 'departements'));
     }
 
     public function update(Request $request, Candidature $candidature)
@@ -316,6 +317,15 @@ class CandidatureController extends Controller
         }
 
         $candidature->update($validated);
+
+
+        $departement = Departement::where('nom', $request->input('departement'))->first();
+
+        $regionid = $departement->region->id;
+
+         $candidature->update([
+                'regions_id' => $regionid,
+            ]);
 
         return redirect()
             ->route('candidatures.show', $candidature)
