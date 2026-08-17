@@ -87,10 +87,9 @@ class CandidatureController extends Controller
                 ->with('error', 'Les candidatures sont désormais fermées.');
         }
 
-
         $validated = $request->validated();
 
-        $langue = LanguesSpecialisation::where('code', $validated['langue_specialisation'])->firstOrFail();
+        /* $langue = LanguesSpecialisation::where('code', $validated['langue_specialisation'])->firstOrFail(); */
 
         // Vérifie qu'il reste des postes disponibles pour cette langue
         /* if ($langue->candidatures()->count() >= $langue->postes_disponibles) {
@@ -99,6 +98,8 @@ class CandidatureController extends Controller
                 ->withErrors(['langue_specialisation' => 'Il n\'y a plus de postes disponibles pour cette langue.']);
         } */
 
+
+        $langue = LanguesSpecialisation::where('nom', $request->langue_specialisation)->first();
 
         $dateString = Carbon::now()->format('d/m/Y');                 // Convertir en chaîne formatée
         $date_depot = Carbon::createFromFormat('d/m/Y', $dateString); // Parser la chaîne correctement
