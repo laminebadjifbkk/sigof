@@ -197,7 +197,7 @@ class CandidatureController extends Controller
                 'disponible_fin'              => $validated['disponible_fin'],
                 'zone'                         => $validated['zone'],
                 /* 'delegation_souhaitee'        => $validated['delegation_souhaitee'] ?? null, */
-                'regions_id'                  => $validated['region_id'] ?? null,
+                'regions_id'                  => $regionid,
                 'piece_identite_path'         => $piecePath,
                 'diplome_fichier_path'        => $diplomePath,
                 'certification_fichier_path'  => $certifPath,

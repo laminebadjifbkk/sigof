@@ -17,6 +17,7 @@ class Candidature extends Model
         'users_id',
         'langue_specialisation_id',
         'regions_id',
+        'departements_id',
 
         // Étape 2 — Langues
         'certification_obtenue',
