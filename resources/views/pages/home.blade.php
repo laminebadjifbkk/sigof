@@ -27,22 +27,58 @@
                     <a href="{{ route('connexion') }}" class="btn btn-ghost">Accéder à mon espace</a>
                 </div>
 
-                <div class="countdown" id="heroCountdown"
-                    data-target="{{ '2026-08-17T08:00:00+00:00' }}" role="timer" aria-live="off"
-                    aria-label="Compte à rebours avant le démarrage des dépôts">
-                    <div class="cd-item"><span class="cd-num" data-cd="days">00</span><span class="cd-label">Jours</span>
+                @if ($phase === 'avant')
+                    <div class="countdown" id="heroCountdown" data-target="{{ $dateOuverture->toIso8601String() }}"
+                        role="timer" aria-live="off" aria-label="Compte à rebours avant le démarrage des dépôts">
+                        <div class="cd-item"><span class="cd-num" data-cd="days">00</span><span
+                                class="cd-label">Jours</span>
+                        </div>
+                        <span class="cd-sep">:</span>
+                        <div class="cd-item"><span class="cd-num" data-cd="hours">00</span><span
+                                class="cd-label">Heures</span>
+                        </div>
+                        <span class="cd-sep">:</span>
+                        <div class="cd-item"><span class="cd-num" data-cd="minutes">00</span><span
+                                class="cd-label">Min</span>
+                        </div>
+                        <span class="cd-sep">:</span>
+                        <div class="cd-item"><span class="cd-num" data-cd="seconds">00</span><span
+                                class="cd-label">Sec</span>
+                        </div>
                     </div>
-                    <span class="cd-sep">:</span>
-                    <div class="cd-item"><span class="cd-num" data-cd="hours">00</span><span class="cd-label">Heures</span>
+                    <p class="countdown-caption">avant le démarrage des dépôts, 17 août 2026 à 08h00.</p>
+                @elseif ($phase === 'ouvert')
+                    <div class="countdown" id="heroCountdown" data-target="{{ $dateFermeture->toIso8601String() }}"
+                        data-mode="remaining" role="timer" aria-live="off"
+                        aria-label="Compte à rebours avant la clôture des dépôts">
+                        <div class="cd-item"><span class="cd-num" data-cd="days">00</span><span
+                                class="cd-label">Jours</span>
+                        </div>
+                        <span class="cd-sep">:</span>
+                        <div class="cd-item"><span class="cd-num" data-cd="hours">00</span><span
+                                class="cd-label">Heures</span>
+                        </div>
+                        <span class="cd-sep">:</span>
+                        <div class="cd-item"><span class="cd-num" data-cd="minutes">00</span><span
+                                class="cd-label">Min</span>
+                        </div>
+                        <span class="cd-sep">:</span>
+                        <div class="cd-item"><span class="cd-num" data-cd="seconds">00</span><span
+                                class="cd-label">Sec</span>
+                        </div>
                     </div>
-                    <span class="cd-sep">:</span>
-                    <div class="cd-item"><span class="cd-num" data-cd="minutes">00</span><span class="cd-label">Min</span>
+                    <p class="countdown-caption">
+                        Il vous reste <strong>{{ $maintenant->diffInDays($dateFermeture) }} jour(s)</strong>
+                        pour déposer votre candidature — clôture le 23 août 2026 à 17h00.
+                    </p>
+                @else
+                    <div class="countdown countdown-closed" role="status" aria-live="polite">
+                        <p class="countdown-caption countdown-caption--closed">
+                            Les dépôts de candidatures sont désormais <strong>clôturés</strong>.
+                            La période de dépôt s'est achevée le 23 août 2026 à 17h00.
+                        </p>
                     </div>
-                    <span class="cd-sep">:</span>
-                    <div class="cd-item"><span class="cd-num" data-cd="seconds">00</span><span class="cd-label">Sec</span>
-                    </div>
-                </div>
-                <p class="countdown-caption">avant le démarrage des dépôts, 17 août 2026</p>
+                @endif
             </div>
             <div class="hero-visual">
                 <div class="hero-bubble-card">
