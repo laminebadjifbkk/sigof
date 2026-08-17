@@ -411,7 +411,7 @@
                         </tr>
                     </table> --}}
                     <table style="width: 100%; border-collapse: collapse; margin-top: 1mm;">
-                        @foreach ($evaluateurs->chunk(3) as $groupe)
+                        @foreach ($evaluateurs->chunk(4) as $groupe)
                             <tr>
                                 @foreach ($groupe as $personne)
                                     <td style="width: 33%; vertical-align: top; padding: 0 3mm; border: none;">
@@ -425,7 +425,7 @@
                                 @endforeach
 
                                 {{-- Compléter les colonnes manquantes --}}
-                                @for ($i = $groupe->count(); $i < 3; $i++)
+                                @for ($i = $groupe->count(); $i < 4; $i++)
                                     <td style="width: 33%; border: none;"></td>
                                 @endfor
                             </tr>
