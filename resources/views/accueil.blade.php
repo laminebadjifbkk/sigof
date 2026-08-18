@@ -143,12 +143,12 @@
                                     <span class="accent-text">{{ $une->titre2 }}</span><br>
                                 </h2>
                                 @if (!empty($une->image))
-                                    <h3 class="mb-4 text-center">
+                                    {{-- <h3 class="mb-4 text-center">
                                         <a id="partenaire" href="{{ route('login') }}"
                                             class="btn btn-danger btn-lg fw-bold shadow pulse-animation mx-1">
                                             Postuler maintenant
                                         </a>
-                                    </h3>
+                                    </h3> --}}
                                 @endif
 
                                 <h3 class="mb-4 text-center">
