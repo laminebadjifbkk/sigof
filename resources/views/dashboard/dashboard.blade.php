@@ -52,8 +52,8 @@
                 style="background:var(--navy)"></span></div>
         <div class="kpi-num">{{ $kpis['total'] }}</div>
         <div class="kpi-delta">+{{ $kpis['aujourdhui'] }} aujourd'hui</div>
-        {{-- <div class="kpi-delta">+{{ $kpis['nouvelles_semaine'] }} cette semaine
-    </div> --}}
+        <div class="kpi-delta">+{{ $kpis['nouvelles_semaine'] }} cette semaine
+    </div>
 </div>
 <div class="kpi-card">
     <div class="kpi-top"><span class="kpi-label">Validées</span><span class="kpi-dot"

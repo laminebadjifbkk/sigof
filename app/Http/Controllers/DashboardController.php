@@ -25,6 +25,12 @@ class DashboardController extends Controller
             // Candidatures créées durant les 7 derniers jours
             /* 'nouvelles_semaine' => Candidature::where('created_at', '>=', now()->subDays(7))->count(),
             'aujourdhui' => Candidature::where('created_at', '>=', now()->subDays(1))->count(),*/
+            // Candidatures créées cette semaine
+            'nouvelles_semaine' => Candidature::where(
+                'created_at',
+                '>=',
+                now()->startOfWeek()
+            )->count(),
             // Candidatures créées aujourd'hui
             'aujourdhui' => Candidature::whereDate('created_at', today())->count(),
         ];
