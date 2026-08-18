@@ -149,14 +149,14 @@
                                             Postuler maintenant
                                         </a>
                                     </h3>
-                                @else
-                                    <h3 class="mb-4 text-center">
-                                        <a id="partenaire" href="{{ route('inscription') }}"
-                                            class="btn btn-danger btn-lg fw-bold shadow pulse-animation mx-1">
-                                            Postuler maintenant
-                                        </a>
-                                    </h3>
                                 @endif
+
+                                <h3 class="mb-4 text-center">
+                                    <a id="partenaire" href="{{ route('inscription') }}"
+                                        class="btn btn-danger btn-lg fw-bold shadow pulse-animation mx-1">
+                                        Postuler maintenant
+                                    </a>
+                                </h3>
                             @else
                                 {{-- <div class="company-badge mb-4">
                                     <i class="bi bi-gear-fill me-2"></i>
