@@ -23,8 +23,10 @@ class DashboardController extends Controller
             'rejete'   => $rejete,
             'mobilises' => $mobilises,
             // Candidatures créées durant les 7 derniers jours
-            /* 'nouvelles_semaine' => Candidature::where('created_at', '>=', now()->subDays(7))->count(), */
-            'aujourdhui' => Candidature::where('created_at', '>=', now()->subDays(1))->count(),
+            /* 'nouvelles_semaine' => Candidature::where('created_at', '>=', now()->subDays(7))->count(),
+            'aujourdhui' => Candidature::where('created_at', '>=', now()->subDays(1))->count(),*/
+            // Candidatures créées aujourd'hui
+            'aujourdhui' => Candidature::whereDate('created_at', today())->count(),
         ];
 
         // Répartition par langue de spécialisation (top 5)
