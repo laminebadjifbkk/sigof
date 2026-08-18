@@ -709,6 +709,25 @@
                                         </div>
                                     </div>
 
+
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="adresse" class="form-label">Adresse</label>
+                                                    <input type="text" name="adresse" value="{{ old('adresse') }}"
+                                                        class="form-control form-control-sm @error('adresse') is-invalid @enderror"
+                                                        id="adresse" placeholder="Adresse">
+                                                    @error('adresse')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <div>{{ $message }}</div>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary btn-sm"
                                             data-bs-dismiss="modal">Fermer</button>

@@ -1235,9 +1235,10 @@ class CollectiveController extends Controller
             'sigle'     => 'nullable|string',
             'telephone' => 'nullable|string',
             'email'     => 'nullable|email',
+            'adresse'     => 'nullable|string',
         ]);
 
-        if ($request?->structure == null && $request->sigle == null && $request->telephone == null && $request->email == null) {
+        if ($request?->structure == null && $request->sigle == null && $request->telephone == null && $request->email == null && $request->adresse == null) {
             Alert::warning('Attention', 'Veuillez renseigner au moins un champ pour effectuer une recherche.');
             return redirect()->back();
         }
@@ -1247,6 +1248,7 @@ class CollectiveController extends Controller
             ->where('collectives.name', 'LIKE', "%{$request?->structure}%")
             ->where('collectives.sigle', 'LIKE', "%{$request?->sigle}%")
             ->where('collectives.telephone', 'LIKE', "%{$request?->telephone}%")
+            ->where('collectives.adresse', 'LIKE', "%{$request?->adresse}%")
             ->where('users.email', 'LIKE', "%{$request?->email}%")
             ->distinct()
             ->get();
