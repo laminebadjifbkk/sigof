@@ -5,14 +5,14 @@
 @section('content')
 
     <div class="hero">
-        <svg class="hero-rings-bg" width="520" height="420" viewBox="0 0 520 420"
+        <!-- <svg class="hero-rings-bg" width="520" height="420" viewBox="0 0 520 420"
             style="position:absolute; right:-60px; top:-40px;">
             <circle cx="120" cy="90" r="70" fill="none" stroke="var(--gold)" stroke-width="14" />
             <circle cx="240" cy="90" r="70" fill="none" stroke="var(--green)" stroke-width="14" />
             <circle cx="360" cy="90" r="70" fill="none" stroke="var(--brick)" stroke-width="14" />
             <circle cx="180" cy="190" r="70" fill="none" stroke="var(--navy)" stroke-width="14" />
             <circle cx="300" cy="190" r="70" fill="none" stroke="var(--cream)" stroke-width="14" />
-        </svg>
+        </svg> -->
         <div class="container">
             <div>
                 <p class="eyebrow">Youth Linguists Programme (YLP)</p>
@@ -428,7 +428,7 @@
                 <a href="https://www.onfp.sn" target="_blank" rel="noopener" class="partner-item">
                     <img src="{{ asset('assets/img/logo.png') }}" alt="ONFP" class="partner-logo">
                 </a>
-                <a href="https://www.olympics.com/cio/dakar-2026" target="_blank" rel="noopener" class="partner-item">
+                <a href="https://www.olympics.com/fr/dakar-2026" target="_blank" rel="noopener" class="partner-item">
                     <img src="{{ asset('images/logo-ylp.png') }}" alt="COJOJ Dakar 2026" class="partner-logo">
                 </a>
                 <a href="https://www.ucad.sn" target="_blank" rel="noopener" class="partner-item">

@@ -45,7 +45,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://www.olympics.com/cio/dakar-2026" target="_blank" rel="noopener">
+                        <a href="https://www.olympics.com/fr/dakar-2026" target="_blank" rel="noopener">
                             COJOJ-Dakar 2026
                         </a>
                     </li>

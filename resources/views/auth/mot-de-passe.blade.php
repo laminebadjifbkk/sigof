@@ -14,11 +14,11 @@
         <span style="background:var(--gold)"></span><span style="background:var(--green)"></span>
         <span style="background:var(--brick)"></span><span style="background:var(--navy)"></span><span style="background:var(--cream)"></span>
       </div>
-      <svg class="rings-deco" width="260" height="220" viewBox="0 0 260 220">
+      {{-- <svg class="rings-deco" width="260" height="220" viewBox="0 0 260 220">
         <circle cx="60" cy="60" r="50" fill="none" stroke="var(--gold)" stroke-width="10"/>
         <circle cx="140" cy="60" r="50" fill="none" stroke="var(--cream)" stroke-width="10"/>
         <circle cx="100" cy="130" r="50" fill="none" stroke="var(--brick)" stroke-width="10"/>
-      </svg>
+      </svg> --}}
     </div>
     <div class="auth-form-col">
       <div class="auth-card">
