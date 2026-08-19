@@ -198,16 +198,16 @@
             @endforeach
 
             <!-- <div class="reg-actions" style="justify-content:space-between; margin-top:24px;">
-                                <a href="{{ route('candidatures.show', $candidature) }}" class="btn btn-ghost btn-sm">Annuler</a>
-                                <button type="submit" class="btn btn-primary btn-sm">Enregistrer les modifications</button>
-                            </div> -->
+                                    <a href="{{ route('candidatures.show', $candidature) }}" class="btn btn-ghost btn-sm">Annuler</a>
+                                    <button type="submit" class="btn btn-primary btn-sm">Enregistrer les modifications</button>
+                                </div> -->
 
             @can('candidatures.validation')
                 <div class="reg-actions" style="justify-content:space-between; margin-top:24px;">
                     <a href="{{ route('candidatures.show', $candidature) }}" class="btn btn-ghost btn-sm">Annuler</a>
                     <button type="submit" class="btn btn-primary btn-sm">Enregistrer les modifications</button>
                 </div>
-                @can('candidatures.delete')
-                </form>
-            </div>
-        @endsection
+            @endcan
+        </form>
+    </div>
+@endsection
