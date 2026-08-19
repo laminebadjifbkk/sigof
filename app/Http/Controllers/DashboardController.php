@@ -7,6 +7,13 @@ use App\Models\Individuelle;
 
 class DashboardController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('authylp');
+        $this->middleware(['role:super-admin|Ingenieur|COJO']);
+        /* $this->middleware("permission:operateur-view", ["only" => ["index"]]); */
+    }
     public function dashboard()
     {
         // KPIs

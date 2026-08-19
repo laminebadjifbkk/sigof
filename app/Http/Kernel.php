@@ -25,7 +25,7 @@ class Kernel extends HttpKernel
 
     protected $routeMiddleware = [
         'auth'      => \App\Http\Middleware\Authenticate::class,
-        'authylp'      => \App\Http\Middleware\YlpAuthenticate::class,
+        /* 'authylp'      => \App\Http\Middleware\YlpAuthenticate::class, */
         'signed'    => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle'  => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified'  => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
