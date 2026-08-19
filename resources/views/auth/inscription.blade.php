@@ -257,6 +257,7 @@
                                     class="required-marker">*</span></label>
                             <select name="langue_vivante_2">
                                 <option value="">-- Choisissez --</option>
+                                <option value="anglais">Anglais</option>
                                 <option value="arabe">Arabe</option>
                                 <option value="espagnol">Espagnol</option>
                                 <option value="portugais">Portugais</option>
