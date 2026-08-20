@@ -7,7 +7,15 @@
                     <div class="modal-user">
                         <div class="avatar-bubble avatar-bubble--lg">
                             {{-- {{ Str::upper(Str::substr(Auth::user()->firstname, 0, 1)).''.Str::upper(Str::substr(Auth::user()->name, 0, 1)) }} --}}
-                            <img src="{{ asset(Auth::user()->getImage()) }}" alt="Profil" class="nav-profile-image">
+                            {{-- <img src="{{ asset(Auth::user()->getImage()) }}" alt="Profil" class="nav-profile-image"> --}}
+                            <div class="avatar-bubble avatar-bubble--lg">
+                                @if (Auth::user()->getImage())
+                                    <img src="{{ asset(Auth::user()->getImage()) }}" alt="Profil"
+                                        class="nav-profile-image">
+                                @else
+                                    {{ Str::upper(Str::substr(Auth::user()->firstname, 0, 1)) . Str::upper(Str::substr(Auth::user()->name, 0, 1)) }}
+                                @endif
+                            </div>
                         </div>
                         <div>
                             <p id="userModalLabel" class="modal-user-name">
