@@ -88,7 +88,8 @@
                     @enderror
                 </div>
                 <div class="field"><label>Certification obtenue (si applicable)</label><input type="text"
-                        name="certification" value="{{ old('certification', $candidature?->certification_obtenue) }}" placeholder="Ex : DELE C1, HSK 5…">
+                        name="certification" value="{{ old('certification', $candidature?->certification_obtenue) }}"
+                        placeholder="Ex : DELE C1, HSK 5…">
                 </div>
             </div>
             <div class="field-row">
@@ -108,12 +109,24 @@
                 <div class="field">
                     <label>Langue maternelle</label>
                     <select name="langue_maternelle">
-                        <option value="wolof" @selected(old('langue_maternelle', $candidature->langue_maternelle) == 'wolof')>Wolof</option>
+                        {{-- <option value="wolof" @selected(old('langue_maternelle', $candidature->langue_maternelle) == 'wolof')>Wolof</option>
                         <option value="francais" @selected(old('langue_maternelle', $candidature->langue_maternelle) == 'francais')>Français</option>
                         <option value="pulaar" @selected(old('langue_maternelle', $candidature->langue_maternelle) == 'pulaar')>Pulaar</option>
                         <option value="serere" @selected(old('langue_maternelle', $candidature->langue_maternelle) == 'serere')>Sérère</option>
                         <option value="diola" @selected(old('langue_maternelle', $candidature->langue_maternelle) == 'diola')>Diola</option>
-                        <option value="autre" @selected(old('langue_maternelle', $candidature->langue_maternelle) == 'autre')>Autre</option>
+                        <option value="autre" @selected(old('langue_maternelle', $candidature->langue_maternelle) == 'autre')>Autre</option> --}}
+
+                        <option value="francais" @selected(old('langue_maternelle', $candidature->langue_maternelle) == 'francais')>Français</option>
+                        <option value="anglais" @selected(old('langue_maternelle', $candidature->langue_maternelle) == 'anglais')>Anglais</option>
+                        <option value="arabe" @selected(old('langue_maternelle', $candidature->langue_maternelle) == 'arabe')>Arabe</option>
+                        <option value="espagnol" @selected(old('langue_maternelle', $candidature->langue_maternelle) == 'espagnol')>Espagnol</option>
+                        <option value="portugais" @selected(old('langue_maternelle', $candidature->langue_maternelle) == 'portugais')>Portugais</option>
+                        <option value="chinois" @selected(old('langue_maternelle', $candidature->langue_maternelle) == 'chinois')>Chinois</option>
+                        <option value="japonais" @selected(old('langue_maternelle', $candidature->langue_maternelle) == 'japonais')>Japonais</option>
+                        <option value="coreen" @selected(old('langue_maternelle', $candidature->langue_maternelle) == 'coreen')>Coréen</option>
+                        <option value="allemand" @selected(old('langue_maternelle', $candidature->langue_maternelle) == 'allemand')>Allemand</option>
+                        <option value="russe" @selected(old('langue_maternelle', $candidature->langue_maternelle) == 'russe')>Russe</option>
+                        <option value="italien" @selected(old('langue_maternelle', $candidature->langue_maternelle) == 'italien')>Italien</option>
                     </select>
                     @error('langue_maternelle')
                         <span class="field-error">{{ $message }}</span>
@@ -202,7 +215,8 @@
 
                     @if ($info['path'])
                         <div style="margin-bottom:6px;">
-                            <a href="{{ asset('storage/' . $info['path']) }}" target="_blank" class="btn btn-ghost btn-sm">
+                            <a href="{{ asset('storage/' . $info['path']) }}" target="_blank"
+                                class="btn btn-ghost btn-sm">
                                 📄 Voir le fichier actuel
                             </a>
                         </div>
@@ -219,9 +233,9 @@
             @endforeach
 
             <!-- <div class="reg-actions" style="justify-content:space-between; margin-top:24px;">
-                                            <a href="{{ route('candidatures.show', $candidature) }}" class="btn btn-ghost btn-sm">Annuler</a>
-                                            <button type="submit" class="btn btn-primary btn-sm">Enregistrer les modifications</button>
-                                        </div> -->
+                                                <a href="{{ route('candidatures.show', $candidature) }}" class="btn btn-ghost btn-sm">Annuler</a>
+                                                <button type="submit" class="btn btn-primary btn-sm">Enregistrer les modifications</button>
+                                            </div> -->
 
             @can('candidatures.validation')
                 <div class="reg-actions" style="justify-content:space-between; margin-top:24px;">
