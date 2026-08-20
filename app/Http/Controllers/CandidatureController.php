@@ -279,6 +279,9 @@ class CandidatureController extends Controller
 
     public function update(Request $request, Candidature $candidature)
     {
+
+        $langue = LanguesSpecialisation::where('nom', $request->langue_specialisation)->first();
+
         $validated = $request->validate([
             'diplome'               => ['required', 'string'],
             'langue_maternelle'     => ['required', 'string'],
@@ -288,6 +291,7 @@ class CandidatureController extends Controller
             'disponible_fin'        => ['required', 'date', 'after_or_equal:disponible_debut'],
             'zone'                  => ['required', 'string'],
             'delegation_souhaitee'  => ['nullable', 'string'],
+            'certification'         => ['nullable', 'string'],
 
             // Fichiers optionnels : uniquement validés s'ils sont envoyés
             'piece_identite'         => ['nullable', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:2048'],
@@ -323,9 +327,11 @@ class CandidatureController extends Controller
 
         $regionid = $departement->region->id;
 
-         $candidature->update([
-                'regions_id' => $regionid,
-            ]);
+        $candidature->update([
+            'regions_id' => $regionid,
+            'langue_specialisation_id'   => $langue->id,
+            'certification_obtenue'      => $validated['certification'] ?? null,
+        ]);
 
         return redirect()
             ->route('candidatures.show', $candidature)

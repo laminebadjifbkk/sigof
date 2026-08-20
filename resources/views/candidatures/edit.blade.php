@@ -69,7 +69,28 @@
                     <span class="field-error">{{ $message }}</span>
                 @enderror
             </div>
-            <h3>Langues</h3>
+            <h3>Diplômes et langues</h3>
+
+            <div class="field-row">
+                <div class="field"><label>Langue choisie - niveau C1 requis <span class="required-marker">*</span></label>
+                    <select name="langue_specialisation" id="specLang">
+                        <option value="" disabled @selected(!old('langue_specialisation'))>-- Choisissez une langue --
+                        </option>
+                        @foreach ($languesSpecialisations as $langue)
+                            <option value="{{ $langue->nom }}" @selected(old('langue_specialisation', $candidature->langueSpecialisation->nom) == $langue->nom)>
+                                {{ $langue->nom }}
+                                <!-- {{ $langue->nom }} - {{ $langue->postes_disponibles }} candidat{{ $langue->postes_disponibles > 1 ? 's' : '' }} à former - {{ $langue->niveau_langue_requis }} -->
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('langue_specialisation')
+                        <span class="field-error">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="field"><label>Certification obtenue (si applicable)</label><input type="text"
+                        name="certification" value="{{ old('certification', $candidature?->certification_obtenue) }}" placeholder="Ex : DELE C1, HSK 5…">
+                </div>
+            </div>
             <div class="field-row">
                 <div class="field">
                     <label>Diplôme le plus élevé</label>
@@ -198,9 +219,9 @@
             @endforeach
 
             <!-- <div class="reg-actions" style="justify-content:space-between; margin-top:24px;">
-                                    <a href="{{ route('candidatures.show', $candidature) }}" class="btn btn-ghost btn-sm">Annuler</a>
-                                    <button type="submit" class="btn btn-primary btn-sm">Enregistrer les modifications</button>
-                                </div> -->
+                                            <a href="{{ route('candidatures.show', $candidature) }}" class="btn btn-ghost btn-sm">Annuler</a>
+                                            <button type="submit" class="btn btn-primary btn-sm">Enregistrer les modifications</button>
+                                        </div> -->
 
             @can('candidatures.validation')
                 <div class="reg-actions" style="justify-content:space-between; margin-top:24px;">
