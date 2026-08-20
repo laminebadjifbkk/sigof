@@ -86,7 +86,7 @@
 
                                                     @can('employe-show')
                                                         <span class="d-flex mt-2 align-items-baseline"><a
-                                                                href="{{ route('employes.show', $employe->id) }}"
+                                                                href="{{ route('employes.show', $employe) }}"
                                                                 class="btn btn-success btn-sm mx-1" title="voir détails"><i
                                                                     class="bi bi-eye"></i></a>
                                                             <div class="filter">
@@ -96,7 +96,7 @@
 
                                                                     @can('employe-update')
                                                                         <li><a class="dropdown-item btn btn-sm mx-1"
-                                                                                href="{{ route('employes.edit', $employe?->id) }}"
+                                                                                href="{{ route('employes.edit', $employe) }}"
                                                                                 class="mx-1"><i class="bi bi-pencil"></i>
                                                                                 Modifier</a>
                                                                         </li>
@@ -105,7 +105,7 @@
                                                                     @can('employe-delete')
                                                                         <li>
                                                                             <form
-                                                                                action="{{ route('employes.destroy', $employe?->id) }}"
+                                                                                action="{{ route('employes.destroy', $employe) }}"
                                                                                 method="post">
                                                                                 @csrf
                                                                                 @method('DELETE')
