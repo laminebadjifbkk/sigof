@@ -37,11 +37,11 @@
         <div class="detail-item" style="margin-bottom:20px;">
             <span class="detail-label">Informations non modifiables ici</span>
             <span class="detail-value">
-                {{ $candidature->user->email }} · {{ $candidature->user->telephone }} ·
+                {{ $candidature->user->email }} · {{ $candidature->user->telephone }} · {{ $candidature->user->cin }} ·
                 Langue de spécialisation : {{ $candidature->langueSpecialisation->nom }}
             </span>
             <p style="font-size:12.5px; color:var(--gray-500,#888); margin-top:4px;">
-                Pour modifier le profil ou la langue de spécialisation, contactez un administrateur système.
+                Pour modifier le profil, contactez un administrateur système.
             </p>
         </div>
 
