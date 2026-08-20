@@ -38,7 +38,7 @@ class CandidatureController extends Controller
         })
             ->whereHas('langueSpecialisation')
             ->latest()
-            ->limit(100)
+            ->limit(500)
             ->get();
         return view('candidatures.index', compact('candidatures'));
 
@@ -62,7 +62,7 @@ class CandidatureController extends Controller
                 $query->whereNotNull('firstname');
             })
             ->latest()
-            ->limit(100)
+            ->limit(500)
             ->get();
 
         return view('candidatures.par_langue', compact('candidatures', 'langue'));
