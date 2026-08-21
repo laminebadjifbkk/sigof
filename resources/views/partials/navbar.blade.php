@@ -92,16 +92,16 @@
             @else
                 <button type="button" class="avatar-bubble" data-bs-toggle="modal" data-bs-target="#userModal"
                     title="{{ trim((Auth::user()->civilite ?? '') . ' ' . (Auth::user()->firstname ?? '') . ' ' . (Auth::user()->name ?? '')) }}">
-                    {{-- {{ Auth::check() ? Str::upper(Str::substr(Auth::user()->firstname, 0, 1)) . '' . Str::upper(Str::substr(Auth::user()->name, 0, 1)) : 'FN' }} --}}
+                    {{ Auth::check() ? Str::upper(Str::substr(Auth::user()->firstname, 0, 1)) . '' . Str::upper(Str::substr(Auth::user()->name, 0, 1)) : 'FN' }}
 
                     {{-- <img src="{{ asset(Auth::user()->getImage()) }}" alt="Profil" class="nav-profile-image"> --}}
-                    <div class="avatar-bubble avatar-bubble--lg">
+                    {{-- <div class="avatar-bubble avatar-bubble--lg">
                         @if (Auth::user()->getImage())
                             <img src="{{ asset(Auth::user()->getImage()) }}" alt="Profil" class="nav-profile-image">
                         @else
                             {{ Str::upper(Str::substr(Auth::user()->firstname, 0, 1)) . Str::upper(Str::substr(Auth::user()->name, 0, 1)) }}
                         @endif
-                    </div>
+                    </div> --}}
                 </button>
             @endguest
 
