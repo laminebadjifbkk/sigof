@@ -198,13 +198,13 @@
                                 <option value="doctorat">Doctorat</option>
                                 <option value="certification">Certification linguistique reconnue</option>
                             </select>
-                            @error('certification')
+                            @error('diplome')
                                 <span class="field-error">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="field"><label>Langue choisie - niveau C1 requis <span
                                     class="required-marker">*</span></label>
-                            <select name="langue_specialisation" id="specLang">
+                            {{-- <select name="langue_specialisation" id="specLang">
                                 <option value="" disabled @selected(!old('langue_specialisation'))>-- Choisissez une langue --
                                 </option>
                                 @foreach ($languesSpecialisations as $langue)
@@ -213,6 +213,12 @@
                                         <!-- {{ $langue->nom }} - {{ $langue->postes_disponibles }} candidat{{ $langue->postes_disponibles > 1 ? 's' : '' }} à former - {{ $langue->niveau_langue_requis }} -->
                                     </option>
                                 @endforeach
+                            </select> --}}
+                            <select name="langue_specialisation">
+                                <option value="" @selected(!old('langue_specialisation'))>-- Choisissez --</option>
+                                <option value="japonais" @selected(old('langue_specialisation') == 'japonais')>Japonais</option>
+                                <option value="coreen" @selected(old('langue_specialisation') == 'coreen')>Coréen</option>
+                                <option value="italien" @selected(old('langue_specialisation') == 'italien')>Italien</option>
                             </select>
                             @error('langue_specialisation')
                                 <span class="field-error">{{ $message }}</span>
