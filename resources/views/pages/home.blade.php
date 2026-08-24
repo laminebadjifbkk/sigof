@@ -108,7 +108,7 @@
                 <div class="label">Langues de spécialisation</div>
             </div>
             <div class="stat">
-                <div class="num">21-35 (ans)</div>
+                <div class="num">20-35 (ans)</div>
                 <div class="label">Tranche d'âge éligible</div>
             </div>
             <div class="stat">
