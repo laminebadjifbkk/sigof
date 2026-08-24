@@ -342,7 +342,7 @@ class CandidatureController extends Controller
     {
         $validated = $request->validate([
             'statut'            => ['required', Rule::in(['en_attente', 'validee', 'rejetee'])],
-            'commentaire_admin' => ['nullable', 'string', 'max:1000'],
+            'commentaire_admin' => ['required', 'string', 'max:1000'],
         ]);
 
         $candidature->update($validated);
