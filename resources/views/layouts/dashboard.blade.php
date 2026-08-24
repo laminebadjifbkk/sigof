@@ -577,6 +577,11 @@
             border-top-color: rgba(255, 255, 255, 0.15) !important;
             color: rgba(255, 255, 255, 0.6) !important;
         }
+
+        .error-text {
+            color: red;
+            font-size: 0.9rem;
+        }
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
