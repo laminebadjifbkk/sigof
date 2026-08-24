@@ -39,7 +39,7 @@
                         <span class="status-pill {{ $c->statut_classe }}">{{ $c->statut_label }}</span>
                     </td>
                     <td>
-                        <a href="{{ route('candidatures.show', $c) }}" class="btn btn-sm btn-outline">
+                        <a href="{{ route('candidatures.show', $c) }}" class="btn btn-sm btn-outline" target="_blank">
                             Voir
                         </a>
                     </td>
