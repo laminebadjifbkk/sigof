@@ -162,7 +162,7 @@
                 </textarea>
 
                 @error('commentaire_admin')
-                    <span class="alert alert-danger alert-list">{{ $message }}</span>
+                    <span style="color: red;">{{ $message }}</span>
                 @enderror
             </div>
 
