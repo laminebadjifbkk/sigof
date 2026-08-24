@@ -157,9 +157,7 @@
 
             <div class="field">
                 <label>Commentaire administratif (optionnel)</label>
-                <textarea name="commentaire_admin" rows="3" placeholder="Motif de rejet, remarque interne…">
-                    {{ old('commentaire_admin', $candidature->commentaire_admin) }}
-                </textarea>
+                <textarea name="commentaire_admin" rows="3" placeholder="Motif de rejet, remarque interne ou note">{{ old('commentaire_admin', $candidature->commentaire_admin) }}</textarea>
 
                 @error('commentaire_admin')
                     <span class="error-text">{{ $message }}</span>
