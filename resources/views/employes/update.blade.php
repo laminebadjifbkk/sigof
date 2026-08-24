@@ -53,6 +53,9 @@
                                             <option value="Mme">
                                                 Mme
                                             </option>
+                                            <option value="Dr.">
+                                                Dr.
+                                            </option>
                                         </select>
                                         @error('civilite')
                                             <span class="invalid-feedback" role="alert">
