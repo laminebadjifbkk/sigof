@@ -11,6 +11,7 @@ use App\Models\Individuelle;
 use App\Models\Region;
 use App\Models\Projet;
 use App\Models\User;
+use App\Models\Validationindividuelle;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -354,6 +355,21 @@ class CandidatureController extends Controller
                 ['statut_formation' => 'non_inscrit']
             );
         }
+
+        $user = User::findOrFail($candidature->users_id);
+        $individuelle = Individuelle::where('users_id', $candidature->users_id)->first();
+
+        // Si super-admin, on poursuit la validation
+        $individuelle->update([
+            'statut'       => $request->input('statut'),
+            'validated_by' => $user->firstname . ' ' . $user->name,
+        ]);
+
+        Validationindividuelle::create([
+            'validated_id'     => $user->id,
+            'action'           => $request->input('statut'),
+            'individuelles_id' => $individuelle->id,
+        ]);
 
         return redirect()
             ->route('candidatures.show', $candidature)
