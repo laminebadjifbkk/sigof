@@ -21,6 +21,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class CandidatureController extends Controller
 {
@@ -362,11 +363,11 @@ class CandidatureController extends Controller
         // Si super-admin, on poursuit la validation
         $individuelle->update([
             'statut'       => $request->input('statut'),
-            'validated_by' => $user->firstname . ' ' . $user->name,
+            'validated_by' => Auth::user()->id->firstname . ' ' . Auth::user()->id->name,
         ]);
 
         Validationindividuelle::create([
-            'validated_id'     => $user->id,
+            'validated_id'     => Auth::user()->id,
             'action'           => $request->input('statut'),
             'individuelles_id' => $individuelle->id,
         ]);
