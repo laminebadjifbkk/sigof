@@ -25,6 +25,9 @@
                 <div class="hero-ctas">
                     <a href="{{ route('inscription') }}" class="btn btn-primary">Je m'inscris</a>
                     <a href="{{ route('connexion') }}" class="btn btn-ghost">Accéder à mon espace</a>
+
+                    {{-- <button type="button" class="btn btn-ghost" id="btnOpenStatusCheck">Vérifier le statut de ma
+                        candidature</button> --}}
                 </div>
 
                 @if ($phase === 'avant')
@@ -69,7 +72,8 @@
                     </div>
                     <p class="countdown-caption">
                         Il vous reste <strong>{{ $maintenant->diffInDays($dateFermeture) }} jour(s)</strong>
-                        pour déposer votre candidature - clôture le 26 août 2026 à 17h00 pour les langues : Japonais; Coréen et Italien.
+                        pour déposer votre candidature - clôture le 26 août 2026 à 17h00 pour les langues : Japonais; Coréen
+                        et Italien.
                     </p>
                 @else
                     <div class="countdown countdown-closed" role="status" aria-live="polite">
@@ -97,6 +101,31 @@
         </div>
     </div>
 
+    {{-- Modal de vérification du statut de candidature. Hypothèse : identification
+         par numéro de dossier + email déclaré à l'inscription. Adapter la route
+         "candidature.statut.verifier" et les champs à votre contrôleur réel. --}}
+    <div class="status-check-overlay" id="statusCheckOverlay">
+        <div class="status-check-card">
+            <button type="button" class="close-btn" id="btnCloseStatusCheck" aria-label="Fermer">✕</button>
+            <h3>Vérifier ma candidature</h3>
+            <p class="muted">Renseignez votre numéro de dossier et l'adresse e-mail utilisée lors de votre inscription.</p>
+
+            <form method="POST" action="#" id="statusCheckForm">
+                @csrf
+                <div class="field">
+                    <label for="statut-reference">Numéro de dossier</label>
+                    <input id="statut-reference" name="reference" type="text" placeholder="Ex: YLP-2026-000123" required>
+                </div>
+                <div class="field">
+                    <label for="statut-email">Adresse e-mail</label>
+                    <input id="statut-email" name="email" type="email" placeholder="prenom.nom@exemple.sn" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Vérifier le statut</button>
+            </form>
+
+            <div class="status-check-result" id="statusCheckResult"></div>
+        </div>
+    </div>
     <div class="stat-strip">
         <div class="container">
             <div class="stat">

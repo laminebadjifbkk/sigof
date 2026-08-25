@@ -693,6 +693,103 @@
             color: var(--danger, red);
             margin-left: 0.5px;
         }
+
+        /* --- Vérification du statut de candidature --- */
+        .status-check-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(19, 20, 22, 0.55);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .status-check-overlay.open {
+            display: flex;
+        }
+
+        .status-check-card {
+            background: #fff;
+            width: 100%;
+            max-width: 420px;
+            border-radius: 24px 24px 24px 6px;
+            border-top: 4px solid var(--green);
+            padding: 32px 28px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+        }
+
+        .status-check-card .close-btn {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            width: 30px;
+            height: 30px;
+            border-radius: 10px 10px 10px 3px;
+            border: 2px solid var(--black);
+            background: #fff;
+            font-size: 14px;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .status-check-card h3 {
+            font-size: 21px;
+            margin-bottom: 6px;
+        }
+
+        .status-check-card .muted {
+            color: var(--gray-700);
+            font-size: 13.5px;
+            margin-bottom: 22px;
+        }
+
+        .status-check-card .field {
+            margin-bottom: 16px;
+        }
+
+        .status-check-card .field label {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            margin-bottom: 6px;
+            color: var(--gray-700);
+        }
+
+        .status-check-card .field input {
+            width: 100%;
+            border: 2px solid var(--black);
+            border-radius: 12px 12px 12px 4px;
+            padding: 11px 13px;
+            font-family: var(--font-body);
+            font-size: 14px;
+        }
+
+        .status-check-result {
+            margin-top: 18px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            font-size: 13.5px;
+            display: none;
+        }
+
+        .status-check-result.show {
+            display: block;
+        }
+
+        .status-check-result.ok {
+            background: #DEF0E7;
+            color: var(--green);
+        }
+
+        .status-check-result.error {
+            background: #F5DEDA;
+            color: var(--brick);
+        }
     </style>
     @stack('styles')
 </head>
@@ -888,6 +985,73 @@
     </script>
     <!-- reCAPTCHA -->
     <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site_key') }}"></script>
+
+    <!-- Vérification du statut de candidature -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var overlay = document.getElementById('statusCheckOverlay');
+            var openBtn = document.getElementById('btnOpenStatusCheck');
+            var closeBtn = document.getElementById('btnCloseStatusCheck');
+            var form = document.getElementById('statusCheckForm');
+            var resultBox = document.getElementById('statusCheckResult');
+
+            function openModal() {
+                overlay.classList.add('open');
+                resultBox.classList.remove('show', 'ok', 'error');
+                resultBox.textContent = '';
+            }
+
+            function closeModal() {
+                overlay.classList.remove('open');
+            }
+
+            openBtn.addEventListener('click', openModal);
+            closeBtn.addEventListener('click', closeModal);
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) closeModal();
+            });
+
+            // Soumission en Ajax pour afficher le résultat sans quitter la page.
+            // Adapter selon la réponse JSON réelle de votre contrôleur
+            // (ex: { statut: 'validee'|'attente'|'rejetee', message: '...' }).
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                var submitBtn = form.querySelector('button[type="submit"]');
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Vérification...';
+
+                fetch(form.action, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                ?.content ||
+                                form.querySelector('input[name="_token"]').value,
+                            'Accept': 'application/json'
+                        },
+                        body: new FormData(form)
+                    })
+                    .then(function(res) {
+                        return res.json();
+                    })
+                    .then(function(data) {
+                        resultBox.classList.remove('ok', 'error');
+                        resultBox.classList.add('show', data.success ? 'ok' : 'error');
+                        resultBox.textContent = data.message || (data.success ?
+                            'Statut récupéré avec succès.' :
+                            "Aucune candidature trouvée avec ces informations.");
+                    })
+                    .catch(function() {
+                        resultBox.classList.remove('ok');
+                        resultBox.classList.add('show', 'error');
+                        resultBox.textContent = "Une erreur est survenue, veuillez réessayer.";
+                    })
+                    .finally(function() {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Vérifier le statut';
+                    });
+            });
+        });
+    </script>
     @stack('scripts')
 </body>
 
