@@ -439,7 +439,7 @@ $missions = $chauffeur->employee->parcmissions;
             new DataTable('#table-parc-mission', {
                 ordering: true,
                 order: [
-                    [2, 'asc']
+                    [3, 'asc']
                 ], // tri par colonne "Dernière mission"
                 searching: false, // désactive la recherche
                 paging: false, // désactive la pagination
