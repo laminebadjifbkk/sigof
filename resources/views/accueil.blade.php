@@ -97,19 +97,19 @@
                                 <h1 class="mb-2">
                                     {{ $partenaire?->type_projet . ' ' . $partenaire?->sigle }} <br>
 
-                                    @foreach ($modules->take($maxDisplay) as $projetmodule)
+                                    {{-- @foreach ($modules->take($maxDisplay) as $projetmodule)
                                         <span class="accent-text">
                                             {{ Str::limit($projetmodule?->module, 20, '.') }}
                                         </span><br>
-                                    @endforeach
+                                    @endforeach --}}
                                 </h1>
 
-                                <h5 class="mb-2">
+                                {{-- <h5 class="mb-2">
                                     @if ($modules->count() > $maxDisplay)
                                         <span class="accent-text">… et {{ $modules->count() - $maxDisplay }} module(s)
                                             de plus</span>
                                     @endif
-                                </h5>
+                                </h5> --}}
 
                                 <div class="col-12 col-md-10 col-lg-10 col-sm-12 col-xs-12 col-xxl-8">
                                     <div id="countdownContainer" class="alert alert-warning fw-bold countdown mb-3">
@@ -143,20 +143,20 @@
                                     <span class="accent-text">{{ $une->titre2 }}</span><br>
                                 </h2>
                                 @if (!empty($une->image))
-                                    {{-- <h3 class="mb-4 text-center">
+                                    <h3 class="mb-4 text-center">
                                         <a id="partenaire" href="{{ route('login') }}"
                                             class="btn btn-danger btn-lg fw-bold shadow pulse-animation mx-1">
                                             Postuler maintenant
                                         </a>
-                                    </h3> --}}
+                                    </h3>
                                 @endif
 
-                                <h3 class="mb-4 text-center">
+                                {{-- <h3 class="mb-4 text-center">
                                     <a id="partenaire" href="{{ route('inscription') }}"
                                         class="btn btn-danger btn-lg fw-bold shadow pulse-animation mx-1">
                                         Postuler maintenant
                                     </a>
-                                </h3>
+                                </h3> --}}
                             @else
                                 {{-- <div class="company-badge mb-4">
                                     <i class="bi bi-gear-fill me-2"></i>
