@@ -72,14 +72,13 @@
                     </div>
                     <p class="countdown-caption">
                         Il vous reste <strong>{{ $maintenant->diffInDays($dateFermeture) }} jour(s)</strong>
-                        pour déposer votre candidature - clôture le 26 août 2026 à 17h00 pour les langues : Japonais; Coréen, Chinois
-                        et Italien.
+                        pour déposer votre candidature - clôture le 28 août 2026 à 17h00 pour la langue : Japonais.
                     </p>
                 @else
                     <div class="countdown countdown-closed" role="status" aria-live="polite">
                         <p class="countdown-caption countdown-caption--closed">
                             Les dépôts de candidatures sont désormais <strong>clôturés</strong>.
-                            La période de dépôt s'est achevée le 23 août 2026 à 17h00.
+                            La période de dépôt s'est achevée le 28 août 2026 à 17h00.
                         </p>
                     </div>
                 @endif
