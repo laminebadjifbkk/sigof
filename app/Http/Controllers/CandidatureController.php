@@ -357,13 +357,20 @@ class CandidatureController extends Controller
             );
         }
 
-        $user = User::findOrFail($candidature->users_id);
+        /* $user = User::findOrFail($candidature->users_id);
         $individuelle = Individuelle::where('users_id', $candidature->users_id)->first();
 
         // Si super-admin, on poursuit la validation
         $individuelle->update([
             'statut'       => $request->input('statut'),
             'validated_by' => Auth::user()->id->firstname . ' ' . Auth::user()->id->name,
+        ]); */
+
+        $individuelle = Individuelle::where('users_id', $candidature->users_id)->firstOrFail();
+
+        $individuelle->update([
+            'statut'       => $request->input('statut'),
+            'validated_by' => Auth::user()->firstname . ' ' . Auth::user()->name,
         ]);
 
         Validationindividuelle::create([
