@@ -197,7 +197,7 @@
                                             $firstOnfp = $formation?->onfpevaluateurs?->first();
                                         @endphp
                                         <p style="font-weight: bold;">
-                                            ONFP/DG/DEC/{{ $firstOnfp?->initiale }}
+                                            ONFP/DG/SG/DEC/{{ $firstOnfp?->initiale }}
                                         </p>
                                         <p style="text-align: center; font-weight: bold;">Dakar, le</p><br><br><br>
                                         <p style="text-align: center; font-weight: bold; font-style: italic">Le
