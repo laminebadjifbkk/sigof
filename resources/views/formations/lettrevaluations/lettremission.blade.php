@@ -240,7 +240,7 @@
                                                     {{-- {{ $formation?->titre ?? $formation?->referentiel?->titre }} --}}
                                                 @else
                                                     @if (!empty($formation?->referentiel?->categorie))
-                                                        {{ 'classé à la ' . $formation?->niveauQualificationAffichage . ' de la ' . $formation?->referentiel?->convention?->name }}
+                                                        {{ 'classé à la ' . $formation?->niveauQualificationAffichage() . ' de la ' . $formation?->referentiel?->convention?->name }}
                                                     @endif
                                                 @endif
                                             </p>
