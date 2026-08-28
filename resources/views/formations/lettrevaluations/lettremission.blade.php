@@ -234,13 +234,22 @@
                                         @endif --}}
                                                 {{ $formation?->intitule }}
                                             </p>
+                                            {{-- <p><b>Niveau de qualification </b>:
+                                                {{ $formation?->titre ?? $formation?->referentiel?->titre . ', ' }}
+                                                @if ($formation?->type_certification !== 'Titre')
+                                                @else
+                                                    @if (!empty($formation?->referentiel?->categorie))
+                                                        {{ 'classé à la ' . $formation?->referentiel?->categorie . ' de la ' . $formation?->referentiel?->convention?->name }}
+                                                    @endif
+                                                @endif
+                                            </p> --}}
                                             <p><b>Niveau de qualification </b>:
                                                 {{ $formation?->titre ?? $formation?->referentiel?->titre . ', ' }}
                                                 @if ($formation?->type_certification !== 'Titre de qualification')
-                                                    {{-- {{ $formation?->titre ?? $formation?->referentiel?->titre }} --}}
                                                 @else
                                                     @if (!empty($formation?->referentiel?->categorie))
-                                                        {{ 'classé à la ' . $formation?->niveauQualificationAffichage() . ' de la ' . $formation?->referentiel?->convention?->name }}
+                                                        {{ 'classé à la ' .
+                                                            $formation?->niveauQualificationAffichage() }}
                                                     @endif
                                                 @endif
                                             </p>
