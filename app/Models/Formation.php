@@ -745,7 +745,7 @@ class Formation extends Model
         return back();
     }
 
-    public function getPeriodeFormateeAttribute(): string
+    /* public function getPeriodeFormateeAttribute(): string
     {
         if (!$this->date_debut || !$this->date_fin) {
             return '';
@@ -760,6 +760,50 @@ class Formation extends Model
             );
         }
 
+        return sprintf(
+            'du %s au %s',
+            $this->date_debut->translatedFormat('d F Y'),
+            $this->date_fin->translatedFormat('d F Y')
+        );
+    } */
+
+    public function getPeriodeFormateeAttribute(): string
+    {
+        if (!$this->date_debut || !$this->date_fin) {
+            return '';
+        }
+
+        // Même jour, mois et année
+        if ($this->date_debut->isSameDay($this->date_fin)) {
+            return sprintf(
+                'le %s %s',
+                $this->date_debut->format('d'),
+                $this->date_debut->translatedFormat('F Y')
+            );
+        }
+
+        // Même mois et même année
+        if ($this->date_debut->format('mY') === $this->date_fin->format('mY')) {
+            return sprintf(
+                'du %s au %s %s',
+                $this->date_debut->format('d'),
+                $this->date_fin->format('d'),
+                $this->date_fin->translatedFormat('F Y')
+            );
+        }
+
+        // Même année, mais mois différents
+        if ($this->date_debut->format('Y') === $this->date_fin->format('Y')) {
+            return sprintf(
+                'du %s %s au %s %s',
+                $this->date_debut->format('d'),
+                $this->date_debut->translatedFormat('F'),
+                $this->date_fin->format('d'),
+                $this->date_fin->translatedFormat('F Y')
+            );
+        }
+
+        // Années différentes
         return sprintf(
             'du %s au %s',
             $this->date_debut->translatedFormat('d F Y'),
