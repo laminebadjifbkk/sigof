@@ -106,6 +106,7 @@ use App\Http\Controllers\ValidationoperateurController;
 
 use App\Http\Controllers\VerificationAttestationController;
 use App\Http\Controllers\CandidatureController;
+use App\Http\Controllers\CandidatureStatutController;
 use App\Http\Controllers\SessionFormationController;
 use App\Http\Controllers\LanguesSpecialisationController;
 use App\Http\Controllers\RapportCandidatureController;
@@ -167,7 +168,7 @@ Route::group(['middleware' => ['XSS']], function () {
 
     // ---------- Public ----------
     Route::get('/ylp', [PageController::class, 'home'])->name('ylphome');
-    
+
     /* Route::get('/candidature-joj-dakar-2026', [PageController::class, 'home'])->name('ylphome'); */
 
     // ---------- Authentification candidat ----------
@@ -190,6 +191,9 @@ Route::group(['middleware' => ['XSS']], function () {
 
     Route::post('/mot-de-passe/reinitialiser', [CandidatePasswordResetController::class, 'update'])
         ->name('mot-de-passe.update');
+
+    Route::post('/candidature/statut', [CandidatureStatutController::class, 'check'])
+        ->name('candidature.statut.check');
 
     // ---------- Espace admin (à protéger avec vos middlewares : auth, rôle admin…) ----------
     Route::middleware(['authylp', 'can:access-admin-ylp'])->group(function () {

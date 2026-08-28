@@ -26,8 +26,8 @@
                     <a href="{{ route('inscription') }}" class="btn btn-primary">Je m'inscris</a>
                     <a href="{{ route('connexion') }}" class="btn btn-ghost">Accéder à mon espace</a>
 
-                    {{-- <button type="button" class="btn btn-ghost" id="btnOpenStatusCheck">Vérifier le statut de ma
-                        candidature</button> --}}
+                    <button type="button" class="btn btn-ghost" id="btnOpenStatusCheck">Vérifier le statut de ma
+                        candidature</button>
                 </div>
 
                 @if ($phase === 'avant')
@@ -103,26 +103,53 @@
     {{-- Modal de vérification du statut de candidature. Hypothèse : identification
          par numéro de dossier + email déclaré à l'inscription. Adapter la route
          "candidature.statut.verifier" et les champs à votre contrôleur réel. --}}
-    <div class="status-check-overlay" id="statusCheckOverlay">
-        <div class="status-check-card">
-            <button type="button" class="close-btn" id="btnCloseStatusCheck" aria-label="Fermer">✕</button>
-            <h3>Vérifier ma candidature</h3>
-            <p class="muted">Renseignez votre numéro de dossier et l'adresse e-mail utilisée lors de votre inscription.</p>
+    <div class="statut-modal-overlay" id="statutModalOverlay" hidden>
+        <div class="statut-modal" role="dialog" aria-modal="true" aria-labelledby="statutModalTitle">
+            <button type="button" class="statut-modal-close" id="btnFermerStatut" aria-label="Fermer">&times;</button>
 
-            <form method="POST" action="#" id="statusCheckForm">
+            <h3 id="statutModalTitle">Vérifier ma candidature</h3>
+            <p class="statut-modal-sub">Renseignez les informations utilisées lors de votre inscription.</p>
+
+            <form id="formStatutCandidature" novalidate>
                 @csrf
-                <div class="field">
-                    <label for="statut-reference">Numéro de dossier</label>
-                    <input id="statut-reference" name="reference" type="text" placeholder="Ex: YLP-2026-000123" required>
-                </div>
-                <div class="field">
-                    <label for="statut-email">Adresse e-mail</label>
-                    <input id="statut-email" name="email" type="email" placeholder="prenom.nom@exemple.sn" required>
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">Vérifier le statut</button>
-            </form>
 
-            <div class="status-check-result" id="statusCheckResult"></div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="prenom_candidat">Prénom</label>
+                        <input type="text" id="prenom_candidat" name="prenom" required placeholder="ex : Awa"
+                            autocomplete="given-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="nom_candidat">Nom</label>
+                        <input type="text" id="nom_candidat" name="nom" required placeholder="ex : Diop"
+                            autocomplete="family-name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="date_naissance_candidat">Date de naissance</label>
+                    <input type="date" id="date_naissance_candidat" name="date_naissance" required
+                        autocomplete="bday">
+                </div>
+
+                <div class="form-group">
+                    <label for="cin_candidat">Numéro CIN</label>
+                    <input type="text" id="cin_candidat" name="cin" required placeholder="ex : 1234567890123"
+                        autocomplete="off" inputmode="numeric" maxlength="20">
+                </div>
+
+                <div class="form-group">
+                    <label for="email_candidat">Adresse e-mail</label>
+                    <input type="email" id="email_candidat" name="email" required placeholder="vous@exemple.com"
+                        autocomplete="email">
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="btnVerifierStatut">
+                    Vérifier
+                </button>
+
+                <div id="statutResultat" class="statut-resultat" hidden></div>
+            </form>
         </div>
     </div>
     <div class="stat-strip">
@@ -399,3 +426,4 @@
         </div>
     </div>
 @endsection
+

@@ -368,7 +368,7 @@ class CandidatureController extends Controller
 
         $individuelle = Individuelle::where('users_id', $candidature->users_id)->firstOrFail();
 
-        dd($individuelle);
+        /* dd($individuelle); */
 
         $individuelle->update([
             'statut'       => $request->input('statut'),
