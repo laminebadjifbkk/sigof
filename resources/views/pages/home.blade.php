@@ -26,8 +26,8 @@
                     <a href="{{ route('inscription') }}" class="btn btn-primary">Je m'inscris</a>
                     <a href="{{ route('connexion') }}" class="btn btn-ghost">Accéder à mon espace</a>
 
-                    <button type="button" class="btn btn-ghost" id="btnOpenStatusCheck">Vérifier le statut de ma
-                        candidature</button>
+                    {{-- <button type="button" class="btn btn-ghost" id="btnOpenStatusCheck">Vérifier le statut de ma
+                        candidature</button> --}}
                 </div>
 
                 @if ($phase === 'avant')
