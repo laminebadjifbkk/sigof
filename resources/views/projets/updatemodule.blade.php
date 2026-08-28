@@ -96,7 +96,7 @@
                                                 class="form-control form-control-sm"
                                                 value="{{ old('effectif', $projetmodule?->effectif) }}">
                                         </div>
-                                        <div class="col-md-12">
+                                        {{-- <div class="col-md-12">
                                             <label for="localites" class="form-label">Sélectionner les localités</label>
                                             <select name="projetlocalites[]" class="form-select" aria-label="Select"
                                                 id="multiple-select-field" multiple
@@ -108,8 +108,42 @@
                                                     </option>
                                                 @endforeach
                                             </select>
-                                        </div>
+                                        </div> --}}
 
+                                        <div class="col-md-12">
+                                            <label class="form-label">Sélectionner les localités</label>
+
+                                            <div class="border rounded p-3">
+                                                {{-- Sélectionner toutes les localités --}}
+                                                <div class="form-check mb-3 pb-2 border-bottom">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        id="select-all-localites">
+                                                    <label class="form-check-label fw-bold" for="select-all-localites">
+                                                        Tout sélectionner
+                                                    </label>
+                                                </div>
+
+                                                {{-- Liste des localités --}}
+                                                <div class="row">
+                                                    @foreach ($projetlocalites as $projetlocalite)
+                                                        <div class="col-md-4 col-lg-3 mb-2">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input localite-checkbox"
+                                                                    type="checkbox" name="projetlocalites[]"
+                                                                    value="{{ $projetlocalite->localite }}"
+                                                                    id="localite-{{ $loop->index }}"
+                                                                    {{ in_array($projetlocalite->localite, $moduleLocalites) ? 'checked' : '' }}>
+
+                                                                <label class="form-check-label"
+                                                                    for="localite-{{ $loop->index }}">
+                                                                    {{ $projetlocalite->localite }}
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
 
                                         <div class="col-md-12">
                                             <label for="description" class="form-label">Description du module</label>
@@ -135,3 +169,38 @@
 
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const selectAll = document.getElementById('select-all-localites');
+            const checkboxes = document.querySelectorAll('.localite-checkbox');
+
+            function updateSelectAll() {
+                const total = checkboxes.length;
+                const checked = document.querySelectorAll('.localite-checkbox:checked').length;
+
+                selectAll.checked = total > 0 && checked === total;
+                selectAll.indeterminate = checked > 0 && checked < total;
+            }
+
+            // Tout sélectionner / désélectionner
+            selectAll.addEventListener('change', function() {
+                checkboxes.forEach(function(checkbox) {
+                    checkbox.checked = selectAll.checked;
+                });
+
+                selectAll.indeterminate = false;
+            });
+
+            // Mettre à jour "Tout sélectionner"
+            checkboxes.forEach(function(checkbox) {
+                checkbox.addEventListener('change', updateSelectAll);
+            });
+
+            // État initial
+            updateSelectAll();
+        });
+    </script>
+@endpush
