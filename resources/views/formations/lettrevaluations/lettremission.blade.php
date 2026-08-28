@@ -236,7 +236,7 @@
                                             </p>
                                             <p><b>Niveau de qualification </b>:
                                                 {{ $formation?->titre ?? $formation?->referentiel?->titre . ', ' }}
-                                                @if ($formation?->type_certification !== 'Titre qualification')
+                                                @if ($formation?->type_certification !== 'Titre de qualification')
                                                     {{-- {{ $formation?->titre ?? $formation?->referentiel?->titre }} --}}
                                                 @else
                                                     @if (!empty($formation?->referentiel?->categorie))
