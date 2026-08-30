@@ -112,6 +112,19 @@ class IndividuelleController extends Controller
         }
     }
 
+    private function checkAccessDemandeur()
+    {
+        $userRoles = Auth::user()->roles->pluck('name')->toArray();
+
+        $allowedRoles = [
+            'Demandeur',
+        ];
+
+        if (empty(array_intersect($userRoles, $allowedRoles))) {
+            abort(403, 'Accès non autorisé');
+        }
+    }
+
     public function index(Request $request)
     {
         $this->checkAccess();
@@ -1478,7 +1491,7 @@ class IndividuelleController extends Controller
 
     public function generateReport(Request $request)
     {
-        $this->checkAccess();
+        $this->checkAccessDemandeur();
         $this->validate($request, [
             'numero'       => 'nullable|string',
             'cin'       => 'nullable|string',
