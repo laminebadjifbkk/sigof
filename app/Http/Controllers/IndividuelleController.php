@@ -1531,6 +1531,7 @@ class IndividuelleController extends Controller
 
     public function showIndividuelleProjet(Request $request)
     {
+        dd("ok");
         $this->checkAccess();
         $projet = Projet::findOrFail($request->idprojet);
         $user   = Auth::user();
