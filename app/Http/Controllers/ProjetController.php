@@ -360,10 +360,9 @@ class ProjetController extends Controller
 
     public function projetsIndividuelle($uuid)
     {
-        dd('ok ok');
         $user            = Auth::user();
         $projet          = Projet::where('uuid', $uuid)->firstOrFail();
-        $type_localite   = $projet->type_localite;
+        /* $type_localite   = $projet->type_localite; */
         $projetlocalites = Projetlocalite::where('projets_id', $projet->id)
             ->orderBy("created_at", "desc")->get();
 
