@@ -1491,7 +1491,7 @@ class IndividuelleController extends Controller
 
     public function generateReport(Request $request)
     {
-        $this->checkAccessDemandeur();
+        $this->checkAccess();
         $this->validate($request, [
             'numero'       => 'nullable|string',
             'cin'       => 'nullable|string',
@@ -1544,8 +1544,7 @@ class IndividuelleController extends Controller
 
     public function showIndividuelleProjet(Request $request)
     {
-        dd("ok");
-        $this->checkAccess();
+        $this->checkAccessDemandeur();
         $projet = Projet::findOrFail($request->idprojet);
         $user   = Auth::user();
 
