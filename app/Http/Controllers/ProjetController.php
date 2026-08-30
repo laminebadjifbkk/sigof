@@ -125,7 +125,7 @@ class ProjetController extends Controller
 
         return view('projets.update', compact('projet'));
     }
-    /* 
+    /*
     public function update(Request $request, Projet $projet)
     {
 
@@ -360,6 +360,7 @@ class ProjetController extends Controller
 
     public function projetsIndividuelle($uuid)
     {
+        dd('ok ok');
         $user            = Auth::user();
         $projet          = Projet::where('uuid', $uuid)->firstOrFail();
         $type_localite   = $projet->type_localite;
