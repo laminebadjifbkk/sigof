@@ -42,7 +42,7 @@
                                 {{ Auth::user()->civilite . ' ' . Auth::user()->firstname . ' ' . Auth::user()->name }}
                             </h5>
                         </div>
-                        @foreach ($projets as $projet)
+                        {{-- @foreach ($projets as $projet)
                         @endforeach
                         @if (!empty($projet))
                             <div class="table-responsive">
@@ -82,6 +82,57 @@
                             </div>
                         @else
                             <div class="alert alert-info">Vous n'avez aucune demande pour le moment !!!
+                            </div>
+                        @endif --}}
+                        @if ($projets->isNotEmpty())
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover table-borderless">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" width="3%">N°</th>
+                                            <th>Partenaires</th>
+                                            <th class="text-center">Sigle</th>
+                                            <th class="text-center">Type</th>
+                                            <th class="text-center">Statut</th>
+                                            <th class="text-center">#</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        @foreach ($projets as $i => $projet)
+                                            <tr>
+                                                <td class="text-center">{{ $i + 1 }}</td>
+
+                                                <td>{{ $projet->name }}</td>
+
+                                                <td class="text-center">
+                                                    {{ $projet->sigle }}
+                                                </td>
+
+                                                <td class="text-center">
+                                                    {{ $projet->type_projet }}
+                                                </td>
+
+                                                <td class="text-center">
+                                                    <span class="{{ $projet->statut }}">
+                                                        {{ $projet->statut }}
+                                                    </span>
+                                                </td>
+
+                                                <td class="text-center">
+                                                    <a href="{{ route('projetsIndividuelle', ['id' => $projet->id]) }}"
+                                                        class="btn btn-primary btn-sm" title="Voir les détails">
+                                                        <i class="bi bi-eye"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        @else
+                            <div class="alert alert-info">
+                                Vous n'avez aucune demande pour le moment !!!
                             </div>
                         @endif
                     </div>
