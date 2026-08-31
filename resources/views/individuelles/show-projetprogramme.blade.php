@@ -132,7 +132,7 @@
                             </div>
                         @else
                             <div class="alert alert-info">
-                                Vous n'avez aucune demande pour le moment !!!
+                                Vous n'avez aucune demande pour le moment.
                             </div>
                         @endif
                     </div>
