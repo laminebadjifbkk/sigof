@@ -113,7 +113,7 @@
                             </div>
                         @endif
                         @if (!empty($user->cin))
-                            <div class="alert alert-info">Vous n'avez aucune demande pour le moment !!
+                            <div class="alert alert-info">Vous n'avez aucune demande pour le moment.
                             </div>
                             {{-- @elseif(!empty($statut))
                             <h5 class="card-title">Informations personnelles : <a href="{{ route('profil') }}"><span
