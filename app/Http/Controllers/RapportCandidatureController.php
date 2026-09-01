@@ -101,8 +101,9 @@ class RapportCandidatureController extends Controller
         ];
 
         $columns = [
-            'ID',
-            'Nom complet',
+            'N°',
+            'Prenom',
+            'Nom',
             'E-mail',
             'Téléphone',
             'Langue (LV1)',
@@ -125,7 +126,8 @@ class RapportCandidatureController extends Controller
             foreach ($candidatures as $c) {
                 fputcsv($file, [
                     $c->id,
-                    trim($c->user->firstname . ' ' . $c->user->name),
+                    trim($c->user->firstname),
+                    trim($c->user->name),
                     $c->user->email,
                     $c->user->telephone,
                     $c->langueSpecialisation->nom ?? '—',
