@@ -582,6 +582,27 @@
             color: red;
             font-size: 0.9rem;
         }
+
+        .kpi-card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .kpi-card-link .kpi-card {
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .kpi-card-link .kpi-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .kpi-card-link.active .kpi-card {
+            outline: 2px solid var(--navy);
+            outline-offset: 2px;
+        }
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
