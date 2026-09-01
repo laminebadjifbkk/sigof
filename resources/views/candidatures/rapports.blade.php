@@ -138,7 +138,7 @@
                                 </span>
                             </td>
                             <td class="d-flex gap-1">
-                                <a href="{{ route('langues.parLangue', $langue) }}" class="btn btn-sm btn-outline"
+                                <a href="{{ route('candidatures.parLangue', $langue) }}" class="btn btn-sm btn-outline"
                                     title="Voir">
                                     <i class="bi bi-eye"></i>
                             </td>
