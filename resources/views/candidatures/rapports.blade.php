@@ -116,6 +116,7 @@
                         <th>Postes disponibles</th>
                         <th>Candidatures reçues</th>
                         <th>Tension</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -135,6 +136,11 @@
                                     class="status-pill {{ $tension >= 3 ? 'status-rejetee' : ($tension >= 1 ? 'status-en-attente' : 'status-inconnu') }}">
                                     {{ $tension }}x
                                 </span>
+                            </td>
+                            <td class="d-flex gap-1">
+                                <a href="{{ route('langues.show', $langue) }}" class="btn btn-sm btn-outline"
+                                    title="Voir">
+                                    <i class="bi bi-eye"></i>
                             </td>
                         </tr>
                     @empty
