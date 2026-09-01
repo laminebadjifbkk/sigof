@@ -59,6 +59,7 @@ class CandidatureController extends Controller
 
     public function parLangue(LanguesSpecialisation $langue)
     {
+
         $candidatures = Candidature::where('langue_specialisation_id', $langue->id)
             ->whereHas('user', function ($query) {
                 $query->whereNotNull('firstname');
@@ -67,7 +68,28 @@ class CandidatureController extends Controller
             ->limit(500)
             ->get();
 
-        return view('candidatures.par_langue', compact('candidatures', 'langue'));
+        $total = $candidatures->count();
+
+        // Regroupement dynamique par statut_label
+        $kpis = $candidatures
+            ->groupBy('statut_label')
+            ->map(function ($groupe, $statut) use ($total) {
+                return [
+                    'label'      => $statut,
+                    'count'      => $groupe->count(),
+                    'pourcentage' => $total > 0 ? round(($groupe->count() / $total) * 100) : 0,
+                ];
+            })
+            ->values();
+
+        $couleurs = ['var(--green)', 'var(--gold)', 'var(--brick)', 'var(--navy)', '#6c757d', '#9b59b6'];
+
+        // Filtrage optionnel selon le statut cliqué
+        if ($statut = request('statut')) {
+            $candidatures = $candidatures->where('statut_label', $statut)->values();
+        }
+
+        return view('candidatures.par_langue', compact('candidatures', 'langue', 'kpis', 'total', 'couleurs'));
     }
 
     public function store(StoreCandidatureRequest $request)
