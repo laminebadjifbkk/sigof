@@ -113,6 +113,7 @@ class RapportCandidatureController extends Controller
             'Délégation souhaitée',
             'Statut',
             'Date de candidature',
+            'Commentaire admin',
         ];
 
         $callback = function () use ($candidatures, $columns) {
@@ -137,6 +138,7 @@ class RapportCandidatureController extends Controller
                     $c->delegation_souhaitee ?? '—',
                     $c->statut_label ?? $c->statut,
                     $c->created_at->format('d/m/Y H:i'),
+                    $c->commentaire_admin,
                 ], ';');
             }
 
