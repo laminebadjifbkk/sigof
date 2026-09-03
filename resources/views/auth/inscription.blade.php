@@ -217,8 +217,8 @@
                             <select name="langue_specialisation">
                                 <option value="" @selected(!old('langue_specialisation'))>-- Choisissez --</option>
                                 <option value="japonais" @selected(old('langue_specialisation') == 'japonais')>Japonais</option>
-                                {{-- <option value="coreen" @selected(old('langue_specialisation') == 'coreen')>Coréen</option>
-                                <option value="italien" @selected(old('langue_specialisation') == 'italien')>Italien</option>
+                                <option value="coreen" @selected(old('langue_specialisation') == 'coreen')>Coréen</option>
+                                {{-- <option value="italien" @selected(old('langue_specialisation') == 'italien')>Italien</option>
                                 <option value="chinois" @selected(old('langue_specialisation') == 'chinois')>Chinois</option> --}}
                             </select>
                             @error('langue_specialisation')
