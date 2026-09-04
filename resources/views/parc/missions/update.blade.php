@@ -137,7 +137,7 @@
                             </div>
                             <div class="col-md-4 col-sm-12">
                                 <label class="form-label">Pays</label>
-                                <input type="text" name="pays" class="form-control form-control-sm"
+                                <input type="text" name="commentaires" class="form-control form-control-sm"
                                     value="{{ old('pays', $mission->commentaires) }}">
                             </div>
                         </div>
