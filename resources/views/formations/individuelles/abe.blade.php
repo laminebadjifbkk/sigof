@@ -219,7 +219,7 @@
                                         </p>
                                         <p style="text-align : justify;">
                                             <span><b>MODULE </b> :
-                                                {{ $formation?->module?->name }}
+                                                {{ $formation?->intitule }}
                                             </span>
                                             <br>
                                         </p>

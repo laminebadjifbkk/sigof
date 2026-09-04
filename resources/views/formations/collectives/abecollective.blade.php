@@ -219,7 +219,7 @@
                                         </p>
                                         <p style="text-align : justify;">
                                             <span><b>MODULE </b> :
-                                                {{ $formation?->collectivemodule?->module }}
+                                                {{ $formation?->intitule }}
                                             </span>
                                             <br>
                                         </p>
