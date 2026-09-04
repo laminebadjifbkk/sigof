@@ -125,15 +125,20 @@
 
                         {{-- Département / Région --}}
                         <div class="row mb-3">
-                            <div class="col-md-6 col-sm-12">
+                            <div class="col-md-4 col-sm-12">
                                 <label class="form-label">Département</label>
                                 <input type="text" name="departement" class="form-control form-control-sm"
                                     value="{{ old('departement', $mission->departement) }}">
                             </div>
-                            <div class="col-md-6 col-sm-12">
+                            <div class="col-md-4 col-sm-12">
                                 <label class="form-label">Région</label>
                                 <input type="text" name="region" class="form-control form-control-sm"
                                     value="{{ old('region', $mission->region) }}">
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <label class="form-label">Pays</label>
+                                <input type="text" name="pays" class="form-control form-control-sm"
+                                    value="{{ old('pays', $mission->commentaires) }}">
                             </div>
                         </div>
 
