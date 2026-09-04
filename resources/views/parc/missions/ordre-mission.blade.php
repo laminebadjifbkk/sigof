@@ -319,6 +319,15 @@
 
                         <tr>
                             <td>
+                                ....................................................................................
+                            </td>
+                            <td>
+                                <b>Pays :</b> {{ $mission?->commentaires ?? $mission?->lieu_arrivee }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
                                 <b>Total frais de mission :</b>
 
                                 @if ($mission->taux_journalier > 0)
