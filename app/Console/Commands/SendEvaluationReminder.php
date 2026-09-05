@@ -136,7 +136,7 @@ class SendEvaluationReminder extends Command
                     'ouly.toure@onfp.sn',
                     'dado.toure@onfp.sn',
                     'amsatou.paye@onfp.sn',
-                    //'bara.lo@onfp.sn', 
+                    //'bara.lo@onfp.sn',
                     'SerigneMansourSy.FALL@onfp.sn',
                     //'aissatou.deme@tresor.gouv.sn',
                     'MaimounaGadio.AW@onfp.sn',
@@ -226,6 +226,7 @@ class SendEvaluationReminder extends Command
                     'fatou.ba@onfp.sn',
                     'gueyesuntech3@gmail.com',
                     'gibrile.faye@onfp.sn',
+                    'mameawa.ndoye@onfp.sn',
 
                     // Chef de direction de l'ingénieur
                     data_get($formation, 'ingenieur.user.employee.direction.chef.user.email'),

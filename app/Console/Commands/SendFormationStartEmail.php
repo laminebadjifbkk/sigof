@@ -38,7 +38,7 @@ class SendFormationStartEmail extends Command
             $targetDateFormatted = $targetDate->format('Y-m-d');
 
             $formations = Formation::whereDate('date_debut', $targetDateFormatted)->get();
-            // $formations = Formation::whereDate('date_debut', $targetDate)->get(); 
+            // $formations = Formation::whereDate('date_debut', $targetDate)->get();
 
             if ($formations->isEmpty()) {
                 $this->info("Aucune formation ne démarre le {$targetDate->format('d/m/Y')} ({$label}).");
@@ -52,7 +52,7 @@ class SendFormationStartEmail extends Command
                     'dado.toure@onfp.sn',
                     'amsatou.paye@onfp.sn',
                     'lamine.badji@onfp.sn',
-                    //'bara.lo@onfp.sn', 
+                    //'bara.lo@onfp.sn',
                     'SerigneMansourSy.FALL@onfp.sn',
                     //'aissatou.deme@tresor.gouv.sn',
                     'MaimounaGadio.AW@onfp.sn',
@@ -82,7 +82,7 @@ namespace App\Console\Commands;
 use App\Models\Formation;
 use App\Services\BrevoMailer;
 use Illuminate\Console\Command;
-/* 
+/*
 class SendFormationStartEmail extends Command
 {
     protected $signature = 'notify:formation-start';
@@ -127,7 +127,7 @@ class SendFormationStartEmail extends Command
                     'ouly.toure@onfp.sn',
                     'dado.toure@onfp.sn',
                     'amsatou.paye@onfp.sn',
-                    //'bara.lo@onfp.sn', 
+                    //'bara.lo@onfp.sn',
                     'SerigneMansourSy.FALL@onfp.sn',
                     //'aissatou.deme@tresor.gouv.sn',
                     'MaimounaGadio.AW@onfp.sn',
@@ -333,6 +333,7 @@ class SendFormationStartEmail extends Command
                 'fatou.ba@onfp.sn',
                 'gueyesuntech3@gmail.com',
                 'gibrile.faye@onfp.sn',
+                'mameawa.ndoye@onfp.sn',
             ]);
 
             foreach ($formations as $formation) {

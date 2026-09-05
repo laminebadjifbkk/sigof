@@ -17,7 +17,7 @@ class FormationStartController extends Controller
 {
     public function send(Formation $formation)
     {
-        Alert::warning("En raison de soucis techniques auprès de SENUM SA, l’envoi automatique des mails de démarrage est temporairement indisponible. 
+        Alert::warning("En raison de soucis techniques auprès de SENUM SA, l’envoi automatique des mails de démarrage est temporairement indisponible.
 Nous vous prions de bien vouloir les transmettre directement via votre messagerie, le temps que la situation soit rétablie.");
 
         return redirect()->back();
@@ -118,6 +118,7 @@ class FormationStartController extends Controller
             'fatou.ba@onfp.sn',
             'gueyesuntech3@gmail.com',
             'gibrile.faye@onfp.sn',
+            'mameawa.ndoye@onfp.sn',
         ];
 
         $emails = collect($defaultEmails)
