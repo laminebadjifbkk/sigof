@@ -723,6 +723,8 @@ class ArriveController extends Controller
             'Classement',
             'Pour rappel',
             'Circularisation',
+            'Représenation',
+            'Traitement',
         ];
 
         $dompdf->loadHtml(view('courriers.arrives.arrive-coupon', compact(
