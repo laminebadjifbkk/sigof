@@ -266,7 +266,7 @@
                                             </td>
                                         @endforeach
                                     </tr>
-                                @endforeach --}}2
+                                @endforeach --}}
                                 @foreach ($directions as $chunk)
                                     <tr class="item">
                                         @foreach ($chunk as $direction)
