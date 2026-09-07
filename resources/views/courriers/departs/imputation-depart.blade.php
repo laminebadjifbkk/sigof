@@ -185,6 +185,12 @@
                                                 <option value="Circularisation">
                                                     Circularisation
                                                 </option>
+                                                <option value="Représenation">
+                                                    Représenation
+                                                </option>
+                                                <option value="Traitement">
+                                                    Traitement
+                                                </option>
                                             </select>
                                             <small id="emailHelp" class="form-text text-muted">
                                                 @if ($errors->has('description'))
@@ -234,11 +240,11 @@
                 <script src="//code.jquery.com/jquery.js"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js"></script>
                 <script id="document-template" type="text/x-handlebars-template">
-                    <tr class="delete_add_more_item" id="delete_add_more_item">    
+                    <tr class="delete_add_more_item" id="delete_add_more_item">
                         <td>
                             <input type="hidden" name="id_direction[]" value="@{{ id_direction }}" required placeholder="Id direction" class="form-control form-control-sm">
                             <input type="hidden" name="id_employe[]" value="@{{ id_employe }}" required placeholder="Id employe" class="form-control form-control-sm">
-                            <input type="text" name="product[]" value="@{{ product }}" required placeholder="Direction" class="form-control form-control-sm" readonly>                            
+                            <input type="text" name="product[]" value="@{{ product }}" required placeholder="Direction" class="form-control form-control-sm" readonly>
                             <input type="hidden" name="imp" value="@{{ imp }}">
                         </td>
                         <td>
@@ -246,7 +252,7 @@
                       </td>
                         <td>
                         <i class="removeaddmore" style="cursor:pointer;color:red;" title="supprimer"><i class="bi bi-trash"></i></i>
-                        </td>    
+                        </td>
                     </tr>
                     </script>
                 <script type="text/javascript">

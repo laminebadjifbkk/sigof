@@ -269,6 +269,8 @@
                                                                     <option>Classement</option>
                                                                     <option>Pour rappel</option>
                                                                     <option>Circularisation</option>
+                                                                    <option>Représenation</option>
+                                                                    <option>Traitement</option>
                                                                 </select>
                                                             </div>
 
@@ -1137,10 +1139,10 @@
                                         <script src="//code.jquery.com/jquery.js"></script>
                                         <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js"></script>
                                         <script id="document-template" type="text/x-handlebars-template">
-                                        <tr class="delete_add_more_item" id="delete_add_more_item">    
+                                        <tr class="delete_add_more_item" id="delete_add_more_item">
                                             <td>
                                                 <input type="hidden" name="id_emp[]" value="@{{ id_emp }}" required placeholder="Id Employé" class="form-control form-control-sm">
-                                                <input type="text" name="product[]" value="@{{ product }}" required placeholder="Employé" class="form-control form-control-sm" readonly>                            
+                                                <input type="text" name="product[]" value="@{{ product }}" required placeholder="Employé" class="form-control form-control-sm" readonly>
                                                 <input type="hidden" name="imp" value="@{{ imp }}">
                                             </td>
                                             <td>
@@ -1149,7 +1151,7 @@
                                           </td>
                                             <td>
                                             <i class="removeaddmore" style="cursor:pointer;color:red;" title="supprimer"><i class="bi bi-trash"></i></i>
-                                            </td>    
+                                            </td>
                                         </tr>
                                         </script>
                                         <script type="text/javascript">
@@ -1245,12 +1247,12 @@
         <tr class="align-middle">
             <td>
                 <input type="hidden" name="id_emp[]" value="${id_emp}">
-                <input type="text" name="product[]" value="${product}" 
+                <input type="text" name="product[]" value="${product}"
                        class="form-control form-control-sm border-0 bg-transparent" readonly>
             </td>
             <td>
                 <input type="hidden" name="id_direction[]" value="${id_direction}">
-                <input type="text" name="direction[]" value="${direction}" 
+                <input type="text" name="direction[]" value="${direction}"
                        class="form-control form-control-sm border-0 bg-transparent" readonly>
             </td>
             <td class="text-center">

@@ -382,6 +382,8 @@ class DepartController extends Controller
             'Classement',
             'Pour rappel',
             'Circularisation',
+            'Représenation',
+            'Traitement',
         ];
 
         $dompdf->loadHtml(view('courriers.departs.depart-coupon', compact(
