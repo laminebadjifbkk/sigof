@@ -70,7 +70,10 @@
                                                     <td>{{ $formation?->departement?->region?->nom }}</td>
                                                     <td>{{ $formation?->lieu }}</td>
                                                     <td>
-                                                        {{ $formation?->module?->domaine?->name ?: $formation?->collectivemodule?->domaine }}
+                                                        {{-- {{ $formation?->module?->domaine?->name ?: $formation?->collectivemodule?->domaine }} --}}
+                                                        {{ $formation?->module?->domaine?->name ??
+                                                            ($formation?->collectivemodule?->moduleRelation?->domaine?->name ??
+                                                                ($formation?->collectivemodule?->domaine ?? 'N/A')) }}
                                                     </td>
                                                     <td>
                                                         {{ $formation?->module?->name ?: $formation?->collectivemodule?->module }}

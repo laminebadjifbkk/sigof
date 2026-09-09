@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
+use App\Models\Module;
 
 /**
  * Class Module
@@ -108,5 +109,10 @@ class Collectivemodule extends Model
     public function ingenieur()
     {
         return $this->belongsTo(Ingenieur::class, 'ingenieurs_id');
+    }
+
+    public function moduleRelation()
+    {
+        return $this->belongsTo(Module::class, 'module', 'name');
     }
 }

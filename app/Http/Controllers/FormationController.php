@@ -5419,10 +5419,20 @@ class FormationController extends Controller
             $fromDate->startOfDay(),
             $toDate->endOfDay(),
         ])
-            ->with([
+            /* ->with([
                 'departement.region',
                 'module',
                 'collectivemodule',
+                'types_formation',
+                'referentiel.convention',
+                'operateur.user',
+                'ingenieur',
+            ]) */
+            ->with([
+                'departement.region',
+                'module.domaine',
+                'collectivemodule',
+                'collectivemodule.moduleRelation.domaine',
                 'types_formation',
                 'referentiel.convention',
                 'operateur.user',
