@@ -73,7 +73,7 @@
                                                         {{-- {{ $formation?->module?->domaine?->name ?: $formation?->collectivemodule?->domaine }} --}}
                                                         {{ $formation?->module?->domaine?->name ??
                                                             ($formation?->collectivemodule?->moduleRelation?->domaine?->name ??
-                                                                ($formation?->collectivemodule?->domaine ?? 'N/A')) }}
+                                                                ($formation?->collectivemodule?->domaine ?? '')) }}
                                                     </td>
                                                     <td>
                                                         {{ $formation?->module?->name ?: $formation?->collectivemodule?->module }}
