@@ -34,6 +34,7 @@
                                         <tr>
                                             <th rowspan="2" style="vertical-align: middle;">REGIONS</th>
                                             <th rowspan="2" style="vertical-align: middle;">LIEUX</th>
+                                            <th rowspan="2" style="vertical-align: middle;">DOMAINES</th>
                                             <th rowspan="2" style="vertical-align: middle;">MODULES</th>
                                             <th rowspan="2" style="vertical-align: middle;">TYPE FORMATION</th>
                                             <th rowspan="2" style="vertical-align: middle;">BENEFICIAIRES</th>
@@ -69,12 +70,9 @@
                                                     <td>{{ $formation?->departement?->region?->nom }}</td>
                                                     <td>{{ $formation?->lieu }}</td>
                                                     <td>
-                                                        {{-- @if (!empty($formation?->module?->name))
-                                                            {{ $formation?->module?->name }}
-                                                        @elseif (!empty($formation?->collectivemodule?->module))
-                                                            {{ $formation?->collectivemodule?->module }}
-                                                        @else
-                                                        @endif --}}
+                                                        {{ $formation?->module?->domaine?->name ?: $formation?->collectivemodule?->domaine }}
+                                                    </td>
+                                                    <td>
                                                         {{ $formation?->module?->name ?: $formation?->collectivemodule?->module }}
                                                     </td>
                                                     <td>{{ $formation->types_formation?->name }}</td>
