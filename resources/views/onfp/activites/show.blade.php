@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layout.user-layout')
 
 @section('title', $activite->reference)
 
-@section('content')
+@section('space-work')
 
 <div class="container-fluid">
 

@@ -19,7 +19,6 @@ class OnfpActiviteController extends Controller
      */
     public function index(Request $request)
     {
-        dd('ok');
         $query = OnfpActivite::query()
             ->with([
                 'direction',

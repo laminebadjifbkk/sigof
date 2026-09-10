@@ -1239,10 +1239,12 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::resource('budget-labels', BudgetLabelController::class);
         Route::resource('activites-quotidiennes', ActiviteQuotidienneController::class);
 
-         Route::resource('activites', OnfpActiviteController::class)
-        ->parameters([
-            'activites' => 'activite',
-        ]);
+        Route::name('onfp.')->group(function(){
+            Route::resource('activites', OnfpActiviteController::class)
+                ->parameters([
+                    'activites' => 'activite',
+                ]);
+        });
 
         Route::prefix('suivi')->group(function () {
             // Routes pour le suivi individuel

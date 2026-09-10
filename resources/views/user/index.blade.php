@@ -85,7 +85,7 @@
                                 </div>
 
                                 {{-- Boutons à droite --}}
-                                @can('user-create')
+                                {{-- @can('user-create') --}}
                                     <div class="d-flex align-items-center gap-2">
                                         <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#AddUserModal" title="Ajouter un utilisateur">
@@ -96,7 +96,7 @@
                                             Rechercher plus
                                         </button>
                                     </div>
-                                @endcan
+                                {{-- @endcan --}}
 
                             </div>
                         </div>
