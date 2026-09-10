@@ -117,7 +117,7 @@ use Illuminate\Support\Facades\Route;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Formula;
 
 
-
+use App\Http\Controllers\OnfpActiviteController;
 
 
 
@@ -1238,6 +1238,11 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::resource('detfs', DetfController::class);
         Route::resource('budget-labels', BudgetLabelController::class);
         Route::resource('activites-quotidiennes', ActiviteQuotidienneController::class);
+
+         Route::resource('activites', OnfpActiviteController::class)
+        ->parameters([
+            'activites' => 'activite',
+        ]);
 
         Route::prefix('suivi')->group(function () {
             // Routes pour le suivi individuel
