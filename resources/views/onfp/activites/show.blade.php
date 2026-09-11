@@ -46,7 +46,7 @@
                     'onfp.activites.edit',
                     $activite
                 ) }}"
-                class="btn btn-outline-primary"
+                class="btn btn-sm btn-outline-primary"
             >
                 Modifier
             </a>
@@ -55,7 +55,7 @@
                 href="{{ route(
                     'onfp.activites.index'
                 ) }}"
-                class="btn btn-outline-secondary"
+                class="btn btn-sm btn-outline-secondary"
             >
                 Retour
             </a>
@@ -176,7 +176,7 @@
 
                                 <div class="fw-semibold">
 
-                                    {{ $responsable->employee?->user?->name
+                                    {{ trim(($responsable?->employee?->user?->firstname ?? '') . ' ' . ($responsable?->employee?->user?->name ?? ''))
                                         ?? $responsable->employee?->matricule
                                         ?? 'Employé inconnu' }}
 
@@ -236,7 +236,7 @@
 
                         <span class="badge bg-light text-dark me-2 mb-2">
 
-                            {{ $suiveur->employee?->user?->name
+                            {{ trim(($suiveur->employee->user?->firstname ?? '') . ' ' . ($suiveur->employee->user?->name ?? ''))
                                 ?? $suiveur->employee?->matricule }}
 
                         </span>

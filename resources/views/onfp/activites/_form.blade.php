@@ -259,7 +259,7 @@
                 <option value="{{ $employee->id }}" @selected(in_array($employee->id, $selectedResponsables))>
                     {{ $employee->matricule }}
                     -
-                    {{ $employee->user?->name ?? '' }}
+                    {{ trim(($employee->user?->firstname ?? '') . ' ' . ($employee->user?->name ?? '')) }}
                     @if ($employee->direction)
                         ({{ $employee->direction->sigle }})
                     @endif
@@ -287,7 +287,7 @@
                 <option value="{{ $employee->id }}" @selected(old('responsable_principal', $responsablePrincipal ?? '') == $employee->id)>
                     {{ $employee->matricule }}
                     —
-                    {{ $employee->user?->name ?? '' }}
+                    {{ trim(($employee->user?->firstname ?? '') . ' ' . ($employee->user?->name ?? '')) }}
                 </option>
             @endforeach
         </select>
@@ -309,7 +309,7 @@
                 <option value="{{ $employee->id }}" @selected(in_array($employee->id, $selectedSuiveurs))>
                     {{ $employee->matricule }}
                     —
-                    {{ $employee->user?->name ?? '' }}
+                    {{ trim(($employee->user?->firstname ?? '') . ' ' . ($employee->user?->name ?? '')) }}
                 </option>
             @endforeach
         </select>

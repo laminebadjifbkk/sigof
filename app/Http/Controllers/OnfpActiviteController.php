@@ -10,121 +10,152 @@ use App\Models\OnfpActiviteSuiveur;
 use App\Models\OnfpActiviteType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class OnfpActiviteController extends Controller
 {
+    /**
+     * Statuts possibles d'une activité (valeur => libellé / couleur badge).
+     */
+    private const STATUTS = [
+        'a_faire'   => ['label' => 'À faire',   'badge' => 'secondary'],
+        'en_cours'  => ['label' => 'En cours',  'badge' => 'primary'],
+        'suspendue' => ['label' => 'Suspendue', 'badge' => 'warning'],
+        'terminee'  => ['label' => 'Terminée',  'badge' => 'success'],
+        'annulee'   => ['label' => 'Annulée',   'badge' => 'dark'],
+    ];
+
+    /**
+     * Niveaux de priorité.
+     */
+    private const PRIORITES = [
+        'basse'   => 'Basse',
+        'normale' => 'Normale',
+        'haute'   => 'Haute',
+        'urgente' => 'Urgente',
+    ];
+
+    /**
+     * États de santé d'une activité.
+     */
+    private const ETATS_SANTE = [
+        'normal'       => ['label' => 'Normal',       'badge' => 'success'],
+        'a_surveiller' => ['label' => 'À surveiller', 'badge' => 'warning'],
+        'risque'       => ['label' => 'Risque',       'badge' => 'onfp-orange'],
+        'critique'     => ['label' => 'Critique',     'badge' => 'danger'],
+    ];
+
+    /**
+     * Colonnes de tri autorisées.
+     */
+    private const SORTABLE_COLUMNS = [
+        'reference',
+        'titre',
+        'date_enclenchement',
+        'date_fin_prevue',
+        'progression',
+        'statut',
+        'priorite',
+    ];
+
+    /**
+     * Tailles de page autorisées.
+     */
+    private const PER_PAGE_OPTIONS = [15, 25, 50, 100];
+
     /**
      * Liste des activités.
      */
     public function index(Request $request)
     {
-        $query = OnfpActivite::query()
-            ->with([
-                'direction',
-                'type',
-                'responsables.employee',
-            ])
-            ->withCount([
-                'sousActivites',
-                'taches',
-            ]);
-
         /*
-        |--------------------------------------------------------------------------
-        | Recherche
-        |--------------------------------------------------------------------------
+        |--------------------------------------------------------------------
+        | Statistiques générales (une seule requête au lieu de 7)
+        |--------------------------------------------------------------------
         */
 
+        $stats = OnfpActivite::query()->selectRaw("
+                COUNT(*) as total,
+                SUM(CASE WHEN statut = 'a_faire'   THEN 1 ELSE 0 END) as a_faire,
+                SUM(CASE WHEN statut = 'en_cours'  THEN 1 ELSE 0 END) as en_cours,
+                SUM(CASE WHEN statut = 'terminee'  THEN 1 ELSE 0 END) as terminee,
+                SUM(CASE WHEN statut = 'suspendue' THEN 1 ELSE 0 END) as suspendue,
+                SUM(CASE WHEN statut = 'annulee'   THEN 1 ELSE 0 END) as annulee,
+                SUM(CASE WHEN etat_sante IN ('risque','critique') THEN 1 ELSE 0 END) as a_risque,
+                COALESCE(AVG(progression), 0) as progression_moyenne
+            ")->first();
+
+        $totalActivites      = (int) $stats->total;
+        $activitesAFaire     = (int) $stats->a_faire;
+        $activitesEnCours    = (int) $stats->en_cours;
+        $activitesTerminees  = (int) $stats->terminee;
+        $activitesSuspendues = (int) $stats->suspendue;
+        $activitesAnnulees   = (int) $stats->annulee;
+        $activitesRisque     = (int) $stats->a_risque;
+        $progressionMoyenne  = (int) round($stats->progression_moyenne);
+
+        /*
+        |--------------------------------------------------------------------
+        | Requête principale
+        |--------------------------------------------------------------------
+        */
+
+        $query = OnfpActivite::query()
+            ->with([
+                'direction:id,name,sigle',
+                'type:id,libelle',
+                'responsables.employee.user',
+            ])
+            ->withCount(['sousActivites', 'taches']);
+
+        // Recherche (référence, titre, description, ou responsable)
         if ($request->filled('search')) {
             $search = trim($request->search);
 
             $query->where(function ($q) use ($search) {
                 $q->where('reference', 'like', "%{$search}%")
                     ->orWhere('titre', 'like', "%{$search}%")
-                    ->orWhere('description', 'like', "%{$search}%");
+                    ->orWhere('description', 'like', "%{$search}%")
+                    ->orWhereHas('responsables.employee.user', function ($sub) use ($search) {
+                        $sub->where('name', 'like', "%{$search}%");
+                    });
             });
         }
 
-        /*
-        |--------------------------------------------------------------------------
-        | Filtres
-        |--------------------------------------------------------------------------
-        */
+        // Filtres
+        $query
+            ->when($request->filled('direction_id'), fn ($q) => $q->where('direction_id', $request->direction_id))
+            ->when($request->filled('type_id'), fn ($q) => $q->where('type_id', $request->type_id))
+            ->when($request->filled('statut'), fn ($q) => $q->where('statut', $request->statut))
+            ->when($request->filled('priorite'), fn ($q) => $q->where('priorite', $request->priorite))
+            ->when($request->filled('etat_sante'), fn ($q) => $q->where('etat_sante', $request->etat_sante));
 
-        if ($request->filled('direction_id')) {
-            $query->where(
-                'direction_id',
-                $request->direction_id
-            );
-        }
-
-        if ($request->filled('type_id')) {
-            $query->where(
-                'type_id',
-                $request->type_id
-            );
-        }
-
-        if ($request->filled('statut')) {
-            $query->where(
-                'statut',
-                $request->statut
-            );
-        }
-
-        if ($request->filled('priorite')) {
-            $query->where(
-                'priorite',
-                $request->priorite
-            );
-        }
-
-        if ($request->filled('etat_sante')) {
-            $query->where(
-                'etat_sante',
-                $request->etat_sante
-            );
-        }
-
-        /*
-        |--------------------------------------------------------------------------
-        | Tri
-        |--------------------------------------------------------------------------
-        */
-
+        // Tri
         $sort = $request->get('sort', 'date_fin_prevue');
-        $direction = $request->get('direction', 'asc');
 
-        $allowedSorts = [
-            'reference',
-            'titre',
-            'date_enclenchement',
-            'date_fin_prevue',
-            'progression',
-            'statut',
-            'priorite',
-        ];
-
-        if (!in_array($sort, $allowedSorts)) {
+        if (!in_array($sort, self::SORTABLE_COLUMNS, true)) {
             $sort = 'date_fin_prevue';
         }
 
-        $direction = $direction === 'desc' ? 'desc' : 'asc';
+        $direction = $request->get('direction', 'asc') === 'desc' ? 'desc' : 'asc';
 
         $query->orderBy($sort, $direction);
 
-        $activites = $query->paginate(15)->withQueryString();
+        // Pagination (taille configurable)
+        $perPage = (int) $request->get('per_page', 15);
+
+        if (!in_array($perPage, self::PER_PAGE_OPTIONS, true)) {
+            $perPage = 15;
+        }
+
+        $activites = $query->paginate($perPage)->withQueryString();
 
         /*
-        |--------------------------------------------------------------------------
+        |--------------------------------------------------------------------
         | Données des filtres
-        |--------------------------------------------------------------------------
+        |--------------------------------------------------------------------
         */
 
-        $directions = Direction::query()
-            ->orderBy('name')
-            ->get();
+        $directions = Direction::query()->orderBy('name')->get();
 
         $types = OnfpActiviteType::query()
             ->where('actif', true)
@@ -132,11 +163,42 @@ class OnfpActiviteController extends Controller
             ->orderBy('libelle')
             ->get();
 
-        return view('onfp.activites.index', compact(
-            'activites',
-            'directions',
-            'types'
-        ));
+        return view('onfp.activites.index', [
+            'activites'  => $activites,
+            'directions' => $directions,
+            'types'      => $types,
+
+            // Statistiques
+            'totalActivites'      => $totalActivites,
+            'activitesAFaire'     => $activitesAFaire,
+            'activitesEnCours'    => $activitesEnCours,
+            'activitesTerminees'  => $activitesTerminees,
+            'activitesSuspendues' => $activitesSuspendues,
+            'activitesAnnulees'   => $activitesAnnulees,
+            'activitesRisque'     => $activitesRisque,
+            'progressionMoyenne'  => $progressionMoyenne,
+
+            // Référentiels partagés avec la vue (évite de recalculer les
+            // libellés/couleurs à chaque ligne du tableau)
+            'statuts'     => self::STATUTS,
+            'priorites'   => self::PRIORITES,
+            'etatsSante'  => self::ETATS_SANTE,
+
+            // Compteur par statut, pour le bloc "État des activités"
+            'statutCounts' => [
+                'a_faire'   => $activitesAFaire,
+                'en_cours'  => $activitesEnCours,
+                'suspendue' => $activitesSuspendues,
+                'terminee'  => $activitesTerminees,
+                'annulee'   => $activitesAnnulees,
+            ],
+
+            // État courant du tri / pagination pour les liens de la vue
+            'sort'          => $sort,
+            'sortDirection' => $direction,
+            'perPage'       => $perPage,
+            'perPageOptions' => self::PER_PAGE_OPTIONS,
+        ]);
     }
 
     /**
@@ -144,26 +206,18 @@ class OnfpActiviteController extends Controller
      */
     public function create()
     {
-        $directions = Direction::query()
-            ->orderBy('name')
-            ->get();
-
-        $types = OnfpActiviteType::query()
-            ->where('actif', true)
-            ->orderBy('ordre')
-            ->orderBy('libelle')
-            ->get();
-
-        $employees = Employee::query()
-            ->with('direction')
-            ->orderBy('matricule')
-            ->get();
-
-        return view('onfp.activites.create', compact(
-            'directions',
-            'types',
-            'employees'
-        ));
+        return view('onfp.activites.create', [
+            'directions' => Direction::query()->orderBy('name')->get(),
+            'types'      => OnfpActiviteType::query()
+                ->where('actif', true)
+                ->orderBy('ordre')
+                ->orderBy('libelle')
+                ->get(),
+            'employees' => Employee::query()->with('direction')->orderBy('matricule')->get(),
+            'statuts'    => self::STATUTS,
+            'priorites'  => self::PRIORITES,
+            'etatsSante' => self::ETATS_SANTE,
+        ]);
     }
 
     /**
@@ -171,204 +225,36 @@ class OnfpActiviteController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'direction_id' => [
-                'nullable',
-                'integer',
-                'exists:directions,id',
-            ],
+        $validated = $request->validate($this->rules());
 
-            'type_id' => [
-                'nullable',
-                'integer',
-                'exists:onfp_activite_types,id',
-            ],
-
-            'titre' => [
-                'required',
-                'string',
-                'max:255',
-            ],
-
-            'description' => [
-                'nullable',
-                'string',
-            ],
-
-            'statut' => [
-                'required',
-                'in:a_faire,en_cours,suspendue,terminee,annulee',
-            ],
-
-            'priorite' => [
-                'required',
-                'in:basse,normale,haute,urgente',
-            ],
-
-            'progression' => [
-                'required',
-                'integer',
-                'min:0',
-                'max:100',
-            ],
-
-            'date_enclenchement' => [
-                'nullable',
-                'date',
-            ],
-
-            'date_execution_prevue' => [
-                'nullable',
-                'date',
-            ],
-
-            'date_fin_prevue' => [
-                'nullable',
-                'date',
-                'after_or_equal:date_execution_prevue',
-            ],
-
-            'etat_sante' => [
-                'required',
-                'in:normal,a_surveiller,risque,critique',
-            ],
-
-            'observation' => [
-                'nullable',
-                'string',
-            ],
-
-            'responsables' => [
-                'nullable',
-                'array',
-            ],
-
-            'responsables.*' => [
-                'integer',
-                'exists:employees,id',
-            ],
-
-            'responsable_principal' => [
-                'nullable',
-                'integer',
-                'exists:employees,id',
-            ],
-
-            'suiveurs' => [
-                'nullable',
-                'array',
-            ],
-
-            'suiveurs.*' => [
-                'integer',
-                'exists:employees,id',
-            ],
-        ]);
-
-        /*
-        |--------------------------------------------------------------------------
-        | Vérification du responsable principal
-        |--------------------------------------------------------------------------
-        */
-
-        if (
-            !empty($validated['responsable_principal']) &&
-            !in_array(
-                (int) $validated['responsable_principal'],
-                array_map('intval', $validated['responsables'] ?? [])
-            )
-        ) {
+        if (!$this->responsablePrincipalEstValide($validated)) {
             return back()
                 ->withInput()
                 ->withErrors([
                     'responsable_principal' =>
-                    'Le responsable principal doit également figurer parmi les responsables.',
+                        "Le responsable principal doit également figurer parmi les responsables.",
                 ]);
         }
 
-        DB::transaction(function () use ($validated, &$activite) {
+        $activite = DB::transaction(function () use ($validated) {
 
-            /*
-            |--------------------------------------------------------------------------
-            | Génération de la référence
-            |--------------------------------------------------------------------------
-            */
-
-            $annee = now()->format('Y');
-
-            $lastId = OnfpActivite::withTrashed()->max('id') ?? 0;
-
-            $reference = 'ACT-' . $annee . '-' .
-                str_pad($lastId + 1, 5, '0', STR_PAD_LEFT);
-
-            /*
-            |--------------------------------------------------------------------------
-            | Création
-            |--------------------------------------------------------------------------
-            */
-
-            $activite = OnfpActivite::create([
-                'reference'              => $reference,
-                'direction_id'           => $validated['direction_id'] ?? null,
-                'type_id'                => $validated['type_id'] ?? null,
-                'titre'                  => $validated['titre'],
-                'description'            => $validated['description'] ?? null,
-                'statut'                 => $validated['statut'],
-                'priorite'               => $validated['priorite'],
-                'progression'            => $validated['progression'],
-                'date_enclenchement'     => $validated['date_enclenchement'] ?? null,
-                'date_execution_prevue'  => $validated['date_execution_prevue'] ?? null,
-                'date_fin_prevue'        => $validated['date_fin_prevue'] ?? null,
-                'etat_sante'             => $validated['etat_sante'],
-                'observation'            => $validated['observation'] ?? null,
-                'created_by'             => auth()->user()->employee_id ?? null,
+            $activite = OnfpActivite::create($this->donneesActivite($validated) + [
+                'reference'  => $this->genererReference(),
+                'created_by' => auth()->user()->employee_id ?? null,
             ]);
 
-            /*
-            |--------------------------------------------------------------------------
-            | Responsables
-            |--------------------------------------------------------------------------
-            */
-
-            foreach ($validated['responsables'] ?? [] as $employeeId) {
-
-                OnfpActiviteResponsable::create([
-                    'activite_id'  => $activite->id,
-                    'employee_id'  => $employeeId,
-                    'role'         => $employeeId == ($validated['responsable_principal'] ?? null)
-                        ? 'principal'
-                        : 'responsable',
-                    'is_principal' => $employeeId == ($validated['responsable_principal'] ?? null),
-                ]);
-            }
-
-            /*
-            |--------------------------------------------------------------------------
-            | Suiveurs
-            |--------------------------------------------------------------------------
-            */
-
-            foreach ($validated['suiveurs'] ?? [] as $employeeId) {
-
-                OnfpActiviteSuiveur::create([
-                    'activite_id' => $activite->id,
-                    'employee_id' => $employeeId,
-                ]);
-            }
-
-            /*
-            |--------------------------------------------------------------------------
-            | Historique initial
-            |--------------------------------------------------------------------------
-            */
+            $this->synchroniserResponsables($activite, $validated);
+            $this->synchroniserSuiveurs($activite, $validated);
 
             $activite->historiques()->create([
-                'employee_id' => auth()->user()->employee_id ?? null,
-                'action'      => 'creation',
-                'nouveau_statut' => $activite->statut,
+                'employee_id'          => auth()->user()->employee_id ?? null,
+                'action'               => 'creation',
+                'nouveau_statut'       => $activite->statut,
                 'nouvelle_progression' => $activite->progression,
-                'description' => 'Création de l’activité.',
+                'description'          => "Création de l'activité.",
             ]);
+
+            return $activite;
         });
 
         return redirect()
@@ -402,10 +288,12 @@ class OnfpActiviteController extends Controller
             'tags',
         ]);
 
-        return view(
-            'onfp.activites.show',
-            compact('activite')
-        );
+        return view('onfp.activites.show', [
+            'activite'   => $activite,
+            'statuts'    => self::STATUTS,
+            'priorites'  => self::PRIORITES,
+            'etatsSante' => self::ETATS_SANTE,
+        ]);
     }
 
     /**
@@ -413,29 +301,11 @@ class OnfpActiviteController extends Controller
      */
     public function edit(OnfpActivite $activite)
     {
-        $activite->load([
-            'responsables',
-            'suiveurs',
-        ]);
-
-        $directions = Direction::query()
-            ->orderBy('name')
-            ->get();
-
-        $types = OnfpActiviteType::query()
-            ->where('actif', true)
-            ->orderBy('ordre')
-            ->orderBy('libelle')
-            ->get();
-
-        $employees = Employee::query()
-            ->with('direction')
-            ->orderBy('matricule')
-            ->get();
+        $activite->load(['responsables', 'suiveurs']);
 
         $responsableIds = $activite->responsables
             ->pluck('employee_id')
-            ->map(fn($id) => (int) $id)
+            ->map(fn ($id) => (int) $id)
             ->toArray();
 
         $responsablePrincipal = $activite->responsables
@@ -444,220 +314,57 @@ class OnfpActiviteController extends Controller
 
         $suiveurIds = $activite->suiveurs
             ->pluck('employee_id')
-            ->map(fn($id) => (int) $id)
+            ->map(fn ($id) => (int) $id)
             ->toArray();
 
-        return view('onfp.activites.edit', compact(
-            'activite',
-            'directions',
-            'types',
-            'employees',
-            'responsableIds',
-            'responsablePrincipal',
-            'suiveurIds'
-        ));
+        return view('onfp.activites.edit', [
+            'activite'   => $activite,
+            'directions' => Direction::query()->orderBy('name')->get(),
+            'types'      => OnfpActiviteType::query()
+                ->where('actif', true)
+                ->orderBy('ordre')
+                ->orderBy('libelle')
+                ->get(),
+            'employees' => Employee::query()->with('direction')->orderBy('matricule')->get(),
+
+            'responsableIds'        => $responsableIds,
+            'responsablePrincipal'  => $responsablePrincipal,
+            'suiveurIds'            => $suiveurIds,
+
+            'statuts'    => self::STATUTS,
+            'priorites'  => self::PRIORITES,
+            'etatsSante' => self::ETATS_SANTE,
+        ]);
     }
 
     /**
      * Mise à jour.
      */
-    public function update(
-        Request $request,
-        OnfpActivite $activite
-    ) {
-        $validated = $request->validate([
-            'direction_id' => [
-                'nullable',
-                'integer',
-                'exists:directions,id',
-            ],
+    public function update(Request $request, OnfpActivite $activite)
+    {
+        $validated = $request->validate($this->rules());
 
-            'type_id' => [
-                'nullable',
-                'integer',
-                'exists:onfp_activite_types,id',
-            ],
-
-            'titre' => [
-                'required',
-                'string',
-                'max:255',
-            ],
-
-            'description' => [
-                'nullable',
-                'string',
-            ],
-
-            'statut' => [
-                'required',
-                'in:a_faire,en_cours,suspendue,terminee,annulee',
-            ],
-
-            'priorite' => [
-                'required',
-                'in:basse,normale,haute,urgente',
-            ],
-
-            'progression' => [
-                'required',
-                'integer',
-                'min:0',
-                'max:100',
-            ],
-
-            'date_enclenchement' => [
-                'nullable',
-                'date',
-            ],
-
-            'date_execution_prevue' => [
-                'nullable',
-                'date',
-            ],
-
-            'date_fin_prevue' => [
-                'nullable',
-                'date',
-                'after_or_equal:date_execution_prevue',
-            ],
-
-            'date_execution_reelle' => [
-                'nullable',
-                'date',
-            ],
-
-            'date_fin_reelle' => [
-                'nullable',
-                'date',
-                'after_or_equal:date_execution_reelle',
-            ],
-
-            'etat_sante' => [
-                'required',
-                'in:normal,a_surveiller,risque,critique',
-            ],
-
-            'observation' => [
-                'nullable',
-                'string',
-            ],
-
-            'responsables' => [
-                'nullable',
-                'array',
-            ],
-
-            'responsables.*' => [
-                'integer',
-                'exists:employees,id',
-            ],
-
-            'responsable_principal' => [
-                'nullable',
-                'integer',
-                'exists:employees,id',
-            ],
-
-            'suiveurs' => [
-                'nullable',
-                'array',
-            ],
-
-            'suiveurs.*' => [
-                'integer',
-                'exists:employees,id',
-            ],
-        ]);
-
-        if (
-            !empty($validated['responsable_principal']) &&
-            !in_array(
-                (int) $validated['responsable_principal'],
-                array_map('intval', $validated['responsables'] ?? [])
-            )
-        ) {
+        if (!$this->responsablePrincipalEstValide($validated)) {
             return back()
                 ->withInput()
                 ->withErrors([
                     'responsable_principal' =>
-                    'Le responsable principal doit également figurer parmi les responsables.',
+                        "Le responsable principal doit également figurer parmi les responsables.",
                 ]);
         }
 
-        DB::transaction(function () use (
-            $validated,
-            $activite
-        ) {
+        DB::transaction(function () use ($validated, $activite) {
 
-            $ancienStatut = $activite->statut;
+            $ancienStatut        = $activite->statut;
             $ancienneProgression = $activite->progression;
+            $anciennePriorite    = $activite->priorite;
 
-            $activite->update([
-                'direction_id'           => $validated['direction_id'] ?? null,
-                'type_id'                => $validated['type_id'] ?? null,
-                'titre'                  => $validated['titre'],
-                'description'            => $validated['description'] ?? null,
-                'statut'                 => $validated['statut'],
-                'priorite'               => $validated['priorite'],
-                'progression'            => $validated['progression'],
-                'date_enclenchement'     => $validated['date_enclenchement'] ?? null,
-                'date_execution_prevue'  => $validated['date_execution_prevue'] ?? null,
-                'date_fin_prevue'        => $validated['date_fin_prevue'] ?? null,
-                'date_execution_reelle'  => $validated['date_execution_reelle'] ?? null,
-                'date_fin_reelle'        => $validated['date_fin_reelle'] ?? null,
-                'etat_sante'             => $validated['etat_sante'],
-                'observation'            => $validated['observation'] ?? null,
-                'updated_by'              => auth()->user()->employee_id ?? null,
+            $activite->update($this->donneesActivite($validated) + [
+                'updated_by' => auth()->user()->employee_id ?? null,
             ]);
 
-            /*
-            |--------------------------------------------------------------------------
-            | Responsables
-            |--------------------------------------------------------------------------
-            */
-
-            OnfpActiviteResponsable::where(
-                'activite_id',
-                $activite->id
-            )->delete();
-
-            foreach ($validated['responsables'] ?? [] as $employeeId) {
-
-                OnfpActiviteResponsable::create([
-                    'activite_id'  => $activite->id,
-                    'employee_id'  => $employeeId,
-                    'role'         => $employeeId == ($validated['responsable_principal'] ?? null)
-                        ? 'principal'
-                        : 'responsable',
-                    'is_principal' => $employeeId == ($validated['responsable_principal'] ?? null),
-                ]);
-            }
-
-            /*
-            |--------------------------------------------------------------------------
-            | Suiveurs
-            |--------------------------------------------------------------------------
-            */
-
-            OnfpActiviteSuiveur::where(
-                'activite_id',
-                $activite->id
-            )->delete();
-
-            foreach ($validated['suiveurs'] ?? [] as $employeeId) {
-
-                OnfpActiviteSuiveur::create([
-                    'activite_id' => $activite->id,
-                    'employee_id' => $employeeId,
-                ]);
-            }
-
-            /*
-            |--------------------------------------------------------------------------
-            | Historique
-            |--------------------------------------------------------------------------
-            */
+            $this->synchroniserResponsables($activite, $validated);
+            $this->synchroniserSuiveurs($activite, $validated);
 
             $changements = [];
 
@@ -669,15 +376,19 @@ class OnfpActiviteController extends Controller
                 $changements[] = "Progression : {$ancienneProgression}% → {$activite->progression}%";
             }
 
+            if ($anciennePriorite !== $activite->priorite) {
+                $changements[] = "Priorité : {$anciennePriorite} → {$activite->priorite}";
+            }
+
             if (!empty($changements)) {
                 $activite->historiques()->create([
-                    'employee_id' => auth()->user()->employee_id ?? null,
-                    'action' => 'modification',
-                    'ancien_statut' => $ancienStatut,
-                    'nouveau_statut' => $activite->statut,
-                    'ancienne_progression' => $ancienneProgression,
-                    'nouvelle_progression' => $activite->progression,
-                    'description' => implode(' | ', $changements),
+                    'employee_id'           => auth()->user()->employee_id ?? null,
+                    'action'                => 'modification',
+                    'ancien_statut'         => $ancienStatut,
+                    'nouveau_statut'        => $activite->statut,
+                    'ancienne_progression'  => $ancienneProgression,
+                    'nouvelle_progression'  => $activite->progression,
+                    'description'           => implode(' | ', $changements),
                 ]);
             }
         });
@@ -695,11 +406,11 @@ class OnfpActiviteController extends Controller
         DB::transaction(function () use ($activite) {
 
             $activite->historiques()->create([
-                'employee_id' => auth()->user()->employee_id ?? null,
-                'action' => 'suppression',
-                'ancien_statut' => $activite->statut,
+                'employee_id'          => auth()->user()->employee_id ?? null,
+                'action'               => 'suppression',
+                'ancien_statut'        => $activite->statut,
                 'ancienne_progression' => $activite->progression,
-                'description' => 'Suppression de l’activité.',
+                'description'          => "Suppression de l'activité.",
             ]);
 
             $activite->delete();
@@ -708,5 +419,128 @@ class OnfpActiviteController extends Controller
         return redirect()
             ->route('onfp.activites.index')
             ->with('success', 'Activité supprimée avec succès.');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Helpers privés
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Règles de validation communes à store() et update().
+     */
+    private function rules(): array
+    {
+        return [
+            'direction_id' => ['nullable', 'integer', 'exists:directions,id'],
+            'type_id'      => ['nullable', 'integer', 'exists:onfp_activite_types,id'],
+            'titre'        => ['required', 'string', 'max:255'],
+            'description'  => ['nullable', 'string'],
+            'statut'       => ['required', 'in:' . implode(',', array_keys(self::STATUTS))],
+            'priorite'     => ['required', 'in:' . implode(',', array_keys(self::PRIORITES))],
+            'progression'  => ['required', 'integer', 'min:0', 'max:100'],
+
+            'date_enclenchement'    => ['nullable', 'date'],
+            'date_execution_prevue' => ['nullable', 'date'],
+            'date_fin_prevue'       => ['nullable', 'date', 'after_or_equal:date_execution_prevue'],
+            'date_execution_reelle' => ['nullable', 'date'],
+            'date_fin_reelle'       => ['nullable', 'date', 'after_or_equal:date_execution_reelle'],
+
+            'etat_sante'  => ['required', 'in:' . implode(',', array_keys(self::ETATS_SANTE))],
+            'observation' => ['nullable', 'string'],
+
+            'responsables'           => ['nullable', 'array'],
+            'responsables.*'         => ['integer', 'exists:employees,id'],
+            'responsable_principal'  => ['nullable', 'integer', 'exists:employees,id'],
+
+            'suiveurs'   => ['nullable', 'array'],
+            'suiveurs.*' => ['integer', 'exists:employees,id'],
+        ];
+    }
+
+    /**
+     * Vérifie que le responsable principal, s'il est renseigné, figure
+     * bien dans la liste des responsables.
+     */
+    private function responsablePrincipalEstValide(array $validated): bool
+    {
+        if (empty($validated['responsable_principal'])) {
+            return true;
+        }
+
+        return in_array(
+            (int) $validated['responsable_principal'],
+            array_map('intval', $validated['responsables'] ?? []),
+            true
+        );
+    }
+
+    /**
+     * Génère la référence unique d'une activité (ACT-AAAA-00001).
+     */
+    private function genererReference(): string
+    {
+        $annee  = now()->format('Y');
+        $lastId = OnfpActivite::withTrashed()->max('id') ?? 0;
+
+        return 'ACT-' . $annee . '-' . str_pad((string) ($lastId + 1), 5, '0', STR_PAD_LEFT);
+    }
+
+    /**
+     * Champs "métier" partagés entre la création et la mise à jour.
+     */
+    private function donneesActivite(array $validated): array
+    {
+        return [
+            'direction_id'           => $validated['direction_id'] ?? null,
+            'type_id'                => $validated['type_id'] ?? null,
+            'titre'                  => $validated['titre'],
+            'description'            => $validated['description'] ?? null,
+            'statut'                 => $validated['statut'],
+            'priorite'               => $validated['priorite'],
+            'progression'            => $validated['progression'],
+            'date_enclenchement'     => $validated['date_enclenchement'] ?? null,
+            'date_execution_prevue'  => $validated['date_execution_prevue'] ?? null,
+            'date_fin_prevue'        => $validated['date_fin_prevue'] ?? null,
+            'date_execution_reelle'  => $validated['date_execution_reelle'] ?? null,
+            'date_fin_reelle'        => $validated['date_fin_reelle'] ?? null,
+            'etat_sante'             => $validated['etat_sante'],
+            'observation'            => $validated['observation'] ?? null,
+        ];
+    }
+
+    /**
+     * Remplace la liste des responsables d'une activité.
+     */
+    private function synchroniserResponsables(OnfpActivite $activite, array $validated): void
+    {
+        OnfpActiviteResponsable::where('activite_id', $activite->id)->delete();
+
+        foreach ($validated['responsables'] ?? [] as $employeeId) {
+            $estPrincipal = $employeeId == ($validated['responsable_principal'] ?? null);
+
+            OnfpActiviteResponsable::create([
+                'activite_id'  => $activite->id,
+                'employee_id'  => $employeeId,
+                'role'         => $estPrincipal ? 'principal' : 'responsable',
+                'is_principal' => $estPrincipal,
+            ]);
+        }
+    }
+
+    /**
+     * Remplace la liste des suiveurs d'une activité.
+     */
+    private function synchroniserSuiveurs(OnfpActivite $activite, array $validated): void
+    {
+        OnfpActiviteSuiveur::where('activite_id', $activite->id)->delete();
+
+        foreach ($validated['suiveurs'] ?? [] as $employeeId) {
+            OnfpActiviteSuiveur::create([
+                'activite_id' => $activite->id,
+                'employee_id' => $employeeId,
+            ]);
+        }
     }
 }
