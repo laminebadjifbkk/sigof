@@ -60,7 +60,8 @@
         </label>
 
         <input type="text" name="titre" id="titre" value="{{ old('titre', $activite->titre ?? '') }}"
-            class="form-control @error('titre') is-invalid @enderror" required>
+            class="form-control @error('titre') is-invalid @enderror"
+            placeholder="Ex. : Organisation de la réunion de coordination du Service Informatique" required>
 
         @error('titre')
             <div class="invalid-feedback">{{ $message }}</div>
@@ -75,7 +76,8 @@
         </label>
 
         <textarea name="description" id="description" rows="4"
-            class="form-control @error('description') is-invalid @enderror">{{ old('description', $activite->description ?? '') }}</textarea>
+            class="form-control @error('description') is-invalid @enderror"
+            placeholder="Décrivez le contexte, les objectifs, les principaux éléments et les résultats attendus de cette activité...">{{ old('description', $activite->description ?? '') }}</textarea>
 
         @error('description')
             <div class="invalid-feedback">{{ $message }}</div>
@@ -242,7 +244,7 @@
 
 
     {{-- Responsables --}}
-    <div class="col-md-12">
+    <div class="col-md-8">
         <label for="responsables" class="form-label">
             Responsables
         </label>
@@ -278,7 +280,7 @@
         </label>
 
         <select name="responsable_principal" id="responsable_principal" class="form-select"
-            data-placeholder="Choisir un ou plusieurs agents de suivi">
+            data-placeholder="Choisir un responsable principal">
             <option value="">-- Aucun --</option>
 
             @foreach ($employees as $employee)
@@ -302,7 +304,7 @@
             $selectedSuiveurs = old('suiveurs', $suiveurIds ?? []);
         @endphp
 
-        <select name="suiveurs[]" id="suiveurs" class="form-select" multiple size="8">
+        <select name="suiveurs[]" id="suiveurs" class="form-select" multiple size="8" data-placeholder="Choisir un ou plusieurs agents de suivi">
             @foreach ($employees as $employee)
                 <option value="{{ $employee->id }}" @selected(in_array($employee->id, $selectedSuiveurs))>
                     {{ $employee->matricule }}

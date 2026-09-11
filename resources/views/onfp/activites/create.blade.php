@@ -18,7 +18,7 @@
                 </p>
             </div>
 
-            <a href="{{ route('onfp.activites.index') }}" class="btn btn-outline-secondary">
+            <a href="{{ route('onfp.activites.index') }}" class="btn btn-sm btn-outline-secondary">
                 Retour
             </a>
 
