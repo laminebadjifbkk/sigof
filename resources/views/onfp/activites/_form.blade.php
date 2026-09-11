@@ -19,7 +19,7 @@
                 <option value="{{ $direction->id }}" @selected(old('direction_id', $activite->direction_id ?? '') == $direction->id)>
                     {{ $direction->sigle ?: $direction->name }}
                     @if ($direction->sigle && $direction->name)
-                        — {{ $direction->name }}
+                        - {{ $direction->name }}
                     @endif
                 </option>
             @endforeach
