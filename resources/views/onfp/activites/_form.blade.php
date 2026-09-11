@@ -244,7 +244,7 @@
 
 
     {{-- Responsables --}}
-    <div class="col-md-8">
+    <div class="col-md-6">
         <label for="responsables" class="form-label">
             Responsables
         </label>
@@ -273,6 +273,29 @@
     </div>
 
 
+    {{-- Suiveurs --}}
+    <div class="col-md-6">
+        <label for="suiveurs" class="form-label">
+            Suiveurs
+        </label>
+
+        @php
+            $selectedSuiveurs = old('suiveurs', $suiveurIds ?? []);
+        @endphp
+
+        <select name="suiveurs[]" id="suiveurs" class="form-select" multiple size="8"
+            data-placeholder="Choisir un ou plusieurs agents de suivi">
+            @foreach ($employees as $employee)
+                <option value="{{ $employee->id }}" @selected(in_array($employee->id, $selectedSuiveurs))>
+                    {{ $employee->matricule }}
+                    —
+                    {{ trim(($employee->user?->firstname ?? '') . ' ' . ($employee->user?->name ?? '')) }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+
+
     {{-- Responsable principal --}}
     <div class="col-md-6">
         <label for="responsable_principal" class="form-label">
@@ -292,29 +315,6 @@
             @endforeach
         </select>
     </div>
-
-
-    {{-- Suiveurs --}}
-    <div class="col-md-6">
-        <label for="suiveurs" class="form-label">
-            Suiveurs
-        </label>
-
-        @php
-            $selectedSuiveurs = old('suiveurs', $suiveurIds ?? []);
-        @endphp
-
-        <select name="suiveurs[]" id="suiveurs" class="form-select" multiple size="8" data-placeholder="Choisir un ou plusieurs agents de suivi">
-            @foreach ($employees as $employee)
-                <option value="{{ $employee->id }}" @selected(in_array($employee->id, $selectedSuiveurs))>
-                    {{ $employee->matricule }}
-                    —
-                    {{ trim(($employee->user?->firstname ?? '') . ' ' . ($employee->user?->name ?? '')) }}
-                </option>
-            @endforeach
-        </select>
-    </div>
-
 
     {{-- Observation --}}
     <div class="col-12">
