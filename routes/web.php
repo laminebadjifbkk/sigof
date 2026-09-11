@@ -120,6 +120,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Formula;
 use App\Http\Controllers\OnfpActiviteTypeController;
 use App\Http\Controllers\OnfpActiviteController;
 use App\Http\Controllers\OnfpActiviteIndicateurController;
+use App\Http\Controllers\OnfpActiviteDocumentController;
 
 
 
@@ -1258,6 +1259,18 @@ Route::group(['middleware' => ['XSS']], function () {
                 'activites' => 'activite',
                 'indicateurs' => 'indicateur',
             ]);
+
+            Route::resource('activites.documents', OnfpActiviteDocumentController::class)
+            ->only(['index', 'create', 'store', 'destroy'])
+            ->parameters([
+                'activites' => 'activite',
+                'documents' => 'document',
+            ]);
+
+        Route::get(
+            'activites/{activite}/documents/{document}/download',
+            [OnfpActiviteDocumentController::class, 'download']
+        )->name('activites.documents.download');
         });
 
         Route::prefix('suivi')->group(function () {
