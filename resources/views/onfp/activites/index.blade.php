@@ -21,7 +21,7 @@
 
         <a
             href="{{ route('onfp.activites.create') }}"
-            class="btn btn-primary"
+            class="btn btn-sm btn-primary"
         >
             + Nouvelle activité
         </a>

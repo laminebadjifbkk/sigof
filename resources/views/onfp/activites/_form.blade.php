@@ -214,7 +214,7 @@
 
     @if (isset($activite))
         {{-- Date exécution réelle --}}
-        <div class="col-md-6">
+        <div class="col-md-4">
             <label for="date_execution_reelle" class="form-label">
                 Date d'exécution réelle
             </label>
@@ -229,7 +229,7 @@
 
 
         {{-- Date fin réelle --}}
-        <div class="col-md-6">
+        <div class="col-md-4">
             <label for="date_fin_reelle" class="form-label">
                 Date de fin réelle
             </label>
@@ -242,7 +242,7 @@
 
 
     {{-- Responsables --}}
-    <div class="col-md-6">
+    <div class="col-md-12">
         <label for="responsables" class="form-label">
             Responsables
         </label>
@@ -251,11 +251,12 @@
             $selectedResponsables = old('responsables', $responsableIds ?? []);
         @endphp
 
-        <select name="responsables[]" id="responsables" class="form-select" multiple size="8">
+        <select name="responsables[]" id="multiple-select-field" class="form-select" multiple size="8"
+            data-placeholder="Choisir un ou plusieurs responsables">
             @foreach ($employees as $employee)
                 <option value="{{ $employee->id }}" @selected(in_array($employee->id, $selectedResponsables))>
                     {{ $employee->matricule }}
-                    —
+                    -
                     {{ $employee->user?->name ?? '' }}
                     @if ($employee->direction)
                         ({{ $employee->direction->sigle }})
@@ -264,9 +265,9 @@
             @endforeach
         </select>
 
-        <small class="text-muted">
+        {{-- <small class="text-muted">
             Maintenir Ctrl/Cmd pour sélectionner plusieurs employés.
-        </small>
+        </small> --}}
     </div>
 
 
@@ -276,7 +277,8 @@
             Responsable principal
         </label>
 
-        <select name="responsable_principal" id="responsable_principal" class="form-select">
+        <select name="responsable_principal" id="responsable_principal" class="form-select"
+            data-placeholder="Choisir un ou plusieurs agents de suivi">
             <option value="">-- Aucun --</option>
 
             @foreach ($employees as $employee)
@@ -318,7 +320,8 @@
             Observation
         </label>
 
-        <textarea name="observation" id="observation" rows="4" class="form-control">{{ old('observation', $activite->observation ?? '') }}</textarea>
+        <textarea name="observation" id="observation" rows="4" class="form-control"
+            placeholder="Saisissez les informations complémentaires, remarques, contraintes ou points particuliers concernant cette activité...">{{ old('observation', $activite->observation ?? '') }}</textarea>
     </div>
 
 </div>
@@ -327,11 +330,11 @@
 
 <div class="d-flex justify-content-between">
 
-    <a href="{{ route('onfp.activites.index') }}" class="btn btn-outline-secondary">
+    <a href="{{ route('onfp.activites.index') }}" class="btn btn-sm btn-outline-secondary">
         Annuler
     </a>
 
-    <button type="submit" class="btn btn-primary">
+    <button type="submit" class="btn btn-sm btn-primary">
         @if (isset($activite))
             Enregistrer les modifications
         @else

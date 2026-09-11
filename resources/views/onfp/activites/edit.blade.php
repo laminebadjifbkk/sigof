@@ -14,12 +14,12 @@
                 </h1>
 
                 <p class="text-muted mb-0">
-                    {{ $activite->reference }} —
+                    {{ $activite->reference }} -
                     {{ $activite->titre }}
                 </p>
             </div>
 
-            <a href="{{ route('onfp.activites.show', $activite) }}" class="btn btn-outline-secondary">
+            <a href="{{ route('onfp.activites.show', $activite) }}" class="btn btn-sm btn-outline-secondary">
                 Retour
             </a>
 
