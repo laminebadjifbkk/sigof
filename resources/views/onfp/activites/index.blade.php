@@ -48,7 +48,7 @@
                 <p class="text-muted mb-0">Suivi des activités et actions de l'ONFP</p>
             </div>
 
-            <a href="{{ route('onfp.activites.create') }}" class="btn btn-primary">
+            <a href="{{ route('onfp.activites.create') }}" class="btn btn-sm btn-primary">
                 <i class="bi bi-plus-circle me-1"></i>
                 Nouvelle activité
             </a>
@@ -225,7 +225,7 @@
                     </h5>
 
                     @if ($hasActiveFilters)
-                        <a href="{{ route('onfp.activites.index') }}" class="btn btn-sm btn-outline-secondary">
+                        <a href="{{ route('onfp.activites.index') }}" class="btn btn-sm btn-sm btn-outline-secondary">
                             <i class="bi bi-x-circle me-1"></i>
                             Réinitialiser
                         </a>
@@ -243,7 +243,7 @@
                     <div class="row g-3">
 
                         {{-- Recherche --}}
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <label class="form-label">Recherche</label>
                             <input type="text" name="search" value="{{ request('search') }}" class="form-control"
                                 placeholder="Référence, titre, responsable...">
@@ -252,7 +252,7 @@
                         {{-- Direction --}}
                         <div class="col-md-2">
                             <label class="form-label">Direction</label>
-                            <select name="direction_id" class="form-select">
+                            <select name="direction_id" class="form-select form-select-sm">
                                 <option value="">Toutes</option>
                                 @foreach ($directions as $direction)
                                     <option value="{{ $direction->id }}" @selected(request('direction_id') == $direction->id)>
@@ -265,7 +265,7 @@
                         {{-- Type --}}
                         <div class="col-md-2">
                             <label class="form-label">Type</label>
-                            <select name="type_id" class="form-select">
+                            <select name="type_id" class="form-select form-select-sm">
                                 <option value="">Tous</option>
                                 @foreach ($types as $type)
                                     <option value="{{ $type->id }}" @selected(request('type_id') == $type->id)>
@@ -278,7 +278,7 @@
                         {{-- Statut --}}
                         <div class="col-md-2">
                             <label class="form-label">Statut</label>
-                            <select name="statut" class="form-select">
+                            <select name="statut" class="form-select form-select-sm">
                                 <option value="">Tous</option>
                                 @foreach ($statuts as $key => $meta)
                                     <option value="{{ $key }}" @selected(request('statut') === $key)>
@@ -291,7 +291,7 @@
                         {{-- Priorité --}}
                         <div class="col-md-2">
                             <label class="form-label">Priorité</label>
-                            <select name="priorite" class="form-select">
+                            <select name="priorite" class="form-select form-select-sm">
                                 <option value="">Toutes</option>
                                 @foreach ($priorites as $key => $label)
                                     <option value="{{ $key }}" @selected(request('priorite') === $key)>
@@ -304,7 +304,7 @@
                         {{-- Santé --}}
                         <div class="col-md-2">
                             <label class="form-label">Santé</label>
-                            <select name="etat_sante" class="form-select">
+                            <select name="etat_sante" class="form-select form-select-sm">
                                 <option value="">Tous</option>
                                 @foreach ($etatsSante as $key => $meta)
                                     <option value="{{ $key }}" @selected(request('etat_sante') === $key)>
@@ -317,7 +317,7 @@
                         {{-- Éléments par page --}}
                         <div class="col-md-2">
                             <label class="form-label">Par page</label>
-                            <select name="per_page" class="form-select" onchange="this.form.submit()">
+                            <select name="per_page" class="form-select form-select-sm" onchange="this.form.submit()">
                                 @foreach ($perPageOptions as $option)
                                     <option value="{{ $option }}" @selected($perPage == $option)>
                                         {{ $option }}
@@ -328,7 +328,7 @@
 
                         {{-- Bouton --}}
                         <div class="col-md-2 d-flex align-items-end">
-                            <button type="submit" class="btn btn-primary w-100" title="Filtrer">
+                            <button type="submit" class="btn btn-sm btn-primary w-100" title="Filtrer">
                                 <i class="bi bi-search me-1"></i>
                                 Filtrer
                             </button>
@@ -463,7 +463,7 @@
                                 {{-- Responsable --}}
                                 <td>
                                     @if ($principal && $principal->employee)
-                                        {{ $principal->employee->user?->name ?? $principal->employee->matricule }}
+                                        {{ $principal->employee->user?->firstname .' '. $principal->employee->user?->name ?? $principal->employee->matricule }}
                                     @else
                                         <span class="text-muted">Non affecté</span>
                                     @endif
@@ -523,12 +523,12 @@
                                 <td class="text-end">
                                     <div class="btn-group">
                                         <a href="{{ route('onfp.activites.show', $activite) }}"
-                                            class="btn btn-sm btn-outline-primary" title="Voir">
+                                            class="btn btn-sm btn-sm btn-outline-primary" title="Voir">
                                             <i class="bi bi-eye"></i>
                                         </a>
 
                                         <a href="{{ route('onfp.activites.edit', $activite) }}"
-                                            class="btn btn-sm btn-outline-secondary" title="Modifier">
+                                            class="btn btn-sm btn-sm btn-outline-secondary" title="Modifier">
                                             <i class="bi bi-pencil"></i>
                                         </a>
 
@@ -536,7 +536,7 @@
                                             onsubmit="return confirm('Voulez-vous vraiment supprimer cette activité ?');">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-outline-danger"
+                                            <button type="submit" class="btn btn-sm btn-sm btn-outline-danger"
                                                 title="Supprimer">
                                                 <i class="bi bi-trash"></i>
                                             </button>
@@ -563,12 +563,12 @@
 
                                         @if ($hasActiveFilters)
                                             <a href="{{ route('onfp.activites.index') }}"
-                                                class="btn btn-outline-secondary me-2">
+                                                class="btn btn-sm btn-outline-secondary me-2">
                                                 Réinitialiser les filtres
                                             </a>
                                         @endif
 
-                                        <a href="{{ route('onfp.activites.create') }}" class="btn btn-primary">
+                                        <a href="{{ route('onfp.activites.create') }}" class="btn btn-sm btn-primary">
                                             Nouvelle activité
                                         </a>
                                     </div>
