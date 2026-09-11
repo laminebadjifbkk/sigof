@@ -119,6 +119,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Formula;
 
 use App\Http\Controllers\OnfpActiviteTypeController;
 use App\Http\Controllers\OnfpActiviteController;
+use App\Http\Controllers\OnfpActiviteIndicateurController;
 
 
 
@@ -1245,10 +1246,18 @@ Route::group(['middleware' => ['XSS']], function () {
             ->parameters([
                 'activite-types' => 'activiteType',
             ]);
+
             Route::resource('activites', OnfpActiviteController::class)
                 ->parameters([
                     'activites' => 'activite',
                 ]);
+
+               Route::resource('activites.indicateurs', OnfpActiviteIndicateurController::class)
+            ->except(['show'])
+            ->parameters([
+                'activites' => 'activite',
+                'indicateurs' => 'indicateur',
+            ]);
         });
 
         Route::prefix('suivi')->group(function () {
