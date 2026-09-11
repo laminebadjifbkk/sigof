@@ -11,7 +11,7 @@
                name="code"
                id="code"
                value="{{ old('code', $indicateur->code ?? '') }}"
-               class="form-control @error('code') is-invalid @enderror"
+               class="form-control form-control-sm @error('code') is-invalid @enderror"
                placeholder="Ex. : NB_FORMATEURS"
                maxlength="50">
 
@@ -39,7 +39,7 @@
                name="libelle"
                id="libelle"
                value="{{ old('libelle', $indicateur->libelle ?? '') }}"
-               class="form-control @error('libelle') is-invalid @enderror"
+               class="form-control form-control-sm @error('libelle') is-invalid @enderror"
                placeholder="Ex. : Nombre de bénéficiaires formés"
                required>
 
@@ -63,7 +63,7 @@
             name="description"
             id="description"
             rows="3"
-            class="form-control @error('description') is-invalid @enderror"
+            class="form-control form-control-sm @error('description') is-invalid @enderror"
             placeholder="Décrivez précisément ce que mesure cet indicateur..."
         >{{ old('description', $indicateur->description ?? '') }}</textarea>
 
@@ -87,7 +87,7 @@
                name="valeur_cible"
                id="valeur_cible"
                value="{{ old('valeur_cible', $indicateur->valeur_cible ?? '') }}"
-               class="form-control @error('valeur_cible') is-invalid @enderror"
+               class="form-control form-control-sm @error('valeur_cible') is-invalid @enderror"
                min="0"
                step="0.01"
                placeholder="Ex. : 100"
@@ -113,7 +113,7 @@
                name="valeur_realisee"
                id="valeur_realisee"
                value="{{ old('valeur_realisee', $indicateur->valeur_realisee ?? 0) }}"
-               class="form-control @error('valeur_realisee') is-invalid @enderror"
+               class="form-control form-control-sm @error('valeur_realisee') is-invalid @enderror"
                min="0"
                step="0.01"
                placeholder="Ex. : 75">
@@ -138,7 +138,7 @@
                name="unite"
                id="unite"
                value="{{ old('unite', $indicateur->unite ?? '') }}"
-               class="form-control @error('unite') is-invalid @enderror"
+               class="form-control form-control-sm @error('unite') is-invalid @enderror"
                placeholder="Ex. : personnes, %, dossiers, FCFA">
 
         @error('unite')
@@ -198,7 +198,7 @@
                name="date_reference"
                id="date_reference"
                value="{{ old('date_reference', isset($indicateur->date_reference) ? $indicateur->date_reference->format('Y-m-d') : '') }}"
-               class="form-control @error('date_reference') is-invalid @enderror">
+               class="form-control form-control-sm @error('date_reference') is-invalid @enderror">
 
         @error('date_reference')
             <div class="invalid-feedback">
@@ -224,7 +224,7 @@
             name="observation"
             id="observation"
             rows="3"
-            class="form-control @error('observation') is-invalid @enderror"
+            class="form-control form-control-sm @error('observation') is-invalid @enderror"
             placeholder="Expliquez éventuellement l'écart entre la cible et la valeur réalisée..."
         >{{ old('observation', $indicateur->observation ?? '') }}</textarea>
 

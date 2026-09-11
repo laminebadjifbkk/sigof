@@ -12,7 +12,7 @@
         <div class="d-flex align-items-center">
 
             <a href="{{ route('onfp.activites.show', $activite) }}"
-               class="btn btn-outline-secondary me-3">
+               class="btn btn-sm btn-outline-secondary me-3">
 
                 <i class="bi bi-arrow-left"></i>
 
@@ -34,7 +34,7 @@
 
 
         <a href="{{ route('onfp.activites.indicateurs.create', $activite) }}"
-           class="btn btn-primary">
+           class="btn btn-sm btn-primary">
 
             <i class="bi bi-plus-lg me-1"></i>
 
@@ -302,7 +302,7 @@
                                 <div class="btn-group">
 
                                     <a href="{{ route('onfp.activites.indicateurs.edit', [$activite, $indicateur]) }}"
-                                       class="btn btn-sm btn-outline-primary"
+                                       class="btn btn-sm btn-sm btn-outline-primary"
                                        title="Modifier">
 
                                         <i class="bi bi-pencil"></i>
@@ -318,7 +318,7 @@
                                         @method('DELETE')
 
                                         <button type="submit"
-                                                class="btn btn-sm btn-outline-danger"
+                                                class="btn btn-sm btn-sm btn-outline-danger"
                                                 title="Supprimer">
 
                                             <i class="bi bi-trash"></i>
@@ -347,7 +347,7 @@
                                 </div>
 
                                 <a href="{{ route('onfp.activites.indicateurs.create', $activite) }}"
-                                   class="btn btn-primary">
+                                   class="btn btn-sm btn-primary">
 
                                     <i class="bi bi-plus-lg me-1"></i>
                                     Ajouter le premier indicateur
