@@ -408,44 +408,161 @@
 
                     <div class="card-header bg-white py-3">
 
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex justify-content-between align-items-center gap-2">
 
                             <h5 class="mb-0">
                                 <i class="bi bi-diagram-3 me-2"></i>
                                 Sous-activités
                             </h5>
 
-                            <span class="badge bg-secondary">
-                                {{ $activite->sousActivites->count() }}
-                            </span>
+                            <div class="d-flex align-items-center gap-2">
+
+                                <span class="badge bg-secondary">
+                                    {{ $activite->sousActivites->count() }}
+                                </span>
+
+                                <a href="{{ route('onfp.activites.sous-activites.index', $activite) }}"
+                                    class="btn btn-sm btn-primary" title="Gérer les sous-activités">
+
+                                    <i class="bi bi-list-ul me-1"></i>
+                                    Gérer
+
+                                </a>
+
+                            </div>
 
                         </div>
 
                     </div>
 
+
                     <div class="card-body">
 
-                        @forelse($activite->sousActivites as $sousActivite)
+                        @forelse($activite->sousActivites->take(5) as $sousActivite)
                             <div class="border rounded p-3 mb-3">
 
-                                <div class="fw-semibold text-break">
-                                    {{ $sousActivite->titre }}
+                                <div class="d-flex justify-content-between align-items-start gap-2">
+
+                                    <div style="min-width: 0;">
+
+                                        <div class="fw-semibold text-break">
+
+                                            {{ $sousActivite->titre }}
+
+                                        </div>
+
+                                        @if ($sousActivite->reference)
+                                            <div class="small text-muted">
+
+                                                {{ $sousActivite->reference }}
+
+                                            </div>
+                                        @endif
+
+                                    </div>
+
+
+                                    <a href="{{ route('onfp.activites.sous-activites.show', [$activite, $sousActivite]) }}"
+                                        class="btn btn-sm btn-outline-secondary flex-shrink-0"
+                                        title="Voir la sous-activité">
+
+                                        <i class="bi bi-eye"></i>
+
+                                    </a>
+
                                 </div>
 
-                                <div class="small text-muted">
-                                    {{ $sousActivite->progression }}%
-                                    ·
-                                    {{ $sousActivite->statut }}
+
+                                <div class="mt-3">
+
+                                    <div class="d-flex justify-content-between small mb-1">
+
+                                        <span class="text-muted">
+                                            Progression
+                                        </span>
+
+                                        <strong>
+                                            {{ $sousActivite->progression }} %
+                                        </strong>
+
+                                    </div>
+
+
+                                    <div class="progress" style="height: 7px;">
+
+                                        <div class="progress-bar" role="progressbar"
+                                            style="width: {{ min($sousActivite->progression, 100) }}%;"
+                                            aria-valuenow="{{ $sousActivite->progression }}" aria-valuemin="0"
+                                            aria-valuemax="100">
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="mt-2">
+
+                                    @php
+
+                                        $statutLabels = [
+                                            'a_faire' => 'À faire',
+                                            'en_cours' => 'En cours',
+                                            'suspendue' => 'Suspendue',
+                                            'terminee' => 'Terminée',
+                                            'annulee' => 'Annulée',
+                                        ];
+
+                                        $statutClasses = [
+                                            'a_faire' => 'bg-secondary',
+                                            'en_cours' => 'bg-primary',
+                                            'suspendue' => 'bg-warning text-dark',
+                                            'terminee' => 'bg-success',
+                                            'annulee' => 'bg-danger',
+                                        ];
+
+                                    @endphp
+
+                                    <span class="badge {{ $statutClasses[$sousActivite->statut] ?? 'bg-secondary' }}">
+
+                                        {{ $statutLabels[$sousActivite->statut] ?? $sousActivite->statut }}
+
+                                    </span>
+
                                 </div>
 
                             </div>
 
                         @empty
 
-                            <span class="text-muted">
-                                Aucune sous-activité pour le moment.
-                            </span>
+                            <div class="text-center py-3">
+
+                                <i class="bi bi-diagram-3 text-muted fs-2"></i>
+
+                                <div class="text-muted mt-2">
+                                    Aucune sous-activité pour le moment.
+                                </div>
+
+                            </div>
                         @endforelse
+
+
+                        @if ($activite->sousActivites->count() > 5)
+                            <div class="text-center mt-3">
+
+                                <a href="{{ route('onfp.activites.sous-activites.index', $activite) }}"
+                                    class="btn btn-outline-secondary">
+
+                                    Voir toutes les
+                                    {{ $activite->sousActivites->count() }}
+                                    sous-activités
+
+                                    <i class="bi bi-arrow-right ms-1"></i>
+
+                                </a>
+
+                            </div>
+                        @endif
 
                     </div>
 
@@ -525,7 +642,7 @@
                     <div class="card-body">
 
                         @forelse($activite->historiques->sortByDesc('created_at')
-                                        as $historique)
+                                            as $historique)
                             <div class="border-start ps-3 mb-4">
 
                                 <div class="fw-semibold">

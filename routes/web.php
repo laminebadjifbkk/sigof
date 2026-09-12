@@ -121,6 +121,8 @@ use App\Http\Controllers\OnfpActiviteTypeController;
 use App\Http\Controllers\OnfpActiviteController;
 use App\Http\Controllers\OnfpActiviteIndicateurController;
 use App\Http\Controllers\OnfpActiviteDocumentController;
+use App\Http\Controllers\OnfpSousActiviteController;
+use App\Http\Controllers\OnfpTacheActiviteController;
 
 
 
@@ -1267,16 +1269,28 @@ Route::group(['middleware' => ['XSS']], function () {
                 'documents' => 'document',
             ]);
 
-        /* Route::get(
-            'activites/{activite}/documents/{document}/download',
-            [OnfpActiviteDocumentController::class, 'download']
-        )->name('activites.documents.download');*/
-
         Route::get(
             'activites/{activite}/documents/{document}/view',
             [OnfpActiviteDocumentController::class, 'view']
         )->name('activites.documents.view');
-                });
+
+         Route::resource(
+            'activites.sous-activites',
+            OnfpSousActiviteController::class
+        )->parameters([
+            'activites' => 'activite',
+            'sous-activites' => 'sousActivite',
+        ]);
+
+Route::resource(
+    'activites.sous-activites.taches',
+    OnfpTacheActiviteController::class
+)->parameters([
+    'activites' => 'activite',
+    'sous-activites' => 'sousActivite',
+    'taches' => 'tache',
+]);
+    });
 
         Route::prefix('suivi')->group(function () {
             // Routes pour le suivi individuel
