@@ -168,12 +168,12 @@
 
             <option value="croissant"
                 {{ old('sens', $indicateur->sens ?? 'croissant') === 'croissant' ? 'selected' : '' }}>
-                Croissant — plus la valeur augmente, mieux c'est
+                Croissant - plus la valeur augmente, mieux c'est
             </option>
 
             <option value="decroissant"
                 {{ old('sens', $indicateur->sens ?? '') === 'decroissant' ? 'selected' : '' }}>
-                Décroissant — moins la valeur est élevée, mieux c'est
+                Décroissant - moins la valeur est élevée, mieux c'est
             </option>
 
         </select>

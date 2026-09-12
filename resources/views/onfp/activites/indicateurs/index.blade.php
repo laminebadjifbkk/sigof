@@ -25,7 +25,7 @@
                 </h3>
 
                 <p class="text-muted mb-0">
-                    {{ $activite->reference }} — {{ $activite->titre }}
+                    {{ $activite->reference }} - {{ $activite->titre }}
                 </p>
 
             </div>
@@ -291,7 +291,7 @@
                             {{-- Date --}}
                             <td>
 
-                                {{ $indicateur->date_reference?->format('d/m/Y') ?? '—' }}
+                                {{ $indicateur->date_reference?->format('d/m/Y') ?? '-' }}
 
                             </td>
 

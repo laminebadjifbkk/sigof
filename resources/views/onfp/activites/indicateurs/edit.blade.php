@@ -22,7 +22,7 @@
             </h3>
 
             <p class="text-muted mb-0">
-                {{ $activite->reference }} — {{ $activite->titre }}
+                {{ $activite->reference }} - {{ $activite->titre }}
             </p>
 
         </div>

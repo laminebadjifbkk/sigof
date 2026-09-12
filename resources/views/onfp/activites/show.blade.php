@@ -214,7 +214,7 @@
                                 </div>
 
                                 <div class="fw-semibold">
-                                    {{ $activite->date_enclenchement?->format('d/m/Y') ?? '—' }}
+                                    {{ $activite->date_enclenchement?->format('d/m/Y') ?? '-' }}
                                 </div>
 
                             </div>
@@ -227,7 +227,7 @@
                                 </div>
 
                                 <div class="fw-semibold">
-                                    {{ $activite->date_execution_prevue?->format('d/m/Y') ?? '—' }}
+                                    {{ $activite->date_execution_prevue?->format('d/m/Y') ?? '-' }}
                                 </div>
 
                             </div>
@@ -240,7 +240,7 @@
                                 </div>
 
                                 <div class="fw-semibold">
-                                    {{ $activite->date_fin_prevue?->format('d/m/Y') ?? '—' }}
+                                    {{ $activite->date_fin_prevue?->format('d/m/Y') ?? '-' }}
                                 </div>
 
                             </div>
@@ -253,7 +253,7 @@
                                 </div>
 
                                 <div class="fw-semibold">
-                                    {{ $activite->date_execution_reelle?->format('d/m/Y') ?? '—' }}
+                                    {{ $activite->date_execution_reelle?->format('d/m/Y') ?? '-' }}
                                 </div>
 
                             </div>
@@ -266,7 +266,7 @@
                                 </div>
 
                                 <div class="fw-semibold">
-                                    {{ $activite->date_fin_reelle?->format('d/m/Y') ?? '—' }}
+                                    {{ $activite->date_fin_reelle?->format('d/m/Y') ?? '-' }}
                                 </div>
 
                             </div>
@@ -708,7 +708,7 @@
                             </div>
 
                             <div class="fw-semibold text-break">
-                                {{ $activite->direction?->sigle ?: $activite->direction?->name ?? '—' }}
+                                {{ $activite->direction?->sigle ?: $activite->direction?->name ?? '-' }}
                             </div>
 
                         </div>
@@ -721,7 +721,7 @@
                             </div>
 
                             <div class="fw-semibold text-break">
-                                {{ $activite->type?->libelle ?? '—' }}
+                                {{ $activite->type?->libelle ?? '-' }}
                             </div>
 
                         </div>
@@ -734,7 +734,7 @@
                             </div>
 
                             <div class="fw-semibold">
-                                {{ $activite->created_at?->format('d/m/Y H:i') ?? '—' }}
+                                {{ $activite->created_at?->format('d/m/Y H:i') ?? '-' }}
                             </div>
 
                         </div>
