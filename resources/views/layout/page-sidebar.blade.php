@@ -14,6 +14,8 @@
         $activeCourriers = request()->is('courriers*');
         $activeAntennes = request()->is('antennes*');
         $activeRoles = request()->is('roles*');
+
+        $activeActivites = request()->routeIs('onfp.activites.*') || request()->routeIs('onfp.activite-types.*');
     @endphp
 
     <ul class="sidebar-nav" id="sidebar-nav">
@@ -127,7 +129,7 @@
             </li>
         @endcan
 
-        @can('activite-view')
+        {{-- @can('activite-view')
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('activites-quotidiennes.index') }}">
                     <i class="bi bi-list-check"></i>
@@ -138,6 +140,38 @@
                         </span>
                     @endif
                 </a>
+            </li>
+        @endcan --}}
+
+        @can('activite-view')
+            <li class="nav-item">
+                <a class="nav-link collapsed {{ $activeActivites ? '' : 'collapsed' }}"
+                    data-bs-target="#gestion-activites-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-list-check"></i>
+                    <span>Gestion des activités</span>
+                    <i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+
+                <ul id="gestion-activites-nav" class="nav-content collapse {{ $activeActivites ? 'show' : '' }}"
+                    data-bs-parent="#sidebar-nav">
+
+                    {{-- Activités --}}
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('onfp.activites.index') || request()->routeIs('onfp.activites.show') || request()->routeIs('onfp.activites.edit') ? 'active' : 'collapsed' }}"
+                            href="{{ route('onfp.activites.index') }}">
+                            <span>Activités</span>
+                        </a>
+                    </li>
+
+                    {{-- Types d'activités --}}
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('onfp.activite-types.*') ? 'active' : 'collapsed' }}"
+                            href="{{ route('onfp.activite-types.index') }}">
+                            <span>Types d'activités</span>
+                        </a>
+                    </li>
+
+                </ul>
             </li>
         @endcan
 
