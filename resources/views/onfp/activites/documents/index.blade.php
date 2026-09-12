@@ -318,18 +318,14 @@
                                         {{-- Actions --}}
                                         <td class="text-end pe-4">
 
-                                            <div class="btn-group">
+                                            {{-- <div class="btn-group">
 
-                                                {{-- <a href="{{ route(
-                                            'onfp.activites.documents.download',
-                                            [$activite, $document]
-                                        ) }}"
-                                           class="btn btn-sm btn-sm btn-outline-primary"
-                                           title="Télécharger">
+                                                <a href="{{ route('onfp.activites.documents.download', [$activite, $document]) }}"
+                                                    class="btn btn-sm btn-sm btn-outline-primary" title="Télécharger">
 
-                                            <i class="bi bi-download"></i>
+                                                    <i class="bi bi-download"></i>
 
-                                        </a> --}}
+                                                </a>
                                                 <a href="{{ route('onfp.activites.documents.view', [$activite, $document]) }}"
                                                     class="btn btn-sm btn-sm btn-outline-primary" target="_blank"
                                                     title="Visualiser">
@@ -347,6 +343,35 @@
                                                     @method('DELETE')
 
                                                     <button type="submit" class="btn btn-sm btn-sm btn-outline-danger"
+                                                        title="Supprimer">
+
+                                                        <i class="bi bi-trash"></i>
+
+                                                    </button>
+
+                                                </form>
+
+                                            </div> --}}
+                                            <div class="btn-group">
+
+                                                {{-- Visualiser --}}
+                                                <a href="{{ route('onfp.activites.documents.view', [$activite, $document]) }}"
+                                                    class="btn btn-sm btn-outline-primary" target="_blank"
+                                                    title="Visualiser">
+
+                                                    <i class="bi bi-eye"></i>
+
+                                                </a>
+
+                                                {{-- Supprimer --}}
+                                                <form method="POST"
+                                                    action="{{ route('onfp.activites.documents.destroy', [$activite, $document]) }}"
+                                                    onsubmit="return confirm('Voulez-vous vraiment supprimer ce document ?');">
+
+                                                    @csrf
+                                                    @method('DELETE')
+
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger"
                                                         title="Supprimer">
 
                                                         <i class="bi bi-trash"></i>
