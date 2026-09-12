@@ -1012,7 +1012,7 @@
                                 </p>
 
                                 <a href="{{ route('onfp.activites.documents.create', $activite) }}"
-                                    class="btn btn-primary">
+                                    class="btn btn-sm btn-primary">
 
                                     <i class="bi bi-plus-lg me-1"></i>
                                     Ajouter un document
