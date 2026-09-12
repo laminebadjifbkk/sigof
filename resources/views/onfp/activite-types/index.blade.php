@@ -21,7 +21,7 @@
         </div>
 
         <a href="{{ route('onfp.activite-types.create') }}"
-           class="btn btn-primary">
+           class="btn btn-sm btn-primary">
             <i class="bi bi-plus-lg me-1"></i>
             Nouveau type
         </a>
@@ -87,7 +87,7 @@
                         </label>
 
                         <select name="actif"
-                                class="form-select">
+                                class="form-select form-select-sm">
 
                             <option value="">
                                 Tous
@@ -114,13 +114,13 @@
                         <div class="d-flex gap-2">
 
                             <button type="submit"
-                                    class="btn btn-primary">
+                                    class="btn btn-sm btn-primary">
                                 <i class="bi bi-search me-1"></i>
                                 Rechercher
                             </button>
 
                             <a href="{{ route('onfp.activite-types.index') }}"
-                               class="btn btn-outline-secondary">
+                               class="btn btn-sm btn-outline-secondary">
                                 <i class="bi bi-arrow-counterclockwise"></i>
                             </a>
 
@@ -257,7 +257,7 @@
                                 <div class="btn-group">
 
                                     <a href="{{ route('onfp.activite-types.edit', $type) }}"
-                                       class="btn btn-sm btn-outline-primary"
+                                       class="btn btn-sm btn-sm btn-outline-primary"
                                        title="Modifier">
 
                                         <i class="bi bi-pencil"></i>
@@ -275,7 +275,7 @@
                                             @method('DELETE')
 
                                             <button type="submit"
-                                                    class="btn btn-sm btn-outline-danger"
+                                                    class="btn btn-sm btn-sm btn-outline-danger"
                                                     title="Supprimer">
 
                                                 <i class="bi bi-trash"></i>
@@ -287,7 +287,7 @@
                                     @else
 
                                         <button type="button"
-                                                class="btn btn-sm btn-outline-secondary"
+                                                class="btn btn-sm btn-sm btn-outline-secondary"
                                                 disabled
                                                 title="Type utilisé">
 

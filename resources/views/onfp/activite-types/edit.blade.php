@@ -9,7 +9,7 @@
     <div class="d-flex align-items-center mb-4">
 
         <a href="{{ route('onfp.activite-types.index') }}"
-           class="btn btn-outline-secondary me-3">
+           class="btn btn-sm btn-outline-secondary me-3">
 
             <i class="bi bi-arrow-left"></i>
 
@@ -45,14 +45,14 @@
                 <div class="d-flex justify-content-end gap-2 mt-4">
 
                     <a href="{{ route('onfp.activite-types.index') }}"
-                       class="btn btn-outline-secondary">
+                       class="btn btn-sm btn-outline-secondary">
 
                         Annuler
 
                     </a>
 
                     <button type="submit"
-                            class="btn btn-primary">
+                            class="btn btn-sm btn-primary">
 
                         <i class="bi bi-check-lg me-1"></i>
 

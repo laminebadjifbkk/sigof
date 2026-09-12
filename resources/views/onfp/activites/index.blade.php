@@ -170,7 +170,7 @@
         <div class="row g-3 mb-4">
 
             {{-- Progression globale --}}
-            <div class="col-lg-6">
+            <div class="col-lg-4">
                 <div class="card shadow-sm border-0 h-100">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-2">
@@ -190,7 +190,7 @@
             </div>
 
             {{-- Répartition des statuts --}}
-            <div class="col-lg-6">
+            <div class="col-lg-8">
                 <div class="card shadow-sm border-0 h-100">
                     <div class="card-body">
                         <h5 class="mb-3">État des activités</h5>

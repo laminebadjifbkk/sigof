@@ -9,7 +9,7 @@
 
         <input type="text"
                name="code"
-               class="form-control @error('code') is-invalid @enderror"
+               class="form-control form-control-sm @error('code') is-invalid @enderror"
                value="{{ old('code', $activiteType->code ?? '') }}"
                placeholder="EX : REUNION"
                maxlength="50"
@@ -37,7 +37,7 @@
 
         <input type="text"
                name="libelle"
-               class="form-control @error('libelle') is-invalid @enderror"
+               class="form-control form-control-sm @error('libelle') is-invalid @enderror"
                value="{{ old('libelle', $activiteType->libelle ?? '') }}"
                placeholder="Ex : Réunion"
                maxlength="150"
@@ -61,7 +61,7 @@
 
         <input type="number"
                name="ordre"
-               class="form-control @error('ordre') is-invalid @enderror"
+               class="form-control form-control-sm @error('ordre') is-invalid @enderror"
                value="{{ old('ordre', $activiteType->ordre ?? 0) }}"
                min="0">
 
@@ -83,7 +83,7 @@
 
         <textarea name="description"
                   rows="4"
-                  class="form-control @error('description') is-invalid @enderror"
+                  class="form-control form-control-sm @error('description') is-invalid @enderror"
                   placeholder="Description du type d’activité...">{{ old('description', $activiteType->description ?? '') }}</textarea>
 
         @error('description')
