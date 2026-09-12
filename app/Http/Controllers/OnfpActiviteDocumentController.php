@@ -75,10 +75,14 @@ class OnfpActiviteDocumentController extends Controller
             'document' => [
                 'required',
                 'file',
-                'max:20480', // 20 Mo
+                'max:20480',
                 'mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,jpg,jpeg,png,zip',
             ],
         ]);
+
+        $validated['tache_id'] = !empty($validated['tache_id'])
+            ? (int) $validated['tache_id']
+            : null;
 
         /*
          * Vérifier que la tâche appartient bien à l'activité.
@@ -122,7 +126,9 @@ class OnfpActiviteDocumentController extends Controller
         )->value('id');
 
         $activite->documents()->create([
-            'tache_id'        => $validated['tache_id'] ?? null,
+            'tache_id'        => !empty($validated['tache_id'])
+                ? (int) $validated['tache_id']
+                : null,
             'employee_id'     => $employeeId,
             'type'            => $validated['type'],
             'nom_original'    => $nomOriginal,
@@ -143,7 +149,10 @@ class OnfpActiviteDocumentController extends Controller
     /**
      * Téléchargement d'un document.
      */
-    public function download(
+    /**
+     * Visualisation d'un document.
+     */
+    public function view(
         OnfpActivite $activite,
         OnfpActiviteDocument $document
     ) {
@@ -153,10 +162,13 @@ class OnfpActiviteDocumentController extends Controller
             abort(404, 'Le fichier demandé est introuvable.');
         }
 
-        return Storage::disk($document->disk)->download(
-            $document->chemin,
-            $document->nom_original
-        );
+        $path = Storage::disk($document->disk)->path($document->chemin);
+
+        return response()->file($path, [
+            'Content-Type' => $document->mime_type,
+            'Content-Disposition' => 'inline; filename="' .
+                addslashes($document->nom_original) . '"',
+        ]);
     }
 
     /**

@@ -1267,11 +1267,17 @@ Route::group(['middleware' => ['XSS']], function () {
                 'documents' => 'document',
             ]);
 
-        Route::get(
+        /* Route::get(
             'activites/{activite}/documents/{document}/download',
             [OnfpActiviteDocumentController::class, 'download']
         )->name('activites.documents.download');
-        });
+*/
+        
+        Route::get(
+    'activites/{activite}/documents/{document}/view',
+    [OnfpActiviteDocumentController::class, 'view']
+)->name('activites.documents.view');
+        }); 
 
         Route::prefix('suivi')->group(function () {
             // Routes pour le suivi individuel

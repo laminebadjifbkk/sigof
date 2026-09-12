@@ -7,31 +7,31 @@
     <div class="container-fluid py-4">
 
         {{-- En-tête --}}
-        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
 
-            <div class="d-flex align-items-center">
+            <div class="d-flex align-items-center flex-grow-1" style="min-width: 0;">
 
-                <a href="{{ route('onfp.activites.index') }}" class="btn btn-sm btn-outline-secondary me-3">
+                <a href="{{ route('onfp.activites.index') }}" class="btn btn-sm btn-outline-secondary me-3 flex-shrink-0">
 
                     <i class="bi bi-arrow-left"></i>
 
                 </a>
 
-                <div>
+                <div style="min-width: 0;">
 
-                    <div class="d-flex align-items-center gap-2">
+                    <div class="d-flex align-items-center gap-2 flex-wrap">
 
-                        <h3 class="mb-0">
+                        <h3 class="mb-0 text-break" style="min-width: 0;">
                             {{ $activite->titre }}
                         </h3>
 
-                        <span class="badge bg-light text-dark border">
+                        <span class="badge bg-light text-dark border flex-shrink-0">
                             {{ $activite->reference }}
                         </span>
 
                     </div>
 
-                    <p class="text-muted mb-0 mt-1">
+                    <p class="text-muted mb-0 mt-1 text-break">
                         {{ $activite->type?->libelle ?? 'Type non défini' }}
                         @if ($activite->direction)
                             · {{ $activite->direction->sigle ?: $activite->direction->name }}
@@ -43,7 +43,7 @@
             </div>
 
 
-            <div class="d-flex gap-2">
+            <div class="d-flex gap-2 flex-shrink-0">
 
                 <a href="{{ route('onfp.activites.edit', $activite) }}" class="btn btn-sm btn-primary">
 
@@ -75,7 +75,7 @@
         <div class="row g-4">
 
             {{-- COLONNE PRINCIPALE --}}
-            <div class="col-lg-8">
+            <div class="col-lg-8" style="min-width: 0;">
 
 
                 {{-- Informations générales --}}
@@ -99,7 +99,7 @@
                                 Titre de l'activité
                             </label>
 
-                            <div class="fw-semibold fs-5">
+                            <div class="fw-semibold fs-5 text-break">
                                 {{ $activite->titre }}
                             </div>
 
@@ -113,7 +113,7 @@
                             </label>
 
                             @if ($activite->description)
-                                <div class="mt-1">
+                                <div class="mt-1 text-break">
                                     {!! nl2br(e($activite->description)) !!}
                                 </div>
                             @else
@@ -132,7 +132,7 @@
                             </label>
 
                             @if ($activite->observation)
-                                <div class="mt-1">
+                                <div class="mt-1 text-break">
                                     {!! nl2br(e($activite->observation)) !!}
                                 </div>
                             @else
@@ -178,7 +178,8 @@
 
                         <div class="progress" style="height: 12px;">
 
-                            <div class="progress-bar" role="progressbar" style="width: {{ $activite->progression }}%;"
+                            <div class="progress-bar" role="progressbar"
+                                style="width: {{ min($activite->progression, 100) }}%;"
                                 aria-valuenow="{{ $activite->progression }}" aria-valuemin="0" aria-valuemax="100">
                             </div>
 
@@ -206,7 +207,7 @@
 
                         <div class="row g-4">
 
-                            <div class="col-md-4">
+                            <div class="col-6 col-md-4">
 
                                 <div class="text-muted small">
                                     Date d'enclenchement
@@ -219,7 +220,7 @@
                             </div>
 
 
-                            <div class="col-md-4">
+                            <div class="col-6 col-md-4">
 
                                 <div class="text-muted small">
                                     Exécution prévue
@@ -232,7 +233,7 @@
                             </div>
 
 
-                            <div class="col-md-4">
+                            <div class="col-6 col-md-4">
 
                                 <div class="text-muted small">
                                     Fin prévue
@@ -245,7 +246,7 @@
                             </div>
 
 
-                            <div class="col-md-4">
+                            <div class="col-6 col-md-4">
 
                                 <div class="text-muted small">
                                     Exécution réelle
@@ -258,7 +259,7 @@
                             </div>
 
 
-                            <div class="col-md-4">
+                            <div class="col-6 col-md-4">
 
                                 <div class="text-muted small">
                                     Fin réelle
@@ -305,7 +306,7 @@
                             <div class="d-flex align-items-center mb-3">
 
                                 <div class="rounded-circle bg-primary text-white
-                                        d-flex align-items-center justify-content-center me-3"
+                                        d-flex align-items-center justify-content-center me-3 flex-shrink-0"
                                     style="width:42px;height:42px;">
 
                                     <i class="bi bi-person"></i>
@@ -313,9 +314,9 @@
                                 </div>
 
 
-                                <div class="flex-grow-1">
+                                <div class="flex-grow-1" style="min-width: 0;">
 
-                                    <div class="fw-semibold">
+                                    <div class="fw-semibold text-break">
 
                                         {{ $nomResponsable !== '' ? $nomResponsable : $responsable->employee?->matricule ?? 'Employé inconnu' }}
 
@@ -327,7 +328,7 @@
 
                                     </div>
 
-                                    <div class="text-muted small">
+                                    <div class="text-muted small text-break">
 
                                         {{ $responsable->employee?->matricule }}
 
@@ -369,7 +370,7 @@
                     </div>
 
 
-                    <div class="card-body">
+                    <div class="card-body d-flex flex-wrap">
 
                         @forelse($activite->suiveurs as $suiveur)
 
@@ -381,7 +382,8 @@
                                 );
                             @endphp
 
-                            <span class="badge bg-light text-dark border me-2 mb-2 px-3 py-2">
+                            <span class="badge bg-light text-dark border me-2 mb-2 px-3 py-2 text-break"
+                                style="white-space: normal; max-width: 100%;">
 
                                 <i class="bi bi-person me-1"></i>
 
@@ -426,7 +428,7 @@
                         @forelse($activite->sousActivites as $sousActivite)
                             <div class="border rounded p-3 mb-3">
 
-                                <div class="fw-semibold">
+                                <div class="fw-semibold text-break">
                                     {{ $sousActivite->titre }}
                                 </div>
 
@@ -475,7 +477,7 @@
                         @forelse($activite->taches as $tache)
                             <div class="border rounded p-3 mb-3">
 
-                                <div class="fw-semibold">
+                                <div class="fw-semibold text-break">
                                     {{ $tache->titre }}
                                 </div>
 
@@ -523,7 +525,7 @@
                     <div class="card-body">
 
                         @forelse($activite->historiques->sortByDesc('created_at')
-                            as $historique)
+                                        as $historique)
                             <div class="border-start ps-3 mb-4">
 
                                 <div class="fw-semibold">
@@ -542,7 +544,7 @@
                                 </div>
 
                                 @if ($historique->description)
-                                    <div>
+                                    <div class="text-break">
                                         {{ $historique->description }}
                                     </div>
                                 @endif
@@ -564,7 +566,7 @@
 
 
             {{-- COLONNE DROITE --}}
-            <div class="col-lg-4">
+            <div class="col-lg-4" style="min-width: 0;">
 
 
                 {{-- État de l'activité --}}
@@ -692,7 +694,7 @@
                                 Référence
                             </div>
 
-                            <div class="fw-semibold">
+                            <div class="fw-semibold text-break">
                                 {{ $activite->reference }}
                             </div>
 
@@ -705,7 +707,7 @@
                                 Direction
                             </div>
 
-                            <div class="fw-semibold">
+                            <div class="fw-semibold text-break">
                                 {{ $activite->direction?->sigle ?: $activite->direction?->name ?? '—' }}
                             </div>
 
@@ -718,7 +720,7 @@
                                 Type
                             </div>
 
-                            <div class="fw-semibold">
+                            <div class="fw-semibold text-break">
                                 {{ $activite->type?->libelle ?? '—' }}
                             </div>
 
@@ -747,14 +749,14 @@
 
                     <div class="card-header bg-white py-3">
 
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex justify-content-between align-items-center gap-2">
 
                             <h5 class="mb-0">
                                 <i class="bi bi-graph-up me-2"></i>
                                 Indicateurs
                             </h5>
 
-                            <div class="d-flex align-items-center gap-2">
+                            <div class="d-flex align-items-center gap-2 flex-shrink-0">
 
                                 <span class="badge bg-secondary">
                                     {{ $activite->indicateurs->count() }}
@@ -783,20 +785,20 @@
 
                             <div class="mb-4">
 
-                                <div class="d-flex justify-content-between">
+                                <div class="d-flex justify-content-between align-items-start gap-2">
 
-                                    <div class="fw-semibold">
+                                    <div class="fw-semibold text-break" style="min-width: 0;">
                                         {{ $indicateur->libelle }}
                                     </div>
 
-                                    <strong>
+                                    <strong class="flex-shrink-0">
                                         {{ number_format($pourcentage, 0, ',', ' ') }} %
                                     </strong>
 
                                 </div>
 
 
-                                <div class="small text-muted mb-2">
+                                <div class="small text-muted mb-2 text-break">
 
                                     Cible :
                                     {{ number_format($indicateur->valeur_cible, 2, ',', ' ') }}
@@ -859,48 +861,167 @@
 
                 </div>
 
-
                 {{-- Documents --}}
-                <div class="card shadow-sm border-0 mb-4">
+                <div class="card border-0 shadow-sm mt-4">
 
-                    <div class="card-header bg-white py-3">
+                    <div class="card-header bg-white border-bottom">
 
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
 
-                            <h5 class="mb-0">
-                                <i class="bi bi-paperclip me-2"></i>
-                                Documents
-                            </h5>
+                            <div style="min-width: 0;">
+                                <h5 class="mb-1">
+                                    <i class="bi bi-folder2-open me-2"></i>
+                                    Documents
+                                </h5>
 
-                            <span class="badge bg-secondary">
-                                {{ $activite->documents->count() }}
-                            </span>
+                                <small class="text-muted">
+                                    Pièces et documents associés à cette activité.
+                                </small>
+                            </div>
+
+                            <a href="{{ route('onfp.activites.documents.create', $activite) }}"
+                                class="btn btn-sm btn-primary flex-shrink-0">
+
+                                <i class="bi bi-plus-lg me-1"></i>
+                                Ajouter
+
+                            </a>
 
                         </div>
 
                     </div>
 
+
                     <div class="card-body">
 
-                        @forelse($activite->documents as $document)
-                            <div class="mb-2">
+                        @if ($activite->documents->count())
 
-                                <div class="fw-semibold">
-                                    {{ $document->nom_original }}
-                                </div>
+                            <div class="row g-3">
 
-                                <small class="text-muted">
-                                    {{ $document->type }}
-                                </small>
+                                @foreach ($activite->documents->take(5) as $document)
+                                    @php
+                                        $extension = strtolower(pathinfo($document->nom_original, PATHINFO_EXTENSION));
+
+                                        $icon = match ($extension) {
+                                            'pdf' => 'bi-file-earmark-pdf text-danger',
+                                            'doc', 'docx' => 'bi-file-earmark-word text-primary',
+                                            'xls', 'xlsx' => 'bi-file-earmark-excel text-success',
+                                            'ppt', 'pptx' => 'bi-file-earmark-ppt text-warning',
+                                            'jpg', 'jpeg', 'png' => 'bi-file-earmark-image text-info',
+                                            default => 'bi-file-earmark text-secondary',
+                                        };
+                                    @endphp
+
+                                    {{-- col-12 : cette carte vit dans la colonne latérale (col-lg-4), déjà
+                                         étroite. La subdiviser encore (col-md-6 / col-xl-4) ne laisse plus
+                                         assez de place pour le nom du fichier -> texte tronqué à 1 lettre. --}}
+                                    <div class="col-12" style="min-width: 0;">
+
+                                        <div class="border rounded p-3" style="min-width: 0;">
+
+                                            <div class="d-flex align-items-start gap-3">
+
+                                                {{-- Icône --}}
+                                                <div class="fs-2 flex-shrink-0">
+                                                    <i class="bi {{ $icon }}"></i>
+                                                </div>
+
+
+                                                {{-- Informations --}}
+                                                <div class="flex-grow-1" style="min-width: 0;">
+
+                                                    <div class="fw-semibold text-truncate"
+                                                        title="{{ $document->nom_original }}">
+
+                                                        {{ $document->nom_original }}
+
+                                                    </div>
+
+
+                                                    <div
+                                                        class="small text-muted mt-1 d-flex align-items-center flex-wrap gap-1">
+
+                                                        <span class="text-truncate" style="max-width: 100%;">
+                                                            {{ $document->type }}
+                                                        </span>
+
+                                                        @if ($document->document_final)
+                                                            <span class="badge bg-success flex-shrink-0">
+                                                                Final
+                                                            </span>
+                                                        @endif
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+
+                                            {{-- Action --}}
+                                            <div class="mt-3">
+
+                                                {{-- <a href="{{ route('onfp.activites.documents.download', [$activite, $document]) }}"
+                                                    class="btn btn-sm btn-outline-primary">
+
+                                                    <i class="bi bi-download me-1"></i>
+                                                    Télécharger
+
+                                                </a> --}}
+
+                                                <a href="{{ route('onfp.activites.documents.view', [$activite, $document]) }}"
+                                                    class="btn btn-sm btn-outline-primary" target="_blank"
+                                                    title="Visualiser le document">
+
+                                                    <i class="bi bi-eye me-1"></i>
+                                                    Visualiser
+
+                                                </a>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                @endforeach
 
                             </div>
 
-                        @empty
 
-                            <span class="text-muted">
-                                Aucun document.
-                            </span>
-                        @endforelse
+                            @if ($activite->documents->count() > 5)
+                                <div class="text-center mt-4">
+
+                                    <a href="{{ route('onfp.activites.documents.index', $activite) }}"
+                                        class="btn btn-outline-secondary">
+
+                                        Voir les {{ $activite->documents->count() }} documents
+
+                                        <i class="bi bi-arrow-right ms-1"></i>
+
+                                    </a>
+
+                                </div>
+                            @endif
+                        @else
+                            <div class="text-center py-4">
+
+                                <i class="bi bi-folder2 display-5 text-muted"></i>
+
+                                <p class="text-muted mt-3 mb-3">
+                                    Aucun document n'est encore associé à cette activité.
+                                </p>
+
+                                <a href="{{ route('onfp.activites.documents.create', $activite) }}"
+                                    class="btn btn-primary">
+
+                                    <i class="bi bi-plus-lg me-1"></i>
+                                    Ajouter un document
+
+                                </a>
+
+                            </div>
+
+                        @endif
 
                     </div>
 
