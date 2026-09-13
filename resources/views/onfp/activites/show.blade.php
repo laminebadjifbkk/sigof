@@ -673,7 +673,10 @@
                                     {{ $activite->taches->count() }}
                                 </span>
 
-                                <a href="{{ route('onfp.activites.taches.create', ['activite' => $activite]) }}"
+                                <a href="{{ route('onfp.activites.sous-activites.taches.create', [
+                                    'activite' => $activite,
+                                    'sousActivite' => $sousActivite,
+                                ]) }}"
                                     class="btn btn-sm btn-primary">
 
                                     <i class="bi bi-plus-circle me-1"></i>
@@ -776,11 +779,14 @@
                                     Aucune tâche directement rattachée à cette activité.
                                 </p>
 
-                                <a href="{{ route('onfp.activites.taches.create', ['activite' => $activite]) }}"
+                                <a href="{{ route('onfp.activites.sous-activites.taches.create', [
+                                    'activite' => $activite,
+                                    'sousActivite' => $sousActivite,
+                                ]) }}"
                                     class="btn btn-sm btn-primary">
 
                                     <i class="bi bi-plus-circle me-1"></i>
-                                    Créer la première tâche
+                                    Nouvelle tâche
 
                                 </a>
 
@@ -807,7 +813,7 @@
                     <div class="card-body">
 
                         @forelse($activite->historiques->sortByDesc('created_at')
-                                                        as $historique)
+                                                                as $historique)
                             <div class="border-start ps-3 mb-4">
 
                                 <div class="fw-semibold">
