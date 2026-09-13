@@ -2,319 +2,257 @@
 
 @section('space-work')
 
-    <div class="container-fluid">
+<div class="container-fluid">
 
-        {{-- En-tête --}}
-        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+    {{-- En-tête --}}
+    <div class="d-flex justify-content-between align-items-start mb-4">
 
-            <div>
+        <div>
 
-                <h4 class="mb-1">
-                    <i class="bi bi-diagram-3 me-2"></i>
-                    {{ $sousActivite->titre }}
-                </h4>
+            <div class="small text-muted">
+                {{ $sousActivite->reference }}
+            </div>
 
-                <div class="text-muted">
+            <h4 class="mb-1">
+                {{ $sousActivite->titre }}
+            </h4>
 
-                    Activité :
-                    <a href="{{ route('onfp.activites.show', $activite) }}">
-                        {{ $activite->titre }}
+            <div class="text-muted">
+                Activité :
+                <a href="{{ route(
+                    'onfp.activites.show',
+                    $activite
+                ) }}">
+                    {{ $activite->titre }}
+                </a>
+            </div>
+
+        </div>
+
+        <div class="d-flex gap-2">
+
+            <a href="{{ route(
+                'onfp.activites.sous-activites.edit',
+                [$activite, $sousActivite]
+            ) }}"
+               class="btn btn-outline-warning">
+
+                <i class="bi bi-pencil me-1"></i>
+                Modifier
+
+            </a>
+
+            <a href="{{ route(
+                'onfp.activites.sous-activites.taches.create',
+                [$activite, $sousActivite]
+            ) }}"
+               class="btn btn-primary">
+
+                <i class="bi bi-plus-circle me-1"></i>
+                Nouvelle tâche
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    {{-- Informations --}}
+    <div class="card shadow-sm border-0 mb-4">
+
+        <div class="card-header bg-white">
+            <h5 class="mb-0">
+                Informations
+            </h5>
+        </div>
+
+        <div class="card-body">
+
+            <div class="row g-3">
+
+                <div class="col-md-3">
+                    <small class="text-muted d-block">
+                        Statut
+                    </small>
+
+                    <strong>
+                        {{ $sousActivite->statut }}
+                    </strong>
+                </div>
+
+                <div class="col-md-3">
+                    <small class="text-muted d-block">
+                        Priorité
+                    </small>
+
+                    <strong>
+                        {{ $sousActivite->priorite }}
+                    </strong>
+                </div>
+
+                <div class="col-md-3">
+                    <small class="text-muted d-block">
+                        Début
+                    </small>
+
+                    <strong>
+                        {{ $sousActivite->date_debut?->format('d/m/Y') ?? '-' }}
+                    </strong>
+                </div>
+
+                <div class="col-md-3">
+                    <small class="text-muted d-block">
+                        Fin prévue
+                    </small>
+
+                    <strong>
+                        {{ $sousActivite->date_fin_prevue?->format('d/m/Y') ?? '-' }}
+                    </strong>
+                </div>
+
+            </div>
+
+            <hr>
+
+            <div class="mb-2">
+                <strong>Progression</strong>
+            </div>
+
+            <div class="progress"
+                 style="height:10px">
+
+                <div class="progress-bar"
+                     style="width: {{ $sousActivite->progression }}%">
+                </div>
+
+            </div>
+
+            <div class="small text-muted mt-1">
+                {{ $sousActivite->progression }} %
+            </div>
+
+        </div>
+
+    </div>
+
+
+    {{-- Tâches --}}
+    <div class="card shadow-sm border-0">
+
+        <div class="card-header bg-white py-3">
+
+            <div class="d-flex justify-content-between align-items-center">
+
+                <div>
+                    <h5 class="mb-1">
+                        <i class="bi bi-check2-square me-2"></i>
+                        Tâches
+                    </h5>
+
+                    <small class="text-muted">
+                        Tâches de cette sous-activité
+                    </small>
+                </div>
+
+                <div class="d-flex gap-2">
+
+                    <span class="badge bg-secondary">
+                        {{ $sousActivite->taches->count() }}
+                    </span>
+
+                    <a href="{{ route(
+                        'onfp.activites.sous-activites.taches.create',
+                        [$activite, $sousActivite]
+                    ) }}"
+                       class="btn btn-sm btn-primary">
+
+                        <i class="bi bi-plus"></i>
+
                     </a>
 
                 </div>
 
             </div>
 
-
-            <div class="d-flex gap-2">
-
-                <a href="{{ route('onfp.activites.sous-activites.index', $activite) }}"
-                    class="btn btn-sm btn-sm btn-outline-secondary">
-
-                    <i class="bi bi-arrow-left me-1"></i>
-                    Sous-activités
-
-                </a>
-
-                <a href="{{ route('onfp.activites.sous-activites.edit', [$activite, $sousActivite]) }}"
-                    class="btn btn-sm btn-sm btn-primary">
-
-                    <i class="bi bi-pencil me-1"></i>
-                    Modifier
-
-                </a>
-
-            </div>
-
         </div>
 
+        <div class="card-body">
 
-        @if (session('success'))
-            <div class="alert alert-success">
-                <i class="bi bi-check-circle me-2"></i>
-                {{ session('success') }}
-            </div>
-        @endif
+            @forelse($sousActivite->taches as $tache)
 
+                <div class="border rounded p-3 mb-3">
 
-        <div class="row g-4">
+                    <div class="d-flex justify-content-between">
 
-            {{-- Informations --}}
-            <div class="col-lg-8">
+                        <div class="flex-grow-1">
 
-                <div class="card border-0 shadow-sm">
+                            <div class="fw-semibold">
+                                {{ $tache->titre }}
+                            </div>
 
-                    <div class="card-header bg-white">
+                            <small class="text-muted">
 
-                        <h5 class="mb-0">
-                            Informations
-                        </h5>
+                                {{ $tache->progression }} %
 
-                    </div>
+                                ·
 
-                    <div class="card-body">
+                                {{ $tache->statut }}
 
-                        @if ($sousActivite->description)
-                            <div class="mb-4">
+                                @if($tache->date_echeance)
 
-                                <h6 class="text-muted">
-                                    Description
-                                </h6>
+                                    · Échéance :
+                                    {{ $tache->date_echeance->format('d/m/Y') }}
 
-                                <div>
-                                    {!! nl2br(e($sousActivite->description)) !!}
+                                @endif
+
+                            </small>
+
+                            <div class="progress mt-2"
+                                 style="height:6px">
+
+                                <div class="progress-bar"
+                                     style="width: {{ $tache->progression }}%">
                                 </div>
 
                             </div>
-                        @endif
-
-
-                        <div class="row g-3">
-
-                            <div class="col-md-4">
-
-                                <small class="text-muted d-block">
-                                    Référence
-                                </small>
-
-                                <strong>
-                                    {{ $sousActivite->reference ?? '—' }}
-                                </strong>
-
-                            </div>
-
-
-                            <div class="col-md-4">
-
-                                <small class="text-muted d-block">
-                                    Statut
-                                </small>
-
-                                <strong>
-                                    {{ ucfirst(str_replace('_', ' ', $sousActivite->statut)) }}
-                                </strong>
-
-                            </div>
-
-
-                            <div class="col-md-4">
-
-                                <small class="text-muted d-block">
-                                    Priorité
-                                </small>
-
-                                <strong>
-                                    {{ ucfirst($sousActivite->priorite) }}
-                                </strong>
-
-                            </div>
 
                         </div>
 
+                        <div>
 
-                        <hr>
+                            <a href="{{ route(
+                                'onfp.activites.sous-activites.taches.show',
+                                [$activite, $sousActivite, $tache]
+                            ) }}"
+                               class="btn btn-sm btn-outline-primary">
 
+                                <i class="bi bi-eye"></i>
 
-                        <div class="mb-2 d-flex justify-content-between">
-
-                            <span class="fw-semibold">
-                                Progression
-                            </span>
-
-                            <span class="fw-bold">
-                                {{ $sousActivite->progression }}%
-                            </span>
-
-                        </div>
-
-                        <div class="progress" style="height: 10px;">
-
-                            <div class="progress-bar" style="width: {{ $sousActivite->progression }}%;">
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                {{-- Tâches --}}
-                <div class="card border-0 shadow-sm mt-4">
-
-                    <div class="card-header bg-white">
-
-                        <div class="d-flex justify-content-between align-items-center">
-
-                            <div>
-
-                                <h5 class="mb-1">
-                                    <i class="bi bi-list-check me-2"></i>
-                                    Tâches
-                                </h5>
-
-                                <small class="text-muted">
-                                    Tâches associées à cette sous-activité.
-                                </small>
-
-                            </div>
-
-                            <a href="{{ route('onfp.activites.sous-activites.taches.create', [$activite, $sousActivite]) }}"
-                                class="btn btn-sm btn-primary">
-                                <i class="bi bi-plus-lg me-1"></i>
-                                Nouvelle tâche
                             </a>
 
                         </div>
 
                     </div>
 
+                </div>
 
-                    <div class="card-body">
+            @empty
 
-                        @if ($sousActivite->taches->count())
-                            <div class="list-group list-group-flush">
+                <div class="text-center text-muted py-4">
 
-                                @foreach ($sousActivite->taches as $tache)
-                                    <a href="{{ route('onfp.activites.taches.show', [$activite, $tache]) }}"
-                                        class="list-group-item list-group-item-action px-0">
+                    <i class="bi bi-check2-square fs-2 d-block mb-2"></i>
 
-                                        <div class="d-flex justify-content-between align-items-center">
-
-                                            <div>
-
-                                                <div class="fw-semibold">
-                                                    {{ $tache->titre }}
-                                                </div>
-
-                                                @if ($tache->reference)
-                                                    <small class="text-muted">
-                                                        {{ $tache->reference }}
-                                                    </small>
-                                                @endif
-
-                                            </div>
-
-                                            <span class="badge bg-light text-dark border">
-                                                {{ $tache->progression }}%
-                                            </span>
-
-                                        </div>
-
-                                    </a>
-                                @endforeach
-
-                            </div>
-                        @else
-                            <div class="text-center py-4">
-
-                                <i class="bi bi-list-check fs-1 text-muted"></i>
-
-                                <p class="text-muted mt-2 mb-3">
-                                    Aucune tâche associée.
-                                </p>
-
-                                <a href="{{ route('onfp.activites.sous-activites.taches.create', [$activite, $sousActivite]) }}"
-                                    class="btn btn-sm btn-primary">
-                                    <i class="bi bi-plus-lg me-1"></i>
-                                    Nouvelle tâche
-                                </a>
-
-                            </div>
-                        @endif
-
-                    </div>
+                    Aucune tâche pour cette sous-activité.
 
                 </div>
 
-            </div>
-
-
-            {{-- Résumé --}}
-            <div class="col-lg-4">
-
-                <div class="card border-0 shadow-sm">
-
-                    <div class="card-header bg-white">
-
-                        <h6 class="mb-0">
-                            Synthèse
-                        </h6>
-
-                    </div>
-
-                    <div class="card-body">
-
-                        <div class="d-flex justify-content-between mb-3">
-
-                            <span class="text-muted">
-                                Tâches
-                            </span>
-
-                            <strong>
-                                {{ $sousActivite->taches->count() }}
-                            </strong>
-
-                        </div>
-
-
-                        <div class="d-flex justify-content-between mb-3">
-
-                            <span class="text-muted">
-                                Début
-                            </span>
-
-                            <strong>
-
-                                {{ $sousActivite->date_debut ? $sousActivite->date_debut->format('d/m/Y') : '—' }}
-
-                            </strong>
-
-                        </div>
-
-
-                        <div class="d-flex justify-content-between">
-
-                            <span class="text-muted">
-                                Fin prévue
-                            </span>
-
-                            <strong>
-
-                                {{ $sousActivite->date_fin_prevue ? $sousActivite->date_fin_prevue->format('d/m/Y') : '—' }}
-
-                            </strong>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
+            @endforelse
 
         </div>
 
     </div>
+
+</div>
 
 @endsection

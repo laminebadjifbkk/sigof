@@ -1281,15 +1281,24 @@ Route::group(['middleware' => ['XSS']], function () {
             'activites' => 'activite',
             'sous-activites' => 'sousActivite',
         ]);
+        // Tâches directement rattachées à une activité
+        Route::resource(
+            'activites.taches',
+            OnfpTacheActiviteController::class
+        )->parameters([
+            'activites' => 'activite',
+            'taches' => 'tache',
+        ]);
 
-Route::resource(
-    'activites.sous-activites.taches',
-    OnfpTacheActiviteController::class
-)->parameters([
-    'activites' => 'activite',
-    'sous-activites' => 'sousActivite',
-    'taches' => 'tache',
-]);
+        // Tâches rattachées à une sous-activité
+        Route::resource(
+            'activites.sous-activites.taches',
+            OnfpTacheActiviteController::class
+        )->parameters([
+            'activites' => 'activite',
+            'sous-activites' => 'sousActivite',
+            'taches' => 'tache',
+        ]);
     });
 
         Route::prefix('suivi')->group(function () {

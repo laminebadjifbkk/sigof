@@ -56,6 +56,85 @@
 
         </div>
 
+        {{-- En-tête --}}
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <div>
+                <h4 class="mb-1">
+                    <i class="bi bi-briefcase me-2"></i>
+                    Gestion des activités
+                </h4>
+
+                <div class="text-muted">
+                    Pilotage et suivi des activités de l'ONFP
+                </div>
+            </div>
+
+            <a href="{{ route('onfp.activites.create') }}" class="btn btn-primary">
+                <i class="bi bi-plus-circle me-1"></i>
+                Nouvelle activité
+            </a>
+
+        </div>
+
+
+        {{-- Statistiques --}}
+        <div class="row g-3 mb-4">
+
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="text-muted small">
+                            Total activités
+                        </div>
+                        <div class="fs-3 fw-bold">
+                            {{-- {{ $activites->total() }} --}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="text-muted small">
+                            En cours
+                        </div>
+                        <div class="fs-3 fw-bold text-primary">
+                            {{ $activitesEnCours ?? 0 }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="text-muted small">
+                            Terminées
+                        </div>
+                        <div class="fs-3 fw-bold text-success">
+                            {{ $activitesTerminees ?? 0 }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="text-muted small">
+                            En retard
+                        </div>
+                        <div class="fs-3 fw-bold text-danger">
+                            {{ $activitesEnRetard ?? 0 }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
 
         {{-- Messages --}}
         @if (session('success'))
@@ -568,22 +647,41 @@
 
                 </div>
 
-
-                {{-- Tâches --}}
+                {{-- =========================
+     TÂCHES
+========================= --}}
                 <div class="card shadow-sm border-0 mb-4">
 
                     <div class="card-header bg-white py-3">
 
                         <div class="d-flex justify-content-between align-items-center">
 
-                            <h5 class="mb-0">
-                                <i class="bi bi-check2-square me-2"></i>
-                                Tâches
-                            </h5>
+                            <div>
+                                <h5 class="mb-1">
+                                    <i class="bi bi-check2-square me-2"></i>
+                                    Tâches
+                                </h5>
 
-                            <span class="badge bg-secondary">
-                                {{ $activite->taches->count() }}
-                            </span>
+                                <small class="text-muted">
+                                    Tâches directement rattachées à cette activité
+                                </small>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-2">
+
+                                <span class="badge bg-secondary">
+                                    {{ $activite->taches->count() }}
+                                </span>
+
+                                <a href="{{ route('onfp.activites.taches.create', ['activite' => $activite]) }}"
+                                    class="btn btn-sm btn-primary">
+
+                                    <i class="bi bi-plus-circle me-1"></i>
+                                    Nouvelle tâche
+
+                                </a>
+
+                            </div>
 
                         </div>
 
@@ -594,22 +692,75 @@
                         @forelse($activite->taches as $tache)
                             <div class="border rounded p-3 mb-3">
 
-                                <div class="fw-semibold text-break">
-                                    {{ $tache->titre }}
-                                </div>
+                                <div class="d-flex justify-content-between align-items-start gap-3">
 
-                                <div class="small text-muted">
+                                    {{-- Informations --}}
+                                    <div class="flex-grow-1 min-width-0">
 
-                                    {{ $tache->progression }}%
+                                        <div class="fw-semibold text-break mb-1">
+                                            {{ $tache->titre }}
+                                        </div>
 
-                                    ·
+                                        @if ($tache->reference)
+                                            <div class="small text-muted mb-2">
+                                                Réf. : {{ $tache->reference }}
+                                            </div>
+                                        @endif
 
-                                    {{ $tache->statut }}
+                                        <div class="small text-muted">
 
-                                    @if ($tache->date_echeance)
-                                        · Échéance :
-                                        {{ $tache->date_echeance->format('d/m/Y') }}
-                                    @endif
+                                            <span>
+                                                {{ $tache->progression }}%
+                                            </span>
+
+                                            <span class="mx-1">·</span>
+
+                                            <span>
+                                                {{ $tache->statut }}
+                                            </span>
+
+                                            @if ($tache->date_echeance)
+                                                <span class="mx-1">·</span>
+
+                                                <span>
+                                                    Échéance :
+                                                    {{ $tache->date_echeance->format('d/m/Y') }}
+                                                </span>
+                                            @endif
+
+                                        </div>
+
+                                        {{-- Barre de progression --}}
+                                        <div class="progress mt-2" style="height: 6px;">
+
+                                            <div class="progress-bar" role="progressbar"
+                                                style="width: {{ $tache->progression }}%;"
+                                                aria-valuenow="{{ $tache->progression }}" aria-valuemin="0"
+                                                aria-valuemax="100">
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    {{-- Actions --}}
+                                    <div class="d-flex gap-1 flex-shrink-0">
+
+                                        <a href="{{ route('onfp.activites.taches.show', [$activite, $tache]) }}"
+                                            class="btn btn-sm btn-outline-primary" title="Voir la tâche">
+
+                                            <i class="bi bi-eye"></i>
+
+                                        </a>
+
+                                        <a href="{{ route('onfp.activites.taches.edit', [$activite, $tache]) }}"
+                                            class="btn btn-sm btn-outline-warning" title="Modifier">
+
+                                            <i class="bi bi-pencil"></i>
+
+                                        </a>
+
+                                    </div>
 
                                 </div>
 
@@ -617,9 +768,23 @@
 
                         @empty
 
-                            <span class="text-muted">
-                                Aucune tâche pour le moment.
-                            </span>
+                            <div class="text-center py-4">
+
+                                <i class="bi bi-check2-square fs-2 text-muted"></i>
+
+                                <p class="text-muted mb-3 mt-2">
+                                    Aucune tâche directement rattachée à cette activité.
+                                </p>
+
+                                <a href="{{ route('onfp.activites.taches.create', ['activite' => $activite]) }}"
+                                    class="btn btn-sm btn-primary">
+
+                                    <i class="bi bi-plus-circle me-1"></i>
+                                    Créer la première tâche
+
+                                </a>
+
+                            </div>
                         @endforelse
 
                     </div>
@@ -642,7 +807,7 @@
                     <div class="card-body">
 
                         @forelse($activite->historiques->sortByDesc('created_at')
-                                            as $historique)
+                                                        as $historique)
                             <div class="border-start ps-3 mb-4">
 
                                 <div class="fw-semibold">
