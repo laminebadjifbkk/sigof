@@ -443,7 +443,7 @@
                                 </span>
 
                                 <a href="{{ route('onfp.activites.sous-activites.index', $activite) }}"
-                                    class="btn btn-sm btn-sm btn-primary" title="Gérer les sous-activités">
+                                    class="btn btn-sm btn-sm btn-outline-primary" title="Gérer les sous-activités">
 
                                     <i class="bi bi-list-ul me-1"></i>
                                     Gérer
@@ -609,7 +609,7 @@
                                 </small>
                             </div>
 
-                            <div class="d-flex align-items-center gap-2">
+                            {{-- <div class="d-flex align-items-center gap-2">
 
                                 <span class="badge bg-secondary">
                                     {{ $activite->taches->count() }}
@@ -622,6 +622,29 @@
                                     Nouvelle tâche
 
                                 </a>
+
+                            </div> --}}
+                            <div class="d-flex align-items-center gap-2">
+
+                                <span class="badge bg-secondary">
+                                    {{ $activite->taches->count() }}
+                                </span>
+
+                                <a href="{{ route('onfp.activites.taches.index', ['activite' => $activite]) }}"
+                                    class="btn btn-sm btn-sm btn-outline-primary" title="Voir toutes les tâches">
+
+                                    <i class="bi bi-list-ul me-1"></i>
+                                    Gérer
+
+                                </a>
+
+                                {{-- <a href="{{ route('onfp.activites.taches.create', ['activite' => $activite]) }}"
+                                    class="btn btn-sm btn-sm btn-primary">
+
+                                    <i class="bi bi-plus-circle me-1"></i>
+                                    Nouvelle tâche
+
+                                </a> --}}
 
                             </div>
 
@@ -749,7 +772,7 @@
                     <div class="card-body">
 
                         @forelse($activite->historiques->sortByDesc('created_at')
-                                                                        as $historique)
+                                                                            as $historique)
                             <div class="border-start ps-3 mb-4">
 
                                 <div class="fw-semibold">

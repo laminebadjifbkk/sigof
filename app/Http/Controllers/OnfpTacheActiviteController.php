@@ -11,30 +11,31 @@ use App\Models\User;
 
 class OnfpTacheActiviteController extends Controller
 {
-    /**
-     * Liste des tâches d'une sous-activité.
-     */
-    public function index(
-        OnfpActivite $activite,
-        OnfpSousActivite $sousActivite
-    ) {
-        // Vérifier que la sous-activité appartient bien à l'activité
+ /**
+ * Liste des tâches d'une sous-activité, ou des tâches
+ * directement rattachées à l'activité si aucune sous-activité.
+ */
+public function index(
+    OnfpActivite $activite,
+    ?OnfpSousActivite $sousActivite = null
+) {
+    // Vérifier que la sous-activité appartient bien à l'activité (uniquement si fournie)
+    if ($sousActivite) {
         abort_unless(
             $sousActivite->activite_id == $activite->id,
             404
         );
+    }
 
-        /* $taches = OnfpTache::where('sous_activite_id', $sousActivite->id)
-            ->orderBy('ordre')
-            ->orderBy('created_at')
-            ->get(); */
-
-            $taches = OnfpTache::where('sous_activite_id', $sousActivite->id)
-    ->orderBy('ordre')
-    ->orderBy('created_at')
-    ->paginate(15); // ou le nombre par page souhaité
-
-$sousActivite = $sousActivite ?? null;
+    $taches = OnfpTache::where('activite_id', $activite->id)
+        ->when(
+            $sousActivite,
+            fn ($query) => $query->where('sous_activite_id', $sousActivite->id),
+            fn ($query) => $query->whereNull('sous_activite_id')
+        )
+        ->orderBy('ordre')
+        ->orderBy('created_at')
+        ->paginate(15);
 
     $isNested = $sousActivite !== null;
 
@@ -57,26 +58,26 @@ $sousActivite = $sousActivite ?? null;
 
     $items = method_exists($taches, 'items') ? $taches->items() : $taches;
 
-$enCours = collect($items)->where('statut', 'en_cours')->count();
-$terminees = collect($items)->where('statut', 'terminee')->count();
-$aFaire = collect($items)->where('statut', 'a_faire')->count();
-$enRetard = collect($items)->filter(fn ($tache) => $tache->date_echeance
-    && $tache->date_echeance->isPast()
-    && !in_array($tache->statut, ['terminee', 'annulee']))->count();
+    $enCours = collect($items)->where('statut', 'en_cours')->count();
+    $terminees = collect($items)->where('statut', 'terminee')->count();
+    $aFaire = collect($items)->where('statut', 'a_faire')->count();
+    $enRetard = collect($items)->filter(fn ($tache) => $tache->date_echeance
+        && $tache->date_echeance->isPast()
+        && !in_array($tache->statut, ['terminee', 'annulee']))->count();
 
-        return view('onfp.activites.taches.index', compact(
-            'activite',
-            'sousActivite',
-            'enCours',
-            'terminees',
-            'aFaire',
-            'enRetard',
-            'routePrefix',
-            'routeParams',
-            'totalTaches',
-            'taches'
-        ));
-    }
+    return view('onfp.activites.taches.index', compact(
+        'activite',
+        'sousActivite',
+        'enCours',
+        'terminees',
+        'aFaire',
+        'enRetard',
+        'routePrefix',
+        'routeParams',
+        'totalTaches',
+        'taches'
+    ));
+}
 
    /**
  * Formulaire de création d'une tâche.
