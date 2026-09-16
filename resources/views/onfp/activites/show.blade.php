@@ -11,7 +11,7 @@
 
             <div class="d-flex align-items-center flex-grow-1" style="min-width: 0;">
 
-                <a href="{{ route('onfp.activites.index') }}" class="btn btn-sm btn-outline-secondary me-3 flex-shrink-0">
+                <a href="{{ route('onfp.activites.index') }}" class="btn btn-sm btn-sm btn-outline-secondary me-3 flex-shrink-0">
 
                     <i class="bi bi-arrow-left"></i>
 
@@ -45,7 +45,7 @@
 
             <div class="d-flex gap-2 flex-shrink-0">
 
-                <a href="{{ route('onfp.activites.edit', $activite) }}" class="btn btn-sm btn-primary">
+                <a href="{{ route('onfp.activites.edit', $activite) }}" class="btn btn-sm btn-sm btn-primary">
 
                     <i class="bi bi-pencil me-1"></i>
                     Modifier
@@ -70,71 +70,12 @@
                 </div>
             </div>
 
-            <a href="{{ route('onfp.activites.create') }}" class="btn btn-primary">
+            <a href="{{ route('onfp.activites.create') }}" class="btn btn-sm btn-primary">
                 <i class="bi bi-plus-circle me-1"></i>
                 Nouvelle activité
             </a>
 
         </div>
-
-
-        {{-- Statistiques --}}
-        <div class="row g-3 mb-4">
-
-            <div class="col-md-3">
-                <div class="card border-0 shadow-sm">
-                    <div class="card-body">
-                        <div class="text-muted small">
-                            Total activités
-                        </div>
-                        <div class="fs-3 fw-bold">
-                            {{-- {{ $activites->total() }} --}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="card border-0 shadow-sm">
-                    <div class="card-body">
-                        <div class="text-muted small">
-                            En cours
-                        </div>
-                        <div class="fs-3 fw-bold text-primary">
-                            {{ $activitesEnCours ?? 0 }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="card border-0 shadow-sm">
-                    <div class="card-body">
-                        <div class="text-muted small">
-                            Terminées
-                        </div>
-                        <div class="fs-3 fw-bold text-success">
-                            {{ $activitesTerminees ?? 0 }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="card border-0 shadow-sm">
-                    <div class="card-body">
-                        <div class="text-muted small">
-                            En retard
-                        </div>
-                        <div class="fs-3 fw-bold text-danger">
-                            {{ $activitesEnRetard ?? 0 }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
 
         {{-- Messages --}}
         @if (session('success'))
@@ -501,7 +442,7 @@
                                 </span>
 
                                 <a href="{{ route('onfp.activites.sous-activites.index', $activite) }}"
-                                    class="btn btn-sm btn-primary" title="Gérer les sous-activités">
+                                    class="btn btn-sm btn-sm btn-primary" title="Gérer les sous-activités">
 
                                     <i class="bi bi-list-ul me-1"></i>
                                     Gérer
@@ -542,7 +483,7 @@
 
 
                                     <a href="{{ route('onfp.activites.sous-activites.show', [$activite, $sousActivite]) }}"
-                                        class="btn btn-sm btn-outline-secondary flex-shrink-0"
+                                        class="btn btn-sm btn-sm btn-outline-secondary flex-shrink-0"
                                         title="Voir la sous-activité">
 
                                         <i class="bi bi-eye"></i>
@@ -630,7 +571,7 @@
                             <div class="text-center mt-3">
 
                                 <a href="{{ route('onfp.activites.sous-activites.index', $activite) }}"
-                                    class="btn btn-outline-secondary">
+                                    class="btn btn-sm btn-outline-secondary">
 
                                     Voir toutes les
                                     {{ $activite->sousActivites->count() }}
@@ -677,7 +618,7 @@
                                     'activite' => $activite,
                                     'sousActivite' => $sousActivite,
                                 ]) }}"
-                                    class="btn btn-sm btn-primary">
+                                    class="btn btn-sm btn-sm btn-primary">
 
                                     <i class="bi bi-plus-circle me-1"></i>
                                     Nouvelle tâche
@@ -750,14 +691,14 @@
                                     <div class="d-flex gap-1 flex-shrink-0">
 
                                         <a href="{{ route('onfp.activites.taches.show', [$activite, $tache]) }}"
-                                            class="btn btn-sm btn-outline-primary" title="Voir la tâche">
+                                            class="btn btn-sm btn-sm btn-outline-primary" title="Voir la tâche">
 
                                             <i class="bi bi-eye"></i>
 
                                         </a>
 
                                         <a href="{{ route('onfp.activites.taches.edit', [$activite, $tache]) }}"
-                                            class="btn btn-sm btn-outline-warning" title="Modifier">
+                                            class="btn btn-sm btn-sm btn-outline-warning" title="Modifier">
 
                                             <i class="bi bi-pencil"></i>
 
@@ -783,7 +724,7 @@
                                     'activite' => $activite,
                                     'sousActivite' => $sousActivite,
                                 ]) }}"
-                                    class="btn btn-sm btn-primary">
+                                    class="btn btn-sm btn-sm btn-primary">
 
                                     <i class="bi bi-plus-circle me-1"></i>
                                     Nouvelle tâche
@@ -1051,7 +992,7 @@
                                 </span>
 
                                 <a href="{{ route('onfp.activites.indicateurs.create', $activite) }}"
-                                    class="btn btn-sm btn-primary" title="Ajouter un indicateur">
+                                    class="btn btn-sm btn-sm btn-primary" title="Ajouter un indicateur">
 
                                     <i class="bi bi-plus-lg"></i>
 
@@ -1121,7 +1062,7 @@
                                 </div>
 
                                 <a href="{{ route('onfp.activites.indicateurs.create', $activite) }}"
-                                    class="btn btn-sm btn-outline-primary mt-2">
+                                    class="btn btn-sm btn-sm btn-outline-primary mt-2">
 
                                     <i class="bi bi-plus-lg me-1"></i>
                                     Ajouter un indicateur
@@ -1136,7 +1077,7 @@
                             <div class="text-center mt-3">
 
                                 <a href="{{ route('onfp.activites.indicateurs.index', $activite) }}"
-                                    class="btn btn-sm btn-outline-secondary">
+                                    class="btn btn-sm btn-sm btn-outline-secondary">
 
                                     Voir tous les indicateurs
 
@@ -1168,7 +1109,7 @@
                             </div>
 
                             <a href="{{ route('onfp.activites.documents.create', $activite) }}"
-                                class="btn btn-sm btn-primary flex-shrink-0">
+                                class="btn btn-sm btn-sm btn-primary flex-shrink-0">
 
                                 <i class="bi bi-plus-lg me-1"></i>
                                 Ajouter
@@ -1250,7 +1191,7 @@
                                             <div class="mt-3">
 
                                                 {{-- <a href="{{ route('onfp.activites.documents.download', [$activite, $document]) }}"
-                                                    class="btn btn-sm btn-outline-primary">
+                                                    class="btn btn-sm btn-sm btn-outline-primary">
 
                                                     <i class="bi bi-download me-1"></i>
                                                     Télécharger
@@ -1258,7 +1199,7 @@
                                                 </a> --}}
 
                                                 <a href="{{ route('onfp.activites.documents.view', [$activite, $document]) }}"
-                                                    class="btn btn-sm btn-outline-primary" target="_blank"
+                                                    class="btn btn-sm btn-sm btn-outline-primary" target="_blank"
                                                     title="Visualiser le document">
 
                                                     <i class="bi bi-eye me-1"></i>
@@ -1280,7 +1221,7 @@
                                 <div class="text-center mt-4">
 
                                     <a href="{{ route('onfp.activites.documents.index', $activite) }}"
-                                        class="btn btn-outline-secondary">
+                                        class="btn btn-sm btn-outline-secondary">
 
                                         Voir les {{ $activite->documents->count() }} documents
 
@@ -1300,7 +1241,7 @@
                                 </p>
 
                                 <a href="{{ route('onfp.activites.documents.create', $activite) }}"
-                                    class="btn btn-sm btn-primary">
+                                    class="btn btn-sm btn-sm btn-primary">
 
                                     <i class="bi bi-plus-lg me-1"></i>
                                     Ajouter un document
@@ -1331,7 +1272,7 @@
 
                     <div class="card-body d-grid gap-2">
 
-                        <a href="{{ route('onfp.activites.edit', $activite) }}" class="btn btn-sm btn-primary">
+                        <a href="{{ route('onfp.activites.edit', $activite) }}" class="btn btn-sm btn-sm btn-primary">
 
                             <i class="bi bi-pencil me-2"></i>
                             Modifier l'activité
@@ -1339,7 +1280,7 @@
                         </a>
 
 
-                        <a href="{{ route('onfp.activites.index') }}" class="btn btn-sm btn-outline-secondary">
+                        <a href="{{ route('onfp.activites.index') }}" class="btn btn-sm btn-sm btn-outline-secondary">
 
                             <i class="bi bi-list me-2"></i>
                             Retour à la liste
