@@ -267,57 +267,71 @@ public function create(
         );
 }
 
-    /**
-     * Afficher une tâche.
-     */
-    public function show(
-        OnfpActivite $activite,
-        OnfpSousActivite $sousActivite,
-        OnfpTache $tache
-    ) {
-        // Vérifications de cohérence
+/**
+ * Afficher une tâche.
+ */
+public function show(
+    OnfpActivite $activite,
+    OnfpTache $tache,
+    ?OnfpSousActivite $sousActivite = null
+) {
+    // Vérifications de cohérence
+    if ($sousActivite) {
         abort_unless(
             $sousActivite->activite_id == $activite->id,
             404
         );
-
-        abort_unless(
-            $tache->sous_activite_id == $sousActivite->id,
-            404
-        );
-
-        return view('onfp.activites.taches.show', compact(
-            'activite',
-            'sousActivite',
-            'tache'
-        ));
     }
 
-    /**
-     * Formulaire de modification d'une tâche.
-     */
-    public function edit(
-        OnfpActivite $activite,
-        OnfpSousActivite $sousActivite,
-        OnfpTache $tache
-    ) {
-        // Vérifications de cohérence
+    abort_unless(
+        $tache->activite_id == $activite->id,
+        404
+    );
+
+    abort_unless(
+        $tache->sous_activite_id == $sousActivite?->id,
+        404
+    );
+
+    return view('onfp.activites.taches.show', compact(
+        'activite',
+        'sousActivite',
+        'tache'
+    ));
+}
+
+/**
+ * Formulaire de modification d'une tâche.
+ */
+public function edit(
+    OnfpActivite $activite,
+    OnfpTache $tache,
+    ?OnfpSousActivite $sousActivite = null
+) {
+    // Vérifications de cohérence
+    if ($sousActivite) {
         abort_unless(
             $sousActivite->activite_id == $activite->id,
             404
         );
-
-        abort_unless(
-            $tache->sous_activite_id == $sousActivite->id,
-            404
-        );
-
-        return view('onfp.activites.taches.edit', compact(
-            'activite',
-            'sousActivite',
-            'tache'
-        ));
     }
+
+    abort_unless(
+        $tache->activite_id == $activite->id,
+        404
+    );
+
+    abort_unless(
+        $tache->sous_activite_id == $sousActivite?->id,
+        404
+    );
+
+    return view('onfp.activites.taches.edit', compact(
+        'activite',
+        'sousActivite',
+        'tache'
+    ));
+}
 
     /**
      * Mettre à jour une tâche.
