@@ -11,7 +11,8 @@
 
             <div class="d-flex align-items-center flex-grow-1" style="min-width: 0;">
 
-                <a href="{{ route('onfp.activites.index') }}" class="btn btn-sm btn-sm btn-outline-secondary me-3 flex-shrink-0">
+                <a href="{{ route('onfp.activites.index') }}"
+                    class="btn btn-sm btn-sm btn-outline-secondary me-3 flex-shrink-0">
 
                     <i class="bi bi-arrow-left"></i>
 
@@ -614,10 +615,7 @@
                                     {{ $activite->taches->count() }}
                                 </span>
 
-                                <a href="{{ route('onfp.activites.sous-activites.taches.create', [
-                                    'activite' => $activite,
-                                    'sousActivite' => $sousActivite,
-                                ]) }}"
+                                <a href="{{ route('onfp.activites.taches.create', ['activite' => $activite]) }}"
                                     class="btn btn-sm btn-sm btn-primary">
 
                                     <i class="bi bi-plus-circle me-1"></i>
@@ -720,10 +718,7 @@
                                     Aucune tâche directement rattachée à cette activité.
                                 </p>
 
-                                <a href="{{ route('onfp.activites.sous-activites.taches.create', [
-                                    'activite' => $activite,
-                                    'sousActivite' => $sousActivite,
-                                ]) }}"
+                                <a href="{{ route('onfp.activites.taches.create', ['activite' => $activite]) }}"
                                     class="btn btn-sm btn-sm btn-primary">
 
                                     <i class="bi bi-plus-circle me-1"></i>
@@ -754,7 +749,7 @@
                     <div class="card-body">
 
                         @forelse($activite->historiques->sortByDesc('created_at')
-                                                                as $historique)
+                                                                        as $historique)
                             <div class="border-start ps-3 mb-4">
 
                                 <div class="fw-semibold">

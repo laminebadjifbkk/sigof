@@ -78,18 +78,20 @@ $enRetard = collect($items)->filter(fn ($tache) => $tache->date_echeance
         ));
     }
 
-    /**
-     * Formulaire de création d'une tâche.
-     */
+   /**
+ * Formulaire de création d'une tâche.
+ */
 public function create(
     OnfpActivite $activite,
-    OnfpSousActivite $sousActivite) 
-    {
-    abort_unless(
-        $sousActivite->activite_id == $activite->id,
-        404
-    );
-
+    ?OnfpSousActivite $sousActivite = null
+) {
+    if ($sousActivite) {
+        abort_unless(
+            $sousActivite->activite_id == $activite->id,
+            404
+        );
+    }
+ 
     $employees = Employee::with('user')
         ->whereHas('user')
         ->get()
@@ -99,13 +101,14 @@ public function create(
                 ($employee->user->firstname ?? '')
             );
         });
-
+ 
     return view('onfp.activites.taches.create', compact(
         'activite',
         'sousActivite',
         'employees'
     ));
 }
+ 
     /**
      * Enregistrer une nouvelle tâche.
      */
