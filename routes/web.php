@@ -1301,6 +1301,12 @@ Route::group(['middleware' => ['XSS']], function () {
         ]);
     });
 
+    Route::post('activites/{activite}/taches', [OnfpTacheActiviteController::class, 'store'])
+        ->name('onfp.activites.taches.store');
+
+    Route::post('activites/{activite}/sous-activites/{sousActivite}/taches', [OnfpTacheActiviteController::class, 'store'])
+        ->name('onfp.activites.sous-activites.taches.store');
+
         Route::prefix('suivi')->group(function () {
             // Routes pour le suivi individuel
             Route::resource('individuels', SuiviPostIndividuelController::class);

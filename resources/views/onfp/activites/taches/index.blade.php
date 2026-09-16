@@ -4,50 +4,6 @@
 
 @section('space-work')
 
-@php
-    $sousActivite = $sousActivite ?? null;
-
-    $isNested = $sousActivite !== null;
-
-    $routePrefix = $isNested
-        ? 'onfp.activites.sous-activites.taches'
-        : 'onfp.activites.taches';
-
-    $routeParams = $isNested
-        ? [
-            'activite' => $activite,
-            'sousActivite' => $sousActivite,
-        ]
-        : [
-            'activite' => $activite,
-        ];
-
-    $totalTaches = method_exists($taches, 'total')
-        ? $taches->total()
-        : $taches->count();
-
-    $enCours = collect($taches->items ?? $taches)
-        ->where('statut', 'en_cours')
-        ->count();
-
-    $terminees = collect($taches->items ?? $taches)
-        ->where('statut', 'terminee')
-        ->count();
-
-    $aFaire = collect($taches->items ?? $taches)
-        ->where('statut', 'a_faire')
-        ->count();
-
-    $enRetard = collect($taches->items ?? $taches)
-        ->filter(function ($tache) {
-            return $tache->date_echeance
-                && $tache->date_echeance->isPast()
-                && !in_array($tache->statut, ['terminee', 'annulee']);
-        })
-        ->count();
-@endphp
-
-
 <div class="container-fluid py-4">
 
     {{-- ==========================================================
@@ -78,11 +34,11 @@
 
                 Activité :
                 <strong>
-                    {{ $activite->reference ?? '—' }}
+                    {{ $activite->reference ?? '-' }}
                 </strong>
 
                 @if($activite->titre)
-                    — {{ $activite->titre }}
+                    - {{ $activite->titre }}
                 @endif
 
             </div>
@@ -95,10 +51,10 @@
                         <i class="fas fa-layer-group me-1"></i>
 
                         Sous-activité :
-                        {{ $sousActivite->reference ?? '—' }}
+                        {{ $sousActivite->reference ?? '-' }}
 
                         @if($sousActivite->titre)
-                            — {{ $sousActivite->titre }}
+                            - {{ $sousActivite->titre }}
                         @endif
                     </span>
 
@@ -111,7 +67,7 @@
 
         <a
             href="{{ route($routePrefix . '.create', $routeParams) }}"
-            class="btn btn-primary"
+            class="btn btn-sm btn-primary"
         >
             <i class="fas fa-plus me-1"></i>
             Nouvelle tâche
@@ -391,7 +347,7 @@
                                         @endif
 
                                     @else
-                                        <span class="text-muted">—</span>
+                                        <span class="text-muted">-</span>
                                     @endif
 
                                 </td>
@@ -403,7 +359,7 @@
 
                                         <a
                                             href="{{ route($routePrefix . '.show', $params) }}"
-                                            class="btn btn-sm btn-light border"
+                                            class="btn btn-sm btn-sm btn-light border"
                                             title="Voir"
                                         >
                                             <i class="fas fa-eye"></i>
@@ -411,7 +367,7 @@
 
                                         <a
                                             href="{{ route($routePrefix . '.edit', $params) }}"
-                                            class="btn btn-sm btn-light border"
+                                            class="btn btn-sm btn-sm btn-light border"
                                             title="Modifier"
                                         >
                                             <i class="fas fa-edit"></i>
@@ -555,7 +511,7 @@
 
                                         {{ $tache->date_echeance
                                             ? $tache->date_echeance->format('d/m/Y')
-                                            : '—'
+                                            : '-'
                                         }}
 
                                     </div>
@@ -569,7 +525,7 @@
 
                                 <a
                                     href="{{ route($routePrefix . '.show', $params) }}"
-                                    class="btn btn-sm btn-light border flex-fill"
+                                    class="btn btn-sm btn-sm btn-light border flex-fill"
                                 >
                                     <i class="fas fa-eye me-1"></i>
                                     Voir
@@ -577,7 +533,7 @@
 
                                 <a
                                     href="{{ route($routePrefix . '.edit', $params) }}"
-                                    class="btn btn-sm btn-light border flex-fill"
+                                    class="btn btn-sm btn-sm btn-light border flex-fill"
                                 >
                                     <i class="fas fa-edit me-1"></i>
                                     Modifier
@@ -614,7 +570,7 @@
 
                     <a
                         href="{{ route($routePrefix . '.create', $routeParams) }}"
-                        class="btn btn-primary"
+                        class="btn btn-sm btn-primary"
                     >
                         <i class="fas fa-plus me-1"></i>
                         Créer la première tâche
