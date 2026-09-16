@@ -269,7 +269,7 @@
                                                                     <option>Classement</option>
                                                                     <option>Pour rappel</option>
                                                                     <option>Circularisation</option>
-                                                                    <option>Représenation</option>
+                                                                    <option>Représentation</option>
                                                                     <option>Traitement</option>
                                                                 </select>
                                                             </div>

@@ -723,7 +723,7 @@ class ArriveController extends Controller
             'Classement',
             'Pour rappel',
             'Circularisation',
-            'Représenation',
+            'Représentation',
             'Traitement',
         ];
 

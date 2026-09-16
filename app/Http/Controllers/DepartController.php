@@ -382,7 +382,7 @@ class DepartController extends Controller
             'Classement',
             'Pour rappel',
             'Circularisation',
-            'Représenation',
+            'Représentation',
             'Traitement',
         ];
 

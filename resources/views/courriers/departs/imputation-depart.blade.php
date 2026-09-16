@@ -185,8 +185,8 @@
                                                 <option value="Circularisation">
                                                     Circularisation
                                                 </option>
-                                                <option value="Représenation">
-                                                    Représenation
+                                                <option value="Représentation">
+                                                    Représentation
                                                 </option>
                                                 <option value="Traitement">
                                                     Traitement
