@@ -41,7 +41,7 @@
         STATISTIQUES PRINCIPALES
         ============================================================= --}}
 
-        <div class="row row-cols-2 row-cols-md-3 row-cols-xl-5 g-3 mb-4">
+        <div class="row row-cols-6 g-3 mb-2">
 
             {{-- Total --}}
             <div class="col">
@@ -431,7 +431,7 @@
                                 {{-- Responsable --}}
                                 <td>
                                     @if ($principal && $principal->employee)
-                                        {{ $principal->employee->user?->firstname .' '. $principal->employee->user?->name ?? $principal->employee->matricule }}
+                                        {{ $principal->employee->user?->firstname . ' ' . $principal->employee->user?->name ?? $principal->employee->matricule }}
                                     @else
                                         <span class="text-muted">Non affecté</span>
                                     @endif
