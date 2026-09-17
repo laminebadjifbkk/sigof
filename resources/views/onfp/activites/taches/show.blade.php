@@ -88,12 +88,10 @@
             <div>
 
                 <div class="mb-2">
-
                     <a href="{{ route($routePrefix . '.index', $routeParams) }}" class="text-decoration-none text-muted">
-                        <i class="fas fa-arrow-left me-1"></i>
+                        <i class="bi bi-arrow-left me-1"></i>
                         Retour aux tâches
                     </a>
-
                 </div>
 
 
@@ -786,7 +784,7 @@
 
 
                         <a href="{{ route('onfp.activites.documents.index', $activite) }}"
-                            class="btn btn-sm btn-sm btn-light border w-100">
+                            class="btn btn-sm btn-light border w-100">
 
                             <i class="fas fa-folder-open me-1"></i>
 

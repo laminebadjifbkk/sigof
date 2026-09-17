@@ -234,7 +234,7 @@
                                         <div class="btn-group">
 
                                             <a href="{{ route('onfp.activite-types.edit', $type) }}"
-                                                class="btn btn-sm btn-sm btn-outline-primary" title="Modifier">
+                                                class="btn btn-sm btn-outline-primary" title="Modifier">
 
                                                 <i class="bi bi-pencil"></i>
 
@@ -248,7 +248,7 @@
                                                     @csrf
                                                     @method('DELETE')
 
-                                                    <button type="submit" class="btn btn-sm btn-sm btn-outline-danger show_confirm"
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger show_confirm"
                                                         title="Supprimer">
 
                                                         <i class="bi bi-trash"></i>
@@ -257,7 +257,7 @@
 
                                                 </form>
                                             @else
-                                                <button type="button" class="btn btn-sm btn-sm btn-outline-secondary"
+                                                <button type="button" class="btn btn-sm btn-outline-secondary"
                                                     disabled title="Type utilisé">
 
                                                     <i class="bi bi-lock"></i>

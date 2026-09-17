@@ -8,7 +8,7 @@
 
         <div class="d-flex align-items-center gap-3 mb-4">
 
-            <a href="{{ route('onfp.activites.show', $activite) }}" class="btn btn-sm btn-sm btn-sm btn-outline-secondary me-3 flex-shrink-0"
+            <a href="{{ route('onfp.activites.show', $activite) }}" class="btn btn-sm btn-sm btn-outline-secondary me-3 flex-shrink-0"
                 title="retour">
                 <i class="bi bi-arrow-left"></i>
             </a>

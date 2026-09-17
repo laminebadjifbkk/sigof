@@ -302,7 +302,7 @@
                                 <div class="btn-group">
 
                                     <a href="{{ route('onfp.activites.indicateurs.edit', [$activite, $indicateur]) }}"
-                                       class="btn btn-sm btn-sm btn-outline-primary"
+                                       class="btn btn-sm btn-outline-primary"
                                        title="Modifier">
 
                                         <i class="bi bi-pencil"></i>
@@ -318,7 +318,7 @@
                                         @method('DELETE')
 
                                         <button type="submit"
-                                                class="btn btn-sm btn-sm btn-outline-danger"
+                                                class="btn btn-sm btn-outline-danger"
                                                 title="Supprimer">
 
                                             <i class="bi bi-trash"></i>

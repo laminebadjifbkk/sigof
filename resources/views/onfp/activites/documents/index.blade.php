@@ -321,13 +321,13 @@
                                             {{-- <div class="btn-group">
 
                                                 <a href="{{ route('onfp.activites.documents.download', [$activite, $document]) }}"
-                                                    class="btn btn-sm btn-sm btn-outline-primary" title="Télécharger">
+                                                    class="btn btn-sm btn-outline-primary" title="Télécharger">
 
                                                     <i class="bi bi-download"></i>
 
                                                 </a>
                                                 <a href="{{ route('onfp.activites.documents.view', [$activite, $document]) }}"
-                                                    class="btn btn-sm btn-sm btn-outline-primary" target="_blank"
+                                                    class="btn btn-sm btn-outline-primary" target="_blank"
                                                     title="Visualiser">
 
                                                     <i class="bi bi-eye"></i>
@@ -342,7 +342,7 @@
                                                     @csrf
                                                     @method('DELETE')
 
-                                                    <button type="submit" class="btn btn-sm btn-sm btn-outline-danger"
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger"
                                                         title="Supprimer">
 
                                                         <i class="bi bi-trash"></i>

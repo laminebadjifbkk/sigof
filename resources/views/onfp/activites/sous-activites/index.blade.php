@@ -257,14 +257,14 @@
                                             <div class="btn-group">
 
                                                 <a href="{{ route('onfp.activites.sous-activites.show', [$activite, $sousActivite]) }}"
-                                                    class="btn btn-sm btn-sm btn-outline-primary" title="Voir">
+                                                    class="btn btn-sm btn-outline-primary" title="Voir">
 
                                                     <i class="bi bi-eye"></i>
 
                                                 </a>
 
                                                 <a href="{{ route('onfp.activites.sous-activites.edit', [$activite, $sousActivite]) }}"
-                                                    class="btn btn-sm btn-sm btn-outline-secondary" title="Modifier">
+                                                    class="btn btn-sm btn-outline-secondary" title="Modifier">
 
                                                     <i class="bi bi-pencil"></i>
 

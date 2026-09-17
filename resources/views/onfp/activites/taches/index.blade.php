@@ -297,12 +297,12 @@
                                             <div class="btn-group">
 
                                                 <a href="{{ route($routePrefix . '.show', $tache->route_params) }}"
-                                                    class="btn btn-sm btn-sm btn-outline-primary" title="Voir">
+                                                    class="btn btn-sm btn-outline-primary" title="Voir">
                                                     <i class="bi bi-eye"></i>
                                                 </a>
 
                                                 <a href="{{ route($routePrefix . '.edit', $tache->route_params) }}"
-                                                    class="btn btn-sm btn-sm btn-outline-secondary" title="Modifier">
+                                                    class="btn btn-sm btn-outline-secondary" title="Modifier">
                                                     <i class="bi bi-pencil"></i>
                                                 </a>
 
@@ -439,13 +439,13 @@
                                 <div class="d-flex gap-2 mt-3">
 
                                     <a href="{{ route($routePrefix . '.show', $tache->route_params) }}"
-                                        class="btn btn-sm btn-sm btn-light border flex-fill">
+                                        class="btn btn-sm btn-light border flex-fill">
                                         <i class="fas fa-eye me-1"></i>
                                         Voir
                                     </a>
 
                                     <a href="{{ route($routePrefix . '.edit', $tache->route_params) }}"
-                                        class="btn btn-sm btn-sm btn-light border flex-fill">
+                                        class="btn btn-sm btn-light border flex-fill">
                                         <i class="fas fa-edit me-1"></i>
                                         Modifier
                                     </a>

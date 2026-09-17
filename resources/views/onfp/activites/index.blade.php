@@ -195,7 +195,7 @@
                     </h5>
 
                     @if ($hasActiveFilters)
-                        <a href="{{ route('onfp.activites.index') }}" class="btn btn-sm btn-sm btn-outline-secondary">
+                        <a href="{{ route('onfp.activites.index') }}" class="btn btn-sm btn-outline-secondary">
                             <i class="bi bi-x-circle me-1"></i>
                             Réinitialiser
                         </a>
@@ -493,19 +493,19 @@
                                 <td class="text-end">
                                     <div class="btn-group">
                                         <a href="{{ route('onfp.activites.show', $activite) }}"
-                                            class="btn btn-sm btn-sm btn-outline-primary" title="Voir">
+                                            class="btn btn-sm btn-outline-primary" title="Voir">
                                             <i class="bi bi-eye"></i>
                                         </a>
 
                                         <a href="{{ route('onfp.activites.edit', $activite) }}"
-                                            class="btn btn-sm btn-sm btn-outline-secondary" title="Modifier">
+                                            class="btn btn-sm btn-outline-secondary" title="Modifier">
                                             <i class="bi bi-pencil"></i>
                                         </a>
 
                                         <form method="POST" action="{{ route('onfp.activites.destroy', $activite) }}">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-sm btn-outline-danger show_confirm"
+                                            <button type="submit" class="btn btn-sm btn-outline-danger show_confirm"
                                                 title="Supprimer">
                                                 <i class="bi bi-trash"></i>
                                             </button>
