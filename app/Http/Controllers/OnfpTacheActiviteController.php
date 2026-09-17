@@ -386,11 +386,11 @@ class OnfpTacheActiviteController extends Controller
                 'max:255',
             ],
 
-            'reference' => [
+            /* 'reference' => [
                 'nullable',
                 'string',
                 'max:255',
-            ],
+            ], */
 
             'description' => [
                 'nullable',
