@@ -123,11 +123,11 @@ class OnfpActiviteController extends Controller
 
         // Filtres
         $query
-            ->when($request->filled('direction_id'), fn ($q) => $q->where('direction_id', $request->direction_id))
-            ->when($request->filled('type_id'), fn ($q) => $q->where('type_id', $request->type_id))
-            ->when($request->filled('statut'), fn ($q) => $q->where('statut', $request->statut))
-            ->when($request->filled('priorite'), fn ($q) => $q->where('priorite', $request->priorite))
-            ->when($request->filled('etat_sante'), fn ($q) => $q->where('etat_sante', $request->etat_sante));
+            ->when($request->filled('direction_id'), fn($q) => $q->where('direction_id', $request->direction_id))
+            ->when($request->filled('type_id'), fn($q) => $q->where('type_id', $request->type_id))
+            ->when($request->filled('statut'), fn($q) => $q->where('statut', $request->statut))
+            ->when($request->filled('priorite'), fn($q) => $q->where('priorite', $request->priorite))
+            ->when($request->filled('etat_sante'), fn($q) => $q->where('etat_sante', $request->etat_sante));
 
         // Tri
         $sort = $request->get('sort', 'date_fin_prevue');
@@ -141,13 +141,16 @@ class OnfpActiviteController extends Controller
         $query->orderBy($sort, $direction);
 
         // Pagination (taille configurable)
-        $perPage = (int) $request->get('per_page', 15);
+        $perPage = (int) $request->get('per_page', 5);
 
         if (!in_array($perPage, self::PER_PAGE_OPTIONS, true)) {
-            $perPage = 15;
+            $perPage = 5;
         }
 
-        $activites = $query->paginate($perPage)->withQueryString();
+        $activites = $query->paginate($perPage);
+
+        // Conserver tous les paramètres de recherche, filtres et tri
+        $activites->appends($request->query());
 
         /*
         |--------------------------------------------------------------------
@@ -163,10 +166,44 @@ class OnfpActiviteController extends Controller
             ->orderBy('libelle')
             ->get();
 
+        // Construit un lien de tri qui préserve les filtres/pagination actifs
+        // et inverse la direction si on clique deux fois sur la même colonne.
+        $sortLink = function (string $column) use ($sort, $direction) {
+            $newDirection = $sort === $column && $direction === 'asc' ? 'desc' : 'asc';
+
+            return request()->fullUrlWithQuery([
+                'sort' => $column,
+                'direction' => $newDirection,
+                'page' => 1,
+            ]);
+        };
+
+        $sortIcon = function (string $column) use ($sort, $direction) {
+            if ($sort !== $column) {
+                return 'bi-arrow-down-up text-muted opacity-50';
+            }
+
+            return $direction === 'asc' ? 'bi-sort-up' : 'bi-sort-down';
+        };
+
+        $hasActiveFilters = collect([
+            'search',
+            'direction_id',
+            'type_id',
+            'statut',
+            'priorite',
+            'etat_sante',
+        ])->contains(fn($key) => request()->filled($key));
+
         return view('onfp.activites.index', [
             'activites'  => $activites,
             'directions' => $directions,
             'types'      => $types,
+
+            //Autres
+            'hasActiveFilters'      => $hasActiveFilters,
+            'sortIcon'      => $sortIcon,
+            'sortLink'      => $sortLink,
 
             // Statistiques
             'totalActivites'      => $totalActivites,
@@ -232,7 +269,7 @@ class OnfpActiviteController extends Controller
                 ->withInput()
                 ->withErrors([
                     'responsable_principal' =>
-                        "Le responsable principal doit également figurer parmi les responsables.",
+                    "Le responsable principal doit également figurer parmi les responsables.",
                 ]);
         }
 
@@ -305,7 +342,7 @@ class OnfpActiviteController extends Controller
 
         $responsableIds = $activite->responsables
             ->pluck('employee_id')
-            ->map(fn ($id) => (int) $id)
+            ->map(fn($id) => (int) $id)
             ->toArray();
 
         $responsablePrincipal = $activite->responsables
@@ -314,7 +351,7 @@ class OnfpActiviteController extends Controller
 
         $suiveurIds = $activite->suiveurs
             ->pluck('employee_id')
-            ->map(fn ($id) => (int) $id)
+            ->map(fn($id) => (int) $id)
             ->toArray();
 
         return view('onfp.activites.edit', [
@@ -349,7 +386,7 @@ class OnfpActiviteController extends Controller
                 ->withInput()
                 ->withErrors([
                     'responsable_principal' =>
-                        "Le responsable principal doit également figurer parmi les responsables.",
+                    "Le responsable principal doit également figurer parmi les responsables.",
                 ]);
         }
 

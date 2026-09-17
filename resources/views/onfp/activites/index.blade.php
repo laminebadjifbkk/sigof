@@ -4,37 +4,6 @@
 
 @section('space-work')
 
-    @php
-        // Construit un lien de tri qui préserve les filtres/pagination actifs
-        // et inverse la direction si on clique deux fois sur la même colonne.
-        $sortLink = function (string $column) use ($sort, $sortDirection) {
-            $newDirection = $sort === $column && $sortDirection === 'asc' ? 'desc' : 'asc';
-
-            return request()->fullUrlWithQuery([
-                'sort' => $column,
-                'direction' => $newDirection,
-                'page' => 1,
-            ]);
-        };
-
-        $sortIcon = function (string $column) use ($sort, $sortDirection) {
-            if ($sort !== $column) {
-                return 'bi-arrow-down-up text-muted opacity-50';
-            }
-
-            return $sortDirection === 'asc' ? 'bi-sort-up' : 'bi-sort-down';
-        };
-
-        $hasActiveFilters = collect([
-            'search',
-            'direction_id',
-            'type_id',
-            'statut',
-            'priorite',
-            'etat_sante',
-        ])->contains(fn($key) => request()->filled($key));
-    @endphp
-
     <div class="container-fluid">
 
         {{-- ============================================================
@@ -327,9 +296,9 @@
 
                         {{-- Bouton --}}
                         <div class="col-md-2 d-flex align-items-end">
-                            <button type="submit" class="btn btn-sm btn-primary w-100" title="Filtrer">
+                            <button type="submit" class="btn btn-sm btn-primary w-100" title="Rechercher">
                                 <i class="bi bi-search me-1"></i>
-                                Filtrer
+                                Rechercher
                             </button>
                         </div>
 
