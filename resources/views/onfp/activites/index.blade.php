@@ -43,7 +43,7 @@
 
         {{-- <div class="row row-cols-2 row-cols-md-3 row-cols-xl-5 g-3 mb-4"> --}}
 
-        <div class="row row-cols-6 g-3 mb-4">
+        <div class="row row-cols-5 g-3 mb-4">
 
             {{-- Total --}}
             <div class="col">
@@ -113,23 +113,6 @@
                 </div>
             </div>
 
-            {{-- Suspendue --}}
-            <div class="col">
-                <div class="card shadow-sm h-100 border-0">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <div class="text-muted small mb-1">Suspendues</div>
-                                <h3 class="mb-0 text-danger">{{ $activitesSuspendues }}</h3>
-                            </div>
-                            <div class="fs-2 text-danger">
-                                <i class="bi bi-exclamation-triangle"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             {{-- À risque --}}
             <div class="col">
                 <div
@@ -157,7 +140,7 @@
         <div class="row g-3 mb-4">
 
             {{-- Progression globale --}}
-            <div class="col-lg-4">
+            <div class="col-lg-6">
                 <div class="card shadow-sm border-0 h-100">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-2">
@@ -177,7 +160,7 @@
             </div>
 
             {{-- Répartition des statuts --}}
-            <div class="col-lg-8">
+            <div class="col-lg-6">
                 <div class="card shadow-sm border-0 h-100">
                     <div class="card-body">
                         <h5 class="mb-3">État des activités</h5>
@@ -450,7 +433,7 @@
                                 {{-- Responsable --}}
                                 <td>
                                     @if ($principal && $principal->employee)
-                                        {{ $principal->employee->user?->firstname .' '. $principal->employee->user?->name ?? $principal->employee->matricule }}
+                                        {{ $principal->employee->user?->firstname . ' ' . $principal->employee->user?->name ?? $principal->employee->matricule }}
                                     @else
                                         <span class="text-muted">Non affecté</span>
                                     @endif
