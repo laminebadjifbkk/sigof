@@ -5,6 +5,12 @@
 @section('space-work')
 
     <div class="container-fluid py-4">
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+            </div>
+        @endif
 
         {{-- ==========================================================
         EN-TÊTE
@@ -15,8 +21,8 @@
 
                 <div class="mb-2">
 
-                    <a href="{{ route('onfp.activites.show', $activite) }}" class="text-decoration-none text-muted">
-                        <i class="fas fa-arrow-left me-1"></i>
+                    <a href="{{ route('onfp.activites.show', $activite) }}" class="btn btn-sm btn-light border">
+                        <i class="bi bi-arrow-left me-1"></i>
                         Retour à l'activité
                     </a>
 
@@ -147,13 +153,10 @@
             </div>
 
 
-            <div class="card-body p-0">
+            {{-- <div class="card-body p-0">
 
                 @if ($taches->count())
 
-                    {{-- ==================================================
-                    VERSION DESKTOP
-                =================================================== --}}
                     <div class="table-responsive d-none d-lg-block">
 
                         <table class="table table-hover align-middle mb-0">
@@ -320,9 +323,6 @@
                     </div>
 
 
-                    {{-- ==================================================
-                    VERSION MOBILE
-                =================================================== --}}
                     <div class="d-lg-none p-3">
 
                         @foreach ($taches as $tache)
@@ -476,6 +476,388 @@
                         <a href="{{ route($routePrefix . '.create', $routeParams) }}" class="btn btn-sm btn-primary">
                             <i class="fas fa-plus me-1"></i>
                             Créer la première tâche
+                        </a>
+
+                    </div>
+
+                @endif
+
+            </div> --}}
+
+            <div class="card-body p-0">
+
+                @if ($taches->count())
+
+                    {{-- ==================================================
+            VERSION DESKTOP
+        =================================================== --}}
+                    <div class="table-responsive d-none d-lg-block">
+
+                        <table class="table table-hover align-middle mb-0">
+
+                            <thead class="table-light">
+                                <tr>
+
+                                    <th class="ps-4">
+                                        Tâche
+                                    </th>
+
+                                    <th>
+                                        Statut
+                                    </th>
+
+                                    <th>
+                                        Priorité
+                                    </th>
+
+                                    <th style="width: 180px;">
+                                        Progression
+                                    </th>
+
+                                    <th>
+                                        Échéance
+                                    </th>
+
+                                    <th class="text-end pe-4">
+                                        Actions
+                                    </th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                @foreach ($taches as $tache)
+                                    <tr>
+
+                                        {{-- ==========================
+                                TÂCHE
+                            =========================== --}}
+                                        <td class="ps-4">
+
+                                            <div class="fw-semibold">
+
+                                                <a href="{{ route($routePrefix . '.show', $tache->route_params) }}"
+                                                    class="text-decoration-none text-dark">
+
+                                                    {{ $tache->titre }}
+
+                                                </a>
+
+                                            </div>
+
+                                            @if ($tache->reference)
+                                                <small class="text-muted">
+                                                    {{ $tache->reference }}
+                                                </small>
+                                            @endif
+
+                                        </td>
+
+
+                                        {{-- ==========================
+                                STATUT
+                            =========================== --}}
+                                        <td>
+
+                                            <span class="badge {{ $tache->status_class }} px-2 py-1">
+
+                                                {{ $tache->status_label }}
+
+                                            </span>
+
+                                        </td>
+
+
+                                        {{-- ==========================
+                                PRIORITÉ
+                            =========================== --}}
+                                        <td>
+
+                                            <span class="fw-semibold {{ $tache->priority_class }}">
+
+                                                <i class="fas fa-flag me-1"></i>
+
+                                                {{ $tache->priority_label }}
+
+                                            </span>
+
+                                        </td>
+
+
+                                        {{-- ==========================
+                                PROGRESSION
+                            =========================== --}}
+                                        <td>
+
+                                            <div class="d-flex justify-content-between small mb-1">
+
+                                                <span>
+                                                    Progression
+                                                </span>
+
+                                                <strong>
+                                                    {{ $tache->progression_value }}%
+                                                </strong>
+
+                                            </div>
+
+                                            <div class="progress" style="height: 7px;">
+
+                                                <div class="progress-bar" role="progressbar"
+                                                    style="width: {{ $tache->progression_value }}%;"
+                                                    aria-valuenow="{{ $tache->progression_value }}" aria-valuemin="0"
+                                                    aria-valuemax="100">
+                                                </div>
+
+                                            </div>
+
+                                        </td>
+
+
+                                        {{-- ==========================
+                                ÉCHÉANCE
+                            =========================== --}}
+                                        <td>
+
+                                            @if ($tache->date_echeance)
+                                                <span class="{{ $tache->en_retard ? 'text-danger fw-bold' : '' }}">
+
+                                                    <i class="far fa-calendar-alt me-1"></i>
+
+                                                    {{ $tache->date_echeance->format('d/m/Y') }}
+
+                                                </span>
+
+                                                @if ($tache->en_retard)
+                                                    <div>
+                                                        <small class="text-danger">
+                                                            En retard
+                                                        </small>
+                                                    </div>
+                                                @endif
+                                            @else
+                                                <span class="text-muted">
+                                                    -
+                                                </span>
+                                            @endif
+
+                                        </td>
+
+
+                                        {{-- ==========================
+                                ACTIONS
+                            =========================== --}}
+                                        <td class="text-end pe-4">
+
+                                            <div class="btn-group">
+
+                                                <a href="{{ route($routePrefix . '.show', $tache->route_params) }}"
+                                                    class="btn btn-sm btn-outline-primary" title="Voir">
+
+                                                    <i class="bi bi-eye"></i>
+
+                                                </a>
+
+                                                <a href="{{ route($routePrefix . '.edit', $tache->route_params) }}"
+                                                    class="btn btn-sm btn-outline-secondary" title="Modifier">
+
+                                                    <i class="bi bi-pencil"></i>
+
+                                                </a>
+
+                                            </div>
+
+                                        </td>
+
+                                    </tr>
+                                @endforeach
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    {{-- ==================================================
+            VERSION MOBILE
+        =================================================== --}}
+                    <div class="d-lg-none p-3">
+
+                        @foreach ($taches as $tache)
+                            <div class="task-mobile-card border rounded-3 p-3 mb-3">
+
+                                {{-- ==========================
+                        TITRE + STATUT
+                    =========================== --}}
+                                <div class="d-flex justify-content-between gap-2">
+
+                                    <div>
+
+                                        <a href="{{ route($routePrefix . '.show', $tache->route_params) }}"
+                                            class="fw-bold text-decoration-none text-dark">
+
+                                            {{ $tache->titre }}
+
+                                        </a>
+
+                                        @if ($tache->reference)
+                                            <div class="small text-muted">
+                                                {{ $tache->reference }}
+                                            </div>
+                                        @endif
+
+                                    </div>
+
+
+                                    <span class="badge {{ $tache->status_class }} h-100">
+
+                                        {{ $tache->status_label }}
+
+                                    </span>
+
+                                </div>
+
+
+                                {{-- ==========================
+                        PROGRESSION
+                    =========================== --}}
+                                <div class="mt-3">
+
+                                    <div class="d-flex justify-content-between small mb-1">
+
+                                        <span class="text-muted">
+                                            Progression
+                                        </span>
+
+                                        <strong>
+                                            {{ $tache->progression_value }}%
+                                        </strong>
+
+                                    </div>
+
+                                    <div class="progress" style="height: 7px;">
+
+                                        <div class="progress-bar" role="progressbar"
+                                            style="width: {{ $tache->progression_value }}%;"
+                                            aria-valuenow="{{ $tache->progression_value }}" aria-valuemin="0"
+                                            aria-valuemax="100">
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                                {{-- ==========================
+                        PRIORITÉ + ÉCHÉANCE
+                    =========================== --}}
+                                <div class="row g-2 mt-2 small">
+
+                                    <div class="col-6">
+
+                                        <span class="text-muted">
+
+                                            <i class="fas fa-flag me-1"></i>
+
+                                            Priorité
+
+                                        </span>
+
+                                        <div class="fw-semibold {{ $tache->priority_class }}">
+
+                                            {{ $tache->priority_label }}
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-6">
+
+                                        <span class="text-muted">
+
+                                            <i class="far fa-calendar-alt me-1"></i>
+
+                                            Échéance
+
+                                        </span>
+
+                                        <div class="{{ $tache->en_retard ? 'text-danger fw-bold' : 'fw-semibold' }}">
+
+                                            {{ $tache->date_echeance ? $tache->date_echeance->format('d/m/Y') : '-' }}
+
+                                        </div>
+
+                                        @if ($tache->en_retard)
+                                            <small class="text-danger">
+                                                En retard
+                                            </small>
+                                        @endif
+
+                                    </div>
+
+                                </div>
+
+
+                                {{-- ==========================
+                        ACTIONS
+                    =========================== --}}
+                                <div class="d-flex gap-2 mt-3">
+
+                                    <a href="{{ route($routePrefix . '.show', $tache->route_params) }}"
+                                        class="btn btn-sm btn-light border flex-fill">
+
+                                        <i class="fas fa-eye me-1"></i>
+
+                                        Voir
+
+                                    </a>
+
+                                    <a href="{{ route($routePrefix . '.edit', $tache->route_params) }}"
+                                        class="btn btn-sm btn-light border flex-fill">
+
+                                        <i class="fas fa-edit me-1"></i>
+
+                                        Modifier
+
+                                    </a>
+
+                                </div>
+
+                            </div>
+                        @endforeach
+
+                    </div>
+                @else
+                    {{-- ==================================================
+            AUCUNE TÂCHE
+        =================================================== --}}
+                    <div class="text-center py-5 px-3">
+
+                        <div class="rounded-circle bg-light d-inline-flex align-items-center justify-content-center mb-3"
+                            style="width: 70px; height: 70px;">
+
+                            <i class="fas fa-check-square fa-2x text-muted"></i>
+
+                        </div>
+
+                        <h5 class="fw-bold">
+                            Aucune tâche
+                        </h5>
+
+                        <p class="text-muted mb-4">
+                            Aucune tâche n'est encore enregistrée
+                            pour ce périmètre.
+                        </p>
+
+                        <a href="{{ route($routePrefix . '.create', $routeParams) }}" class="btn btn-sm btn-primary">
+
+                            <i class="fas fa-plus me-1"></i>
+
+                            Créer la première tâche
+
                         </a>
 
                     </div>

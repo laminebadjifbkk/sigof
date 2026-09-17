@@ -11,8 +11,7 @@
 
             <div class="d-flex align-items-center flex-grow-1" style="min-width: 0;">
 
-                <a href="{{ route('onfp.activites.index') }}"
-                    class="btn btn-sm btn-outline-secondary me-3 flex-shrink-0">
+                <a href="{{ route('onfp.activites.index') }}" class="btn btn-sm btn-outline-secondary me-3 flex-shrink-0">
 
                     <i class="bi bi-arrow-left"></i>
 
@@ -589,9 +588,7 @@
 
                 </div>
 
-                {{-- =========================
-     TÂCHES
-========================= --}}
+                {{-- =========================TÂCHES========================= --}}
                 <div class="card shadow-sm border-0 mb-4">
 
                     <div class="card-header bg-white py-3">
@@ -608,26 +605,10 @@
                                     Tâches directement rattachées à cette activité
                                 </small>
                             </div>
-
-                            {{-- <div class="d-flex align-items-center gap-2">
-
-                                <span class="badge bg-secondary">
-                                    {{ $activite->taches->count() }}
-                                </span>
-
-                                <a href="{{ route('onfp.activites.taches.create', ['activite' => $activite]) }}"
-                                    class="btn btn-sm btn-primary">
-
-                                    <i class="bi bi-plus-circle me-1"></i>
-                                    Nouvelle tâche
-
-                                </a>
-
-                            </div> --}}
                             <div class="d-flex align-items-center gap-2">
 
                                 <span class="badge bg-secondary">
-                                    {{ $activite->taches->count() }}
+                                    {{ $activite->taches->whereNull('sous_activite_id')->count() }}
                                 </span>
 
                                 <a href="{{ route('onfp.activites.taches.index', ['activite' => $activite]) }}"
@@ -638,14 +619,6 @@
 
                                 </a>
 
-                                {{-- <a href="{{ route('onfp.activites.taches.create', ['activite' => $activite]) }}"
-                                    class="btn btn-sm btn-primary">
-
-                                    <i class="bi bi-plus-circle me-1"></i>
-                                    Nouvelle tâche
-
-                                </a> --}}
-
                             </div>
 
                         </div>
@@ -654,7 +627,7 @@
 
                     <div class="card-body">
 
-                        @forelse($activite->taches as $tache)
+                        @forelse($activite->taches->whereNull('sous_activite_id') as $tache)
                             <div class="border rounded p-3 mb-3">
 
                                 <div class="d-flex justify-content-between align-items-start gap-3">
@@ -772,7 +745,7 @@
                     <div class="card-body">
 
                         @forelse($activite->historiques->sortByDesc('created_at')
-                                                                            as $historique)
+                                                                                        as $historique)
                             <div class="border-start ps-3 mb-4">
 
                                 <div class="fw-semibold">

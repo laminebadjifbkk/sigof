@@ -140,4 +140,9 @@ class OnfpActivite extends Model
     {
         return $this->belongsTo(Employee::class, 'updated_by');
     }
+
+    public function tachesDirectes()
+    {
+        return $this->hasMany(OnfpTache::class, 'activite_id')->whereNull('sous_activite_id');
+    }
 }
