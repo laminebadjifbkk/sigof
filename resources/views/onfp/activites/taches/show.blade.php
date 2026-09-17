@@ -818,7 +818,8 @@
 
                         <div class="d-grid gap-2">
 
-                            <a href="{{ route($routePrefix . '.edit', $routeParamsWithTask) }}" class="btn btn-sm btn-warning">
+                            <a href="{{ route($routePrefix . '.edit', $routeParamsWithTask) }}"
+                                class="btn btn-sm btn-warning">
 
                                 <i class="fas fa-edit me-1"></i>
 
@@ -827,13 +828,12 @@
                             </a>
 
 
-                            <form action="{{ route($routePrefix . '.destroy', $routeParamsWithTask) }}" method="POST"
-                                onsubmit="return confirm('Voulez-vous vraiment supprimer cette tâche ? Cette opération est irréversible.');">
+                            <form action="{{ route($routePrefix . '.destroy', $routeParamsWithTask) }}" method="POST">
 
                                 @csrf
                                 @method('DELETE')
 
-                                <button type="submit" class="btn btn-sm btn-outline-danger w-100">
+                                <button type="submit" class="btn btn-sm btn-outline-danger w-100 show_confirm">
 
                                     <i class="fas fa-trash-alt me-1"></i>
 
@@ -844,7 +844,8 @@
                             </form>
 
 
-                            <a href="{{ route($routePrefix . '.index', $routeParams) }}" class="btn btn-sm btn-light border">
+                            <a href="{{ route($routePrefix . '.index', $routeParams) }}"
+                                class="btn btn-sm btn-light border">
 
                                 <i class="fas fa-list me-1"></i>
 

@@ -193,57 +193,13 @@
                             <tbody>
 
                                 @foreach ($taches as $tache)
-                                    @php
-
-                                        $statusLabels = [
-                                            'a_faire' => 'À faire',
-                                            'en_cours' => 'En cours',
-                                            'suspendue' => 'Suspendue',
-                                            'terminee' => 'Terminée',
-                                            'annulee' => 'Annulée',
-                                        ];
-
-                                        $statusClasses = [
-                                            'a_faire' => 'bg-secondary-subtle text-secondary',
-                                            'en_cours' => 'bg-primary-subtle text-primary',
-                                            'suspendue' => 'bg-warning-subtle text-warning',
-                                            'terminee' => 'bg-success-subtle text-success',
-                                            'annulee' => 'bg-danger-subtle text-danger',
-                                        ];
-
-                                        $priorityLabels = [
-                                            'basse' => 'Basse',
-                                            'normale' => 'Normale',
-                                            'haute' => 'Haute',
-                                            'urgente' => 'Urgente',
-                                        ];
-
-                                        $priorityClasses = [
-                                            'basse' => 'text-secondary',
-                                            'normale' => 'text-primary',
-                                            'haute' => 'text-warning',
-                                            'urgente' => 'text-danger',
-                                        ];
-
-                                        $progression = max(0, min(100, (int) ($tache->progression ?? 0)));
-
-                                        $retard =
-                                            $tache->date_echeance &&
-                                            $tache->date_echeance->isPast() &&
-                                            !in_array($tache->statut, ['terminee', 'annulee']);
-
-                                        $params = array_merge($routeParams, ['tache' => $tache]);
-
-                                    @endphp
-
-
                                     <tr>
 
                                         <td class="ps-4">
 
                                             <div class="fw-semibold">
 
-                                                <a href="{{ route($routePrefix . '.show', $params) }}"
+                                                <a href="{{ route($routePrefix . '.show', $tache->route_params) }}"
                                                     class="text-decoration-none text-dark">
                                                     {{ $tache->titre }}
                                                 </a>
@@ -294,13 +250,14 @@
                                                 </span>
 
                                                 <strong>
-                                                    {{ $progression }}%
+                                                    {{ $tache->progression_value }}%
                                                 </strong>
 
                                             </div>
 
                                             <div class="progress" style="height: 7px;">
-                                                <div class="progress-bar" style="width: {{ $progression }}%;"></div>
+                                                <div class="progress-bar"
+                                                    style="width: {{ $tache->progression_value }}%;"></div>
                                             </div>
 
                                         </td>
@@ -308,8 +265,10 @@
 
                                         <td>
 
+                                        <td>
+
                                             @if ($tache->date_echeance)
-                                                <span class="{{ $retard ? 'text-danger fw-bold' : '' }}">
+                                                <span class="{{ $tache->en_retard ? 'text-danger fw-bold' : '' }}">
 
                                                     <i class="far fa-calendar-alt me-1"></i>
 
@@ -317,7 +276,7 @@
 
                                                 </span>
 
-                                                @if ($retard)
+                                                @if ($tache->en_retard)
                                                     <div>
                                                         <small class="text-danger">
                                                             En retard
@@ -330,17 +289,19 @@
 
                                         </td>
 
+                                        </td>
+
 
                                         <td class="text-end pe-4">
 
                                             <div class="btn-group">
 
-                                                <a href="{{ route($routePrefix . '.show', $params) }}"
+                                                <a href="{{ route($routePrefix . '.show', $tache->route_params) }}"
                                                     class="btn btn-sm btn-sm btn-outline-primary" title="Voir">
                                                     <i class="bi bi-eye"></i>
                                                 </a>
 
-                                                <a href="{{ route($routePrefix . '.edit', $params) }}"
+                                                <a href="{{ route($routePrefix . '.edit', $tache->route_params) }}"
                                                     class="btn btn-sm btn-sm btn-outline-secondary" title="Modifier">
                                                     <i class="bi bi-pencil"></i>
                                                 </a>
@@ -383,14 +344,14 @@
                                     'annulee' => 'bg-danger-subtle text-danger',
                                 ];
 
-                                $progression = max(0, min(100, (int) ($tache->progression ?? 0)));
+                                $tache->progression_value = max(0, min(100, (int) ($tache->progression ?? 0)));
 
                                 $retard =
                                     $tache->date_echeance &&
                                     $tache->date_echeance->isPast() &&
                                     !in_array($tache->statut, ['terminee', 'annulee']);
 
-                                $params = array_merge($routeParams, ['tache' => $tache]);
+                                $tache->route_params = array_merge($routeParams, ['tache' => $tache]);
 
                             @endphp
 
@@ -401,7 +362,7 @@
 
                                     <div>
 
-                                        <a href="{{ route($routePrefix . '.show', $params) }}"
+                                        <a href="{{ route($routePrefix . '.show', $tache->route_params) }}"
                                             class="fw-bold text-decoration-none text-dark">
                                             {{ $tache->titre }}
                                         </a>
@@ -430,13 +391,13 @@
                                         </span>
 
                                         <strong>
-                                            {{ $progression }}%
+                                            {{ $tache->progression_value }}%
                                         </strong>
 
                                     </div>
 
                                     <div class="progress" style="height: 7px;">
-                                        <div class="progress-bar" style="width: {{ $progression }}%;"></div>
+                                        <div class="progress-bar" style="width: {{ $tache->progression_value }}%;"></div>
                                     </div>
 
                                 </div>
@@ -477,13 +438,13 @@
 
                                 <div class="d-flex gap-2 mt-3">
 
-                                    <a href="{{ route($routePrefix . '.show', $params) }}"
+                                    <a href="{{ route($routePrefix . '.show', $tache->route_params) }}"
                                         class="btn btn-sm btn-sm btn-light border flex-fill">
                                         <i class="fas fa-eye me-1"></i>
                                         Voir
                                     </a>
 
-                                    <a href="{{ route($routePrefix . '.edit', $params) }}"
+                                    <a href="{{ route($routePrefix . '.edit', $tache->route_params) }}"
                                         class="btn btn-sm btn-sm btn-light border flex-fill">
                                         <i class="fas fa-edit me-1"></i>
                                         Modifier
