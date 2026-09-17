@@ -243,13 +243,12 @@
 
                                             @if (!$type->activites()->exists())
                                                 <form method="POST"
-                                                    action="{{ route('onfp.activite-types.destroy', $type) }}"
-                                                    onsubmit="return confirm('Voulez-vous vraiment supprimer ce type ?');">
+                                                    action="{{ route('onfp.activite-types.destroy', $type) }}">
 
                                                     @csrf
                                                     @method('DELETE')
 
-                                                    <button type="submit" class="btn btn-sm btn-sm btn-outline-danger"
+                                                    <button type="submit" class="btn btn-sm btn-sm btn-outline-danger show_confirm"
                                                         title="Supprimer">
 
                                                         <i class="bi bi-trash"></i>

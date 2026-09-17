@@ -502,11 +502,10 @@
                                             <i class="bi bi-pencil"></i>
                                         </a>
 
-                                        <form method="POST" action="{{ route('onfp.activites.destroy', $activite) }}"
-                                            onsubmit="return confirm('Voulez-vous vraiment supprimer cette activité ?');">
+                                        <form method="POST" action="{{ route('onfp.activites.destroy', $activite) }}">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-sm btn-outline-danger"
+                                            <button type="submit" class="btn btn-sm btn-sm btn-outline-danger show_confirm"
                                                 title="Supprimer">
                                                 <i class="bi bi-trash"></i>
                                             </button>
