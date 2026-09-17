@@ -148,7 +148,7 @@
 
             <div class="d-flex flex-wrap gap-2">
 
-                <a href="{{ route($routePrefix . '.edit', $routeParamsWithTask) }}" class="btn btn-warning">
+                <a href="{{ route($routePrefix . '.edit', $routeParamsWithTask) }}" class="btn btn-sm btn-warning">
                     <i class="fas fa-edit me-1"></i>
                     Modifier
                 </a>
@@ -177,10 +177,10 @@
 
                             <i class="fas fa-tasks text-primary me-1"></i>
 
-                            {{ $activite->reference ?? '—' }}
+                            {{ $activite->reference ?? '-' }}
 
                             @if ($activite->titre)
-                                — {{ $activite->titre }}
+                                - {{ $activite->titre }}
                             @endif
 
                         </a>
@@ -200,10 +200,10 @@
 
                                 <i class="fas fa-layer-group text-info me-1"></i>
 
-                                {{ $sousActivite->reference ?? '—' }}
+                                {{ $sousActivite->reference ?? '-' }}
 
                                 @if ($sousActivite->titre)
-                                    — {{ $sousActivite->titre }}
+                                    - {{ $sousActivite->titre }}
                                 @endif
 
                             </span>
@@ -316,7 +316,7 @@
                                 </div>
 
                                 <strong>
-                                    {{ $tache->date_debut ? $tache->date_debut->format('d/m/Y') : '—' }}
+                                    {{ $tache->date_debut ? $tache->date_debut->format('d/m/Y') : '-' }}
                                 </strong>
 
                             </div>
@@ -330,7 +330,7 @@
 
                                 <strong class="{{ $retard ? 'text-danger' : '' }}">
 
-                                    {{ $tache->date_echeance ? $tache->date_echeance->format('d/m/Y') : '—' }}
+                                    {{ $tache->date_echeance ? $tache->date_echeance->format('d/m/Y') : '-' }}
 
                                 </strong>
 
@@ -345,7 +345,7 @@
 
                                 <strong class="text-success">
 
-                                    {{ $tache->date_realisation ? $tache->date_realisation->format('d/m/Y') : '—' }}
+                                    {{ $tache->date_realisation ? $tache->date_realisation->format('d/m/Y') : '-' }}
 
                                 </strong>
 
@@ -635,7 +635,7 @@
 
                             <strong class="{{ $retard ? 'text-danger' : '' }}">
 
-                                {{ $tache->date_echeance ? $tache->date_echeance->format('d/m/Y') : '—' }}
+                                {{ $tache->date_echeance ? $tache->date_echeance->format('d/m/Y') : '-' }}
 
                             </strong>
 
@@ -650,7 +650,7 @@
 
                             <strong class="text-success">
 
-                                {{ $tache->date_realisation ? $tache->date_realisation->format('d/m/Y') : '—' }}
+                                {{ $tache->date_realisation ? $tache->date_realisation->format('d/m/Y') : '-' }}
 
                             </strong>
 
@@ -786,7 +786,7 @@
 
 
                         <a href="{{ route('onfp.activites.documents.index', $activite) }}"
-                            class="btn btn-sm btn-light border w-100">
+                            class="btn btn-sm btn-sm btn-light border w-100">
 
                             <i class="fas fa-folder-open me-1"></i>
 
@@ -818,7 +818,7 @@
 
                         <div class="d-grid gap-2">
 
-                            <a href="{{ route($routePrefix . '.edit', $routeParamsWithTask) }}" class="btn btn-warning">
+                            <a href="{{ route($routePrefix . '.edit', $routeParamsWithTask) }}" class="btn btn-sm btn-warning">
 
                                 <i class="fas fa-edit me-1"></i>
 
@@ -833,7 +833,7 @@
                                 @csrf
                                 @method('DELETE')
 
-                                <button type="submit" class="btn btn-outline-danger w-100">
+                                <button type="submit" class="btn btn-sm btn-outline-danger w-100">
 
                                     <i class="fas fa-trash-alt me-1"></i>
 
@@ -844,7 +844,7 @@
                             </form>
 
 
-                            <a href="{{ route($routePrefix . '.index', $routeParams) }}" class="btn btn-light border">
+                            <a href="{{ route($routePrefix . '.index', $routeParams) }}" class="btn btn-sm btn-light border">
 
                                 <i class="fas fa-list me-1"></i>
 

@@ -72,7 +72,7 @@
 
         <a
             href="{{ route($routePrefix . '.index', $routeParams) }}"
-            class="btn btn-light border"
+            class="btn btn-sm btn-light border"
         >
             <i class="fas fa-list me-1"></i>
             Liste des tâches
@@ -132,7 +132,7 @@
 
             <a
                 href="{{ route($routePrefix . '.show', $routeParamsWithTask) }}"
-                class="btn btn-light border px-4"
+                class="btn btn-sm btn-light border px-4"
             >
                 <i class="fas fa-times me-1"></i>
                 Annuler
@@ -140,7 +140,7 @@
 
             <button
                 type="submit"
-                class="btn btn-warning px-4"
+                class="btn btn-sm btn-warning px-4"
             >
                 <i class="fas fa-save me-1"></i>
                 Enregistrer les modifications

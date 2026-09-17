@@ -326,9 +326,15 @@ public function edit(
         404
     );
 
+    $employees = Employee::with('user')
+    ->whereHas('user')
+    ->get()
+    ->sortBy(fn ($e) => strtolower(($e->user->name ?? '') . ' ' . ($e->user->firstname ?? '')));
+
     return view('onfp.activites.taches.edit', compact(
         'activite',
         'sousActivite',
+        'employees',
         'tache'
     ));
 }

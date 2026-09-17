@@ -8,7 +8,7 @@
 
         <div class="d-flex align-items-center gap-3 mb-4">
 
-            <a href="{{ route('onfp.activites.show', $activite) }}" class="btn btn-sm btn-sm btn-outline-secondary me-3 flex-shrink-0"
+            <a href="{{ route('onfp.activites.show', $activite) }}" class="btn btn-sm btn-sm btn-sm btn-outline-secondary me-3 flex-shrink-0"
                 title="retour">
                 <i class="bi bi-arrow-left"></i>
             </a>
@@ -91,7 +91,7 @@
                                 </label>
 
                                 <input type="text" name="titre" value="{{ old('titre') }}"
-                                    class="form-control @error('titre') is-invalid @enderror"
+                                    class="form-control form-control-sm @error('titre') is-invalid @enderror"
                                     placeholder="Ex. Préparer le rapport de mission" required>
 
                                 @error('titre')
@@ -108,7 +108,7 @@
                                 </label>
 
                                 <input type="text" name="reference" value="{{ old('reference') }}"
-                                    class="form-control @error('reference') is-invalid @enderror"
+                                    class="form-control form-control-sm @error('reference') is-invalid @enderror"
                                     placeholder="Générée automatiquement si vide">
 
                                 @error('reference')
@@ -124,7 +124,7 @@
                                     Description
                                 </label>
 
-                                <textarea name="description" rows="5" class="form-control @error('description') is-invalid @enderror"
+                                <textarea name="description" rows="5" class="form-control form-control-sm @error('description') is-invalid @enderror"
                                     placeholder="Décrire précisément le travail à réaliser...">{{ old('description') }}</textarea>
 
                                 @error('description')
@@ -140,7 +140,7 @@
                                     Observation
                                 </label>
 
-                                <textarea name="observation" rows="3" class="form-control @error('observation') is-invalid @enderror"
+                                <textarea name="observation" rows="3" class="form-control form-control-sm @error('observation') is-invalid @enderror"
                                     placeholder="Observations ou informations complémentaires...">{{ old('observation') }}</textarea>
 
                                 @error('observation')
@@ -177,7 +177,7 @@
                                     </label>
 
                                     <input type="date" name="date_debut" value="{{ old('date_debut') }}"
-                                        class="form-control @error('date_debut') is-invalid @enderror">
+                                        class="form-control form-control-sm @error('date_debut') is-invalid @enderror">
 
                                     @error('date_debut')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -193,7 +193,7 @@
                                     </label>
 
                                     <input type="date" name="date_echeance" value="{{ old('date_echeance') }}"
-                                        class="form-control @error('date_echeance') is-invalid @enderror">
+                                        class="form-control form-control-sm @error('date_echeance') is-invalid @enderror">
 
                                     @error('date_echeance')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -209,7 +209,7 @@
                                     </label>
 
                                     <input type="date" name="date_realisation" value="{{ old('date_realisation') }}"
-                                        class="form-control @error('date_realisation') is-invalid @enderror">
+                                        class="form-control form-control-sm @error('date_realisation') is-invalid @enderror">
 
                                     @error('date_realisation')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -458,7 +458,7 @@
 
                                     <input type="number" name="progression" value="{{ old('progression', 0) }}"
                                         min="0" max="100"
-                                        class="form-control @error('progression') is-invalid @enderror">
+                                        class="form-control form-control-sm @error('progression') is-invalid @enderror">
 
                                     <span class="input-group-text">%</span>
 
@@ -482,7 +482,7 @@
 
                         <div class="card-body">
 
-                            <button type="submit" class="btn btn-primary w-100 mb-2">
+                            <button type="submit" class="btn btn-sm btn-primary w-100 mb-2">
 
                                 <i class="fas fa-save me-1"></i>
                                 Enregistrer la tâche
@@ -490,7 +490,7 @@
                             </button>
 
                             <a href="{{ route('onfp.activites.show', $activite) }}"
-                                class="btn btn-light border w-100">
+                                class="btn btn-sm btn-light border w-100">
 
                                 Annuler
 
