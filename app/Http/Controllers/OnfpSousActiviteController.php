@@ -31,9 +31,16 @@ class OnfpSousActiviteController extends Controller
      */
     public function create(OnfpActivite $activite)
     {
+        $priorites = [
+            'basse'   => 'Basse',
+            'normale' => 'Normale',
+            'haute'   => 'Haute',
+            'urgente' => 'Urgente',
+        ];
+
         return view(
             'onfp.activites.sous-activites.create',
-            compact('activite')
+            compact('activite', 'priorites')
         );
     }
 
@@ -161,11 +168,19 @@ class OnfpSousActiviteController extends Controller
             $sousActivite
         );
 
+        $priorites = [
+            'basse'   => 'Basse',
+            'normale' => 'Normale',
+            'haute'   => 'Haute',
+            'urgente' => 'Urgente',
+        ];
+
         return view(
             'onfp.activites.sous-activites.edit',
             compact(
                 'activite',
-                'sousActivite'
+                'sousActivite',
+                'priorites'
             )
         );
     }
@@ -274,7 +289,7 @@ class OnfpSousActiviteController extends Controller
             return back()->with(
                 'error',
                 'Cette sous-activité contient des tâches. '
-                . 'Veuillez les supprimer ou les réaffecter avant de continuer.'
+                    . 'Veuillez les supprimer ou les réaffecter avant de continuer.'
             );
         }
 

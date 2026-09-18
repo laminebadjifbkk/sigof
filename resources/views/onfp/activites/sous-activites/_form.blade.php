@@ -55,15 +55,9 @@
             Statut
         </label>
 
-        <select name="statut" class="form-select form-select">
+        <select name="statut" class="form-select form-select-sm">
 
-            @foreach ([
-        'a_faire' => 'À faire',
-        'en_cours' => 'En cours',
-        'suspendue' => 'Suspendue',
-        'terminee' => 'Terminée',
-        'annulee' => 'Annulée',
-    ] as $value => $label)
+            @foreach ($priorites as $value => $label)
                 <option value="{{ $value }}" @selected(old('statut', $sousActivite->statut ?? 'a_faire') === $value)>
                     {{ $label }}
                 </option>
@@ -80,14 +74,9 @@
             Priorité
         </label>
 
-        <select name="priorite" class="form-select form-select">
+        <select name="priorite" class="form-select form-select-sm">
 
-            @foreach ([
-        'basse' => 'Basse',
-        'normale' => 'Normale',
-        'haute' => 'Haute',
-        'urgente' => 'Urgente',
-    ] as $value => $label)
+            @foreach ($priorites as $value => $label)
                 <option value="{{ $value }}" @selected(old('priorite', $sousActivite->priorite ?? 'normale') === $value)>
                     {{ $label }}
                 </option>
