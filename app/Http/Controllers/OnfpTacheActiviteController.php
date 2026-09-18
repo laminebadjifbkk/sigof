@@ -748,90 +748,87 @@ class OnfpTacheActiviteController extends Controller
      */
     public function update(
         Request $request,
-        OnfpActivite $activite,
-        OnfpTache $tache,
-        ?OnfpSousActivite $sousActivite = null
+        OnfpActivite $activite
     ) {
-        /*
-    |--------------------------------------------------------------------------
-    | Vérification de cohérence
-    |--------------------------------------------------------------------------
-    */
+        // ============================================================
+        // Récupération des paramètres de route
+        // ============================================================
+        $sousActiviteParam = $request->route('sousActivite');
+        $tacheParam       = $request->route('tache');
 
-        // La tâche doit appartenir à l'activité
+        // ============================================================
+        // Résolution de la sous-activité
+        // ============================================================
+        $sousActivite = null;
+
+        if ($sousActiviteParam) {
+            $sousActivite = $sousActiviteParam instanceof OnfpSousActivite
+                ? $sousActiviteParam
+                : (new OnfpSousActivite)->resolveRouteBinding($sousActiviteParam);
+
+            abort_unless($sousActivite, 404);
+
+            // Vérifier que la sous-activité appartient bien à l'activité
+            abort_unless(
+                (int) $sousActivite->activite_id === (int) $activite->id,
+                404
+            );
+        }
+
+        // ============================================================
+        // Résolution de la tâche
+        // ============================================================
+        $tache = $tacheParam instanceof OnfpTache
+            ? $tacheParam
+            : (new OnfpTache)->resolveRouteBinding($tacheParam);
+
+        abort_unless($tache, 404);
+
+        // ============================================================
+        // Vérifier que la tâche appartient à l'activité
+        // ============================================================
         abort_unless(
             (int) $tache->activite_id === (int) $activite->id,
             404
         );
 
-        /*
-    |--------------------------------------------------------------------------
-    | Vérification sous-activité
-    |--------------------------------------------------------------------------
-    */
-
+        // ============================================================
+        // Vérifier le rattachement à la sous-activité
+        // ============================================================
         if ($sousActivite) {
 
-            // La sous-activité doit appartenir à l'activité
-            abort_unless(
-                (int) $sousActivite->activite_id === (int) $activite->id,
-                404
-            );
-
-            // La tâche doit appartenir à cette sous-activité
             abort_unless(
                 (int) $tache->sous_activite_id === (int) $sousActivite->id,
                 404
             );
         } else {
 
-            // Si aucune sous-activité n'est fournie,
-            // la tâche doit être directement liée à l'activité.
+            // Une tâche directe ne doit pas avoir de sous-activité
             abort_unless(
                 is_null($tache->sous_activite_id),
                 404
             );
         }
 
-        /*
-    |--------------------------------------------------------------------------
-    | Validation
-    |--------------------------------------------------------------------------
-    */
-
+        // ============================================================
+        // Validation
+        // ============================================================
         $validated = $request->validate([
-            /* 'libelle' => [
-                'required',
-                'string',
-                'max:255',
-            ], */
-
-            'description' => [
-                'nullable',
-                'string',
-            ],
+            'description' => 'nullable|string',
 
             'statut' => [
                 'required',
-                'string',
                 'in:a_faire,en_cours,suspendue,terminee,annulee',
             ],
 
             'priorite' => [
                 'nullable',
-                'string',
                 'in:basse,normale,haute,urgente',
             ],
 
-            'date_enclenchement' => [
-                'nullable',
-                'date',
-            ],
+            'date_enclenchement' => 'nullable|date',
 
-            'date_execution' => [
-                'nullable',
-                'date',
-            ],
+            'date_execution' => 'nullable|date',
 
             'date_fin' => [
                 'nullable',
@@ -852,64 +849,30 @@ class OnfpTacheActiviteController extends Controller
                 'min:0',
             ],
 
-            'observations' => [
-                'nullable',
-                'string',
-            ],
+            'observations' => 'nullable|string',
         ]);
 
-        /*
-    |--------------------------------------------------------------------------
-    | Cohérence des dates
-    |--------------------------------------------------------------------------
-    */
-
-        if (
-            !empty($validated['date_enclenchement']) &&
-            !empty($validated['date_execution']) &&
-            $validated['date_execution'] < $validated['date_enclenchement']
-        ) {
-            return back()
-                ->withErrors([
-                    'date_execution' =>
-                    'La date d’exécution doit être postérieure ou égale à la date d’enclenchement.',
-                ])
-                ->withInput();
-        }
-
-        /*
-    |--------------------------------------------------------------------------
-    | Mise à jour automatique de la progression
-    |--------------------------------------------------------------------------
-    */
-
+        // ============================================================
+        // Tâche terminée = progression 100 %
+        // ============================================================
         if ($validated['statut'] === 'terminee') {
             $validated['progression'] = 100;
         }
 
-        /*
-    |--------------------------------------------------------------------------
-    | Cohérence activité / sous-activité
-    |--------------------------------------------------------------------------
-    */
-
+        // ============================================================
+        // Sécuriser les relations
+        // ============================================================
         $validated['activite_id'] = $activite->id;
         $validated['sous_activite_id'] = $sousActivite?->id;
 
-        /*
-    |--------------------------------------------------------------------------
-    | Mise à jour
-    |--------------------------------------------------------------------------
-    */
-
+        // ============================================================
+        // Mise à jour
+        // ============================================================
         $tache->update($validated);
 
-        /*
-    |--------------------------------------------------------------------------
-    | Redirection
-    |--------------------------------------------------------------------------
-    */
-
+        // ============================================================
+        // Redirection
+        // ============================================================
         if ($sousActivite) {
             return redirect()
                 ->route(
