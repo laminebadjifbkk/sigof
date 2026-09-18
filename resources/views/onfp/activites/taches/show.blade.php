@@ -393,17 +393,7 @@
                                     <div class="list-group list-group-flush">
 
                                         @foreach ($tache->responsables as $responsable)
-                                            @php
-                                                $employee = $responsable->employee ?? null;
-
-                                                $employeeName = $employee
-                                                    ? trim(($employee->prenom ?? '') . ' ' . ($employee->nom ?? ''))
-                                                    : null;
-
-                                                $employeeName =
-                                                    $employeeName ?:
-                                                    $employee->name ?? ($employee->matricule ?? 'Employé');
-                                            @endphp
+                                            @php $employee = $responsable->employee ?? null; @endphp
 
                                             <div class="list-group-item px-0">
 
@@ -416,7 +406,7 @@
                                                     <div>
 
                                                         <div class="fw-semibold">
-                                                            {{ $employeeName }}
+                                                            {{ $employee?->full_name ?? 'Employé' }}
                                                         </div>
 
                                                         @if ($employee?->matricule)
@@ -460,17 +450,7 @@
                                     <div class="list-group list-group-flush">
 
                                         @foreach ($tache->suiveurs as $suiveur)
-                                            @php
-                                                $employee = $suiveur->employee ?? null;
-
-                                                $employeeName = $employee
-                                                    ? trim(($employee->prenom ?? '') . ' ' . ($employee->nom ?? ''))
-                                                    : null;
-
-                                                $employeeName =
-                                                    $employeeName ?:
-                                                    $employee->name ?? ($employee->matricule ?? 'Employé');
-                                            @endphp
+                                            @php $employee = $suiveur->employee ?? null; @endphp
 
                                             <div class="list-group-item px-0">
 
@@ -483,7 +463,7 @@
                                                     <div>
 
                                                         <div class="fw-semibold">
-                                                            {{ $employeeName }}
+                                                            {{ $employee?->full_name ?? 'Employé' }}
                                                         </div>
 
                                                         @if ($employee?->matricule)

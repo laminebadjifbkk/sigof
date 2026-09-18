@@ -302,4 +302,16 @@ class Employee extends Model
             // OU rôle élevé côté user
             || $this->user?->hasRole(['super-admin', 'DRH', 'ADRH', 'SG', 'DG']);
     }
+
+    /**
+     * Nom complet affichable de l'employé (via son utilisateur lié).
+     */
+    public function getFullNameAttribute(): string
+    {
+        $user = $this->user;
+
+        $nomComplet = trim(($user->firstname ?? '') . ' ' . ($user->name ?? ''));
+
+        return $nomComplet ?: ($this->matricule ?? 'Employé');
+    }
 }

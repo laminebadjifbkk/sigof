@@ -7,7 +7,7 @@ use App\Models\OnfpSousActivite;
 use App\Models\OnfpTache;
 use Illuminate\Http\Request;
 use App\Models\Employee;
-use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class OnfpTacheActiviteController extends Controller
 {
@@ -536,10 +536,8 @@ class OnfpTacheActiviteController extends Controller
     /**
      * Afficher une tâche.
      */
-    public function show(
-        OnfpActivite $activite,
-        Request $request
-    ) {
+    public function show(OnfpActivite $activite, Request $request)
+    {
         $sousActiviteParam = $request->route('sousActivite');
         $tacheParam = $request->route('tache');
 
@@ -608,12 +606,100 @@ class OnfpTacheActiviteController extends Controller
             );
         }
 
+        $tache->load([
+            'responsables.employee.user',
+            'suiveurs.employee',
+            'documents',
+        ]);
+
+        /*
+    |--------------------------------------------------------------------------
+    | Contexte de route (imbriquée ou non)
+    |--------------------------------------------------------------------------
+    */
+
+        $isNested = $sousActivite !== null;
+
+        $routePrefix = $isNested
+            ? 'onfp.activites.sous-activites.taches'
+            : 'onfp.activites.taches';
+
+        $routeParams = $isNested
+            ? ['activite' => $activite, 'sousActivite' => $sousActivite]
+            : ['activite' => $activite];
+
+        $routeParamsWithTask = array_merge($routeParams, ['tache' => $tache]);
+
+        /*
+    |--------------------------------------------------------------------------
+    | Statut
+    |--------------------------------------------------------------------------
+    */
+
+        $statusLabels = [
+            'a_faire'   => 'À faire',
+            'en_cours'  => 'En cours',
+            'suspendue' => 'Suspendue',
+            'terminee'  => 'Terminée',
+            'annulee'   => 'Annulée',
+        ];
+
+        $statusClasses = [
+            'a_faire'   => 'bg-secondary-subtle text-secondary',
+            'en_cours'  => 'bg-primary-subtle text-primary',
+            'suspendue' => 'bg-warning-subtle text-warning',
+            'terminee'  => 'bg-success-subtle text-success',
+            'annulee'   => 'bg-danger-subtle text-danger',
+        ];
+
+        /*
+    |--------------------------------------------------------------------------
+    | Priorité
+    |--------------------------------------------------------------------------
+    */
+
+        $priorityLabels = [
+            'basse'   => 'Basse',
+            'normale' => 'Normale',
+            'haute'   => 'Haute',
+            'urgente' => 'Urgente',
+        ];
+
+        $priorityClasses = [
+            'basse'   => 'text-secondary',
+            'normale' => 'text-primary',
+            'haute'   => 'text-warning',
+            'urgente' => 'text-danger',
+        ];
+
+        $progression = max(0, min(100, (int) ($tache->progression ?? 0)));
+
+        /*
+    |--------------------------------------------------------------------------
+    | Retard
+    |--------------------------------------------------------------------------
+    */
+
+        $retard = $tache->date_echeance
+            && $tache->date_echeance->isPast()
+            && !in_array($tache->statut, ['terminee', 'annulee']);
+
         return view(
             'onfp.activites.taches.show',
             compact(
                 'activite',
                 'sousActivite',
-                'tache'
+                'tache',
+                'isNested',
+                'routePrefix',
+                'routeParams',
+                'routeParamsWithTask',
+                'statusLabels',
+                'statusClasses',
+                'priorityLabels',
+                'priorityClasses',
+                'progression',
+                'retard'
             )
         );
     }
@@ -814,6 +900,12 @@ class OnfpTacheActiviteController extends Controller
         // Validation
         // ============================================================
         $validated = $request->validate([
+            'titre' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+
             'description' => 'nullable|string',
 
             'statut' => [
@@ -826,14 +918,14 @@ class OnfpTacheActiviteController extends Controller
                 'in:basse,normale,haute,urgente',
             ],
 
-            'date_enclenchement' => 'nullable|date',
+            'date_debut' => 'nullable|date',
 
-            'date_execution' => 'nullable|date',
+            'date_echeance' => 'nullable|date',
 
-            'date_fin' => [
+            'date_realisation' => [
                 'nullable',
                 'date',
-                'after_or_equal:date_execution',
+                'after_or_equal:date_debut',
             ],
 
             'progression' => [
@@ -843,13 +935,12 @@ class OnfpTacheActiviteController extends Controller
                 'max:100',
             ],
 
-            'ordre' => [
-                'nullable',
-                'integer',
-                'min:0',
-            ],
+            'observation' => 'nullable|string',
 
-            'observations' => 'nullable|string',
+            'responsables'   => ['nullable', 'array'],
+            'responsables.*' => ['integer', 'exists:employees,id'], // adapte le nom de la table
+            'suiveurs'       => ['nullable', 'array'],
+            'suiveurs.*'     => ['integer', 'exists:employees,id'],
         ]);
 
         // ============================================================
@@ -860,6 +951,14 @@ class OnfpTacheActiviteController extends Controller
         }
 
         // ============================================================
+        // Extraire les relations avant le update() de la tâche
+        // ============================================================
+        $responsables = $validated['responsables'] ?? [];
+        $suiveurs = $validated['suiveurs'] ?? [];
+
+        unset($validated['responsables'], $validated['suiveurs']);
+
+        // ============================================================
         // Sécuriser les relations
         // ============================================================
         $validated['activite_id'] = $activite->id;
@@ -868,7 +967,41 @@ class OnfpTacheActiviteController extends Controller
         // ============================================================
         // Mise à jour
         // ============================================================
-        $tache->update($validated);
+        DB::transaction(function () use ($tache, $validated, $responsables, $suiveurs) {
+            $tache->update($validated);
+
+            foreach (['responsables' => $responsables, 'suiveurs' => $suiveurs] as $relation => $ids) {
+                $ids = array_unique($ids);
+
+                $tache->{$relation}()->whereNotIn('employee_id', $ids)->delete();
+
+                foreach ($ids as $employeeId) {
+                    $tache->{$relation}()->firstOrCreate(['employee_id' => $employeeId]);
+                }
+            }
+        });
+
+        // ============================================================
+        // Synchronisation des responsables
+        // ============================================================
+        $tache->responsables()->whereNotIn('employee_id', $responsables)->delete();
+
+        foreach ($responsables as $employeeId) {
+            $tache->responsables()->firstOrCreate([
+                'employee_id' => $employeeId,
+            ]);
+        }
+
+        // ============================================================
+        // Synchronisation des suiveurs
+        // ============================================================
+        $tache->suiveurs()->whereNotIn('employee_id', $suiveurs)->delete();
+
+        foreach ($suiveurs as $employeeId) {
+            $tache->suiveurs()->firstOrCreate([
+                'employee_id' => $employeeId,
+            ]);
+        }
 
         // ============================================================
         // Redirection
