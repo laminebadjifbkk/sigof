@@ -277,14 +277,14 @@ class OnfpActiviteController extends Controller
 
             $activite = OnfpActivite::create($this->donneesActivite($validated) + [
                 'reference'  => $this->genererReference(),
-                'created_by' => auth()->user()->employee_id ?? null,
+                'created_by' => optional(auth()->user()->employee)->id,
             ]);
 
             $this->synchroniserResponsables($activite, $validated);
             $this->synchroniserSuiveurs($activite, $validated);
 
             $activite->historiques()->create([
-                'employee_id'          => auth()->user()->employee_id ?? null,
+                'employee_id'          => optional(auth()->user()->employee)->id,
                 'action'               => 'creation',
                 'nouveau_statut'       => $activite->statut,
                 'nouvelle_progression' => $activite->progression,
@@ -397,7 +397,7 @@ class OnfpActiviteController extends Controller
             $anciennePriorite    = $activite->priorite;
 
             $activite->update($this->donneesActivite($validated) + [
-                'updated_by' => auth()->user()->employee_id ?? null,
+                'updated_by' => optional(auth()->user()->employee)->id,
             ]);
 
             $this->synchroniserResponsables($activite, $validated);
@@ -419,7 +419,7 @@ class OnfpActiviteController extends Controller
 
             if (!empty($changements)) {
                 $activite->historiques()->create([
-                    'employee_id'           => auth()->user()->employee_id ?? null,
+                    'employee_id'           => optional(auth()->user()->employee)->id,
                     'action'                => 'modification',
                     'ancien_statut'         => $ancienStatut,
                     'nouveau_statut'        => $activite->statut,
@@ -443,7 +443,7 @@ class OnfpActiviteController extends Controller
         DB::transaction(function () use ($activite) {
 
             $activite->historiques()->create([
-                'employee_id'          => auth()->user()->employee_id ?? null,
+                'employee_id'          => optional(auth()->user()->employee)->id,
                 'action'               => 'suppression',
                 'ancien_statut'        => $activite->statut,
                 'ancienne_progression' => $activite->progression,

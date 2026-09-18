@@ -744,8 +744,7 @@
 
                     <div class="card-body">
 
-                        @forelse($activite->historiques->sortByDesc('created_at')
-                                                                                        as $historique)
+                        @forelse($activite->historiques->sortByDesc('created_at') as $historique)
                             <div class="border-start ps-3 mb-4">
 
                                 <div class="fw-semibold">
@@ -758,7 +757,7 @@
 
                                     @if ($historique->employee)
                                         ·
-                                        {{ $historique->employee->matricule }}
+                                        {{ $historique?->employee?->user?->firstname . ' ' . $historique?->employee?->user?->name . ', ' . $historique?->employee?->fonction?->name }}
                                     @endif
 
                                 </div>
