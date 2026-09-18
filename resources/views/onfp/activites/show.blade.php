@@ -744,7 +744,7 @@
 
                     <div class="card-body">
 
-                        @forelse($activite->historiques->sortByDesc('created_at') as $historique)
+                        @forelse ($activite->historiques->sortByDesc('created_at') as $historique)
                             <div class="border-start ps-3 mb-4">
 
                                 <div class="fw-semibold">
@@ -752,24 +752,39 @@
                                 </div>
 
                                 <div class="small text-muted mb-1">
-
                                     {{ $historique->created_at?->format('d/m/Y H:i') }}
-
                                     @if ($historique->employee)
                                         ·
                                         {{ $historique?->employee?->user?->firstname . ' ' . $historique?->employee?->user?->name . ', ' . $historique?->employee?->fonction?->name }}
                                     @endif
-
                                 </div>
 
-                                @if ($historique->description)
+                                @if ($historique->action === 'modification' && $historique->ancien_statut !== $historique->nouveau_statut)
+                                    <div class="text-break">
+                                        Statut :
+                                        {{ $statuts[$historique->ancien_statut]['label'] ?? $historique->ancien_statut }}
+                                        →
+                                        {{ $statuts[$historique->nouveau_statut]['label'] ?? $historique->nouveau_statut }}
+                                    </div>
+                                @endif
+
+                                @if (
+                                    $historique->action === 'modification' &&
+                                        (int) $historique->ancienne_progression !== (int) $historique->nouvelle_progression)
+                                    <div class="text-break">
+                                        Progression :
+                                        {{ $historique->ancienne_progression }}% →
+                                        {{ $historique->nouvelle_progression }}%
+                                    </div>
+                                @endif
+
+                                @if ($historique->action !== 'modification' && $historique->description)
                                     <div class="text-break">
                                         {{ $historique->description }}
                                     </div>
                                 @endif
 
                             </div>
-
                         @empty
 
                             <span class="text-muted">
@@ -810,26 +825,6 @@
                                 Statut
                             </div>
 
-                            @php
-
-                                $statutClasses = [
-                                    'a_faire' => 'bg-secondary',
-                                    'en_cours' => 'bg-primary',
-                                    'suspendue' => 'bg-warning text-dark',
-                                    'terminee' => 'bg-success',
-                                    'annulee' => 'bg-danger',
-                                ];
-
-                                $statutLabels = [
-                                    'a_faire' => 'À faire',
-                                    'en_cours' => 'En cours',
-                                    'suspendue' => 'Suspendue',
-                                    'terminee' => 'Terminée',
-                                    'annulee' => 'Annulée',
-                                ];
-
-                            @endphp
-
                             <span class="badge {{ $statutClasses[$activite->statut] ?? 'bg-secondary' }} px-3 py-2">
 
                                 {{ $statutLabels[$activite->statut] ?? $activite->statut }}
@@ -844,24 +839,6 @@
                             <div class="text-muted small mb-1">
                                 État de santé
                             </div>
-
-                            @php
-
-                                $santeClasses = [
-                                    'normal' => 'bg-success',
-                                    'a_surveiller' => 'bg-warning text-dark',
-                                    'risque' => 'bg-danger bg-opacity-75',
-                                    'critique' => 'bg-danger',
-                                ];
-
-                                $santeLabels = [
-                                    'normal' => 'Normal',
-                                    'a_surveiller' => 'À surveiller',
-                                    'risque' => 'Risque',
-                                    'critique' => 'Critique',
-                                ];
-
-                            @endphp
 
                             <span class="badge {{ $santeClasses[$activite->etat_sante] ?? 'bg-secondary' }} px-3 py-2">
 

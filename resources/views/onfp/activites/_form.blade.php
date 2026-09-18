@@ -91,25 +91,21 @@
             Statut <span class="text-danger">*</span>
         </label>
 
-        <select name="statut" id="statut" class="form-select form-select-sm" required>
-            @php
-                $statuts = [
-                    'a_faire' => 'À faire',
-                    'en_cours' => 'En cours',
-                    'suspendue' => 'Suspendue',
-                    'terminee' => 'Terminée',
-                    'annulee' => 'Annulée',
-                ];
-            @endphp
+        <select name="statut" id="statut" class="form-select form-select-sm @error('statut') is-invalid @enderror"
+            required>
 
-            @foreach ($statuts as $value => $label)
+            @foreach ($statuts as $value => $statutItem)
                 <option value="{{ $value }}" @selected(old('statut', $activite->statut ?? 'a_faire') === $value)>
-                    {{ $label }}
+                    {{ $statutItem['label'] }}
                 </option>
             @endforeach
-        </select>
-    </div>
 
+        </select>
+
+        @error('statut')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
 
     {{-- Priorité --}}
     <div class="col-md-4">
@@ -117,22 +113,20 @@
             Priorité <span class="text-danger">*</span>
         </label>
 
-        <select name="priorite" id="priorite" class="form-select form-select-sm" required>
-            @php
-                $priorites = [
-                    'basse' => 'Basse',
-                    'normale' => 'Normale',
-                    'haute' => 'Haute',
-                    'urgente' => 'Urgente',
-                ];
-            @endphp
+        <select name="priorite" id="priorite"
+            class="form-select form-select-sm @error('priorite') is-invalid @enderror" required>
 
             @foreach ($priorites as $value => $label)
                 <option value="{{ $value }}" @selected(old('priorite', $activite->priorite ?? 'normale') === $value)>
                     {{ $label }}
                 </option>
             @endforeach
+
         </select>
+
+        @error('priorite')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
     </div>
 
 
@@ -142,22 +136,22 @@
             État de santé <span class="text-danger">*</span>
         </label>
 
-        <select name="etat_sante" id="etat_sante" class="form-select form-select-sm" required>
-            @php
-                $santes = [
-                    'normal' => 'Normal',
-                    'a_surveiller' => 'À surveiller',
-                    'risque' => 'Risque',
-                    'critique' => 'Critique',
-                ];
-            @endphp
+        <select name="etat_sante" id="etat_sante"
+            class="form-select form-select-sm @error('etat_sante') is-invalid @enderror" required>
 
-            @foreach ($santes as $value => $label)
+            @foreach ($etatsSante as $value => $etat)
                 <option value="{{ $value }}" @selected(old('etat_sante', $activite->etat_sante ?? 'normal') === $value)>
-                    {{ $label }}
+                    {{ $etat['label'] }}
                 </option>
             @endforeach
+
         </select>
+
+        @error('etat_sante')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+        @enderror
     </div>
 
 

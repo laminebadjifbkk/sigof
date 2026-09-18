@@ -94,4 +94,26 @@ class OnfpSousActivite extends Model
             'updated_by'
         );
     }
+
+    public const STATUTS = [
+        'a_faire'   => ['label' => 'À faire',   'badge' => 'secondary'],
+        'en_cours'  => ['label' => 'En cours',  'badge' => 'primary'],
+        'suspendue' => ['label' => 'Suspendue', 'badge' => 'warning'],
+        'terminee'  => ['label' => 'Terminée',  'badge' => 'success'],
+        'annulee'   => ['label' => 'Annulée',   'badge' => 'dark'],
+    ];
+
+    public const PRIORITES = [
+        'basse'   => 'Basse',
+        'normale' => 'Normale',
+        'haute'   => 'Haute',
+        'urgente' => 'Urgente',
+    ];
+
+    public const ETATS_SANTE = [
+        'normal'       => ['label' => 'Normal',       'badge' => 'success'],
+        'a_surveiller' => ['label' => 'À surveiller', 'badge' => 'warning'],
+        'risque'       => ['label' => 'Risque',       'badge' => 'onfp-orange'],
+        'critique'     => ['label' => 'Critique',     'badge' => 'danger'],
+    ];
 }

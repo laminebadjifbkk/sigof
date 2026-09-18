@@ -24,8 +24,7 @@
 
                 <div class="text-muted">
                     Activité :
-                    <a
-                        href="{{ route('onfp.activites.show', $activite) }}">
+                    <a href="{{ route('onfp.activites.show', $activite) }}">
                         {{ $activite->titre }}
                     </a>
                 </div>
@@ -74,7 +73,9 @@
                         </small>
 
                         <strong>
-                            {{ $sousActivite->statut }}
+                            <span class="badge bg-{{ $statuts[$sousActivite->statut]['badge'] ?? 'secondary' }}">
+                                {{ $statuts[$sousActivite->statut]['label'] ?? $sousActivite->statut }}
+                            </span>
                         </strong>
                     </div>
 
@@ -84,7 +85,7 @@
                         </small>
 
                         <strong>
-                            {{ $sousActivite->priorite }}
+                            {{ $priorites[$sousActivite->priorite] ?? $sousActivite->priorite }}
                         </strong>
                     </div>
 

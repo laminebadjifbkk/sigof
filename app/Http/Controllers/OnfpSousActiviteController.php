@@ -31,12 +31,7 @@ class OnfpSousActiviteController extends Controller
      */
     public function create(OnfpActivite $activite)
     {
-        $priorites = [
-            'basse'   => 'Basse',
-            'normale' => 'Normale',
-            'haute'   => 'Haute',
-            'urgente' => 'Urgente',
-        ];
+        $priorites = OnfpSousActivite::PRIORITES;
 
         return view(
             'onfp.activites.sous-activites.create',
@@ -147,18 +142,21 @@ class OnfpSousActiviteController extends Controller
             'updatedBy.user',
         ]);
 
+
+        $statuts   = OnfpSousActivite::STATUTS;
+        $priorites = OnfpSousActivite::PRIORITES;
+
         return view(
             'onfp.activites.sous-activites.show',
             compact(
                 'activite',
+                'statuts',
+                'priorites',
                 'sousActivite'
             )
         );
     }
 
-    /**
-     * Formulaire de modification.
-     */
     public function edit(
         OnfpActivite $activite,
         OnfpSousActivite $sousActivite
@@ -168,18 +166,15 @@ class OnfpSousActiviteController extends Controller
             $sousActivite
         );
 
-        $priorites = [
-            'basse'   => 'Basse',
-            'normale' => 'Normale',
-            'haute'   => 'Haute',
-            'urgente' => 'Urgente',
-        ];
+        $statuts   = OnfpSousActivite::STATUTS;
+        $priorites = OnfpSousActivite::PRIORITES;
 
         return view(
             'onfp.activites.sous-activites.edit',
             compact(
                 'activite',
                 'sousActivite',
+                'statuts',
                 'priorites'
             )
         );

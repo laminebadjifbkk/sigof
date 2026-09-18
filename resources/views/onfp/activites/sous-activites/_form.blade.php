@@ -6,7 +6,8 @@
             Référence
         </label>
 
-        <input type="text" name="reference" class="form-control form-control-sm @error('reference') is-invalid @enderror"
+        <input type="text" name="reference"
+            class="form-control form-control-sm @error('reference') is-invalid @enderror"
             value="{{ old('reference', $sousActivite->reference ?? '') }}" placeholder="Ex. SOUS-ACT-001">
 
         @error('reference')
@@ -55,11 +56,11 @@
             Statut
         </label>
 
-        <select name="statut" class="form-select form-select-sm">
+        <select name="statut" id="statut" class="form-select form-select-sm">
 
-            @foreach ($priorites as $value => $label)
+            @foreach ($statuts as $value => $statutItem)
                 <option value="{{ $value }}" @selected(old('statut', $sousActivite->statut ?? 'a_faire') === $value)>
-                    {{ $label }}
+                    {{ $statutItem['label'] }}
                 </option>
             @endforeach
 
