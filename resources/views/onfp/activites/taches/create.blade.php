@@ -262,9 +262,9 @@
 
                                 </select>
 
-                                <div class="form-text">
+                                {{-- <div class="form-text">
                                     Maintenez Ctrl pour sélectionner plusieurs agents.
-                                </div>
+                                </div> --}}
 
                             </div>
 
