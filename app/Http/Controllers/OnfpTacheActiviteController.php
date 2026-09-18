@@ -8,6 +8,7 @@ use App\Models\OnfpTache;
 use Illuminate\Http\Request;
 use App\Models\Employee;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class OnfpTacheActiviteController extends Controller
 {
@@ -356,9 +357,21 @@ class OnfpTacheActiviteController extends Controller
                 );
             });
 
+        $statuts   = OnfpTache::STATUTS;
+        $priorites = OnfpTache::PRIORITES;
+
+
+        $selectedResponsables = old('responsables', []);
+        $selectedSuiveurs     = old('suiveurs', []);
+
+
         return view('onfp.activites.taches.create', compact(
             'activite',
             'sousActivite',
+            'statuts',
+            'priorites',
+            'selectedResponsables',
+            'selectedSuiveurs',
             'employees'
         ));
     }
@@ -397,7 +410,7 @@ class OnfpTacheActiviteController extends Controller
                 'string',
             ],
 
-            'statut' => [
+            /* 'statut' => [
                 'required',
                 'string',
                 'in:a_faire,en_cours,suspendue,terminee,annulee',
@@ -407,7 +420,10 @@ class OnfpTacheActiviteController extends Controller
                 'nullable',
                 'string',
                 'in:basse,normale,haute,urgente',
-            ],
+            ], */
+
+            'statut'   => ['required', Rule::in(array_keys(OnfpTache::STATUTS))],
+            'priorite' => ['nullable', Rule::in(array_keys(OnfpTache::PRIORITES))],
 
             'date_debut' => [
                 'nullable',
@@ -815,6 +831,12 @@ class OnfpTacheActiviteController extends Controller
                 'activite' => $activite,
             ];
 
+        $statuts   = OnfpTache::STATUTS;
+        $priorites = OnfpTache::PRIORITES;
+
+        $selectedResponsables = old('responsables', $tache->responsables->pluck('employee_id')->all());
+        $selectedSuiveurs     = old('suiveurs', $tache->suiveurs->pluck('employee_id')->all());
+
         return view(
             'onfp.activites.taches.edit',
             compact(
@@ -823,6 +845,10 @@ class OnfpTacheActiviteController extends Controller
                 'tache',
                 'employees',
                 'routePrefix',
+                'statuts',
+                'priorites',
+                'selectedResponsables',
+                'selectedSuiveurs',
                 'routeParams'
             )
         );
@@ -908,7 +934,7 @@ class OnfpTacheActiviteController extends Controller
 
             'description' => 'nullable|string',
 
-            'statut' => [
+            /* 'statut' => [
                 'required',
                 'in:a_faire,en_cours,suspendue,terminee,annulee',
             ],
@@ -916,7 +942,10 @@ class OnfpTacheActiviteController extends Controller
             'priorite' => [
                 'nullable',
                 'in:basse,normale,haute,urgente',
-            ],
+            ], */
+
+            'statut'   => ['required', Rule::in(array_keys(OnfpTache::STATUTS))],
+            'priorite' => ['nullable', Rule::in(array_keys(OnfpTache::PRIORITES))],
 
             'date_debut' => 'nullable|date',
 

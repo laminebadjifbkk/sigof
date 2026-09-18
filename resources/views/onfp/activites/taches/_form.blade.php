@@ -5,17 +5,10 @@
 
     $selectedResponsables = old(
         'responsables',
-        $isEditing
-            ? ($tache->responsables?->pluck('employee_id')->toArray() ?? [])
-            : []
+        $isEditing ? $tache->responsables?->pluck('employee_id')->toArray() ?? [] : [],
     );
 
-    $selectedSuiveurs = old(
-        'suiveurs',
-        $isEditing
-            ? ($tache->suiveurs?->pluck('employee_id')->toArray() ?? [])
-            : []
-    );
+    $selectedSuiveurs = old('suiveurs', $isEditing ? $tache->suiveurs?->pluck('employee_id')->toArray() ?? [] : []);
 @endphp
 
 <div class="row g-4">
@@ -41,8 +34,7 @@
                         Titre <span class="text-danger">*</span>
                     </label>
 
-                    <input type="text" name="titre"
-                        value="{{ old('titre', $tache->titre ?? '') }}"
+                    <input type="text" name="titre" value="{{ old('titre', $tache->titre ?? '') }}"
                         class="form-control form-control-sm @error('titre') is-invalid @enderror"
                         placeholder="Ex. Préparer le rapport de mission" required>
 
@@ -59,8 +51,7 @@
                         Référence
                     </label>
 
-                    <input type="text" name="reference"
-                        value="{{ old('reference', $tache->reference ?? '') }}"
+                    <input type="text" name="reference" value="{{ old('reference', $tache->reference ?? '') }}"
                         class="form-control form-control-sm @error('reference') is-invalid @enderror"
                         placeholder="Générée automatiquement si vide">
 
@@ -198,17 +189,16 @@
                         Responsables
                     </label>
 
-                    <select name="responsables[]" class="form-select" multiple size="6"
-                        id="responsable_principal" data-placeholder="Choisir un ou plusieurs responsables">
+                    <select name="responsables[]" class="form-select" multiple size="6" id="responsable_principal"
+                        data-placeholder="Choisir un ou plusieurs responsables">
 
-                        @foreach($employees as $employee)
-                            <option value="{{ $employee->id }}"
-                                @selected(in_array($employee->id, $selectedResponsables))>
+                        @foreach ($employees as $employee)
+                            <option value="{{ $employee->id }}" @selected(in_array($employee->id, $selectedResponsables))>
 
                                 {{ $employee->user->firstname }}
                                 {{ $employee->user->name }}
 
-                                @if($employee->matricule)
+                                @if ($employee->matricule)
                                     - {{ $employee->matricule }}
                                 @endif
 
@@ -233,14 +223,13 @@
                     <select name="suiveurs[]" class="form-select" multiple size="6" id="suiveurs"
                         data-placeholder="Choisir un ou plusieurs agents de suivi">
 
-                        @foreach($employees as $employee)
-                            <option value="{{ $employee->id }}"
-                                @selected(in_array($employee->id, $selectedSuiveurs))>
+                        @foreach ($employees as $employee)
+                            <option value="{{ $employee->id }}" @selected(in_array($employee->id, $selectedSuiveurs))>
 
                                 {{ $employee->user->firstname }}
                                 {{ $employee->user->name }}
 
-                                @if($employee->matricule)
+                                @if ($employee->matricule)
                                     - {{ $employee->matricule }}
                                 @endif
 
@@ -294,7 +283,7 @@
                 </div>
 
 
-                @if(isset($sousActivite) && $sousActivite)
+                @if (isset($sousActivite) && $sousActivite)
                     <div>
 
                         <label class="form-label text-muted small">
@@ -331,80 +320,36 @@
             <div class="card-body">
 
                 <div class="mb-3">
+                    <label class="form-label fw-semibold">Statut</label>
 
-                    <label class="form-label fw-semibold">
-                        Statut
-                    </label>
-
-                    <select name="statut" class="form-select @error('statut') is-invalid @enderror">
-
-                        @php
-                            $statutActuel = old('statut', $tache->statut ?? 'a_faire');
-                        @endphp
-
-                        <option value="a_faire" @selected($statutActuel === 'a_faire')>
-                            À faire
-                        </option>
-
-                        <option value="en_cours" @selected($statutActuel === 'en_cours')>
-                            En cours
-                        </option>
-
-                        <option value="suspendue" @selected($statutActuel === 'suspendue')>
-                            Suspendue
-                        </option>
-
-                        <option value="terminee" @selected($statutActuel === 'terminee')>
-                            Terminée
-                        </option>
-
-                        <option value="annulee" @selected($statutActuel === 'annulee')>
-                            Annulée
-                        </option>
-
+                    <select name="statut" class="form-select form-select-sm @error('statut') is-invalid @enderror">
+                        @foreach ($statuts as $value => $label)
+                            <option value="{{ $value }}" @selected(old('statut', $tache->statut ?? 'a_faire') === $value)>
+                                {{ $label }}
+                            </option>
+                        @endforeach
                     </select>
 
                     @error('statut')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-
                 </div>
 
-
                 <div class="mb-3">
+                    <label class="form-label fw-semibold">Priorité</label>
 
-                    <label class="form-label fw-semibold">
-                        Priorité
-                    </label>
-
-                    <select name="priorite" class="form-select @error('priorite') is-invalid @enderror">
-
-                        @php
-                            $prioriteActuelle = old('priorite', $tache->priorite ?? 'normale');
-                        @endphp
-
-                        <option value="basse" @selected($prioriteActuelle === 'basse')>
-                            Basse
-                        </option>
-
-                        <option value="normale" @selected($prioriteActuelle === 'normale')>
-                            Normale
-                        </option>
-
-                        <option value="haute" @selected($prioriteActuelle === 'haute')>
-                            Haute
-                        </option>
-
-                        <option value="urgente" @selected($prioriteActuelle === 'urgente')>
-                            Urgente
-                        </option>
-
+                    <select name="priorite"
+                        class="form-select form-select-sm @error('priorite') is-invalid @enderror">
+                        @foreach ($priorites as $value => $label)
+                            <option value="{{ $value }}" @selected(old('priorite', $tache->priorite ?? 'normale') === $value)>
+                                {{ $label }}
+                            </option>
+                        @endforeach
                     </select>
 
                     @error('priorite')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-
                 </div>
 
 
@@ -417,8 +362,7 @@
                     <div class="input-group">
 
                         <input type="number" name="progression"
-                            value="{{ old('progression', $tache->progression ?? 0) }}"
-                            min="0" max="100"
+                            value="{{ old('progression', $tache->progression ?? 0) }}" min="0" max="100"
                             class="form-control form-control-sm @error('progression') is-invalid @enderror">
 
                         <span class="input-group-text">%</span>

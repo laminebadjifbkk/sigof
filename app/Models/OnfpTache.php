@@ -87,4 +87,19 @@ class OnfpTache extends Model
     {
         return $this->belongsTo(Employee::class, 'updated_by');
     }
+
+    public const STATUTS = [
+        'a_faire'   => 'À faire',
+        'en_cours'  => 'En cours',
+        'suspendue' => 'Suspendue',
+        'terminee'  => 'Terminée',
+        'annulee'   => 'Annulée',
+    ];
+
+    public const PRIORITES = [
+        'basse'   => 'Basse',
+        'normale' => 'Normale',
+        'haute'   => 'Haute',
+        'urgente' => 'Urgente',
+    ];
 }
