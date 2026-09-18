@@ -4,44 +4,30 @@
 
     <div class="container-fluid">
 
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="mb-4">
 
-            <div>
+            <h4>
+                <i class="bi bi-pencil-square me-2"></i>
+                Modifier la sous-activité
+            </h4>
 
-                <h4 class="mb-1">
-                    <i class="bi bi-pencil-square me-2"></i>
-                    Modifier la sous-activité
-                </h4>
-
-                <div class="text-muted">
-                    {{ $sousActivite->titre }}
-                </div>
-
+            <div class="text-muted">
+                Activité :
+                {{ $activite->titre }}
             </div>
 
-            <a href="{{ route('onfp.activites.sous-activites.show', [$activite, $sousActivite]) }}"
-                class="btn btn-sm btn-outline-secondary">
-
-                <i class="bi bi-arrow-left me-1"></i>
-                Retour
-
-            </a>
+            <div class="text-muted">
+                Sous-activité :
+                {{ $sousActivite->titre }}
+            </div>
 
         </div>
 
-
-        <div class="card border-0 shadow-sm">
-
-            <div class="card-header bg-white">
-
-                <h5 class="mb-0">
-                    Modifier les informations
-                </h5>
-
-            </div>
+        <div class="card shadow-sm border-0">
 
             <div class="card-body">
 
+                {{-- Affichage des erreurs de validation --}}
                 @if ($errors->any())
                     <div class="alert alert-danger">
 
@@ -56,20 +42,26 @@
                     </div>
                 @endif
 
-
                 <form method="POST"
-                    action="{{ route('onfp.activites.sous-activites.update', [$activite, $sousActivite]) }}">
+                    action="{{ route('onfp.activites.sous-activites.update', [
+                        'activite' => $activite,
+                        'sousActivite' => $sousActivite,
+                    ]) }}">
 
                     @csrf
                     @method('PUT')
 
                     @include('onfp.activites.sous-activites._form')
 
-                    <div class="d-flex justify-content-end gap-2 mt-4">
+                    <div class="mt-4 d-flex gap-2">
 
-                        <a href="{{ route('onfp.activites.sous-activites.show', [$activite, $sousActivite]) }}"
-                            class="btn btn-sm btn-light border">
+                        <a href="{{ route('onfp.activites.sous-activites.show', [
+                            'activite' => $activite,
+                            'sousActivite' => $sousActivite,
+                        ]) }}"
+                            class="btn btn-sm btn-outline-secondary">
 
+                            <i class="bi bi-arrow-left me-1"></i>
                             Annuler
 
                         </a>
