@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Direction;
 use App\Models\Employee;
+use App\Models\OnfpTiers;
 use App\Models\OnfpActivite;
 use App\Models\OnfpActiviteResponsable;
 use App\Models\OnfpActiviteSuiveur;
@@ -251,6 +252,7 @@ class OnfpActiviteController extends Controller
                 ->orderBy('libelle')
                 ->get(),
             'employees' => Employee::query()->with('direction')->orderBy('matricule')->get(),
+            'tiers'     => OnfpTiers::query()->actifs()->orderBy('nom')->get(),
             'statuts'    => self::STATUTS,
             'priorites'  => self::PRIORITES,
             'etatsSante' => self::ETATS_SANTE,
@@ -309,7 +311,9 @@ class OnfpActiviteController extends Controller
             'type',
 
             'responsables.employee.direction',
+            /* 'responsables.tiers', */
             'suiveurs.employee.direction',
+            /* 'suiveurs.tiers', */
 
             'sousActivites.taches',
 
@@ -363,6 +367,7 @@ class OnfpActiviteController extends Controller
                 ->orderBy('libelle')
                 ->get(),
             'employees' => Employee::query()->with('direction')->orderBy('matricule')->get(),
+            'tiers'     => OnfpTiers::query()->actifs()->orderBy('nom')->get(),
 
             'responsableIds'        => $responsableIds,
             'responsablePrincipal'  => $responsablePrincipal,
