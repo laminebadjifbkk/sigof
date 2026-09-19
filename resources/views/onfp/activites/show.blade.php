@@ -156,7 +156,7 @@
             </div>
 
             <div class="col-6 col-md-2">
-                <a href="{{ route('onfp.tiers.index', $activite) }}"
+                <a href="{{ route('onfp.tiers.show', $activite) }}"
                     class="card border-0 shadow-sm h-100 text-decoration-none quick-stat-card">
                     <div class="card-body text-center py-3">
                         <i class="bi bi-person-vcard text-primary fs-4"></i>
@@ -530,7 +530,7 @@
                                     {{ $activite->tiers->count() }}
                                 </span>
 
-                                <a href="{{ route('onfp.tiers.index', $activite) }}"
+                                <a href="{{ route('onfp.activites.tiers.index', $activite) }}"
                                     class="btn btn-sm btn-outline-primary" title="Gérer les tiers">
                                     <i class="bi bi-list-ul me-1"></i>
                                     Gérer
@@ -1414,19 +1414,5 @@
         </div>
 
     </div>
-
-    @push('styles')
-        <style>
-            .quick-stat-card {
-                transition: transform .15s ease, box-shadow .15s ease;
-                color: inherit;
-            }
-
-            .quick-stat-card:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1) !important;
-            }
-        </style>
-    @endpush
 
 @endsection

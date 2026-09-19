@@ -63,6 +63,7 @@ class OnfpTiersController extends Controller
 
     public function show(OnfpTiers $tiers)
     {
+        dd($tiers);
         $tiers->load(['activiteTiers.activite']);
 
         return view('onfp.tiers.show', compact('tiers'));

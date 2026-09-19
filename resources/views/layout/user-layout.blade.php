@@ -5239,6 +5239,19 @@
         });
     </script>
 
+
+    <style>
+        .quick-stat-card {
+            transition: transform .15s ease, box-shadow .15s ease;
+            color: inherit;
+        }
+
+        .quick-stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1) !important;
+        }
+    </style>
+
     {{-- <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
 
     <script>

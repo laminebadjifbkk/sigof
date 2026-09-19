@@ -12,13 +12,28 @@ class OnfpActiviteTiersController extends Controller
     /**
      * Liste des tiers déjà associés à l'activité.
      */
+
     public function index(OnfpActivite $activite)
     {
         $activiteTiers = OnfpActiviteTiers::where('activite_id', $activite->id)
             ->with('tiers')
-            ->get();
+            ->get()
+            ->sortBy(fn($lien) => mb_strtolower($lien->tiers?->nom ?? ''))
+            ->values();
 
-        return view('onfp.tiers.index', compact('activite', 'activiteTiers'));
+        $stats = [
+            'total'         => $activiteTiers->count(),
+            'organisations' => $activiteTiers->pluck('tiers.organisation')->filter()->unique()->count(),
+            'sans_role'     => $activiteTiers->filter(fn($l) => blank($l->role))->count(),
+            'inactifs'      => $activiteTiers->filter(fn($l) => $l->tiers && ! $l->tiers->actif)->count(),
+        ];
+
+        return view('onfp.activite-tiers.index', [
+            'activite'      => $activite,
+            'activiteTiers' => $activiteTiers,
+            'stats'         => $stats,
+            'types'         => OnfpTiers::TYPES,
+        ]);
     }
 
     /**
