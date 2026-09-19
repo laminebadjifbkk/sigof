@@ -482,6 +482,7 @@ class OnfpActiviteController extends Controller
             OnfpActiviteTiers::create([
                 'activite_id' => $activite->id,
                 'tier_id' => $tierId,
+                'role'        => OnfpActiviteTiers::ROLE_PAR_DEFAUT,
             ]);
         }
     }

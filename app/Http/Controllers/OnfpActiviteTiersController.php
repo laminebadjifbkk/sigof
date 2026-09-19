@@ -9,6 +9,16 @@ use Illuminate\Http\Request;
 
 class OnfpActiviteTiersController extends Controller
 {
+    public const ROLES_SUGGERES = [
+        'Partenaire',
+        'Prestataire',
+        'Bailleur / Financeur',
+        'Formateur',
+        'Consultant',
+        'Facilitateur',
+        'Observateur',
+        'Bénéficiaire',
+    ];
     /**
      * Liste des tiers déjà associés à l'activité.
      */
@@ -27,12 +37,40 @@ class OnfpActiviteTiersController extends Controller
             'sans_role'     => $activiteTiers->filter(fn($l) => blank($l->role))->count(),
             'inactifs'      => $activiteTiers->filter(fn($l) => $l->tiers && ! $l->tiers->actif)->count(),
         ];
+        $cartes = [
+            [
+                'icon' => 'bi-people',
+                'color' => 'primary',
+                'valeur' => $stats['total'],
+                'label' => 'Tiers associés',
+            ],
+            [
+                'icon' => 'bi-building',
+                'color' => 'info',
+                'valeur' => $stats['organisations'],
+                'label' => 'Organisations',
+            ],
+            [
+                'icon' => 'bi-question-circle',
+                'color' => 'warning',
+                'valeur' => $stats['sans_role'],
+                'label' => 'Rôle non précisé',
+            ],
+            [
+                'icon' => 'bi-person-slash',
+                'color' => 'danger',
+                'valeur' => $stats['inactifs'],
+                'label' => 'Tiers inactifs',
+            ],
+        ];
 
         return view('onfp.activite-tiers.index', [
             'activite'      => $activite,
             'activiteTiers' => $activiteTiers,
             'stats'         => $stats,
+            'cartes'         => $cartes,
             'types'         => OnfpTiers::TYPES,
+            'rolesSuggeres' => self::ROLES_SUGGERES,   // <- à ajouter
         ]);
     }
 
@@ -155,6 +193,19 @@ class OnfpActiviteTiersController extends Controller
         return redirect()
             ->route('onfp.tiers.index', $activite)
             ->with('success', 'Le tiers a été associé à l\'activité avec succès.');
+    }
+
+    public function update(Request $request, OnfpActivite $activite, OnfpActiviteTiers $lien)
+    {
+        abort_unless((string) $lien->activite_id === (string) $activite->id, 404);
+
+        $data = $request->validate([
+            'role' => ['required', 'string', 'max:100', 'not_in:' . OnfpActiviteTiers::ROLE_PAR_DEFAUT],
+        ]);
+
+        $lien->update($data);
+
+        return back()->with('success', 'Rôle mis à jour.');
     }
 
     /**

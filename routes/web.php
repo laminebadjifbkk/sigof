@@ -1309,7 +1309,7 @@ Route::group(['middleware' => ['XSS']], function () {
 
         // Tiers intervenants attachés à une activité
         Route::resource('activites.tiers', OnfpActiviteTiersController::class)
-            ->only(['index', 'create', 'store', 'destroy'])
+            ->only(['index', 'store', 'update', 'destroy'])
             ->parameters([
                 'activites' => 'activite',
                 'tiers' => 'tier',

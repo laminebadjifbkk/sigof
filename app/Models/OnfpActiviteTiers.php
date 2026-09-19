@@ -10,6 +10,7 @@ class OnfpActiviteTiers extends Model
     use HasFactory;
 
     protected $table = 'onfp_activite_tiers';
+    public const ROLE_PAR_DEFAUT = 'À préciser';
 
     protected $fillable = [
         'activite_id',

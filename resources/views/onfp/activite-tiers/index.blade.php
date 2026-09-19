@@ -42,34 +42,6 @@
 
         {{-- Statistiques --}}
         <div class="row g-3 mb-4">
-            @php
-                $cartes = [
-                    [
-                        'icon' => 'bi-people',
-                        'color' => 'primary',
-                        'valeur' => $stats['total'],
-                        'label' => 'Tiers associés',
-                    ],
-                    [
-                        'icon' => 'bi-building',
-                        'color' => 'info',
-                        'valeur' => $stats['organisations'],
-                        'label' => 'Organisations',
-                    ],
-                    [
-                        'icon' => 'bi-question-circle',
-                        'color' => 'warning',
-                        'valeur' => $stats['sans_role'],
-                        'label' => 'Rôle non précisé',
-                    ],
-                    [
-                        'icon' => 'bi-person-slash',
-                        'color' => 'danger',
-                        'valeur' => $stats['inactifs'],
-                        'label' => 'Tiers inactifs',
-                    ],
-                ];
-            @endphp
 
             @foreach ($cartes as $carte)
                 <div class="col-6 col-md-3">
@@ -159,14 +131,24 @@
                                 </td>
 
                                 {{-- Rôle --}}
+                                {{-- Rôle --}}
                                 <td>
-                                    @if ($lien->role)
+                                    @php
+                                        $roleAPreciser =
+                                            blank($lien->role) ||
+                                            $lien->role === \App\Models\OnfpActiviteTiers::ROLE_PAR_DEFAUT;
+                                    @endphp
+
+                                    @if ($roleAPreciser)
+                                        <span
+                                            class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle">
+                                            <i class="bi bi-exclamation-circle me-1"></i>À préciser
+                                        </span>
+                                    @else
                                         <span
                                             class="badge bg-primary bg-opacity-10 text-primary border border-primary-subtle">
                                             {{ $lien->role }}
                                         </span>
-                                    @else
-                                        <span class="text-muted fst-italic small">Non précisé</span>
                                     @endif
                                 </td>
 
@@ -204,12 +186,30 @@
 
                                 {{-- Actions --}}
                                 <td class="text-end text-nowrap">
+                                    <button type="button"
+                                        class="btn btn-sm {{ $roleAPreciser ? 'btn-warning' : 'btn-outline-primary' }}"
+                                        title="Modifier le rôle" data-bs-toggle="modal" data-bs-target="#modalRole"
+                                        data-action="{{ route('onfp.activites.tiers.update', [$activite, $lien]) }}"
+                                        data-nom="{{ $nom }}"
+                                        data-role="{{ $roleAPreciser ? '' : $lien->role }}">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+
                                     @if ($tier)
                                         <a href="{{ route('onfp.tiers.show', $tier) }}"
                                             class="btn btn-sm btn-outline-secondary" title="Voir la fiche">
                                             <i class="bi bi-eye"></i>
                                         </a>
                                     @endif
+
+                                    <form method="POST"
+                                        action="{{ route('onfp.activites.tiers.destroy', [$activite, $lien]) }}"
+                                        class="d-inline" onsubmit="return confirm('Retirer ce tiers de l\'activité ?');">
+                                        @csrf @method('DELETE')
+                                        <button class="btn btn-sm btn-outline-danger" title="Retirer de l'activité">
+                                            <i class="bi bi-x-lg"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         @empty
@@ -219,7 +219,8 @@
                                     <p class="text-muted mt-2 mb-3">
                                         Aucun tiers n'est associé à cette activité.
                                     </p>
-                                    <a href="{{ route('onfp.activites.edit', $activite) }}" class="btn btn-sm btn-primary">
+                                    <a href="{{ route('onfp.activites.edit', $activite) }}"
+                                        class="btn btn-sm btn-primary">
                                         <i class="bi bi-plus-lg me-1"></i>Associer des tiers
                                     </a>
                                 </td>
@@ -237,5 +238,86 @@
             </div>
         </div>
     </div>
+    <datalist id="roles-suggeres">
+        @foreach ($rolesSuggeres as $r)
+            <option value="{{ $r }}">
+        @endforeach
+    </datalist>
 
+    <div class="modal fade" id="modalRole" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <form method="POST" id="formRole" class="modal-content">
+                @csrf
+                @method('PUT')
+
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="bi bi-person-gear me-2"></i>Rôle dans l'activité
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <div class="text-muted small">Tiers</div>
+                        <div class="fw-semibold" id="modalRoleNom"></div>
+                    </div>
+
+                    <label for="modalRoleInput" class="form-label fw-semibold">
+                        Rôle <span class="text-danger">*</span>
+                    </label>
+                    <input type="text" name="role" id="modalRoleInput" list="roles-suggeres" maxlength="100"
+                        class="form-control form-control-sm" required placeholder="Choisir dans la liste ou saisir un rôle">
+                    <div class="form-text">
+                        Exemples : Partenaire, Prestataire, Bailleur / Financeur, Formateur…
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-light border" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-sm btn-primary">
+                        <i class="bi bi-save me-1"></i>Enregistrer
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('modalRole');
+
+            modal.addEventListener('show.bs.modal', (event) => {
+                const btn = event.relatedTarget;
+
+                document.getElementById('formRole').action = btn.dataset.action;
+                document.getElementById('modalRoleNom').textContent = btn.dataset.nom;
+                document.getElementById('modalRoleInput').value = btn.dataset.role || '';
+            });
+
+            modal.addEventListener('shown.bs.modal', () => {
+                document.getElementById('modalRoleInput').focus();
+            });
+
+            // Recherche instantanée
+            const input = document.getElementById('filtre-tiers');
+            const lignes = document.querySelectorAll('#table-tiers tbody tr:not(#aucun-resultat)');
+            const compteur = document.getElementById('compteur-tiers');
+            const vide = document.getElementById('aucun-resultat');
+
+            input?.addEventListener('input', () => {
+                const terme = input.value.trim().toLowerCase();
+                let visibles = 0;
+
+                lignes.forEach(ligne => {
+                    const ok = ligne.textContent.toLowerCase().includes(terme);
+                    ligne.classList.toggle('d-none', !ok);
+                    if (ok) visibles++;
+                });
+
+                compteur.textContent = visibles;
+                vide.classList.toggle('d-none', visibles > 0 || lignes.length === 0);
+            });
+        });
+    </script>
 @endsection
