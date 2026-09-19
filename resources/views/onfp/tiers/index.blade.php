@@ -187,12 +187,10 @@
                                                 </a>
 
                                                 <form method="POST"
-                                                    action="{{ route('onfp.tiers.destroy', $tier) }}"
-                                                    onsubmit="return confirm('Supprimer ce tiers ?');"
-                                                    class="d-inline">
+                                                    action="{{ route('onfp.tiers.destroy', $tier) }}" class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-outline-danger"
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger show_confirm"
                                                         title="Supprimer">
                                                         <i class="bi bi-trash"></i>
                                                     </button>
