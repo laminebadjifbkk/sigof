@@ -34,7 +34,9 @@ class OnfpActiviteTiersController extends Controller
         $stats = [
             'total'         => $activiteTiers->count(),
             'organisations' => $activiteTiers->pluck('tiers.organisation')->filter()->unique()->count(),
-            'sans_role'     => $activiteTiers->filter(fn($l) => blank($l->role))->count(),
+            'sans_role' => $activiteTiers->filter(
+                fn($l) => blank($l->role) || $l->role === OnfpActiviteTiers::ROLE_PAR_DEFAUT
+            )->count(),
             'inactifs'      => $activiteTiers->filter(fn($l) => $l->tiers && ! $l->tiers->actif)->count(),
         ];
         $cartes = [

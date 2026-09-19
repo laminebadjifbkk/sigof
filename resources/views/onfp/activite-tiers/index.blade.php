@@ -141,7 +141,7 @@
 
                                     @if ($roleAPreciser)
                                         <span
-                                            class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle">
+                                            class="badge bg-warning bg-opacity-10 text-warning border border-warning-subtle">
                                             <i class="bi bi-exclamation-circle me-1"></i>À préciser
                                         </span>
                                     @else
@@ -204,9 +204,9 @@
 
                                     <form method="POST"
                                         action="{{ route('onfp.activites.tiers.destroy', [$activite, $lien]) }}"
-                                        class="d-inline" onsubmit="return confirm('Retirer ce tiers de l\'activité ?');">
+                                        class="d-inline">
                                         @csrf @method('DELETE')
-                                        <button class="btn btn-sm btn-outline-danger" title="Retirer de l'activité">
+                                        <button class="btn btn-sm btn-outline-danger show_confirm" title="Retirer de l'activité">
                                             <i class="bi bi-x-lg"></i>
                                         </button>
                                     </form>

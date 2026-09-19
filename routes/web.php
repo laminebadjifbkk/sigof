@@ -1313,6 +1313,7 @@ Route::group(['middleware' => ['XSS']], function () {
             ->parameters([
                 'activites' => 'activite',
                 'tiers' => 'tier',
+                'tiers'     => 'lien',   // au lieu de 'tier'
             ]);
         });
 
