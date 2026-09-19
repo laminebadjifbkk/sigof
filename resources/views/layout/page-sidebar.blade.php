@@ -167,7 +167,7 @@
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('onfp.tiers.*') ? 'active' : 'collapsed' }}"
                             href="{{ route('onfp.tiers.index') }}">
-                            <span>Tiers intervenants</span>
+                            <span>Tiers intervenant</span>
                         </a>
                     </li>
 
