@@ -123,6 +123,8 @@ use App\Http\Controllers\OnfpActiviteIndicateurController;
 use App\Http\Controllers\OnfpActiviteDocumentController;
 use App\Http\Controllers\OnfpSousActiviteController;
 use App\Http\Controllers\OnfpTacheActiviteController;
+use App\Http\Controllers\OnfpTiersController;
+use App\Http\Controllers\OnfpActiviteTiersController;
 
 
 
@@ -1244,67 +1246,85 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::resource('budget-labels', BudgetLabelController::class);
         Route::resource('activites-quotidiennes', ActiviteQuotidienneController::class);
 
-        Route::name('onfp.')->group(function(){
+        Route::name('onfp.')->group(function () {
             Route::resource('activite-types', OnfpActiviteTypeController::class)
-            ->parameters([
-                'activite-types' => 'activiteType',
-            ]);
+                ->parameters([
+                    'activite-types' => 'activiteType',
+                ]);
 
             Route::resource('activites', OnfpActiviteController::class)
                 ->parameters([
                     'activites' => 'activite',
                 ]);
 
-               Route::resource('activites.indicateurs', OnfpActiviteIndicateurController::class)
-            ->except(['show'])
-            ->parameters([
-                'activites' => 'activite',
-                'indicateurs' => 'indicateur',
-            ]);
+            Route::resource('activites.indicateurs', OnfpActiviteIndicateurController::class)
+                ->except(['show'])
+                ->parameters([
+                    'activites' => 'activite',
+                    'indicateurs' => 'indicateur',
+                ]);
 
             Route::resource('activites.documents', OnfpActiviteDocumentController::class)
+                ->only(['index', 'create', 'store', 'destroy'])
+                ->parameters([
+                    'activites' => 'activite',
+                    'documents' => 'document',
+                ]);
+
+            Route::get(
+                'activites/{activite}/documents/{document}/view',
+                [OnfpActiviteDocumentController::class, 'view']
+            )->name('activites.documents.view');
+
+            Route::resource(
+                'activites.sous-activites',
+                OnfpSousActiviteController::class
+            )->parameters([
+                'activites' => 'activite',
+                'sous-activites' => 'sousActivite',
+            ]);
+            // Tâches directement rattachées à une activité
+            Route::resource(
+                'activites.taches',
+                OnfpTacheActiviteController::class
+            )->parameters([
+                'activites' => 'activite',
+                'taches' => 'tache',
+            ]);
+
+            // Tâches rattachées à une sous-activité
+            Route::resource(
+                'activites.sous-activites.taches',
+                OnfpTacheActiviteController::class
+            )->parameters([
+                'activites' => 'activite',
+                'sous-activites' => 'sousActivite',
+                'taches' => 'tache',
+            ]);
+        });
+
+        // Annuaire global des tiers
+// IMPORTANT : ->parameters(['tiers' => 'tiers']) force le wildcard {tiers}
+// (et non {tier}, qui serait le défaut Laravel) pour correspondre exactement
+// aux noms de paramètres utilisés dans OnfpTiersController (show, edit,
+// update, destroy attendent tous $tiers, pas $tier).
+        Route::resource('tiers', OnfpTiersController::class)
+            ->parameters([
+                'tiers' => 'tiers',
+            ]);
+
+        // Tiers intervenants attachés à une activité
+        Route::resource('activites.tiers', OnfpActiviteTiersController::class)
             ->only(['index', 'create', 'store', 'destroy'])
             ->parameters([
                 'activites' => 'activite',
-                'documents' => 'document',
+                'tiers' => 'tier',
             ]);
 
-        Route::get(
-            'activites/{activite}/documents/{document}/view',
-            [OnfpActiviteDocumentController::class, 'view']
-        )->name('activites.documents.view');
-
-         Route::resource(
-            'activites.sous-activites',
-            OnfpSousActiviteController::class
-        )->parameters([
-            'activites' => 'activite',
-            'sous-activites' => 'sousActivite',
-        ]);
-        // Tâches directement rattachées à une activité
-        Route::resource(
-            'activites.taches',
-            OnfpTacheActiviteController::class
-        )->parameters([
-            'activites' => 'activite',
-            'taches' => 'tache',
-        ]);
-
-        // Tâches rattachées à une sous-activité
-        Route::resource(
-            'activites.sous-activites.taches',
-            OnfpTacheActiviteController::class
-        )->parameters([
-            'activites' => 'activite',
-            'sous-activites' => 'sousActivite',
-            'taches' => 'tache',
-        ]);
-    });
-
-    /* Route::post('activites/{activite}/taches', [OnfpTacheActiviteController::class, 'store'])
+        /* Route::post('activites/{activite}/taches', [OnfpTacheActiviteController::class, 'store'])
         ->name('onfp.activites.taches.store'); */
 
-    /* Route::post('activites/{activite}/sous-activites/{sousActivite}/taches', [OnfpTacheActiviteController::class, 'store'])
+        /* Route::post('activites/{activite}/sous-activites/{sousActivite}/taches', [OnfpTacheActiviteController::class, 'store'])
         ->name('onfp.activites.sous-activites.taches.store'); */
 
         Route::prefix('suivi')->group(function () {
