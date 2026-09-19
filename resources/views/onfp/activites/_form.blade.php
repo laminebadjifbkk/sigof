@@ -281,10 +281,6 @@
                 </option>
             @endforeach
         </select>
-
-        {{-- <small class="text-muted">
-            Maintenir Ctrl/Cmd pour sélectionner plusieurs employés.
-        </small> --}}
     </div>
 
 
@@ -309,6 +305,53 @@
             @endforeach
         </select>
     </div>
+
+
+    {{-- ==============================================================
+        TIERS INTERVENANTS
+        Visible uniquement en modification (isset($activite)) : un tiers
+        se rattache à une activité déjà créée, jamais à la volée pendant
+        la création — cohérent avec le principe qu'un tiers est une entité
+        externe distincte, gérée depuis son propre annuaire (onfp.tiers).
+    =============================================================== --}}
+    @if (isset($activite))
+        <div class="col-12">
+            <hr class="my-2">
+        </div>
+
+        <div class="col-md-8">
+            <label for="tiers_intervenants" class="form-label">
+                Tiers intervenants
+            </label>
+
+            @php
+                $selectedTiers = old('tiers_intervenants', $tierIds ?? []);
+            @endphp
+
+            <select name="tiers_intervenants[]" id="tiers_intervenants" class="form-select form-select-sm" multiple
+                size="8" data-placeholder="Choisir un ou plusieurs tiers">
+                @foreach ($tiers as $tier)
+                    <option value="{{ $tier->id }}" @selected(in_array($tier->id, $selectedTiers))>
+                        {{ $tier->nom }}
+                        @if ($tier->organisation)
+                            - {{ $tier->organisation }}
+                        @endif
+                        @if ($tier->fonction)
+                            ({{ $tier->fonction }})
+                        @endif
+                    </option>
+                @endforeach
+            </select>
+
+            <div class="form-text">
+                Partenaires, prestataires ou autres intervenants externes associés à cette activité.
+                Pour préciser le rôle de chacun, utilisez la page
+                <a href="{{ route('onfp.activites.tiers.index', $activite) }}">Tiers de l'activité</a>
+                après enregistrement.
+            </div>
+        </div>
+    @endif
+
 
     {{-- Observation --}}
     <div class="col-12">

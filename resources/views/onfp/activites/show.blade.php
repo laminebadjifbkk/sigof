@@ -91,6 +91,93 @@
             </div>
         @endif
 
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show">
+                <i class="bi bi-exclamation-triangle me-2"></i>
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        @endif
+
+
+        {{-- ==============================================================
+            BANDE DE STATISTIQUES RAPIDES
+            Vue d'ensemble en un coup d'œil du contenu de l'activité.
+        =============================================================== --}}
+        <div class="row g-2 g-md-3 mb-4">
+
+            @php
+                $nbTachesDirectes = $activite->taches->whereNull('sous_activite_id')->count();
+                $nbTiers = $activite->tiers->count();
+            @endphp
+
+            <div class="col-6 col-md-2">
+                <a href="{{ route('onfp.activites.sous-activites.index', $activite) }}"
+                    class="card border-0 shadow-sm h-100 text-decoration-none quick-stat-card">
+                    <div class="card-body text-center py-3">
+                        <i class="bi bi-diagram-3 text-primary fs-4"></i>
+                        <div class="fs-5 fw-bold mt-1">{{ $activite->sousActivites->count() }}</div>
+                        <div class="small text-muted">Sous-activités</div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-6 col-md-2">
+                <a href="{{ route('onfp.activites.taches.index', $activite) }}"
+                    class="card border-0 shadow-sm h-100 text-decoration-none quick-stat-card">
+                    <div class="card-body text-center py-3">
+                        <i class="bi bi-check2-square text-primary fs-4"></i>
+                        <div class="fs-5 fw-bold mt-1">{{ $nbTachesDirectes }}</div>
+                        <div class="small text-muted">Tâches</div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-6 col-md-2">
+                <a href="{{ route('onfp.activites.indicateurs.index', $activite) }}"
+                    class="card border-0 shadow-sm h-100 text-decoration-none quick-stat-card">
+                    <div class="card-body text-center py-3">
+                        <i class="bi bi-graph-up text-primary fs-4"></i>
+                        <div class="fs-5 fw-bold mt-1">{{ $activite->indicateurs->count() }}</div>
+                        <div class="small text-muted">Indicateurs</div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-6 col-md-2">
+                <a href="{{ route('onfp.activites.documents.index', $activite) }}"
+                    class="card border-0 shadow-sm h-100 text-decoration-none quick-stat-card">
+                    <div class="card-body text-center py-3">
+                        <i class="bi bi-folder2-open text-primary fs-4"></i>
+                        <div class="fs-5 fw-bold mt-1">{{ $activite->documents->count() }}</div>
+                        <div class="small text-muted">Documents</div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-6 col-md-2">
+                <a href="{{ route('onfp.tiers.index', $activite) }}"
+                    class="card border-0 shadow-sm h-100 text-decoration-none quick-stat-card">
+                    <div class="card-body text-center py-3">
+                        <i class="bi bi-person-vcard text-primary fs-4"></i>
+                        <div class="fs-5 fw-bold mt-1">{{ $nbTiers }}</div>
+                        <div class="small text-muted">Tiers</div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-6 col-md-2">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body text-center py-3">
+                        <i class="bi bi-people text-primary fs-4"></i>
+                        <div class="fs-5 fw-bold mt-1">{{ $activite->responsables->count() }}</div>
+                        <div class="small text-muted">Responsables</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
 
         <div class="row g-4">
 
@@ -423,6 +510,85 @@
                 </div>
 
 
+                {{-- ==============================================================
+                    TIERS INTERVENANTS
+                =============================================================== --}}
+                <div class="card shadow-sm border-0 mb-4">
+
+                    <div class="card-header bg-white py-3">
+
+                        <div class="d-flex justify-content-between align-items-center gap-2">
+
+                            <h5 class="mb-0">
+                                <i class="bi bi-person-vcard me-2"></i>
+                                Tiers intervenants
+                            </h5>
+
+                            <div class="d-flex align-items-center gap-2">
+
+                                <span class="badge bg-secondary">
+                                    {{ $activite->tiers->count() }}
+                                </span>
+
+                                <a href="{{ route('onfp.tiers.index', $activite) }}"
+                                    class="btn btn-sm btn-outline-primary" title="Gérer les tiers">
+                                    <i class="bi bi-list-ul me-1"></i>
+                                    Gérer
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        @forelse ($activite->tiers as $activiteTier)
+                            <div class="d-flex align-items-center mb-3">
+
+                                <div class="rounded-circle bg-info text-white
+                                        d-flex align-items-center justify-content-center me-3 flex-shrink-0"
+                                    style="width:42px;height:42px;">
+                                    <i class="bi bi-person-badge"></i>
+                                </div>
+
+                                <div class="flex-grow-1" style="min-width: 0;">
+
+                                    <div class="fw-semibold text-break">
+                                        {{ $activiteTier->tiers?->nom ?? 'Tiers supprimé' }}
+                                    </div>
+
+                                    <div class="text-muted small text-break">
+
+                                        @if ($activiteTier->role)
+                                            {{ $activiteTier->role }}
+                                        @endif
+
+                                        @if ($activiteTier->tiers?->organisation)
+                                            · {{ $activiteTier->tiers->organisation }}
+                                        @endif
+
+                                        @if (!$activiteTier->role && !$activiteTier->tiers?->organisation)
+                                            <span class="fst-italic">Rôle non précisé</span>
+                                        @endif
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        @empty
+                            <div class="text-muted">
+                                Aucun tiers intervenant affecté.
+                            </div>
+                        @endforelse
+
+                    </div>
+
+                </div>
+
+
                 {{-- Sous-activités --}}
                 <div class="card shadow-sm border-0 mb-4">
 
@@ -608,7 +774,7 @@
                             <div class="d-flex align-items-center gap-2">
 
                                 <span class="badge bg-secondary">
-                                    {{ $activite->taches->whereNull('sous_activite_id')->count() }}
+                                    {{ $nbTachesDirectes }}
                                 </span>
 
                                 <a href="{{ route('onfp.activites.taches.index', ['activite' => $activite]) }}"
@@ -1108,22 +1274,16 @@
                                         };
                                     @endphp
 
-                                    {{-- col-12 : cette carte vit dans la colonne latérale (col-lg-4), déjà
-                                         étroite. La subdiviser encore (col-md-6 / col-xl-4) ne laisse plus
-                                         assez de place pour le nom du fichier -> texte tronqué à 1 lettre. --}}
                                     <div class="col-12" style="min-width: 0;">
 
                                         <div class="border rounded p-3" style="min-width: 0;">
 
                                             <div class="d-flex align-items-start gap-3">
 
-                                                {{-- Icône --}}
                                                 <div class="fs-2 flex-shrink-0">
                                                     <i class="bi {{ $icon }}"></i>
                                                 </div>
 
-
-                                                {{-- Informations --}}
                                                 <div class="flex-grow-1" style="min-width: 0;">
 
                                                     <div class="fw-semibold text-truncate"
@@ -1154,16 +1314,7 @@
                                             </div>
 
 
-                                            {{-- Action --}}
                                             <div class="mt-3">
-
-                                                {{-- <a href="{{ route('onfp.activites.documents.download', [$activite, $document]) }}"
-                                                    class="btn btn-sm btn-outline-primary">
-
-                                                    <i class="bi bi-download me-1"></i>
-                                                    Télécharger
-
-                                                </a> --}}
 
                                                 <a href="{{ route('onfp.activites.documents.view', [$activite, $document]) }}"
                                                     class="btn btn-sm btn-outline-primary" target="_blank"
@@ -1263,5 +1414,19 @@
         </div>
 
     </div>
+
+    @push('styles')
+        <style>
+            .quick-stat-card {
+                transition: transform .15s ease, box-shadow .15s ease;
+                color: inherit;
+            }
+
+            .quick-stat-card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1) !important;
+            }
+        </style>
+    @endpush
 
 @endsection

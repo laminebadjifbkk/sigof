@@ -18,7 +18,7 @@ class OnfpActiviteTiersController extends Controller
             ->with('tiers')
             ->get();
 
-        return view('onfp.activites.tiers.index', compact('activite', 'activiteTiers'));
+        return view('onfp.tiers.index', compact('activite', 'activiteTiers'));
     }
 
     /**
@@ -138,7 +138,7 @@ class OnfpActiviteTiersController extends Controller
         ]);
 
         return redirect()
-            ->route('onfp.activites.tiers.index', $activite)
+            ->route('onfp.tiers.index', $activite)
             ->with('success', 'Le tiers a été associé à l\'activité avec succès.');
     }
 
@@ -155,7 +155,7 @@ class OnfpActiviteTiersController extends Controller
         $tier->delete();
 
         return redirect()
-            ->route('onfp.activites.tiers.index', $activite)
+            ->route('onfp.tiers.index', $activite)
             ->with('success', 'Le tiers a été retiré de l\'activité.');
     }
 }

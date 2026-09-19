@@ -9,6 +9,7 @@ use App\Models\OnfpActivite;
 use App\Models\OnfpActiviteResponsable;
 use App\Models\OnfpActiviteSuiveur;
 use App\Models\OnfpActiviteType;
+use App\Models\OnfpActiviteTiers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -358,6 +359,11 @@ class OnfpActiviteController extends Controller
             ->map(fn($id) => (int) $id)
             ->toArray();
 
+        $tierIds = OnfpActiviteTiers::where('activite_id', $activite->id)
+            ->pluck('tier_id')
+            ->map(fn($id) => (int) $id)
+            ->toArray();
+
         return view('onfp.activites.edit', [
             'activite'   => $activite,
             'directions' => Direction::query()->orderBy('name')->get(),
@@ -372,6 +378,7 @@ class OnfpActiviteController extends Controller
             'responsableIds'        => $responsableIds,
             'responsablePrincipal'  => $responsablePrincipal,
             'suiveurIds'            => $suiveurIds,
+            'tierIds'               => $tierIds,
 
             'statuts'    => self::STATUTS,
             'priorites'  => self::PRIORITES,
@@ -407,6 +414,7 @@ class OnfpActiviteController extends Controller
 
             $this->synchroniserResponsables($activite, $validated);
             $this->synchroniserSuiveurs($activite, $validated);
+            $this->synchroniserTiers($activite, $validated);
 
             $changements = [];
 
@@ -438,6 +446,44 @@ class OnfpActiviteController extends Controller
         return redirect()
             ->route('onfp.activites.show', $activite)
             ->with('success', 'Activité mise à jour avec succès.');
+    }
+
+    /**
+     * Synchronise les tiers intervenants sélectionnés dans le formulaire
+     * avec la table onfp_activite_tiers.
+     *
+     * - Ajoute les tiers nouvellement sélectionnés (role/observation à null,
+     *   à préciser ensuite depuis la page dédiée onfp.activites.tiers).
+     * - Retire les associations dont le tiers a été décoché.
+     * - Ne touche PAS au role/observation des tiers qui restent sélectionnés,
+     *   pour ne pas écraser ce qui a été renseigné depuis la page dédiée.
+     */
+    private function synchroniserTiers(OnfpActivite $activite, array $validated): void
+    {
+        $tierIdsSelectionnes = collect($validated['tiers_intervenants'] ?? [])
+            ->map(fn($id) => (int) $id)
+            ->unique()
+            ->values();
+
+        $tierIdsActuels = OnfpActiviteTiers::where('activite_id', $activite->id)
+            ->pluck('tier_id')
+            ->map(fn($id) => (int) $id);
+
+        $aAjouter = $tierIdsSelectionnes->diff($tierIdsActuels);
+        $aRetirer = $tierIdsActuels->diff($tierIdsSelectionnes);
+
+        if ($aRetirer->isNotEmpty()) {
+            OnfpActiviteTiers::where('activite_id', $activite->id)
+                ->whereIn('tier_id', $aRetirer)
+                ->delete();
+        }
+
+        foreach ($aAjouter as $tierId) {
+            OnfpActiviteTiers::create([
+                'activite_id' => $activite->id,
+                'tier_id' => $tierId,
+            ]);
+        }
     }
 
     /**
@@ -498,6 +544,9 @@ class OnfpActiviteController extends Controller
 
             'suiveurs'   => ['nullable', 'array'],
             'suiveurs.*' => ['integer', 'exists:employees,id'],
+
+            'tiers_intervenants' => ['nullable', 'array'],
+            'tiers_intervenants.*' => ['exists:onfp_tiers,id'],
         ];
     }
 
