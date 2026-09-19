@@ -556,15 +556,14 @@ class OnfpActiviteController extends Controller
      */
     private function responsablePrincipalEstValide(array $validated): bool
     {
-        if (empty($validated['responsable_principal'])) {
+        $principal    = $validated['responsable_principal'] ?? null;
+        $responsables = $validated['responsables'] ?? [];
+
+        if ($principal === null) {
             return true;
         }
 
-        return in_array(
-            (int) $validated['responsable_principal'],
-            array_map('intval', $validated['responsables'] ?? []),
-            true
-        );
+        return in_array((int) $principal, array_map('intval', $responsables), true);
     }
 
     /**
@@ -591,16 +590,25 @@ class OnfpActiviteController extends Controller
             'statut'                 => $validated['statut'],
             'priorite'               => $validated['priorite'],
             'progression'            => $validated['progression'],
-            'date_enclenchement'     => $validated['date_enclenchement'] ?? null,
+            /* 'date_enclenchement'     => $validated['date_enclenchement'] ?? null,
             'date_execution_prevue'  => $validated['date_execution_prevue'] ?? null,
             'date_fin_prevue'        => $validated['date_fin_prevue'] ?? null,
             'date_execution_reelle'  => $validated['date_execution_reelle'] ?? null,
-            'date_fin_reelle'        => $validated['date_fin_reelle'] ?? null,
+            'date_fin_reelle'        => $validated['date_fin_reelle'] ?? null, */
+            'date_enclenchement'     => $this->dateOuNull($validated['date_enclenchement'] ?? null),
+            'date_execution_prevue'  => $this->dateOuNull($validated['date_execution_prevue'] ?? null),
+            'date_fin_prevue'        => $this->dateOuNull($validated['date_fin_prevue'] ?? null),
+            'date_execution_reelle'  => $this->dateOuNull($validated['date_execution_reelle'] ?? null),
+            'date_fin_reelle'        => $this->dateOuNull($validated['date_fin_reelle'] ?? null),
             'etat_sante'             => $validated['etat_sante'],
             'observation'            => $validated['observation'] ?? null,
         ];
     }
 
+    private function dateOuNull(?string $valeur): ?string
+    {
+        return filled($valeur) ? $valeur : null;
+    }
     /**
      * Remplace la liste des responsables d'une activité.
      */
