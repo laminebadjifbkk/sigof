@@ -25,7 +25,7 @@
 
                     <input type="text" name="nom"
                         value="{{ old('nom', $tiers->nom ?? '') }}"
-                        class="form-control @error('nom') is-invalid @enderror"
+                        class="form-control form-control-sm @error('nom') is-invalid @enderror"
                         placeholder="Ex. Amadou Diallo" required>
 
                     @error('nom')
@@ -41,7 +41,7 @@
                         Type
                     </label>
 
-                    <select name="type" class="form-select @error('type') is-invalid @enderror">
+                    <select name="type" class="form-select form-select-sm @error('type') is-invalid @enderror">
                         <option value="">-- Sélectionner --</option>
                         @foreach ($types as $value => $label)
                             <option value="{{ $value }}"
@@ -66,7 +66,7 @@
 
                     <input type="text" name="organisation"
                         value="{{ old('organisation', $tiers->organisation ?? '') }}"
-                        class="form-control @error('organisation') is-invalid @enderror"
+                        class="form-control form-control-sm @error('organisation') is-invalid @enderror"
                         placeholder="Ex. PNUD, Ministère de la Santé...">
 
                     @error('organisation')
@@ -84,7 +84,7 @@
 
                     <input type="text" name="fonction"
                         value="{{ old('fonction', $tiers->fonction ?? '') }}"
-                        class="form-control @error('fonction') is-invalid @enderror"
+                        class="form-control form-control-sm @error('fonction') is-invalid @enderror"
                         placeholder="Ex. Consultant senior">
 
                     @error('fonction')
@@ -101,7 +101,7 @@
                     </label>
 
                     <textarea name="adresse" rows="2"
-                        class="form-control @error('adresse') is-invalid @enderror">{{ old('adresse', $tiers->adresse ?? '') }}</textarea>
+                        class="form-control form-control-sm @error('adresse') is-invalid @enderror">{{ old('adresse', $tiers->adresse ?? '') }}</textarea>
 
                     @error('adresse')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -117,7 +117,7 @@
                     </label>
 
                     <textarea name="observation" rows="3"
-                        class="form-control @error('observation') is-invalid @enderror">{{ old('observation', $tiers->observation ?? '') }}</textarea>
+                        class="form-control form-control-sm @error('observation') is-invalid @enderror">{{ old('observation', $tiers->observation ?? '') }}</textarea>
 
                     @error('observation')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -153,7 +153,7 @@
 
                     <input type="text" name="telephone"
                         value="{{ old('telephone', $tiers->telephone ?? '') }}"
-                        class="form-control @error('telephone') is-invalid @enderror"
+                        class="form-control form-control-sm @error('telephone') is-invalid @enderror"
                         placeholder="Ex. +221 77 000 00 00">
 
                     @error('telephone')
@@ -171,7 +171,7 @@
 
                     <input type="email" name="email"
                         value="{{ old('email', $tiers->email ?? '') }}"
-                        class="form-control @error('email') is-invalid @enderror"
+                        class="form-control form-control-sm @error('email') is-invalid @enderror"
                         placeholder="Ex. contact@exemple.com">
 
                     @error('email')

@@ -54,12 +54,12 @@
                     <div class="col-md-5">
                         <label class="form-label small text-muted">Recherche</label>
                         <input type="text" name="search" value="{{ request('search') }}"
-                            class="form-control" placeholder="Nom, organisation, email...">
+                            class="form-control form-control-sm" placeholder="Nom, organisation, email...">
                     </div>
 
                     <div class="col-md-3">
                         <label class="form-label small text-muted">Type</label>
-                        <select name="type" class="form-select">
+                        <select name="type" class="form-select form-select-sm">
                             <option value="">Tous les types</option>
                             @foreach ($types as $value => $label)
                                 <option value="{{ $value }}" @selected(request('type') === $value)>
@@ -71,7 +71,7 @@
 
                     <div class="col-md-2">
                         <label class="form-label small text-muted">État</label>
-                        <select name="actif" class="form-select">
+                        <select name="actif" class="form-select form-select-sm">
                             <option value="">Tous</option>
                             <option value="1" @selected(request('actif') === '1')>Actifs</option>
                             <option value="0" @selected(request('actif') === '0')>Inactifs</option>
@@ -79,7 +79,7 @@
                     </div>
 
                     <div class="col-md-2 d-grid">
-                        <button type="submit" class="btn btn-outline-primary">
+                        <button type="submit" class="btn btn-sm btn-outline-primary">
                             <i class="bi bi-search me-1"></i>
                             Filtrer
                         </button>

@@ -15,7 +15,7 @@
         $activeAntennes = request()->is('antennes*');
         $activeRoles = request()->is('roles*');
 
-        $activeActivites = request()->routeIs('onfp.activites.*') || request()->routeIs('onfp.activite-types.*');
+        $activeActivites = request()->routeIs('onfp.activites.*') || request()->routeIs('onfp.activite-types.*') || request()->routeIs('onfp.tiers.*');
     @endphp
 
     <ul class="sidebar-nav" id="sidebar-nav">
@@ -160,6 +160,14 @@
                         <a class="nav-link {{ request()->routeIs('onfp.activites.index') || request()->routeIs('onfp.activites.show') || request()->routeIs('onfp.activites.edit') ? 'active' : 'collapsed' }}"
                             href="{{ route('onfp.activites.index') }}">
                             <span>Activités</span>
+                        </a>
+                    </li>
+
+                    {{-- Types d'activités --}}
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('onfp.tiers.*') ? 'active' : 'collapsed' }}"
+                            href="{{ route('onfp.tiers.index') }}">
+                            <span>Tiers</span>
                         </a>
                     </li>
 

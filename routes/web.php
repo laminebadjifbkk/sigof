@@ -1301,13 +1301,7 @@ Route::group(['middleware' => ['XSS']], function () {
                 'sous-activites' => 'sousActivite',
                 'taches' => 'tache',
             ]);
-        });
 
-        // Annuaire global des tiers
-// IMPORTANT : ->parameters(['tiers' => 'tiers']) force le wildcard {tiers}
-// (et non {tier}, qui serait le défaut Laravel) pour correspondre exactement
-// aux noms de paramètres utilisés dans OnfpTiersController (show, edit,
-// update, destroy attendent tous $tiers, pas $tier).
         Route::resource('tiers', OnfpTiersController::class)
             ->parameters([
                 'tiers' => 'tiers',
@@ -1320,6 +1314,7 @@ Route::group(['middleware' => ['XSS']], function () {
                 'activites' => 'activite',
                 'tiers' => 'tier',
             ]);
+        });
 
         /* Route::post('activites/{activite}/taches', [OnfpTacheActiviteController::class, 'store'])
         ->name('onfp.activites.taches.store'); */

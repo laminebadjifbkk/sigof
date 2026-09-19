@@ -1,6 +1,6 @@
 @extends('layout.user-layout')
 
-@section('title', 'Nouveau tiers')
+@section('title', 'Modifier le tiers')
 
 @section('space-work')
 
@@ -15,10 +15,10 @@
 
             <div>
                 <h4 class="fw-bold mb-1">
-                    Nouveau tiers
+                    Modifier le tiers
                 </h4>
                 <div class="text-muted small">
-                    Ajouter un tiers à l'annuaire
+                    {{ $tiers->nom }}
                 </div>
             </div>
 
@@ -40,22 +40,23 @@
         @endif
 
 
-        <form method="POST" action="{{ route('onfp.tiers.store') }}">
+        <form method="POST" action="{{ route('onfp.tiers.update', $tiers) }}">
 
             @csrf
+            @method('PUT')
 
-            @include('onfp.tiers._form', ['types' => $types])
+            @include('onfp.tiers._form', ['tiers' => $tiers, 'types' => $types])
 
             <div class="d-flex flex-wrap justify-content-end gap-2 mt-4">
 
-                <a href="{{ route('onfp.tiers.index') }}" class="btn btn-light border px-4">
+                <a href="{{ route('onfp.tiers.index') }}" class="btn btn-sm btn-light border px-4">
                     <i class="bi bi-x-lg me-1"></i>
                     Annuler
                 </a>
 
-                <button type="submit" class="btn btn-primary px-4">
+                <button type="submit" class="btn btn-sm btn-warning px-4">
                     <i class="bi bi-save me-1"></i>
-                    Enregistrer
+                    Enregistrer les modifications
                 </button>
 
             </div>
