@@ -125,6 +125,7 @@ use App\Http\Controllers\OnfpSousActiviteController;
 use App\Http\Controllers\OnfpTacheActiviteController;
 use App\Http\Controllers\OnfpTiersController;
 use App\Http\Controllers\OnfpActiviteTiersController;
+use App\Http\Controllers\OnfpActiviteCommentaireController;
 
 
 
@@ -1302,19 +1303,30 @@ Route::group(['middleware' => ['XSS']], function () {
                 'taches' => 'tache',
             ]);
 
-        Route::resource('tiers', OnfpTiersController::class)
-            ->parameters([
-                'tiers' => 'tiers',
-            ]);
+            Route::resource('tiers', OnfpTiersController::class)
+                ->parameters([
+                    'tiers' => 'tiers',
+                ]);
 
-        // Tiers intervenants attachés à une activité
-        Route::resource('activites.tiers', OnfpActiviteTiersController::class)
-            ->only(['index', 'store', 'update', 'destroy'])
-            ->parameters([
-                'activites' => 'activite',
-                'tiers' => 'tier',
-                'tiers'     => 'lien',   // au lieu de 'tier'
-            ]);
+            // Tiers intervenants attachés à une activité
+            Route::resource('activites.tiers', OnfpActiviteTiersController::class)
+                ->only(['index', 'store', 'update', 'destroy'])
+                ->parameters([
+                    'activites' => 'activite',
+                    'tiers'     => 'lien',   // au lieu de 'tier'
+                ]);
+
+            // Commentaires sur une activité
+            Route::post('activites/{activite}/commentaires', [OnfpActiviteCommentaireController::class, 'store'])
+                ->name('activites.commentaires.store');
+
+            // Commentaires sur une tâche (directement rattachée à l'activité)
+            Route::post('activites/{activite}/taches/{tache}/commentaires', [OnfpActiviteCommentaireController::class, 'store'])
+                ->name('activites.taches.commentaires.store');
+
+            // Suppression (commune aux deux contextes, l'id du commentaire suffit)
+            Route::delete('commentaires/{commentaire}', [OnfpActiviteCommentaireController::class, 'destroy'])
+                ->name('commentaires.destroy');
         });
 
         /* Route::post('activites/{activite}/taches', [OnfpTacheActiviteController::class, 'store'])

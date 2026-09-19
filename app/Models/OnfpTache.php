@@ -88,6 +88,11 @@ class OnfpTache extends Model
         return $this->belongsTo(Employee::class, 'updated_by');
     }
 
+    public function commentaires()
+    {
+        return $this->hasMany(OnfpActiviteCommentaire::class, 'tache_id');
+    }
+
     public const STATUTS = [
         'a_faire'   => 'À faire',
         'en_cours'  => 'En cours',

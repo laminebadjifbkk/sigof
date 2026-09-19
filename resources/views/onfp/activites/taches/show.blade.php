@@ -534,6 +534,11 @@
 
                 </div>
 
+                @include('onfp.partials.commentaires', [
+    'commentaires' => $tache->commentaires()->latest()->get(),
+    'storeRoute' => route('onfp.activites.taches.commentaires.store', [$activite, $tache]),
+])
+
             </div>
 
 

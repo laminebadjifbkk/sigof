@@ -962,6 +962,11 @@
 
                 </div>
 
+                @include('onfp.partials.commentaires', [
+    'commentaires' => $activite->commentaires()->surActivite()->latest()->get(),
+    'storeRoute' => route('onfp.activites.commentaires.store', $activite),
+])
+
             </div>
 
 
