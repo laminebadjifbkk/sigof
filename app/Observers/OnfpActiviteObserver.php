@@ -96,6 +96,40 @@ class OnfpActiviteObserver
             'donnees_avant' => $donneesAvant,
             'donnees_apres' => $donneesApres,
         ]);
+
+        if ($ancienStatut !== null && $ancienStatut !== $nouveauStatut) {
+            $this->notifierChangementStatut($activite, $ancienStatut, $nouveauStatut);
+        }
+    }
+
+    /**
+     * Notifie les responsables et agents de suivi d'un changement de statut,
+     * à l'exception de la personne qui vient de faire la modification
+     * (elle n'a pas besoin d'être notifiée de sa propre action).
+     */
+    private function notifierChangementStatut(OnfpActivite $activite, string $ancienStatut, string $nouveauStatut): void
+    {
+        $auteurId = $this->employeeId();
+
+        $employeeIds = $activite->responsables->pluck('employee_id')
+            ->merge($activite->suiveurs->pluck('employee_id'))
+            ->unique()
+            ->reject(fn($id) => $id === $auteurId)
+            ->values()
+            ->all();
+
+        if (empty($employeeIds)) {
+            return;
+        }
+
+        app(\App\Services\OnfpNotificationService::class)->notifierEmployes(
+            $employeeIds,
+            $activite->id,
+            \App\Models\OnfpActiviteNotification::TYPE_CHANGEMENT_STATUT,
+            "Changement de statut : {$activite->titre}",
+            "Le statut de l'activité « {$activite->titre} » ({$activite->reference}) est passé de « {$ancienStatut} » à « {$nouveauStatut} ».",
+            'normale'
+        );
     }
 
     /**

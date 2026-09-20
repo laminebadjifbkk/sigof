@@ -126,6 +126,7 @@ use App\Http\Controllers\OnfpTacheActiviteController;
 use App\Http\Controllers\OnfpTiersController;
 use App\Http\Controllers\OnfpActiviteTiersController;
 use App\Http\Controllers\OnfpActiviteCommentaireController;
+use App\Http\Controllers\OnfpNotificationController;
 
 
 
@@ -1327,6 +1328,22 @@ Route::group(['middleware' => ['XSS']], function () {
             // Suppression (commune aux deux contextes, l'id du commentaire suffit)
             Route::delete('commentaires/{commentaire}', [OnfpActiviteCommentaireController::class, 'destroy'])
                 ->name('commentaires.destroy');
+
+            // Notifications de l'utilisateur connecté
+            Route::get('notifications', [OnfpNotificationController::class, 'index'])
+                ->name('notifications.index');
+
+            Route::get('notifications/compteur', [OnfpNotificationController::class, 'compteurNonLues'])
+                ->name('notifications.compteur');
+
+            Route::post('notifications/{notification}/lue', [OnfpNotificationController::class, 'marquerLue'])
+                ->name('notifications.marquer-lue');
+
+            Route::post('notifications/tout-marquer-lu', [OnfpNotificationController::class, 'marquerToutesLues'])
+                ->name('notifications.tout-marquer-lu');
+
+            Route::delete('notifications/{notification}', [OnfpNotificationController::class, 'destroy'])
+                ->name('notifications.destroy');
         });
 
         /* Route::post('activites/{activite}/taches', [OnfpTacheActiviteController::class, 'store'])
