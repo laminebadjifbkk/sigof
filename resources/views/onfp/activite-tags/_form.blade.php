@@ -14,7 +14,7 @@
     </label>
 
     <input type="text" name="nom" value="{{ old('nom', $tag->nom ?? '') }}"
-        class="form-control @error('nom') is-invalid @enderror"
+        class="form-control form-control-sm @error('nom') is-invalid @enderror"
         placeholder="Ex. Prioritaire, Urgent, Formation...">
 
     @error('nom')
@@ -34,7 +34,7 @@
     </label>
 
     <input type="color" name="couleur" value="{{ old('couleur', $tag->couleur ?? '#6c757d') }}"
-        class="form-control form-control-color @error('couleur') is-invalid @enderror">
+        class="form-control form-control-sm form-control-color @error('couleur') is-invalid @enderror">
 
     @error('couleur')
         <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -47,7 +47,7 @@
     </label>
 
     <textarea name="description" rows="3"
-        class="form-control @error('description') is-invalid @enderror">{{ old('description', $tag->description ?? '') }}</textarea>
+        class="form-control form-control-sm @error('description') is-invalid @enderror">{{ old('description', $tag->description ?? '') }}</textarea>
 
     @error('description')
         <div class="invalid-feedback">{{ $message }}</div>
@@ -64,10 +64,10 @@
 </div>
 
 <div class="d-flex justify-content-end gap-2 mt-4">
-    <a href="{{ route('onfp.activite-tags.index') }}" class="btn btn-light border">
+    <a href="{{ route('onfp.activite-tags.index') }}" class="btn btn-sm btn-light border">
         Annuler
     </a>
-    <button type="submit" class="btn btn-primary">
+    <button type="submit" class="btn btn-sm btn-primary">
         {{ $tag ? 'Enregistrer les modifications' : 'Créer le tag' }}
     </button>
 </div>

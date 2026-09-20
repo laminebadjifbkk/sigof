@@ -34,10 +34,10 @@
                 <form method="GET" class="row g-3">
                     <div class="col-md-6">
                         <input type="text" name="search" value="{{ request('search') }}"
-                            class="form-control" placeholder="Rechercher un tag...">
+                            class="form-control form-control-sm" placeholder="Rechercher un tag...">
                     </div>
                     <div class="col-md-2">
-                        <button type="submit" class="btn btn-outline-primary w-100">Filtrer</button>
+                        <button type="submit" class="btn btn-sm btn-outline-primary w-100">Filtrer</button>
                     </div>
                 </form>
             </div>
