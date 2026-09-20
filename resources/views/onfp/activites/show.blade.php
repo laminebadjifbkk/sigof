@@ -897,7 +897,7 @@
 
 
                 {{-- Historique --}}
-                <div class="card shadow-sm border-0">
+                {{-- <div class="card shadow-sm border-0">
 
                     <div class="card-header bg-white py-3">
 
@@ -912,6 +912,68 @@
 
                         @forelse ($activite->historiques->sortByDesc('created_at') as $historique)
                             <div class="border-start ps-3 mb-4">
+
+                                <div class="fw-semibold">
+                                    {{ ucfirst($historique->action) }}
+                                </div>
+
+                                <div class="small text-muted mb-1">
+                                    {{ $historique->created_at?->format('d/m/Y H:i') }}
+                                    @if ($historique->employee)
+                                        ·
+                                        {{ $historique?->employee?->user?->firstname . ' ' . $historique?->employee?->user?->name . ', ' . $historique?->employee?->fonction?->name }}
+                                    @endif
+                                </div>
+
+                                @if ($historique->action === 'modification' && $historique->ancien_statut !== $historique->nouveau_statut)
+                                    <div class="text-break">
+                                        Statut :
+                                        {{ $statuts[$historique->ancien_statut]['label'] ?? $historique->ancien_statut }}
+                                        →
+                                        {{ $statuts[$historique->nouveau_statut]['label'] ?? $historique->nouveau_statut }}
+                                    </div>
+                                @endif
+
+                                @if ($historique->action === 'modification' && (int) $historique->ancienne_progression !== (int) $historique->nouvelle_progression)
+                                    <div class="text-break">
+                                        Progression :
+                                        {{ $historique->ancienne_progression }}% →
+                                        {{ $historique->nouvelle_progression }}%
+                                    </div>
+                                @endif
+
+                                @if ($historique->action !== 'modification' && $historique->description)
+                                    <div class="text-break">
+                                        {{ $historique->description }}
+                                    </div>
+                                @endif
+
+                            </div>
+                        @empty
+
+                            <span class="text-muted">
+                                Aucun historique.
+                            </span>
+                        @endforelse
+
+                    </div>
+
+                </div> --}}
+                {{-- Historique --}}
+
+                <div class="card shadow-sm border-0">
+
+                    <div class="card-header bg-white py-3">
+                        <h5 class="mb-0">
+                            <i class="bi bi-clock-history me-2"></i>
+                            Historique
+                        </h5>
+                    </div>
+
+                    <div class="card-body" id="historique-liste" data-par-page="{{ $parPage }}">
+
+                        @forelse ($historiques as $index => $historique)
+                            <div class="border-start ps-3 mb-4 historique-item {{ $index >= $parPage ? 'd-none' : '' }}">
 
                                 <div class="fw-semibold">
                                     {{ ucfirst($historique->action) }}
@@ -952,20 +1014,27 @@
 
                             </div>
                         @empty
-
-                            <span class="text-muted">
-                                Aucun historique.
-                            </span>
+                            <span class="text-muted">Aucun historique.</span>
                         @endforelse
+
+                        @if ($historiques->count() > $parPage)
+                            <div class="text-center">
+                                <button type="button" class="btn btn-sm btn-outline-secondary" id="historique-plus">
+                                    <i class="bi bi-chevron-down me-1"></i>
+                                    Afficher plus
+                                    (<span id="historique-restant">{{ $historiques->count() - $parPage }}</span>)
+                                </button>
+                            </div>
+                        @endif
 
                     </div>
 
                 </div>
 
                 @include('onfp.partials.commentaires', [
-    'commentaires' => $activite->commentaires()->surActivite()->latest()->get(),
-    'storeRoute' => route('onfp.activites.commentaires.store', $activite),
-])
+                    'commentaires' => $activite->commentaires()->surActivite()->latest()->get(),
+                    'storeRoute' => route('onfp.activites.commentaires.store', $activite),
+                ])
 
             </div>
 
@@ -996,10 +1065,8 @@
                                 Statut
                             </div>
 
-                            <span class="badge {{ $statutClasses[$activite->statut] ?? 'bg-secondary' }} px-3 py-2">
-
-                                {{ $statutLabels[$activite->statut] ?? $activite->statut }}
-
+                            <span class="badge bg-{{ $activite->statut_badge }} px-3 py-2">
+                                {{ $activite->statut_label }}
                             </span>
 
                         </div>
@@ -1011,10 +1078,8 @@
                                 État de santé
                             </div>
 
-                            <span class="badge {{ $santeClasses[$activite->etat_sante] ?? 'bg-secondary' }} px-3 py-2">
-
-                                {{ $santeLabels[$activite->etat_sante] ?? $activite->etat_sante }}
-
+                            <span class="badge bg-{{ $activite->etat_sante_badge }} px-3 py-2">
+                                {{ $activite->etat_sante_label }}
                             </span>
 
                         </div>

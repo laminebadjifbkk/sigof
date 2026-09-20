@@ -1,18 +1,8 @@
-{{--
-    Partial commentaires. À inclure ainsi :
-
-    Sur une activité :
-    @include('onfp.partials.commentaires', [
-        'commentaires' => $activite->commentaires()->surActivite()->latest()->get(),
-        'storeRoute' => route('onfp.activites.commentaires.store', $activite),
-    ])
-
-    Sur une tâche (directement rattachée à une activité) :
-    @include('onfp.partials.commentaires', [
-        'commentaires' => $tache->commentaires()->latest()->get(),
-        'storeRoute' => route('onfp.activites.taches.commentaires.store', [$activite, $tache]),
-    ])
---}}
+@php
+    $parPage = 1;
+    $uid = 'commentaires-' . substr(md5($storeRoute), 0, 8);
+    $commentaires = $commentaires->values();
+@endphp
 
 <div class="card shadow-sm border-0 mb-4">
 
@@ -43,9 +33,9 @@
 
                 <div class="form-check">
                     <input type="hidden" name="interne" value="0">
-                    <input type="checkbox" name="interne" value="1" id="interneCheck{{ $storeRoute }}"
+                    <input type="checkbox" name="interne" value="1" id="interneCheck-{{ $uid }}"
                         class="form-check-input" checked>
-                    <label class="form-check-label small text-muted" for="interneCheck{{ $storeRoute }}">
+                    <label class="form-check-label small text-muted" for="interneCheck-{{ $uid }}">
                         Commentaire interne
                     </label>
                 </div>
@@ -61,66 +51,81 @@
         <hr>
 
         {{-- Liste des commentaires --}}
-        @forelse ($commentaires as $commentaire)
-            @php
-                $nomAuteur = trim(
-                    ($commentaire->employee?->user?->firstname ?? '') .
-                        ' ' .
-                        ($commentaire->employee?->user?->name ?? ''),
-                );
-            @endphp
+        <div data-liste-paginee data-par-page="{{ $parPage }}">
 
-            <div class="d-flex gap-3 mb-3">
+            @forelse ($commentaires as $index => $commentaire)
+                @php
+                    $nomAuteur = trim(
+                        ($commentaire->employee?->user?->firstname ?? '') .
+                            ' ' .
+                            ($commentaire->employee?->user?->name ?? ''),
+                    );
+                @endphp
 
-                <div class="rounded-circle bg-secondary text-white
-                        d-flex align-items-center justify-content-center flex-shrink-0"
-                    style="width:36px;height:36px;">
-                    <i class="bi bi-person"></i>
-                </div>
+                <div class="d-flex gap-3 mb-3 liste-item {{ $index >= $parPage ? 'd-none' : '' }}">
 
-                <div class="flex-grow-1" style="min-width: 0;">
+                    <div class="rounded-circle bg-secondary text-white
+                            d-flex align-items-center justify-content-center flex-shrink-0"
+                        style="width:36px;height:36px;">
+                        <i class="bi bi-person"></i>
+                    </div>
 
-                    <div class="d-flex justify-content-between align-items-start gap-2">
+                    <div class="flex-grow-1" style="min-width: 0;">
 
-                        <div>
-                            <span class="fw-semibold">
-                                {{ $nomAuteur !== '' ? $nomAuteur : $commentaire->employee?->matricule ?? 'Utilisateur inconnu' }}
-                            </span>
+                        <div class="d-flex justify-content-between align-items-start gap-2">
 
-                            @if (!$commentaire->interne)
-                                <span class="badge bg-info-subtle text-info ms-1">Externe</span>
+                            <div>
+                                <span class="fw-semibold">
+                                    {{ $nomAuteur !== '' ? $nomAuteur : $commentaire->employee?->matricule ?? 'Utilisateur inconnu' }}
+                                </span>
+
+                                @if (!$commentaire->interne)
+                                    <span class="badge bg-info-subtle text-info ms-1">Externe</span>
+                                @endif
+
+                                <div class="small text-muted">
+                                    {{ $commentaire->created_at?->diffForHumans() }}
+                                </div>
+                            </div>
+
+                            @if ($commentaire->employee_id === optional(auth()->user()->employee)->id)
+                                <form method="POST" action="{{ route('onfp.commentaires.destroy', $commentaire) }}"
+                                    onsubmit="return confirm('Supprimer ce commentaire ?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-link text-danger p-0"
+                                        title="Supprimer">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
                             @endif
 
-                            <div class="small text-muted">
-                                {{ $commentaire->created_at?->diffForHumans() }}
-                            </div>
                         </div>
 
-                        @if ($commentaire->employee_id === optional(auth()->user()->employee)->id)
-                            <form method="POST" action="{{ route('onfp.commentaires.destroy', $commentaire) }}"
-                                onsubmit="return confirm('Supprimer ce commentaire ?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-link text-danger p-0" title="Supprimer">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                            </form>
-                        @endif
+                        <div class="mt-1 text-break">
+                            {!! nl2br(e($commentaire->commentaire)) !!}
+                        </div>
 
-                    </div>
-
-                    <div class="mt-1 text-break">
-                        {!! nl2br(e($commentaire->commentaire)) !!}
                     </div>
 
                 </div>
+            @empty
+                <div class="text-center text-muted py-3">
+                    Aucun commentaire pour le moment.
+                </div>
+            @endforelse
 
-            </div>
-        @empty
-            <div class="text-center text-muted py-3">
-                Aucun commentaire pour le moment.
-            </div>
-        @endforelse
+            @if ($commentaires->count() > $parPage)
+                <div class="text-center">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bouton-plus>
+                        <i class="bi bi-chevron-down me-1"></i>
+                        Afficher plus
+                        (<span data-restant>{{ $commentaires->count() - $parPage }}</span>)
+                    </button>
+                </div>
+            @endif
+
+        </div>
 
     </div>
 

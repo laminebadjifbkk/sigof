@@ -276,7 +276,7 @@ class OnfpActiviteController extends Controller
                 ]);
         }
 
-        $activite = DB::transaction(function () use ($validated) {
+        /* $activite = DB::transaction(function () use ($validated) {
 
             $activite = OnfpActivite::create($this->donneesActivite($validated) + [
                 'reference'  => $this->genererReference(),
@@ -293,6 +293,19 @@ class OnfpActiviteController extends Controller
                 'nouvelle_progression' => $activite->progression,
                 'description'          => "Création de l'activité.",
             ]);
+
+            return $activite;
+        }); */
+
+        $activite = DB::transaction(function () use ($validated) {
+
+            $activite = OnfpActivite::create($this->donneesActivite($validated) + [
+                'reference'  => $this->genererReference(),
+                'created_by' => optional(auth()->user()->employee)->id,
+            ]);
+
+            $this->synchroniserResponsables($activite, $validated);
+            $this->synchroniserSuiveurs($activite, $validated);
 
             return $activite;
         });
@@ -325,13 +338,17 @@ class OnfpActiviteController extends Controller
             'indicateurs',
             'documents.employee',
             'commentaires.employee',
-            'historiques.employee',
+            'historiques.employee.user',
+            'historiques.employee.fonction',
             'notifications.employee',
             'tags',
         ]);
-
+        $historiques = $activite->historiques->sortByDesc('created_at')->values();
+        $parPage = 1;
         return view('onfp.activites.show', [
             'activite'   => $activite,
+            'historiques'   => $historiques,
+            'parPage'   => $parPage,
             'statuts'    => self::STATUTS,
             'priorites'  => self::PRIORITES,
             'etatsSante' => self::ETATS_SANTE,

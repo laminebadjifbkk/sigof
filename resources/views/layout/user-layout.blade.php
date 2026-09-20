@@ -5003,6 +5003,59 @@
         });
     </script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const liste = document.getElementById('historique-liste');
+            const bouton = document.getElementById('historique-plus');
+            if (!liste || !bouton) return;
+
+            const parPage = parseInt(liste.dataset.parPage, 10) || 3;
+            const restant = document.getElementById('historique-restant');
+
+            bouton.addEventListener('click', function() {
+                const caches = liste.querySelectorAll('.historique-item.d-none');
+
+                caches.forEach((el, i) => {
+                    if (i < parPage) el.classList.remove('d-none');
+                });
+
+                const encoreCaches = liste.querySelectorAll('.historique-item.d-none').length;
+
+                if (encoreCaches === 0) {
+                    bouton.remove();
+                } else {
+                    restant.textContent = encoreCaches;
+                }
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('[data-liste-paginee]').forEach(function(liste) {
+                const bouton = liste.querySelector('[data-bouton-plus]');
+                if (!bouton) return;
+
+                const parPage = parseInt(liste.dataset.parPage, 10) || 3;
+                const restant = bouton.querySelector('[data-restant]');
+
+                bouton.addEventListener('click', function() {
+                    liste.querySelectorAll('.liste-item.d-none').forEach(function(el, i) {
+                        if (i < parPage) el.classList.remove('d-none');
+                    });
+
+                    const encore = liste.querySelectorAll('.liste-item.d-none').length;
+
+                    if (encore === 0) {
+                        bouton.remove();
+                    } else if (restant) {
+                        restant.textContent = encore;
+                    }
+                });
+            });
+        });
+    </script>
+
     {{--  <script>
         document.addEventListener("DOMContentLoaded", function() {
             var telephoneInput = document.getElementById("telephone");

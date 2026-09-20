@@ -167,4 +167,25 @@ class OnfpActivite extends Model
         'risque'       => ['label' => 'Risque',       'badge' => 'onfp-orange'],
         'critique'     => ['label' => 'Critique',     'badge' => 'danger'],
     ];
+
+    public function getStatutLabelAttribute(): string
+    {
+        return self::STATUTS[$this->statut]['label']
+            ?? Str::of($this->statut)->replace('_', ' ')->ucfirst();
+    }
+
+    public function getStatutBadgeAttribute(): string
+    {
+        return self::STATUTS[$this->statut]['badge'] ?? 'secondary';
+    }
+    public function getEtatSanteLabelAttribute(): string
+    {
+        return self::ETATS_SANTE[$this->etat_sante]['label']
+            ?? Str::of($this->etat_sante)->replace('_', ' ')->ucfirst();
+    }
+
+    public function getEtatSanteBadgeAttribute(): string
+    {
+        return self::ETATS_SANTE[$this->etat_sante]['badge'] ?? 'secondary';
+    }
 }
