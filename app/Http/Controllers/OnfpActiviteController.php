@@ -142,7 +142,7 @@ class OnfpActiviteController extends Controller
 
         $query->orderBy($sort, $direction);
 
-        // Pagination (taille configurable)
+        /* // Pagination (taille configurable)
         $perPage = (int) $request->get('per_page', 5);
 
         if (!in_array($perPage, self::PER_PAGE_OPTIONS, true)) {
@@ -152,7 +152,9 @@ class OnfpActiviteController extends Controller
         $activites = $query->paginate($perPage);
 
         // Conserver tous les paramètres de recherche, filtres et tri
-        $activites->appends($request->query());
+        $activites->appends($request->query()); */
+
+        $activites = $query->get();
 
         /*
         |--------------------------------------------------------------------
@@ -235,8 +237,8 @@ class OnfpActiviteController extends Controller
             // État courant du tri / pagination pour les liens de la vue
             'sort'          => $sort,
             'sortDirection' => $direction,
-            'perPage'       => $perPage,
-            'perPageOptions' => self::PER_PAGE_OPTIONS,
+            /* 'perPage'       => $perPage,
+            'perPageOptions' => self::PER_PAGE_OPTIONS, */
         ]);
     }
 

@@ -285,7 +285,7 @@
                         </div>
 
                         {{-- Éléments par page --}}
-                        <div class="col-md-2">
+                        {{-- <div class="col-md-2">
                             <label class="form-label">Par page</label>
                             <select name="per_page" class="form-select form-select-sm" onchange="this.form.submit()">
                                 @foreach ($perPageOptions as $option)
@@ -294,7 +294,7 @@
                                     </option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div> --}}
 
                         {{-- Bouton --}}
                         <div class="col-md-2 d-flex align-items-end">
@@ -323,12 +323,13 @@
                         <h5 class="mb-0">Activités</h5>
                         <small class="text-muted">Liste des activités correspondant aux critères</small>
                     </div>
-                    <span class="badge bg-secondary">{{ $activites->total() }}</span>
+                    {{-- <span class="badge bg-secondary">{{ $activites->total() }}</span> --}}
+                    <span class="badge bg-secondary">{{ $activites->count() }}</span>
                 </div>
             </div>
 
             <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
+                <table class="table table-hover align-middle mb-0 datatables" id="table-employes">
 
                     <thead class="table-light">
                         <tr>
@@ -433,7 +434,13 @@
                                 {{-- Responsable --}}
                                 <td>
                                     @if ($principal && $principal->employee)
-                                        {{ $principal->employee->user?->firstname . ' ' . $principal->employee->user?->name ?? $principal->employee->matricule }}
+                                        @php
+                                            $u = $principal->employee->user;
+                                            $nom = $u
+                                                ? trim($u->firstname . ' ' . $u->name)
+                                                : $principal->employee->matricule;
+                                        @endphp
+                                        {{ $nom }}
                                     @else
                                         <span class="text-muted">Non affecté</span>
                                     @endif
@@ -551,7 +558,7 @@
             </div>
 
             {{-- Pagination --}}
-            @if ($activites->hasPages())
+            {{--  @if ($activites->hasPages())
                 <div class="card-footer d-flex justify-content-between align-items-center">
                     <small class="text-muted">
                         Affichage de {{ $activites->firstItem() }} à {{ $activites->lastItem() }}
@@ -559,7 +566,7 @@
                     </small>
                     {{ $activites->links() }}
                 </div>
-            @endif
+            @endif --}}
 
         </div>
 
@@ -578,3 +585,49 @@
     </style>
 
 @endsection
+
+
+@push('scripts')
+    <script>
+        new DataTable('#table-employes', {
+            layout: {
+                topStart: {
+                    buttons: ['csv', 'excel', 'print'],
+                }
+            },
+            "order": [
+                [0, 'desc']
+            ],
+            pageLength: 5,
+            language: {
+                "sProcessing": "Traitement en cours...",
+                "sSearch": "Rechercher&nbsp;:",
+                "sLengthMenu": "Afficher _MENU_ &eacute;l&eacute;ments",
+                "sInfo": "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                "sInfoEmpty": "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
+                "sInfoFiltered": "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                "sInfoPostFix": "",
+                "sLoadingRecords": "Chargement en cours...",
+                "sZeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                "sEmptyTable": "Aucune donn&eacute;e disponible dans le tableau",
+                "oPaginate": {
+                    "sFirst": "Premier",
+                    "sPrevious": "Pr&eacute;c&eacute;dent",
+                    "sNext": "Suivant",
+                    "sLast": "Dernier"
+                },
+                "oAria": {
+                    "sSortAscending": ": activer pour trier la colonne par ordre croissant",
+                    "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+                },
+                "select": {
+                    "rows": {
+                        _: "%d lignes sÃ©lÃ©ctionnÃ©es",
+                        0: "Aucune ligne sÃ©lÃ©ctionnÃ©e",
+                        1: "1 ligne sÃ©lÃ©ctionnÃ©e"
+                    }
+                }
+            }
+        });
+    </script>
+@endpush
