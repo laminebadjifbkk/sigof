@@ -278,6 +278,15 @@
 @endsection
 
 @push('scripts')
+
+    <script>
+        // Rechargement automatique toutes les 60 secondes — pratique pour
+        // un affichage permanent sur écran de télévision (mode kiosque).
+        setTimeout(function () {
+            window.location.reload();
+        }, 60000);
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script>
         const directions = @json($lignesDirections->map(fn($l) => $l->direction->sigle ?: $l->direction->name));
