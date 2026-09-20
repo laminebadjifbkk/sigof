@@ -41,8 +41,6 @@
         STATISTIQUES PRINCIPALES
         ============================================================= --}}
 
-        {{-- <div class="row row-cols-2 row-cols-md-3 row-cols-xl-5 g-3 mb-4"> --}}
-
         <div class="row row-cols-5 g-3 mb-4">
 
             {{-- Total --}}
@@ -215,8 +213,8 @@
                         {{-- Recherche --}}
                         <div class="col-md-4">
                             <label class="form-label">Recherche</label>
-                            <input type="text" name="search" value="{{ request('search') }}" class="form-control form-control-sm"
-                                placeholder="Référence, titre, responsable...">
+                            <input type="text" name="search" value="{{ request('search') }}"
+                                class="form-control form-control-sm" placeholder="Référence, titre, responsable...">
                         </div>
 
                         {{-- Direction --}}
@@ -284,17 +282,18 @@
                             </select>
                         </div>
 
-                        {{-- Éléments par page --}}
-                        {{-- <div class="col-md-2">
-                            <label class="form-label">Par page</label>
-                            <select name="per_page" class="form-select form-select-sm" onchange="this.form.submit()">
-                                @foreach ($perPageOptions as $option)
-                                    <option value="{{ $option }}" @selected($perPage == $option)>
-                                        {{ $option }}
+                        {{-- Tag --}}
+                        <div class="col-md-2">
+                            <label class="form-label">Tag</label>
+                            <select name="tag" class="form-select form-select-sm">
+                                <option value="">Tous</option>
+                                @foreach ($tagsDisponibles as $tagOption)
+                                    <option value="{{ $tagOption->slug }}" @selected(request('tag') === $tagOption->slug)>
+                                        {{ $tagOption->nom }}
                                     </option>
                                 @endforeach
                             </select>
-                        </div> --}}
+                        </div>
 
                         {{-- Bouton --}}
                         <div class="col-md-2 d-flex align-items-end">
@@ -323,7 +322,6 @@
                         <h5 class="mb-0">Activités</h5>
                         <small class="text-muted">Liste des activités correspondant aux critères</small>
                     </div>
-                    {{-- <span class="badge bg-secondary">{{ $activites->total() }}</span> --}}
                     <span class="badge bg-secondary">{{ $activites->count() }}</span>
                 </div>
             </div>
@@ -419,6 +417,16 @@
                                     </a>
                                     @if ($activite->type)
                                         <div><small class="text-muted">{{ $activite->type->libelle }}</small></div>
+                                    @endif
+                                    @if ($activite->tags->isNotEmpty())
+                                        <div class="d-flex flex-wrap gap-1 mt-1">
+                                            @foreach ($activite->tags as $tag)
+                                                <span class="badge"
+                                                    style="background-color: {{ $tag->couleur ?: '#6c757d' }}; font-size: 0.65rem;">
+                                                    {{ $tag->nom }}
+                                                </span>
+                                            @endforeach
+                                        </div>
                                     @endif
                                 </td>
 
@@ -556,17 +564,6 @@
 
                 </table>
             </div>
-
-            {{-- Pagination --}}
-            {{--  @if ($activites->hasPages())
-                <div class="card-footer d-flex justify-content-between align-items-center">
-                    <small class="text-muted">
-                        Affichage de {{ $activites->firstItem() }} à {{ $activites->lastItem() }}
-                        sur {{ $activites->total() }} activité(s)
-                    </small>
-                    {{ $activites->links() }}
-                </div>
-            @endif --}}
 
         </div>
 

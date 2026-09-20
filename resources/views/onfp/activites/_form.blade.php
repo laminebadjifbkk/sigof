@@ -363,6 +363,37 @@
             placeholder="Saisissez les informations complémentaires, remarques, contraintes ou points particuliers concernant cette activité...">{{ old('observation', $activite->observation ?? '') }}</textarea>
     </div>
 
+    {{-- ==============================================================
+    TAGS
+    Contrairement aux tiers, disponible dès la création : un tag est
+    une simple catégorisation sans données additionnelles (pas de rôle,
+    pas d'observation), donc pas de raison d'attendre que l'activité
+    existe déjà.
+=============================================================== --}}
+<div class="col-md-8">
+    <label for="tags" class="form-label">
+        Tags
+    </label>
+
+    @php
+        $selectedTags = old('tags', isset($activite) ? $activite->tags->pluck('id')->toArray() : []);
+    @endphp
+
+    <select name="tags[]" id="tags" class="form-select form-select-sm" multiple size="6"
+        data-placeholder="Choisir un ou plusieurs tags">
+        @foreach ($tags as $tagOption)
+            <option value="{{ $tagOption->id }}" @selected(in_array($tagOption->id, $selectedTags))>
+                {{ $tagOption->nom }}
+            </option>
+        @endforeach
+    </select>
+
+    <div class="form-text">
+        <a href="{{ route('onfp.activite-tags.index') }}" target="_blank">Gérer les tags</a>
+    </div>
+</div>
+
+
 </div>
 
 <hr class="my-4">

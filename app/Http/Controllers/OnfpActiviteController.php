@@ -10,6 +10,7 @@ use App\Models\OnfpActiviteResponsable;
 use App\Models\OnfpActiviteSuiveur;
 use App\Models\OnfpActiviteType;
 use App\Models\OnfpActiviteTiers;
+use App\Models\OnfpActiviteTag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -63,28 +64,27 @@ class OnfpActiviteController extends Controller
      * Tailles de page autorisées.
      */
     private const PER_PAGE_OPTIONS = [5, 10, 15, 25, 50, 100];
-
     /**
      * Liste des activités.
      */
     public function index(Request $request)
     {
         /*
-        |--------------------------------------------------------------------
-        | Statistiques générales (une seule requête au lieu de 7)
-        |--------------------------------------------------------------------
-        */
+    |--------------------------------------------------------------------
+    | Statistiques générales (une seule requête au lieu de 7)
+    |--------------------------------------------------------------------
+    */
 
         $stats = OnfpActivite::query()->selectRaw("
-                COUNT(*) as total,
-                SUM(CASE WHEN statut = 'a_faire'   THEN 1 ELSE 0 END) as a_faire,
-                SUM(CASE WHEN statut = 'en_cours'  THEN 1 ELSE 0 END) as en_cours,
-                SUM(CASE WHEN statut = 'terminee'  THEN 1 ELSE 0 END) as terminee,
-                SUM(CASE WHEN statut = 'suspendue' THEN 1 ELSE 0 END) as suspendue,
-                SUM(CASE WHEN statut = 'annulee'   THEN 1 ELSE 0 END) as annulee,
-                SUM(CASE WHEN etat_sante IN ('risque','critique') THEN 1 ELSE 0 END) as a_risque,
-                COALESCE(AVG(progression), 0) as progression_moyenne
-            ")->first();
+            COUNT(*) as total,
+            SUM(CASE WHEN statut = 'a_faire'   THEN 1 ELSE 0 END) as a_faire,
+            SUM(CASE WHEN statut = 'en_cours'  THEN 1 ELSE 0 END) as en_cours,
+            SUM(CASE WHEN statut = 'terminee'  THEN 1 ELSE 0 END) as terminee,
+            SUM(CASE WHEN statut = 'suspendue' THEN 1 ELSE 0 END) as suspendue,
+            SUM(CASE WHEN statut = 'annulee'   THEN 1 ELSE 0 END) as annulee,
+            SUM(CASE WHEN etat_sante IN ('risque','critique') THEN 1 ELSE 0 END) as a_risque,
+            COALESCE(AVG(progression), 0) as progression_moyenne
+        ")->first();
 
         $totalActivites      = (int) $stats->total;
         $activitesAFaire     = (int) $stats->a_faire;
@@ -96,16 +96,17 @@ class OnfpActiviteController extends Controller
         $progressionMoyenne  = (int) round($stats->progression_moyenne);
 
         /*
-        |--------------------------------------------------------------------
-        | Requête principale
-        |--------------------------------------------------------------------
-        */
+    |--------------------------------------------------------------------
+    | Requête principale
+    |--------------------------------------------------------------------
+    */
 
         $query = OnfpActivite::query()
             ->with([
                 'direction:id,name,sigle',
                 'type:id,libelle',
                 'responsables.employee.user',
+                'tags',
             ])
             ->withCount(['sousActivites', 'taches']);
 
@@ -129,7 +130,12 @@ class OnfpActiviteController extends Controller
             ->when($request->filled('type_id'), fn($q) => $q->where('type_id', $request->type_id))
             ->when($request->filled('statut'), fn($q) => $q->where('statut', $request->statut))
             ->when($request->filled('priorite'), fn($q) => $q->where('priorite', $request->priorite))
-            ->when($request->filled('etat_sante'), fn($q) => $q->where('etat_sante', $request->etat_sante));
+            ->when($request->filled('etat_sante'), fn($q) => $q->where('etat_sante', $request->etat_sante))
+            ->when($request->filled('tag'), function ($q) use ($request) {
+                $q->whereHas('tags', function ($sub) use ($request) {
+                    $sub->where('onfp_activite_tags.slug', $request->string('tag'));
+                });
+            });
 
         // Tri
         $sort = $request->get('sort', 'date_fin_prevue');
@@ -142,25 +148,13 @@ class OnfpActiviteController extends Controller
 
         $query->orderBy($sort, $direction);
 
-        /* // Pagination (taille configurable)
-        $perPage = (int) $request->get('per_page', 5);
-
-        if (!in_array($perPage, self::PER_PAGE_OPTIONS, true)) {
-            $perPage = 5;
-        }
-
-        $activites = $query->paginate($perPage);
-
-        // Conserver tous les paramètres de recherche, filtres et tri
-        $activites->appends($request->query()); */
-
         $activites = $query->get();
 
         /*
-        |--------------------------------------------------------------------
-        | Données des filtres
-        |--------------------------------------------------------------------
-        */
+    |--------------------------------------------------------------------
+    | Données des filtres
+    |--------------------------------------------------------------------
+    */
 
         $directions = Direction::query()->orderBy('name')->get();
 
@@ -169,6 +163,8 @@ class OnfpActiviteController extends Controller
             ->orderBy('ordre')
             ->orderBy('libelle')
             ->get();
+
+        $tagsDisponibles = OnfpActiviteTag::where('actif', true)->orderBy('nom')->get();
 
         // Construit un lien de tri qui préserve les filtres/pagination actifs
         // et inverse la direction si on clique deux fois sur la même colonne.
@@ -197,12 +193,14 @@ class OnfpActiviteController extends Controller
             'statut',
             'priorite',
             'etat_sante',
+            'tag',
         ])->contains(fn($key) => request()->filled($key));
 
         return view('onfp.activites.index', [
             'activites'  => $activites,
             'directions' => $directions,
             'types'      => $types,
+            'tagsDisponibles' => $tagsDisponibles,
 
             //Autres
             'hasActiveFilters'      => $hasActiveFilters,
@@ -237,8 +235,6 @@ class OnfpActiviteController extends Controller
             // État courant du tri / pagination pour les liens de la vue
             'sort'          => $sort,
             'sortDirection' => $direction,
-            /* 'perPage'       => $perPage,
-            'perPageOptions' => self::PER_PAGE_OPTIONS, */
         ]);
     }
 
@@ -256,6 +252,7 @@ class OnfpActiviteController extends Controller
                 ->get(),
             'employees' => Employee::query()->with('direction')->orderBy('matricule')->get(),
             'tiers'     => OnfpTiers::query()->actifs()->orderBy('nom')->get(),
+            'tags'     =>  OnfpActiviteTag::where('actif', true)->orderBy('nom')->get(),
             'statuts'    => self::STATUTS,
             'priorites'  => self::PRIORITES,
             'etatsSante' => self::ETATS_SANTE,
@@ -311,6 +308,11 @@ class OnfpActiviteController extends Controller
 
             return $activite;
         });
+
+        // Dans store(), après la création de l'activité :
+        if ($request->filled('tags')) {
+            $activite->tags()->sync($request->input('tags'));
+        }
 
         return redirect()
             ->route('onfp.activites.show', $activite)
@@ -393,6 +395,7 @@ class OnfpActiviteController extends Controller
                 ->get(),
             'employees' => Employee::query()->with('direction')->orderBy('matricule')->get(),
             'tiers'     => OnfpTiers::query()->actifs()->orderBy('nom')->get(),
+            'tags'       => OnfpActiviteTag::where('actif', true)->orderBy('nom')->get(),
 
             'responsableIds'        => $responsableIds,
             'responsablePrincipal'  => $responsablePrincipal,
@@ -497,6 +500,8 @@ class OnfpActiviteController extends Controller
             $this->synchroniserSuiveurs($activite, $validated);
             $this->synchroniserTiers($activite, $validated);
         });
+
+        $activite->tags()->sync($validated['tags'] ?? []);
 
         return redirect()
             ->route('onfp.activites.show', $activite)
@@ -604,6 +609,9 @@ class OnfpActiviteController extends Controller
 
             'tiers_intervenants' => ['nullable', 'array'],
             'tiers_intervenants.*' => ['exists:onfp_tiers,id'],
+
+            'tags' => ['nullable', 'array'],
+            'tags.*' => ['exists:onfp_activite_tags,id'],
         ];
     }
 
