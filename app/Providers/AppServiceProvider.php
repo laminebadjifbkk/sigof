@@ -62,6 +62,8 @@ use App\Models\ActiviteQuotidienne;
 use Illuminate\Support\Facades\Auth;
 use App\Models\SuiviPostIndividuel;
 use App\Observers\SuiviPostIndividuelObserver;
+use App\Models\OnfpActivite;
+use App\Observers\OnfpActiviteObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -117,5 +119,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         SuiviPostIndividuel::observe(SuiviPostIndividuelObserver::class);
+        SuiviPostIndividuel::observe(SuiviPostIndividuelObserver::class);
+        OnfpActivite::observe(OnfpActiviteObserver::class);
     }
 }

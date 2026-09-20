@@ -213,17 +213,17 @@ class OnfpActiviteTiersController extends Controller
     /**
      * Détache un tiers de l'activité (ne supprime pas le tiers lui-même).
      */
-    public function destroy(OnfpActivite $activite, OnfpActiviteTiers $tier)
+    public function destroy(OnfpActivite $activite, OnfpActiviteTiers $lien)
     {
         abort_unless(
-            (int) $tier->activite_id === (int) $activite->id,
+            (int) $lien->activite_id === (int) $activite->id,
             404
         );
 
-        $tier->delete();
+        $lien->delete();
 
         return redirect()
             ->route('onfp.tiers.index', $activite)
-            ->with('success', 'Le tiers a été retiré de l\'activité.');
+            ->with('success', 'Le lien a été retiré de l\'activité.');
     }
 }

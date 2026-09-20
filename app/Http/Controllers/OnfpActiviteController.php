@@ -389,7 +389,7 @@ class OnfpActiviteController extends Controller
     /**
      * Mise à jour.
      */
-    public function update(Request $request, OnfpActivite $activite)
+    /* public function update(Request $request, OnfpActivite $activite)
     {
         $validated = $request->validate($this->rules());
 
@@ -446,7 +446,44 @@ class OnfpActiviteController extends Controller
         return redirect()
             ->route('onfp.activites.show', $activite)
             ->with('success', 'Activité mise à jour avec succès.');
+    } */
+
+    /**
+     * Mise à jour.
+     *
+     * L'historique est désormais généré automatiquement par
+     * App\Observers\OnfpActiviteObserver::updated() — plus besoin de détecter
+     * les changements manuellement ici.
+     */
+    public function update(Request $request, OnfpActivite $activite)
+    {
+        $validated = $request->validate($this->rules());
+
+        if (!$this->responsablePrincipalEstValide($validated)) {
+            return back()
+                ->withInput()
+                ->withErrors([
+                    'responsable_principal' =>
+                    "Le responsable principal doit également figurer parmi les responsables.",
+                ]);
+        }
+
+        DB::transaction(function () use ($validated, $activite) {
+
+            $activite->update($this->donneesActivite($validated) + [
+                'updated_by' => optional(auth()->user()->employee)->id,
+            ]);
+
+            $this->synchroniserResponsables($activite, $validated);
+            $this->synchroniserSuiveurs($activite, $validated);
+            $this->synchroniserTiers($activite, $validated);
+        });
+
+        return redirect()
+            ->route('onfp.activites.show', $activite)
+            ->with('success', 'Activité mise à jour avec succès.');
     }
+
 
     /**
      * Synchronise les tiers intervenants sélectionnés dans le formulaire
