@@ -215,7 +215,7 @@
                         {{-- Recherche --}}
                         <div class="col-md-4">
                             <label class="form-label">Recherche</label>
-                            <input type="text" name="search" value="{{ request('search') }}" class="form-control"
+                            <input type="text" name="search" value="{{ request('search') }}" class="form-control form-control-sm"
                                 placeholder="Référence, titre, responsable...">
                         </div>
 
