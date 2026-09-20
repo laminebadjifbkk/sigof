@@ -54,7 +54,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('activites:statuts')->everyMinute();
 
         $schedule->command('onfp:notifier-echeances')
-            ->dailyAt('13:31')
+            ->dailyAt('07:30')
             ->withoutOverlapping() // évite un double lancement si la commande précédente tourne encore
             ->onOneServer();       // si jamais vous avez plusieurs serveurs/instances, évite les doublons
     }
