@@ -29,7 +29,7 @@
         {{-- ============================================================
         KPI GLOBAUX
         ============================================================= --}}
-        <div class="row row-cols-2 row-cols-md-5 g-3 mb-4">
+        {{-- <div class="row row-cols-2 row-cols-md-5 g-3 mb-4">
 
             <div class="col">
                 <div class="card border-0 shadow-sm h-100">
@@ -73,6 +73,81 @@
                     <div class="card-body">
                         <div class="text-muted small mb-1">Progression moyenne</div>
                         <h3 class="mb-0">{{ $kpiGlobaux['progression_moyenne'] }}%</h3>
+                    </div>
+                </div>
+            </div>
+
+        </div> --}}
+
+        <div class="row row-cols-2 row-cols-md-5 g-3 mb-4">
+
+            <div class="col">
+                <div class="card border-0 shadow-sm h-100 rounded-4 hover-card">
+                    <div class="card-body d-flex align-items-center gap-3">
+                        <div class="icon-box rounded-circle bg-primary bg-opacity-10 text-primary flex-shrink-0">
+                            <i class="bi bi-kanban fs-4"></i>
+                        </div>
+                        <div>
+                            <div class="text-muted small mb-1">Total activités</div>
+                            <h3 class="mb-0 fw-bold">{{ $kpiGlobaux['total'] }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card border-0 shadow-sm h-100 rounded-4 hover-card">
+                    <div class="card-body d-flex align-items-center gap-3">
+                        <div class="icon-box rounded-circle bg-primary bg-opacity-10 text-primary flex-shrink-0">
+                            <i class="bi bi-arrow-repeat fs-4"></i>
+                        </div>
+                        <div>
+                            <div class="text-muted small mb-1">En cours</div>
+                            <h3 class="mb-0 fw-bold text-primary">{{ $kpiGlobaux['en_cours'] }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card border-0 shadow-sm h-100 rounded-4 hover-card">
+                    <div class="card-body d-flex align-items-center gap-3">
+                        <div class="icon-box rounded-circle bg-success bg-opacity-10 text-success flex-shrink-0">
+                            <i class="bi bi-check-circle fs-4"></i>
+                        </div>
+                        <div>
+                            <div class="text-muted small mb-1">Terminées</div>
+                            <h3 class="mb-0 fw-bold text-success">{{ $kpiGlobaux['terminee'] }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div
+                    class="card border-0 shadow-sm h-100 rounded-4 hover-card {{ $kpiGlobaux['en_retard'] > 0 ? 'border-start border-danger border-4' : '' }}">
+                    <div class="card-body d-flex align-items-center gap-3">
+                        <div class="icon-box rounded-circle bg-danger bg-opacity-10 text-danger flex-shrink-0">
+                            <i class="bi bi-exclamation-triangle fs-4"></i>
+                        </div>
+                        <div>
+                            <div class="text-muted small mb-1">En retard</div>
+                            <h3 class="mb-0 fw-bold text-danger">{{ $kpiGlobaux['en_retard'] }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card border-0 shadow-sm h-100 rounded-4 hover-card">
+                    <div class="card-body d-flex align-items-center gap-3">
+                        <div class="icon-box rounded-circle bg-warning bg-opacity-10 text-warning flex-shrink-0">
+                            <i class="bi bi-speedometer2 fs-4"></i>
+                        </div>
+                        <div>
+                            <div class="text-muted small mb-1">Progression moyenne</div>
+                            <h3 class="mb-0 fw-bold">{{ $kpiGlobaux['progression_moyenne'] }}%</h3>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -217,7 +292,7 @@
                                 <th>En retard</th>
                                 <th>À risque</th>
                                 <th>Progression moy.</th>
-                                <th>Responsables actifs</th>
+                                <th class="text-center">Responsables actifs</th>
                                 <th class="text-end pe-4">Action</th>
                             </tr>
                         </thead>
@@ -252,7 +327,7 @@
                                         </div>
                                         <small>{{ $ligne->progression_moyenne }}%</small>
                                     </td>
-                                    <td>{{ $ligne->nb_responsables }}</td>
+                                    <td class="text-center">{{ $ligne->nb_responsables }}</td>
                                     <td class="text-end pe-4">
                                         <a href="{{ route('onfp.activites.index', ['direction_id' => $ligne->direction->id]) }}"
                                             class="btn btn-sm btn-outline-primary">
@@ -278,11 +353,10 @@
 @endsection
 
 @push('scripts')
-
     <script>
         // Rechargement automatique toutes les 60 secondes — pratique pour
         // un affichage permanent sur écran de télévision (mode kiosque).
-        setTimeout(function () {
+        setTimeout(function() {
             window.location.reload();
         }, 60000);
     </script>
