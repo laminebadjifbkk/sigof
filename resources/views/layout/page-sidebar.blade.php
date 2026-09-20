@@ -15,11 +15,12 @@
         $activeAntennes = request()->is('antennes*');
         $activeRoles = request()->is('roles*');
 
-        $activeActivites = request()->routeIs('onfp.activites.*') 
-        || request()->routeIs('onfp.activite-types.*') 
-        || request()->routeIs('onfp.tiers.*')
-        || request()->routeIs('onfp.activite-tags.*')
-        ;
+        $activeActivites =
+            request()->routeIs('onfp.activites.*') ||
+            request()->routeIs('onfp.activite-types.*') ||
+            request()->routeIs('onfp.tiers.*') ||
+            request()->routeIs('onfp.activite-tags.*') ||
+            request()->routeIs('onfp.dashboard.*');
     @endphp
 
     <ul class="sidebar-nav" id="sidebar-nav">
@@ -158,6 +159,14 @@
 
                 <ul id="gestion-activites-nav" class="nav-content collapse {{ $activeActivites ? 'show' : '' }}"
                     data-bs-parent="#sidebar-nav">
+
+                    {{-- Dashboard --}}
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('onfp.dashboard.*') ? 'active' : 'collapsed' }}"
+                            href="{{ route('onfp.dashboard.global') }}">
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
 
                     {{-- Activités --}}
                     <li class="nav-item">

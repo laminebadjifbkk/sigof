@@ -1,6 +1,6 @@
 @extends('layout.user-layout')
 
-@section('title', 'Tableau de bord — Activités')
+@section('title', 'Tableau de bord - Activités')
 
 @section('space-work')
 
@@ -120,7 +120,7 @@
                         <i class="bi bi-exclamation-triangle text-danger me-2"></i>
                         Activités à surveiller en priorité
                     </h5>
-                    <small class="text-muted">En retard ou à risque/critique — triées par échéance la plus proche</small>
+                    <small class="text-muted">En retard ou à risque/critique - triées par échéance la plus proche</small>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
@@ -151,7 +151,7 @@
                                             </a>
                                             <div class="small text-muted">{{ $activite->reference }}</div>
                                         </td>
-                                        <td>{{ $activite->direction?->sigle ?: $activite->direction?->name ?? '—' }}</td>
+                                        <td>{{ $activite->direction?->sigle ?: $activite->direction?->name ?? '-' }}</td>
                                         <td>
                                             @if ($principal && $principal->employee)
                                                 @php
@@ -171,7 +171,7 @@
                                                     {{ $activite->date_fin_prevue->format('d/m/Y') }}
                                                 </span>
                                             @else
-                                                <span class="text-muted">—</span>
+                                                <span class="text-muted">-</span>
                                             @endif
                                         </td>
                                         <td style="min-width: 100px">
