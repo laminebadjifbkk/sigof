@@ -128,6 +128,7 @@ use App\Http\Controllers\OnfpActiviteTiersController;
 use App\Http\Controllers\OnfpActiviteCommentaireController;
 use App\Http\Controllers\OnfpNotificationController;
 use App\Http\Controllers\OnfpActiviteTagController;
+use App\Http\Controllers\OnfpDashboardController;
 
 
 
@@ -1347,8 +1348,13 @@ Route::group(['middleware' => ['XSS']], function () {
                 ->name('notifications.destroy');
 
             // Annuaire des tags (pas de "show" dédié, un tag n'a pas de page détail utile)
-Route::resource('activite-tags', OnfpActiviteTagController::class)
-    ->except(['show']);
+            Route::resource('activite-tags', OnfpActiviteTagController::class)
+                ->except(['show']);
+
+
+            Route::get('dashboard-activites', [OnfpDashboardController::class, 'global'])
+                ->name('dashboard.global')
+                ->middleware('can:activite-view');
         });
 
         /* Route::post('activites/{activite}/taches', [OnfpTacheActiviteController::class, 'store'])
