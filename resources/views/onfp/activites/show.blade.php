@@ -156,7 +156,7 @@
             </div>
 
             <div class="col-6 col-md-2">
-                <a href="{{ route('onfp.tiers.show', $activite) }}"
+                <a href="{{ route('onfp.activites.tiers.index', $activite) }}"
                     class="card border-0 shadow-sm h-100 text-decoration-none quick-stat-card">
                     <div class="card-body text-center py-3">
                         <i class="bi bi-person-vcard text-primary fs-4"></i>
