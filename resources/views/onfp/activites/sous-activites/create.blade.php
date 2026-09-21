@@ -40,14 +40,14 @@
                         'onfp.activites.sous-activites.index',
                         ['activite' => $activite]
                     ) }}"
-                       class="btn btn-outline-secondary">
+                       class="btn btn-sm btn-outline-secondary">
 
                         Annuler
 
                     </a>
 
                     <button type="submit"
-                            class="btn btn-primary">
+                            class="btn btn-sm btn-primary">
 
                         <i class="bi bi-check-lg me-1"></i>
                         Enregistrer

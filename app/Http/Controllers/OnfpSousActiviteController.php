@@ -29,13 +29,23 @@ class OnfpSousActiviteController extends Controller
     /**
      * Formulaire de création.
      */
-    public function create(OnfpActivite $activite)
+    /*  public function create(OnfpActivite $activite)
     {
         $priorites = OnfpSousActivite::PRIORITES;
 
         return view(
             'onfp.activites.sous-activites.create',
             compact('activite', 'priorites')
+        );
+    } */
+    public function create(OnfpActivite $activite)
+    {
+        $statuts   = OnfpSousActivite::STATUTS;
+        $priorites = OnfpSousActivite::PRIORITES;
+
+        return view(
+            'onfp.activites.sous-activites.create',
+            compact('activite', 'statuts', 'priorites')
         );
     }
 
