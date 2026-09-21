@@ -159,7 +159,7 @@
 
         <select name="sens"
                 id="sens"
-                class="form-select @error('sens') is-invalid @enderror"
+                class="form-select form-select-sm @error('sens') is-invalid @enderror"
                 required>
 
             <option value="">
