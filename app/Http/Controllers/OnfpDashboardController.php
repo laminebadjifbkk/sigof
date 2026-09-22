@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Direction;
 use App\Models\OnfpActivite;
+use App\Models\Formation;
+use App\Models\Individuelle;
+use App\Models\Listecollective;
 use Illuminate\Http\Request;
 
 class OnfpDashboardController extends Controller
@@ -159,13 +162,13 @@ class OnfpDashboardController extends Controller
 
         $anneeActuelle = (string) now()->year;
 
-        $formationsEnCours = \App\Models\Formation::where('statut', 'En cours')->count();
+        $formationsEnCours = Formation::where('statut', 'En cours')->count();
 
-        $formesIndividuels = \App\Models\Individuelle::where('statut', 'Formé')
+        $formesIndividuels = Individuelle::where('statut', 'Formé')
             ->whereHas('formation', fn($q) => $q->where('annee', $anneeActuelle))
             ->count();
 
-        $formesCollectifs = \App\Models\Listecollective::where('statut', 'formé')
+        $formesCollectifs = Listecollective::where('statut', 'Formé')
             ->whereHas('formation', fn($q) => $q->where('annee', $anneeActuelle))
             ->count();
 
