@@ -151,11 +151,34 @@ class OnfpDashboardController extends Controller
             ->limit(10)
             ->get();
 
+        /*
+        |----------------------------------------------------------------
+        | Formations (module distinct des activités, même tableau de bord)
+        |----------------------------------------------------------------
+        */
+
+        $anneeActuelle = (string) now()->year;
+
+        $formationsEnCours = \App\Models\Formation::where('statut', 'En cours')->count();
+
+        $formesIndividuels = \App\Models\Individuelle::where('statut', 'Formé')
+            ->whereHas('formation', fn($q) => $q->where('annee', $anneeActuelle))
+            ->count();
+
+        $formesCollectifs = \App\Models\Listecollective::where('statut', 'formé')
+            ->whereHas('formation', fn($q) => $q->where('annee', $anneeActuelle))
+            ->count();
+
+        $nbFormesAnnee = $formesIndividuels + $formesCollectifs;
+
         return view('onfp.dashboard.global', [
             'visionGlobale' => $visionGlobale,
             'lignesDirections' => $lignesDirections,
             'kpiGlobaux' => $kpiGlobaux,
             'activitesUrgentes' => $activitesUrgentes,
+            'formationsEnCours' => $formationsEnCours,
+            'nbFormesAnnee' => $nbFormesAnnee,
+            'anneeActuelle' => $anneeActuelle,
             'statuts' => [
                 'a_faire' => 'À faire',
                 'en_cours' => 'En cours',

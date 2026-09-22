@@ -156,6 +156,41 @@
 
 
         {{-- ============================================================
+        KPI FORMATIONS (module distinct des activités)
+        ============================================================= --}}
+        <div class="row row-cols-1 row-cols-md-2 g-3 mb-4">
+
+            <div class="col">
+                <div class="card border-0 shadow-sm h-100 rounded-4 hover-card">
+                    <div class="card-body d-flex align-items-center gap-3">
+                        <div class="icon-box rounded-circle bg-info bg-opacity-10 text-info flex-shrink-0">
+                            <i class="bi bi-mortarboard fs-4"></i>
+                        </div>
+                        <div>
+                            <div class="text-muted small mb-1">Formations en cours</div>
+                            <h3 class="mb-0 fw-bold text-info">{{ $formationsEnCours }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card border-0 shadow-sm h-100 rounded-4 hover-card">
+                    <div class="card-body d-flex align-items-center gap-3">
+                        <div class="icon-box rounded-circle bg-success bg-opacity-10 text-success flex-shrink-0">
+                            <i class="bi bi-people fs-4"></i>
+                        </div>
+                        <div>
+                            <div class="text-muted small mb-1">Nombre de formés en {{ $anneeActuelle }}</div>
+                            <h3 class="mb-0 fw-bold text-success">{{ $nbFormesAnnee }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        {{-- ============================================================
         GRAPHIQUES
         ============================================================= --}}
         <div class="row g-3 mb-4">
