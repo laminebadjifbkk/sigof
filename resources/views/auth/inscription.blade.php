@@ -218,8 +218,9 @@
                                 <option value="" @selected(!old('langue_specialisation'))>-- Choisissez --</option>
                                 <option value="japonais" @selected(old('langue_specialisation') == 'japonais')>Japonais</option>
                                 <option value="coreen" @selected(old('langue_specialisation') == 'coreen')>Coréen</option>
-                                {{-- <option value="italien" @selected(old('langue_specialisation') == 'italien')>Italien</option>
-                                <option value="chinois" @selected(old('langue_specialisation') == 'chinois')>Chinois</option> --}}
+                                <option value="italien" @selected(old('langue_specialisation') == 'italien')>Italien</option>
+                                <option value="chinois" @selected(old('langue_specialisation') == 'russe')>Russe</option>
+                                <option value="chinois" @selected(old('langue_specialisation') == 'arabe')>Arabe</option>
                             </select>
                             @error('langue_specialisation')
                                 <span class="field-error">{{ $message }}</span>
