@@ -7,6 +7,7 @@ use App\Models\OnfpActivite;
 use App\Models\Formation;
 use App\Models\Individuelle;
 use App\Models\Listecollective;
+use App\Models\ParcMission;
 use Illuminate\Http\Request;
 
 class OnfpDashboardController extends Controller
@@ -172,6 +173,9 @@ class OnfpDashboardController extends Controller
             ->whereHas('formation', fn($q) => $q->where('annee', $anneeActuelle))
             ->count();
 
+        $missionsEnCours = ParcMission::where('statut', 'en_cours')
+            ->count();
+
         $nbFormesAnnee = $formesIndividuels + $formesCollectifs;
 
         return view('onfp.dashboard.global', [
@@ -182,6 +186,7 @@ class OnfpDashboardController extends Controller
             'formationsEnCours' => $formationsEnCours,
             'nbFormesAnnee' => $nbFormesAnnee,
             'anneeActuelle' => $anneeActuelle,
+            'missionsEnCours' => $missionsEnCours,
             'statuts' => [
                 'a_faire' => 'À faire',
                 'en_cours' => 'En cours',
