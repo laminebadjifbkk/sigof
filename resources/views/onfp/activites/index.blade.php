@@ -386,18 +386,20 @@
                     </thead>
 
                     <tbody>
-                        @forelse($activites as $activite)
-
+                        @foreach ($activites as $activite)
                             @php
                                 $principal = $activite->responsables->firstWhere('is_principal', true);
+
                                 $statutMeta = $statuts[$activite->statut] ?? [
                                     'label' => $activite->statut,
                                     'badge' => 'secondary',
                                 ];
+
                                 $santeMeta = $etatsSante[$activite->etat_sante] ?? [
                                     'label' => $activite->etat_sante,
                                     'badge' => 'secondary',
                                 ];
+
                                 $echeanceDepassee =
                                     $activite->date_fin_prevue &&
                                     $activite->date_fin_prevue->isPast() &&
@@ -407,7 +409,9 @@
                             <tr>
 
                                 {{-- Référence --}}
-                                <td><strong>{{ $activite->reference }}</strong></td>
+                                <td>
+                                    <strong>{{ $activite->reference }}</strong>
+                                </td>
 
                                 {{-- Activité --}}
                                 <td>
@@ -415,9 +419,15 @@
                                         class="text-decoration-none fw-semibold">
                                         {{ $activite->titre }}
                                     </a>
+
                                     @if ($activite->type)
-                                        <div><small class="text-muted">{{ $activite->type->libelle }}</small></div>
+                                        <div>
+                                            <small class="text-muted">
+                                                {{ $activite->type->libelle }}
+                                            </small>
+                                        </div>
                                     @endif
+
                                     @if ($activite->tags->isNotEmpty())
                                         <div class="d-flex flex-wrap gap-1 mt-1">
                                             @foreach ($activite->tags as $tag)
@@ -433,7 +443,7 @@
                                 {{-- Direction --}}
                                 <td>
                                     @if ($activite->direction)
-                                        <span>{{ $activite->direction->sigle ?: $activite->direction->name }}</span>
+                                        {{ $activite->direction->sigle ?: $activite->direction->name }}
                                     @else
                                         <span class="text-muted">—</span>
                                     @endif
@@ -444,10 +454,12 @@
                                     @if ($principal && $principal->employee)
                                         @php
                                             $u = $principal->employee->user;
+
                                             $nom = $u
                                                 ? trim($u->firstname . ' ' . $u->name)
                                                 : $principal->employee->matricule;
                                         @endphp
+
                                         {{ $nom }}
                                     @else
                                         <span class="text-muted">Non affecté</span>
@@ -459,32 +471,37 @@
                                     <div class="d-flex justify-content-between">
                                         <small>{{ $activite->progression }}%</small>
                                     </div>
+
                                     <div class="progress" style="height: 6px">
                                         <div class="progress-bar" role="progressbar"
                                             style="width: {{ $activite->progression }}%"
                                             aria-valuenow="{{ $activite->progression }}" aria-valuemin="0"
-                                            aria-valuemax="100"></div>
+                                            aria-valuemax="100">
+                                        </div>
                                     </div>
                                 </td>
 
                                 {{-- Statut --}}
                                 <td>
                                     <span
-                                        class="badge bg-{{ $statutMeta['badge'] }} {{ $statutMeta['badge'] === 'warning' ? 'text-dark' : '' }}">
+                                        class="badge bg-{{ $statutMeta['badge'] }}
+                    {{ $statutMeta['badge'] === 'warning' ? 'text-dark' : '' }}">
                                         {{ $statutMeta['label'] }}
                                     </span>
                                 </td>
 
                                 {{-- Priorité --}}
                                 <td>
-                                    <span
-                                        class="text-capitalize">{{ $priorites[$activite->priorite] ?? $activite->priorite }}</span>
+                                    <span class="text-capitalize">
+                                        {{ $priorites[$activite->priorite] ?? $activite->priorite }}
+                                    </span>
                                 </td>
 
                                 {{-- Santé --}}
                                 <td>
                                     <span
-                                        class="badge bg-{{ $santeMeta['badge'] }} {{ $santeMeta['badge'] === 'warning' ? 'text-dark' : '' }}">
+                                        class="badge bg-{{ $santeMeta['badge'] }}
+                    {{ $santeMeta['badge'] === 'warning' ? 'text-dark' : '' }}">
                                         {{ $santeMeta['label'] }}
                                     </span>
                                 </td>
@@ -495,6 +512,7 @@
                                         <span class="{{ $echeanceDepassee ? 'text-danger fw-semibold' : '' }}">
                                             {{ $activite->date_fin_prevue->format('d/m/Y') }}
                                         </span>
+
                                         @if ($echeanceDepassee)
                                             <i class="bi bi-exclamation-circle text-danger ms-1"
                                                 title="Échéance dépassée"></i>
@@ -507,6 +525,7 @@
                                 {{-- Actions --}}
                                 <td class="text-end">
                                     <div class="btn-group">
+
                                         <a href="{{ route('onfp.activites.show', $activite) }}"
                                             class="btn btn-sm btn-outline-primary" title="Voir">
                                             <i class="bi bi-eye"></i>
@@ -520,46 +539,18 @@
                                         <form method="POST" action="{{ route('onfp.activites.destroy', $activite) }}">
                                             @csrf
                                             @method('DELETE')
+
                                             <button type="submit" class="btn btn-sm btn-outline-danger show_confirm"
                                                 title="Supprimer">
                                                 <i class="bi bi-trash"></i>
                                             </button>
                                         </form>
+
                                     </div>
                                 </td>
 
                             </tr>
-
-                        @empty
-
-                            <tr>
-                                <td colspan="10" class="text-center py-5">
-                                    <div class="text-muted">
-                                        <i class="bi bi-inbox fs-1 d-block mb-3"></i>
-                                        <h5>Aucune activité trouvée</h5>
-                                        <p>
-                                            @if ($hasActiveFilters)
-                                                Aucune activité ne correspond aux critères sélectionnés.
-                                            @else
-                                                Commencez par créer une première activité.
-                                            @endif
-                                        </p>
-
-                                        @if ($hasActiveFilters)
-                                            <a href="{{ route('onfp.activites.index') }}"
-                                                class="btn btn-sm btn-outline-secondary me-2">
-                                                Réinitialiser les filtres
-                                            </a>
-                                        @endif
-
-                                        <a href="{{ route('onfp.activites.create') }}" class="btn btn-sm btn-primary">
-                                            Nouvelle activité
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-
-                        @endforelse
+                        @endforeach
                     </tbody>
 
                 </table>
