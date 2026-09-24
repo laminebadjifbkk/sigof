@@ -81,7 +81,7 @@ class StoreCandidatureRequest extends FormRequest
         $validator->after(function ($validator) {
             if ($this->filled('date_naissance')) {
                 $age = Carbon::parse($this->date_naissance)->age;
-                if ($age < 20 || $age > 35) {
+                if ($age < 20 || $age > 40) {
                     $validator->errors()->add(
                         'date_naissance',
                         'Le programme est ouvert aux candidats de 20 à 35 ans.'
