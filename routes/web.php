@@ -130,6 +130,8 @@ use App\Http\Controllers\OnfpNotificationController;
 use App\Http\Controllers\OnfpActiviteTagController;
 use App\Http\Controllers\OnfpDashboardController;
 
+use App\Http\Controllers\NoteFraisController;
+
 
 
 /*
@@ -1355,6 +1357,21 @@ Route::group(['middleware' => ['XSS']], function () {
             Route::get('dashboard-activites', [OnfpDashboardController::class, 'global'])
                 ->name('dashboard.global')
                 ->middleware('can:activite-view');
+        });
+
+        Route::prefix('notes-frais')->name('formations.notes-frais.')->group(function () {
+            Route::get('/', [NoteFraisController::class, 'index'])->name('index');
+            Route::get('/create', [NoteFraisController::class, 'create'])->name('create');
+            Route::post('/', [NoteFraisController::class, 'store'])->name('store');
+            Route::get('/{notes_frai}', [NoteFraisController::class, 'show'])->name('show');
+            Route::get('/{notes_frai}/edit', [NoteFraisController::class, 'edit'])->name('edit');
+            Route::put('/{notes_frai}', [NoteFraisController::class, 'update'])->name('update');
+            Route::delete('/{notes_frai}', [NoteFraisController::class, 'destroy'])->name('destroy');
+
+            Route::post('/{notes_frai}/soumettre', [NoteFraisController::class, 'soumettre'])->name('soumettre');
+            Route::post('/{notes_frai}/valider', [NoteFraisController::class, 'valider'])->name('valider');
+            Route::post('/{notes_frai}/marquer-payee', [NoteFraisController::class, 'marquerPayee'])->name('marquer-payee');
+            Route::get('/{notes_frai}/pdf', [NoteFraisController::class, 'pdf'])->name('pdf');
         });
 
         /* Route::post('activites/{activite}/taches', [OnfpTacheActiviteController::class, 'store'])

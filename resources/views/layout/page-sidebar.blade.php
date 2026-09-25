@@ -523,6 +523,28 @@
             </li>
         @endcan
 
+        @can('lettrevaluation-view')
+            <li class="nav-item">
+                <a class="nav-link {{ request()->routeIs('lettrevaluations.*') ? 'active' : 'collapsed' }}"
+                    href="{{ route('lettrevaluations.index') }}">
+                    <i class="bi bi-file fs-5"></i>
+                    <span>Évaluations formations</span>
+                </a>
+            </li>
+        @endcan
+
+        @can('note-frais-view')
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('formations.notes-frais.index') }}">
+                    <i class="bi bi-file fs-5"></i>
+                    <span>Notes de frais</span>
+                    @if (($notesFraisEnAttente ?? 0) > 0)
+                        <span class="badge bg-warning text-white ms-2">{{ $notesFraisEnAttente }}</span>
+                    @endif
+                </a>
+            </li>
+        @endcan
+
         @can('attestations-view')
             <li class="nav-item">
                 <a class="nav-link  {{ request()->routeIs('showAttestations.*') ? 'active' : 'collapsed' }}"

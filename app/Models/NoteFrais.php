@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class NoteFrais extends Model
 {
@@ -12,10 +13,47 @@ class NoteFrais extends Model
     protected $table = 'notes_frais';
 
     protected $fillable = [
-        'uuid', 'type', 'statut', 'session_label', 'periode_debut', 'periode_fin',
-        'lieu', 'beneficiaires', 'banque_rib', 'taux_acompte',
-        'formations_id', 'note_acompte_id', 'valide_par_id', 'date_validation',
+        'uuid',
+        'type',
+        'statut',
+        'session_label',
+        'periode_debut',
+        'periode_fin',
+        'lieu',
+        'beneficiaires',
+        'banque_rib',
+        'taux_acompte',
+        'formations_id',
+        'note_acompte_id',
+        'valide_par_id',
+        'date_validation',
+        'mode_paiement',
+        'reference_paiement',
+        'date_paiement',
+        'paye_par_id',
     ];
+
+    // Sans ces casts, periode_debut/periode_fin/date_validation remontent
+    // comme de simples chaînes et ->format() plante dans les vues.
+    protected $casts = [
+        'periode_debut' => 'datetime',
+        'periode_fin' => 'datetime',
+        'date_validation' => 'datetime',
+        'date_paiement' => 'datetime',
+        'taux_acompte' => 'decimal:2',
+        'sous_total_pedagogique' => 'decimal:2',
+        'sous_total_administratif' => 'decimal:2',
+        'total_frais_operateur' => 'decimal:2',
+        'montant_acompte_recu' => 'decimal:2',
+        'reliquat' => 'decimal:2',
+    ];
+
+    protected static function booted()
+    {
+        static::creating(function (NoteFrais $noteFrais) {
+            $noteFrais->uuid = $noteFrais->uuid ?: (string) Str::uuid();
+        });
+    }
 
     public function formation()
     {
@@ -80,5 +118,19 @@ class NoteFrais extends Model
     public function getMontantAcompteDemandeAttribute(): float
     {
         return round($this->total_frais_operateur * $this->taux_acompte / 100, 2);
+    }
+
+    /**
+     * Réponse fiable à "est-ce payé ?" : s'appuie sur la date de paiement,
+     * pas sur le libellé du statut (qui peut évoluer indépendamment).
+     */
+    public function getEstPayeeAttribute(): bool
+    {
+        return $this->statut === 'PAYEE' && $this->date_paiement !== null;
+    }
+
+    public function payeur()
+    {
+        return $this->belongsTo(\App\Models\User::class, 'paye_par_id');
     }
 }
