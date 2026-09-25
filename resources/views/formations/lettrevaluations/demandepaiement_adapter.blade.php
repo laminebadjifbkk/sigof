@@ -157,7 +157,7 @@
                 <p>
                     <u><b>Réf.</b></u> :
                     lettre de mission N°
-                    {{ $evaluateur?->pivot?->numero_lettre ?: '..............................' }}/ONFP/DG/DEC/{{ $formation->onfpevaluateurs->first()?->initiale }}
+                    {{ $evaluateur?->pivot?->numero_lettre ?: '..............................' }}/ONFP/DG/SG/DEC/{{ $formation->onfpevaluateurs->first()?->initiale }}
                     du
                     {{ $evaluateur?->pivot?->date_lettre
                         ? \Carbon\Carbon::parse($evaluateur->pivot->date_lettre)->translatedFormat('d F Y')
@@ -194,7 +194,7 @@
                     $brut = $evaluateur?->pivot?->indemnite ?? 0;
                     $montant_ir = round($brut * 0.05);
                     $montant_net = $brut - $montant_ir;
-                    
+
                     // 🔤 Conversion en lettres (via number-to-words)
                     $numberToWords = new NumberToWords\NumberToWords();
                     $numberTransformer = $numberToWords->getNumberTransformer('fr');
