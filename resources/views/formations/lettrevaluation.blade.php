@@ -147,7 +147,7 @@
 
                                 <td>
                                     <p style="font-weight: bold;">
-                                        ONFP/DG/DEC/{{ $formation?->initiale_evaluateur_onfp }}
+                                        ONFP/DG/SG/DEC/{{ $formation?->initiale_evaluateur_onfp }}
                                     </p>
                                     <p style="text-align: center; font-weight: bold;">Dakar, le</p><br>
                                     <p style="text-align: left; font-weight: bold; font-style: italic">Le Directeur
