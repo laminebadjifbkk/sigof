@@ -137,7 +137,7 @@
                 <p>
                     <u><b>Réf.</b></u> :
                     lettre de mission N°
-                    {{ $evaluateur?->pivot?->numero_lettre ?: '..............................' }}/ONFP/DG/DEC/{{ $formation->onfpevaluateurs->first()?->initiale }}
+                    {{ $evaluateur?->pivot?->numero_lettre ?: '..............................' }}/ONFP/DG/SG/DEC/{{ $formation->onfpevaluateurs->first()?->initiale }}
                     du
                     {{ $evaluateur?->pivot?->date_lettre
                         ? \Carbon\Carbon::parse($evaluateur->pivot->date_lettre)->translatedFormat('d F Y')
