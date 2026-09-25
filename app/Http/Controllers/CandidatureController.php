@@ -100,7 +100,7 @@ class CandidatureController extends Controller
         /* $dateOuverture  = Carbon::create(2026, 8, 17, 8, 0, 0, 'Africa/Dakar');
         $dateFermeture  = Carbon::create(2026, 8, 28, 17, 0, 0, 'Africa/Dakar'); */
         $dateOuverture = Carbon::create(2026, 9, 03, 8, 0, 0, 'Africa/Dakar');
-        $dateFermeture = Carbon::create(2026, 9, 25, 17, 0, 0, 'Africa/Dakar');
+        $dateFermeture = Carbon::create(2026, 9, 27, 17, 0, 0, 'Africa/Dakar');
         $maintenant     = Carbon::now('Africa/Dakar');
 
         if ($maintenant->lt($dateOuverture)) {

@@ -72,7 +72,7 @@
                     </div>
                     <p class="countdown-caption">
                         Il vous reste <strong>{{ $maintenant->diffInDays($dateFermeture) }} jour(s)</strong>
-                        pour déposer votre candidature - clôture le 25 septembre 2026 à 17h00 pour les langues : Japonais Coréen, Arabe, Russe et Italien.
+                        pour déposer votre candidature - clôture le 27 septembre 2026 à 17h00 pour les langues : Japonais Coréen, Arabe, Russe et Italien.
                     </p>
                 @else
                     <div class="countdown countdown-closed" role="status" aria-live="polite">
