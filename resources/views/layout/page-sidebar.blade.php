@@ -21,6 +21,9 @@
             request()->routeIs('onfp.tiers.*') ||
             request()->routeIs('onfp.activite-tags.*') ||
             request()->routeIs('onfp.dashboard.*');
+
+        $noteFrais = request()->routeIs('formations.notes-frais.*');
+
     @endphp
 
     <ul class="sidebar-nav" id="sidebar-nav">
@@ -512,22 +515,21 @@
                 </ul>
             </li>
         @endcan
-
-        @can('lettrevaluation-view')
+        {{-- @can('lettrevaluation-view')
             <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('lettrevaluations.*') ? 'active' : 'collapsed' }}"
                     href="{{ route('lettrevaluations.index') }}">
-                    <i class="bi bi-file fs-5"></i>
+                    <i class="bi bi-clipboard-check fs-5"></i>
                     <span>Évaluations formations</span>
                 </a>
             </li>
-        @endcan
+        @endcan --}}
 
         @can('lettrevaluation-view')
             <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('lettrevaluations.*') ? 'active' : 'collapsed' }}"
                     href="{{ route('lettrevaluations.index') }}">
-                    <i class="bi bi-file fs-5"></i>
+                    <i class="bi bi-clipboard-check fs-5"></i>
                     <span>Évaluations formations</span>
                 </a>
             </li>
@@ -535,8 +537,9 @@
 
         @can('note-frais-view')
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('formations.notes-frais.index') }}">
-                    <i class="bi bi-file fs-5"></i>
+                <a class="nav-link {{ request()->routeIs('formations.notes-frais.*') ? 'active' : 'collapsed' }}"
+                    href="{{ route('formations.notes-frais.index') }}">
+                    <i class="bi bi-receipt fs-5"></i>
                     <span>Notes de frais</span>
                     @if (($notesFraisEnAttente ?? 0) > 0)
                         <span class="badge bg-warning text-white ms-2">{{ $notesFraisEnAttente }}</span>
