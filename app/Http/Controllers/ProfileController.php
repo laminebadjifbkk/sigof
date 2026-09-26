@@ -574,20 +574,17 @@ class ProfileController extends Controller
 
             $file = $request->file('image');
 
-            // Crée une version renommée et propre du nom
-            $filename        = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-            $filename        = preg_replace("/[^A-Za-z0-9 ]/", '', $filename);
-            $filename        = preg_replace("/\s+/", '-', $filename);
-            $extension       = $file->getClientOriginalExtension();
+            // Nom de fichier propre
+            $filename  = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $filename  = preg_replace("/[^A-Za-z0-9 ]/", '', $filename);
+            $filename  = preg_replace("/\s+/", '-', $filename);
+            $extension = $file->getClientOriginalExtension();
             $fileNameToStore = 'avatars/' . $filename . time() . '.' . $extension;
 
-            // Utilise Intervention sur le fichier temporaire directement
-            $image = Image::make($file->getRealPath())->fit(800, 800);
+            // Fichier stocké tel quel, sans passer par Intervention Image :
+            // ->encode() ré-encode toujours, même sans ->fit().
+            Storage::disk('public')->putFileAs('avatars', $file, basename($fileNameToStore));
 
-            // Sauvegarde manuellement dans le disque 'public'
-            Storage::disk('public')->put($fileNameToStore, (string) $image->encode());
-
-            // Met à jour l'utilisateur
             $user->update([
                 'image' => $fileNameToStore,
             ]);

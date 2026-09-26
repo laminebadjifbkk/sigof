@@ -283,14 +283,17 @@ class UserController extends Controller
             // Get the original image extension
             $extension = $file->getClientOriginalExtension();
 
-            // Create unique file name
+            /* // Create unique file name
             $fileNameToStore = 'avatars/' . $filename . '' . time() . '.' . $extension;
 
             //dd($fileNameToStore);
 
             $image = Image::make(public_path("/storage/{$imagePath}"))->fit(800, 800);
 
-            $image->save();
+            $image->save(); */
+
+            // Create unique file name
+            $fileNameToStore = 'avatars/' . $filename . '' . time() . '.' . $extension;
 
             $user->update([
                 'image' => $imagePath,
@@ -424,12 +427,6 @@ class UserController extends Controller
 
                 // Create unique file name
                 $fileNameToStore = 'avatars/' . $filename . '' . time() . '.' . $extension;
-
-                //dd($fileNameToStore);
-
-                $image = Image::make(public_path("/storage/{$imagePath}"))->fit(800, 800);
-
-                $image->save();
 
                 $user->update([
                     'image' => $imagePath,

@@ -123,12 +123,6 @@ class EmployeController extends Controller
             // Create unique file name
             $fileNameToStore = 'avatars/' . $filename . '' . time() . '.' . $extension;
 
-            //dd($fileNameToStore);
-
-            $image = Image::make(public_path("/storage/{$imagePath}"))->fit(800, 800);
-
-            $image->save();
-
             $user->update([
                 'image' => $imagePath,
             ]);
