@@ -20,7 +20,7 @@
                 <option value="{{ $formation->id }}"
                     @selected(old('formations_id', $noteFrais->formations_id ?? '') == $formation->id)>
                     {{ $formation->operateur?->user?->display_operateur }}
-                    — {{ $formation->intitule ?? $formation->name }}
+                    - {{ $formation->intitule ?? $formation->name }}
                 </option>
             @endforeach
         </select>
