@@ -182,9 +182,30 @@ class NoteFraisController extends Controller
     {
         $notes_frai->load(['formation', 'lignes.rubrique']);
 
+        // Image de l'opérateur stockée dans users.image. On essaie les deux
+        // emplacements courants (disque "public" symlinké, ou chemin direct
+        // sous public/) avant de retomber sur le logo ONFP par défaut.
+        $imageUser = $notes_frai?->operateur?->user?->image;
+        $cheminLogo = null;
+
+        if ($imageUser) {
+            foreach ([storage_path('app/public/' . $imageUser), public_path($imageUser)] as $chemin) {
+                if (is_file($chemin)) {
+                    $cheminLogo = $chemin;
+                    break;
+                }
+            }
+        }
+
+        $cheminLogo = $cheminLogo ?: public_path('assets/img/logo-onfp.jpg');
+        $mimeLogo = mime_content_type($cheminLogo) ?: 'image/png';
+
+
         $pdf = Pdf::loadView('pdf.note_frais', [
             'title' => 'Note de frais',
             'noteFrais' => $notes_frai,
+            'mimeLogo' => $mimeLogo,
+            'cheminLogo' => $cheminLogo,
         ]);
 
         return $pdf->stream("note-frais-{$notes_frai->id}.pdf");

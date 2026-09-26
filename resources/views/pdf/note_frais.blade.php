@@ -57,7 +57,7 @@
             background: #eee;
         }
 
-        footer {
+        /* footer {
             position: fixed;
             bottom: 0cm;
             left: 0cm;
@@ -82,12 +82,81 @@
             margin: 0;
             padding: 0.5mm 0 0 0;
             line-height: 1.5;
+        } */
+
+        .entete-table {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .entete-table td {
+            vertical-align: top;
+            font-size: 12px;
+            line-height: 18px;
+        }
+
+        .entete-table .entete-logo {
+            width: 45%;
+        }
+
+        .entete-table .entete-logo img {
+            max-width: 160px;
+        }
+
+        .entete-table .entete-lieu-date {
+            width: 55%;
+            text-align: right;
+            font-weight: bold;
+            padding-top: 8px;
+        }
+
+
+        /* DomPDF ne charge pas Bootstrap : ces classes utilitaires doivent
+           être définies ici pour avoir un effet dans le PDF. */
+        .text-decoration-none {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .text-muted {
+            color: #6c757d;
         }
     </style>
 </head>
 
 <body>
     <div class="invoice-box">
+
+        {{-- ============================================================
+        EN-TETE : logo + coordonnées à gauche, lieu et date à droite
+        ============================================================= --}}
+        <table class="entete-table">
+            <tr>
+                <td class="entete-logo">
+                    <img src="data:{{ $mimeLogo }};base64,{{ base64_encode(file_get_contents($cheminLogo)) }}"
+                        alt="Logo opérateur">
+                    <p style="margin: 4px 0 0 0;">
+                        Tél :
+                        @forelse ($noteFrais?->operateur?->numeros ?? [] as $numero)
+                            <a href="tel:+221{{ preg_replace('/[^0-9]/', '', $numero) }}" class="text-decoration-none">
+                                {{ $numero }}
+                            </a>
+                        @empty
+                            <span class="text-muted fst-italic">Aucun numéro</span>
+                        @endforelse
+                        <br>
+                        Email : <a
+                            href="mailto:{{ $noteFrais?->operateur?->user?->email }}">{{ $noteFrais?->operateur?->user?->email }}</a><br>
+                        NINEA : {{ $noteFrais?->operateur?->user?->ninea ?? 'Aucun' }}
+                    </p>
+                </td>
+                <td class="entete-lieu-date">
+                    {{ $noteFrais?->lieu }}, le
+                    {{ optional($noteFrais?->formation?->date_pv)->format('d/m/Y') }}
+                </td>
+            </tr>
+        </table>
+
         <h2 style="text-align: center;">
             NOTE DE FRAIS {{ $noteFrais->type === 'ACOMPTE' ? "D'ACOMPTE" : 'DEFINITIVE' }}
         </h2>
@@ -115,10 +184,13 @@
             <p>{{ $noteFrais->session_label }}</p>
         @endif
 
+        {{-- Pas de rowspan ici : DomPDF gère mal rowspan + colspan combinés
+             dans une même table (bordure cassée sur la ligne de sous-total).
+             On remplace la colonne "Rubriques" en rowspan par une ligne
+             d'en-tête de groupe en pleine largeur (colspan seul, fiable). --}}
         <table class="lignes">
             <thead>
                 <tr>
-                    <th>Rubriques</th>
                     <th>Libellés</th>
                     <th>Unités</th>
                     <th>Qte</th>
@@ -129,11 +201,13 @@
             <tbody>
                 @foreach (['PEDAGOGIQUE' => 'FRAIS PEDAGOGIQUES', 'ADMINISTRATIF' => 'FRAIS ADMINISTRATIFS'] as $groupe => $label)
                     @php $lignesGroupe = $noteFrais->lignes->where('rubrique.groupe', $groupe); @endphp
-                    @foreach ($lignesGroupe as $i => $ligne)
+
+                    <tr class="groupe">
+                        <td colspan="5">{{ $label }}</td>
+                    </tr>
+
+                    @foreach ($lignesGroupe as $ligne)
                         <tr>
-                            @if ($i === 0)
-                                <td rowspan="{{ $lignesGroupe->count() }}">{{ $label }}</td>
-                            @endif
                             <td>{{ $ligne->rubrique->libelle }}</td>
                             <td>{{ $ligne->unite }}</td>
                             <td>{{ number_format($ligne->qte, 0, ',', ' ') }}</td>
@@ -141,8 +215,9 @@
                             <td class="montant">{{ number_format($ligne->montant, 0, ',', ' ') }}</td>
                         </tr>
                     @endforeach
+
                     <tr class="sous-total">
-                        <td colspan="5">
+                        <td colspan="4">
                             Sous total {{ $groupe === 'PEDAGOGIQUE' ? '1' : '2' }}
                         </td>
                         <td class="montant">
@@ -152,23 +227,23 @@
                 @endforeach
 
                 <tr class="total">
-                    <td colspan="5">TOTAL FRAIS OPERATEUR</td>
+                    <td colspan="4">TOTAL FRAIS OPERATEUR</td>
                     <td class="montant">{{ number_format($noteFrais->total_frais_operateur, 0, ',', ' ') }}</td>
                 </tr>
 
                 @if ($noteFrais->type === 'ACOMPTE')
                     <tr class="total">
-                        <td colspan="5">ACOMPTE
+                        <td colspan="4">ACOMPTE
                             ({{ rtrim(rtrim(number_format($noteFrais->taux_acompte, 2), '0'), '.') }}%)</td>
                         <td class="montant">{{ number_format($noteFrais->montant_acompte_demande, 0, ',', ' ') }}</td>
                     </tr>
                 @else
                     <tr class="sous-total">
-                        <td colspan="5">ACOMPTE RECU (B)</td>
+                        <td colspan="4">ACOMPTE RECU (B)</td>
                         <td class="montant">{{ number_format($noteFrais->montant_acompte_recu, 0, ',', ' ') }}</td>
                     </tr>
                     <tr class="total">
-                        <td colspan="5">RELIQUAT (RESTE A PERCEVOIR) (A-B)</td>
+                        <td colspan="4">RELIQUAT (RESTE A PERCEVOIR) (A-B)</td>
                         <td class="montant">{{ number_format($noteFrais->reliquat, 0, ',', ' ') }}</td>
                     </tr>
                 @endif
@@ -184,7 +259,7 @@
         </p>
     </div>
 
-    <footer>
+    {{-- <footer>
         <div class="page-number">
             <div class="footer-line"></div>
             <p class="footer-text">
@@ -192,7 +267,7 @@
                 Fax: (+221) 33 827 92 55 <br> BP: 21013 Dakar-Ponty Email: <a href="#">onfp@onfp.sn</a>
             </p>
         </div>
-    </footer>
+    </footer> --}}
 </body>
 
 </html>
