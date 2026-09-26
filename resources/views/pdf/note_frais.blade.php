@@ -252,6 +252,16 @@
             </tbody>
         </table>
 
+        <p style="margin-top: 15px; text-align: justify;">
+            @if ($noteFrais->type === 'ACOMPTE')
+                Arrêtée la présente <b>note de frais d'acompte</b> à la somme de
+                {{ ucfirst($numberTransformer->toWords($noteFrais->montant_acompte_demande)) . ' Francs CFA' }}.
+            @else
+                Arrêtée la présente <b>note de frais définitive</b> à la somme de
+                {{ ucfirst($numberTransformer->toWords($noteFrais->reliquat)) . ' Francs CFA' }}.
+            @endif
+        </p>
+
         <p style="margin-top: 20px;">
             <b>Banque RIB :</b> {{ $noteFrais->banque_rib }}
         </p>

@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Barryvdh\DomPDF\Facade\Pdf;
+use NumberToWords\NumberToWords;
 
 class NoteFraisController extends Controller
 {
@@ -209,11 +210,18 @@ class NoteFraisController extends Controller
         // sans logo plutôt que d'afficher le logo ONFP par défaut.
         $mimeLogo = $cheminLogo ? (mime_content_type($cheminLogo) ?: 'image/png') : null;
 
+
+
+        $numberToWords     = new NumberToWords();
+        $numberTransformer = $numberToWords->getNumberTransformer('fr');
+        //$montant_lettres   = ucfirst($numberTransformer->toWords($brut)) . ' francs CFA';
+
         $pdf = Pdf::loadView('pdf.note_frais', [
             'title' => 'Note de frais',
             'noteFrais' => $notes_frai,
             'mimeLogo' => $mimeLogo,
             'cheminLogo' => $cheminLogo,
+            'numberTransformer' => $numberTransformer,
         ]);
 
         return $pdf->stream("note-frais-{$notes_frai->id}.pdf");
