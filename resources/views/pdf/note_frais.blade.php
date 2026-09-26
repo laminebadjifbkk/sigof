@@ -133,8 +133,10 @@
         <table class="entete-table">
             <tr>
                 <td class="entete-logo">
-                    <img src="data:{{ $mimeLogo }};base64,{{ base64_encode(file_get_contents($cheminLogo)) }}"
-                        alt="Logo opérateur">
+                    @if ($cheminLogo)
+                        <img src="data:{{ $mimeLogo }};base64,{{ base64_encode(file_get_contents($cheminLogo)) }}"
+                            alt="Logo opérateur">
+                    @endif
                     <p style="margin: 4px 0 0 0;">
                         Tél :
                         @forelse ($noteFrais?->operateur?->numeros ?? [] as $numero)

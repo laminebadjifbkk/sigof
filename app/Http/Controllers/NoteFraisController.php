@@ -184,22 +184,30 @@ class NoteFraisController extends Controller
 
         // Image de l'opérateur stockée dans users.image. On essaie les deux
         // emplacements courants (disque "public" symlinké, ou chemin direct
-        // sous public/) avant de retomber sur le logo ONFP par défaut.
-        $imageUser = $notes_frai?->operateur?->user?->image;
+        // sous public/). Aucun fallback : si rien n'est trouvé, $cheminLogo
+        // reste null et l'en-tête s'affiche sans logo.
+        $imageUser = trim((string) ($notes_frai?->operateur?->user?->image ?? ''));
         $cheminLogo = null;
 
-        if ($imageUser) {
-            foreach ([storage_path('app/public/' . $imageUser), public_path($imageUser)] as $chemin) {
-                if (is_file($chemin)) {
-                    $cheminLogo = $chemin;
-                    break;
+        if ($imageUser !== '') {
+            try {
+                foreach ([storage_path('app/public/' . $imageUser), public_path($imageUser)] as $chemin) {
+                    if (is_file($chemin)) {
+                        $cheminLogo = $chemin;
+                        break;
+                    }
                 }
+            } catch (\Throwable $e) {
+                // Chemin invalide, disque non configuré, etc. : on se
+                // contente de ne pas afficher de logo plutôt que de
+                // faire planter tout le PDF.
+                $cheminLogo = null;
             }
         }
 
-        $cheminLogo = $cheminLogo ?: public_path('assets/img/logo-onfp.jpg');
-        $mimeLogo = mime_content_type($cheminLogo) ?: 'image/png';
-
+        // Pas de fallback : si l'opérateur n'a pas d'image, l'en-tête reste
+        // sans logo plutôt que d'afficher le logo ONFP par défaut.
+        $mimeLogo = $cheminLogo ? (mime_content_type($cheminLogo) ?: 'image/png') : null;
 
         $pdf = Pdf::loadView('pdf.note_frais', [
             'title' => 'Note de frais',
