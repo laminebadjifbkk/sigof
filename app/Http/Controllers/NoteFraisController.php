@@ -234,7 +234,7 @@ class NoteFraisController extends Controller
     private function sharedFormData(): array
     {
         return [
-            'formations' => Formation::with('operateur.user')->orderByDesc('id')->get(),
+            'formations' => Formation::with('operateur.user')->where('statut', 'En cours')->orderByDesc('id')->get(),
             'rubriques' => Rubrique::where('actif', true)->orderBy('ordre')->get(),
             'notesAcompte' => NoteFrais::where('type', 'ACOMPTE')
                 ->whereIn('statut', ['VALIDEE_DF', 'PAYEE'])
