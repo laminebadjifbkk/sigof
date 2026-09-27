@@ -222,7 +222,7 @@
                     <label>Nom de l'établissement <span class="text-danger">*</span></label>
                     <input type="text" name="nom_etablissement" class="form-control form-control-sm"
                         value="{{ old('nom_etablissement') }}" required
-                        placeholder="Ex: Centre National des Qualifications Professionnelles">
+                        placeholder="Ex: Centre National de Qualification Professionnelle">
                 </div>
                 <div class="row">
                     <div class="col-md-6 mb-3">
