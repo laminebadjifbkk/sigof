@@ -585,7 +585,7 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            var telephoneInput = document.getElementById("phone");
+            var telephoneInput = document.getElementById("pppphone");
 
             telephoneInput.addEventListener("input", function(e) {
                 var value = e.target.value.replace(/\D/g, ""); // Supprime tout sauf les chiffres
@@ -599,7 +599,7 @@
             });
         });
         document.addEventListener("DOMContentLoaded", function() {
-            var telephoneInput = document.getElementById("phonesecondaire");
+            var telephoneInput = document.getElementById("pppphonesecondaire");
 
             telephoneInput.addEventListener("input", function(e) {
                 var value = e.target.value.replace(/\D/g, ""); // Supprime tout sauf les chiffres
@@ -614,7 +614,7 @@
         });
 
         document.addEventListener("DOMContentLoaded", function() {
-            var cinInput = document.getElementById("cin");
+            var cinInput = document.getElementById("cccin");
 
             cinInput.addEventListener("input", function(e) {
                 var value = e.target.value.replace(/[^A-Za-z0-9]/g,

@@ -1528,10 +1528,6 @@ Route::group(['middleware' => ['XSS']], function () {
     /* Route::get('/inscription/{id}/questions', [InscriptionController::class, 'questions'])
         ->name('inscription.questions'); */
 
-    /* Route::get('/pcharge', [FormulaireController::class, 'create'])->name('formulaire.create');
-    Route::post('/pcharge', [FormulaireController::class, 'store'])->name('formulaire.store');
-    Route::get('/pcharge/merci', [FormulaireController::class, 'merci'])->name('formulaire.merci'); */
-
     Route::get('/Note_d_information_CAL_2025', function () {
         $path = public_path('Note_d_information_CAL_2025.pdf');
 
@@ -1544,6 +1540,10 @@ Route::group(['middleware' => ['XSS']], function () {
         ]);
     });
 });
+
+Route::get('/pcharge', [FormulaireController::class, 'create'])->name('formulaire.create');
+Route::post('/pcharge', [FormulaireController::class, 'store'])->name('formulaire.store');
+Route::get('/pcharge/merci', [FormulaireController::class, 'merci'])->name('formulaire.merci');
 
 /* Route::get('/book/view/{filename}', [BookController::class, 'show'])->name('book.view'); */
 Route::get('/manuel/view/{filename}', [BookController::class, 'show'])->name('manuel.view');

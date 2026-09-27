@@ -22,12 +22,12 @@ use ZipArchive;
 
 class FormulaireController extends Controller
 {
-    public function __construct()
+   /*  public function __construct()
     {
         $this->middleware('auth');
         $this->middleware(['role:super-admin|Ingenieur|Demandeur|DIOF|ADIOF']);
         $this->middleware("permission:formulaire-view", ["only" => ["index"]]);
-    }
+    } */
     // Affichage du formulaire
     public function create()
     {
@@ -203,12 +203,12 @@ class FormulaireController extends Controller
         }
 
         // 📝 Enregistrement de l'historique de la prise en charge
-        HistoriquePriseEnCharge::create([
+        /* HistoriquePriseEnCharge::create([
             'formulaire_id' => $formulaire->id,
             'statut' => 'Nouvelle',
             'motif' => null,
             'user_id' => auth()->id(),
-        ]);
+        ]); */
 
         // 📧 Envoi du mail de confirmation (si email fourni)
         /*  if (!empty($validated['email'])) {
