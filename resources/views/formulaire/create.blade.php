@@ -226,7 +226,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label>Sigle <span class="text-danger">*</span></label>
+                        <label>Sigle </label>
                         <input type="text" name="autre_2" class="form-control form-control-sm"
                             value="{{ old('autre_2') }}" required placeholder="Ex: CNQP">
                     </div>

@@ -19,10 +19,11 @@ use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Str;
 use ZipArchive;
+use Illuminate\Validation\Rule;
 
 class FormulaireController extends Controller
 {
-   /*  public function __construct()
+    /*  public function __construct()
     {
         $this->middleware('auth');
         $this->middleware(['role:super-admin|Ingenieur|Demandeur|DIOF|ADIOF']);
@@ -73,15 +74,29 @@ class FormulaireController extends Controller
             'civilite'             => 'required|string|max:5',
             'prenom'               => 'required|string',
             'nom'                  => 'required|string',
-            'date_naissance'       => 'required|date',
+            // Âge compris entre 20 et 35 ans
+            'date_naissance'       => [
+                'required',
+                'date',
+                'before_or_equal:today',
+                function ($attribute, $value, $fail) {
+                    $age = Carbon::parse($value)->age;
+
+                    if ($age < 18 || $age > 35) {
+                        $fail('La prise en charge est ouvert aux candidats âgés de 18 à 35 ans.');
+                    }
+                },
+            ],
             'lieu_naissance'       => 'required|string',
             'email'                => 'required|email|unique:formulaires,email',
-            'telephone'            => 'required|string',
-            'telephone_secondaire' => 'required|string',
+            'telephone'            => 'required|string|size:9',
+            'telephone_secondaire' => 'required|string|size:9',
             'adresse'              => 'required|string',
             'dernier_diplome'      => 'required|string',
             'nom_etablissement'    => 'required|string',
             'autre_2'              => 'nullable|string|max:20',
+            'adresse_etablessement' => 'required|string|max:20',
+            'telephone_etablissement' => 'required|string|size:9',
             'region'               => 'required|string',
             'formation'            => 'required|string',
             'diplome_vise'         => 'required|string',
@@ -218,7 +233,6 @@ class FormulaireController extends Controller
         Alert::success('Succès', 'Inscription effectuée avec succès.');
         return redirect()->route('formulaire.merci');
     }
-
 
     public function merci()
     {
@@ -1183,7 +1197,7 @@ class FormulaireController extends Controller
             }
 
             // Vérifier le statut
-           /*  if ($formulaire->statut, ['Sélectionné', 'liste attente']) {
+            /*  if ($formulaire->statut, ['Sélectionné', 'liste attente']) {
                 Alert::error('Attention', 'Impossible de télécharger : statut invalide.');
                 return redirect()->back();
             } */
