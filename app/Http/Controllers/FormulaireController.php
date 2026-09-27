@@ -81,6 +81,7 @@ class FormulaireController extends Controller
             'adresse'              => 'required|string',
             'dernier_diplome'      => 'required|string',
             'nom_etablissement'    => 'required|string',
+            'autre_2'              => 'nullable|string|max:20',
             'region'               => 'required|string',
             'formation'            => 'required|string',
             'diplome_vise'         => 'required|string',

@@ -189,9 +189,10 @@
                         <label>Téléphone secondaire <span class="text-danger">*</span></label>
                         {{-- <input type="text" name="telephone_secondaire" class="form-control form-control-sm"
                             value="{{ old('telephone_secondaire') }}"> --}}
-                            <input name="telephone_secondaire" type="text" maxlength="12"
-                            class="form-control form-control-sm @error('telephone_secondaire') is-invalid @enderror" id="phonesecondaire"
-                            value="{{ old('telephone_secondaire') }}" autocomplete="tel" placeholder="Téléphone">
+                        <input name="telephone_secondaire" type="text" maxlength="12"
+                            class="form-control form-control-sm @error('telephone_secondaire') is-invalid @enderror"
+                            id="phonesecondaire" value="{{ old('telephone_secondaire') }}" autocomplete="tel"
+                            placeholder="Téléphone">
                         <div class="invalid-feedback">
                             @error('telephone_secondaire')
                                 {{ $message }}
@@ -220,31 +221,62 @@
                 <div class="form-group mb-3">
                     <label>Nom de l'établissement <span class="text-danger">*</span></label>
                     <input type="text" name="nom_etablissement" class="form-control form-control-sm"
-                        value="{{ old('nom_etablissement') }}" required placeholder="Ex: CNQP">
+                        value="{{ old('nom_etablissement') }}" required
+                        placeholder="Ex: Centre National des Qualifications Professionnelles">
                 </div>
-                <div class="form-group mb-3">
-                    <label>Région <span class="text-danger">*</span></label>
-                    <select name="region" class="form-control form-control-sm" required>
-                        <option value="" disabled selected>-- Sélectionnez une région --</option>
-                        <option value="Dakar" {{ old('region') == 'Dakar' ? 'selected' : '' }}>Dakar</option>
-                        <option value="Diourbel" {{ old('region') == 'Diourbel' ? 'selected' : '' }}>Diourbel</option>
-                        <option value="Fatick" {{ old('region') == 'Fatick' ? 'selected' : '' }}>Fatick</option>
-                        <option value="Kaffrine" {{ old('region') == 'Kaffrine' ? 'selected' : '' }}>Kaffrine</option>
-                        <option value="Kaolack" {{ old('region') == 'Kaolack' ? 'selected' : '' }}>Kaolack</option>
-                        <option value="Kédougou" {{ old('region') == 'Kédougou' ? 'selected' : '' }}>Kédougou</option>
-                        <option value="Kolda" {{ old('region') == 'Kolda' ? 'selected' : '' }}>Kolda</option>
-                        <option value="Louga" {{ old('region') == 'Louga' ? 'selected' : '' }}>Louga</option>
-                        <option value="Matam" {{ old('region') == 'Matam' ? 'selected' : '' }}>Matam</option>
-                        <option value="Saint-Louis" {{ old('region') == 'Saint-Louis' ? 'selected' : '' }}>Saint-Louis
-                        </option>
-                        <option value="Sédhiou" {{ old('region') == 'Sédhiou' ? 'selected' : '' }}>Sédhiou</option>
-                        <option value="Tambacounda" {{ old('region') == 'Tambacounda' ? 'selected' : '' }}>Tambacounda
-                        </option>
-                        <option value="Thiès" {{ old('region') == 'Thiès' ? 'selected' : '' }}>Thiès</option>
-                        <option value="Ziguinchor" {{ old('region') == 'Ziguinchor' ? 'selected' : '' }}>Ziguinchor
-                        </option>
-                    </select>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label>Sigle <span class="text-danger">*</span></label>
+                        <input type="text" name="autre_2" class="form-control form-control-sm"
+                            value="{{ old('autre_2') }}" required placeholder="Ex: CNQP">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Région <span class="text-danger">*</span></label>
+                        <select name="region" class="form-control form-control-sm" required>
+                            <option value="" disabled selected>-- Sélectionnez une région --</option>
+                            <option value="Dakar" {{ old('region') == 'Dakar' ? 'selected' : '' }}>Dakar</option>
+                            <option value="Diourbel" {{ old('region') == 'Diourbel' ? 'selected' : '' }}>Diourbel
+                            </option>
+                            <option value="Fatick" {{ old('region') == 'Fatick' ? 'selected' : '' }}>Fatick</option>
+                            <option value="Kaffrine" {{ old('region') == 'Kaffrine' ? 'selected' : '' }}>Kaffrine
+                            </option>
+                            <option value="Kaolack" {{ old('region') == 'Kaolack' ? 'selected' : '' }}>Kaolack
+                            </option>
+                            <option value="Kédougou" {{ old('region') == 'Kédougou' ? 'selected' : '' }}>Kédougou
+                            </option>
+                            <option value="Kolda" {{ old('region') == 'Kolda' ? 'selected' : '' }}>Kolda</option>
+                            <option value="Louga" {{ old('region') == 'Louga' ? 'selected' : '' }}>Louga</option>
+                            <option value="Matam" {{ old('region') == 'Matam' ? 'selected' : '' }}>Matam</option>
+                            <option value="Saint-Louis" {{ old('region') == 'Saint-Louis' ? 'selected' : '' }}>
+                                Saint-Louis
+                            </option>
+                            <option value="Sédhiou" {{ old('region') == 'Sédhiou' ? 'selected' : '' }}>Sédhiou
+                            </option>
+                            <option value="Tambacounda" {{ old('region') == 'Tambacounda' ? 'selected' : '' }}>
+                                Tambacounda
+                            </option>
+                            <option value="Thiès" {{ old('region') == 'Thiès' ? 'selected' : '' }}>Thiès</option>
+                            <option value="Ziguinchor" {{ old('region') == 'Ziguinchor' ? 'selected' : '' }}>
+                                Ziguinchor
+                            </option>
+                        </select>
+                    </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label>Adresse exacte <span class="text-danger">*</span></label>
+                        <input type="text" name="adresse_etablessement" class="form-control form-control-sm"
+                            value="{{ old('adresse_etablessement') }}" placeholder="Adresse exacte">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Téléphone établissement <span class="text-danger">*</span></label>
+                        <input type="text" name="telephone_etablissement" class="form-control form-control-sm"
+                            value="{{ old('telephone_etablissement') }}" placeholder="Téléphone établissement">
+                    </div>
+                </div>
+
                 <div class="form-group mb-3">
                     <label>Formation sollicitée <span class="text-danger">*</span></label>
                     <input type="text" name="formation" class="form-control form-control-sm"
