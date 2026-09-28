@@ -129,9 +129,20 @@
             background: #fff;
         }
 
+        .btn-ghosted {
+            border-color: var(--gray-line);
+            color: #fff;
+            background: hsla(0, 100%, 42%, 0.756);
+        }
+
         .btn-ghost:hover {
             border-color: var(--orange);
             color: var(--orange-dark);
+        }
+
+        .btn-ghosted:hover {
+            background: var(--red);
+            transform: translateY(-1px);
         }
 
         .btn-outline-light {
@@ -254,6 +265,10 @@
             }
 
             .nav-actions .btn-ghost {
+                display: none;
+            }
+
+            .nav-actions .btn-ghosted {
                 display: none;
             }
         }
@@ -1146,7 +1161,8 @@
                     d'opérateurs, suivi des partenariats - en un seul portail, partout dans le pays.</p>
                 <div class="hero-cta">
                     <a href="{{ route('register-page') }}" class="btn btn-primary">Créer mon compte</a>
-                    <a href="#apropos" class="btn btn-ghost">Découvrir l'ONFP</a>
+                    {{-- <a href="#apropos" class="btn btn-ghost">Découvrir l'ONFP</a> --}}
+                    <a href="{{ url('pcharge') }}" class="btn btn-ghosted">Déposer une prise en charge</a>
                 </div>
                 <div class="hero-stat">
                     <span class="num">{{ $anciennete }}+ </span>
