@@ -68,6 +68,19 @@ class FormulaireController extends Controller
             return redirect()->back(); // ou une autre route sûre
         } */
 
+        $dateOuverture = Carbon::create(2026, 9, 29, 8, 0, 0, 'Africa/Dakar');
+        $dateFermeture = Carbon::create(2026, 10, 03, 17, 0, 0, 'Africa/Dakar');
+        $maintenant     = Carbon::now('Africa/Dakar');
+
+        if ($maintenant->lt($dateOuverture)) {
+            return redirect()->back()
+                ->with('error', 'Les candidatures ne sont pas encore ouvertes.');
+        }
+
+        if ($maintenant->gt($dateFermeture)) {
+            return redirect()->back()
+                ->with('error', 'Les candidatures sont désormais fermées.');
+        }
 
         $validated = $request->validate([
             'cin'                  => 'required|string|max:14|unique:formulaires,cin',
