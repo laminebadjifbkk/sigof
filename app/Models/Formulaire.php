@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Formulaire extends Model
 {
@@ -61,6 +62,16 @@ class Formulaire extends Model
         'montant_unique'      => 'decimal:2',
         'date_naissance'      => 'date',
     ];
+
+    protected static function booted()
+    {
+        static::creating(fn($f) => $f->uuid = (string) Str::uuid());
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'uuid';
+    }
 
     // Dans app/Models/Formulaire.php
     public function getFileUrl($field)
