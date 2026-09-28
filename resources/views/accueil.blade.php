@@ -4,15 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="color-scheme" content="light">
     <meta name="format-detection" content="telephone=no,address=no,email=no,date=no">
     <title>SIGOF | Système Intégré de Gestion des Opérations de Formation</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
     <style>
+        /* ========== BASE ========== */
         :root {
             color-scheme: light;
             --ink: #24262b;
@@ -25,10 +30,12 @@
             --orange-tint: #fdf1e6;
             --green: #3fa350;
             --green-tint: #eaf6ec;
+            --red: #c00000;
             --cream: #fbfaf8;
             --white: #ffffff;
             --radius: 14px;
             --shadow: 0 10px 30px -12px rgba(36, 38, 43, .12);
+            --max: 1300px;
         }
 
         * {
@@ -39,6 +46,16 @@
 
         html {
             scroll-behavior: smooth;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            * {
+                transition: none !important;
+            }
         }
 
         body {
@@ -72,10 +89,19 @@
             list-style: none;
         }
 
+        :focus-visible {
+            outline: 2px solid var(--orange);
+            outline-offset: 2px;
+        }
+
         .wrap {
-            max-width: 1300px;
+            max-width: var(--max);
             margin: 0 auto;
             padding: 0 28px;
+        }
+
+        section {
+            padding: 88px 0;
         }
 
         .eyebrow {
@@ -98,6 +124,22 @@
             border-radius: 2px;
         }
 
+        .section-head {
+            max-width: 640px;
+            margin-bottom: 48px;
+        }
+
+        .section-head h2 {
+            font-size: clamp(1.6rem, 3vw, 2.3rem);
+        }
+
+        .section-head p {
+            color: var(--gray);
+            margin-top: 12px;
+            font-size: 1.02rem;
+        }
+
+        /* ========== BOUTONS ========== */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -129,55 +171,23 @@
             background: #fff;
         }
 
-        .btn-ghosted {
-            border-color: var(--gray-line);
-            color: #fff;
-            background: hsla(0, 100%, 42%, 0.756);
-        }
-
         .btn-ghost:hover {
             border-color: var(--orange);
             color: var(--orange-dark);
         }
 
-        .btn-ghosted:hover {
+        .btn-danger {
+            background: hsla(0, 100%, 42%, .756);
+            border-color: var(--gray-line);
+            color: #fff;
+        }
+
+        .btn-danger:hover {
             background: var(--red);
             transform: translateY(-1px);
         }
 
-        .btn-outline-light {
-            border-color: rgba(255, 255, 255, .4);
-            color: #fff;
-        }
-
-        .btn-outline-light:hover {
-            background: rgba(255, 255, 255, .12);
-        }
-
-        /* ARC MOTIF - signature element derived from the FP / ONFP logo arch */
-        /* .arc-divider {
-            width: 100%;
-            height: 56px;
-            display: block;
-        } */
-
-        .arc-card-top {
-            position: absolute;
-            top: 0;
-            left: 22px;
-            right: 22px;
-            height: 5px;
-            overflow: hidden;
-            border-radius: 0 0 40px 40px;
-        }
-
-        .arc-card-top svg {
-            width: 100%;
-            height: 26px;
-            display: block;
-        }
-
-        /* NAV */
+        /* ========== NAVBAR ========== */
         header {
             position: sticky;
             top: 0;
@@ -191,24 +201,16 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 16px 28px;
-            max-width: 1200px;
+            gap: 20px;
+            padding: 12px 28px;
+            max-width: var(--max);
             margin: 0 auto;
         }
 
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: 1.05rem;
-        }
-
-        .brand-mark {
-            width: 38px;
-            height: 38px;
-            position: relative;
+        .brand-logo {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
         }
 
         .nav-links {
@@ -240,43 +242,11 @@
             border: none;
             font-size: 1.5rem;
             cursor: pointer;
+            color: var(--ink);
         }
 
-        @media(max-width:920px) {
-            .nav-links {
-                position: fixed;
-                top: 70px;
-                left: 0;
-                right: 0;
-                background: #fff;
-                flex-direction: column;
-                padding: 20px 28px;
-                border-bottom: 1px solid var(--gray-line);
-                gap: 16px;
-                display: none;
-            }
-
-            .nav-links.open {
-                display: flex;
-            }
-
-            .menu-toggle {
-                display: block;
-            }
-
-            .nav-actions .btn-ghost {
-                display: none;
-            }
-
-            .nav-actions .btn-ghosted {
-                display: none;
-            }
-        }
-
-        /* HERO */
+        /* ========== HERO ========== */
         .hero {
-            position: relative;
-            overflow: hidden;
             padding: 28px 0 64px;
         }
 
@@ -297,7 +267,7 @@
             color: var(--orange);
         }
 
-        .hero p.lead {
+        .hero .lead {
             color: var(--ink-soft);
             font-size: 1.08rem;
             max-width: 480px;
@@ -313,8 +283,8 @@
 
         .hero-stat {
             display: flex;
-            align-items: baseline;
-            gap: 10px;
+            align-items: center;
+            gap: 14px;
         }
 
         .hero-stat .num {
@@ -322,64 +292,18 @@
             font-size: 2.1rem;
             font-weight: 700;
             color: var(--green);
+            line-height: 1;
         }
 
-        .hero-stat .lbl {
-            font-size: .88rem;
-            color: var(--gray);
-            max-width: 220px;
+        .hero-stat .lead {
+            margin: 0;
+            font-size: .95rem;
+            max-width: 260px;
         }
 
-        .hero-art {
-            position: relative;
-            height: 420px;
-        }
-
-        .hero-art svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        @media(max-width:920px) {
-            .hero-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-art {
-                height: 280px;
-                order: -1;
-            }
-
-            .hero-grid>div:first-child {
-                text-align: center;
-            }
-
-            .hero-grid .eyebrow {
-                justify-content: center;
-            }
-
-            .hero-grid p.lead {
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            .hero-cta {
-                justify-content: center;
-            }
-
-            .hero-stat {
-                justify-content: center;
-            }
-
-            .hero-stat .lbl {
-                text-align: left;
-            }
-        }
-
-        /* HERO CAROUSEL - médiathèque à la une */
+        /* ========== CARROUSEL ========== */
         .hero-carousel {
             position: relative;
-            height: 520px;
             border-radius: 20px;
             overflow: hidden;
             box-shadow: var(--shadow);
@@ -387,33 +311,23 @@
         }
 
         .hc-slide {
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity .6s ease;
+            display: none;
+            flex-direction: column;
         }
 
         .hc-slide.active {
-            opacity: 1;
-            visibility: visible;
+            display: flex;
         }
 
         .hc-slide img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
+            height: auto;
         }
 
         .hc-caption {
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            padding: 60px 26px 22px;
-            background: linear-gradient(180deg, transparent, rgba(20, 20, 22, .86));
-            color: #fff;
+            background: #fff;
+            padding: 16px 26px 18px;
+            border-top: 3px solid var(--orange);
         }
 
         .hc-caption .tag {
@@ -421,20 +335,21 @@
             font-weight: 800;
             letter-spacing: .1em;
             text-transform: uppercase;
-            color: var(--orange);
-            margin-bottom: 6px;
+            color: var(--orange-dark);
+            margin-bottom: 4px;
         }
 
         .hc-caption .title {
             font-family: 'Space Grotesk', sans-serif;
             font-weight: 700;
-            font-size: 1.15rem;
+            font-size: 1.05rem;
             line-height: 1.3;
+            color: var(--ink);
         }
 
         .hc-nav {
             position: absolute;
-            top: 50%;
+            top: 45%;
             transform: translateY(-50%);
             width: 38px;
             height: 38px;
@@ -477,7 +392,8 @@
             height: 8px;
             border-radius: 50%;
             border: none;
-            background: rgba(255, 255, 255, .55);
+            background: rgba(255, 255, 255, .6);
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, .15);
             cursor: pointer;
             padding: 0;
             transition: all .2s;
@@ -489,21 +405,13 @@
             border-radius: 5px;
         }
 
-        @media(max-width:920px) {
-            .hero-carousel {
-                height: 280px;
-            }
-        }
-
-        /* VERIFICATION WIDGET */
+        /* ========== VERIFICATION ========== */
         .verify-card {
             background: var(--white);
             border-radius: var(--radius);
             box-shadow: var(--shadow);
             padding: 34px;
             margin-top: 44px;
-            position: relative;
-            z-index: 2;
             border: 1px solid var(--gray-line);
         }
 
@@ -512,7 +420,7 @@
             margin-bottom: 6px;
         }
 
-        .verify-card p {
+        .verify-card>p {
             color: var(--gray);
             font-size: .9rem;
             margin-bottom: 22px;
@@ -535,7 +443,8 @@
             letter-spacing: .04em;
         }
 
-        .field input {
+        .field input,
+        .field textarea {
             width: 100%;
             padding: 11px 14px;
             border: 1.5px solid var(--gray-line);
@@ -545,44 +454,19 @@
             background: var(--gray-bg);
         }
 
-        .field input:focus {
+        .field textarea {
+            resize: vertical;
+            min-height: 110px;
+        }
+
+        .field input:focus,
+        .field textarea:focus {
             outline: none;
             border-color: var(--orange);
             background: #fff;
         }
 
-        @media(max-width:920px) {
-            .verify-form {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        @media(max-width:560px) {
-            .verify-form {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        section {
-            padding: 88px 0;
-        }
-
-        .section-head {
-            max-width: 640px;
-            margin-bottom: 48px;
-        }
-
-        .section-head h2 {
-            font-size: clamp(1.6rem, 3vw, 2.3rem);
-        }
-
-        .section-head p {
-            color: var(--gray);
-            margin-top: 12px;
-            font-size: 1.02rem;
-        }
-
-        /* ABOUT */
+        /* ========== À PROPOS ========== */
         .about {
             background: var(--white);
             border-top: 1px solid var(--gray-line);
@@ -596,13 +480,18 @@
             align-items: start;
         }
 
-        .about-grid ul {
+        .about h2 {
+            font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+            line-height: 1.2;
+        }
+
+        .about-list {
             margin-top: 20px;
             display: grid;
             gap: 14px;
         }
 
-        .about-grid li {
+        .about-list li {
             display: flex;
             gap: 12px;
             align-items: flex-start;
@@ -617,6 +506,11 @@
             border-radius: 50%;
             background: var(--orange);
             margin-top: 8px;
+        }
+
+        .about-intro {
+            color: var(--gray);
+            margin-top: 14px;
         }
 
         .dg-card {
@@ -646,13 +540,6 @@
             font-size: .85rem;
         }
 
-        @media(max-width:920px) {
-            .about-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* SIGOF OBJECTIFS */
         .objectifs {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -672,9 +559,7 @@
         .obj-card::before {
             content: "";
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
+            inset: 0 0 auto 0;
             height: 4px;
             background: linear-gradient(90deg, var(--orange), var(--green));
         }
@@ -689,19 +574,7 @@
             color: var(--gray);
         }
 
-        @media(max-width:920px) {
-            .objectifs {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        @media(max-width:600px) {
-            .objectifs {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* SERVICES */
+        /* ========== SERVICES ========== */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -713,7 +586,6 @@
             border-radius: var(--radius);
             padding: 30px 26px;
             border: 1px solid var(--gray-line);
-            position: relative;
             transition: transform .18s, box-shadow .18s;
         }
 
@@ -731,7 +603,7 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 18px;
-            color: var(--orange-dark);
+            font-size: 1.3rem;
         }
 
         .service-card h4 {
@@ -751,32 +623,11 @@
             color: var(--green);
         }
 
-        @media(max-width:920px) {
-            .services-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        @media(max-width:600px) {
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* POLES */
+        /* ========== PÔLES ========== */
         .poles {
             background: var(--gray-bg);
-            color: var(--ink);
             border-top: 1px solid var(--gray-line);
             border-bottom: 1px solid var(--gray-line);
-        }
-
-        .poles .section-head h2 {
-            color: var(--ink);
-        }
-
-        .poles .section-head p {
-            color: var(--gray);
         }
 
         .poles-grid {
@@ -806,9 +657,7 @@
 
         .pole-card h4 {
             font-size: 1rem;
-            margin: 10px 0 10px;
-            font-family: 'Space Grotesk', sans-serif;
-            color: var(--ink);
+            margin: 10px 0;
         }
 
         .pole-card .zone {
@@ -817,7 +666,11 @@
             margin-bottom: 14px;
         }
 
-        .pole-card .contact {
+        .pole-card .zone i {
+            color: var(--green);
+        }
+
+        .pole-card .pole-contact {
             font-size: .82rem;
             color: var(--ink-soft);
             border-top: 1px solid var(--gray-line);
@@ -825,24 +678,7 @@
             line-height: 1.6;
         }
 
-        .pole-card .contact b {
-            color: var(--ink);
-            font-weight: 700;
-        }
-
-        @media(max-width:920px) {
-            .poles-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        @media(max-width:560px) {
-            .poles-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* FAQ */
+        /* ========== FAQ ========== */
         .faq-item {
             border-bottom: 1px solid var(--gray-line);
             padding: 22px 0;
@@ -877,7 +713,7 @@
         }
 
         .faq-item.open .faq-a {
-            max-height: 200px;
+            max-height: 400px;
             padding-top: 12px;
         }
 
@@ -891,8 +727,8 @@
             transform: rotate(45deg);
         }
 
-        /* CONTACT */
-        .contact {
+        /* ========== CONTACT ========== */
+        .contact-section {
             background: var(--white);
             border-top: 1px solid var(--gray-line);
         }
@@ -903,32 +739,9 @@
             gap: 50px;
         }
 
-        .contact-info {
-            background: var(--gray-bg);
-            border-radius: var(--radius);
-            padding: 32px;
-        }
-
-        .contact-info h3 {
-            margin-bottom: 10px;
-        }
-
-        .contact-info p {
+        .contact-lead {
             color: var(--gray);
-            font-size: .92rem;
-            margin-bottom: 24px;
-        }
-
-        .info-row {
-            display: flex;
-            gap: 14px;
-            margin-bottom: 18px;
-            font-size: .92rem;
-        }
-
-        .info-row .ic {
-            color: var(--orange);
-            flex: none;
+            margin: 14px 0 26px;
         }
 
         .form-grid {
@@ -938,33 +751,36 @@
         }
 
         .form-grid .full {
-            grid-column: 1/-1;
+            grid-column: 1 / -1;
         }
 
-        textarea {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1.5px solid var(--gray-line);
-            border-radius: 9px;
-            font-family: inherit;
-            resize: vertical;
-            min-height: 110px;
+        .contact-info {
             background: var(--gray-bg);
+            border-radius: var(--radius);
+            padding: 32px;
+            align-self: start;
         }
 
-        textarea:focus,
-        {
-        outline: none;
-        border-color: var(--orange);
+        .contact-info h3 {
+            margin-bottom: 20px;
         }
 
-        @media(max-width:920px) {
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
+        .info-row {
+            display: flex;
+            gap: 14px;
+            margin-bottom: 18px;
+            font-size: .92rem;
         }
 
-        /* FOOTER */
+        .info-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-row .ic {
+            flex: none;
+        }
+
+        /* ========== FOOTER ========== */
         footer {
             background: #1c1d21;
             color: #c9cace;
@@ -994,41 +810,13 @@
             color: var(--orange);
         }
 
-        .footer-brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #fff;
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            margin-bottom: 14px;
-        }
-
         .footer-logo {
             height: 110px;
-            /* ajustez : 64px, 80px, 100px... */
             width: auto;
-            /* conserve les proportions */
-            max-width: 100%;
+            background: #fff;
+            padding: 8px 12px;
+            border-radius: 10px;
             object-fit: contain;
-        }
-
-        /* Version mobile, un peu plus petit */
-        @media (max-width: 768px) {
-            .footer-logo {
-                height: 64px;
-            }
-        }
-
-        .footer-bottom {
-            border-top: 1px solid #33343a;
-            padding-top: 24px;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px;
-            font-size: .82rem;
-            color: #8b8d94;
         }
 
         .social-row {
@@ -1062,77 +850,123 @@
             transform: translateY(-2px);
         }
 
-        @media(max-width:800px) {
+        .footer-bottom {
+            border-top: 1px solid #33343a;
+            padding-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: .82rem;
+            color: #8b8d94;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 920px) {
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #fff;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px 28px;
+                border-bottom: 1px solid var(--gray-line);
+                gap: 16px;
+                display: none;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-actions .btn-ghost {
+                display: none;
+            }
+
+            .hero-grid,
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-grid>div:first-child {
+                text-align: center;
+            }
+
+            .hero-grid .lead {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero .eyebrow,
+            .hero-cta,
+            .hero-stat {
+                justify-content: center;
+            }
+
+            .hero-stat .lead {
+                text-align: left;
+            }
+
+            .verify-form {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .objectifs,
+            .services-grid,
+            .poles-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 800px) {
             .footer-grid {
                 grid-template-columns: 1fr 1fr;
             }
         }
 
-        .brand .logo {
-            gap: 8px;
-            /* espace entre le logo et le texte */
-            text-decoration: none;
-        }
-
-        .brand-logo {
-            height: 60px;
-            /* ajustez : 28px, 32px, 36px... */
-            width: auto;
-            /* conserve les proportions */
-            max-height: 100%;
-            object-fit: contain;
-        }
-
-        /* Version mobile, un peu plus petit */
         @media (max-width: 768px) {
             .brand-logo {
-                height: 26px;
+                height: 44px;
+            }
+
+            .footer-logo {
+                height: 64px;
             }
         }
 
-        .hc-caption {
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            padding: 16px 26px 18px;
-            /* plus de gros padding-top du dégradé */
-            background: rgba(255, 255, 255, .95);
-            /* bande blanche */
-            color: var(--ink);
-            border: 3px solid var(--orange);
-            /* optionnel : filet décoratif */
+        @media (max-width: 600px) {
+
+            .objectifs,
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
-        .hc-caption .tag {
-            font-size: .72rem;
-            font-weight: 800;
-            letter-spacing: .1em;
-            text-transform: uppercase;
-            color: var(--orange-dark);
-            margin-bottom: 4px;
-        }
+        @media (max-width: 560px) {
 
-        .hc-caption .title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: 1.05rem;
-            line-height: 1.3;
-            color: var(--ink);
+            .verify-form,
+            .poles-grid,
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 
 <body>
+    {{-- ========== NAVBAR ========== --}}
     <header>
         <nav>
-            <div class="brand">
-                <a href="{{ url('/') }}" class="logo d-flex align-items-center me-auto me-xl-0">
-                    <img src="{{ asset('assets/img/ONFP_logo_header_600px@2x.png') }}" alt="Logo ONFP"
-                        class="brand-logo">
-                    {{-- <span>ONFP <span style="color:var(--gray);font-weight:500;">· SIGOF</span></span> --}}
-                </a>
-            </div>
+            <a href="{{ url('/') }}" class="brand">
+                <img src="{{ asset('assets/img/ONFP_logo_header_600px@2x.png') }}" alt="Logo ONFP" class="brand-logo">
+            </a>
 
             <ul class="nav-links" id="navLinks">
                 <li><a href="#accueil">Accueil</a></li>
@@ -1146,11 +980,14 @@
             <div class="nav-actions">
                 <a href="{{ url('login') }}" class="btn btn-ghost">Se connecter</a>
                 <a href="{{ route('register-page') }}" class="btn btn-primary">S'inscrire</a>
-                <button class="menu-toggle"
+                <button type="button" class="menu-toggle" aria-label="Ouvrir le menu"
                     onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
             </div>
         </nav>
     </header>
+
+    {{-- ========== HERO ========== --}}
+    @php $slides = ($posts ?? collect())->filter(fn($p) => !empty($p->image)); @endphp
 
     <section class="hero" id="accueil">
         <div class="wrap hero-grid">
@@ -1158,94 +995,77 @@
                 <div class="eyebrow">Office national de formation professionnelle</div>
                 <h1>La référence de la <span class="accent">formation professionnelle</span> au Sénégal</h1>
                 <p class="lead">SIGOF centralise et digitalise vos démarches : demandes de formation, agréments
-                    d'opérateurs, suivi des partenariats - en un seul portail, partout dans le pays.</p>
+                    d'opérateurs, suivi des partenariats, en un seul portail, partout dans le pays.</p>
                 <div class="hero-cta">
                     <a href="{{ route('register-page') }}" class="btn btn-primary">Créer mon compte</a>
-                    {{-- <a href="#apropos" class="btn btn-ghost">Découvrir l'ONFP</a> --}}
-                    <a href="{{ url('pcharge') }}" class="btn btn-ghosted">Déposer une prise en charge</a>
+                    <a href="{{ url('pcharge') }}" class="btn btn-danger">Déposer une prise en charge</a>
                 </div>
                 <div class="hero-stat">
-                    <span class="num">{{ $anciennete }}+ </span>
-                    <p class="lead">ans d'expérience dans la formation professionnelle au sénégal</p>
+                    <span class="num">{{ $anciennete }}+</span>
+                    <p class="lead">ans d'expérience dans la formation professionnelle au Sénégal</p>
                 </div>
             </div>
-            <div class="hero-carousel" id="heroCarousel">
-                @if ($posts_count)
-                    @foreach ($posts as $post)
-                        @if (!empty($post->image))
-                            <div class="hc-slide active">
-                                <img src="{{ asset($post->getPoste()) }}" alt="{{ $post->legende }}">
-                                <div class="hc-caption">
-                                    <div class="tag">{{ $post->titre }}</div>
-                                    <div class="title">
-                                        {{ str($post?->name)->limit(50) }}
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
-                    @endforeach
-                @endif
-                {{-- <div class="hc-slide active">
-                    <img src="https://picsum.photos/id/1049/900/700" alt="Session de formation en atelier technique">
-                    <div class="hc-caption">
-                        <div class="tag">Formation | Qualification</div>
-                        <div class="title">Atelier d'électricité industrielle - Pôle de Dakar</div>
-                    </div>
-                </div>
-                <div class="hc-slide">
-                    <img src="https://picsum.photos/id/1027/900/700" alt="Cérémonie de remise de diplômes">
-                    <div class="hc-caption">
-                        <div class="tag">Insertion professionnelle</div>
-                        <div class="title">Remise des attestations - Promotion 2025</div>
-                    </div>
-                </div>
-                <div class="hc-slide">
-                    <img src="https://picsum.photos/id/1011/900/700" alt="Atelier de couture et de confection">
-                    <div class="hc-caption">
-                        <div class="tag">Formation | Qualification</div>
-                        <div class="title">Atelier couture &amp; confection - Centre de Thiès</div>
-                    </div>
-                </div>
-                <div class="hc-slide">
-                    <img src="https://picsum.photos/id/1005/900/700" alt="Signature de convention de partenariat">
-                    <div class="hc-caption">
-                        <div class="tag">Partenariat</div>
-                        <div class="title">Signature de convention avec un opérateur agréé</div>
-                    </div>
-                </div> --}}
 
-                <button class="hc-nav hc-prev" onclick="hcMove(-1)" aria-label="Image précédente">‹</button>
-                <button class="hc-nav hc-next" onclick="hcMove(1)" aria-label="Image suivante">›</button>
-                <div class="hc-dots" id="hcDots"></div>
-            </div>
+            @if ($slides->isNotEmpty())
+                <div class="hero-carousel" id="heroCarousel">
+                    @foreach ($slides as $post)
+                        <div class="hc-slide {{ $loop->first ? 'active' : '' }}">
+                            <img src="{{ asset($post->getPoste()) }}" alt="{{ $post->legende ?? $post->name }}">
+                            <div class="hc-caption">
+                                <div class="tag">{{ $post->titre }}</div>
+                                <div class="title">{{ str($post->name)->limit(50) }}</div>
+                            </div>
+                        </div>
+                    @endforeach
+
+                    @if ($slides->count() > 1)
+                        <button type="button" class="hc-nav hc-prev" onclick="hcMove(-1)"
+                            aria-label="Image précédente">‹</button>
+                        <button type="button" class="hc-nav hc-next" onclick="hcMove(1)"
+                            aria-label="Image suivante">›</button>
+                        <div class="hc-dots" id="hcDots"></div>
+                    @endif
+                </div>
+            @endif
         </div>
 
         <div class="wrap">
             <div class="verify-card">
                 <h3>Vérifiez votre sélection</h3>
                 <p>Consultez rapidement le statut de votre dossier à l'aide de vos informations personnelles.</p>
-                <div class="verify-form">
-                    <div class="field"><label>Prénom</label><input type="text" placeholder="Aïssatou"></div>
-                    <div class="field"><label>Nom</label><input type="text" placeholder="Diop"></div>
-                    <div class="field"><label>Date de naissance</label><input type="date"></div>
-                    <div class="field"><label>Email</label><input type="email" placeholder="vous@exemple.sn">
+                {{-- TODO : remplacer action="#" par votre route de vérification --}}
+                <form class="verify-form" method="POST" action="#">
+                    @csrf
+                    <div class="field"><label for="v-prenom">Prénom</label>
+                        <input id="v-prenom" name="prenom" type="text" placeholder="Aïssatou" required>
                     </div>
-                    <button class="btn btn-primary" style="height:44px;">Vérifier</button>
-                </div>
+                    <div class="field"><label for="v-nom">Nom</label>
+                        <input id="v-nom" name="nom" type="text" placeholder="Diop" required>
+                    </div>
+                    <div class="field"><label for="v-naissance">Date de naissance</label>
+                        <input id="v-naissance" name="date_naissance" type="date" required>
+                    </div>
+                    <div class="field"><label for="v-email">Email</label>
+                        <input id="v-email" name="email" type="email" placeholder="vous@exemple.sn" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="height:44px;">Vérifier</button>
+                </form>
             </div>
         </div>
     </section>
 
+    {{-- ========== À PROPOS ========== --}}
     <section class="about" id="apropos">
         <div class="wrap about-grid">
             <div>
                 <div class="eyebrow">À propos de l'ONFP</div>
                 <h2>Un établissement public au service de la formation, depuis 1986</h2>
-                <ul>
+                <ul class="about-list">
                     <li><span class="dot"></span>Aider à mettre en œuvre les objectifs sectoriels du gouvernement et
                         assister les organismes publics et privés.</li>
                     <li><span class="dot"></span>Réaliser des études sur l'emploi, la qualification professionnelle
-                        et les moyens de la formation initiale et continue.</li>
+                        et
+                        les moyens de la formation initiale et continue.</li>
                     <li><span class="dot"></span>Coordonner les interventions par branche professionnelle et par
                         action prioritaire.</li>
                     <li><span class="dot"></span>Coordonner l'action de formation professionnelle des organismes
@@ -1255,16 +1075,16 @@
                     <img src="https://sigof.onfp.sn/assets/img/dgawandoye.jpg" alt="Directrice générale">
                     <div>
                         <div class="name">Dr. Mame Awa NDOYE</div>
-                        <div class="role">Directeur Général - +221 33 827 92 51</div>
+                        <div class="role">Directrice Générale · +221 33 827 92 51</div>
                     </div>
                 </div>
             </div>
+
             <div>
                 <div class="eyebrow">La plateforme SIGOF</div>
                 <h2>Toute la gestion des opérations de formation, sur un seul portail</h2>
-                <p style="color:var(--gray-line-alt,var(--gray));margin-top:14px;color:var(--gray);">Le Système Intégré
-                    de Gestion des Opérations de Formation centralise et automatise la gestion des demandeurs, des
-                    opérateurs et des partenaires de l'ONFP.</p>
+                <p class="about-intro">Le Système Intégré de Gestion des Opérations de Formation centralise et
+                    automatise la gestion des demandeurs, des opérateurs et des partenaires de l'ONFP.</p>
                 <div class="objectifs">
                     <div class="obj-card">
                         <h4>Optimisation des processus</h4>
@@ -1295,6 +1115,7 @@
         </div>
     </section>
 
+    {{-- ========== SERVICES ========== --}}
     <section id="services">
         <div class="wrap">
             <div class="section-head">
@@ -1314,8 +1135,8 @@
                 <div class="service-card">
                     <div class="service-icon">✅</div>
                     <h4>Évaluation | Certification</h4>
-                    <p>Contrôle de l'exécution des conventions signées avec les opérateurs et évaluation des actions de
-                        formation menées.</p>
+                    <p>Contrôle de l'exécution des conventions signées avec les opérateurs et évaluation des actions
+                        de formation menées.</p>
                     <a class="link" href="https://www.onfp.sn/evaluations">En savoir plus →</a>
                 </div>
                 <div class="service-card">
@@ -1347,100 +1168,51 @@
         </div>
     </section>
 
+    {{-- ========== PÔLES ========== --}}
     <section class="poles" id="poles">
         <div class="wrap">
             <div class="section-head">
                 <div class="eyebrow">Couverture nationale</div>
-                <h2>8 pôles, présents sur tout le territoire</h2>
-                <p>De Dakar à Ziguinchor, un réseau de pôles régionaux au plus proche des demandeurs et des opérateurs.
-                </p>
+                <h2>{{ $antennes->count() }} pôles, présents sur tout le territoire</h2>
+                <p>De Dakar à Ziguinchor, un réseau de pôles régionaux au plus proche des demandeurs et des
+                    opérateurs.</p>
             </div>
             <div class="poles-grid">
                 @foreach ($antennes as $antenne)
+                    @php
+                        $chef = $antenne->chef?->user;
+                        $tel = $chef?->telephone !== '78 291 33 33' ? $chef?->telephone : null;
+                        $phones = collect([$antenne->contact, $tel])
+                            ->filter()
+                            ->implode(' / ');
+                        $regions = $antenne->regions?->pluck('nom')->filter()->implode(' - ');
+                    @endphp
                     <div class="pole-card">
                         <div class="since">
-                            @if (!empty($antenne?->date_ouverture))
-                                <div class="popular-badge">
-                                    {{ 'DEPUIS ' . mb_strtoupper($antenne?->date_ouverture?->translatedFormat('Y'), 'UTF-8') }}
-                                </div>
-                            @else
-                                <div class="popular-badge">{{ $antenne?->code }}</div>
-                            @endif
+                            {{ $antenne->date_ouverture ? 'DEPUIS ' . $antenne->date_ouverture->format('Y') : $antenne->code }}
                         </div>
-                        <h4>{{ $antenne?->name }}</h4>
-                        <div class="zone">
-                            @foreach ($antenne?->regions as $region)
-                                @if (!empty($region))
-                                    <i class="bi bi-check-circle-fill"></i>
-                                    {{ $region?->nom }}@if (!$loop->last)
-                                        -
-                                    @endif
-                                @endif
-                            @endforeach
-                        </div>
-                        <div class="contact">
-                            @if ($antenne?->chef?->user?->name)
-                                <p><i class="bi bi-person"></i>
-                                    {{ $antenne?->chef?->user?->civilite . ' ' . $antenne?->chef?->user?->name }}
-                                </p>
+                        <h4>{{ $antenne->name }}</h4>
+                        @if ($regions)
+                            <div class="zone">
+                                <i class="bi bi-check-circle-fill"></i> {{ $regions }}
+                            </div>
+                        @endif
+                        <div class="pole-contact">
+                            @if ($chef?->name)
+                                <p><i class="bi bi-person"></i> {{ trim($chef->civilite . ' ' . $chef->name) }}</p>
                             @endif
-
-                            {{ $antenne?->contact }}
-                            @if ($antenne?->chef?->user?->telephone !== '78 291 33 33')
-                                {{ ' / ' . $antenne?->chef?->user?->telephone }}
-                            @else
+                            @if ($phones)
+                                {{ $phones }}<br>
                             @endif
-                            <br>
-                            {{ $antenne?->adresse }}
+                            {{ $antenne->adresse }}
                         </div>
                     </div>
                 @endforeach
-                {{-- <div class="pole-card">
-                    <div class="since">DEPUIS 2014</div>
-                    <h4>Pôle Centre</h4>
-                    <div class="zone">Fatick · Kaffrine · Kaolack</div>
-                    <div class="contact">M. Ndao · 33 941 65 05</div>
-                </div>
-                <div class="pole-card">
-                    <div class="since">DEPUIS 2020</div>
-                    <h4>Pôle Diourbel-Louga</h4>
-                    <div class="zone">Diourbel · Louga</div>
-                    <div class="contact">M. Sarr · 33 971 18 59</div>
-                </div>
-                <div class="pole-card">
-                    <div class="since">DEPUIS 2016</div>
-                    <h4>Pôle Nord</h4>
-                    <div class="zone">Saint-Louis</div>
-                    <div class="contact">M. Faye · 33 961 62 29</div>
-                </div>
-                <div class="pole-card">
-                    <div class="since">DEPUIS 2019</div>
-                    <h4>Pôle Nord-Est</h4>
-                    <div class="zone">Matam</div>
-                    <div class="contact">M. Dia · 33 966 31 87</div>
-                </div>
-                <div class="pole-card">
-                    <div class="since">DEPUIS 2022</div>
-                    <h4>Pôle Sud</h4>
-                    <div class="zone">Kolda · Sédhiou · Ziguinchor</div>
-                    <div class="contact">M. Diallo · 76 767 03 67</div>
-                </div>
-                <div class="pole-card">
-                    <div class="since">DEPUIS 2018</div>
-                    <h4>Pôle Sud-Est</h4>
-                    <div class="zone">Kédougou · Tambacounda</div>
-                    <div class="contact">M. Diao · 33 897 75 86</div>
-                </div>
-                <div class="pole-card">
-                    <div class="since">DEPUIS 2025</div>
-                    <h4>Pôle Thiès</h4>
-                    <div class="zone">Thiès</div>
-                    <div class="contact">M. Diouf · 33 827 92 51</div>
-                </div> --}}
             </div>
         </div>
     </section>
 
+    {{-- ========== FAQ ========== --}}
     <section id="faq">
         <div class="wrap" style="max-width:820px;">
             <div class="section-head">
@@ -1449,17 +1221,17 @@
             </div>
             <div class="faq-list">
                 <div class="faq-item" onclick="this.classList.toggle('open')">
-                    <div class="faq-q">Bonjour j'arrive pas à m'inscrire sur vos sites <span class="chev">+</span>
-                    </div>
+                    <div class="faq-q">Bonjour, je n'arrive pas à m'inscrire sur vos sites <span
+                            class="chev">+</span></div>
                     <div class="faq-a">Pour l'inscription, suivez le guide ou la vidéo disponible sur la plateforme.
                         Si le problème persiste, appelez directement le 77 291 33 97.</div>
                 </div>
                 <div class="faq-item" onclick="this.classList.toggle('open')">
-                    <div class="faq-q">Nous nous sommes trompés d'option, choisi "apprenant" au lieu d'"opérateur"
+                    <div class="faq-q">Nous nous sommes trompés d'option : « apprenant » au lieu d'« opérateur »
                         <span class="badge">Résolu</span>
                     </div>
                     <div class="faq-a">Contactez le support via le formulaire de contact pour faire corriger votre
-                        profil vers "Opérateur".</div>
+                        profil vers « Opérateur ».</div>
                 </div>
                 <div class="faq-item" onclick="this.classList.toggle('open')">
                     <div class="faq-q">Je voudrais déposer une demande d'agrément de formation <span
@@ -1477,31 +1249,40 @@
         </div>
     </section>
 
-    <section class="contact" id="contact">
+    {{-- ========== CONTACT ========== --}}
+    <section class="contact-section" id="contact">
         <div class="wrap contact-grid">
             <div>
                 <div class="eyebrow">Nous contacter</div>
                 <h2>Une question ? Écrivez-nous</h2>
-                <p style="color:var(--gray);margin:14px 0 26px;">Ce formulaire est réservé aux questions et demandes
-                    d'information - il ne remplace pas un dépôt de candidature.</p>
-                <div class="form-grid">
-                    <div class="field"><label>Email</label><input type="email" placeholder="vous@exemple.sn">
+                <p class="contact-lead">Ce formulaire est réservé aux questions et demandes d'information. Il ne
+                    remplace pas un dépôt de candidature.</p>
+                {{-- TODO : remplacer action="#" par votre route de contact --}}
+                <form class="form-grid" method="POST" action="#">
+                    @csrf
+                    <div class="field"><label for="c-email">Email</label>
+                        <input id="c-email" name="email" type="email" placeholder="vous@exemple.sn" required>
                     </div>
-                    <div class="field"><label>Téléphone</label><input type="tel"
-                            placeholder="+221 77 000 00 00"></div>
-                    <div class="field full"><label>Objet</label><input type="text"
-                            placeholder="Objet de votre message"></div>
-                    <div class="field full"><label>Message</label>
-                        <textarea placeholder="Écrivez votre message ici…"></textarea>
+                    <div class="field"><label for="c-tel">Téléphone</label>
+                        <input id="c-tel" name="telephone" type="tel" placeholder="+221 77 000 00 00">
                     </div>
-                    <div class="full"><button class="btn btn-primary">Envoyer le message</button></div>
-                </div>
+                    <div class="field full"><label for="c-objet">Objet</label>
+                        <input id="c-objet" name="objet" type="text" placeholder="Objet de votre message"
+                            required>
+                    </div>
+                    <div class="field full"><label for="c-message">Message</label>
+                        <textarea id="c-message" name="message" placeholder="Écrivez votre message ici…" required></textarea>
+                    </div>
+                    <div class="full"><button type="submit" class="btn btn-primary">Envoyer le message</button>
+                    </div>
+                </form>
             </div>
+
             <div class="contact-info">
                 <h3>Direction générale</h3>
-                <p>Spres 1, lot 2 – 2 voies Liberté 6, extension VDN, Dakar</p>
-                <div class="info-row"><span class="ic">📍</span><span>Sipres 1, lot 2 - 2 voies liberté 6,
-                        extension VDN, Dakar</span></div>
+                <div class="info-row"><span class="ic">📍</span><span>Sipres 1, lot 2 - 2 voies Liberté 6,
+                        extension
+                        VDN, Dakar</span></div>
                 <div class="info-row"><span class="ic">☎️</span><span>+221 33 827 92 51</span></div>
                 <div class="info-row"><span class="ic">✉️</span><span>onfp@onfp.sn</span></div>
                 <div class="info-row"><span class="ic">💬</span><span>WhatsApp : +221 77 291 18 38</span></div>
@@ -1509,18 +1290,15 @@
         </div>
     </section>
 
+    {{-- ========== FOOTER ========== --}}
     <footer>
         <div class="wrap">
             <div class="footer-grid">
                 <div>
-                    <div class="footer-brand">
-                        <a href="{{ url('/') }}" class="logo d-flex align-items-center me-auto me-xl-0">
-                            <img src="{{ asset('assets/img/ONFP_logo_fond-blanc_1500px.jpg') }}" alt="Logo ONFP"
-                                class="footer-logo">
-                        </a>
-                    </div>
-                    {{-- <p style="font-size:.88rem;max-width:280px;">Office National de Formation Professionnelle - la
-                        référence de la formation professionnelle au Sénégal depuis 1986.</p> --}}
+                    <a href="{{ url('/') }}">
+                        <img src="{{ asset('assets/img/ONFP_logo_fond-blanc_1500px.jpg') }}" alt="Logo ONFP"
+                            class="footer-logo">
+                    </a>
                     <div class="social-row">
                         <a class="social-btn" href="https://x.com/onfp_sn" target="_blank" rel="noopener"
                             aria-label="X (Twitter)">
@@ -1567,6 +1345,7 @@
                         </a>
                     </div>
                 </div>
+
                 <div>
                     <h5>Navigation</h5>
                     <ul>
@@ -1581,7 +1360,8 @@
                     <ul>
                         <li><a href="{{ url('login') }}">Se connecter</a></li>
                         <li><a href="{{ route('register-page') }}">S'inscrire</a></li>
-                        <li><a href="forgot-password.html">Mot de passe oublié</a></li>
+                        {{-- Adaptez si votre route porte un autre nom --}}
+                        <li><a href="{{ route('password.request') }}">Mot de passe oublié</a></li>
                     </ul>
                 </div>
                 <div>
@@ -1594,7 +1374,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <span>© ONFP - Tous droits réservés</span>
+                <span>© ONFP · Tous droits réservés</span>
                 <span>Conçu par l'équipe digitale ONFP</span>
             </div>
         </div>
@@ -1604,18 +1384,21 @@
         (function() {
             const slides = document.querySelectorAll('#heroCarousel .hc-slide');
             const dotsWrap = document.getElementById('hcDots');
+            if (slides.length < 2 || !dotsWrap) return;
+
             let current = 0,
                 timer;
 
             slides.forEach((_, i) => {
                 const dot = document.createElement('button');
+                dot.type = 'button';
                 if (i === 0) dot.classList.add('active');
-                dot.setAttribute('aria-label', 'Aller à l\'image ' + (i + 1));
-                dot.onclick = () => hcGoTo(i);
+                dot.setAttribute('aria-label', "Aller à l'image " + (i + 1));
+                dot.onclick = () => goTo(i);
                 dotsWrap.appendChild(dot);
             });
 
-            function hcGoTo(i) {
+            function goTo(i) {
                 slides[current].classList.remove('active');
                 dotsWrap.children[current].classList.remove('active');
                 current = (i + slides.length) % slides.length;
@@ -1623,12 +1406,14 @@
                 dotsWrap.children[current].classList.add('active');
                 resetTimer();
             }
-            window.hcMove = (dir) => hcGoTo(current + dir);
 
             function resetTimer() {
                 clearInterval(timer);
-                timer = setInterval(() => hcGoTo(current + 1), 5000);
+                timer = setInterval(() => goTo(current + 1), 5000);
             }
+
+            window.hcMove = (dir) => goTo(current + dir);
+
             const carousel = document.getElementById('heroCarousel');
             carousel.addEventListener('mouseenter', () => clearInterval(timer));
             carousel.addEventListener('mouseleave', resetTimer);
