@@ -1115,11 +1115,10 @@
             @endif
         </div>
 
-        <div class="wrap">
+        {{-- <div class="wrap">
             <div class="verify-card">
                 <h3>Vérifiez votre sélection</h3>
                 <p>Consultez rapidement le statut de votre dossier à l'aide de vos informations personnelles.</p>
-                {{-- TODO : remplacer action="#" par votre route de vérification --}}
                 <form class="verify-form" method="POST" action="#">
                     @csrf
                     <div class="field"><label for="v-prenom">Prénom</label>
@@ -1137,7 +1136,7 @@
                     <button type="submit" class="btn btn-primary" style="height:44px;">Vérifier</button>
                 </form>
             </div>
-        </div>
+        </div> --}}
     </section>
 
     {{-- ========== À PROPOS ========== --}}

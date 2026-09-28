@@ -224,15 +224,15 @@
                             @enderror
                         </div>
                     </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Dernier diplôme obtenu <span class="text-danger">*</span></label>
+                        <input type="text" name="dernier_diplome" class="form-control form-control-sm"
+                            value="{{ old('dernier_diplome') }}" required placeholder="Ex: BAC">
+                    </div>
                     <div class="col-md-12 mb-3">
                         <label>Adresse <span class="text-danger">*</span></label>
                         <input type="text" name="adresse" class="form-control form-control-sm"
                             value="{{ old('adresse') }}" required placeholder="Ex: Grand Dakar">
-                    </div>
-                    <div class="col-md-12 mb-3">
-                        <label>Dernier diplôme obtenu <span class="text-danger">*</span></label>
-                        <input type="text" name="dernier_diplome" class="form-control form-control-sm"
-                            value="{{ old('dernier_diplome') }}" required placeholder="Ex: BAC">
                     </div>
                 </div>
                 <div class="text-end">
