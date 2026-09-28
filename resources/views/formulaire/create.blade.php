@@ -99,9 +99,33 @@
         </h5>
         {{-- <h2 class="text-center mb-4 text-uppercase text-dark"></h2> --}}
 
-        @if ($errors->any())
+
+        @if (session('success'))
+            <div class="alert alert-success">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;">
+                    <circle cx="12" cy="12" r="11" class="alert-icon-bg" />
+                    <path d="M7 12.5l3 3 7-7" stroke="#fff" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span>{{ session('success') }}</span>
+            </div>
+        @endif
+
+        @if (session('error'))
             <div class="alert alert-danger">
-                <ul class="mb-0">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;">
+                    <circle cx="12" cy="12" r="11" class="alert-icon-bg" />
+                    <path d="M8 8l8 8M16 8l-8 8" stroke="#fff" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span>{{ session('error') }}</span>
+            </div>
+        @endif
+
+        @if ($errors->any())
+            <div class="alert alert-danger alert-list">
+                <strong>Veuillez corriger les erreurs suivantes avant de continuer :</strong>
+                <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
@@ -177,8 +201,9 @@
                             value="{{ old('telephone') }}" required> --}}
 
                         <input name="telephone" type="text" maxlength="12"
-                            class="form-control form-control-sm @error('telephone') is-invalid @enderror" id="phone"
-                            value="{{ old('telephone') }}" autocomplete="tel" placeholder="Téléphone">
+                            class="form-control form-control-sm @error('telephone') is-invalid @enderror"
+                            id="phone" value="{{ old('telephone') }}" autocomplete="tel"
+                            placeholder="Téléphone">
                         <div class="invalid-feedback">
                             @error('telephone')
                                 {{ $message }}

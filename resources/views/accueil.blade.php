@@ -304,7 +304,7 @@
         /* ========== CARROUSEL ========== */
         .hero-carousel {
             position: relative;
-            border-radius: 20px;
+            border-radius: 10px;
             overflow: hidden;
             box-shadow: var(--shadow);
             background: var(--gray-bg);
@@ -957,6 +957,68 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        .hero-grid>* {
+            min-width: 0;
+            /* évite qu'une image large déforme la grille */
+        }
+
+        /* Cadre FIXE : ses dimensions ne dépendent plus de l'image affichée */
+        .hero-carousel {
+            position: relative;
+            width: 100%;
+            max-width: 540px;
+            margin-inline: auto;
+            aspect-ratio: 4 / 5;
+            /* ratio fixe du bloc */
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            background: var(--gray-bg);
+        }
+
+        .hc-slide {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .hc-slide.active {
+            display: flex;
+        }
+
+        /* Zone image : prend tout l'espace restant au-dessus de la légende */
+        .hc-media {
+            flex: 1;
+            min-height: 0;
+            /* indispensable pour que flex puisse réduire */
+            background: var(--gray-bg);
+        }
+
+        /* L'image s'adapte au cadre sans jamais le modifier */
+        .hc-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            /* affiche l'affiche en entier, sans rognage */
+        }
+
+        /* Légende à hauteur fixe pour que la zone image ne bouge pas non plus */
+        .hc-caption {
+            flex: none;
+            height: 84px;
+            background: #fff;
+            padding: 14px 26px;
+            border-top: 3px solid var(--orange);
+            overflow: hidden;
+        }
+
+        .hc-caption .title {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
     </style>
 </head>
 
@@ -1006,11 +1068,34 @@
                 </div>
             </div>
 
-            @if ($slides->isNotEmpty())
+            {{-- @if ($slides->isNotEmpty())
                 <div class="hero-carousel" id="heroCarousel">
                     @foreach ($slides as $post)
                         <div class="hc-slide {{ $loop->first ? 'active' : '' }}">
                             <img src="{{ asset($post->getPoste()) }}" alt="{{ $post->legende ?? $post->name }}">
+                            <div class="hc-caption">
+                                <div class="tag">{{ $post->titre }}</div>
+                                <div class="title">{{ str($post->name)->limit(50) }}</div>
+                            </div>
+                        </div>
+                    @endforeach
+
+                    @if ($slides->count() > 1)
+                        <button type="button" class="hc-nav hc-prev" onclick="hcMove(-1)"
+                            aria-label="Image précédente">‹</button>
+                        <button type="button" class="hc-nav hc-next" onclick="hcMove(1)"
+                            aria-label="Image suivante">›</button>
+                        <div class="hc-dots" id="hcDots"></div>
+                    @endif
+                </div>
+            @endif --}}
+            @if ($slides->isNotEmpty())
+                <div class="hero-carousel" id="heroCarousel">
+                    @foreach ($slides as $post)
+                        <div class="hc-slide {{ $loop->first ? 'active' : '' }}">
+                            <div class="hc-media">
+                                <img src="{{ asset($post->getPoste()) }}" alt="{{ $post->legende ?? $post->name }}">
+                            </div>
                             <div class="hc-caption">
                                 <div class="tag">{{ $post->titre }}</div>
                                 <div class="title">{{ str($post->name)->limit(50) }}</div>
