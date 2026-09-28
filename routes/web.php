@@ -1413,7 +1413,8 @@ Route::group(['middleware' => ['XSS']], function () {
             Route::get('/prisencharge', [FormulaireController::class, 'create'])->name('formulaire.create');
             Route::post('/prisencharge', [FormulaireController::class, 'store'])->name('formulaire.store');
             Route::get('/prisencharge/merci', [FormulaireController::class, 'merci'])->name('formulaire.merci');
-        });
+
+                });
 
         Route::get('/note_de_frais', function () {
 
@@ -1544,6 +1545,8 @@ Route::group(['middleware' => ['XSS']], function () {
 Route::get('/pcharge', [FormulaireController::class, 'create'])->name('formulaire.create');
 Route::post('/pcharge', [FormulaireController::class, 'store'])->name('formulaire.store');
 Route::get('/pcharge/merci', [FormulaireController::class, 'merci'])->name('formulaire.merci');
+Route::get('/formulaire/confirmation/{formulaire}', [FormulaireController::class, 'confirmation'])
+                ->name('formulaire.confirmation');
 
 /* Route::get('/book/view/{filename}', [BookController::class, 'show'])->name('book.view'); */
 Route::get('/manuel/view/{filename}', [BookController::class, 'show'])->name('manuel.view');
