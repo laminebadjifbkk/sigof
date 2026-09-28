@@ -1035,6 +1035,7 @@
                 <li><a href="#apropos">À propos</a></li>
                 <li><a href="#services">Services</a></li>
                 <li><a href="#poles">Nos pôles</a></li>
+                <li><a href="{{ route('manuels.showDefault') }}" target="_blank">Nos manuels</a></li>
                 <li><a href="#faq">FAQ</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
