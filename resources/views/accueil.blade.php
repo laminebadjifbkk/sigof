@@ -1222,7 +1222,7 @@
                         d'aide bilatérale ou multilatérale.</li>
                 </ul>
                 <div class="dg-card">
-                    <img src="https://sigof.onfp.sn/asset/img/dg_onfp.jpeg" alt="Directrice générale">
+                    <img src="https://sigof.onfp.sn/assets/img/dgawandoye.jpg" alt="Directrice générale">
                     <div>
                         <div class="name">Dr. Mame Awa NDOYE</div>
                         <div class="role">Directeur Général - +221 33 827 92 51</div>
