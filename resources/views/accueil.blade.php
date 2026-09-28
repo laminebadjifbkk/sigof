@@ -364,7 +364,7 @@
         /* HERO CAROUSEL - médiathèque à la une */
         .hero-carousel {
             position: relative;
-            height: 420px;
+            height: 520px;
             border-radius: 20px;
             overflow: hidden;
             box-shadow: var(--shadow);
@@ -1154,7 +1154,22 @@
                 </div>
             </div>
             <div class="hero-carousel" id="heroCarousel">
-                <div class="hc-slide active">
+                @if ($posts_count)
+                    @foreach ($posts as $post)
+                        @if (!empty($post->image))
+                            <div class="hc-slide active">
+                                <img src="{{ asset($post->getPoste()) }}" alt="{{ $post->legende }}">
+                                <div class="hc-caption">
+                                    <div class="tag">{{ $post->titre }}</div>
+                                    <div class="title">
+                                        {{ str($post?->name)->limit(50) }}
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
+                @endif
+                {{-- <div class="hc-slide active">
                     <img src="https://picsum.photos/id/1049/900/700" alt="Session de formation en atelier technique">
                     <div class="hc-caption">
                         <div class="tag">Formation | Qualification</div>
@@ -1181,7 +1196,7 @@
                         <div class="tag">Partenariat</div>
                         <div class="title">Signature de convention avec un opérateur agréé</div>
                     </div>
-                </div>
+                </div> --}}
 
                 <button class="hc-nav hc-prev" onclick="hcMove(-1)" aria-label="Image précédente">‹</button>
                 <button class="hc-nav hc-next" onclick="hcMove(1)" aria-label="Image suivante">›</button>
