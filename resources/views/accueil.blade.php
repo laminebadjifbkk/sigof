@@ -1149,9 +1149,8 @@
                     <a href="#apropos" class="btn btn-ghost">Découvrir l'ONFP</a>
                 </div>
                 <div class="hero-stat">
-                    <span class="num">39+</span>
-                    <p class="lead">années d'expérience dans la formation professionnelle, sur tout le territoire
-                        sénégalais</p>
+                    <span class="num">{{ $anciennete }}+ </span>
+                    <p class="lead">ans d'expérience dans la formation professionnelle au sénégal</p>
                 </div>
             </div>
             <div class="hero-carousel" id="heroCarousel">
@@ -1326,13 +1325,46 @@
                 </p>
             </div>
             <div class="poles-grid">
-                <div class="pole-card">
-                    <div class="since">DEPUIS 1986</div>
-                    <h4>Direction générale</h4>
-                    <div class="zone">Région de Dakar</div>
-                    <div class="contact">M. Lo · 33 827 92 51<br>Sipres 1, Dakar</div>
-                </div>
-                <div class="pole-card">
+                @foreach ($antennes as $antenne)
+                    <div class="pole-card">
+                        <div class="since">
+                            @if (!empty($antenne?->date_ouverture))
+                                <div class="popular-badge">
+                                    {{ 'DEPUIS ' . mb_strtoupper($antenne?->date_ouverture?->translatedFormat('Y'), 'UTF-8') }}
+                                </div>
+                            @else
+                                <div class="popular-badge">{{ $antenne?->code }}</div>
+                            @endif
+                        </div>
+                        <h4>{{ $antenne?->name }}</h4>
+                        <div class="zone">
+                            @foreach ($antenne?->regions as $region)
+                                @if (!empty($region))
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    {{ $region?->nom }}@if (!$loop->last)
+                                        -
+                                    @endif
+                                @endif
+                            @endforeach
+                        </div>
+                        <div class="contact">
+                            @if ($antenne?->chef?->user?->name)
+                                <p><i class="bi bi-person"></i>
+                                    {{ $antenne?->chef?->user?->civilite . ' ' . $antenne?->chef?->user?->name }}
+                                </p>
+                            @endif
+
+                            {{ $antenne?->contact }}
+                            @if ($antenne?->chef?->user?->telephone !== '78 291 33 33')
+                                {{ ' / ' . $antenne?->chef?->user?->telephone }}
+                            @else
+                            @endif
+                            <br>
+                            {{ $antenne?->adresse }}
+                        </div>
+                    </div>
+                @endforeach
+                {{-- <div class="pole-card">
                     <div class="since">DEPUIS 2014</div>
                     <h4>Pôle Centre</h4>
                     <div class="zone">Fatick · Kaffrine · Kaolack</div>
@@ -1373,7 +1405,7 @@
                     <h4>Pôle Thiès</h4>
                     <div class="zone">Thiès</div>
                     <div class="contact">M. Diouf · 33 827 92 51</div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </section>
