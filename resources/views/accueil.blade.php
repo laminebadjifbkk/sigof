@@ -307,7 +307,7 @@
             border-radius: 10px;
             overflow: hidden;
             box-shadow: var(--shadow);
-            background: var(--gray-bg);
+            background: var(--white);
         }
 
         .hc-slide {
@@ -974,12 +974,13 @@
             border-radius: 10px;
             overflow: hidden;
             box-shadow: var(--shadow);
-            background: var(--gray-bg);
+            background: var(--white-bg);
         }
 
         .hc-slide {
             display: none;
             flex-direction: column;
+            background: var(--white);
             height: 100%;
         }
 
@@ -992,7 +993,7 @@
             flex: 1;
             min-height: 0;
             /* indispensable pour que flex puisse réduire */
-            background: var(--gray-bg);
+            background: var(--white);
         }
 
         /* L'image s'adapte au cadre sans jamais le modifier */
@@ -1365,12 +1366,12 @@
 
             <div class="contact-info">
                 <h3>Direction générale</h3>
-                <div class="info-row"><span class="ic">📍</span><span>Sipres 1, lot 2 - 2 voies Liberté 6,
+                <div class="info-row"><span class="ic"></span><span>Sipres 1, lot 2 - 2 voies Liberté 6,
                         extension
                         VDN, Dakar</span></div>
-                <div class="info-row"><span class="ic">☎️</span><span>+221 33 827 92 51</span></div>
-                <div class="info-row"><span class="ic">✉️</span><span>onfp@onfp.sn</span></div>
-                <div class="info-row"><span class="ic">💬</span><span>WhatsApp : +221 77 291 18 38</span></div>
+                <div class="info-row"><span class="ic"></span><span>+221 33 827 92 51</span></div>
+                <div class="info-row"><span class="ic"></span><span>onfp@onfp.sn</span></div>
+                <div class="info-row"><span class="ic"></span><span>WhatsApp : +221 77 291 18 38</span></div>
             </div>
         </div>
     </section>
@@ -1385,21 +1386,21 @@
                             class="footer-logo">
                     </a>
                     <div class="social-row">
-                        <a class="social-btn" href="https://x.com/onfp_sn" target="_blank" rel="noopener"
+                        <a class="social-btn" href="https://x.com/ONFP_Officiel/" target="_blank" rel="noopener"
                             aria-label="X (Twitter)">
                             <svg viewBox="0 0 24 24" fill="currentColor">
                                 <path
                                     d="M18.3 2H21l-6.6 7.5L22.2 22H16l-5-6.6L5.2 22H2.5l7.1-8.1L1.8 2h6.4l4.5 6.1L18.3 2Zm-1.2 18h1.5L7 4h-1.6l11.7 16Z" />
                             </svg>
                         </a>
-                        <a class="social-btn" href="https://facebook.com/onfp.sn" target="_blank" rel="noopener"
+                        <a class="social-btn" href="https://www.facebook.com/profile.php?id=61566912421177" target="_blank" rel="noopener"
                             aria-label="Facebook">
                             <svg viewBox="0 0 24 24" fill="currentColor">
                                 <path
                                     d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.3-1.5 1.6-1.5h1.7V3.6C16.5 3.6 15.6 3.5 14.6 3.5c-2.5 0-4.2 1.5-4.2 4.3v2.1H7.7v3.1h2.7v8h3.1Z" />
                             </svg>
                         </a>
-                        <a class="social-btn" href="https://instagram.com/onfp.sn" target="_blank" rel="noopener"
+                        <a class="social-btn" href="https://www.instagram.com/onfp.sn/" target="_blank" rel="noopener"
                             aria-label="Instagram">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
                                 <rect x="3" y="3" width="18" height="18" rx="5" />
@@ -1407,21 +1408,21 @@
                                 <circle cx="17.2" cy="6.8" r="1" />
                             </svg>
                         </a>
-                        <a class="social-btn" href="https://linkedin.com/company/onfp-sn" target="_blank"
+                        <a class="social-btn" href="https://www.linkedin.com/company/104719756/admin/page-posts/published/" target="_blank"
                             rel="noopener" aria-label="LinkedIn">
                             <svg viewBox="0 0 24 24" fill="currentColor">
                                 <path
                                     d="M6.9 8.6H3.6V20h3.3V8.6ZM5.3 3.5a1.9 1.9 0 1 0 0 3.9 1.9 1.9 0 0 0 0-3.9ZM20.4 20h-3.3v-5.9c0-1.4 0-3.2-2-3.2s-2.3 1.6-2.3 3.1V20H9.5V8.6h3.1v1.5h.1c.4-.8 1.5-1.7 3.2-1.7 3.4 0 4.5 2.2 4.5 5.2V20Z" />
                             </svg>
                         </a>
-                        <a class="social-btn" href="https://youtube.com/@onfp_sn" target="_blank" rel="noopener"
+                        <a class="social-btn" href="https://www.youtube.com/@CelluleCommunicationONFP/shorts" target="_blank" rel="noopener"
                             aria-label="YouTube">
                             <svg viewBox="0 0 24 24" fill="currentColor">
                                 <path
                                     d="M21.6 7.2s-.2-1.5-.8-2.1c-.8-.8-1.7-.8-2.1-.9C15.8 4 12 4 12 4h0s-3.8 0-6.7.2c-.4 0-1.3.1-2.1.9-.6.6-.8 2.1-.8 2.1S2.2 9 2.2 10.7v1.6C2.2 14 2.4 15.8 2.4 15.8s.2 1.5.8 2.1c.8.8 1.9.8 2.3.9 1.7.2 7 .2 7 .2s3.8 0 6.7-.2c.4 0 1.3-.1 2.1-.9.6-.6.8-2.1.8-2.1s.2-1.8.2-3.5v-1.6c0-1.7-.2-3.5-.2-3.5ZM10 14.4V8.9l5.3 2.8-5.3 2.7Z" />
                             </svg>
                         </a>
-                        <a class="social-btn" href="https://wa.me/221772911838" target="_blank" rel="noopener"
+                        <a class="social-btn" href="https://wa.me/221787804411" target="_blank" rel="noopener"
                             aria-label="WhatsApp">
                             <svg viewBox="0 0 24 24" fill="currentColor">
                                 <path
