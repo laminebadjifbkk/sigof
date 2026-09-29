@@ -135,6 +135,7 @@ class FormulaireController extends Controller
 
         $donnees          = Arr::except($validated, array_keys($fichiers));
         $donnees['montant_unique'] = $donnees['montant_unique'] ?? null;
+        $donnees['annee_scolaire']  = '2026-2027';
 
         $nouveauxChemins  = [];
         $anciensChemins   = [];
@@ -425,7 +426,8 @@ class FormulaireController extends Controller
             'responsable_etablieement' => 'nullable|string|max:255',
             'adresse_etablessement' => 'nullable|string|max:255',
             'telephone_etablissement' => 'nullable|string|max:30',
-            'annee_scolaire' => 'nullable|string|max:20',
+            'annee_scolaire' => 'required',
+            'regex:/^\d{4}-\d{4}$/',
             'montant_onfp' => 'nullable|numeric',
             'statut_certificat' => 'nullable|string|max:50',
             'autre_1' => 'nullable|string|max:100',
