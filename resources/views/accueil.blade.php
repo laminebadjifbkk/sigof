@@ -1344,13 +1344,15 @@
                 <p class="contact-lead">Ce formulaire est réservé aux questions et demandes d'information. Il ne
                     remplace pas un dépôt de candidature.</p>
                 {{-- TODO : remplacer action="#" par votre route de contact --}}
-                <form class="form-grid" method="POST" action="#">
+                {{-- <form class="form-grid" method="POST" action="#">
+                    @csrf --}}
+                <form class="form-grid" method="POST" action="{{ route('contacts.store') }}">
                     @csrf
                     <div class="field"><label for="c-email">Email</label>
-                        <input id="c-email" name="email" type="email" placeholder="vous@exemple.sn" required>
+                        <input id="c-email" name="emailadresse" type="email" placeholder="vous@exemple.sn" required>
                     </div>
                     <div class="field"><label for="c-tel">Téléphone</label>
-                        <input id="c-tel" name="telephone" type="tel" placeholder="+221 77 000 00 00">
+                        <input id="c-tel" name="telephone" type="tel" placeholder="770000000">
                     </div>
                     <div class="field full"><label for="c-objet">Objet</label>
                         <input id="c-objet" name="objet" type="text" placeholder="Objet de votre message"
@@ -1393,30 +1395,31 @@
                                     d="M18.3 2H21l-6.6 7.5L22.2 22H16l-5-6.6L5.2 22H2.5l7.1-8.1L1.8 2h6.4l4.5 6.1L18.3 2Zm-1.2 18h1.5L7 4h-1.6l11.7 16Z" />
                             </svg>
                         </a>
-                        <a class="social-btn" href="https://www.facebook.com/profile.php?id=61566912421177" target="_blank" rel="noopener"
-                            aria-label="Facebook">
+                        <a class="social-btn" href="https://www.facebook.com/profile.php?id=61566912421177"
+                            target="_blank" rel="noopener" aria-label="Facebook">
                             <svg viewBox="0 0 24 24" fill="currentColor">
                                 <path
                                     d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.3-1.5 1.6-1.5h1.7V3.6C16.5 3.6 15.6 3.5 14.6 3.5c-2.5 0-4.2 1.5-4.2 4.3v2.1H7.7v3.1h2.7v8h3.1Z" />
                             </svg>
                         </a>
-                        <a class="social-btn" href="https://www.instagram.com/onfp.sn/" target="_blank" rel="noopener"
-                            aria-label="Instagram">
+                        <a class="social-btn" href="https://www.instagram.com/onfp.sn/" target="_blank"
+                            rel="noopener" aria-label="Instagram">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
                                 <rect x="3" y="3" width="18" height="18" rx="5" />
                                 <circle cx="12" cy="12" r="4" />
                                 <circle cx="17.2" cy="6.8" r="1" />
                             </svg>
                         </a>
-                        <a class="social-btn" href="https://www.linkedin.com/company/104719756/admin/page-posts/published/" target="_blank"
-                            rel="noopener" aria-label="LinkedIn">
+                        <a class="social-btn"
+                            href="https://www.linkedin.com/company/104719756/admin/page-posts/published/"
+                            target="_blank" rel="noopener" aria-label="LinkedIn">
                             <svg viewBox="0 0 24 24" fill="currentColor">
                                 <path
                                     d="M6.9 8.6H3.6V20h3.3V8.6ZM5.3 3.5a1.9 1.9 0 1 0 0 3.9 1.9 1.9 0 0 0 0-3.9ZM20.4 20h-3.3v-5.9c0-1.4 0-3.2-2-3.2s-2.3 1.6-2.3 3.1V20H9.5V8.6h3.1v1.5h.1c.4-.8 1.5-1.7 3.2-1.7 3.4 0 4.5 2.2 4.5 5.2V20Z" />
                             </svg>
                         </a>
-                        <a class="social-btn" href="https://www.youtube.com/@CelluleCommunicationONFP/shorts" target="_blank" rel="noopener"
-                            aria-label="YouTube">
+                        <a class="social-btn" href="https://www.youtube.com/@CelluleCommunicationONFP/shorts"
+                            target="_blank" rel="noopener" aria-label="YouTube">
                             <svg viewBox="0 0 24 24" fill="currentColor">
                                 <path
                                     d="M21.6 7.2s-.2-1.5-.8-2.1c-.8-.8-1.7-.8-2.1-.9C15.8 4 12 4 12 4h0s-3.8 0-6.7.2c-.4 0-1.3.1-2.1.9-.6.6-.8 2.1-.8 2.1S2.2 9 2.2 10.7v1.6C2.2 14 2.4 15.8 2.4 15.8s.2 1.5.8 2.1c.8.8 1.9.8 2.3.9 1.7.2 7 .2 7 .2s3.8 0 6.7-.2c.4 0 1.3-.1 2.1-.9.6-.6.8-2.1.8-2.1s.2-1.8.2-3.5v-1.6c0-1.7-.2-3.5-.2-3.5ZM10 14.4V8.9l5.3 2.8-5.3 2.7Z" />
