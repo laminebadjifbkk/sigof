@@ -61,7 +61,7 @@
         body {
             font-family: 'Manrope', sans-serif;
             color: var(--ink);
-            background: var(--cream);
+            background: var(--white);
             line-height: 1.55;
             -webkit-font-smoothing: antialiased;
         }
@@ -156,7 +156,7 @@
         }
 
         .btn-primary {
-            background: var(--orange);
+            background: var(--green);
             color: #fff;
         }
 
@@ -1056,7 +1056,7 @@
         <div class="wrap hero-grid">
             <div>
                 <div class="eyebrow">Office national de formation professionnelle</div>
-                <h1>La référence de la <span class="accent">formation professionnelle</span> au Sénégal</h1>
+                <h1>La référence de la <span class="accente">formation professionnelle</span> au Sénégal</h1>
                 <p class="lead">SIGOF centralise et digitalise vos démarches : demandes de formation, agréments
                     d'opérateurs, suivi des partenariats, en un seul portail, partout dans le pays.</p>
                 <div class="hero-cta">
