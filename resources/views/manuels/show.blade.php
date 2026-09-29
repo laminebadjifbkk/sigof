@@ -5,290 +5,659 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{ asset('assets/img/favicon-onfp.png') }}" rel="icon">
-    <title> {{ 'ONFP | Manuel de ' . $manuel->title }}</title>
+    <title>{{ 'ONFP | Manuel de ' . $manuel->title }}</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Source+Sans+3:wght@400;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <style>
+        :root {
+            --forest: #0f3d2e;
+            --forest-2: #17503d;
+            --leaf: #1f7a57;
+            --sun: #f0b323;
+            --paper: #eef2ee;
+            --card: #ffffff;
+            --ink: #16241e;
+            --muted: #5d6f66;
+            --line: #d9e1db;
+            --radius: 14px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            margin: 0;
+            font-family: 'Source Sans 3', system-ui, sans-serif;
+            color: var(--ink);
+            background: var(--paper);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        h1,
+        h2 {
+            font-family: 'Bricolage Grotesque', 'Source Sans 3', sans-serif;
+            margin: 0;
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--sun);
+            outline-offset: 2px;
+        }
+
+        /* ---------- Bibliothèque (sidebar) ---------- */
+        .sidebar {
+            width: 340px;
+            flex-shrink: 0;
+            background: var(--forest);
+            color: #e6f0ea;
+            padding: 28px 20px;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-mark {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: var(--sun);
+            color: var(--forest);
+            display: grid;
+            place-items: center;
+            font-size: 1.2rem;
+        }
+
+        .brand h2 {
+            font-size: 1.35rem;
+            color: #fff;
+            line-height: 1.1;
+        }
+
+        .brand small {
+            color: #a9c4b8;
+            font-size: .85rem;
+        }
+
+        .search {
+            position: relative;
+        }
+
+        .search i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8fb1a2;
+        }
+
+        .search input {
+            width: 100%;
+            padding: 12px 14px 12px 40px;
+            border: 1px solid rgba(255, 255, 255, .15);
+            background: rgba(255, 255, 255, .08);
+            color: #fff;
+            border-radius: 10px;
+            font: inherit;
+        }
+
+        .search input::placeholder {
+            color: #93b3a5;
+        }
+
+        .book-list {
+            list-style: none;
             margin: 0;
             padding: 0;
-            background-color: #f5f5f5;
+            display: grid;
+            gap: 4px;
+        }
+
+        .book-item a {
             display: flex;
-        }
-
-        /* Style de la sidebar */
-        .sidebar {
-            width: 400px;
-            background-color: #2c3e50;
-            color: white;
-            padding: 20px;
-            height: 150vh;
-            overflow-y: auto;
-        }
-
-        .sidebar h2 {
-            text-align: center;
-            color: #ecf0f1;
-        }
-
-        .sidebar ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .sidebar ul li {
-            margin: 15px 0;
-            font-size: 1.1em;
-        }
-
-        .sidebar ul li a {
-            color: #ecf0f1;
+            gap: 12px;
+            align-items: flex-start;
+            padding: 10px 12px;
+            color: #dcebe3;
             text-decoration: none;
-            display: block;
-            padding: 5px 15px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
+            border-radius: 10px;
+            border-left: 4px solid transparent;
+            line-height: 1.3;
+            transition: background .2s;
         }
 
-        .sidebar ul li a:hover {
-            background-color: #34495e;
+        .book-item a i {
+            margin-top: 3px;
+            color: #8fb1a2;
         }
 
+        .book-item a:hover {
+            background: rgba(255, 255, 255, .08);
+        }
+
+        .book-item.active a {
+            background: rgba(255, 255, 255, .12);
+            border-left-color: var(--sun);
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .book-item.active a i {
+            color: var(--sun);
+        }
+
+        .no-result {
+            display: none;
+            color: #a9c4b8;
+            padding: 8px 12px;
+        }
+
+        /* ---------- Contenu ---------- */
         .content {
-            flex-grow: 1;
-            padding: 20px;
+            flex: 1;
+            min-width: 0;
+            padding: 32px clamp(16px, 4vw, 56px) 56px;
         }
 
-        .container {
-            max-width: 1200px;
+        .topbar {
+            display: none;
+        }
+
+        .head {
+            max-width: 980px;
+            margin: 0 auto 24px;
+        }
+
+        .head h1 {
+            font-size: clamp(1.8rem, 3.6vw, 2.9rem);
+            font-weight: 800;
+            line-height: 1.05;
+            color: var(--forest);
+            letter-spacing: -.02em;
+        }
+
+        .author {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 14px;
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        .author i {
+            color: var(--leaf);
+        }
+
+        .desc {
+            margin-top: 14px;
+            max-width: 68ch;
+            color: #33453d;
+            line-height: 1.6;
+            font-size: 1.05rem;
+        }
+
+        .reader {
+            max-width: 980px;
             margin: 0 auto;
-            background-color: white;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 12px 30px -18px rgba(15, 61, 46, .35);
         }
 
-        h2 {
-            color: #333;
-            font-size: 2.5em;
-            text-align: center;
-            margin-bottom: 10px;
+        .progress {
+            height: 4px;
+            background: var(--line);
         }
 
-        .book-details {
-            text-align: center;
-            font-size: 1.2em;
-            color: #555;
-            margin-bottom: 30px;
+        .progress span {
+            display: block;
+            height: 100%;
+            width: 0;
+            background: var(--sun);
+            transition: width .25s ease;
         }
 
-        .reader-container {
+        .stage {
+            position: relative;
+            padding: 28px 16px;
+            background: #dfe6e1;
             display: flex;
             justify-content: center;
-            align-items: center;
-            margin-bottom: 30px;
+            min-height: 320px;
         }
 
-        canvas {
-            border: 1px solid #ddd;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        #pdf-render {
+            display: block;
             max-width: 100%;
-            max-height: 100%;
+            background: #fff;
+            box-shadow: 0 6px 22px rgba(0, 0, 0, .18);
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .status {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            text-align: center;
+            color: var(--forest);
+            font-weight: 600;
+            padding: 20px;
+            background: #dfe6e1;
+        }
+
+        .status[hidden] {
+            display: none;
+        }
+
+        .spinner {
+            width: 34px;
+            height: 34px;
+            margin: 0 auto 12px;
+            border: 4px solid rgba(15, 61, 46, .15);
+            border-top-color: var(--forest);
+            border-radius: 50%;
+            animation: spin .8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .spinner {
+                animation-duration: 3s;
+            }
         }
 
         #controls {
-            text-align: center;
-            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 10px 18px;
+            padding: 16px;
+            border-top: 1px solid var(--line);
         }
 
-        #controls button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 5px 15px;
-            font-size: 1em;
-            cursor: pointer;
-            margin: 5px;
-            border-radius: 5px;
-        }
-
-        #controls button:hover {
-            background-color: #0056b3;
-        }
-
-        #controls input[type="number"] {
-            padding: 5px;
-            font-size: 1em;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            text-align: center;
+        .pager {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         #pageNum {
-            margin: 0 10px;
-            font-size: 1.2em;
+            min-width: 130px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--forest);
+        }
+
+        .btn {
+            border: 0;
+            cursor: pointer;
+            font: inherit;
+            font-weight: 600;
+            padding: 10px 16px;
+            border-radius: 10px;
+            background: var(--forest);
+            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background .2s;
+        }
+
+        .btn:hover:not(:disabled) {
+            background: var(--leaf);
+        }
+
+        .btn:disabled {
+            opacity: .4;
+            cursor: not-allowed;
+        }
+
+        .btn.ghost {
+            background: transparent;
+            color: var(--forest);
+            border: 1px solid var(--line);
+        }
+
+        .btn.ghost:hover:not(:disabled) {
+            background: var(--paper);
+        }
+
+        .goto {
+            display: flex;
+            gap: 8px;
+        }
+
+        .goto input {
+            width: 76px;
+            padding: 10px;
+            text-align: center;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            font: inherit;
+        }
+
+        /* ---------- Mobile ---------- */
+        @media (max-width: 900px) {
+            body {
+                display: block;
+            }
+
+            .topbar {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background: var(--forest);
+                color: #fff;
+                padding: 12px 16px;
+                position: sticky;
+                top: 0;
+                z-index: 20;
+            }
+
+            .topbar strong {
+                font-family: 'Bricolage Grotesque', sans-serif;
+            }
+
+            .topbar button {
+                background: rgba(255, 255, 255, .12);
+                color: #fff;
+                border: 0;
+                padding: 8px 12px;
+                border-radius: 8px;
+                font: inherit;
+                cursor: pointer;
+            }
+
+            .sidebar {
+                position: fixed;
+                inset: 0 auto 0 0;
+                z-index: 30;
+                width: min(340px, 88vw);
+                height: 100%;
+                transform: translateX(-100%);
+                transition: transform .25s ease;
+            }
+
+            .sidebar.open {
+                transform: none;
+            }
+
+            .overlay {
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, .45);
+                z-index: 25;
+                display: none;
+            }
+
+            .overlay.show {
+                display: block;
+            }
+
+            .content {
+                padding-top: 24px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <h2>Nos publications</h2>
-        <input type="text" id="searchInput" placeholder="Rechercher un manuel..."
-        style="width: calc(100% - 10px); padding: 10px; border-radius: 5px; border: none; margin-bottom: 15px; font-size: 1em;">
+    <!-- Barre mobile -->
+    <div class="topbar">
+        <strong>ONFP Sénégal</strong>
+        <button id="openMenu" aria-label="Ouvrir la liste des publications"><i class="fas fa-bars"></i>
+            Publications</button>
+    </div>
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Bibliothèque -->
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="brand-mark"><i class="fas fa-book-open"></i></div>
+            <div>
+                <h2>Nos publications</h2>
+                <small>Bibliothèque ONFP</small>
+            </div>
+        </div>
+
+        <label class="search">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Rechercher un manuel" aria-label="Rechercher un manuel">
+        </label>
+
         <ul class="book-list">
             @foreach ($manuels as $man)
-                <li class="book-item">
+                <li class="book-item {{ $man->filename === $manuel->filename ? 'active' : '' }}">
                     <a href="{{ route('manuel.view', $man->filename) }}">
-                        <i class="fas fa-book"></i> {{ $man->title }}
+                        <i class="fas fa-book"></i> <span>{{ $man->title }}</span>
                     </a>
                 </li>
             @endforeach
         </ul>
-    </div>
+        <p class="no-result" id="noResult">Aucun manuel ne correspond à votre recherche.</p>
+    </aside>
 
-    <!-- Content Area -->
-    <div class="content">
-        <div class="container">
-            <h2>{{ $manuel->title }}</h2>
-            <div class="book-details">
-                <p><strong>Auteur : </strong> {{ $manuel->author }}</p>
-                <p><strong>Description :</strong>
+    <!-- Lecteur -->
+    <main class="content">
+        <header class="head">
+            <h1>{{ $manuel->title }}</h1>
+            <div class="author"><i class="fas fa-user-edit"></i> {{ $manuel->author }}</div>
+            <p class="desc">
+                {!! implode('', array_map(fn($line) => nl2br(e($line)), explode("\n", ucfirst($manuel->description)))) !!}
+            </p>
+        </header>
 
-                    {!! '' . implode('', array_map(fn($line) => nl2br(e($line)), explode("\n", ucfirst($manuel->description)))) !!}
+        <section class="reader" aria-label="Lecteur du manuel">
+            <div class="progress"><span id="progressBar"></span></div>
 
-                </p>
-            </div>
-
-            <div class="reader-container">
+            <div class="stage" id="stage">
                 <canvas id="pdf-render"></canvas>
+                <div class="status" id="status">
+                    <div>
+                        <div class="spinner"></div>Chargement du manuel…
+                    </div>
+                </div>
             </div>
 
             <div id="controls">
-                <button id="prevPage">Précédente</button>
-                <span id="pageNum">Page 1 sur 1</span>
-                <button id="nextPage">Suivante</button>
-                <br><br>
-                <input type="number" id="pageInput" min="1" style="width: 60px;" />
-                <button id="goToPage">Aller à la page</button>
+                <div class="pager">
+                    <button class="btn" id="prevPage"><i class="fas fa-chevron-left"></i> Précédente</button>
+                    <span id="pageNum">Page 1 sur 1</span>
+                    <button class="btn" id="nextPage">Suivante <i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="goto">
+                    <input type="number" id="pageInput" min="1" placeholder="N°" aria-label="Numéro de page">
+                    <button class="btn ghost" id="goToPage">Aller à la page</button>
+                </div>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
 
     <script>
         const url = '{{ asset('storage/manuels/' . $filename) }}';
         const pdfjsLib = window['pdfjs-dist/build/pdf'];
-
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
+
+        const canvas = document.getElementById('pdf-render');
+        const stage = document.getElementById('stage');
+        const statusBox = document.getElementById('status');
+        const pageLabel = document.getElementById('pageNum');
+        const prevBtn = document.getElementById('prevPage');
+        const nextBtn = document.getElementById('nextPage');
+        const progressBar = document.getElementById('progressBar');
 
         let pdfDoc = null,
             pageNum = 1,
             pageCount = 0;
+        let rendering = false,
+            pending = null;
 
-        function drawWatermark(ctx, canvas) {
-            const watermarkText = "ONFP-SENEGAL";
-            const fontSize = 50;
-
-            ctx.font = `${fontSize}px Arial`;
-            ctx.fillStyle = "rgba(150, 150, 150, 0.3)";
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-
-            const x = canvas.width / 2;
-            const y = canvas.height / 2;
-
+        function drawWatermark(ctx, w, h) {
             ctx.save();
-            ctx.translate(x, y);
+            ctx.font = `${Math.round(w / 11)}px Arial`;
+            ctx.fillStyle = 'rgba(150, 150, 150, 0.3)';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.translate(w / 2, h / 2);
             ctx.rotate(-Math.PI / 4);
-            ctx.fillText(watermarkText, 0, 0);
+            ctx.fillText('ONFP-SENEGAL', 0, 0);
             ctx.restore();
         }
 
-        function renderPage(num) {
-            pdfDoc.getPage(num).then(function(page) {
-                const canvas = document.getElementById('pdf-render');
-                const ctx = canvas.getContext('2d');
-                const A4_WIDTH = 595.28; // A4 width in pixels at 72 DPI
-                const A4_HEIGHT = 841.89; // A4 height in pixels at 72 DPI
+        function updateUI() {
+            pageLabel.textContent = `Page ${pageNum} sur ${pageCount}`;
+            prevBtn.disabled = pageNum <= 1;
+            nextBtn.disabled = pageNum >= pageCount;
+            progressBar.style.width = pageCount ? (pageNum / pageCount * 100) + '%' : '0';
+        }
 
-                const viewport = page.getViewport({
+        function renderPage(num) {
+            if (rendering) {
+                pending = num;
+                return;
+            }
+            rendering = true;
+
+            pdfDoc.getPage(num).then(page => {
+                const base = page.getViewport({
                     scale: 1
                 });
-                const scale = Math.min(A4_WIDTH / viewport.width, A4_HEIGHT / viewport.height);
-
-                canvas.height = A4_HEIGHT;
-                canvas.width = A4_WIDTH;
-
-                const renderContext = {
-                    canvasContext: ctx,
-                    viewport: page.getViewport({
-                        scale: scale
-                    })
-                };
-
-                page.render(renderContext).promise.then(function() {
-                    drawWatermark(ctx, canvas);
+                const available = Math.min(stage.clientWidth - 32, 820);
+                const cssScale = available / base.width;
+                const dpr = window.devicePixelRatio || 1;
+                const viewport = page.getViewport({
+                    scale: cssScale * dpr
                 });
+
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+                canvas.style.width = (viewport.width / dpr) + 'px';
+                canvas.style.height = (viewport.height / dpr) + 'px';
+
+                const ctx = canvas.getContext('2d');
+                return page.render({
+                    canvasContext: ctx,
+                    viewport
+                }).promise.then(() => {
+                    drawWatermark(ctx, canvas.width, canvas.height);
+                    statusBox.hidden = true;
+                });
+            }).catch(() => {
+                statusBox.hidden = false;
+                statusBox.innerHTML =
+                    '<div><i class="fas fa-exclamation-triangle" style="font-size:1.6rem"></i><p>Impossible d\'afficher cette page. Rechargez la page ou réessayez plus tard.</p></div>';
+            }).finally(() => {
+                rendering = false;
+                if (pending !== null) {
+                    const n = pending;
+                    pending = null;
+                    renderPage(n);
+                }
             });
         }
 
-        pdfjsLib.getDocument(url).promise.then(function(pdf) {
+        function goTo(n) {
+            if (n < 1 || n > pageCount || n === pageNum) return;
+            pageNum = n;
+            updateUI();
+            renderPage(pageNum);
+            stage.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest'
+            });
+        }
+
+        pdfjsLib.getDocument(url).promise.then(pdf => {
             pdfDoc = pdf;
             pageCount = pdf.numPages;
-
+            document.getElementById('pageInput').max = pageCount;
+            updateUI();
             renderPage(pageNum);
-
-            document.getElementById('pageNum').textContent = `Page ${pageNum} sur ${pageCount}`;
+        }).catch(() => {
+            statusBox.innerHTML =
+                '<div><i class="fas fa-exclamation-triangle" style="font-size:1.6rem"></i><p>Le manuel n\'a pas pu être chargé.</p></div>';
         });
 
-        document.getElementById('prevPage').addEventListener('click', function() {
-            if (pageNum > 1) {
-                pageNum--;
-                document.getElementById('pageNum').textContent = `Page ${pageNum} sur ${pageCount}`;
-                renderPage(pageNum);
-            }
-        });
+        prevBtn.addEventListener('click', () => goTo(pageNum - 1));
+        nextBtn.addEventListener('click', () => goTo(pageNum + 1));
 
-        document.getElementById('nextPage').addEventListener('click', function() {
-            if (pageNum < pageCount) {
-                pageNum++;
-                document.getElementById('pageNum').textContent = `Page ${pageNum} sur ${pageCount}`;
-                renderPage(pageNum);
-            }
-        });
-
-        document.getElementById('goToPage').addEventListener('click', function() {
-            const input = document.getElementById('pageInput');
-            const targetPage = parseInt(input.value, 10);
-
-            if (!isNaN(targetPage) && targetPage >= 1 && targetPage <= pageCount) {
-                pageNum = targetPage;
-                document.getElementById('pageNum').textContent = `Page ${pageNum} sur ${pageCount}`;
-                renderPage(pageNum);
+        document.getElementById('goToPage').addEventListener('click', () => {
+            const target = parseInt(document.getElementById('pageInput').value, 10);
+            if (!isNaN(target) && target >= 1 && target <= pageCount) {
+                goTo(target);
             } else {
                 alert(`Veuillez entrer un numéro de page valide entre 1 et ${pageCount}`);
             }
         });
-    </script>
-    <script>
-        document.getElementById('searchInput').addEventListener('keyup', function() {
-            const filter = this.value.toLowerCase();
-            const items = document.querySelectorAll('.book-list .book-item');
 
-            items.forEach(item => {
-                const text = item.textContent.toLowerCase();
-                if (text.includes(filter)) {
-                    item.style.display = '';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
+        document.getElementById('pageInput').addEventListener('keydown', e => {
+            if (e.key === 'Enter') document.getElementById('goToPage').click();
         });
+
+        document.addEventListener('keydown', e => {
+            if (e.target.tagName === 'INPUT') return;
+            if (e.key === 'ArrowLeft') goTo(pageNum - 1);
+            if (e.key === 'ArrowRight') goTo(pageNum + 1);
+        });
+
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => pdfDoc && renderPage(pageNum), 200);
+        });
+
+        // Recherche dans la bibliothèque
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const filter = this.value.toLowerCase();
+            let visible = 0;
+            document.querySelectorAll('.book-list .book-item').forEach(item => {
+                const match = item.textContent.toLowerCase().includes(filter);
+                item.style.display = match ? '' : 'none';
+                if (match) visible++;
+            });
+            document.getElementById('noResult').style.display = visible ? 'none' : 'block';
+        });
+
+        // Menu mobile
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const toggleMenu = open => {
+            sidebar.classList.toggle('open', open);
+            overlay.classList.toggle('show', open);
+        };
+        document.getElementById('openMenu').addEventListener('click', () => toggleMenu(true));
+        overlay.addEventListener('click', () => toggleMenu(false));
     </script>
 
 </body>
