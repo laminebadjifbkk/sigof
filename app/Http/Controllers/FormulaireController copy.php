@@ -20,8 +20,6 @@ use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Str;
 use ZipArchive;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
 
 class FormulaireController extends Controller
 {
@@ -53,53 +51,57 @@ class FormulaireController extends Controller
     // Enregistrement du formulaire
     public function store(Request $request)
     {
-        // --- Période d'ouverture des candidatures ---
+
+        /* Alert::warning('Information', 'Les inscriptions sont clôturées jusqu\'à nouvel ordre.');
+        return redirect()->back(); */
+        // Définir la période d'ouverture des inscriptions
+        /* // Définir la période d'ouverture des inscriptions
+
+        $debut = Carbon::create(2025, 11, 10, 8, 0, 0);   // 10 novembre 2025 à 08h00
+        $fin   = Carbon::create(2025, 11, 12, 17, 0, 0);  // 12 novembre 2025 à 17h00
+
+        $now = Carbon::now();
+
+        // Vérifier si on est hors période
+        if ($now->lt($debut) || $now->gt($fin)) {
+            Alert::error('Désolé', 'Les inscriptions ne sont ouvertes que du 10 novembre à 08h00 au 12 novembre à 17h00.');
+            return redirect()->back(); // ou une autre route sûre
+        } */
+
         $dateOuverture = Carbon::create(2026, 9, 28, 8, 0, 0, 'Africa/Dakar');
-        $dateFermeture = Carbon::create(2026, 10, 3, 17, 0, 0, 'Africa/Dakar');
-        $maintenant    = Carbon::now('Africa/Dakar');
+        $dateFermeture = Carbon::create(2026, 10, 03, 17, 0, 0, 'Africa/Dakar');
+        $maintenant     = Carbon::now('Africa/Dakar');
 
         if ($maintenant->lt($dateOuverture)) {
-            return redirect()->back()->with('error', 'Les candidatures ne sont pas encore ouvertes.');
+            return redirect()->back()
+                ->with('error', 'Les candidatures ne sont pas encore ouvertes.');
         }
 
         if ($maintenant->gt($dateFermeture)) {
-            return redirect()->back()->with('error', 'Les candidatures sont désormais fermées.');
+            return redirect()->back()
+                ->with('error', 'Les candidatures sont désormais fermées.');
         }
 
-        // --- Détection d'une inscription existante (CIN + e-mail obligatoirement identiques) ---
-        $existant = null;
-        $parCin   = Formulaire::where('cin', $request->input('cin'))->first();
-        $parEmail = Formulaire::where('email', $request->input('email'))->first();
-
-        if ($parCin || $parEmail) {
-            if ($parCin && $parEmail && $parCin->id === $parEmail->id) {
-                $existant = $parCin; // même CIN et même e-mail => mise à jour
-            } else {
-                return redirect()->back()
-                    ->withInput()
-                    ->with('error', 'Une inscription existe déjà. Pour la mettre à jour, vous devez utiliser exactement le même CIN et la même adresse e-mail.');
-            }
-        }
-
-        // --- Validation (unicité ignorée pour l'enregistrement existant) ---
         $validated = $request->validate([
-            'cin'                  => ['required', 'string', 'max:14', Rule::unique('formulaires', 'cin')->ignore($existant?->id)],
+            'cin'                  => 'required|string|max:14|unique:formulaires,cin',
             'civilite'             => 'required|string|max:5',
             'prenom'               => 'required|string',
             'nom'                  => 'required|string',
+            // Âge compris entre 20 et 35 ans
             'date_naissance'       => [
                 'required',
                 'date',
                 'before_or_equal:today',
                 function ($attribute, $value, $fail) {
                     $age = Carbon::parse($value)->age;
+
                     if ($age < 18 || $age > 35) {
-                        $fail('La prise en charge est ouverte aux candidats âgés de 18 à 35 ans.');
+                        $fail('La prise en charge est ouvert aux candidats âgés de 18 à 35 ans.');
                     }
                 },
             ],
             'lieu_naissance'       => 'required|string',
-            'email'                => ['required', 'email', Rule::unique('formulaires', 'email')->ignore($existant?->id)],
+            'email'                => 'required|email|unique:formulaires,email',
             'telephone'            => 'required|string|size:9',
             'telephone_secondaire' => 'required|string|size:9',
             'adresse'              => 'required|string',
@@ -125,85 +127,127 @@ class FormulaireController extends Controller
             'cv'                   => 'required|file|mimes:pdf,jpg,jpeg,png|max:1024',
         ]);
 
-        // champ => [préfixe du nom, dossier]
-        $fichiers = [
-            'facture_file' => ['Facture',  'factures'],
-            'cin_file'     => ['CIN',      'cins'],
-            'diplome'      => ['DIPLOME',  'diplomes'],
-            'cv'           => ['CV',       'cvs'],
-        ];
+        // Convertir les champs numériques vides en null
+        $validated['montant_unique'] = $validated['montant_unique'] === '' ? null : $validated['montant_unique'];
 
-        $donnees          = Arr::except($validated, array_keys($fichiers));
-        $donnees['montant_unique'] = $donnees['montant_unique'] ?? null;
+        // Création du formulaire
+        $formulaire = Formulaire::create($validated);
 
-        $nouveauxChemins  = [];
-        $anciensChemins   = [];
+        // 📂 Upload du fichier facture
+        if ($request->hasFile('facture_file')) {
+            $uploadedFile = $request->file('facture_file');
 
-        try {
-            DB::beginTransaction();
+            // Nettoyer le nom du fichier
+            $filename = preg_replace("/[^A-Za-z0-9]/", '', pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME));
+            $filename = 'Facture_' . time() . '_' . str_replace(' ', '-', $filename) . '.' . $uploadedFile->getClientOriginalExtension();
 
-            // Upload des nouveaux fichiers
-            foreach ($fichiers as $champ => [$prefixe, $dossier]) {
-                $nouveauxChemins[$champ] = $this->enregistrerFichier($request, $champ, $prefixe, $dossier);
+            // Dossier cible dans le disque public
+            $folder = 'factures'; // Change le nom du dossier si nécessaire
+
+            // Créer le dossier s'il n'existe pas
+            if (!Storage::disk('public')->exists($folder)) {
+                Storage::disk('public')->makeDirectory($folder);
             }
 
-            if ($existant) {
-                // On mémorise les anciens fichiers pour les supprimer après le succès
-                foreach (array_keys($fichiers) as $champ) {
-                    if ($existant->{$champ}) {
-                        $anciensChemins[] = $existant->{$champ};
-                    }
-                }
+            // Stocker le fichier
+            $filePath = $uploadedFile->storeAs($folder, $filename, 'public');
 
-                $existant->update($donnees + $nouveauxChemins);
-                $formulaire = $existant;
-            } else {
-                $formulaire = Formulaire::create($donnees + $nouveauxChemins);
+            // Mettre à jour le modèle
+            $formulaire->update([
+                'facture_file' => $filePath,
+            ]);
+        }
+
+        // 📑 Upload du fichier CIN
+        if ($request->hasFile('cin_file')) {
+            $uploadedFile = $request->file('cin_file');
+
+            // Nettoyer le nom du fichier
+            $filename = preg_replace("/[^A-Za-z0-9]/", '', pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME));
+            $filename = 'CIN_' . time() . '_' . str_replace(' ', '-', $filename) . '.' . $uploadedFile->getClientOriginalExtension();
+
+            // Dossier cible dans le disque public
+            $folder = 'cins'; // tu peux changer 'cins' par 'pvs' ou 'diplome' etc.
+
+            // Créer le dossier s'il n'existe pas
+            if (!Storage::disk('public')->exists($folder)) {
+                Storage::disk('public')->makeDirectory($folder);
             }
 
-            DB::commit();
-        } catch (\Throwable $e) {
-            DB::rollBack();
+            // Stocker le fichier
+            $filePath = $uploadedFile->storeAs($folder, $filename, 'public');
 
-            // On nettoie les fichiers fraîchement uploadés
-            Storage::disk('public')->delete(array_filter($nouveauxChemins));
-
-            report($e);
-            Alert::error('Erreur', 'Une erreur est survenue lors de l\'enregistrement. Veuillez réessayer.');
-            return redirect()->back()->withInput();
+            // Mettre à jour le modèle
+            $formulaire->update([
+                'cin_file' => $filePath,
+            ]);
         }
 
-        // Suppression des anciens fichiers, uniquement après réussite de la mise à jour
-        if (!empty($anciensChemins)) {
-            Storage::disk('public')->delete($anciensChemins);
+        if ($request->hasFile('diplome')) {
+            $uploadedFile = $request->file('diplome');
+
+            // Nettoyer le nom du fichier
+            $filename = preg_replace("/[^A-Za-z0-9]/", '', pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME));
+            $filename = 'DIPLOME_' . time() . '_' . str_replace(' ', '-', $filename) . '.' . $uploadedFile->getClientOriginalExtension();
+
+            // Dossier cible dans le disque public
+            $folder = 'diplomes'; // tu peux changer 'cins' par 'pvs' ou 'diplome' etc.
+
+            // Créer le dossier s'il n'existe pas
+            if (!Storage::disk('public')->exists($folder)) {
+                Storage::disk('public')->makeDirectory($folder);
+            }
+
+            // Stocker le fichier
+            $filePath = $uploadedFile->storeAs($folder, $filename, 'public');
+
+            // Mettre à jour le modèle
+            $formulaire->update([
+                'diplome' => $filePath,
+            ]);
         }
+
+        if ($request->hasFile('cv')) {
+            $uploadedFile = $request->file('cv');
+
+            // Nettoyer le nom du fichier
+            $filename = preg_replace("/[^A-Za-z0-9]/", '', pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME));
+            $filename = 'CV_' . time() . '_' . str_replace(' ', '-', $filename) . '.' . $uploadedFile->getClientOriginalExtension();
+
+            // Dossier cible dans le disque public
+            $folder = 'cvs'; // tu peux changer 'cins' par 'pvs' ou 'diplome' etc.
+
+            // Créer le dossier s'il n'existe pas
+            if (!Storage::disk('public')->exists($folder)) {
+                Storage::disk('public')->makeDirectory($folder);
+            }
+
+            // Stocker le fichier
+            $filePath = $uploadedFile->storeAs($folder, $filename, 'public');
+
+            // Mettre à jour le modèle
+            $formulaire->update([
+                'cv' => $filePath,
+            ]);
+        }
+
+        // 📝 Enregistrement de l'historique de la prise en charge
+        /* HistoriquePriseEnCharge::create([
+            'formulaire_id' => $formulaire->id,
+            'statut' => 'Nouvelle',
+            'motif' => null,
+            'user_id' => auth()->id(),
+        ]); */
+
+        // 📧 Envoi du mail de confirmation (si email fourni)
+        /*  if (!empty($validated['email'])) {
+            Mail::to($validated['email'])->send(new ConfirmationInscriptionPchare($formulaire));
+        }*/
 
         session()->put('formulaire_confirme', $formulaire->id);
 
-        Alert::success(
-            'Succès',
-            $existant ? 'Votre inscription a été mise à jour avec succès.' : 'Inscription effectuée avec succès.'
-        );
-
+        Alert::success('Succès', 'Inscription effectuée avec succès.');
         return redirect()->route('formulaire.confirmation', $formulaire);
-    }
-
-    /**
-     * Enregistre un fichier uploadé et retourne son chemin (ou null s'il n'y a pas de fichier).
-     */
-    private function enregistrerFichier(Request $request, string $champ, string $prefixe, string $dossier): ?string
-    {
-        if (!$request->hasFile($champ)) {
-            return null;
-        }
-
-        $fichier = $request->file($champ);
-
-        $nom = preg_replace('/[^A-Za-z0-9]/', '', pathinfo($fichier->getClientOriginalName(), PATHINFO_FILENAME));
-        $nomFinal = $prefixe . '_' . time() . '_' . $nom . '.' . $fichier->getClientOriginalExtension();
-
-        // storeAs crée le dossier automatiquement s'il n'existe pas
-        return $fichier->storeAs($dossier, $nomFinal, 'public');
     }
 
     /*  public function merci()
