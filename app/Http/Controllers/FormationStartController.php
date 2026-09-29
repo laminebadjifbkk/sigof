@@ -104,8 +104,10 @@ class FormationStartController extends Controller
             'SerigneMansourSy.FALL@onfp.sn',
             'MaimounaGadio.AW@onfp.sn',
             'ramet.ndiaye@onfp.sn',
-            'ticana92@gmail.com',
-            'binamcheikhou@gmail.com',
+            /* 'ticana92@gmail.com', */
+            'ajaafatusaar@gmail.com',
+            'sambeboubacar@gmail.com',
+            /* 'binamcheikhou@gmail.com', */
             'seckseynabou27@gmail.com',
             'seynabou.seck@onfp.sn',
             'mamebigue.ciss@onfp.sn',
@@ -116,7 +118,7 @@ class FormationStartController extends Controller
             'kanealkhalifa94@gmail.com',
             'luneba.ab@gmail.com',
             'fatou.ba@onfp.sn',
-            'gueyesuntech3@gmail.com',
+            /* 'gueyesuntech3@gmail.com', */
             'gibrile.faye@onfp.sn',
             'mameawa.ndoye@onfp.sn',
         ];

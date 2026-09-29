@@ -1280,7 +1280,8 @@
                         <h4>{{ $antenne->name }}</h4>
                         @if ($regions)
                             <div class="zone">
-                                <i class="bi bi-check-circle-fill"></i> {{ $regions }}
+                                <i class="bi bi-check-circle-fill"></i>
+                                {{ $regions }}
                             </div>
                         @endif
                         <div class="pole-contact">
