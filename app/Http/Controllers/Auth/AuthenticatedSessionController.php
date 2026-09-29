@@ -108,7 +108,7 @@ class AuthenticatedSessionController extends Controller
         $anciennete = $creation->diffInYears($aujourdHui);
 
         $services    = Service::all();
-        $posts       = Poste::latest()->limit(4)->get();
+        $posts       = Poste::latest()->limit(2)->get();
         $posts_count = $posts->count();
 
         $count_today         = Module::distinct()->count();
