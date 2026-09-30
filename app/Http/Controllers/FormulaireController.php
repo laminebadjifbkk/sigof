@@ -83,15 +83,15 @@ class FormulaireController extends Controller
 
         // --- Validation (unicité ignorée pour l'enregistrement existant) ---
         $validated = $request->validate([
-            /* 'cin'                  => ['required', 'string', 'max:14', Rule::unique('formulaires', 'cin')->ignore($existant?->id)], */
-            'cin' => [
+            'cin'                  => ['required', 'string', 'max:14', Rule::unique('formulaires', 'cin')->ignore($existant?->id)],
+            /* 'cin' => [
                 'required',
                 'string',
                 'max:14',
                 Rule::unique('formulaires', 'cin')
                     ->ignore($existant?->id)
                     ->whereNull('deleted_at'),
-            ],
+            ], */
             'civilite'             => 'required|string|max:5',
             'prenom'               => 'required|string',
             'nom'                  => 'required|string',
@@ -107,14 +107,14 @@ class FormulaireController extends Controller
                 },
             ],
             'lieu_naissance'       => 'required|string',
-            /* 'email'                => ['required', 'email', Rule::unique('formulaires', 'email')->ignore($existant?->id)], */
-            'email' => [
+            'email'                => ['required', 'email', Rule::unique('formulaires', 'email')->ignore($existant?->id)],
+            /* 'email' => [
                 'required',
                 'email',
                 Rule::unique('formulaires', 'email')
                     ->ignore($existant?->id)
                     ->whereNull('deleted_at'),
-            ],
+            ], */
             'telephone'            => 'required|string|size:9',
             'telephone_secondaire' => 'required|string|size:9',
             'adresse'              => 'required|string',
