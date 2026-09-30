@@ -236,73 +236,73 @@ class FormulaireController extends Controller
     }
 
 
-// Résumé des demandes par année scolaire
-public function index()
-{
-    // Une seule requête SQL : effectif par année scolaire et par statut
-    $lignes = Formulaire::select('annee_scolaire', 'statut', DB::raw('COUNT(*) as total'))
-        ->groupBy('annee_scolaire', 'statut')
-        ->get();
+    // Résumé des demandes par année scolaire
+    public function index()
+    {
+        // Une seule requête SQL : effectif par année scolaire et par statut
+        $lignes = Formulaire::select('annee_scolaire', 'statut', DB::raw('COUNT(*) as total'))
+            ->groupBy('annee_scolaire', 'statut')
+            ->get();
 
-    $total            = $lignes->sum('total');
-    $totalFormulaires = number_format($total, 0, ',', ' ');
+        $total            = $lignes->sum('total');
+        $totalFormulaires = number_format($total, 0, ',', ' ');
 
-    $annees = $lignes
-        ->groupBy(fn($l) => $l->annee_scolaire ?? 'Non définie')
-        ->map(fn($groupe) => [
-            'total'   => $groupe->sum('total'),
-            'statuts' => $groupe
-                ->groupBy(fn($l) => $l->statut ?? 'Non défini')
-                ->map(fn($g) => $g->sum('total'))
-                ->sortDesc(),
-        ])
-        ->sortKeysDesc();   // 2026-2027 avant 2025-2026
+        $annees = $lignes
+            ->groupBy(fn($l) => $l->annee_scolaire ?? 'Non définie')
+            ->map(fn($groupe) => [
+                'total'   => $groupe->sum('total'),
+                'statuts' => $groupe
+                    ->groupBy(fn($l) => $l->statut ?? 'Non défini')
+                    ->map(fn($g) => $g->sum('total'))
+                    ->sortDesc(),
+            ])
+            ->sortKeysDesc();   // 2026-2027 avant 2025-2026
 
-    // « Non définie » toujours en dernier
-    if ($nonDefinie = $annees->pull('Non définie')) {
-        $annees->put('Non définie', $nonDefinie);
+        // « Non définie » toujours en dernier
+        if ($nonDefinie = $annees->pull('Non définie')) {
+            $annees->put('Non définie', $nonDefinie);
+        }
+
+        return view('formulaire.index', compact('annees', 'totalFormulaires'));
     }
 
-    return view('formulaire.index', compact('annees', 'totalFormulaires'));
-}
 
+    // Contenu de l'ancienne vue index, limité à une année scolaire
+    public function showAnnee($annee)
+    {
+        $valeur = ($annee === 'Non définie') ? null : $annee;
 
-// Contenu de l'ancienne vue index, limité à une année scolaire
-public function showAnnee($annee)
-{
-    $valeur = ($annee === 'Non définie') ? null : $annee;
+        // Seules les colonnes utiles à la vue sont chargées
+        $formulaires = Formulaire::where('annee_scolaire', $valeur)
+            ->get(['id', 'region', 'statut']);
 
-    // Seules les colonnes utiles à la vue sont chargées
-    $formulaires = Formulaire::where('annee_scolaire', $valeur)
-        ->get(['id', 'region', 'statut']);
+        abort_if($formulaires->isEmpty(), 404);
 
-    abort_if($formulaires->isEmpty(), 404);
+        $totalFormulaires = number_format($formulaires->count(), 0, ',', ' ');
 
-    $totalFormulaires = number_format($formulaires->count(), 0, ',', ' ');
+        // Regroupement par région
+        $groupes = $formulaires->groupBy(fn($item) => $item->region ?? 'Aucune région');
 
-    // Regroupement par région
-    $groupes = $formulaires->groupBy(fn($item) => $item->region ?? 'Aucune région');
+        // Regroupement par statut + pourcentages
+        $grouperStatut = $formulaires->groupBy(fn($item) => $item->statut ?? 'Non défini');
 
-    // Regroupement par statut + pourcentages
-    $grouperStatut = $formulaires->groupBy(fn($item) => $item->statut ?? 'Non défini');
+        $statutPourcentages = [];
+        foreach ($grouperStatut as $statut => $items) {
+            $statutPourcentages[$statut] = [
+                'count'   => $items->count(),
+                'percent' => round(($items->count() / max(1, $formulaires->count())) * 100, 2),
+            ];
+        }
 
-    $statutPourcentages = [];
-    foreach ($grouperStatut as $statut => $items) {
-        $statutPourcentages[$statut] = [
-            'count'   => $items->count(),
-            'percent' => round(($items->count() / max(1, $formulaires->count())) * 100, 2),
-        ];
+        return view('formulaire.annee', compact(
+            'annee',
+            'formulaires',
+            'totalFormulaires',
+            'groupes',
+            'grouperStatut',
+            'statutPourcentages'
+        ));
     }
-
-    return view('formulaire.annee', compact(
-        'annee',
-        'formulaires',
-        'totalFormulaires',
-        'groupes',
-        'grouperStatut',
-        'statutPourcentages'
-    ));
-}
     public function show($id)
     {
         // Récupérer l'inscription par ID
@@ -981,14 +981,17 @@ public function showAnnee($annee)
 
         return view("formulaire.historiquepc", compact('formulaire'));
     }
-
-    public function showByStatut($statut)
+    public function showByStatut($statut, $annee_scolaire)
     {
-        // Si le statut est "Non défini"
+        // "Non défini" / "Non définie" => NULL en base
         $statutValue = ($statut === 'Non défini') ? null : $statut;
+        $anneeValue  = ($annee_scolaire === 'Non définie') ? null : $annee_scolaire;
 
-        // Récupérer les formulaires du statut
-        $formulaires = Formulaire::where('statut', $statutValue)->get();
+        // Récupérer les formulaires du statut ET de l'année scolaire
+        $formulaires = Formulaire::where('statut', $statutValue)
+            ->where('annee_scolaire', $anneeValue)
+            ->get();
+
         // Nombre
         $total = $formulaires->count();
 
@@ -996,7 +999,7 @@ public function showAnnee($annee)
 
         $labels = [
             /* 'cin' => 'CIN',
-            'civilite' => 'Civilité', */
+        'civilite' => 'Civilité', */
             'prenom' => 'Prénom',
             'nom' => 'Nom',
             'date_naissance' => 'Date nais.',
@@ -1004,28 +1007,35 @@ public function showAnnee($annee)
             /* 'email' => 'Adresse e-mail', */
             'telephone' => 'Téléphone',
             /* 'telephone_secondaire' => 'Téléphone secondaire',
-            'adresse' => 'Adresse',
-            'dernier_diplome' => 'Dernier diplôme obtenu',
-            'nom_etablissement' => 'Établissement', */
+        'adresse' => 'Adresse',
+        'dernier_diplome' => 'Dernier diplôme obtenu',
+        'nom_etablissement' => 'Établissement', */
             'region' => 'Région',
             'autre_2' => 'Etablissement',
             /* 'formation' => 'Formation sollicitée', */
             /* 'diplome_vise' => 'Diplôme visé',
-            'montant_inscription' => 'Montant inscription',
-            'montant_mensualite' => 'Montant mensualité',
-            'montant_unique' => 'Montant unique', */
+        'montant_inscription' => 'Montant inscription',
+        'montant_mensualite' => 'Montant mensualité',
+        'montant_unique' => 'Montant unique', */
             /* 'duree' => 'Durée (en années)',
-            'handicape' => 'Situation de handicap',
-            'type_handicap' => 'Type de handicap', */
+        'handicape' => 'Situation de handicap',
+        'type_handicap' => 'Type de handicap', */
             /* 'orphelin' => 'Orphelin',
-            'type_orphelin' => 'Type d’orphelinat', */
+        'type_orphelin' => 'Type d’orphelinat', */
             /* 'cin_file' => 'Copie CIN',
-            'facture_file' => 'Facture',
-            'cv' => 'CV',
-            'diplome' => 'Diplôme' */
+        'facture_file' => 'Facture',
+        'cv' => 'CV',
+        'diplome' => 'Diplôme' */
         ];
 
-        return view('formulaire.showstatut', compact('formulaires', 'statut', 'total', 'totalFormulaires', 'labels'));
+        return view('formulaire.showstatut', compact(
+            'formulaires',
+            'statut',
+            'annee_scolaire',
+            'total',
+            'totalFormulaires',
+            'labels'
+        ));
     }
 
 

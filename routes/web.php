@@ -1082,7 +1082,7 @@ Route::group(['middleware' => ['XSS']], function () {
             ->name('formulaires.validationPriseEnCharge')
             ->middleware('can:formulaire-view');
 
-        Route::get('/formulaires/statut/{statut}', [FormulaireController::class, 'showByStatut'])
+        Route::get('/formulaires/statut/{statut}/{annee_scolaire}', [FormulaireController::class, 'showByStatut'])
             ->name('formulaires.showstatut');
 
         Route::get('/formulaires/{id}/certificat', [FormulaireController::class, 'editCertificat'])->name('formulaires.certificat.edit');

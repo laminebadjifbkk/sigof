@@ -1022,8 +1022,10 @@ class FormulaireController extends Controller
         return view("formulaire.historiquepc", compact('formulaire'));
     }
 
-    public function showByStatut($statut)
+    public function showByStatut($statut, $annee_scolaire)
     {
+
+    dd($annee_scolaire);
         // Si le statut est "Non défini"
         $statutValue = ($statut === 'Non défini') ? null : $statut;
 

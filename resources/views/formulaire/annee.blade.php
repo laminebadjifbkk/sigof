@@ -5,7 +5,8 @@
         <section class="section register">
             <div class="row justify-content-center">
                 <h4 class="card-title">
-                    <div class="d-flex flex-wrap justify-content-between align-items-center mb-1 p-3 bg-light rounded shadow-sm gap-2">
+                    <div
+                        class="d-flex flex-wrap justify-content-between align-items-center mb-1 p-3 bg-light rounded shadow-sm gap-2">
                         <span>
                             <a href="{{ route('formulaires.index') }}" class="btn btn-outline-secondary btn-sm me-2">
                                 <i class="bi bi-arrow-left"></i> Années
@@ -45,8 +46,15 @@
                                             </div>
                                         </div>
 
-                                        <div class="d-flex flex-wrap gap-2 mt-2">
+                                        {{-- <div class="d-flex flex-wrap gap-2 mt-2">
                                             <a href="{{ route('formulaires.showstatut', $statut) }}"
+                                                class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center py-1"
+                                                style="font-size: 0.85rem; gap: 6px; flex: 1 1 48%;">
+                                                Voir plus <i class="bi bi-arrow-right-short"></i>
+                                            </a>
+                                        </div> --}}
+                                        <div class="d-flex flex-wrap gap-2 mt-2">
+                                            <a href="{{ route('formulaires.showstatut', ['statut' => $statut, 'annee_scolaire' => $annee]) }}"
                                                 class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center py-1"
                                                 style="font-size: 0.85rem; gap: 6px; flex: 1 1 48%;">
                                                 Voir plus <i class="bi bi-arrow-right-short"></i>
@@ -95,13 +103,20 @@
                     ['prenom', 'Prénom', 'text', 'prenom', 'Prénom', ''],
                     ['nom', 'Nom', 'text', 'nom', 'Nom', ''],
                     ['cin', 'N° CIN', 'text', 'cin2', 'Ex: 1099200500012', 'minlength=9 maxlength=14 autocomplete=off'],
-                    ['telephone', 'Téléphone', 'text', 'telephone_responsable', 'Téléphone', 'maxlength=12 autocomplete=tel'],
+                    [
+                        'telephone',
+                        'Téléphone',
+                        'text',
+                        'telephone_responsable',
+                        'Téléphone',
+                        'maxlength=12 autocomplete=tel',
+                    ],
                     ['email', 'Email', 'email', 'email', 'email@email.com', ''],
                     ['lieu_naissance', 'Lieu naissance', 'text', 'lieu_naissance', 'Lieu de naissance', ''],
                 ];
             @endphp
-            <div class="modal fade" id="generate_rapport" tabindex="-1" role="dialog"
-                aria-labelledby="generate_rapportLabel" aria-hidden="true">
+            <div class="modal fade" id="generate_rapport" tabindex="-1" role="dialog" aria-labelledby="generate_rapportLabel"
+                aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -115,9 +130,11 @@
                                     @foreach ($champsRecherche as [$name, $label, $type, $id, $placeholder, $extra])
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="{{ $id }}" class="form-label">{{ $label }}</label>
-                                                <input type="{{ $type }}" name="{{ $name }}" id="{{ $id }}"
-                                                    value="{{ old($name) }}" placeholder="{{ $placeholder }}"
+                                                <label for="{{ $id }}"
+                                                    class="form-label">{{ $label }}</label>
+                                                <input type="{{ $type }}" name="{{ $name }}"
+                                                    id="{{ $id }}" value="{{ old($name) }}"
+                                                    placeholder="{{ $placeholder }}"
                                                     class="form-control form-control-sm @error($name) is-invalid @enderror"
                                                     {!! $extra !!}>
                                                 @error($name)
@@ -131,8 +148,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary btn-sm"
-                                    data-bs-dismiss="modal">Fermer</button>
+                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fermer</button>
                                 <button type="submit"
                                     class="btn btn-primary btn-block submit_rapport btn-sm">Rechercher</button>
                             </div>
