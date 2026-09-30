@@ -245,7 +245,7 @@
                             <div>
                                 <h5 class="ann-title">{{ $annee }}</h5>
                                 @if ($recente)
-                                    <span class="ann-tag">Année la plus récente</span>
+                                    <span class="ann-tag">Année récente</span>
                                 @elseif ($nonDefinie)
                                     <span class="ann-tag ann-tag--alerte">Année à renseigner</span>
                                 @endif
