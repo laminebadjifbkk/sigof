@@ -745,8 +745,8 @@ Route::group(['middleware' => ['XSS']], function () {
             ->name('prisencharge.parStatut.diplome');
 
         Route::get('formulaires/annee/{annee}', [FormulaireController::class, 'showAnnee'])
-    ->where('annee', '[^/]+')
-    ->name('formulaires.annee');
+            ->where('annee', '[^/]+')
+            ->name('formulaires.annee');
 
         Route::get('/projets/{statut}/{module}/{region}/{projetid}/{projetmoduleid}', [ProjetController::class, 'filtrerProjetParStatutEtRegion'])
             ->name('projets.parStatutEtRegion');
@@ -1417,8 +1417,7 @@ Route::group(['middleware' => ['XSS']], function () {
             Route::get('/prisencharge', [FormulaireController::class, 'create'])->name('formulaire.create');
             Route::post('/prisencharge', [FormulaireController::class, 'store'])->name('formulaire.store');
             Route::get('/prisencharge/merci', [FormulaireController::class, 'merci'])->name('formulaire.merci');
-
-                });
+        });
 
         Route::get('/note_de_frais', function () {
 
@@ -1550,7 +1549,7 @@ Route::get('/pcharge', [FormulaireController::class, 'create'])->name('formulair
 Route::post('/pcharge', [FormulaireController::class, 'store'])->name('formulaire.store');
 Route::get('/pcharge/merci', [FormulaireController::class, 'merci'])->name('formulaire.merci');
 Route::get('/formulaire/confirmation/{formulaire}', [FormulaireController::class, 'confirmation'])
-                ->name('formulaire.confirmation');
+    ->name('formulaire.confirmation');
 
 /* Route::get('/book/view/{filename}', [BookController::class, 'show'])->name('book.view'); */
 Route::get('/manuel/view/{filename}', [BookController::class, 'show'])->name('manuel.view');

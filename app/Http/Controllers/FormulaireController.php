@@ -151,6 +151,7 @@ class FormulaireController extends Controller
         $donnees          = Arr::except($validated, array_keys($fichiers));
         $donnees['montant_unique'] = $donnees['montant_unique'] ?? null;
         $donnees['annee_scolaire']  = '2026-2027';
+        $donnees['statut']  = 'Nouvelle';
 
         $nouveauxChemins  = [];
         $anciensChemins   = [];
