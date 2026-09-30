@@ -243,6 +243,8 @@
             <input type="hidden" name="annee_scolaire"
                 value="{{ old('annee_scolaire', date('Y') . '-' . (date('Y') + 1)) }}">
 
+            <input type="hidden" name="statut" value="{{ old('statut') }}">
+
             <!-- Étape 2 : Établissement -->
             <div class="step" id="step2">
                 <h4 class="text-center mb-3 text-secondary">Établissement d'accueil</h4>
