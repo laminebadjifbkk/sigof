@@ -744,6 +744,10 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/prisenchargestatutregiondiplome/{statut}/{region}/{diplome}', [FormulaireController::class, 'filtrerPrisenchargeParStatutDiplome'])
             ->name('prisencharge.parStatut.diplome');
 
+        Route::get('formulaires/annee/{annee}', [FormulaireController::class, 'showAnnee'])
+    ->where('annee', '[^/]+')
+    ->name('formulaires.annee');
+
         Route::get('/projets/{statut}/{module}/{region}/{projetid}/{projetmoduleid}', [ProjetController::class, 'filtrerProjetParStatutEtRegion'])
             ->name('projets.parStatutEtRegion');
 
