@@ -101,7 +101,7 @@ class FormulaireController extends Controller
                 'before_or_equal:today',
                 function ($attribute, $value, $fail) {
                     $age = Carbon::parse($value)->age;
-                    if ($age < 18 || $age > 35) {
+                    if ($age < 15 || $age > 35) {
                         $fail('La prise en charge est ouverte aux candidats âgés de 18 à 35 ans.');
                     }
                 },
