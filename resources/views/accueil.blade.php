@@ -1042,8 +1042,8 @@
             </ul>
 
             <div class="nav-actions">
-                <a href="{{ url('login') }}" class="btn btn-ghost">Se connecter</a>
-                <a href="{{ route('register-page') }}" class="btn btn-primary">S'inscrire</a>
+                <a href="{{ route('register-page') }}" class="btn btn-ghost">S'inscrire</a>
+                <a href="{{ url('login') }}" class="btn btn-primary">Se connecter</a>
                 <button type="button" class="menu-toggle" aria-label="Ouvrir le menu"
                     onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
             </div>
