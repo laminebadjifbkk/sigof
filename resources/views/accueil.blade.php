@@ -1311,7 +1311,7 @@
                     <div class="faq-q">Bonjour, je n'arrive pas à m'inscrire sur vos sites <span
                             class="chev">+</span></div>
                     <div class="faq-a">Pour l'inscription, suivez le guide ou la vidéo disponible sur la plateforme.
-                        Si le problème persiste, appelez directement le 77 291 33 97.</div>
+                        Si le problème persiste, appelez directement le 33 827 92 51.</div>
                 </div>
                 <div class="faq-item" onclick="this.classList.toggle('open')">
                     <div class="faq-q">Nous nous sommes trompés d'option : « apprenant » au lieu d'« opérateur »

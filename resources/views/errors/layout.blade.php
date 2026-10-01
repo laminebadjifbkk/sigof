@@ -77,7 +77,7 @@
         <p>@yield('message')</p>
         <p class="phone">
             Besoin d’aide ? Appelez-nous au
-            <strong><a href="tel:+221772913397">+221 77 291 33 97</a></strong>
+            <strong><a href="tel:+221772913397">+221 33 827 92 51</a></strong>
         </p>
         <a href="{{ url('/') }}" class="btn-home">Retour à l'accueil</a>
     </div>
