@@ -97,7 +97,7 @@
                         {{-- <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/entete_lettre_mission.png'))) }}"
                             style="width: 100%; max-width: 300px" /> --}}
 
-                            
+
                     <td colspan="1" valign="top" style="text-align: center;">
                         {{-- <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/entete_lettre_mission.png'))) }}"
                         style="width: 100%; max-width: 300px" /> --}}

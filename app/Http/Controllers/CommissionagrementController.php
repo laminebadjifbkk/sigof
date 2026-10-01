@@ -323,7 +323,7 @@ class CommissionagrementController extends Controller
 
         /* $operateurs = Operateur::latest()->whereIn('statut_agrement', $statutsVoulus)
             ->get(); */
-            
+
         $operateurs = Operateur::latest()
             ->whereIn('statut_agrement', $statutsVoulus)
             ->avecNumeroAgrement()

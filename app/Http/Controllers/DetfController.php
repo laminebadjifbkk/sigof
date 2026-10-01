@@ -574,7 +574,7 @@ class DetfController extends Controller
 
             $section2->addTextBreak(1);
 
-            // $totalGeneral += $sousTotal; 
+            // $totalGeneral += $sousTotal;
 
             $sousTotalIndex++;
         } */

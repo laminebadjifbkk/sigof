@@ -1385,7 +1385,7 @@
             <div class="footer-grid">
                 <div>
                     <a href="{{ url('/') }}">
-                        <img src="{{ asset('assets/img/ONFP_logo_fond-blanc_1500px.jpg') }}" alt="Logo ONFP"
+                        <img src="{{ asset('assets/img/logo-onfp.jpg') }}" alt="Logo ONFP"
                             class="footer-logo">
                     </a>
                     <div class="social-row">
