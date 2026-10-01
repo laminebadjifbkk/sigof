@@ -210,9 +210,7 @@
                 <div style="width:100%; font-size:10pt;">
                     <div style="float:left; width:60%; text-align:left; line-height:1.1; font-size:10pt;">
 
-                        <!-- Lignes centrées -->
                         <div style="text-align:center;">
-                            <!-- Ligne 1 : complètement à gauche -->
                             <strong style="font-size:10pt; display:block;">
                                 REPUBLIQUE DU SENEGAL
                             </strong>
@@ -223,6 +221,12 @@
                                 MINISTERE DE L’EMPLOI ET DE LA FORMATION <br>
                                 PROFESSIONNELLE ET TECHNIQUE
                             </strong>
+
+                            <!-- Logo centré sous le texte -->
+                            <div style="margin-top:8px;">
+                                <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/ONFP_photo-profil_1080x1080.png'))) }}"
+                                    style="width:100px;">
+                            </div>
                         </div>
 
                     </div>
@@ -246,10 +250,9 @@
 
                     <div style="clear:both;"></div>
                 </div>
-
-
+                {{--
                 <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/ONFP_photo-profil_1080x1080.png'))) }}"
-                    style="width: 100px; margin-top: 10px;">
+                    style="width: 100px; margin-top: 10px;"> --}}
 
                 <div style="text-align:right;">
                     <strong><i>Directeur général</i></strong>
@@ -385,7 +388,7 @@
             <div style="width:100%; font-size:10pt;">
                 <div style="float:left; width:60%; text-align:left; line-height:1.1; font-size:10pt;">
 
-                    <!-- Lignes centrées -->
+                    {{--  <!-- Lignes centrées -->
                     <div style="text-align:center;">
                         <!-- Ligne 1 : complètement à gauche -->
                         <strong style="font-size:10pt; display:block;">
@@ -398,8 +401,26 @@
                             MINISTERE DE L’EMPLOI ET DE LA FORMATION <br>
                             PROFESSIONNELLE ET TECHNIQUE
                         </strong>
-                    </div>
+                    </div> --}}
 
+                    <div style="text-align:center;">
+                        <strong style="font-size:10pt; display:block;">
+                            REPUBLIQUE DU SENEGAL
+                        </strong>
+
+                        <em style="font-size:8pt;">UN PEUPLE - UN BUT - UNE FOI</em><br>
+                        <span>---------</span><br>
+                        <strong style="font-size:10pt;">
+                            MINISTERE DE L’EMPLOI ET DE LA FORMATION <br>
+                            PROFESSIONNELLE ET TECHNIQUE
+                        </strong>
+
+                        <!-- Logo centré sous le texte -->
+                        <div style="margin-top:8px;">
+                            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/ONFP_photo-profil_1080x1080.png'))) }}"
+                                style="width:100px;">
+                        </div>
+                    </div>
                 </div>
 
                 <div style="float:right; width:40%; font-size:10pt;">
@@ -422,9 +443,8 @@
                 <div style="clear:both;"></div>
             </div>
 
-
-            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/ONFP_photo-profil_1080x1080.png'))) }}"
-                style="width: 100px; margin-top: 10px;">
+            {{-- <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/ONFP_photo-profil_1080x1080.png'))) }}"
+                style="width: 100px; margin-top: 10px;"> --}}
 
             <div style="text-align:right;">
                 <strong><i>Directeur général</i></strong>
