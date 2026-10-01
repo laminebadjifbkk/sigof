@@ -332,14 +332,25 @@
                             </td>
                         </tr>
 
-                        <tr>
+                        {{-- <tr>
                             <td>
                                 ....................................................................................
                             </td>
                             <td>
-                                <b>Pays :</b> {{ $mission?->commentaires ?? $mission?->lieu_arrivee }}
+                                <b>Pays :</b> {{ $mission?->commentaires }}
                             </td>
-                        </tr>
+                        </tr> --}}
+
+                        @if (!empty($mission?->commentaires))
+                            <tr>
+                                <td>
+                                    ....................................................................................
+                                </td>
+                                <td>
+                                    <b>Pays :</b> {{ $mission->commentaires }}
+                                </td>
+                            </tr>
+                        @endif
 
                         <tr>
                             <td>
