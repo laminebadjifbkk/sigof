@@ -20,7 +20,8 @@
                     <div class="brand-divider"></div>
                     <span class="bulle-mark">
                         <a href="{{ route('ylphome') }}">
-                            <img src="{{ asset('assets/img/logo.jpg') }}" alt="LOGO ONFP" class="brand-logo">
+                            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/ONFP_photo-profil_1080x1080.png'))) }}"
+                                style="width:50px;">
                         </a>
                     </span>
                 </div>

@@ -45,7 +45,10 @@
                         class="brand-logo">
                 </a>
                 <a href="{{ route('ylphome') }}">
-                    <img src="{{ asset('assets/img/logo.png') }}" alt="LOGO ONFP" class="brand-logo">
+                    {{-- <img src="{{ asset('assets/img/logo.png') }}" alt="LOGO ONFP" class="brand-logo"> --}}
+
+                    <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/ONFP_image-partage_1200x630.png'))) }}"
+                        style="width:50px;">
                 </a>
             </span>
             {{-- <div class="brand-text">
