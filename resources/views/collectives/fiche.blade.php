@@ -150,6 +150,7 @@
             <b>********<br>
                 MINISTERE DE L'EMPLOI ET DE LA FORMATION <br> PROFESSIONNELLE ET TECHNIQUE<br>
                 <br>
+                <br>
                 <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/ONFP_photo-profil_1080x1080.png'))) }}"
                     style="width:100px;">
             </b>
