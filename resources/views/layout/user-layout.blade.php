@@ -18,8 +18,6 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>@yield('title', 'ONFP | HOME')</title>
-    <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
-    <link href="{{ asset('assets/img/favicon.png') }}" rel="apple-touch-icon">
     <meta content="" name="description">
     <meta content="" name="keywords">
     <!-- Google Tag Manager -->
@@ -67,7 +65,7 @@
         'callback_catch' => 'callbackCatch',
     ]) !!}
     <!-- Favicons -->
-    <link href="{{ asset('assets/img/favicon.png') }}" rel="favicon-onfp">
+    <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
