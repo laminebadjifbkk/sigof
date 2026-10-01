@@ -150,8 +150,8 @@
             <b>********<br>
                 MINISTERE DE L'EMPLOI ET DE LA FORMATION <br> PROFESSIONNELLE ET TECHNIQUE<br>
                 <br>
-                <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
-                    style="width: 100%; max-width: 300px" />
+                <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/ONFP_photo-profil_1080x1080.png'))) }}"
+                    style="width:100px;">
             </b>
         </div>
         <h4 class="title">Fiche de renseignement de demande de formation (collective)</h4>

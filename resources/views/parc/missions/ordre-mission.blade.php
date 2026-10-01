@@ -223,7 +223,7 @@
                             </strong>
 
                             <!-- Logo centré sous le texte -->
-                            <div style="margin-top:8px;">
+                            <div>
                                 <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/ONFP_photo-profil_1080x1080.png'))) }}"
                                     style="width:100px;">
                             </div>
@@ -416,7 +416,7 @@
                         </strong>
 
                         <!-- Logo centré sous le texte -->
-                        <div style="margin-top:8px;">
+                        <div>
                             <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/ONFP_photo-profil_1080x1080.png'))) }}"
                                 style="width:100px;">
                         </div>

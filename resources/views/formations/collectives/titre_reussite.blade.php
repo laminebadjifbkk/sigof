@@ -492,7 +492,7 @@
                 {{-- <img class="logo-onfp"
                     src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo_sigle.png'))) }}"
                     alt="Logo ONFP" /> --}}
-                <div style="margin-top:8px;">
+                <div>
                     <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/ONFP_photo-profil_1080x1080.png'))) }}"
                         style="width:100px;">
                 </div>

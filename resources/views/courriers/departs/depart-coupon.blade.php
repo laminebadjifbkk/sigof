@@ -6,7 +6,7 @@
 
     <meta charset="utf-8" />
     <style>
-       @page {
+        @page {
             size: 21cm 29.7cm;
             margin-top: 0cm;
             margin-bottom: 0cm;
@@ -18,7 +18,7 @@
             padding: 30px;
             font-size: 14px;
             line-height: 20px;
-            color:rgb(0, 0, 0);
+            color: rgb(0, 0, 0);
             ;
         }
 
@@ -108,8 +108,8 @@
                             <b>********<br>
                                 MINISTERE DE LA FORMATION PROFESSIONNELLE ET TECHNIQUE<br>
                                 ********<br>
-                                <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
-                                    style="width: 100%; max-width: 300px" />
+                                <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/ONFP_photo-profil_1080x1080.png'))) }}"
+                                    style="width:100px;">
                             </b>
                         </h6>
                     </td>
@@ -122,9 +122,10 @@
                             @else
                                 {{ __('- - - - - - - - - - - -') }} <br />
                             @endif
-                            <b> {{ __("Date départ : ") }} </b>
+                            <b> {{ __('Date départ : ') }} </b>
                             {{ $courrier->date_depart?->format('d/m/Y') }} <br />
-                            <b> {{ __('N° du courrier : ') }} </b> <span style="color:red">{{ 'CD-'.$depart?->numero }}</span>
+                            <b> {{ __('N° du courrier : ') }} </b> <span
+                                style="color:red">{{ 'CD-' . $depart?->numero }}</span>
                             <br />
                         <h1><br><u>{{ __("FICHE D'IMPUTATION") }}</u></h1>
                         </p>
