@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{{ asset('assets/img/favicon-onfp.png') }}" rel="icon">
+    <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
     <title>{{ 'ONFP | Manuel de ' . $manuel->title }}</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">

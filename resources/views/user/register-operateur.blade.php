@@ -35,7 +35,7 @@
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="{{ asset('assets/img/favicon-onfp.png') }}" rel="favicon-onfp">
+    <link href="{{ asset('assets/img/favicon.png') }}" rel="favicon-onfp">
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -91,7 +91,7 @@
                                             <p class="text-center small">Entrez vos informations pour créer un compte</p>
                                         </a>
                                     </div> --}}
-                                    
+
                                     <div class="pt-0 pb-2">
                                         <h5 class="card-title text-center pb-0 fs-4">Création compte opérateur</h5>
                                         <p class="text-center small">Entrez vos informations pour créer un compte</p>

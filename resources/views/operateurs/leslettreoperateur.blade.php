@@ -7,8 +7,8 @@
     <title>Liste des opérateurs {{ $statut }} en {{ $commissionagrement?->date?->format('Y') }}</title>
 
     <!-- Favicons -->
-    <link href="{{ asset('assets/img/favicon-onfp.png') }}" rel="icon">
-    <link href="{{ asset('assets/img/favicon-onfp.png') }}" rel="apple-touch-icon">
+    <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
+    <link href="{{ asset('assets/img/favicon.png') }}" rel="apple-touch-icon">
     <style>
         @page {
             size: 21cm 29.7cm;

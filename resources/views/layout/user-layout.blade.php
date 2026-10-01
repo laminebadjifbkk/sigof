@@ -18,6 +18,8 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>@yield('title', 'ONFP | HOME')</title>
+    <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
+    <link href="{{ asset('assets/img/favicon.png') }}" rel="apple-touch-icon">
     <meta content="" name="description">
     <meta content="" name="keywords">
     <!-- Google Tag Manager -->
@@ -65,7 +67,7 @@
         'callback_catch' => 'callbackCatch',
     ]) !!}
     <!-- Favicons -->
-    <link href="{{ asset('assets/img/favicon-onfp.png') }}" rel="favicon-onfp">
+    <link href="{{ asset('assets/img/favicon.png') }}" rel="favicon-onfp">
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -2396,7 +2398,7 @@
                 @else
                     <a href="{{ url('/profil') }}" class="logo d-flex align-items-center">
             @endif
-            <img src="{{ asset('assets/img/logo_sigle.png') }}" alt="Logo ONFP">
+            <img src="{{ asset('assets/img/ONFP_photo-profil_1080x1080.png') }}" alt="Logo ONFP">
             <span class="d-none d-lg-block">SIGOF</span>
             {{-- Système d'information et de gestion des opérations de formation --}}
             </a>
