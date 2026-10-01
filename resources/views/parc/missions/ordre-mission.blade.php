@@ -248,8 +248,8 @@
                 </div>
 
 
-                <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
-                    style="width: 340px; margin-top: 10px;">
+                <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/ONFP_photo-profil_1080x1080.png'))) }}"
+                    style="width: 100px; margin-top: 10px;">
 
                 <div style="text-align:right;">
                     <strong><i>Directeur général</i></strong>
@@ -412,8 +412,8 @@
             </div>
 
 
-            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
-                style="width: 340px; margin-top: 10px;">
+            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/ONFP_photo-profil_1080x1080.png'))) }}"
+                style="width: 100px; margin-top: 10px;">
 
             <div style="text-align:right;">
                 <strong><i>Directeur général</i></strong>
