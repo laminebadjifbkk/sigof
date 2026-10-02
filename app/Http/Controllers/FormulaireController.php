@@ -835,8 +835,6 @@ class FormulaireController extends Controller
             return $item->statut ?? 'Non défini';
         });
 
-        dd('ok');
-
         // Retourner la vue avec les résultats
         return view('formulaire.showregion', compact(
             'region',
