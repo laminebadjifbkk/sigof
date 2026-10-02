@@ -234,7 +234,7 @@
                     <div style="float:right; width:40%; font-size:10pt;">
 
                         <div style="text-align:right;">
-                            ONFP/DG/DRH/DIVagp
+                            ONFP/DG/SG/DRH/DIVagp
                             @if (!empty($mission?->creator?->username) && !in_array($mission->creator->username, ['fbd', 'lb']))
                                 /{{ $mission->creator->username }}
                             @endif
@@ -426,7 +426,7 @@
                 <div style="float:right; width:40%; font-size:10pt;">
 
                     <div style="text-align:right;">
-                        ONFP/DG/DRH/DIVagp
+                        ONFP/DG/SG/DRH/DIVagp
                         @if (!empty($mission?->creator?->username) && $mission->creator->username !== 'fbd')
                             /{{ $mission->creator->username }}
                         @endif

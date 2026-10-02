@@ -106,7 +106,7 @@
                         </td>
                         <td colspan="2" valign="top">
                             <p align="right">
-                                <b> {{ __('ONFP/DG/DRH/DIVagp') }} </b>
+                                <b> {{ __('ONFP/DG/SG/DRH/DIVagp') }} </b>
                             </p>
                             <p align="center">
                                 <b> <br> {{ __('Dakar, le') }} </b>
