@@ -63,10 +63,19 @@ class Formulaire extends Model
         'date_naissance'      => 'date',
     ];
 
-    protected static function booted()
-    {
-        static::creating(fn($f) => $f->uuid = (string) Str::uuid());
-    }
+  protected static function booted()
+{
+    static::creating(function ($f) {
+        $f->uuid ??= (string) Str::uuid();
+    });
+
+    // Répare automatiquement une ancienne ligne sans uuid lors d'une mise à jour
+    static::saving(function ($f) {
+        if (empty($f->uuid)) {
+            $f->uuid = (string) Str::uuid();
+        }
+    });
+}
 
     public function getRouteKeyName()
     {
