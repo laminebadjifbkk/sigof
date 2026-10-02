@@ -231,7 +231,8 @@ class FormulaireController extends Controller
 
     public function confirmation(Formulaire $formulaire)
     {
-        abort_unless(session('formulaire_confirme') === $formulaire->id, 403);
+        /* abort_unless(session('formulaire_confirme') === $formulaire->id, 403); */
+        abort_unless((int) session('formulaire_confirme') === (int) $formulaire->getKey(), 403);
         return view('formulaire.confirmation', compact('formulaire'));
     }
 
