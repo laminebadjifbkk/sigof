@@ -1070,8 +1070,13 @@ Route::group(['middleware' => ['XSS']], function () {
             ->middleware('can:formulaire-view'); */
 
 
-        Route::get('/formulairesregion/{region}', [FormulaireController::class, 'showregion'])
+        /* Route::get('/formulairesregion/{region}', [FormulaireController::class, 'showregion'])
             ->name('formulaires.showregion')
+            ->middleware('can:formulaire-view'); */
+
+            Route::get('/formulaires/region/{region}/{annee_scolaire}', [FormulaireController::class, 'showregion'])
+    ->where(['region' => '[^/]+', 'annee_scolaire' => '[^/]+'])
+    ->name('formulaires.showregion')
             ->middleware('can:formulaire-view');
 
         Route::get('/formulairesregiondiplome/{region}/{diplome_vise}', [FormulaireController::class, 'showregiondiplome'])

@@ -1,303 +1,234 @@
 @extends('layout.user-layout')
-@section('title', $region . ' | liste des demandes prises en charge')
+@section('title', $region . ' ' . $annee_scolaire . ' | liste des demandes prises en charge')
 @section('space-work')
     @can('inscriptioncontact-view')
-        <section class="section register">
-            <div class="row justify-content-center">
-                <h4 class="card-title">
-                    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 p-3 bg-light rounded shadow-sm">
-                        <span>Liste des demandes prises de la région de {{ $region }}</span>
-                        <span>{{ $formulaireCount }}</span>
-                    </div>
-                </h4>
-                {{-- <div class="col-12">
-                    <div class="col-12">
-                        <div class="row">
-                            <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
-                                <div class="card info-card revenue-card shadow-sm" style="max-width: 220px;">
-                                    <div class="card-body p-2">
-                                        <h5 class="card-title text-truncate mb-1" title="{{ $region }}"
-                                            style="font-size: 1rem;">
-                                            {{ $region }}
-                                        </h5>
-                                        <div class="d-flex align-items-center mb-2">
-                                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
-                                                style="width: 32px; height: 32px; font-size: 1.25rem;">
-                                                <i class="bi bi-people"></i>
-                                            </div>
-                                            <div class="ps-2">
-                                                <h6 class="mb-0" style="font-size: 0.9rem;">
-                                                    {{ $totalFormulaires }}
-                                                </h6>
-                                                <span class="text-muted small">demandeurs</span>
-                                            </div>
-                                        </div>
+        @php
+            $total = $grouperegions->sum(fn($items) => $items->count());
+            $statuts = $grouperegions->sortByDesc(fn($items) => $items->count());
 
-                                        <a href="{{ route('formulaires.showregion', $region) }}"
-                                            class="btn btn-outline-primary btn-sm w-100 d-flex align-items-center justify-content-center py-1"
-                                            style="font-size: 0.85rem; gap: 6px;">
-                                            Voir plus <i class="bi bi-arrow-right-short"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+            // Même palette que les autres pages
+            $couleur = function ($statut) {
+                $s = mb_strtolower($statut);
+                return match (true) {
+                    str_contains($s, 'non conforme'), str_contains($s, 'rejet'), str_contains($s, 'refus') => '#dc3545',
+                    str_contains($s, 'non défini') => '#adb5bd',
+                    str_contains($s, 'nouvelle') => '#0d6efd',
+                    str_contains($s, 'conforme') => '#0f9b7a',
+                    str_contains($s, 'sélectionn') => '#198754',
+                    str_contains($s, 'valid') => '#146c43',
+                    str_contains($s, 'attente') => '#fd7e14',
+                    default => '#6c757d',
+                };
+            };
+        @endphp
 
-                            <!-- Sales Card -->
-                            @foreach ($groupes as $statut => $items)
-                                <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
-                                    <div class="card info-card sales-card shadow-sm" style="max-width: 220px;">
-                                        <div class="card-body p-2">
-                                            <h5 class="card-title text-truncate mb-1" title="{{ $statut }}"
-                                                style="font-size: 1rem;">
-                                                {{ $statut }}
-                                            </h5>
-                                            <div class="d-flex align-items-center mb-2">
-                                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
-                                                    style="width: 32px; height: 32px; font-size: 1.25rem;">
-                                                    <i class="bi bi-people"></i>
-                                                </div>
-                                                <div class="ps-2">
-                                                    <h6 class="mb-0" style="font-size: 0.9rem;">
-                                                        {{ number_format($items->count(), 0, '', ' ') }}
-                                                    </h6>
-                                                    <span class="text-muted small">demandeur(s)</span>
-                                                </div>
-                                            </div>
-                                            <a href="{{ route('prisencharge.parStatut', ['statut' => $statut, 'region' => $region]) }}"
-                                                class="btn btn-outline-primary btn-sm w-100 d-flex align-items-center justify-content-center py-1"
-                                                style="font-size: 0.85rem; gap: 6px;">
-                                                Voir plus <i class="bi bi-arrow-right-short"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
+        <style>
+            .rg-top {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                align-items: flex-end;
+                gap: 12px;
+                margin-bottom: 20px;
+            }
+
+            .rg-top h3 {
+                margin: 4px 0 0;
+                font-weight: 600;
+                color: #012970;
+            }
+
+            .rg-top h3 small {
+                font-size: .6em;
+                font-weight: 600;
+                color: #198754;
+                background: #d1e7dd;
+                padding: 3px 10px;
+                border-radius: 999px;
+                vertical-align: middle;
+                margin-left: 6px;
+            }
+
+            .rg-back {
+                font-size: .88rem;
+                text-decoration: none;
+            }
+
+            .rg-total {
+                background: #fff;
+                border: 1px solid #e3e8ef;
+                border-radius: 10px;
+                padding: 10px 18px;
+                text-align: right;
+                line-height: 1.1;
+            }
+
+            .rg-total strong {
+                display: block;
+                font-size: 1.7rem;
+                font-weight: 600;
+                color: #012970;
+            }
+
+            .rg-total span {
+                font-size: .8rem;
+                color: #6b7785;
+            }
+
+            .rg-title {
+                font-size: 1rem;
+                font-weight: 600;
+                color: #012970;
+                margin: 8px 0 12px;
+            }
+
+            .rg-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 14px;
+                margin-bottom: 28px;
+            }
+
+            .rg-card {
+                background: #fff;
+                border: 1px solid #e3e8ef;
+                border-left: 5px solid var(--c);
+                border-radius: 10px;
+                padding: 14px 16px;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .rg-card h5 {
+                margin: 0 0 8px;
+                font-size: .95rem;
+                font-weight: 600;
+                color: #1c2b3a;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .rg-card .nb {
+                font-size: 1.8rem;
+                font-weight: 600;
+                line-height: 1;
+                color: #1c2b3a;
+            }
+
+            .rg-card .sub {
+                font-size: .78rem;
+                color: #6b7785;
+                margin: 4px 0 10px;
+            }
+
+            .rg-meter {
+                height: 6px;
+                background: #edf0f4;
+                border-radius: 999px;
+                overflow: hidden;
+                margin-bottom: 12px;
+            }
+
+            .rg-meter i {
+                display: block;
+                height: 100%;
+                background: var(--c);
+            }
+
+            .rg-actions {
+                display: flex;
+                gap: 8px;
+                margin-top: auto;
+            }
+
+            .rg-actions .btn {
+                flex: 1;
+                font-size: .82rem;
+                white-space: nowrap;
+            }
+
+            .rg-table-wrap {
+                background: #fff;
+                border: 1px solid #e3e8ef;
+                border-radius: 10px;
+                padding: 16px;
+            }
+
+            .rg-table-wrap thead th {
+                font-size: .82rem;
+                text-transform: uppercase;
+                letter-spacing: .03em;
+                color: #6b7785;
+            }
+        </style>
+
+        <section class="section">
+            <div class="rg-top">
+                <div>
+                    <a href="{{ route('formulaires.annee', $annee_scolaire) }}" class="rg-back">
+                        <i class="bi bi-arrow-left"></i> Retour à l'année {{ $annee_scolaire }}
+                    </a>
+                    <h3>Région de {{ $region }} <small>{{ $annee_scolaire }}</small></h3>
+                </div>
+                <div class="rg-total">
+                    <strong>{{ $formulaireCount }}</strong>
+                    <span>demande(s) dans cette région</span>
+                </div>
+            </div>
+
+            {{-- Par statut --}}
+            <h4 class="rg-title">Répartition par statut</h4>
+            <div class="rg-grid">
+                @foreach ($statuts as $statut => $items)
+                    @php $pct = $total > 0 ? round(($items->count() / $total) * 100, 1) : 0; @endphp
+                    <div class="rg-card" style="--c: {{ $couleur($statut) }};">
+                        <h5 title="{{ $statut }}">{{ $statut }}</h5>
+                        <div class="nb">{{ number_format($items->count(), 0, '', ' ') }}</div>
+                        <div class="sub">demandeur(s) · {{ $pct }}%</div>
+                        <div class="rg-meter" role="img" aria-label="{{ $pct }}%">
+                            <i style="width: {{ $pct }}%"></i>
                         </div>
-                    </div>
-                </div> --}}
-
-                <!-- Tableau inscriptions -->
-                {{-- <div class="card shadow-sm">
-                    <div class="card-body">
-                        <div class="pt-1">
-                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
-
-                                <!-- Titre à gauche -->
-                                <div class="d-flex align-items-center gap-2">
-
-                                    <h6 class="mb-0 text-muted fw-semibold text-uppercase">
-                                        <span class="d-flex mt-2 align-items-baseline"><a href="{{ url('formulaires') }}"
-                                                class="btn btn-info btn-sm" title="retour"><i
-                                                    class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
-                                            <p> | Liste des demandes prises en charge</p>
-                                        </span>
-                                    </h6>
-                                </div>
-
-                                <!-- Total au centre -->
-                                @php
-                                    $affichees = $formulaires?->count(); // à adapter si tu fais une pagination
-                                    $total = $totalFormulaires ?? ($formulaires?->total() ?? $formulaires?->count()); // en cas de pagination avec ->total()
-                                @endphp
-
-                                <div class="d-flex align-items-center gap-2 text-info fw-semibold">
-                                    <i class="bi bi-list-ul me-1"></i>
-                                    <span>
-                                        Affichage :
-                                        <span class="text-dark">{{ $affichees }}</span>
-                                        sur
-                                        <span class="text-dark">{{ $total }}</span> demandes
-                                    </span>
-                                </div>
-
-                                <!-- Boutons à droite -->
-                                @can('formulaire-create')
-                                    <div class="d-flex align-items-center gap-2">
-                                        <!--  <a href="{{ route('formulaire.create') }}" class="btn btn-sm btn-primary">
-                                            Ajouter
-                                        </a> -->
-                                        <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="modal"
-                                            data-bs-target="#generate_rapport">
-                                            Rechercher plus
-                                        </button>
-                                    </div>
-                                @endcan
-
-                            </div>
-                        </div>
-
-                        <!-- Export opérateurs en Excel -->
-                        <!-- <span class="mb-3 d-inline-block">
-                            <a href="{{ route('prisencharge.excel') }}" class="btn btn-success btn-sm"
-                                title="Exporter la liste">
-                                <i class="bi bi-file-earmark-excel"></i> Exporter prises en charge (Excel)
+                        <div class="rg-actions">
+                            <a href="{{ route('prisencharge.parStatut', ['statut' => $statut, 'region' => $region, 'annee_scolaire' => $annee_scolaire]) }}"
+                                class="btn btn-outline-primary btn-sm">
+                                Voir plus <i class="bi bi-arrow-right-short"></i>
                             </a>
-                        </span> -->
-
-                        <div class="table-responsive">
-                            <table class="table datatables align-middle" id="table-inscriptions">
-                                <thead class="table-primary">
-                                    <tr>
-                                        @foreach ($labels as $key => $label)
-                                            <th>{{ $label }}</th>
-                                        @endforeach
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($formulaires as $inscription)
-                                        <tr>
-                                            @foreach (array_keys($labels) as $field)
-                                                <td>
-                                                    @if (in_array($field, ['cin_file', 'facture_file', 'cv', 'diplome']))
-                                                        @php
-                                                            $fileUrl = $inscription->getFileUrl($field);
-                                                        @endphp
-                                                        @if ($fileUrl)
-                                                            <a href="{{ $fileUrl }}" target="_blank"
-                                                                class="btn btn-outline-secondary btn-sm" title="Télécharger">
-                                                                <i class="bi bi-download"></i>
-                                                            </a>
-                                                        @else
-                                                            -
-                                                        @endif
-
-                                                        <!-- Cas spécifique pour la date de naissance -->
-                                                    @elseif ($field === 'date_naissance' && $inscription->date_naissance)
-                                                        {{ \Carbon\Carbon::parse($inscription->date_naissance)->format('d/m/Y') }}
-
-                                                        <!-- Tous les autres champs normaux -->
-                                                    @else
-                                                        {{ $inscription->$field ?? '-' }}
-                                                    @endif
-                                                </td>
-                                            @endforeach
-                                            <td class="text-center">
-                                                <div class="btn-group">
-                                                    <!-- Bouton Voir -->
-                                                    <a href="{{ route('formulaires.show', $inscription->id) }}"
-                                                        class="btn btn-warning btn-sm" title="Voir les détails">
-                                                        <i class="bi bi-eye"></i>
-                                                    </a>
-
-                                                    <!-- Bouton menu déroulant -->
-                                                    <button type="button"
-                                                        class="btn btn-light btn-sm dropdown-toggle dropdown-toggle-split"
-                                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <span class="visually-hidden">Actions</span>
-                                                    </button>
-
-                                                    <ul class="dropdown-menu dropdown-menu-end shadow-sm">
-                                                        <!-- Lien Modifier -->
-                                                        <li>
-                                                            <a href="{{ route('formulaires.edit', $inscription->id) }}"
-                                                                class="dropdown-item text-primary" title="Modifier les détails">
-                                                                <i class="bi bi-pencil-square me-2"></i> Modifier
-                                                            </a>
-                                                        </li>
-
-                                                        <!-- Formulaire Supprimer -->
-                                                        <li>
-                                                            <form action="{{ route('formulaires.destroy', $inscription->id) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit"
-                                                                    class="dropdown-item text-danger show_confirm">
-                                                                    <i class="bi bi-trash me-2"></i> Supprimer
-                                                                </button>
-                                                            </form>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                            @can('exporter-view')
+                                <a href="{{ route('prisencharge.excel', ['statut' => $statut, 'region' => $region, 'annee_scolaire' => $annee_scolaire]) }}"
+                                    class="btn btn-outline-success btn-sm" title="Exporter la liste">
+                                    <i class="bi bi-file-earmark-excel"></i> Excel
+                                </a>
+                            @endcan
                         </div>
                     </div>
-                </div> --}}
+                @endforeach
+            </div>
 
-                <div class="col-12">
-                    <div class="col-12">
-                        <div class="row">
-                            <!-- Sales Card -->
-                            @foreach ($grouperegions as $statut => $items)
-                                <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
-                                    <div class="card info-card sales-card shadow-sm" style="max-width: 220px;">
-                                        <div class="card-body p-2">
-                                            <h5 class="card-title text-truncate mb-1" title="{{ $statut }}"
-                                                style="font-size: 1rem;">
-                                                {{ $statut }}
-                                            </h5>
-                                            <div class="d-flex align-items-center mb-2">
-                                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
-                                                    style="width: 32px; height: 32px; font-size: 1.25rem;">
-                                                    <i class="bi bi-people"></i>
-                                                </div>
-                                                <div class="ps-2">
-                                                    <h6 class="mb-0" style="font-size: 0.9rem;">
-                                                        {{ number_format($items->count(), 0, '', ' ') }}
-                                                    </h6>
-                                                    <span class="text-muted small">demandeur(s)</span>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex flex-wrap gap-2 mt-2">
-                                                <a href="{{ route('prisencharge.parStatut', ['statut' => $statut, 'region' => $region]) }}"
-                                                    class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center py-1"
-                                                    style="font-size: 0.85rem; gap: 6px; flex: 1 1 48%;">
-                                                    Voir plus <i class="bi bi-arrow-right-short"></i>
-                                                </a>
-                                                @can('exporter-view')
-                                                    <a href="{{ route('prisencharge.excel', ['statut' => $statut, 'region' => $region]) }}"
-                                                        class="btn btn-outline-success btn-sm d-flex align-items-center justify-content-center py-1"
-                                                        title="Exporter la liste"
-                                                        style="font-size: 0.85rem; gap: 6px; flex: 1 1 48%;">
-                                                        <i class="bi bi-file-earmark-excel"></i> Excel
-                                                    </a>
-                                                @endcan
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex align-items-center gap-2">
-                    <h6 class="mb-0 text-muted fw-semibold">
-                        <span class="d-flex mt-2 align-items-baseline"><a href="{{ url('formulaires') }}"
-                                class="btn btn-info btn-sm" title="retour"><i
-                                    class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
-                            <p> | Liste des demandes prises en charge de {{ $region }}
-                        </span>
-                    </h6>
-                </div>
+            {{-- Par diplôme visé --}}
+            <h4 class="rg-title">Répartition par diplôme visé</h4>
+            <div class="rg-table-wrap">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped align-middle" id="table-inscriptions">
-                        <thead class="table-primary">
+                    <table class="table table-hover align-middle" id="table-inscriptions">
+                        <thead>
                             <tr>
                                 <th width="5%" class="text-center">N°</th>
                                 <th>Diplôme visé</th>
-                                <th width="5%" class="text-center">Effectif</th>
-                                <th width="5%" class="text-center">Actions</th>
+                                <th width="8%" class="text-center">Effectif</th>
+                                <th width="8%" class="text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($groupes as $diplome_vise => $items)
                                 <tr>
-                                    <td class="text-center">{{ $loop->iteration }}</td>
-                                    <td>{{ $diplome_vise }}</td>
+                                    <td class="text-center text-muted">{{ $loop->iteration }}</td>
+                                    <td class="fw-semibold">{{ $diplome_vise }}</td>
                                     <td class="text-center">{{ $items->count() }}</td>
                                     <td class="text-center">
-                                        <div class="btn-group">
-                                            {{-- Bouton Voir --}}
-                                            <a href="{{ route('formulaires.showregiondiplome', ['region' => $region, 'diplome_vise' => $diplome_vise]) }}"
-                                                class="btn btn-warning btn-sm" title="Voir les détails" target="_blank">
-                                                <i class="bi bi-eye"></i>
-                                            </a>
-                                        </div>
+                                        <a href="{{ route('formulaires.showregiondiplome', ['region' => $region, 'diplome_vise' => $diplome_vise, 'annee_scolaire' => $annee_scolaire]) }}"
+                                            class="btn btn-warning btn-sm" title="Voir les détails" target="_blank">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -305,8 +236,20 @@
                     </table>
                 </div>
             </div>
-            <div class="modal fade" id="generate_rapport" tabindex="-1" role="dialog" aria-labelledby="generate_rapportLabel"
-                aria-hidden="true">
+
+            {{-- Modal générer un rapport --}}
+            @php
+                $champsRecherche = [
+                    ['prenom', 'Prénom', 'text', 'prenom', 'Prénom', ''],
+                    ['nom', 'Nom', 'text', 'nom', 'Nom', ''],
+                    ['cin', 'N° CIN', 'text', 'cin2', 'Ex: 1099200500012', 'minlength=9 maxlength=14 autocomplete=off'],
+                    ['telephone', 'Téléphone', 'text', 'telephone_responsable', 'Téléphone', 'maxlength=12 autocomplete=tel'],
+                    ['email', 'Email', 'email', 'email', 'email@email.com', ''],
+                    ['lieu_naissance', 'Lieu naissance', 'text', 'lieu_naissance', 'Lieu de naissance', ''],
+                ];
+            @endphp
+            <div class="modal fade" id="generate_rapport" tabindex="-1" role="dialog"
+                aria-labelledby="generate_rapportLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -317,142 +260,49 @@
                             @csrf
                             <div class="modal-body">
                                 <div class="row g-3">
-                                    <div class="col-12">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label for="prenom" class="form-label">Prénom</label>
-                                                    <input type="text" name="prenom" value="{{ old('prenom') }}"
-                                                        class="form-control form-control-sm @error('prenom') is-invalid @enderror"
-                                                        id="prenom" placeholder="Prénom">
-                                                    @error('prenom')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <div>{{ $message }}</div>
-                                                        </span>
-                                                    @enderror
-                                                </div>
+                                    @foreach ($champsRecherche as [$name, $label, $type, $id, $placeholder, $extra])
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="{{ $id }}" class="form-label">{{ $label }}</label>
+                                                <input type="{{ $type }}" name="{{ $name }}"
+                                                    id="{{ $id }}" value="{{ old($name) }}"
+                                                    placeholder="{{ $placeholder }}"
+                                                    class="form-control form-control-sm @error($name) is-invalid @enderror"
+                                                    {!! $extra !!}>
+                                                @error($name)
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <div>{{ $message }}</div>
+                                                    </span>
+                                                @enderror
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label for="nom" class="form-label">Nom</label>
-                                                    <input type="text" name="nom" value="{{ old('nom') }}"
-                                                        class="form-control form-control-sm @error('nom') is-invalid @enderror"
-                                                        id="nom" placeholder="Nom">
-                                                    @error('nom')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <div>{{ $message }}</div>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label for="cin" class="form-label">N° CIN</label>
-                                                    <input name="cin" type="text"
-                                                        class="form-control form-control-sm @error('cin') is-invalid @enderror"
-                                                        id="cin2" value="{{ old('cin') }}" autocomplete="off"
-                                                        placeholder="Ex: 1099200500012" minlength="9" maxlength="14">
-                                                    @error('cin')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <div>{{ $message }}</div>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label for="telephone" class="form-label">Téléphone</label>
-                                                    <input name="telephone" type="text" maxlength="12"
-                                                        class="form-control form-control-sm @error('telephone') is-invalid @enderror"
-                                                        id="telephone_responsable" value="{{ old('telephone') }}"
-                                                        autocomplete="tel" placeholder="Téléphone">
-                                                    @error('telephone')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <div>{{ $message }}</div>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label for="email" class="form-label">Email</label>
-                                                    <input type="email" name="email" value="{{ old('email') }}"
-                                                        class="form-control form-control-sm @error('email') is-invalid @enderror"
-                                                        id="email" placeholder="email@email.com">
-                                                    @error('email')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <div>{{ $message }}</div>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label for="lieu_naissance" class="form-label">Lieu naissance</label>
-                                                    <input type="text" name="lieu_naissance"
-                                                        value="{{ old('lieu_naissance') }}"
-                                                        class="form-control form-control-sm @error('lieu_naissance') is-invalid @enderror"
-                                                        id="lieu_naissance" placeholder="Lieu de naissance">
-                                                    @error('lieu_naissance')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <div>{{ $message }}</div>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary btn-sm"
-                                            data-bs-dismiss="modal">Fermer</button>
-                                        <div class="text-center">
-                                            <button type="submit"
-                                                class="btn btn-primary btn-block submit_rapport btn-sm">Rechercher</button>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fermer</button>
+                                <button type="submit"
+                                    class="btn btn-primary btn-block submit_rapport btn-sm">Rechercher</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </section>
-
     @endcan
-
 @endsection
 @push('scripts')
     <script>
         new DataTable('#table-inscriptions', {
-            ordering: true, // désactive le tri automatique
+            ordering: true,
+            order: [
+                [2, 'desc']
+            ],
             layout: {
                 topStart: {
                     buttons: ['csv', 'excel', 'print'],
                 }
             },
-            "order": [
-                [2, 'desc']
-            ],
             language: {
                 "sProcessing": "Traitement en cours...",
                 "sSearch": "Rechercher&nbsp;:",
@@ -473,13 +323,6 @@
                 "oAria": {
                     "sSortAscending": ": activer pour trier la colonne par ordre croissant",
                     "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
-                },
-                "select": {
-                    "rows": {
-                        _: "%d lignes sÃ©lÃ©ctionnÃ©es",
-                        0: "Aucune ligne sÃ©lÃ©ctionnÃ©e",
-                        1: "1 ligne sÃ©lÃ©ctionnÃ©e"
-                    }
                 }
             }
         });
