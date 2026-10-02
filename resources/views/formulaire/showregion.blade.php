@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', $region . ' ' . $annee_scolaire . ' | liste des demandes prises en charge')
+@section('title', $region . ' ' . $annee . ' | liste des demandes prises en charge')
 @section('space-work')
     @can('inscriptioncontact-view')
         @php
@@ -166,10 +166,10 @@
         <section class="section">
             <div class="rg-top">
                 <div>
-                    <a href="{{ route('formulaires.annee', $annee_scolaire) }}" class="rg-back">
-                        <i class="bi bi-arrow-left"></i> Retour à l'année {{ $annee_scolaire }}
+                    <a href="{{ route('formulaires.annee', $annee) }}" class="rg-back">
+                        <i class="bi bi-arrow-left"></i> Retour à l'année {{ $annee }}
                     </a>
-                    <h3>Région de {{ $region }} <small>{{ $annee_scolaire }}</small></h3>
+                    <h3>Région de {{ $region }} <small>{{ $annee }}</small></h3>
                 </div>
                 <div class="rg-total">
                     <strong>{{ $formulaireCount }}</strong>
@@ -190,12 +190,12 @@
                             <i style="width: {{ $pct }}%"></i>
                         </div>
                         <div class="rg-actions">
-                            <a href="{{ route('prisencharge.parStatut', ['statut' => $statut, 'region' => $region, 'annee_scolaire' => $annee_scolaire]) }}"
+                            <a href="{{ route('prisencharge.parStatut', ['statut' => $statut, 'region' => $region, 'annee' => $annee]) }}"
                                 class="btn btn-outline-primary btn-sm">
                                 Voir plus <i class="bi bi-arrow-right-short"></i>
                             </a>
                             @can('exporter-view')
-                                <a href="{{ route('prisencharge.excel', ['statut' => $statut, 'region' => $region, 'annee_scolaire' => $annee_scolaire]) }}"
+                                <a href="{{ route('prisencharge.excel', ['statut' => $statut, 'region' => $region, 'annee' => $annee]) }}"
                                     class="btn btn-outline-success btn-sm" title="Exporter la liste">
                                     <i class="bi bi-file-earmark-excel"></i> Excel
                                 </a>
@@ -225,7 +225,7 @@
                                     <td class="fw-semibold">{{ $diplome_vise }}</td>
                                     <td class="text-center">{{ $items->count() }}</td>
                                     <td class="text-center">
-                                        <a href="{{ route('formulaires.showregiondiplome', ['region' => $region, 'diplome_vise' => $diplome_vise, 'annee_scolaire' => $annee_scolaire]) }}"
+                                        <a href="{{ route('formulaires.showregiondiplome', ['region' => $region, 'diplome_vise' => $diplome_vise, 'annee' => $annee]) }}"
                                             class="btn btn-warning btn-sm" title="Voir les détails" target="_blank">
                                             <i class="bi bi-eye"></i>
                                         </a>

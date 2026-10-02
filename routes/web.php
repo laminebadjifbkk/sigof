@@ -741,8 +741,11 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::get('/prisenchargestatutregion/{statut}/{region}', [FormulaireController::class, 'filtrerPrisenchargeParStatut'])
             ->name('prisencharge.parStatut');
 
-        Route::get('/prisenchargestatutregiondiplome/{statut}/{region}/{diplome}', [FormulaireController::class, 'filtrerPrisenchargeParStatutDiplome'])
-            ->name('prisencharge.parStatut.diplome');
+       /*  Route::get('/prisenchargestatutregiondiplome/{statut}/{region}/{diplome}', [FormulaireController::class, 'filtrerPrisenchargeParStatutDiplome'])
+            ->name('prisencharge.parStatut.diplome'); */
+            Route::get('/prisenchargestatutregiondiplome/{statut}/{region}/{annee}/{diplome}', [FormulaireController::class, 'filtrerPrisenchargeParStatutDiplome'])
+    ->where(['statut' => '[^/]+', 'region' => '[^/]+', 'annee' => '[^/]+', 'diplome' => '.+'])
+    ->name('prisencharge.parStatut.diplome');
 
         Route::get('formulaires/annee/{annee}', [FormulaireController::class, 'showAnnee'])
             ->where('annee', '[^/]+')
@@ -1079,8 +1082,13 @@ Route::group(['middleware' => ['XSS']], function () {
     ->name('formulaires.showregion')
             ->middleware('can:formulaire-view');
 
-        Route::get('/formulairesregiondiplome/{region}/{diplome_vise}', [FormulaireController::class, 'showregiondiplome'])
+        /* Route::get('/formulairesregiondiplome/{region}/{diplome_vise}', [FormulaireController::class, 'showregiondiplome'])
             ->name('formulaires.showregiondiplome')
+            ->middleware('can:formulaire-view'); */
+
+            Route::get('/formulaires/region/{region}/{annee}/diplome/{diplome_vise}', [FormulaireController::class, 'showregiondiplome'])
+    ->where(['region' => '[^/]+', 'annee_scolaire' => '[^/]+', 'diplome_vise' => '.+'])
+    ->name('formulaires.showregiondiplome')
             ->middleware('can:formulaire-view');
 
         Route::put('/validation-prisencharge/{id}', [FormulaireController::class, 'validationPriseEnCharge'])

@@ -139,7 +139,7 @@
 
                             {{-- Boutons --}}
                             <div class="mt-4 d-flex justify-content-between">
-                                <a href="{{ route('formulaires.showregiondiplome', ['region' => $formulaire?->region, 'diplome_vise' => $formulaire?->diplome_vise]) }}"
+                                <a href="{{ route('formulaires.showregiondiplome', ['region' => $formulaire?->region, 'diplome_vise' => $formulaire?->diplome_vise, 'annee' => $formulaire?->annee_scolaire]) }}"
                                     class="btn btn-secondary btn-sm">
                                     Retour à la liste
                                 </a>
@@ -225,3 +225,4 @@
         </section>
     @endcan
 @endsection
+

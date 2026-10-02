@@ -34,7 +34,7 @@
                                             </div>
                                         </div>
 
-                                        <a href="{{ route('formulaires.showregion', $region) }}"
+                                        <a href="{{ route('formulaires.showregion', ['region' => $region, 'annee_scolaire' => $annee]) }}"
                                             class="btn btn-outline-primary btn-sm w-100 d-flex align-items-center justify-content-center py-1"
                                             style="font-size: 0.85rem; gap: 6px;">
                                             Voir plus <i class="bi bi-arrow-right-short"></i>
@@ -64,11 +64,18 @@
                                                     <span class="text-muted small">demandeur(s)</span>
                                                 </div>
                                             </div>
-                                            <a href="{{ route('prisencharge.parStatut.diplome', ['statut' => $statut, 'region' => $region, 'diplome' => $diplome_vise]) }}"
+                                            {{--  <a href="{{ route('prisencharge.parStatut.diplome', ['statut' => $statut, 'region' => $region, 'diplome' => $diplome_vise]) }}"
                                                 class="btn btn-outline-primary btn-sm w-100 d-flex align-items-center justify-content-center py-1"
                                                 style="font-size: 0.85rem; gap: 6px;">
                                                 Voir plus <i class="bi bi-arrow-right-short"></i>
-                                            </a>
+                                            </a> --}}
+                                            <a
+                                                href="{{ route('prisencharge.parStatut.diplome', [
+                                                    'statut' => $statut,
+                                                    'region' => $region,
+                                                    'annee_scolaire' => $annee,
+                                                    'diplome' => $diplome_vise,
+                                                ]) }}"></a>
                                         </div>
                                     </div>
                                 </div>
@@ -88,7 +95,7 @@
 
                                     <h6 class="mb-0 text-muted fw-semibold">
                                         <span class="d-flex mt-2 align-items-baseline"><a
-                                                href="{{ route('formulaires.showregion', ['region' => $region]) }}"
+                                                href="{{ route('formulaires.showregion', ['region' => $region, 'annee_scolaire' => $annee]) }}"
                                                 class="btn btn-info btn-sm" title="retour"><i
                                                     class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                                             <p> | Liste des demandes prises en charge de {{ $region }}</p>
@@ -116,8 +123,8 @@
                                 @can('formulaire-create')
                                     <div class="d-flex align-items-center gap-2">
                                         <!--  <a href="{{ route('formulaire.create') }}" class="btn btn-sm btn-primary">
-                                                                                            Ajouter
-                                                                                        </a> -->
+                                                                                                        Ajouter
+                                                                                                    </a> -->
                                         <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="modal"
                                             data-bs-target="#generate_rapport">
                                             Rechercher plus
@@ -175,7 +182,8 @@
                                                     @endif
                                                 </td>
                                             @endforeach
-                                            <td class="text-center"><span class="{{ $inscription?->statut }}">{{ $inscription?->statut }}</span>
+                                            <td class="text-center"><span
+                                                    class="{{ $inscription?->statut }}">{{ $inscription?->statut }}</span>
                                             </td>
                                             <td class="text-center">
                                                 <div class="btn-group">
