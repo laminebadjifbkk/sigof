@@ -190,10 +190,10 @@
                             <i style="width: {{ $pct }}%"></i>
                         </div>
                         <div class="rg-actions">
-                           <a href="{{ route('prisencharge.parStatut', ['statut' => $statut, 'region' => $region, 'annee_scolaire' => $annee]) }}"
-    class="btn btn-outline-primary btn-sm">
-    Voir plus <i class="bi bi-arrow-right-short"></i>
-</a>
+                            <a href="{{ route('prisencharge.parStatut', ['statut' => $statut, 'region' => $region, 'annee_scolaire' => $annee]) }}"
+                                class="btn btn-outline-primary btn-sm">
+                                Voir plus <i class="bi bi-arrow-right-short"></i>
+                            </a>
                             @can('exporter-view')
                                 <a href="{{ route('prisencharge.excel', ['statut' => $statut, 'region' => $region, 'annee' => $annee]) }}"
                                     class="btn btn-outline-success btn-sm" title="Exporter la liste">
@@ -225,10 +225,10 @@
                                     <td class="fw-semibold">{{ $diplome_vise }}</td>
                                     <td class="text-center">{{ $items->count() }}</td>
                                     <td class="text-center">
-                                       <a href="{{ route('formulaires.showregiondiplome', ['region' => $region, 'annee_scolaire' => $annee, 'diplome_vise' => $diplome_vise]) }}"
-    class="btn btn-warning btn-sm" title="Voir les détails" target="_blank">
-    <i class="bi bi-eye"></i>
-</a>
+                                        {{-- <a href="{{ route('formulaires.showregiondiplome', ['region' => $region, 'annee_scolaire' => $annee, 'diplome_vise' => $diplome_vise]) }}"
+                                            class="btn btn-warning btn-sm" title="Voir les détails" target="_blank">
+                                            <i class="bi bi-eye"></i>
+                                        </a> --}}
                                     </td>
                                 </tr>
                             @endforeach
@@ -243,13 +243,20 @@
                     ['prenom', 'Prénom', 'text', 'prenom', 'Prénom', ''],
                     ['nom', 'Nom', 'text', 'nom', 'Nom', ''],
                     ['cin', 'N° CIN', 'text', 'cin2', 'Ex: 1099200500012', 'minlength=9 maxlength=14 autocomplete=off'],
-                    ['telephone', 'Téléphone', 'text', 'telephone_responsable', 'Téléphone', 'maxlength=12 autocomplete=tel'],
+                    [
+                        'telephone',
+                        'Téléphone',
+                        'text',
+                        'telephone_responsable',
+                        'Téléphone',
+                        'maxlength=12 autocomplete=tel',
+                    ],
                     ['email', 'Email', 'email', 'email', 'email@email.com', ''],
                     ['lieu_naissance', 'Lieu naissance', 'text', 'lieu_naissance', 'Lieu de naissance', ''],
                 ];
             @endphp
-            <div class="modal fade" id="generate_rapport" tabindex="-1" role="dialog"
-                aria-labelledby="generate_rapportLabel" aria-hidden="true">
+            <div class="modal fade" id="generate_rapport" tabindex="-1" role="dialog" aria-labelledby="generate_rapportLabel"
+                aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -263,7 +270,8 @@
                                     @foreach ($champsRecherche as [$name, $label, $type, $id, $placeholder, $extra])
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="{{ $id }}" class="form-label">{{ $label }}</label>
+                                                <label for="{{ $id }}"
+                                                    class="form-label">{{ $label }}</label>
                                                 <input type="{{ $type }}" name="{{ $name }}"
                                                     id="{{ $id }}" value="{{ old($name) }}"
                                                     placeholder="{{ $placeholder }}"
