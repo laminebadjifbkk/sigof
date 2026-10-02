@@ -2,99 +2,246 @@
 @section('title', 'ONFP | DEMANDES ' . $annee)
 @section('space-work')
     @can('inscriptioncontact-view')
-        <section class="section register">
-            <div class="row justify-content-center">
-                <h4 class="card-title">
-                    <div
-                        class="d-flex flex-wrap justify-content-between align-items-center mb-1 p-3 bg-light rounded shadow-sm gap-2">
-                        <span>
-                            <a href="{{ route('formulaires.index') }}" class="btn btn-outline-secondary btn-sm me-2">
-                                <i class="bi bi-arrow-left"></i> Années
-                            </a>
-                            Liste des demandes prises en charge – {{ $annee }}
-                        </span>
-                        <span>{{ $totalFormulaires }}</span>
-                    </div>
-                </h4>
+        @php
+            $total = $formulaires->count();
+            $statuts = $grouperStatut->sortByDesc(fn($items) => $items->count());
+            $regions = $groupes->sortByDesc(fn($items) => $items->count());
 
-                {{-- Cartes par statut --}}
-                <div class="col-12">
-                    <div class="row">
-                        @foreach ($grouperStatut as $statut => $items)
-                            <div class="col-12 col-md-4 col-lg-2 col-sm-12 col-xs-12 col-xxl-2">
-                                <div class="card info-card sales-card shadow-sm" style="max-width: 220px;">
-                                    <div class="card-body p-2">
-                                        <h5 class="card-title text-truncate mb-1" title="{{ $statut }}"
-                                            style="font-size: 1rem;">
-                                            {{ $statut }}
-                                        </h5>
+            // Même palette que la page des années
+            $couleur = function ($statut) {
+                $s = mb_strtolower($statut);
+                return match (true) {
+                    str_contains($s, 'non conforme'), str_contains($s, 'rejet'), str_contains($s, 'refus') => '#dc3545',
+                    str_contains($s, 'non défini') => '#adb5bd',
+                    str_contains($s, 'nouvelle') => '#0d6efd',
+                    str_contains($s, 'conforme') => '#0f9b7a',
+                    str_contains($s, 'sélectionn') => '#198754',
+                    str_contains($s, 'valid') => '#146c43',
+                    str_contains($s, 'attente') => '#fd7e14',
+                    default => '#6c757d',
+                };
+            };
+        @endphp
 
-                                        <div class="d-flex align-items-center mb-2">
-                                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
-                                                style="width: 32px; height: 32px; font-size: 1.25rem;">
-                                                <i class="bi bi-people"></i>
-                                            </div>
+        <style>
+            .an-top {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                align-items: flex-end;
+                gap: 12px;
+                margin-bottom: 20px;
+            }
 
-                                            <div class="ps-2">
-                                                <h6 class="mb-0" style="font-size: 0.9rem;">
-                                                    {{ number_format($items->count(), 0, '', ' ') }}
-                                                </h6>
-                                                <span class="text-muted small">demandeur(s)</span><br>
-                                                <span class="badge bg-light text-dark mt-1" style="font-size: 0.75rem;">
-                                                    {{ $statutPourcentages[$statut]['percent'] }}%
-                                                </span>
-                                            </div>
-                                        </div>
+            .an-top h3 {
+                margin: 4px 0 0;
+                font-weight: 600;
+                color: #012970;
+            }
 
-                                        {{-- <div class="d-flex flex-wrap gap-2 mt-2">
-                                            <a href="{{ route('formulaires.showstatut', $statut) }}"
-                                                class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center py-1"
-                                                style="font-size: 0.85rem; gap: 6px; flex: 1 1 48%;">
-                                                Voir plus <i class="bi bi-arrow-right-short"></i>
-                                            </a>
-                                        </div> --}}
-                                        <div class="d-flex flex-wrap gap-2 mt-2">
-                                            <a href="{{ route('formulaires.showstatut', ['statut' => $statut, 'annee_scolaire' => $annee]) }}"
-                                                class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center py-1"
-                                                style="font-size: 0.85rem; gap: 6px; flex: 1 1 48%;">
-                                                Voir plus <i class="bi bi-arrow-right-short"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
+            .an-back {
+                font-size: .88rem;
+                text-decoration: none;
+            }
+
+            .an-total {
+                background: #fff;
+                border: 1px solid #e3e8ef;
+                border-radius: 10px;
+                padding: 10px 18px;
+                text-align: right;
+                line-height: 1.1;
+            }
+
+            .an-total strong {
+                display: block;
+                font-size: 1.7rem;
+                font-weight: 600;
+                color: #012970;
+            }
+
+            .an-total span {
+                font-size: .8rem;
+                color: #6b7785;
+            }
+
+            .an-section-title {
+                font-size: 1rem;
+                font-weight: 600;
+                color: #012970;
+                margin: 8px 0 12px;
+            }
+
+            .an-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+                gap: 14px;
+                margin-bottom: 28px;
+            }
+
+            .an-card {
+                background: #fff;
+                border: 1px solid #e3e8ef;
+                border-left: 5px solid var(--c);
+                border-radius: 10px;
+                padding: 14px 16px;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .an-card h5 {
+                margin: 0 0 8px;
+                font-size: .95rem;
+                font-weight: 600;
+                color: #1c2b3a;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .an-card .nb {
+                font-size: 1.8rem;
+                font-weight: 600;
+                line-height: 1;
+                color: #1c2b3a;
+            }
+
+            .an-card .sub {
+                font-size: .78rem;
+                color: #6b7785;
+                margin: 4px 0 10px;
+            }
+
+            .an-meter {
+                height: 6px;
+                background: #edf0f4;
+                border-radius: 999px;
+                overflow: hidden;
+                margin-bottom: 12px;
+            }
+
+            .an-meter i {
+                display: block;
+                height: 100%;
+                background: var(--c);
+            }
+
+            .an-card .btn {
+                margin-top: auto;
+                font-size: .85rem;
+            }
+
+            .an-table-wrap {
+                background: #fff;
+                border: 1px solid #e3e8ef;
+                border-radius: 10px;
+                overflow: hidden;
+            }
+
+            .an-table-wrap table {
+                margin: 0;
+            }
+
+            .an-table-wrap thead th {
+                font-size: .82rem;
+                text-transform: uppercase;
+                letter-spacing: .03em;
+                color: #6b7785;
+                background: #f6f9ff;
+                border-bottom: 1px solid #e3e8ef;
+            }
+
+            .an-part {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                min-width: 160px;
+            }
+
+            .an-part .an-meter {
+                flex: 1;
+                margin: 0;
+            }
+
+            .an-part small {
+                width: 42px;
+                text-align: right;
+                color: #6b7785;
+            }
+        </style>
+
+        <section class="section">
+            <div class="an-top">
+                <div>
+                    <a href="{{ route('formulaires.index') }}" class="an-back">
+                        <i class="bi bi-arrow-left"></i> Toutes les années scolaires
+                    </a>
+                    <h3>Prises en charge {{ $annee }}</h3>
                 </div>
+                <div class="an-total">
+                    <strong>{{ $totalFormulaires }}</strong>
+                    <span>demande(s) cette année</span>
+                </div>
+            </div>
 
-                {{-- Tableau par région --}}
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped align-middle">
-                        <thead class="table-primary">
+            {{-- Par statut --}}
+            <h4 class="an-section-title">Répartition par statut</h4>
+            <div class="an-grid">
+                @foreach ($statuts as $statut => $items)
+                    @php
+                        $pct = $statutPourcentages[$statut]['percent'];
+                    @endphp
+                    <div class="an-card" style="--c: {{ $couleur($statut) }};">
+                        <h5 title="{{ $statut }}">{{ $statut }}</h5>
+                        <div class="nb">{{ number_format($items->count(), 0, '', ' ') }}</div>
+                        <div class="sub">demandeur(s) · {{ $pct }}%</div>
+                        <div class="an-meter" role="img" aria-label="{{ $pct }}%">
+                            <i style="width: {{ $pct }}%"></i>
+                        </div>
+                        <a href="{{ route('formulaires.showstatut', ['statut' => $statut, 'annee_scolaire' => $annee]) }}"
+                            class="btn btn-outline-primary btn-sm">
+                            Voir plus <i class="bi bi-arrow-right-short"></i>
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+
+            {{-- Par région --}}
+            <h4 class="an-section-title">Répartition par région</h4>
+            <div class="an-table-wrap table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th style="width: 60px;" class="text-center">N°</th>
+                            <th>Région</th>
+                            <th class="text-end">Effectif</th>
+                            <th>Part</th>
+                            <th style="width: 80px;" class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($regions as $region => $items)
+                            @php $part = $total > 0 ? round(($items->count() / $total) * 100, 1) : 0; @endphp
                             <tr>
-                                <th style="width: 50px;" class="text-center">N°</th>
-                                <th>Région</th>
-                                <th style="width: 50px;" class="text-center">Actions</th>
+                                <td class="text-center text-muted">{{ $loop->iteration }}</td>
+                                <td class="fw-semibold">{{ $region }}</td>
+                                <td class="text-end">{{ number_format($items->count(), 0, '', ' ') }}</td>
+                                <td>
+                                    <div class="an-part" style="--c: #0d6efd;">
+                                        <div class="an-meter"><i style="width: {{ $part }}%"></i></div>
+                                        <small>{{ $part }}%</small>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <a href="{{ route('formulaires.showregion', $region) }}" class="btn btn-warning btn-sm"
+                                        title="Voir les détails de {{ $region }}">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($groupes as $region => $items)
-                                <tr>
-                                    <td class="text-center">{{ $loop->iteration }}</td>
-                                    <td>{{ $region }}</td>
-                                    <td class="text-center">
-                                        <div class="btn-group">
-                                            <a href="{{ route('formulaires.showregion', $region) }}"
-                                                class="btn btn-warning btn-sm" title="Voir les détails">
-                                                <i class="bi bi-eye"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
 
             {{-- Modal générer un rapport (inchangé) --}}
