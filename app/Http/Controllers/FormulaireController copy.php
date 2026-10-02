@@ -736,61 +736,36 @@ class FormulaireController extends Controller
 
         return $clean;
     }
+public function filtrerPrisenchargeParStatut($statut, $region, $annee)
+{
+    $statutValue = in_array($statut, ['Non défini', 'Aucun statut', 'Aucun']) ? null : $statut;
+    $regionValue = ($region === 'Aucune région') ? null : $region;
+    $anneeValue  = ($annee === 'Non définie') ? null : $annee;
 
-    public function filtrerPrisenchargeParStatut($statut, $region)
-    {
+    $formulaires = Formulaire::where('statut', $statutValue)
+        ->where('region', $regionValue)
+        ->where('annee_scolaire', $anneeValue)
+        ->orderBy('id', 'desc')
+        ->get();
 
-        /* $formulaires = Formulaire::where('statut', $statut)->where('region', $region)->get(); */
+    $totalFormulaires = number_format($formulaires->count(), 0, ',', ' ');
 
-        $formulaires = collect();
+    $labels = [
+        'cin' => 'CIN',
+        'civilite' => 'Civilité',
+        'prenom' => 'Prénom',
+        'nom' => 'Nom',
+        'date_naissance' => 'Date naissance',
+        'lieu_naissance' => 'Lieu naissance',
+        'telephone' => 'Téléphone',
+        'region' => 'Région',
+        'formation' => 'Formation sollicitée',
+    ];
 
-        Formulaire::where('statut', $statut)
-            ->where('region', $region)
-            ->orderBy('id', 'desc')
-            ->chunk(300, function ($batch) use (&$formulaires) {
-                $formulaires = $formulaires->merge($batch);
-            });
-
-        $formulair      = $formulaires->count();
-        $totalFormulaires = number_format($formulair, 0, ',', ' ');
-
-        /*  // Regrouper par statut (y compris les null)
-        $groupes = $formulaires->groupBy(function ($item) {
-            return $item->statut ?? 'Aucun statut';
-        }); */
-
-        $labels = [
-            'cin' => 'CIN',
-            'civilite' => 'Civilité',
-            'prenom' => 'Prénom',
-            'nom' => 'Nom',
-            'date_naissance' => 'Date naissance',
-            'lieu_naissance' => 'Lieu naissance',
-            /* 'email' => 'Adresse e-mail', */
-            'telephone' => 'Téléphone',
-            /* 'telephone_secondaire' => 'Téléphone secondaire',
-            'adresse' => 'Adresse',
-            'dernier_diplome' => 'Dernier diplôme obtenu',
-            'nom_etablissement' => 'Établissement', */
-            'region' => 'Région',
-            'formation' => 'Formation sollicitée',
-            /* 'diplome_vise' => 'Diplôme visé',
-            'montant_inscription' => 'Montant inscription',
-            'montant_mensualite' => 'Montant mensualité',
-            'montant_unique' => 'Montant unique', */
-            /* 'duree' => 'Durée (en années)',
-            'handicape' => 'Situation de handicap',
-            'type_handicap' => 'Type de handicap', */
-            /* 'orphelin' => 'Orphelin',
-            'type_orphelin' => 'Type d’orphelinat', */
-            /* 'cin_file' => 'Copie CIN',
-            'facture_file' => 'Facture',
-            'cv' => 'CV',
-            'diplome' => 'Diplôme' */
-        ];
-
-        return view('formulaire.prisencharge-par-statut', compact('formulaires', 'statut', 'totalFormulaires', 'labels', 'region'));
-    }
+    return view('formulaire.prisencharge-par-statut', compact(
+        'formulaires', 'statut', 'totalFormulaires', 'labels', 'region', 'annee'
+    ));
+}
 
     public function filtrerPrisenchargeParStatutDiplome($statut, $region, $diplome)
     {
@@ -845,80 +820,30 @@ class FormulaireController extends Controller
 
         return view('formulaire.prisencharge-par-statut-diplome', compact('formulaires', 'statut', 'totalFormulaires', 'labels', 'region', 'diplome'));
     }
+public function showregion($region, $annee)
+{
+    $this->authorize('formulaire-view');
 
-    public function showregion($region)
-    {
-        // Vérifier les permissions
-        $this->authorize('formulaire-view');
+    $regionValue = ($region === 'Aucune région') ? null : $region;
+    $anneeValue  = ($annee === 'Non définie') ? null : $annee;
 
+    $formulaires = Formulaire::where('region', $regionValue)
+        ->where('annee_scolaire', $anneeValue)
+        ->orderBy('id', 'desc')
+        ->get(['id', 'statut', 'diplome_vise']);
 
-        $formulaireCount      = Formulaire::where('region', $region)->count();
-        $formulaireCount = number_format($formulaireCount, 0, ',', ' ');
+    abort_if($formulaires->isEmpty(), 404);
 
-        // Récupérer les formulaires de la région
-        /* $formulaires = Formulaire::where('region', $region)->get(); */
-        /* $formulaires = Formulaire::where('region', $region)
-            ->get(); */
+    $formulaireCount  = number_format($formulaires->count(), 0, ',', ' ');
+    $totalFormulaires = $formulaireCount;
 
-        $formulaires = collect();
+    $groupes       = $formulaires->groupBy(fn($i) => $i->diplome_vise ?? 'Aucun diplôme visé');
+    $grouperegions = $formulaires->groupBy(fn($i) => $i->statut ?? 'Non défini');
 
-        Formulaire::where('region', $region)
-            ->orderBy('id', 'desc')
-            ->chunk(300, function ($batch) use (&$formulaires) {
-                $formulaires = $formulaires->merge($batch);
-            });
-
-        $formulair      = $formulaires->count();
-        $totalFormulaires = number_format($formulair, 0, ',', ' ');
-
-        /* $formulaires = Formulaire::orderBy('created_at', 'desc')->get(); */
-        $labels = [
-            'cin' => 'CIN',
-            'civilite' => 'Civilité',
-            'prenom' => 'Prénom',
-            'nom' => 'Nom',
-            'date_naissance' => 'Date naissance',
-            'lieu_naissance' => 'Lieu naissance',
-            /* 'email' => 'Adresse e-mail', */
-            'telephone' => 'Téléphone',
-            /* 'telephone_secondaire' => 'Téléphone secondaire',
-            'adresse' => 'Adresse',
-            'dernier_diplome' => 'Dernier diplôme obtenu',
-            'nom_etablissement' => 'Établissement', */
-            /* 'region' => 'Région', */
-            'formation' => 'Formation sollicitée',
-            /* 'diplome_vise' => 'Diplôme visé',
-            'montant_inscription' => 'Montant inscription',
-            'montant_mensualite' => 'Montant mensualité',
-            'montant_unique' => 'Montant unique', */
-            /* 'duree' => 'Durée (en années)',
-            'handicape' => 'Situation de handicap',
-            'type_handicap' => 'Type de handicap', */
-            /* 'orphelin' => 'Orphelin',
-            'type_orphelin' => 'Type d’orphelinat', */
-            /* 'cin_file' => 'Copie CIN',
-            'facture_file' => 'Facture',
-            'cv' => 'CV',
-            'diplome' => 'Diplôme' */
-        ];
-
-        // Regrouper par statut (y compris les null)
-        /*  $groupes = $formulaires->groupBy(function ($item) {
-            return $item->statut ?? 'Aucun statut';
-        }); */
-
-        // Regrouper par diplomes (y compris les null)
-        $groupes = $formulaires->groupBy(function ($item) {
-            return $item->diplome_vise ?? 'Aucun diplôme visé';
-        });
-        // Regrouper par diplomes (y compris les null)
-        $grouperegions = $formulaires->groupBy(function ($item) {
-            return $item->statut ?? 'Aucun';
-        });
-
-        // Retourner la vue avec les résultats
-        return view('formulaire.showregion', compact('formulaires', 'region', 'labels', 'totalFormulaires', 'groupes', 'formulaireCount', 'grouperegions'));
-    }
+    return view('formulaire.showregion', compact(
+        'region', 'annee', 'totalFormulaires', 'formulaireCount', 'groupes', 'grouperegions'
+    ));
+}
 
     public function showregiondiplome($region, $diplome_vise)
     {
@@ -1024,8 +949,6 @@ class FormulaireController extends Controller
 
     public function showByStatut($statut, $annee_scolaire)
     {
-
-    dd($annee_scolaire);
         // Si le statut est "Non défini"
         $statutValue = ($statut === 'Non défini') ? null : $statut;
 

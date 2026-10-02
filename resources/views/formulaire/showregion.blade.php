@@ -190,10 +190,10 @@
                             <i style="width: {{ $pct }}%"></i>
                         </div>
                         <div class="rg-actions">
-                            <a href="{{ route('prisencharge.parStatut', ['statut' => $statut, 'region' => $region, 'annee' => $annee]) }}"
-                                class="btn btn-outline-primary btn-sm">
-                                Voir plus <i class="bi bi-arrow-right-short"></i>
-                            </a>
+                           <a href="{{ route('prisencharge.parStatut', ['statut' => $statut, 'region' => $region, 'annee_scolaire' => $annee]) }}"
+    class="btn btn-outline-primary btn-sm">
+    Voir plus <i class="bi bi-arrow-right-short"></i>
+</a>
                             @can('exporter-view')
                                 <a href="{{ route('prisencharge.excel', ['statut' => $statut, 'region' => $region, 'annee' => $annee]) }}"
                                     class="btn btn-outline-success btn-sm" title="Exporter la liste">
@@ -225,10 +225,10 @@
                                     <td class="fw-semibold">{{ $diplome_vise }}</td>
                                     <td class="text-center">{{ $items->count() }}</td>
                                     <td class="text-center">
-                                        <a href="{{ route('formulaires.showregiondiplome', ['region' => $region, 'diplome_vise' => $diplome_vise, 'annee' => $annee]) }}"
-                                            class="btn btn-warning btn-sm" title="Voir les détails" target="_blank">
-                                            <i class="bi bi-eye"></i>
-                                        </a>
+                                       <a href="{{ route('formulaires.showregiondiplome', ['region' => $region, 'annee_scolaire' => $annee, 'diplome_vise' => $diplome_vise]) }}"
+    class="btn btn-warning btn-sm" title="Voir les détails" target="_blank">
+    <i class="bi bi-eye"></i>
+</a>
                                     </td>
                                 </tr>
                             @endforeach

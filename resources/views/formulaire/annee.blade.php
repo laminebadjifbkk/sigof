@@ -233,10 +233,10 @@
                                     </div>
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ route('formulaires.showregion', ['region' => $region, 'annee_scolaire' => $annee]) }}"
-                                        | class="btn btn-warning btn-sm" title="Voir les détails de {{ $region }}">
-                                        <i class="bi bi-eye"></i>
-                                    </a>
+                                   <a href="{{ route('formulaires.showregion', ['region' => $region, 'annee' => $annee]) }}"
+    class="btn btn-warning btn-sm" title="Voir les détails de {{ $region }}">
+    <i class="bi bi-eye"></i>
+</a>
                                 </td>
                             </tr>
                         @endforeach

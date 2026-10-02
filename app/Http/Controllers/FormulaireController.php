@@ -777,8 +777,6 @@ class FormulaireController extends Controller
         'formation' => 'Formation sollicitée',
     ];
 
-    dd($annee);
-    
     return view('formulaire.prisencharge-par-statut-diplome', compact(
         'formulaires',
         'statut',
