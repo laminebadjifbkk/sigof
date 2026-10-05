@@ -237,6 +237,13 @@ class FormulaireController extends Controller
             Storage::disk('public')->delete($anciensChemins);
         }
 
+        HistoriquePriseEnCharge::create([
+            'formulaire_id' => $formulaire->id,
+            'statut' => $formulaire->statut,
+            'motif' => $request->motif ?? null,
+            'user_id' => auth()->id(),
+        ]);
+
         session()->put('formulaire_confirme', $formulaire->id);
 
         Alert::success(

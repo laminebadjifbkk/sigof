@@ -2378,6 +2378,31 @@
         .formations-table tbody tr:last-child {
             border-bottom: none;
         }
+         /* Numéro de dossier */
+        .ref {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 24px 0 8px;
+            padding: 14px 18px;
+            background: var(--green-soft);
+            border-radius: 8px;
+        }
+
+        .ref-label {
+            color: var(--muted);
+            font-size: .95rem;
+        }
+
+        .ref-value {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: .04em;
+            color: var(--green);
+            font-variant-numeric: tabular-nums;
+        }
     </style>
 
 </head>

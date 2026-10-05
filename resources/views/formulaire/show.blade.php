@@ -23,10 +23,6 @@
                     <div class="card shadow-sm">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5 class="mb-0">Détails de l’inscription</h5>
-                            <div class="ref">
-                                <span class="ref-label">Numéro de dossier</span>
-                                <span class="ref-value">#{{ str_pad($formulaire->id, 6, '0', STR_PAD_LEFT) }}</span>
-                            </div>
                             @can('generer-contrat-lettre-view')
                                 @if ($formulaire->statut === 'Sélectionné' || $formulaire->statut === 'liste attente')
                                     <a href="{{ route('generer-lalettre.pdf', ['id' => $formulaire->id]) }}"
@@ -112,6 +108,11 @@
                         <div class="card-body">
 
                             <div class="row g-3">
+
+                                <div class="ref">
+                                    <span class="ref-label">Numéro de dossier</span>
+                                    <span class="ref-value">#{{ str_pad($formulaire->id, 6, '0', STR_PAD_LEFT) }}</span>
+                                </div>
                                 @foreach ($labels as $field => $label)
                                     <div class="col-md-4">
                                         <strong>{{ $label }} :</strong><br>
