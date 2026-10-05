@@ -101,4 +101,9 @@ class Formulaire extends Model
     {
         return $this->belongsTo(User::class, 'update_by');
     }
+
+    public function createdByUser()
+{
+    return $this->belongsTo(User::class, 'created_by');
+}
 }

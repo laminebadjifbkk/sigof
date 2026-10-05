@@ -1181,6 +1181,15 @@ Route::get('/prisenchargestatutregion/{statut}/{region}/{annee_scolaire}', [Form
         Route::post('/operateurs/{operateur}/change-user', [OperateurController::class, 'updateUser'])
             ->name('operateurs.update-user');
 
+
+        /* Route::get('/pcharge', [FormulaireController::class, 'create'])->name('formulaire.create');
+        Route::post('/pcharge', [FormulaireController::class, 'store'])->name('formulaire.store'); */
+        /* Route::get('/pcharge', [FormulaireController::class, 'create'])->name('formulaire.create');
+        Route::post('/pcharge', [FormulaireController::class, 'store'])->name('formulaire.store');
+        Route::get('/pcharge/merci', [FormulaireController::class, 'merci'])->name('formulaire.merci');
+        Route::get('/formulaire/confirmation/{formulaire}', [FormulaireController::class, 'confirmation'])
+            ->name('formulaire.confirmation'); */
+
         // API pour recherche AJAX
         //Route::get('/users/search', [UserController::class, 'search'])->name('users.search');
 
@@ -1434,7 +1443,8 @@ Route::get('/prisenchargestatutregion/{statut}/{region}/{annee_scolaire}', [Form
 
             Route::get('/prisencharge', [FormulaireController::class, 'create'])->name('formulaire.create');
             Route::post('/prisencharge', [FormulaireController::class, 'store'])->name('formulaire.store');
-            Route::get('/prisencharge/merci', [FormulaireController::class, 'merci'])->name('formulaire.merci');
+            Route::get('/formulaire/confirmation/{formulaire}', [FormulaireController::class, 'confirmation'])
+                ->name('formulaire.confirmation');
         });
 
         Route::get('/note_de_frais', function () {
@@ -1562,12 +1572,6 @@ Route::get('/prisenchargestatutregion/{statut}/{region}/{annee_scolaire}', [Form
         ]);
     });
 });
-
-Route::get('/pcharge', [FormulaireController::class, 'create'])->name('formulaire.create');
-Route::post('/pcharge', [FormulaireController::class, 'store'])->name('formulaire.store');
-Route::get('/pcharge/merci', [FormulaireController::class, 'merci'])->name('formulaire.merci');
-Route::get('/formulaire/confirmation/{formulaire}', [FormulaireController::class, 'confirmation'])
-    ->name('formulaire.confirmation');
 
 /* Route::get('/book/view/{filename}', [BookController::class, 'show'])->name('book.view'); */
 Route::get('/manuel/view/{filename}', [BookController::class, 'show'])->name('manuel.view');
