@@ -151,7 +151,7 @@
                                         <label class="form-label fw-semibold">Montant pris en charge</label>
                                         <input type="text" name="montant_onfp" class="form-control form-control-sm"
                                             placeholder="Ex : 750000"
-                                            value="{{ old('montant_onfp', $formulaire->montant_onfp) }}">
+                                            value="{{ old('montant_onfp', filled($formulaire->montant_onfp) ? $formulaire->montant_onfp : 0) }}">
                                     </div>
                                 </div>
 
