@@ -54,7 +54,7 @@ class FormulaireController extends Controller
     public function store(Request $request)
     {
         // --- Période d'ouverture des candidatures ---
-        $dateOuverture = Carbon::create(2026, 9, 28, 8, 0, 0, 'Africa/Dakar');
+       /*  $dateOuverture = Carbon::create(2026, 9, 28, 8, 0, 0, 'Africa/Dakar');
         $dateFermeture = Carbon::create(2026, 10, 3, 17, 0, 0, 'Africa/Dakar');
         $maintenant    = Carbon::now('Africa/Dakar');
 
@@ -64,7 +64,7 @@ class FormulaireController extends Controller
 
         if ($maintenant->gt($dateFermeture)) {
             return redirect()->back()->with('error', 'Les candidatures sont désormais fermées.');
-        }
+        } */
 
         // --- Détection d'une inscription existante (CIN + e-mail obligatoirement identiques) ---
         $existant = null;
@@ -148,10 +148,43 @@ class FormulaireController extends Controller
             'cv'           => ['CV',       'cvs'],
         ];
 
+        //début bloc 1 ajout après ferméture
+        // Utilisateur connecté
+        $user = auth()->user();
+        // Vérifier si l'utilisateur est admin ou super-admin
+        $isAdmin = $user && $user->hasAnyRole(['super-admin', 'admin']);
+
+        // --- Période d'ouverture des candidatures ---
+        $dateOuverture = Carbon::create(2026, 9, 28, 8, 0, 0, 'Africa/Dakar');
+        $dateFermeture = Carbon::create(2026, 10, 3, 17, 0, 0, 'Africa/Dakar');
+        $maintenant    = Carbon::now('Africa/Dakar');
+
+        // Les admins et super-admins peuvent enregistrer même après la fermeture
+        if (!$isAdmin) {
+
+            if ($maintenant->lt($dateOuverture)) {
+                return redirect()->back()
+                    ->with('error', 'Les candidatures ne sont pas encore ouvertes.');
+            }
+
+            if ($maintenant->gt($dateFermeture)) {
+                return redirect()->back()
+                    ->with('error', 'Les candidatures sont désormais fermées.');
+            }
+        }
+        //fin du bloc 1
+
         $donnees          = Arr::except($validated, array_keys($fichiers));
         $donnees['montant_unique'] = $donnees['montant_unique'] ?? null;
         $donnees['annee_scolaire']  = '2026-2027';
         $donnees['statut']  = 'Nouvelle';
+
+        //début bloc 2
+        // Utilisateur ayant créé le formulaire
+        if ($user) {
+            $donnees['created_by'] = $user->id;
+        }
+        //fin bloc 2
 
         $nouveauxChemins  = [];
         $anciensChemins   = [];
@@ -171,6 +204,15 @@ class FormulaireController extends Controller
                         $anciensChemins[] = $existant->{$champ};
                     }
                 }
+
+                //début bloc 3
+                 // On ne modifie PAS created_by lors d'une mise à jour
+                $donnees['update_by'] = $user?->id;
+
+                // Évite qu'un éventuel created_by envoyé ailleurs soit remplacé
+                unset($donnees['created_by']);
+                //fin bloc 3
+
 
                 $existant->update($donnees + $nouveauxChemins);
                 $formulaire = $existant;
