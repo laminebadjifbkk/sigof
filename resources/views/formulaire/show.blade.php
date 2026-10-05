@@ -111,7 +111,16 @@
 
                                 <div class="ref">
                                     <span class="ref-label">Numéro de dossier</span>
-                                    <span class="ref-value">#{{ str_pad($formulaire->id, 6, '0', STR_PAD_LEFT) }}</span>
+
+                                    <span class="ref-value">
+                                        #{{ str_pad($formulaire->id, 6, '0', STR_PAD_LEFT) }}
+                                    </span>
+
+                                    <a href="{{ route('formulaire.confirmation', $formulaire) }}" class="btn btn-sm btn-danger"
+                                        target="_blank">
+                                        <i class="fas fa-file-pdf me-1"></i>
+                                        Télécharger PDF
+                                    </a>
                                 </div>
                                 @foreach ($labels as $field => $label)
                                     <div class="col-md-4">
