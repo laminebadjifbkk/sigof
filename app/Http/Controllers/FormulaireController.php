@@ -53,8 +53,33 @@ class FormulaireController extends Controller
     // Enregistrement du formulaire
     public function store(Request $request)
     {
+
+    // Utilisateur connecté
+        $user = auth()->user();
+
+        // Vérifier si l'utilisateur est admin ou super-admin
+        $isAdmin = $user && $user->hasAnyRole(['super-admin', 'admin']);
+
         // --- Période d'ouverture des candidatures ---
         $dateOuverture = Carbon::create(2026, 9, 28, 8, 0, 0, 'Africa/Dakar');
+        $dateFermeture = Carbon::create(2026, 10, 3, 17, 0, 0, 'Africa/Dakar');
+        $maintenant    = Carbon::now('Africa/Dakar');
+
+        // Les admins et super-admins peuvent enregistrer même après la fermeture
+        if (!$isAdmin) {
+
+            if ($maintenant->lt($dateOuverture)) {
+                return redirect()->back()
+                    ->with('error', 'Les candidatures ne sont pas encore ouvertes.');
+            }
+
+            if ($maintenant->gt($dateFermeture)) {
+                return redirect()->back()
+                    ->with('error', 'Les candidatures sont désormais fermées.');
+            }
+        }
+        // --- Période d'ouverture des candidatures ---
+       /*  $dateOuverture = Carbon::create(2026, 9, 28, 8, 0, 0, 'Africa/Dakar');
         $dateFermeture = Carbon::create(2026, 10, 3, 17, 0, 0, 'Africa/Dakar');
         $maintenant    = Carbon::now('Africa/Dakar');
 
@@ -64,7 +89,7 @@ class FormulaireController extends Controller
 
         if ($maintenant->gt($dateFermeture)) {
             return redirect()->back()->with('error', 'Les candidatures sont désormais fermées.');
-        }
+        } */
 
         // --- Détection d'une inscription existante (CIN + e-mail obligatoirement identiques) ---
         $existant = null;
