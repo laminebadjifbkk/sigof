@@ -73,13 +73,13 @@
                                                         </li>
                                                     @endforeach
                                                     <li class="dropdown-footer">
-                                                        {{-- <form action="{{ route('validationhistoriquepc') }}" method="post"
+                                                        <form action="{{ route('validationhistoriquepc') }}" method="post"
                                                             target="_blank">
                                                             @csrf
                                                             <input type="hidden" name="id" value="{{ $formulaire?->id }}">
                                                             <button class="btn btn-sm mx-1">Voir
                                                                 toutes les validations</button>
-                                                        </form> --}}
+                                                        </form>
                                                     </li>
                                                 </ul>
                                             </ul>
