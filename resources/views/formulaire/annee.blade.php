@@ -3,9 +3,9 @@
 @section('space-work')
     @can('inscriptioncontact-view')
         @php
-            $total = $formulaires->count();
-            $statuts = $grouperStatut->sortByDesc(fn($items) => $items->count());
-            $regions = $groupes->sortByDesc(fn($items) => $items->count());
+            $total = collect($statutPourcentages)->sum('count');
+            $statuts = collect($statutPourcentages)->sortByDesc('count');
+            $regions = collect($groupes)->sortDesc();
 
             // Même palette que la page des années
             $couleur = function ($statut) {
@@ -187,7 +187,7 @@
             {{-- Par statut --}}
             <h4 class="an-section-title">Répartition par statut</h4>
             <div class="an-grid">
-                @foreach ($statuts as $statut => $items)
+                {{-- @foreach ($statuts as $statut => $items)
                     @php
                         $pct = $statutPourcentages[$statut]['percent'];
                     @endphp
@@ -196,14 +196,20 @@
                         <div class="nb">{{ number_format($items->count(), 0, '', ' ') }}</div>
                         <div class="sub">demandeur(s) · {{ $pct }}%</div>
                         <div class="an-meter" role="img" aria-label="{{ $pct }}%">
-                            <i style="width: {{ $pct }}%"></i>
-                        </div>
-                        <a href="{{ route('formulaires.showstatut', ['statut' => $statut, 'annee_scolaire' => $annee]) }}"
-                            class="btn btn-outline-primary btn-sm">
-                            Voir plus <i class="bi bi-arrow-right-short"></i>
-                        </a>
+                            <i style="width: {{ $pct }}%"></i> --}}
+                @foreach ($statuts as $statut => $data)
+                    @php $pct = $data['percent']; @endphp
+                    <div class="an-card" style="--c: {{ $couleur($statut) }};">
+                        <h5 title="{{ $statut }}">{{ $statut }}</h5>
+                        <div class="nb">{{ number_format($data['count'], 0, '', ' ') }}</div>
+                        <div class="sub">demandeur(s) · {{ $pct }}%</div>
                     </div>
-                @endforeach
+                    <a href="{{ route('formulaires.showstatut', ['statut' => $statut, 'annee_scolaire' => $annee]) }}"
+                        class="btn btn-outline-primary btn-sm">
+                        Voir plus <i class="bi bi-arrow-right-short"></i>
+                    </a>
+            </div>
+            @endforeach
             </div>
 
             {{-- Par région --}}
@@ -220,12 +226,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($regions as $region => $items)
+                        {{-- @foreach ($regions as $region => $items)
                             @php $part = $total > 0 ? round(($items->count() / $total) * 100, 1) : 0; @endphp
                             <tr>
                                 <td class="text-center text-muted">{{ $loop->iteration }}</td>
                                 <td class="fw-semibold">{{ $region }}</td>
-                                <td class="text-end">{{ number_format($items->count(), 0, '', ' ') }}</td>
+                                <td class="text-end">{{ number_format($items->count(), 0, '', ' ') }}</td> --}}
+                        @foreach ($regions as $region => $count)
+                            @php $part = $total > 0 ? round(($count / $total) * 100, 1) : 0; @endphp
+                            <tr>
+                                <td class="text-center text-muted">{{ $loop->iteration }}</td>
+                                <td class="fw-semibold">{{ $region }}</td>
+                                <td class="text-end">{{ number_format($count, 0, '', ' ') }}</td>
                                 <td>
                                     <div class="an-part" style="--c: #0d6efd;">
                                         <div class="an-meter"><i style="width: {{ $part }}%"></i></div>
@@ -233,10 +245,10 @@
                                     </div>
                                 </td>
                                 <td class="text-center">
-                                   <a href="{{ route('formulaires.showregion', ['region' => $region, 'annee' => $annee]) }}"
-    class="btn btn-warning btn-sm" title="Voir les détails de {{ $region }}">
-    <i class="bi bi-eye"></i>
-</a>
+                                    <a href="{{ route('formulaires.showregion', ['region' => $region, 'annee' => $annee]) }}"
+                                        class="btn btn-warning btn-sm" title="Voir les détails de {{ $region }}">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach
