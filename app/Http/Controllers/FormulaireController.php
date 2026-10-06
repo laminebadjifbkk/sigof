@@ -367,8 +367,6 @@ class FormulaireController extends Controller
 {
     $valeur = ($annee === 'Non définie') ? null : $annee;
 
-    dd($valeur);
-
     // Une seule requête agrégée : region x statut -> nombre
     $lignes = Formulaire::query()
         ->when(
