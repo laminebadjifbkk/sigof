@@ -989,7 +989,7 @@ class FormulaireController extends Controller
 
         $data = $request->validate([
             'statut' => 'required|string|max:50',
-            'motif'  => 'required_unless:statut,Conforme,liste attente,Sélectionné,Validée|string|max:500',
+            'motif'  => 'required_unless:statut,Nouvelle,Conforme,liste attente,Sélectionné,Validée|string|max:500',
         ]);
 
         $formulaire->update($data);
