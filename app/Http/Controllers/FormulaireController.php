@@ -251,7 +251,10 @@ class FormulaireController extends Controller
             $existant ? 'Votre inscription a été mise à jour avec succès.' : 'Inscription effectuée avec succès.'
         );
         $formulaire->refresh();
-        return redirect()->route('formulaire.confirmation', $formulaire);
+        /* return redirect()->route('formulaire.confirmation', $formulaire); */
+        return redirect()->route('formulaire.confirmation', [
+    'formulaire' => $formulaire->id,
+]);
     }
 
     /**
