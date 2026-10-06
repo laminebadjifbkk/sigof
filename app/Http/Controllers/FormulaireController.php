@@ -281,7 +281,7 @@ class FormulaireController extends Controller
     public function confirmation(Formulaire $formulaire)
     {
         /* abort_unless(session('formulaire_confirme') === $formulaire->id, 403); */
-        
+
         $isAdmin = auth()->user()?->hasAnyRole(['super-admin', 'admin']);
 
         if (!$isAdmin) {
@@ -327,7 +327,7 @@ class FormulaireController extends Controller
 
 
     // Contenu de l'ancienne vue index, limité à une année scolaire
-    public function showAnnee($annee)
+    /* public function showAnnee($annee)
     {
         $valeur = ($annee === 'Non définie') ? null : $annee;
 
@@ -361,7 +361,53 @@ class FormulaireController extends Controller
             'grouperStatut',
             'statutPourcentages'
         ));
-    }
+    } */
+
+        public function showAnnee($annee)
+{
+    $valeur = ($annee === 'Non définie') ? null : $annee;
+
+    // Une seule requête agrégée : region x statut -> nombre
+    $lignes = Formulaire::query()
+        ->when(
+            $valeur === null,
+            fn ($q) => $q->whereNull('annee_scolaire'),
+            fn ($q) => $q->where('annee_scolaire', $valeur)
+        )
+        ->selectRaw('region, statut, COUNT(*) as total')
+        ->groupBy('region', 'statut')
+        ->toBase()          // pas d'hydratation en modèles Eloquent
+        ->get();
+
+    abort_if($lignes->isEmpty(), 404);
+
+    $total = (int) $lignes->sum('total');
+    $totalFormulaires = number_format($total, 0, ',', ' ');
+
+    // Par région (même clés qu'avant : 'Aucune région')
+    $groupes = $lignes
+        ->groupBy(fn ($l) => $l->region ?? 'Aucune région')
+        ->map(fn ($items) => (int) $items->sum('total'));
+
+    // Par statut + pourcentages
+    $statutPourcentages = $lignes
+        ->groupBy(fn ($l) => $l->statut ?? 'Non défini')
+        ->map(function ($items) use ($total) {
+            $count = (int) $items->sum('total');
+            return [
+                'count'   => $count,
+                'percent' => round(($count / max(1, $total)) * 100, 2),
+            ];
+        })
+        ->all();
+
+    return view('formulaire.annee', compact(
+        'annee',
+        'totalFormulaires',
+        'groupes',
+        'statutPourcentages'
+    ));
+}
     public function show($id)
     {
         // Récupérer l'inscription par ID
