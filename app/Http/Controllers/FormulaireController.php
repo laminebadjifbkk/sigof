@@ -1013,62 +1013,41 @@ class FormulaireController extends Controller
 
         return view("formulaire.historiquepc", compact('formulaire'));
     }
-    public function showByStatut($statut, $annee_scolaire)
-    {
-        // "Non défini" / "Non définie" => NULL en base
-        $statutValue = ($statut === 'Non défini') ? null : $statut;
-        $anneeValue  = ($annee_scolaire === 'Non définie') ? null : $annee_scolaire;
 
-        // Récupérer les formulaires du statut ET de l'année scolaire
-        $formulaires = Formulaire::where('statut', $statutValue)
-            ->where('annee_scolaire', $anneeValue)
-            ->get();
+    public function showByStatut(Request $request, $statut, $annee_scolaire)
+{
+    $statutValue = ($statut === 'Non défini') ? null : $statut;
+    $anneeValue  = ($annee_scolaire === 'Non définie') ? null : $annee_scolaire;
 
-        // Nombre
-        $total = $formulaires->count();
+    $labels = [
+        'prenom'         => 'Prénom',
+        'nom'            => 'Nom',
+        'date_naissance' => 'Date nais.',
+        'lieu_naissance' => 'Lieu nais.',
+        'telephone'      => 'Téléphone',
+        'region'         => 'Région',
+        'autre_2'        => 'Etablissement',
+    ];
 
-        $totalFormulaires = number_format($total, 0, ',', ' ');
+    $formulaires = Formulaire::query()
+        ->when($statutValue === null,
+            fn ($q) => $q->whereNull('statut'),
+            fn ($q) => $q->where('statut', $statutValue))
+        ->when($anneeValue === null,
+            fn ($q) => $q->whereNull('annee_scolaire'),
+            fn ($q) => $q->where('annee_scolaire', $anneeValue))
+        ->select(array_merge(['id', 'statut'], array_keys($labels)))
+        ->orderBy('id', 'desc')
+        ->paginate(50)
+        ->withQueryString();
 
-        $labels = [
-            /* 'cin' => 'CIN',
-        'civilite' => 'Civilité', */
-            'prenom' => 'Prénom',
-            'nom' => 'Nom',
-            'date_naissance' => 'Date nais.',
-            'lieu_naissance' => 'Lieu nais.',
-            /* 'email' => 'Adresse e-mail', */
-            'telephone' => 'Téléphone',
-            /* 'telephone_secondaire' => 'Téléphone secondaire',
-        'adresse' => 'Adresse',
-        'dernier_diplome' => 'Dernier diplôme obtenu',
-        'nom_etablissement' => 'Établissement', */
-            'region' => 'Région',
-            'autre_2' => 'Etablissement',
-            /* 'formation' => 'Formation sollicitée', */
-            /* 'diplome_vise' => 'Diplôme visé',
-        'montant_inscription' => 'Montant inscription',
-        'montant_mensualite' => 'Montant mensualité',
-        'montant_unique' => 'Montant unique', */
-            /* 'duree' => 'Durée (en années)',
-        'handicape' => 'Situation de handicap',
-        'type_handicap' => 'Type de handicap', */
-            /* 'orphelin' => 'Orphelin',
-        'type_orphelin' => 'Type d’orphelinat', */
-            /* 'cin_file' => 'Copie CIN',
-        'facture_file' => 'Facture',
-        'cv' => 'CV',
-        'diplome' => 'Diplôme' */
-        ];
+    $total = $formulaires->total();
+    $totalFormulaires = number_format($total, 0, ',', ' ');
 
-        return view('formulaire.showstatut', compact(
-            'formulaires',
-            'statut',
-            'annee_scolaire',
-            'total',
-            'totalFormulaires',
-            'labels'
-        ));
-    }
+    return view('formulaire.showstatut', compact(
+        'formulaires', 'statut', 'annee_scolaire', 'total', 'totalFormulaires', 'labels'
+    ));
+}
 
 
     public function exportercontratlettrePDF(Request $request, $statut)
