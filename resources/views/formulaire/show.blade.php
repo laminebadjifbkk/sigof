@@ -116,7 +116,7 @@
                                         #{{ str_pad($formulaire->id, 6, '0', STR_PAD_LEFT) }}
                                     </span>
 
-                                    <a href="{{ route('formulaire.confirmation', ['formulaire' => $formulaire->id]) }}" class="btn btn-sm btn-danger"
+                                    <a href="{{ route('formulaire.confirmation', ['formulaire' => $formulaire]) }}" class="btn btn-sm btn-danger"
                                         target="_blank">
                                         <i class="fas fa-file-pdf me-1"></i>
                                         Télécharger PDF
