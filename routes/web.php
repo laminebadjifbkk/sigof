@@ -1091,10 +1091,10 @@ Route::get('/prisenchargestatutregion/{statut}/{region}/{annee_scolaire}', [Form
             ->middleware('can:formulaire-view'); */
 
         // Bouton 2 : œil (région + année + diplôme)
-        Route::get('/formulaires/region/{region}/{annee/diplome/{diplome_vise}', [FormulaireController::class, 'showregiondiplome'])
-            ->where(['region' => '[^/]+', 'annee_scolaire' => '[^/]+', 'diplome_vise' => '.+'])
-            ->name('formulaires.showregiondiplome')
-            ->middleware('can:formulaire-view');
+        Route::get('/formulaires/region/{region}/{annee}/diplome/{diplome_vise}', [FormulaireController::class, 'showregiondiplome'])
+    ->where(['region' => '[^/]+', 'annee' => '[^/]+', 'diplome_vise' => '.+'])
+    ->name('formulaires.showregiondiplome')
+    ->middleware('can:formulaire-view');
 
         Route::put('/validation-prisencharge/{id}', [FormulaireController::class, 'validationPriseEnCharge'])
             ->name('formulaires.validationPriseEnCharge')

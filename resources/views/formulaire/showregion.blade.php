@@ -225,10 +225,14 @@
                                     <td class="fw-semibold">{{ $diplome_vise }}</td>
                                     <td class="text-center">{{ $items->count() }}</td>
                                     <td class="text-center">
-                                        {{-- <a href="{{ route('formulaires.showregiondiplome', ['region' => $region, 'annee_scolaire' => $annee, 'diplome_vise' => $diplome_vise]) }}"
+                                        <a href="{{ route('formulaires.showregiondiplome', [
+                                            'region' => $region,
+                                            'annee' => $annee,
+                                            'diplome_vise' => $diplome_vise,
+                                        ]) }}"
                                             class="btn btn-warning btn-sm" title="Voir les détails" target="_blank">
                                             <i class="bi bi-eye"></i>
-                                        </a> --}}
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
