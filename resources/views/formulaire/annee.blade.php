@@ -226,7 +226,7 @@
                             <tr>
                                 <td class="text-center text-muted">{{ $loop->iteration }}</td>
                                 <td class="fw-semibold">{{ $region }}</td>
-                                <td class="text-end">{{ number_format($items->count(), 0, '', ' ') }}</td>
+                                <td class="text-end">{{ number_format($count, 0, '', ' ') }}</td>
                                 <td>
                                     <div class="an-part" style="--c: #0d6efd;">
                                         <div class="an-meter"><i style="width: {{ $part }}%"></i></div>
