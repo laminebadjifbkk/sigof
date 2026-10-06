@@ -192,7 +192,7 @@
                     @php $pct = $data['percent']; @endphp
                     <div class="an-card" style="--c: {{ $couleur($statut) }};">
                         <h5 title="{{ $statut }}">{{ $statut }}</h5>
-                        <div class="nb">{{ number_format($items->count(), 0, '', ' ') }}</div>
+                        <div class="nb">{{ number_format($data['count'], 0, '', ' ') }}</div>
                         <div class="sub">demandeur(s) · {{ $pct }}%</div>
                         <div class="an-meter" role="img" aria-label="{{ $pct }}%">
                             <i style="width: {{ $pct }}%"></i>
