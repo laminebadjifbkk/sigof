@@ -83,6 +83,12 @@ class RapportCandidatureController extends Controller
             $query->where('zone', $request->zone);
         }
 
+        if ($request->filled('civilite')) {
+            $query->whereHas('user', function ($q) use ($request) {
+                $q->where('civilite', $request->civilite);
+            });
+        }
+
         if ($request->filled('date_debut')) {
             $query->whereDate('created_at', '>=', $request->date_debut);
         }
@@ -101,7 +107,7 @@ class RapportCandidatureController extends Controller
         ];
 
         $columns = [
-            'N°',
+            'Civilité',
             'Prenom',
             'Nom',
             'E-mail',
@@ -126,7 +132,7 @@ class RapportCandidatureController extends Controller
 
             foreach ($candidatures as $c) {
                 fputcsv($file, [
-                    $c->id,
+                    $c->user->civilite,
                     trim($c->user->firstname),
                     trim($c->user->name),
                     $c->user->email,

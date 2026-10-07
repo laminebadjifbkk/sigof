@@ -61,6 +61,15 @@
                 <input type="date" name="date_fin" id="date_fin">
             </div>
 
+            <div class="field">
+                <label for="civilite">Civilité</label>
+                <select name="civilite" id="civilite">
+                    <option value="">Toutes</option>
+                    <option value="M.">M.</option>
+                    <option value="Mme">Mme</option>
+                </select>
+            </div>
+
             <div class="field export-submit">
                 <button type="submit" class="btn btn-primary btn-sm">Télécharger le CSV</button>
             </div>
