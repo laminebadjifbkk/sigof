@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Demande de prise en charge envoyée – ONFP</title>
+    <title>{{ $formulaire->civilite }} {{ $formulaire->prenom }} {{ $formulaire->nom }}  – Demande de prise en charge envoyée – ONFP</title>
 
     <style>
         :root {
@@ -320,7 +320,7 @@
                     <path d="M7 12.5l3 3 7-7" stroke="#2e7d32" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" />
                 </svg>
-                <h1>Demande de prise en charge envoyée avec succès</h1>
+                <h1>{{ $formulaire->civilite }} {{ $formulaire->prenom }} {{ $formulaire->nom }}  – Demande de prise en charge envoyée avec succès</h1>
                 <p>
                     Merci {{ $formulaire->civilite }} {{ $formulaire->prenom }} {{ $formulaire->nom }}, votre
                     dossier a bien été enregistré. L'ONFP va l'examiner et vous répondra à l'adresse
