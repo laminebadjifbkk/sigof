@@ -53,8 +53,15 @@ class EmployeController extends Controller
     public function store(Request $request)
     {
 
-        Alert::error('Info ! ', 'Cette opération n\'est plus autorisée');
-        return redirect()->back();
+        /* Alert::error('Info ! ', 'Cette opération n\'est plus autorisée');
+        return redirect()->back(); */
+
+         // Seuls DRH et super-admin peuvent ajouter un employé
+        if (! Auth::user()->hasAnyRole(['DRH', 'super-admin'])) {
+            Alert::error('Accès refusé ! ', "Vous n'avez pas l'autorisation d'ajouter un employé");
+            return redirect()->back();
+            // ou : abort(403, "Action non autorisée");
+        }
 
         $this->validate($request, [
             "matricule"           => ['nullable', 'string', 'min:8', 'max:8'],
