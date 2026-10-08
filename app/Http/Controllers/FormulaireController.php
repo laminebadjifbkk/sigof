@@ -285,7 +285,7 @@ class FormulaireController extends Controller
     {
         /* abort_unless(session('formulaire_confirme') === $formulaire->id, 403); */
 
-        $isAdmin = auth()->user()?->hasAnyRole(['super-admin', 'admin']);
+        $isAdmin = auth()->user()?->hasAnyRole(['super-admin', 'admin', 'DEC']);
 
         if (!$isAdmin) {
             abort_unless(
