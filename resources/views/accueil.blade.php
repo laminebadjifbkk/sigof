@@ -161,7 +161,7 @@
         }
 
         .btn-primary:hover {
-            background: var(--orange-dark);
+            background: var(--green);
             transform: translateY(-1px);
         }
 
@@ -1062,7 +1062,7 @@
                     d'opérateurs, suivi des partenariats, en un seul portail, partout dans le pays.</p>
                 <div class="hero-cta">
                     <a href="{{ route('register-page') }}" class="btn btn-primary">Créer mon compte</a>
-                    <a href="{{ url('pcharge') }}" class="btn btn-danger">Déposer une prise en charge</a>
+                    {{-- <a href="{{ url('pcharge') }}" class="btn btn-danger">Déposer une prise en charge</a> --}}
                 </div>
                 <div class="hero-stat">
                     <span class="num">{{ $anciennete }}+</span>
