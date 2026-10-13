@@ -42,7 +42,7 @@ class SMSController extends Controller
                 content: new SmsTextContent(
                     text: $request?->titre
                     . ', ' . $individuelle?->user?->civilite
-                    . ' ' . $individuelle->user->name
+                    . ' ' . $individuelle?->user?->name
                     . ' ' . $request?->sms
                 ),
                 sender: 'ONFP'
@@ -92,7 +92,7 @@ class SMSController extends Controller
                 content: new SmsTextContent(
                     text: $request?->titre
                     . ', ' . $individuelle?->user?->civilite
-                    . ' ' . $individuelle->user->name
+                    . ' ' . $individuelle?->user?->name
                     . ' ' . $request?->sms
                     . ' ' . $individuelle?->note_obtenue . '/20'
                     . ' avec la mention ' . $individuelle?->appreciation

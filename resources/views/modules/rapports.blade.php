@@ -70,8 +70,8 @@
                                                     <td style="text-align: center">{{ $individuelle->user?->cin }}</td>
                                                     <td>{{ $individuelle->user?->firstname }}</td>
                                                     <td>{{ $individuelle->user?->name }}</td>
-                                                    <td>{{ $individuelle->user->date_naissance?->format('d/m/Y') }}</td>
-                                                    <td>{{ $individuelle->user->lieu_naissance }}</td>
+                                                    <td>{{ $individuelle?->user?->date_naissance?->format('d/m/Y') }}</td>
+                                                    <td>{{ $individuelle?->user?->lieu_naissance }}</td>
                                                     <td>{{ $individuelle?->module?->name }}</td>
                                                     {{-- <td>{{ $individuelle?->departement?->nom }}</td> --}}
                                                     <td>

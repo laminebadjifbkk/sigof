@@ -226,7 +226,7 @@
 
         <div class="card-body">
             <div class="participant-name">
-                {{ $individuelle->user->firstname }} {{ $individuelle->user->name }}
+                {{ $individuelle?->user?->firstname }} {{ $individuelle?->user?->name }}
             </div>
             <p class="participant-sub">A bien participé à la formation suivante</p>
 

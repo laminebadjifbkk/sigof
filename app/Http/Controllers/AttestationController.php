@@ -113,7 +113,7 @@ class AttestationController extends Controller
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
 
-        $name = 'Attestation_Particpation_' . $individuelle->user->firstname . '_' . $individuelle->user->name . '.pdf';
+        $name = 'Attestation_Particpation_' . $individuelle?->user?->firstname . '_' . $individuelle?->user?->name . '.pdf';
         return $dompdf->stream($name, ['Attachment' => true]);
     }
 
@@ -456,7 +456,7 @@ class AttestationController extends Controller
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
 
-        $name = $niveauQualification . '_' . $individuelle->user->firstname . '_' . $individuelle->user->name . '.pdf';
+        $name = $niveauQualification . '_' . $individuelle?->user?->firstname . '_' . $individuelle?->user?->name . '.pdf';
         return $dompdf->stream($name, ['Attachment' => true]);
     }
 
@@ -542,7 +542,7 @@ class AttestationController extends Controller
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
 
-        $name = 'Attestation_Reussite_' . $individuelle->user->firstname . '_' . $individuelle->user->name . '.pdf';
+        $name = 'Attestation_Reussite_' . $individuelle?->user?->firstname . '_' . $individuelle?->user?->name . '.pdf';
         return $dompdf->stream($name, ['Attachment' => true]);
     } */
     /*

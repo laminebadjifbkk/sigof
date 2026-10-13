@@ -212,7 +212,7 @@
                         <tr style="text-align: center;">
                             <td>{{ $i++ }}</td>
                             <td>{{ $individuelle->user->cin }}</td>
-                            <td>{{ $individuelle->user->civilite . ' - ' . format_proper_name($individuelle->user->firstname) . ' - ' . remove_accents_uppercase($individuelle->user->name) . ' - ' . remove_accents_uppercase($individuelle->user->date_naissance?->format('d/m/Y')) . ' - ' . remove_accents_uppercase($individuelle->user->lieu_naissance) }}
+                            <td>{{ $individuelle?->user?->civilite . ' - ' . format_proper_name($individuelle?->user?->firstname) . ' - ' . remove_accents_uppercase($individuelle?->user?->name) . ' - ' . remove_accents_uppercase($individuelle?->user?->date_naissance?->format('d/m/Y')) . ' - ' . remove_accents_uppercase($individuelle?->user?->lieu_naissance) }}
                             </td>
                             <td>{{ $individuelle->user->telephone }}</td>
                             <td>{{ $individuelle?->appreciation }}</td>

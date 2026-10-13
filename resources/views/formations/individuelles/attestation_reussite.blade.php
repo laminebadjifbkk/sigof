@@ -447,17 +447,17 @@
                     </p>
                     <p class="text-intro">
                         <span class="line-one">
-                            @if ($individuelle->user->civilite ?? null)
-                                {{ $individuelle->user->civilite }}
+                            @if ($individuelle?->user?->civilite ?? null)
+                                {{ $individuelle?->user?->civilite }}
                             @endif
-                            <span class="nom-participant">{{ $individuelle->user->firstname }}
-                                {{ $individuelle->user->name }}</span>
+                            <span class="nom-participant">{{ $individuelle?->user?->firstname }}
+                                {{ $individuelle?->user?->name }}</span>
                             @if ($individuelle->user->date_naissance ?? null)
                                 né(e) le
                                 {{ \Carbon\Carbon::parse($individuelle->user->date_naissance)->format('d/m/Y') }}
                             @endif
-                            @if ($individuelle->user->lieu_naissance ?? null)
-                                à {{ $individuelle->user->lieu_naissance }}
+                            @if ($individuelle?->user?->lieu_naissance ?? null)
+                                à {{ $individuelle?->user?->lieu_naissance }}
                             @endif
                             a suivi avec succès la formation en
                         </span>

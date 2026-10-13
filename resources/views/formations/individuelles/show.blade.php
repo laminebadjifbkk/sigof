@@ -1291,7 +1291,7 @@
                                                         <i class="bi bi-people-fill me-2"></i> Liste des bénéficiaires :
                                                         {{ $count_demandes }}
                                                     </h5>
-                                                    {{-- 
+                                                    {{--
                                                     <h1 class="card-title"> Liste des bénéficiaires :
                                                         {{ $count_demandes }}</h1> --}}
                                                     {{-- <h5 class="card-title">
@@ -1661,7 +1661,7 @@
                                         <div class="col-12 mb-0">
                                             {{--  <div class="d-flex justify-content-between align-items-center">
                                                 <h1 class="card-title">Retrait des attestations</h1>
-                                               
+
                                                 <h5 class="card-title d-flex align-items-center justify-content-between">
                                                     @can('attestation-formation')
                                                         <span class="fw-bold text-dark">
@@ -2211,7 +2211,7 @@
                             @csrf
                             <div class="modal-header bg-defautlt">
                                 <h5 class="modal-title" id="AddNoteLabel{{ $individuelle->id }}">
-                                    {{ $individuelle->user->civilite . ' ' . $individuelle->user->firstname . ' ' . $individuelle->user->name }}
+                                    {{ $individuelle?->user?->civilite . ' ' . $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name }}
                                 </h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Fermer"></button>

@@ -1,5 +1,5 @@
 @extends('layout.user-layout')
-@section('title', 'DETAILS DEMANDE DE ' . $individuelle->user->firstname . ' ' . $individuelle->user->name)
+@section('title', 'DETAILS DEMANDE DE ' . $individuelle?->user?->firstname . ' ' . $individuelle?->user?->name)
 @section('space-work')
     <section class="section min-vh-0 d-flex flex-column align-items-center justify-content-center py-0 section profile">
         <div class="container-fluid">

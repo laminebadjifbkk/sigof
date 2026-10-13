@@ -1025,7 +1025,7 @@ class ProjetController extends Controller
 
                     // Nom du dossier pour chaque utilisateur
                     $dossierFolder = $tempPath . '/' . $this->sanitizeFileName(
-                        ($individuelle->user->firstname ?? '') . '_' . ($individuelle->user->name ?? '') . '_' . $individuelle->user->id
+                        ($individuelle?->user?->firstname ?? '') . '_' . ($individuelle?->user?->name ?? '') . '_' . $individuelle->user->id
                     );
 
                     if (!is_dir($dossierFolder)) mkdir($dossierFolder, 0777, true);
