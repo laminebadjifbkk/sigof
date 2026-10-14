@@ -1020,11 +1020,151 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
+
+        /* ========== 40 ANS ONFP ========== */
+        .anniv-bar {
+            background: linear-gradient(90deg, var(--orange-dark), var(--orange));
+            color: #fff;
+            text-align: center;
+            font-size: .85rem;
+            font-weight: 700;
+            padding: 9px 16px;
+        }
+
+        .anniv-bar a {
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--orange-tint);
+            color: var(--orange-dark);
+            border: 1px solid rgba(224, 122, 47, .35);
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: .8rem;
+            font-weight: 800;
+            margin-bottom: 18px;
+        }
+
+        .anniv {
+            background: #1c1d21;
+            color: #fff;
+            padding: 72px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .anniv::before {
+            content: "40";
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: clamp(12rem, 30vw, 26rem);
+            line-height: 1;
+            color: rgba(224, 122, 47, .1);
+            pointer-events: none;
+        }
+
+        .anniv-grid {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .anniv h2 {
+            color: #fff;
+            font-size: clamp(1.7rem, 3.4vw, 2.6rem);
+            line-height: 1.15;
+        }
+
+        .anniv h2 .accent {
+            color: var(--orange);
+        }
+
+        .anniv p {
+            color: #c9cace;
+            margin: 16px 0 24px;
+            max-width: 480px;
+        }
+
+        .anniv-meta {
+            display: flex;
+            gap: 22px;
+            flex-wrap: wrap;
+            font-size: .9rem;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .anniv-meta i {
+            color: var(--orange);
+            margin-right: 6px;
+        }
+
+        .countdown {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        .cd-box {
+            background: rgba(255, 255, 255, .06);
+            border: 1px solid rgba(255, 255, 255, .12);
+            border-radius: var(--radius);
+            padding: 22px 8px;
+            text-align: center;
+        }
+
+        .cd-box .n {
+            display: block;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 4.5vw, 3.2rem);
+            font-weight: 700;
+            line-height: 1;
+            color: var(--orange);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .cd-box .l {
+            display: block;
+            margin-top: 8px;
+            font-size: .7rem;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: #c9cace;
+        }
+
+        .cd-done {
+            grid-column: 1 / -1;
+            text-align: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--orange);
+        }
+
+        @media (max-width: 920px) {
+            .anniv-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 
 <body>
     {{-- ========== NAVBAR ========== --}}
+    <div class="anniv-bar">
+        🎉 L'ONFP fête ses 40 ans le 29 octobre 2026 · <a href="#anniversaire">Découvrir</a>
+    </div>
     <header>
         <nav>
             <a href="{{ url('/') }}" class="brand">
@@ -1056,6 +1196,7 @@
     <section class="hero" id="accueil">
         <div class="wrap hero-grid">
             <div>
+                <a href="#anniversaire" class="hero-badge">🎉 1986 – 2026 · 40 ans au service de la formation</a>
                 <div class="eyebrow">Office national de formation professionnelle</div>
                 <h1>La référence de la <span class="accente">formation professionnelle</span> au Sénégal</h1>
                 <p class="lead">SIGOF centralise et digitalise vos démarches : demandes de formation, agréments
@@ -1138,6 +1279,32 @@
                 </form>
             </div>
         </div> --}}
+        {{-- ========== 40 ANS ========== --}}
+        <section class="anniv" id="anniversaire">
+            <div class="wrap anniv-grid">
+                <div>
+                    <div class="eyebrow" style="color:var(--orange)">Événement</div>
+                    <h2>L'ONFP célèbre ses <span class="accent">40 ans</span></h2>
+                    <p>Quatre décennies d'engagement pour la formation professionnelle au Sénégal.
+                        Rejoignez-nous pour célébrer cette étape historique.</p>
+                    <div class="anniv-meta">
+                        <span><i class="bi bi-calendar-event"></i>Jeudi 29 octobre 2026</span>
+                        <span><i class="bi bi-geo-alt"></i>Dakar</span> {{-- précisez le lieu --}}
+                    </div>
+                </div>
+
+                <div class="countdown" id="countdown" aria-live="off">
+                    <div class="cd-box"><span class="n" id="cd-d">--</span><span class="l">Jours</span>
+                    </div>
+                    <div class="cd-box"><span class="n" id="cd-h">--</span><span class="l">Heures</span>
+                    </div>
+                    <div class="cd-box"><span class="n" id="cd-m">--</span><span
+                            class="l">Minutes</span></div>
+                    <div class="cd-box"><span class="n" id="cd-s">--</span><span
+                            class="l">Secondes</span></div>
+                </div>
+            </div>
+        </section>
     </section>
 
     {{-- ========== À PROPOS ========== --}}
@@ -1350,7 +1517,8 @@
                 <form class="form-grid" method="POST" action="{{ route('contacts.store') }}">
                     @csrf
                     <div class="field"><label for="c-email">Email</label>
-                        <input id="c-email" name="emailadresse" type="email" placeholder="vous@exemple.sn" required>
+                        <input id="c-email" name="emailadresse" type="email" placeholder="vous@exemple.sn"
+                            required>
                     </div>
                     <div class="field"><label for="c-tel">Téléphone</label>
                         <input id="c-tel" name="telephone" type="tel" placeholder="770000000">
@@ -1508,6 +1676,31 @@
             carousel.addEventListener('mouseenter', () => clearInterval(timer));
             carousel.addEventListener('mouseleave', resetTimer);
             resetTimer();
+        })();
+    </script>
+    <script>
+        (function() {
+            // Dakar = UTC+0 toute l'année. Ajustez l'heure de début de la cérémonie.
+            const target = new Date('2026-10-29T09:00:00Z').getTime();
+            const box = document.getElementById('countdown');
+            if (!box) return;
+            const pad = n => String(n).padStart(2, '0');
+
+            function tick() {
+                const diff = target - Date.now();
+                if (diff <= 0) {
+                    const sameDay = Date.now() - target < 24 * 3600 * 1000;
+                    box.innerHTML = '<div class="cd-done">' +
+                        (sameDay ? "🎉 C'est aujourd'hui !" : "Merci d'avoir célébré les 40 ans de l'ONFP") + '</div>';
+                    return clearInterval(t);
+                }
+                document.getElementById('cd-d').textContent = pad(Math.floor(diff / 864e5));
+                document.getElementById('cd-h').textContent = pad(Math.floor(diff % 864e5 / 36e5));
+                document.getElementById('cd-m').textContent = pad(Math.floor(diff % 36e5 / 6e4));
+                document.getElementById('cd-s').textContent = pad(Math.floor(diff % 6e4 / 1e3));
+            }
+            const t = setInterval(tick, 1000);
+            tick();
         })();
     </script>
 </body>
