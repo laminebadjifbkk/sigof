@@ -1163,7 +1163,7 @@
 <body>
     {{-- ========== NAVBAR ========== --}}
     <div class="anniv-bar">
-        🎉 L'ONFP fête ses 40 ans le 29 octobre 2026 · <a href="#anniversaire">Découvrir</a>
+        L'ONFP fête ses 40 ans le 29 octobre 2026 · <a href="#anniversaire">Découvrir</a>
     </div>
     <header>
         <nav>
@@ -1196,7 +1196,7 @@
     <section class="hero" id="accueil">
         <div class="wrap hero-grid">
             <div>
-                <a href="#anniversaire" class="hero-badge">🎉 1986 – 2026 · 40 ans au service de la formation</a>
+                <a href="#anniversaire" class="hero-badge">1986 – 2026 · 40 ans au service de la formation</a>
                 <div class="eyebrow">Office national de formation professionnelle</div>
                 <h1>La référence de la <span class="accente">formation professionnelle</span> au Sénégal</h1>
                 <p class="lead">SIGOF centralise et digitalise vos démarches : demandes de formation, agréments
@@ -1691,7 +1691,7 @@
                 if (diff <= 0) {
                     const sameDay = Date.now() - target < 24 * 3600 * 1000;
                     box.innerHTML = '<div class="cd-done">' +
-                        (sameDay ? "🎉 C'est aujourd'hui !" : "Merci d'avoir célébré les 40 ans de l'ONFP") + '</div>';
+                        (sameDay ? "C'est aujourd'hui !" : "Merci d'avoir célébré les 40 ans de l'ONFP") + '</div>';
                     return clearInterval(t);
                 }
                 document.getElementById('cd-d').textContent = pad(Math.floor(diff / 864e5));
