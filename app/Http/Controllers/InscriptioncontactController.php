@@ -473,12 +473,12 @@ public function store(Request $request, BrevoMailer $brevo)
             ->first();
 
         if ($exists) {
-            Alert::success('Succès', 'Vous avez déjà confirmé votre participation.');
-            return redirect()->route('inscription.confirmation', $exists->id);
-        } else {
-            Alert::error('Erreur', 'Aucune inscription trouvée pour ces informations.');
-            return redirect()->back();
-        }
+    Alert::success('Succès', 'Vous avez déjà confirmé votre participation.');
+    return redirect()->route('inscriptioncontact.merci');
+}
+
+Alert::error('Erreur', 'Aucune inscription trouvée pour ces informations.');
+return redirect()->back();
     }
 
     public function confirmation($id)
