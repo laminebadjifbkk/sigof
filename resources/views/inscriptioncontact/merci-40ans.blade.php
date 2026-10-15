@@ -81,7 +81,7 @@
             <p>Un email de confirmation vous a été envoyé. Pensez à vérifier vos courriers indésirables.</p>
         @endif
 
-        <a href="{{ route('inscriptioncontact') }}" class="btn btn-home btn-sm">Retour au formulaire</a>
+        <a href="{{ route('celebration-40-ans-onfp') }}" class="btn btn-home btn-sm">Retour au formulaire</a>
     </div>
 </body>
 

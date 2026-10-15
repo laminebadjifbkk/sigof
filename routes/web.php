@@ -1547,7 +1547,7 @@ Route::get('/prisenchargestatutregion/{statut}/{region}/{annee_scolaire}', [Form
 
     Route::post('/formulaires/check', [ContactController::class, 'check'])->name('formulaires.check');
 
-    Route::get('/inscriptioncontact', [InscriptioncontactController::class, 'create'])->name('inscriptioncontact');
+    /* Route::get('/inscriptioncontact', [InscriptioncontactController::class, 'create'])->name('inscriptioncontact'); */
     Route::get('/celebration-40-ans-onfp', [InscriptioncontactController::class, 'create'])->name('celebration-40-ans-onfp');
     Route::post('/inscriptioncontact/store', [InscriptioncontactController::class, 'store'])->name('inscriptioncontact.store');
     Route::get('/inscriptioncontact/merci', [InscriptioncontactController::class, 'merci'])->name('inscriptioncontact.merci');
