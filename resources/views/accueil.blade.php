@@ -1280,7 +1280,7 @@
             </div>
         </div> --}}
         {{-- ========== 40 ANS ========== --}}
-        <section class="anniv" id="anniversaire">
+        {{-- <section class="anniv" id="anniversaire">
             <div class="wrap anniv-grid">
                 <div>
                     <div class="eyebrow" style="color:var(--orange)">Événement</div>
@@ -1289,7 +1289,7 @@
                         Rejoignez-nous pour célébrer cette étape historique.</p>
                     <div class="anniv-meta">
                         <span><i class="bi bi-calendar-event"></i>Jeudi 29 octobre 2026</span>
-                        <span><i class="bi bi-geo-alt"></i>CICES, Dakar</span> {{-- précisez le lieu --}}
+                        <span><i class="bi bi-geo-alt"></i>CICES, Dakar</span>
                     </div>
                 </div>
 
@@ -1304,7 +1304,7 @@
                             class="l">Secondes</span></div>
                 </div>
             </div>
-        </section>
+        </section> --}}
     </section>
 
     {{-- ========== À PROPOS ========== --}}
@@ -1681,7 +1681,7 @@
     <script>
         (function() {
             // Dakar = UTC+0 toute l'année. Ajustez l'heure de début de la cérémonie.
-            const target = new Date('2026-10-29T09:00:00Z').getTime();
+            const target = new Date('2026-11-19T09:00:00Z').getTime();
             const box = document.getElementById('countdown');
             if (!box) return;
             const pad = n => String(n).padStart(2, '0');
