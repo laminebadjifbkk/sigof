@@ -1,5 +1,5 @@
 <?php
-namespace App\Mail;
+/* namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -15,12 +15,6 @@ class ConfirmationInscription extends Mailable
     {
         $this->inscription = $inscription;
     }
-
-    /* public function build()
-    {
-        return $this->subject('Confirmation de votre participation ONFP')
-                    ->view('emails.confirmation_inscription');
-    } */
     public function build()
     {
         return $this->subject('Confirmation de votre participation ONFP')
@@ -30,4 +24,34 @@ class ConfirmationInscription extends Mailable
                 'mime' => 'application/pdf',
             ]);
     }
+} */
+
+namespace App\Mail;
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
+
+/**
+ * Ce Mailable ne sert plus qu'à produire le HTML de l'email
+ * (via ->render()) : l'envoi réel est fait par BrevoMailer.
+ * Les pièces jointes ne passent donc plus par ici.
+ */
+class ConfirmationInscription extends Mailable
+{
+    use Queueable, SerializesModels;
+
+    public $inscription;
+
+    public function __construct($inscription)
+    {
+        $this->inscription = $inscription;
+    }
+
+    public function build()
+    {
+        return $this->subject("Confirmation de votre participation – 40 ans de l'ONFP")
+            ->view('emails.confirmation_inscription');
+    }
 }
+

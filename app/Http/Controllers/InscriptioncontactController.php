@@ -7,6 +7,8 @@ use App\Models\Inscription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Services\BrevoMailer;
+use Illuminate\Support\Facades\Log;
 
 class InscriptioncontactController extends Controller
 {
@@ -159,33 +161,20 @@ class InscriptioncontactController extends Controller
             ],
         ];
         // Pas besoin de FormBuilder, on affiche directement la vue
-        return view('inscriptioncontact.create', compact('structures'));
+        /* return view('inscriptioncontact.create', compact('structures')); */
+        return view('inscriptioncontact.inscription-40ans', compact('structures'));
     }
 
-    public function store(Request $request)
+    /* public function store(Request $request)
     {
         $validated = $request->validate([
-            /* 'structure'   => 'required|string|max:255|unique:inscriptions,structure', */
-            /* 'structure' => [
-                'required',
-                'string',
-                'max:255',
-                function ($attribute, $value, $fail) {
-                    $count = Inscription::where('structure', $value)->count();
-                    if ($count >= 3) {
-                        $fail("La structure « $value » a déjà atteint la limite maximale de 3 inscriptions.");
-                    }
-                },
-            ], */
             'structure' => [
                 'required',
                 'string',
                 'max:255',
                 function ($attribute, $value, $fail) {
-                    // Normalisation pour éviter les erreurs de casse
                     $structure = trim(mb_strtolower($value));
 
-                    // Structures autorisées à avoir jusqu'à 3 inscriptions
                     $multiAllowed = [
                         mb_strtolower("Ministère de l'Emploi et de la Formation professionnelle et Technique (MEFPT)"),
                         mb_strtolower("Député"),
@@ -196,12 +185,10 @@ class InscriptioncontactController extends Controller
                     $count = Inscription::whereRaw('LOWER(structure) = ?', [$structure])->count();
 
                     if (in_array($structure, $multiAllowed)) {
-                        // Ces structures peuvent avoir jusqu'à 3 inscriptions
                         if ($count >= 3) {
                             $fail("La structure « $value » a déjà atteint la limite maximale de 3 inscriptions.");
                         }
                     } else {
-                        // Toutes les autres : uniquement une inscription autorisée
                         if ($count >= 1) {
                             $fail("La structure « $value » ne peut avoir qu’une seule inscription.");
                         }
@@ -215,22 +202,52 @@ class InscriptioncontactController extends Controller
             'commentaire' => 'nullable|string|max:255',
         ]);
 
-        // Enregistrer en base
         $inscription = Inscription::create($validated);
-
-        // Envoyer l'email
         Mail::to($inscription->email)->send(new ConfirmationInscription($inscription));
-
-        // Si tu ne stockes pas, tu peux par exemple juste afficher un message :
-        /* return back()->with('success', 'Votre confirmation a été enregistrée. Merci !'); */
-
-        // Ici tu peux envoyer un mail ou traiter les données si nécessaire
         return redirect()->route('inscriptioncontact.merci');
+    } */
+
+
+public function store(Request $request, BrevoMailer $brevo)
+{
+    $validated = $request->validate([
+        // Structure en saisie libre : on ne peut plus se fier à une liste de noms exacts.
+        'structure'   => 'required|string|max:255',
+        'nom'         => 'required|string|max:255',
+        'fonction'    => 'required|string|max:255',
+        'telephone'   => 'required|string|max:50|unique:inscriptions,telephone',
+        'email'       => 'required|email|max:255|unique:inscriptions,email',
+        'commentaire' => 'nullable|string|max:255',
+    ]);
+
+    // Enregistrer en base
+    $inscription = Inscription::create($validated);
+
+    // Envoi de la confirmation via votre service Brevo existant
+    try {
+        $html = (new ConfirmationInscription($inscription))->render();
+
+        $brevo->sendEmail(
+            ['email' => $inscription->email, 'name' => $inscription->nom],
+            "Confirmation de votre inscription – 40 ans de l'ONFP",
+            $html
+        );
+    } catch (\Throwable $e) {
+        // L'inscription est déjà enregistrée : un échec d'envoi ne doit pas la bloquer.
+        // (BrevoMailer a déjà journalisé l'erreur de l'API.)
+        Log::warning('Confirmation 40 ans non envoyée', [
+            'inscription_id' => $inscription->id,
+            'error'          => $e->getMessage(),
+        ]);
     }
+
+    return redirect()->route('inscriptioncontact.merci');
+}
 
     public function merci()
     {
-        return view('inscriptioncontact.merci');
+        /* return view('inscriptioncontact.merci'); */
+        return view('inscriptioncontact.merci-40ans');
     }
 
     public function index()
