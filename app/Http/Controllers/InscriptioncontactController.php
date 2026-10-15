@@ -215,8 +215,10 @@ public function store(Request $request, BrevoMailer $brevo)
         'structure'   => 'required|string|max:255',
         'nom'         => 'required|string|max:255',
         'fonction'    => 'required|string|max:255',
-        'telephone'   => 'required|string|max:50|unique:inscriptions,telephone',
-        'email'       => 'required|email|max:255|unique:inscriptions,email',
+        /* 'telephone'   => 'required|string|max:50|unique:inscriptions,telephone',
+        'email'       => 'required|email|max:255|unique:inscriptions,email', */
+        'telephone'   => 'required|string|max:50',
+        'email'       => 'required|email|max:255',
         'commentaire' => 'nullable|string|max:255',
     ]);
 
