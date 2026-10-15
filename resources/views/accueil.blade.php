@@ -1289,7 +1289,7 @@
                         Rejoignez-nous pour célébrer cette étape historique.</p>
                     <div class="anniv-meta">
                         <span><i class="bi bi-calendar-event"></i>Jeudi 29 octobre 2026</span>
-                        <span><i class="bi bi-geo-alt"></i>Dakar</span> {{-- précisez le lieu --}}
+                        <span><i class="bi bi-geo-alt"></i>CICES, Dakar</span> {{-- précisez le lieu --}}
                     </div>
                 </div>
 

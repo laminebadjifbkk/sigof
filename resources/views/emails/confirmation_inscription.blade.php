@@ -84,7 +84,7 @@
                             <p style="margin:0 0 16px;">
                                 Nous serons ravis de vous accueillir le <b>jeudi 29 octobre 2026</b>
                                 {{-- TODO : précisez l'heure et le lieu exacts --}}
-                                à <b>10h</b>, à <b>CICES, Dakar</b>.
+                                à <b>10h</b>, au <b>CICES, Dakar</b>.
                             </p>
 
                             <p style="margin:0 0 8px;">Voici les informations que vous nous avez communiquées :</p>
