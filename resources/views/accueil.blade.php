@@ -1163,7 +1163,7 @@
 <body>
     {{-- ========== NAVBAR ========== --}}
     <div class="anniv-bar">
-        L'ONFP fête ses 40 ans le 29 octobre 2026 · <a href="#anniversaire">Découvrir</a>
+        L'ONFP fête ses 40 ans le 19 novembre 2026 · <a href="#anniversaire">Découvrir</a>
     </div>
     <header>
         <nav>
