@@ -455,16 +455,21 @@ public function store(Request $request, BrevoMailer $brevo)
     public function check(Request $request)
     {
         $request->validate([
-            'structure' => 'required|string',
+            /* 'structure' => 'required|string', */
             'email'     => 'required|email',
             'telephone' => 'required|string',
         ]);
 
         $email = $request->email;
+        $telephone = $request->telephone;
 
-        $exists = Inscription::where('structure', $request->structure)
-            ->where('email', $request->email)
-            ->where('telephone', $request->telephone)
+        /* $exists = Inscription::where('structure', $request->structure)
+            ->where('email', $email)
+            ->where('telephone', $telephone)
+            ->first(); */
+
+        $exists = Inscription::where('email', $email)
+            ->where('telephone', $telephone)
             ->first();
 
         if ($exists) {
