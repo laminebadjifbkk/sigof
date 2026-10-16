@@ -128,8 +128,10 @@
                     <tr>
                         <td align="center" style="padding-bottom:15px;">
                             {{-- Logo --}}
-                            <img src="https://sigof.onfp.sn/images/LOGOONFPTEXTEGOOD1.jpg" alt="ONFP"
-                                style="max-width:250px;display:block;">
+                            {{-- <img src="https://sigof.onfp.sn/images/LOGOONFPTEXTEGOOD1.jpg" alt="ONFP"
+                                style="max-width:250px;display:block;"> --}}
+                            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/ONFP_photo-profil_1080x1080.png'))) }}"
+                                style="width:100px;">
                         </td>
                     </tr>
 
