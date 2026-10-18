@@ -274,8 +274,8 @@
                                                                 <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                                         class="bi bi-three-dots"></i></a>
                                                                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                
-                                                                    
+
+
 
                                                                     <button class="btn btn-sm mx-1" data-bs-toggle="modal"
                                                                         data-bs-target="#RejetDemandeModal">Validation demande</button>
@@ -1620,9 +1620,9 @@
                                             <option value="Injoignable"
                                                 {{ $selectedStatut === 'Injoignable' ? 'selected' : '' }}>
                                                 Injoignable</option>
-                                            {{-- <option value="Non validée"
-                                                {{ $selectedStatut === 'Non validée' ? 'selected' : '' }}>
-                                                Non validée</option> --}}
+                                            <option value="Nouvelle"
+                                                {{ $selectedStatut === 'Nouvelle' ? 'selected' : '' }}>
+                                                Nouvelle</option>
                                         </select>
                                     </div>
 
@@ -1728,6 +1728,9 @@
                                                 <option value="Non conforme"
                                                     {{ $selectedStatut === 'Non conforme' ? 'selected' : '' }}>
                                                     Non conforme</option>
+                                                <option value="Nouvelle"
+                                                    {{ $selectedStatut === 'Nouvelle' ? 'selected' : '' }}>
+                                                    Nouvelle</option>
                                             </select>
                                         </div>
 
