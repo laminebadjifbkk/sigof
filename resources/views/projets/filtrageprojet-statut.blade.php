@@ -90,6 +90,7 @@
                                             <th>Date naissance</th>
                                             <th>Lieu naissance</th>
                                             <th>Telephone</th>
+                                            <th>Email</th>
                                             <th>{{ $projet->type_localite }}</th>
                                             {{-- <th class="text-center">Statut</th> --}}
                                             <th>Module</th>
@@ -109,6 +110,10 @@
                                                 <td>{{ $individuelle?->user?->lieu_naissance }}</td>
                                                 <td><a
                                                         href="tel:+221{{ $individuelle?->user?->telephone }}">{{ $individuelle?->user?->telephone }}</a>
+                                                </td>
+                                                <td>
+                                                    <a
+                                                        href="mailto:{{ $individuelle?->user?->telephone }}">{{ $individuelle?->user?->telephone }}</a>
                                                 </td>
                                                 <td>
                                                     {{ optional($individuelle->{$projet->type_localite})->nom }}
