@@ -113,7 +113,7 @@
                                                 </td>
                                                 <td>
                                                     <a
-                                                        href="mailto:{{ $individuelle?->user?->telephone }}">{{ $individuelle?->user?->telephone }}</a>
+                                                        href="mailto:{{ $individuelle?->user?->email }}">{{ $individuelle?->user?->email }}</a>
                                                 </td>
                                                 <td>
                                                     {{ optional($individuelle->{$projet->type_localite})->nom }}
