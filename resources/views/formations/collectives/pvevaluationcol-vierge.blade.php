@@ -337,37 +337,30 @@
         {{-- retirer "no-page-break" ici --}}
         <table class="table-noborder" style="width: 100%; margin-top: 1mm;">
             <tr style="page-break-inside: avoid;">
+
                 <td colspan="3" style="padding: 0 0 1mm 0;">
                     <b><u>SIGNATURE DES MEMBRES DU JURY</u></b>
+
                     @if ($dateSignature)
                         <span style="float: right; font-style: italic">
                             {{ 'Fait à ' . remove_accents_uppercase($formation?->lieu ?? '') . ', le ' . $dateSignature->translatedFormat('d F Y') }}
                         </span>
                     @endif
 
-                    {{-- <table style="width: 100%; border-collapse: collapse; margin-top: 1mm;">
-                        <tr>
-                            @if ($evaluateurs->isNotEmpty())
-                                @foreach ($evaluateurs->chunk(3)->first() as $personne)
-                                    <td style="width: 33%; vertical-align: top; padding: 0 3mm; border: none;">
-                                        <strong>{{ $personne->name }} {{ $personne->lastname }}</strong>
-                                        @if ($personne->fonction)
-                                            <br><em>{{ $personne->fonction }}</em>
-                                        @endif
-                                    </td>
-                                @endforeach
-                                @for ($i = $evaluateurs->chunk(3)->first()->count(); $i < 3; $i++)
-                                    <td style="width: 33%; border: none;"></td>
-                                @endfor
-                            @endif
-                        </tr>
-                    </table> --}}
-                    <table style="width: 100%; border-collapse: collapse; margin-top: 1mm;">
-                        @foreach ($evaluateurs->chunk(4) as $groupe)
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 3mm;">
+                        @foreach ($evaluateurs->chunk(3) as $groupe)
                             <tr>
                                 @foreach ($groupe as $personne)
-                                    <td style="width: 33%; vertical-align: top; padding: 0 3mm; border: none;">
-                                        <strong>{{ $personne->name }} {{ $personne->lastname }}</strong>
+                                    <td
+                                        style="
+                        width: 33.33%;
+                        vertical-align: top;
+                        padding: 2mm 3mm 20mm 3mm;
+                        border: none;
+                    ">
+                                        <strong>
+                                            {{ $personne->name }} {{ $personne->lastname }}
+                                        </strong>
 
                                         @if (!empty($personne->fonction))
                                             <br>
@@ -376,57 +369,15 @@
                                     </td>
                                 @endforeach
 
-                                {{-- Compléter les colonnes manquantes --}}
-                                @for ($i = $groupe->count(); $i < 4; $i++)
-                                    <td style="width: 33%; border: none;"></td>
+                                @for ($i = $groupe->count(); $i < 3; $i++)
+                                    <td style="width: 33.33%; border: none;"></td>
                                 @endfor
                             </tr>
                         @endforeach
                     </table>
                 </td>
-            </tr>
-            {{-- <tr>
-                <td colspan="3" style="padding: 0 0 3mm 0;">
-                    <b><u>SIGNATURE DES MEMBRES DU JURY</u></b>
-                    @if ($dateSignature)
-                        <span style="float: right; font-style: italic">
-                            {{ 'Fait à ' . remove_accents_uppercase($formation?->lieu ?? '') . ', le ' . $dateSignature->translatedFormat('d F Y') }}
-                        </span>
-                    @endif
-                </td>
-            </tr>
-            @foreach ($evaluateurs->chunk(3) as $trio)
-                <tr style="page-break-inside: avoid;">
-                    @foreach ($trio as $personne)
-                        <td style="width: 33%; vertical-align: top; padding: 2mm 3mm;">
-                            <strong>{{ $personne->name }} {{ $personne->lastname }}</strong>
-                            @if ($personne->fonction)
-                                <br><em>{{ $personne->fonction }}</em>
-                            @endif
-                            <div style="border-bottom: 1px solid #000; height: 12px; margin-top: 3mm;"></div>
-                        </td>
-                    @endforeach
-                    @for ($i = $trio->count(); $i < 3; $i++)
-                        <td style="width: 33%;"></td>
-                    @endfor
-                </tr>
-            @endforeach
 
-            @if (!empty($membres_jury))
-                @foreach (collect($membres_jury)->chunk(2) as $ligne)
-                    <tr style="page-break-inside: avoid;">
-                        @foreach ($ligne as $item)
-                            <td colspan="2" style="width: 50%; vertical-align: top; padding: 2mm 3mm;">
-                                <strong>{{ $item }}</strong>
-                                <div style="height: 18px;"></div>
-                            </td>
-                        @endforeach
-                        @if (count($ligne) < 2)
-                            <td colspan="2"></td>
-                        @endif
-                    </tr>
-                @endforeach
-            @endif --}}
+            </tr>
         </table>
     </div>
 
