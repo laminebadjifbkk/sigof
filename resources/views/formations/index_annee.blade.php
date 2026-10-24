@@ -466,8 +466,8 @@
                                             <option value="{{ old('type_certification') }}">
                                                 {{ old('type_certification') }}
                                             </option>
-                                            <option value="Titre">
-                                                Titre
+                                            <option value="Titre de qualification">
+                                                Titre de qualification
                                             </option>
                                             <option value="Attestation">
                                                 Attestation
