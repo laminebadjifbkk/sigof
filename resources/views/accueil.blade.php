@@ -1023,7 +1023,7 @@
 
         /* ========== 40 ANS ONFP ========== */
         .anniv-bar {
-            background: linear-gradient(90deg, var(--orange-dark), var(--orange));
+            background: linear-gradient(90deg, var(--green-dark), var(--green));
             color: #fff;
             text-align: center;
             font-size: .85rem;
