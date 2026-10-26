@@ -1280,7 +1280,7 @@
             </div>
         </div> --}}
         {{-- ========== 40 ANS ========== --}}
-        {{-- <section class="anniv" id="anniversaire">
+        <section class="anniv" id="anniversaire">
             <div class="wrap anniv-grid">
                 <div>
                     <div class="eyebrow" style="color:var(--orange)">Événement</div>
@@ -1288,7 +1288,7 @@
                     <p>Quatre décennies d'engagement pour la formation professionnelle au Sénégal.
                         Rejoignez-nous pour célébrer cette étape historique.</p>
                     <div class="anniv-meta">
-                        <span><i class="bi bi-calendar-event"></i>Jeudi 29 octobre 2026</span>
+                        <span><i class="bi bi-calendar-event"></i>Jeudi 19 novembre 2026</span>
                         <span><i class="bi bi-geo-alt"></i>CICES, Dakar</span>
                     </div>
                 </div>
@@ -1304,7 +1304,7 @@
                             class="l">Secondes</span></div>
                 </div>
             </div>
-        </section> --}}
+        </section>
     </section>
 
     {{-- ========== À PROPOS ========== --}}

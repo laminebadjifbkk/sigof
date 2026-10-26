@@ -115,7 +115,7 @@
             Confirmez votre participation
         </h5>
         <p class="text-center text-muted mb-4">
-            📅 Le jeudi 29 octobre 2026<br>
+            📅 Le jeudi 19 novembre 2026<br>
             {{-- TODO : précisez l'heure et le lieu exacts --}}
             📍 Dakar
         </p>
