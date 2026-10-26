@@ -108,16 +108,16 @@
 <body>
     <div class="form-card">
         <div class="text-center">
-            <span class="badge-40">🎉 1986 – 2026</span>
+            <span class="badge-40">1986 – 2026</span>
         </div>
         <h2 class="text-center mb-3">CÉLÉBRATION DES 40 ANS<br>DE L'ONFP</h2>
         <h5 class="text-center text-secondary mb-2">
             Confirmez votre participation
         </h5>
         <p class="text-center text-muted mb-4">
-            📅 Le jeudi 19 novembre 2026<br>
+            Le jeudi 19 novembre 2026<br>
             {{-- TODO : précisez l'heure et le lieu exacts --}}
-            📍 Dakar
+             Dakar
         </p>
 
         @if (session('success'))

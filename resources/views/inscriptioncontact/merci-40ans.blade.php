@@ -70,7 +70,7 @@
 
 <body>
     <div class="thank-you-card">
-        <span class="badge-40">🎉 1986 – 2026</span>
+        <span class="badge-40">1986 – 2026</span>
         <h1>Merci !</h1>
         <p>Votre participation à la <strong>célébration des 40 ans de l'ONFP</strong>, le
             <strong>19 novembre 2026</strong>, a été confirmée avec succès.</p>
