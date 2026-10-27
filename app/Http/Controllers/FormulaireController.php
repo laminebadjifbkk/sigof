@@ -631,7 +631,7 @@ class FormulaireController extends Controller
 
         $formulaires = Formulaire::where('prenom', 'LIKE', "%{$request?->prenom}%")
             ->where('nom', 'LIKE', "%{$request?->nom}%")
-            ->where('id', 'LIKE', "%{$request?->id}%")
+            ->where('id', 'LIKE', "{$request?->dossier}")
             ->where('cin', 'LIKE', "%{$request?->cin}%")
             ->where('telephone', 'LIKE', "%{$request?->telephone}%")
             ->where('email', 'LIKE', "%{$request?->email}%")

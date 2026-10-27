@@ -132,8 +132,8 @@
                                 @can('formulaire-create')
                                     <div class="d-flex align-items-center gap-2">
                                         <!--  <a href="{{ route('formulaire.create') }}" class="btn btn-sm btn-primary">
-                                                                                                                                            Ajouter
-                                                                                                                                        </a> -->
+                                                                                                                                                        Ajouter
+                                                                                                                                                    </a> -->
                                         <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="modal"
                                             data-bs-target="#generate_rapport">
                                             Rechercher plus
@@ -255,6 +255,21 @@
                                 <div class="row g-3">
                                     <div class="col-12">
                                         <div class="row">
+
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="dossier" class="form-label">Numéro dossier</label>
+                                                    <input type="text" name="dossier" value="{{ old('dossier') }}"
+                                                        class="form-control form-control-sm @error('dossier') is-invalid @enderror"
+                                                        id="dossier" placeholder="N° dossier">
+                                                    @error('dossier')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <div>{{ $message }}</div>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="prenom" class="form-label">Prénom</label>

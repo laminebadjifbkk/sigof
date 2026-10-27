@@ -221,7 +221,7 @@
                                                     <label for="dossier" class="form-label">Numéro dossier</label>
                                                     <input type="text" name="dossier" value="{{ old('dossier') }}"
                                                         class="form-control form-control-sm @error('dossier') is-invalid @enderror"
-                                                        id="dossier" placeholder="Prénom">
+                                                        id="dossier" placeholder="N° dossier">
                                                     @error('dossier')
                                                         <span class="invalid-feedback" role="alert">
                                                             <div>{{ $message }}</div>
