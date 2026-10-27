@@ -647,6 +647,7 @@ class FormulaireController extends Controller
         });
 
         $labels = [
+            'id' => 'Dossier',
             'cin' => 'CIN',
             'civilite' => 'Civilité',
             'prenom' => 'Prénom',

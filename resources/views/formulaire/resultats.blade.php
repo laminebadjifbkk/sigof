@@ -6,7 +6,7 @@
             <div class="row justify-content-center">
                 <h4 class="card-title">
                     <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 p-3 bg-light rounded shadow-sm">
-                        <span>Résult de la rechaerche</span>
+                        <span>Résult de la recherche</span>
                     </div>
                 </h4>
                 {{-- Tableau inscriptions --}}
