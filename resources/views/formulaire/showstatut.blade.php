@@ -218,6 +218,23 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group">
+                                                    <label for="dossier" class="form-label">Numéro dossier</label>
+                                                    <input type="text" name="dossier" value="{{ old('dossier') }}"
+                                                        class="form-control form-control-sm @error('dossier') is-invalid @enderror"
+                                                        id="dossier" placeholder="Prénom">
+                                                    @error('dossier')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <div>{{ $message }}</div>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
                                                     <label for="prenom" class="form-label">Prénom</label>
                                                     <input type="text" name="prenom" value="{{ old('prenom') }}"
                                                         class="form-control form-control-sm @error('prenom') is-invalid @enderror"

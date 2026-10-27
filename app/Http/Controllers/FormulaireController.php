@@ -609,6 +609,7 @@ class FormulaireController extends Controller
     public function generateReport(Request $request)
     {
         $this->validate($request, [
+            'dossier'       => 'nullable|string',
             'cin'       => 'nullable|string',
             'nom'      => 'nullable|string',
             'prenom' => 'nullable|string',
@@ -617,13 +618,20 @@ class FormulaireController extends Controller
             'lieu_naissance'     => 'nullable|string',
         ]);
 
-        if ($request?->cin == null && $request->prenom == null && $request->telephone == null && $request->nom == null && $request->email == null && $request->lieu_naissance == null) {
+        if ($request?->cin == null &&
+        $request->prenom == null &&
+        $request->telephone == null &&
+        $request->nom == null &&
+        $request->email == null &&
+        $request->dossier == null &&
+        $request->lieu_naissance == null) {
             Alert::warning('Attention', 'Veuillez renseigner au moins un champ pour effectuer une recherche.');
             return redirect()->back();
         }
 
         $formulaires = Formulaire::where('prenom', 'LIKE', "%{$request?->prenom}%")
             ->where('nom', 'LIKE', "%{$request?->nom}%")
+            ->where('id', 'LIKE', "%{$request?->id}%")
             ->where('cin', 'LIKE', "%{$request?->cin}%")
             ->where('telephone', 'LIKE', "%{$request?->telephone}%")
             ->where('email', 'LIKE', "%{$request?->email}%")
