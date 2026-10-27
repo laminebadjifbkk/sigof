@@ -41,6 +41,8 @@
                                                         @endif
                                                     @elseif ($field === 'date_naissance' && $inscription->date_naissance)
                                                         {{ \Carbon\Carbon::parse($inscription->date_naissance)->format('d/m/Y') }}
+                                                    @elseif ($field === 'id')
+                                                        #{{ str_pad($inscription->id, 6, '0', STR_PAD_LEFT) }}
                                                     @else
                                                         {{ $inscription->$field ?? '-' }}
                                                     @endif
