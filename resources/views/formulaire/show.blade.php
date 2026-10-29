@@ -116,13 +116,13 @@
                                         #{{ str_pad($formulaire->id, 6, '0', STR_PAD_LEFT) }}
                                     </span>
 
-                                    <a href="{{ route('formulaire.confirmation', ['formulaire' => $formulaire]) }}" class="btn btn-sm btn-danger"
-                                        target="_blank">
+                                    <a href="{{ route('formulaire.confirmation', ['formulaire' => $formulaire]) }}"
+                                        class="btn btn-sm btn-danger" target="_blank">
                                         <i class="fas fa-file-pdf me-1"></i>
                                         Télécharger PDF
                                     </a>
                                 </div>
-                                @foreach ($labels as $field => $label)
+                                {{-- @foreach ($labels as $field => $label)
                                     <div class="col-md-4">
                                         <strong>{{ $label }} :</strong><br>
 
@@ -148,9 +148,97 @@
                                             {{ $formulaire->$field ?? '-' }}
                                         @endif
                                     </div>
+                                @endforeach --}}
+                                @foreach ($labels as $field => $label)
+                                    <div class="col-md-3">
+                                        <strong>{{ $label }} :</strong><br>
+
+                                        @if (in_array($field, $fileFields))
+                                            @php
+                                                $path = $formulaire->$field;
+                                                $ext = $path ? strtolower(pathinfo($path, PATHINFO_EXTENSION)) : null;
+                                                $url = $path ? asset('storage/' . $path) : null;
+                                            @endphp
+
+                                            @if (!empty($path))
+                                                <div class="document-card mt-1">
+                                                    <div class="document-preview">
+                                                        @if (in_array($ext, ['jpg', 'jpeg', 'png']))
+                                                            <a href="{{ $url }}" target="_blank">
+                                                                <img src="{{ $url }}" alt="{{ $label }}"
+                                                                    class="img-fluid rounded border"
+                                                                    style="max-height: 150px; object-fit: cover;">
+                                                            </a>
+                                                        @else
+                                                            <a href="{{ $url }}" target="_blank"
+                                                                class="document-file-link">
+                                                                📄 Voir le PDF
+                                                            </a>
+                                                        @endif
+                                                    </div>
+
+                                                    <a href="{{ $url }}" download
+                                                        class="btn btn-outline-secondary btn-sm mt-2">
+                                                        <i class="bi bi-download"></i> Télécharger
+                                                    </a>
+                                                </div>
+                                            @else
+                                                <span class="text-muted">Aucun fichier fourni</span>
+                                            @endif
+                                        @elseif ($field === 'date_naissance' && $formulaire->$field)
+                                            {{ \Carbon\Carbon::parse($formulaire->$field)->format('d/m/Y') }}
+                                        @elseif ($field === 'email' && $formulaire->$field)
+                                            <a href="mailto:{{ $formulaire->email }}">{{ $formulaire->email }}</a>
+                                        @elseif ($field === 'telephone' && $formulaire->$field)
+                                            <a href="tel:+221{{ $formulaire->telephone }}">{{ $formulaire->telephone }}</a>
+                                        @elseif ($field === 'telephone_secondaire' && $formulaire->$field)
+                                            <a
+                                                href="tel:+221{{ $formulaire->telephone_secondaire }}">{{ $formulaire->telephone_secondaire }}</a>
+                                        @else
+                                            {{ $formulaire->$field ?? '-' }}
+                                        @endif
+                                    </div>
                                 @endforeach
                             </div>
+                            <br>
+                            <h3>Traitement de la demande</h3>
 
+                            <p class="mb-3">
+                                Statut actuel : <span class="{{ $formulaire?->statut }}">{{ $formulaire?->statut }}</span>
+                            </p>
+
+                            <form action="{{ route('formulaires.validationPriseEnCharge', $formulaire?->id) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+
+                                <div class="mb-3">
+                                    <label for="motif" class="form-label">Explications (optionnel)</label>
+                                    <textarea name="motif" id="motif" rows="4"
+                                        class="form-control form-control-sm @error('motif') is-invalid @enderror" placeholder="Indiquez les raisons">{{ old('motif', $formulaire?->motif) }}</textarea>
+
+                                    @error('motif')
+                                        <span class="invalid-feedback d-block" role="alert">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="d-flex flex-wrap gap-2 mt-3">
+                                    <button type="submit" name="statut" value="Conforme"
+                                        class="btn btn-outline-info btn-sm">
+                                        Conforme
+                                    </button>
+                                    <button type="submit" name="statut" value="Non conforme"
+                                        class="btn btn-outline-danger btn-sm">
+                                        Non conforme
+                                    </button>
+                                    <button type="submit" name="statut" value="Validée" class="btn btn-success btn-sm">
+                                        Valider la demande
+                                    </button>
+                                    <button type="submit" name="statut" value="liste attente"
+                                        class="btn btn-outline-secondary btn-sm">
+                                        Mettre en liste d'attente
+                                    </button>
+                                </div>
+                            </form>
                             {{-- Boutons --}}
                             <div class="mt-4 d-flex justify-content-between">
                                 {{-- <a href="{{ route('formulaires.showregiondiplome', ['region' => $formulaire?->region, 'diplome_vise' => $formulaire?->diplome_vise, 'annee' => $formulaire?->annee_scolaire]) }}"
@@ -180,7 +268,8 @@
                             <div class="modal-header bg-light border-bottom-0">
                                 <h5 class="modal-title fw-bold text-info" id="validationDemandeLabel">Traitement de la
                                     demande</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Fermer"></button>
                             </div>
 
                             <div class="modal-body">
