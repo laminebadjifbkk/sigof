@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Services\BrevoMailer;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
 
 class InscriptioncontactController extends Controller
 {
@@ -245,7 +246,7 @@ class InscriptioncontactController extends Controller
         return redirect()->route('inscriptioncontact.merci');
     } */
 
-
+/*
 public function store(Request $request, BrevoMailer $brevo)
 {
     $validated = $request->validate([
@@ -253,12 +254,59 @@ public function store(Request $request, BrevoMailer $brevo)
         'structure'   => 'required|string|max:255',
         'nom'         => 'required|string|max:255',
         'fonction'    => 'required|string|max:255',
-        /* 'telephone'   => 'required|string|max:50|unique:inscriptions,telephone',
-        'email'       => 'required|email|max:255|unique:inscriptions,email', */
         'telephone'   => 'required|string|max:50',
         'email'       => 'required|email|max:255',
         'commentaire' => 'nullable|string|max:255',
     ]);
+
+    $inscription = Inscription::create($validated);
+
+    try {
+        $html = (new ConfirmationInscription($inscription))->render();
+
+        $brevo->sendEmail(
+            ['email' => $inscription->email, 'name' => $inscription->nom],
+            "Confirmation de votre inscription – 40 ans de l'ONFP",
+            $html
+        );
+    } catch (\Throwable $e) {
+        Log::warning('Confirmation 40 ans non envoyée', [
+            'inscription_id' => $inscription->id,
+            'error'          => $e->getMessage(),
+        ]);
+    }
+
+    return redirect()->route('inscriptioncontact.merci');
+} */
+
+
+public function store(Request $request, BrevoMailer $brevo)
+{
+    $validated = $request->validate([
+        // Structure en saisie libre : on ne peut plus se fier à une liste de noms exacts.
+        'structure'       => 'required|string|max:255',
+        'nom'             => 'required|string|max:255',
+        'fonction'        => 'required|string|max:255',
+        /* 'telephone'   => 'required|string|max:50|unique:inscriptions,telephone',
+        'email'       => 'required|email|max:255|unique:inscriptions,email', */
+        'telephone'       => 'required|string|max:50',
+        'email'           => 'required|email|max:255',
+        'commentaire'     => 'nullable|string|max:255',
+        // Jeton généré par le formulaire au moment de l'envoi
+        'recaptcha_token' => 'required|string',
+    ], [
+        'recaptcha_token.required' => 'La vérification de sécurité a échoué. Veuillez réessayer.',
+    ]);
+
+    // Vérification reCAPTCHA côté serveur
+    if (! $this->recaptchaPasses($validated['recaptcha_token'], $request->ip())) {
+        return back()
+            ->withInput()
+            ->withErrors(['recaptcha_token' => 'La vérification de sécurité a échoué. Veuillez réessayer.']);
+    }
+
+    // Le jeton n'est pas une colonne de la table : on le retire avant l'enregistrement
+    unset($validated['recaptcha_token']);
 
     // Enregistrer en base
     $inscription = Inscription::create($validated);
@@ -282,6 +330,31 @@ public function store(Request $request, BrevoMailer $brevo)
     }
 
     return redirect()->route('inscriptioncontact.merci');
+}
+
+/**
+ * Vérifie le jeton reCAPTCHA v3 auprès de Google.
+ * Si Google est injoignable, on laisse passer (et on journalise) pour ne pas bloquer les inscriptions.
+ */
+private function recaptchaPasses(string $token, ?string $ip): bool
+{
+    try {
+        $result = Http::asForm()
+            ->timeout(5)
+            ->post('https://www.google.com/recaptcha/api/siteverify', [
+                'secret'   => config('services.recaptcha.secret_key'),
+                'response' => $token,
+                'remoteip' => $ip,
+            ])
+            ->json();
+    } catch (\Throwable $e) {
+        Log::warning('reCAPTCHA injoignable, inscription acceptée', ['error' => $e->getMessage()]);
+        return true;
+    }
+
+    return ($result['success'] ?? false)
+        && ($result['score'] ?? 0) >= 0.5
+        && ($result['action'] ?? '') === 'submit';
 }
 
     public function merci()
