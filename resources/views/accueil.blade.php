@@ -7,6 +7,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="color-scheme" content="light">
     <meta name="format-detection" content="telephone=no,address=no,email=no,date=no">
+    <meta name="description"
+        content="SIGOF, le portail de l'ONFP : demandes de formation, agréments d'opérateurs et suivi des partenariats au Sénégal.">
     <title>SIGOF | Système Intégré de Gestion des Opérations de Formation</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,26 +21,41 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
+    <script>
+        document.documentElement.classList.add('js');
+    </script>
+
     <style>
         /* ========== BASE ========== */
         :root {
             color-scheme: light;
-            --ink: #24262b;
-            --ink-soft: #5b5e66;
-            --gray: #7c7f85;
-            --gray-line: #e4e3e0;
-            --gray-bg: #f4f3f1;
-            --orange: #e07a2f;
-            --orange-dark: #c05f1c;
-            --orange-tint: #fdf1e6;
+
+            /* Couleurs du logo ONFP */
             --green: #3fa350;
+            --green-dark: #2c7d3a;
             --green-tint: #eaf6ec;
-            --red: #c00000;
+            --yellow: #ffc914;
+            --yellow-tint: #fff7d6;
+            --orange: #ff7a00;
+            --orange-dark: #c85f00;
+            --orange-tint: #fff0e0;
+            --red: #e3262e;
+            --red-tint: #fdeaea;
+            --slate: #2b3742;
+            --slate-deep: #19222a;
+
+            --ink: #1f2a33;
+            --ink-soft: #4d5a66;
+            --gray: #6f7b87;
+            --gray-line: #e6e9ee;
+            --gray-bg: #f5f7f9;
             --cream: #fbfaf8;
             --white: #ffffff;
-            --radius: 14px;
-            --shadow: 0 10px 30px -12px rgba(36, 38, 43, .12);
-            --max: 1300px;
+
+            --radius: 18px;
+            --shadow: 0 18px 40px -18px rgba(25, 34, 42, .22);
+            --shadow-sm: 0 8px 22px -12px rgba(25, 34, 42, .18);
+            --max: 1260px;
         }
 
         * {
@@ -51,6 +68,10 @@
             scroll-behavior: smooth;
         }
 
+        section[id] {
+            scroll-margin-top: 84px;
+        }
+
         @media (prefers-reduced-motion: reduce) {
             html {
                 scroll-behavior: auto;
@@ -58,6 +79,7 @@
 
             * {
                 transition: none !important;
+                animation: none !important;
             }
         }
 
@@ -65,7 +87,7 @@
             font-family: 'Manrope', sans-serif;
             color: var(--ink);
             background: var(--white);
-            line-height: 1.55;
+            line-height: 1.6;
             -webkit-font-smoothing: antialiased;
         }
 
@@ -94,7 +116,7 @@
 
         :focus-visible {
             outline: 2px solid var(--orange);
-            outline-offset: 2px;
+            outline-offset: 3px;
         }
 
         .wrap {
@@ -104,15 +126,21 @@
         }
 
         section {
-            padding: 88px 0;
+            padding: 96px 0;
+        }
+
+        .tricolor {
+            display: block;
+            height: 4px;
+            background: linear-gradient(90deg, var(--green) 0 34%, var(--yellow) 34% 67%, var(--red) 67% 100%);
         }
 
         .eyebrow {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             font-size: .75rem;
-            font-weight: 700;
+            font-weight: 800;
             letter-spacing: .14em;
             text-transform: uppercase;
             color: var(--orange-dark);
@@ -121,25 +149,38 @@
 
         .eyebrow::before {
             content: "";
-            width: 18px;
-            height: 2px;
-            background: var(--orange);
-            border-radius: 2px;
+            width: 28px;
+            height: 4px;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--green) 0 34%, var(--yellow) 34% 67%, var(--red) 67% 100%);
         }
 
         .section-head {
-            max-width: 640px;
-            margin-bottom: 48px;
+            max-width: 680px;
+            margin-bottom: 52px;
         }
 
         .section-head h2 {
-            font-size: clamp(1.6rem, 3vw, 2.3rem);
+            font-size: clamp(1.7rem, 3.2vw, 2.4rem);
+            line-height: 1.18;
         }
 
         .section-head p {
             color: var(--gray);
-            margin-top: 12px;
-            font-size: 1.02rem;
+            margin-top: 14px;
+            font-size: 1.04rem;
+        }
+
+        /* Apparition au scroll */
+        .js .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+
+        .js .reveal.in {
+            opacity: 1;
+            transform: none;
         }
 
         /* ========== BOUTONS ========== */
@@ -154,18 +195,20 @@
             font-size: .92rem;
             border: 1.5px solid transparent;
             cursor: pointer;
-            transition: all .18s ease;
+            transition: all .2s ease;
             font-family: 'Manrope', sans-serif;
         }
 
         .btn-primary {
             background: var(--green);
             color: #fff;
+            box-shadow: 0 10px 22px -10px rgba(63, 163, 80, .8);
         }
 
         .btn-primary:hover {
-            background: var(--green);
-            transform: translateY(-1px);
+            background: var(--green-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 14px 26px -10px rgba(63, 163, 80, .9);
         }
 
         .btn-ghost {
@@ -177,6 +220,7 @@
         .btn-ghost:hover {
             border-color: var(--orange);
             color: var(--orange-dark);
+            transform: translateY(-2px);
         }
 
         .btn-danger {
@@ -190,13 +234,30 @@
             transform: translateY(-1px);
         }
 
+        /* ========== BARRE ANNIVERSAIRE ========== */
+        .anniv-bar {
+            background: var(--slate-deep);
+            color: #fff;
+            text-align: center;
+            font-size: .85rem;
+            font-weight: 700;
+            padding: 9px 16px;
+        }
+
+        .anniv-bar a {
+            color: var(--yellow);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
         /* ========== NAVBAR ========== */
         header {
             position: sticky;
             top: 0;
             z-index: 50;
-            background: rgba(251, 250, 248, .9);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, .88);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--gray-line);
         }
 
@@ -205,37 +266,47 @@
             align-items: center;
             justify-content: space-between;
             gap: 20px;
-            padding: 12px 28px;
+            padding: 10px 28px;
             max-width: var(--max);
             margin: 0 auto;
         }
 
         .brand-logo {
-            height: 60px;
+            height: 58px;
             width: auto;
             object-fit: contain;
         }
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 6px;
             align-items: center;
         }
 
         .nav-links a {
-            font-size: .92rem;
+            position: relative;
+            display: block;
+            padding: 8px 12px;
+            font-size: .9rem;
             font-weight: 600;
             color: var(--ink-soft);
-            transition: color .15s;
+            border-radius: 999px;
+            transition: color .15s, background .15s;
         }
 
         .nav-links a:hover {
-            color: var(--orange-dark);
+            color: var(--ink);
+            background: var(--gray-bg);
+        }
+
+        .nav-links a.active {
+            color: var(--green-dark);
+            background: var(--green-tint);
         }
 
         .nav-actions {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             align-items: center;
         }
 
@@ -243,14 +314,22 @@
             display: none;
             background: none;
             border: none;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
+            line-height: 1;
             cursor: pointer;
             color: var(--ink);
         }
 
         /* ========== HERO ========== */
         .hero {
-            padding: 28px 0 64px;
+            position: relative;
+            padding: 64px 0 88px;
+            overflow: hidden;
+            background:
+                radial-gradient(700px 400px at 95% 0%, rgba(255, 201, 20, .20), transparent 60%),
+                radial-gradient(640px 420px at 0% 25%, rgba(63, 163, 80, .13), transparent 60%),
+                radial-gradient(520px 380px at 60% 100%, rgba(255, 122, 0, .10), transparent 60%),
+                #fff;
         }
 
         .hero-grid {
@@ -260,77 +339,180 @@
             align-items: center;
         }
 
-        .hero h1 {
-            font-size: clamp(1.7rem, 3.2vw, 2.6rem);
-            line-height: 1.12;
+        .hero-grid>* {
+            min-width: 0;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--yellow-tint);
+            color: #7a5a00;
+            border: 1px solid rgba(255, 201, 20, .6);
+            padding: 7px 16px;
+            border-radius: 999px;
+            font-size: .8rem;
+            font-weight: 800;
             margin-bottom: 20px;
+            transition: transform .2s;
+        }
+
+        .hero-badge:hover {
+            transform: translateY(-2px);
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 4.2vw, 3.2rem);
+            line-height: 1.08;
+            margin-bottom: 22px;
         }
 
         .hero h1 .accent {
-            color: var(--orange);
+            color: var(--green);
+            background: linear-gradient(90deg, var(--green), var(--orange));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .hero .lead {
             color: var(--ink-soft);
-            font-size: 1.08rem;
-            max-width: 480px;
-            margin-bottom: 30px;
+            font-size: 1.1rem;
+            max-width: 520px;
+            margin-bottom: 32px;
         }
 
         .hero-cta {
             display: flex;
             gap: 14px;
             flex-wrap: wrap;
-            margin-bottom: 34px;
+            margin-bottom: 40px;
         }
 
-        .hero-stat {
-            display: flex;
-            align-items: center;
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             gap: 14px;
+            max-width: 520px;
         }
 
-        .hero-stat .num {
+        .stat-card {
+            background: #fff;
+            border: 1px solid var(--gray-line);
+            border-top: 4px solid var(--c, var(--green));
+            border-radius: 14px;
+            padding: 14px 16px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .stat-card:nth-child(2) {
+            --c: var(--yellow);
+        }
+
+        .stat-card:nth-child(3) {
+            --c: var(--red);
+        }
+
+        .stat-card .num {
+            display: block;
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 2.1rem;
+            font-size: 1.9rem;
             font-weight: 700;
-            color: var(--green);
-            line-height: 1;
+            line-height: 1.1;
+            color: var(--ink);
         }
 
-        .hero-stat .lead {
-            margin: 0;
-            font-size: .95rem;
-            max-width: 260px;
+        .stat-card .lbl {
+            display: block;
+            font-size: .78rem;
+            color: var(--gray);
+            line-height: 1.35;
+            margin-top: 4px;
         }
 
-        /* ========== CARROUSEL ========== */
+        /* Visuel de repli si aucune affiche */
+        .hero-visual {
+            display: grid;
+            place-items: center;
+            padding: 40px;
+            background: #fff;
+            border-radius: 28px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray-line);
+            max-width: 460px;
+            margin-inline: auto;
+        }
+
+        .hero-visual img {
+            width: 100%;
+            max-width: 320px;
+        }
+
+        /* ========== CARROUSEL (cadre fixe) ========== */
         .hero-carousel {
             position: relative;
-            border-radius: 10px;
+            width: 100%;
+            max-width: 520px;
+            margin-inline: auto;
+            aspect-ratio: 4 / 5;
+            border-radius: 24px;
             overflow: hidden;
             box-shadow: var(--shadow);
-            background: var(--white);
+            background: #fff;
+            border: 1px solid var(--gray-line);
+        }
+
+        .hero-carousel::after {
+            content: "";
+            position: absolute;
+            inset: 0 0 auto 0;
+            height: 5px;
+            z-index: 4;
+            background: linear-gradient(90deg, var(--green) 0 34%, var(--yellow) 34% 67%, var(--red) 67% 100%);
         }
 
         .hc-slide {
             display: none;
             flex-direction: column;
+            background: #fff;
+            height: 100%;
         }
 
         .hc-slide.active {
             display: flex;
+            animation: hcFade .5s ease both;
+        }
+
+        @keyframes hcFade {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .hc-media {
+            flex: 1;
+            min-height: 0;
+            background: #fff;
         }
 
         .hc-slide img {
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: contain;
         }
 
         .hc-caption {
+            flex: none;
+            height: 88px;
             background: #fff;
-            padding: 16px 26px 18px;
-            border-top: 3px solid var(--orange);
+            padding: 14px 26px;
+            border-top: 1px solid var(--gray-line);
+            overflow: hidden;
         }
 
         .hc-caption .tag {
@@ -348,29 +530,35 @@
             font-size: 1.05rem;
             line-height: 1.3;
             color: var(--ink);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         .hc-nav {
             position: absolute;
             top: 45%;
             transform: translateY(-50%);
-            width: 38px;
-            height: 38px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, .85);
+            background: rgba(255, 255, 255, .92);
             border: none;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, .15);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: var(--ink);
             cursor: pointer;
             z-index: 3;
-            transition: background .15s;
+            transition: all .15s;
         }
 
         .hc-nav:hover {
-            background: #fff;
+            background: var(--green);
+            color: #fff;
         }
 
         .hc-prev {
@@ -383,7 +571,7 @@
 
         .hc-dots {
             position: absolute;
-            top: 16px;
+            top: 18px;
             right: 16px;
             display: flex;
             gap: 6px;
@@ -395,101 +583,177 @@
             height: 8px;
             border-radius: 50%;
             border: none;
-            background: rgba(255, 255, 255, .6);
-            box-shadow: 0 0 0 1px rgba(0, 0, 0, .15);
+            background: rgba(255, 255, 255, .7);
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, .18);
             cursor: pointer;
             padding: 0;
             transition: all .2s;
         }
 
         .hc-dots button.active {
-            background: #fff;
+            background: var(--yellow);
             width: 22px;
             border-radius: 5px;
         }
 
-        /* ========== VERIFICATION ========== */
-        .verify-card {
-            background: var(--white);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            padding: 34px;
-            margin-top: 44px;
-            border: 1px solid var(--gray-line);
+        /* ========== 40 ANS ========== */
+        .anniv {
+            position: relative;
+            overflow: hidden;
+            padding: 84px 0;
+            color: #fff;
+            background:
+                radial-gradient(600px 360px at 8% 0%, rgba(63, 163, 80, .35), transparent 60%),
+                radial-gradient(560px 380px at 100% 100%, rgba(255, 122, 0, .30), transparent 60%),
+                radial-gradient(420px 300px at 70% 0%, rgba(255, 201, 20, .18), transparent 60%),
+                linear-gradient(135deg, var(--slate-deep), var(--slate));
         }
 
-        .verify-card h3 {
-            font-size: 1.15rem;
-            margin-bottom: 6px;
-        }
-
-        .verify-card>p {
-            color: var(--gray);
-            font-size: .9rem;
-            margin-bottom: 22px;
-        }
-
-        .verify-form {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr) auto;
-            gap: 14px;
-            align-items: end;
-        }
-
-        .field label {
-            display: block;
-            font-size: .78rem;
+        .anniv::before {
+            content: "40";
+            position: absolute;
+            right: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-family: 'Space Grotesk', sans-serif;
             font-weight: 700;
-            color: var(--ink-soft);
-            margin-bottom: 6px;
+            font-size: clamp(12rem, 30vw, 26rem);
+            line-height: 1;
+            color: transparent;
+            -webkit-text-stroke: 2px rgba(255, 201, 20, .16);
+            pointer-events: none;
+        }
+
+        .anniv-grid {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 56px;
+            align-items: center;
+        }
+
+        .anniv .eyebrow {
+            color: var(--yellow);
+        }
+
+        .anniv h2 {
+            color: #fff;
+            font-size: clamp(1.9rem, 3.8vw, 2.9rem);
+            line-height: 1.12;
+        }
+
+        .anniv h2 .accent {
+            color: var(--yellow);
+        }
+
+        .anniv p {
+            color: #d3d8dd;
+            margin: 16px 0 26px;
+            max-width: 480px;
+        }
+
+        .anniv-meta {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            font-size: .9rem;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .anniv-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, .08);
+            border: 1px solid rgba(255, 255, 255, .14);
+            padding: 8px 14px;
+            border-radius: 999px;
+        }
+
+        .anniv-meta i {
+            color: var(--yellow);
+        }
+
+        .countdown {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        .cd-box {
+            background: rgba(255, 255, 255, .07);
+            border: 1px solid rgba(255, 255, 255, .14);
+            border-top: 4px solid var(--c, var(--green));
+            border-radius: var(--radius);
+            padding: 22px 8px;
+            text-align: center;
+            backdrop-filter: blur(6px);
+        }
+
+        .cd-box:nth-child(1) {
+            --c: var(--green);
+        }
+
+        .cd-box:nth-child(2) {
+            --c: var(--yellow);
+        }
+
+        .cd-box:nth-child(3) {
+            --c: var(--orange);
+        }
+
+        .cd-box:nth-child(4) {
+            --c: var(--red);
+        }
+
+        .cd-box .n {
+            display: block;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 4.5vw, 3.2rem);
+            font-weight: 700;
+            line-height: 1;
+            color: var(--c);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .cd-box .l {
+            display: block;
+            margin-top: 8px;
+            font-size: .7rem;
+            letter-spacing: .12em;
             text-transform: uppercase;
-            letter-spacing: .04em;
+            color: #c9cace;
         }
 
-        .field input,
-        .field textarea {
-            width: 100%;
-            padding: 11px 14px;
-            border: 1.5px solid var(--gray-line);
-            border-radius: 9px;
-            font-family: inherit;
-            font-size: .92rem;
-            background: var(--gray-bg);
-        }
-
-        .field textarea {
-            resize: vertical;
-            min-height: 110px;
-        }
-
-        .field input:focus,
-        .field textarea:focus {
-            outline: none;
-            border-color: var(--orange);
-            background: #fff;
+        .cd-done {
+            grid-column: 1 / -1;
+            text-align: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--yellow);
         }
 
         /* ========== À PROPOS ========== */
         .about {
             background: var(--white);
-            border-top: 1px solid var(--gray-line);
-            border-bottom: 1px solid var(--gray-line);
         }
 
         .about-grid {
             display: grid;
             grid-template-columns: .9fr 1.1fr;
-            gap: 60px;
+            gap: 64px;
             align-items: start;
         }
 
         .about h2 {
-            font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+            font-size: clamp(1.5rem, 2.6vw, 2rem);
             line-height: 1.2;
         }
 
         .about-list {
-            margin-top: 20px;
+            margin-top: 22px;
             display: grid;
             gap: 14px;
         }
@@ -504,11 +768,23 @@
 
         .dot {
             flex: none;
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            background: var(--orange);
             margin-top: 8px;
+            background: var(--c, var(--green));
+        }
+
+        .about-list li:nth-child(2) .dot {
+            --c: var(--yellow);
+        }
+
+        .about-list li:nth-child(3) .dot {
+            --c: var(--orange);
+        }
+
+        .about-list li:nth-child(4) .dot {
+            --c: var(--red);
         }
 
         .about-intro {
@@ -517,20 +793,23 @@
         }
 
         .dg-card {
-            background: var(--gray-bg);
+            background: linear-gradient(135deg, var(--green-tint), var(--yellow-tint));
             border-radius: var(--radius);
-            padding: 26px;
+            padding: 24px;
             display: flex;
             gap: 18px;
             align-items: center;
-            margin-top: 28px;
+            margin-top: 30px;
+            border: 1px solid rgba(63, 163, 80, .18);
         }
 
         .dg-card img {
-            width: 64px;
-            height: 64px;
+            width: 68px;
+            height: 68px;
             border-radius: 50%;
             object-fit: cover;
+            border: 3px solid #fff;
+            box-shadow: var(--shadow-sm);
         }
 
         .dg-card .name {
@@ -539,24 +818,52 @@
         }
 
         .dg-card .role {
-            color: var(--gray);
+            color: var(--ink-soft);
             font-size: .85rem;
         }
 
         .objectifs {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-top: 40px;
+            gap: 18px;
+            margin-top: 38px;
         }
 
         .obj-card {
+            --c: var(--green);
+            --ct: var(--green-tint);
             background: var(--white);
             border: 1px solid var(--gray-line);
             border-radius: var(--radius);
-            padding: 26px;
+            padding: 24px;
             position: relative;
             overflow: hidden;
+            transition: transform .2s, box-shadow .2s;
+        }
+
+        .obj-card:nth-child(6n+2) {
+            --c: var(--yellow);
+            --ct: var(--yellow-tint);
+        }
+
+        .obj-card:nth-child(6n+3) {
+            --c: var(--orange);
+            --ct: var(--orange-tint);
+        }
+
+        .obj-card:nth-child(6n+4) {
+            --c: var(--red);
+            --ct: var(--red-tint);
+        }
+
+        .obj-card:nth-child(6n+5) {
+            --c: var(--slate);
+            --ct: #e9edf1;
+        }
+
+        .obj-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
         }
 
         .obj-card::before {
@@ -564,7 +871,23 @@
             position: absolute;
             inset: 0 0 auto 0;
             height: 4px;
-            background: linear-gradient(90deg, var(--orange), var(--green));
+            background: var(--c);
+        }
+
+        .obj-card .ico {
+            width: 40px;
+            height: 40px;
+            border-radius: 11px;
+            display: grid;
+            place-items: center;
+            font-size: 1.15rem;
+            background: var(--ct);
+            color: var(--c);
+            margin-bottom: 14px;
+        }
+
+        .obj-card:nth-child(6n+2) .ico {
+            color: #a07800;
         }
 
         .obj-card h4 {
@@ -578,6 +901,10 @@
         }
 
         /* ========== SERVICES ========== */
+        .services {
+            background: var(--gray-bg);
+        }
+
         .services-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -585,82 +912,153 @@
         }
 
         .service-card {
+            --c: var(--green);
+            --ct: var(--green-tint);
+            position: relative;
             background: var(--white);
             border-radius: var(--radius);
-            padding: 30px 26px;
+            padding: 32px 28px;
             border: 1px solid var(--gray-line);
-            transition: transform .18s, box-shadow .18s;
+            transition: transform .2s, box-shadow .2s, border-color .2s;
+            overflow: hidden;
+        }
+
+        .service-card:nth-child(6n+2) {
+            --c: #d9a700;
+            --ct: var(--yellow-tint);
+        }
+
+        .service-card:nth-child(6n+3) {
+            --c: var(--orange);
+            --ct: var(--orange-tint);
+        }
+
+        .service-card:nth-child(6n+4) {
+            --c: var(--red);
+            --ct: var(--red-tint);
+        }
+
+        .service-card:nth-child(6n+5) {
+            --c: var(--slate);
+            --ct: #e9edf1;
+        }
+
+        .service-card::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 4px;
+            background: var(--c);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform .3s ease;
         }
 
         .service-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-6px);
             box-shadow: var(--shadow);
         }
 
+        .service-card:hover::after {
+            transform: scaleX(1);
+        }
+
         .service-icon {
-            width: 46px;
-            height: 46px;
-            border-radius: 12px;
-            background: var(--orange-tint);
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: var(--ct);
+            color: var(--c);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 18px;
-            font-size: 1.3rem;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
         }
 
         .service-card h4 {
-            font-size: 1.05rem;
+            font-size: 1.08rem;
             margin-bottom: 10px;
         }
 
         .service-card p {
             font-size: .9rem;
             color: var(--gray);
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
 
         .service-card .link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
             font-size: .85rem;
-            font-weight: 700;
-            color: var(--green);
+            font-weight: 800;
+            color: var(--green-dark);
+        }
+
+        .service-card .link i {
+            transition: transform .2s;
+        }
+
+        .service-card .link:hover i {
+            transform: translateX(4px);
         }
 
         /* ========== PÔLES ========== */
         .poles {
-            background: var(--gray-bg);
-            border-top: 1px solid var(--gray-line);
-            border-bottom: 1px solid var(--gray-line);
+            background: var(--white);
         }
 
         .poles-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
+            gap: 18px;
         }
 
         .pole-card {
+            --c: var(--green);
             background: #fff;
-            border-radius: 12px;
-            padding: 20px;
+            border-radius: 16px;
+            padding: 22px;
             border: 1px solid var(--gray-line);
-            box-shadow: 0 4px 14px -8px rgba(36, 38, 43, .1);
+            border-top: 4px solid var(--c);
+            box-shadow: var(--shadow-sm);
+            transition: transform .2s, box-shadow .2s;
+        }
+
+        .pole-card:nth-child(4n+2) {
+            --c: var(--yellow);
+        }
+
+        .pole-card:nth-child(4n+3) {
+            --c: var(--orange);
+        }
+
+        .pole-card:nth-child(4n+4) {
+            --c: var(--red);
+        }
+
+        .pole-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
         }
 
         .pole-card .since {
-            font-size: .72rem;
-            color: var(--orange-dark);
+            font-size: .7rem;
+            color: var(--ink-soft);
             font-weight: 800;
             letter-spacing: .06em;
-            background: var(--orange-tint);
+            background: var(--gray-bg);
             display: inline-block;
-            padding: 3px 9px;
+            padding: 4px 10px;
             border-radius: 999px;
         }
 
         .pole-card h4 {
-            font-size: 1rem;
-            margin: 10px 0;
+            font-size: 1.02rem;
+            margin: 12px 0 10px;
         }
 
         .pole-card .zone {
@@ -678,73 +1076,137 @@
             color: var(--ink-soft);
             border-top: 1px solid var(--gray-line);
             padding-top: 12px;
-            line-height: 1.6;
+            line-height: 1.65;
         }
 
         /* ========== FAQ ========== */
+        .faq {
+            background: var(--gray-bg);
+        }
+
         .faq-item {
-            border-bottom: 1px solid var(--gray-line);
-            padding: 22px 0;
-            cursor: pointer;
+            background: #fff;
+            border: 1px solid var(--gray-line);
+            border-radius: 14px;
+            margin-bottom: 12px;
+            transition: box-shadow .2s, border-color .2s;
+        }
+
+        .faq-item.open {
+            border-color: rgba(63, 163, 80, .45);
+            box-shadow: var(--shadow-sm);
         }
 
         .faq-q {
+            width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 20px;
+            padding: 20px 22px;
+            background: none;
+            border: 0;
+            text-align: left;
+            font: inherit;
             font-weight: 700;
             font-family: 'Space Grotesk', sans-serif;
-            gap: 20px;
+            font-size: 1rem;
+            color: var(--ink);
+            cursor: pointer;
+        }
+
+        .faq-q .right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: none;
         }
 
         .faq-q .badge {
+            font-family: 'Manrope', sans-serif;
             font-size: .72rem;
-            font-weight: 700;
+            font-weight: 800;
             padding: 4px 10px;
             border-radius: 999px;
             background: var(--green-tint);
-            color: var(--green);
+            color: var(--green-dark);
             white-space: nowrap;
+        }
+
+        .faq-item .chev {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: var(--orange-tint);
+            color: var(--orange-dark);
+            font-size: 1.2rem;
+            line-height: 1;
+            transition: transform .2s, background .2s, color .2s;
+        }
+
+        .faq-item.open .chev {
+            transform: rotate(45deg);
+            background: var(--green);
+            color: #fff;
         }
 
         .faq-a {
             max-height: 0;
             overflow: hidden;
-            transition: max-height .25s ease;
-            font-size: .92rem;
-            color: var(--gray);
+            transition: max-height .3s ease, padding .3s ease;
+            padding: 0 22px;
+            font-size: .93rem;
+            color: var(--ink-soft);
         }
 
         .faq-item.open .faq-a {
             max-height: 400px;
-            padding-top: 12px;
-        }
-
-        .faq-item .chev {
-            transition: transform .2s;
-            font-size: 1.2rem;
-            color: var(--orange);
-        }
-
-        .faq-item.open .chev {
-            transform: rotate(45deg);
+            padding: 0 22px 22px;
         }
 
         /* ========== CONTACT ========== */
         .contact-section {
             background: var(--white);
-            border-top: 1px solid var(--gray-line);
         }
 
         .contact-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
+            grid-template-columns: 1.1fr .9fr;
+            gap: 56px;
+        }
+
+        .contact-grid h2 {
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
         }
 
         .contact-lead {
             color: var(--gray);
             margin: 14px 0 26px;
+        }
+
+        .flash {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: .9rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .flash-ok {
+            background: var(--green-tint);
+            color: var(--green-dark);
+            border-left: 4px solid var(--green);
+        }
+
+        .flash-err {
+            background: var(--red-tint);
+            color: #a8141b;
+            border-left: 4px solid var(--red);
         }
 
         .form-grid {
@@ -757,22 +1219,67 @@
             grid-column: 1 / -1;
         }
 
-        .contact-info {
+        .field label {
+            display: block;
+            font-size: .76rem;
+            font-weight: 800;
+            color: var(--ink-soft);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+        }
+
+        .field input,
+        .field textarea {
+            width: 100%;
+            padding: 13px 15px;
+            border: 1.5px solid var(--gray-line);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: .93rem;
             background: var(--gray-bg);
-            border-radius: var(--radius);
-            padding: 32px;
+            transition: all .2s;
+        }
+
+        .field textarea {
+            resize: vertical;
+            min-height: 130px;
+        }
+
+        .field input:focus,
+        .field textarea:focus {
+            outline: none;
+            border-color: var(--green);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(63, 163, 80, .15);
+        }
+
+        .contact-info {
+            position: relative;
+            color: #fff;
+            border-radius: 24px;
+            padding: 36px;
             align-self: start;
+            overflow: hidden;
+            background:
+                radial-gradient(420px 280px at 100% 0%, rgba(255, 122, 0, .35), transparent 60%),
+                radial-gradient(380px 260px at 0% 100%, rgba(255, 201, 20, .22), transparent 60%),
+                linear-gradient(145deg, var(--green), var(--green-dark));
+            box-shadow: var(--shadow);
         }
 
         .contact-info h3 {
-            margin-bottom: 20px;
+            color: #fff;
+            margin-bottom: 24px;
+            font-size: 1.3rem;
         }
 
         .info-row {
             display: flex;
             gap: 14px;
+            align-items: center;
             margin-bottom: 18px;
-            font-size: .92rem;
+            font-size: .93rem;
         }
 
         .info-row:last-child {
@@ -781,13 +1288,29 @@
 
         .info-row .ic {
             flex: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            background: rgba(255, 255, 255, .18);
+            font-size: 1.1rem;
         }
 
         /* ========== FOOTER ========== */
         footer {
-            background: #1c1d21;
+            position: relative;
+            background: var(--slate-deep);
             color: #c9cace;
-            padding: 64px 0 28px;
+            padding: 68px 0 28px;
+        }
+
+        footer::before {
+            content: "";
+            position: absolute;
+            inset: 0 0 auto 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--green) 0 34%, var(--yellow) 34% 67%, var(--red) 67% 100%);
         }
 
         .footer-grid {
@@ -800,7 +1323,7 @@
         .footer-grid h5 {
             color: #fff;
             font-family: 'Space Grotesk', sans-serif;
-            font-size: .92rem;
+            font-size: .95rem;
             margin-bottom: 16px;
         }
 
@@ -809,16 +1332,20 @@
             font-size: .88rem;
         }
 
+        .footer-grid a {
+            transition: color .15s;
+        }
+
         .footer-grid a:hover {
-            color: var(--orange);
+            color: var(--yellow);
         }
 
         .footer-logo {
-            height: 110px;
+            height: 100px;
             width: auto;
             background: #fff;
-            padding: 8px 12px;
-            border-radius: 10px;
+            padding: 8px 14px;
+            border-radius: 14px;
             object-fit: contain;
         }
 
@@ -826,13 +1353,14 @@
             display: flex;
             gap: 10px;
             margin-top: 22px;
+            flex-wrap: wrap;
         }
 
         .social-btn {
             width: 38px;
             height: 38px;
             border-radius: 50%;
-            border: 1.5px solid #45464c;
+            border: 1.5px solid #45505a;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -847,25 +1375,69 @@
         }
 
         .social-btn:hover {
-            border-color: var(--orange);
-            color: var(--orange);
-            background: rgba(224, 122, 47, .1);
+            border-color: var(--yellow);
+            color: var(--yellow);
+            background: rgba(255, 201, 20, .1);
             transform: translateY(-2px);
         }
 
         .footer-bottom {
-            border-top: 1px solid #33343a;
+            border-top: 1px solid #333f49;
             padding-top: 24px;
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 12px;
             font-size: .82rem;
-            color: #8b8d94;
+            color: #8b95a0;
+        }
+
+        /* Bouton retour en haut */
+        .to-top {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            z-index: 60;
+            width: 44px;
+            height: 44px;
+            border: 0;
+            border-radius: 50%;
+            background: var(--green);
+            color: #fff;
+            font-size: 1.2rem;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            box-shadow: 0 10px 22px -8px rgba(63, 163, 80, .9);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all .25s;
+        }
+
+        .to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: none;
+        }
+
+        .to-top:hover {
+            background: var(--green-dark);
         }
 
         /* ========== RESPONSIVE ========== */
+        @media (max-width: 1020px) {
+            .nav-links a {
+                padding: 8px 9px;
+                font-size: .85rem;
+            }
+        }
+
         @media (max-width: 920px) {
+            section {
+                padding: 72px 0;
+            }
+
             .nav-links {
                 position: absolute;
                 top: 100%;
@@ -873,15 +1445,21 @@
                 right: 0;
                 background: #fff;
                 flex-direction: column;
-                align-items: flex-start;
-                padding: 20px 28px;
+                align-items: stretch;
+                padding: 14px 20px 20px;
                 border-bottom: 1px solid var(--gray-line);
-                gap: 16px;
+                box-shadow: 0 20px 30px -20px rgba(25, 34, 42, .3);
+                gap: 4px;
                 display: none;
             }
 
             .nav-links.open {
                 display: flex;
+            }
+
+            .nav-links a {
+                padding: 12px 14px;
+                font-size: .95rem;
             }
 
             .menu-toggle {
@@ -894,7 +1472,8 @@
 
             .hero-grid,
             .about-grid,
-            .contact-grid {
+            .contact-grid,
+            .anniv-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -902,23 +1481,17 @@
                 text-align: center;
             }
 
-            .hero-grid .lead {
+            .hero .lead {
                 margin-left: auto;
                 margin-right: auto;
             }
 
-            .hero .eyebrow,
-            .hero-cta,
-            .hero-stat {
+            .hero-cta {
                 justify-content: center;
             }
 
-            .hero-stat .lead {
-                text-align: left;
-            }
-
-            .verify-form {
-                grid-template-columns: 1fr 1fr;
+            .hero-stats {
+                margin-inline: auto;
             }
 
             .objectifs,
@@ -950,224 +1523,46 @@
             .services-grid {
                 grid-template-columns: 1fr;
             }
+
+            .countdown {
+                gap: 8px;
+            }
+
+            .nav-actions .btn {
+                padding: 10px 16px;
+                font-size: .85rem;
+            }
         }
 
         @media (max-width: 560px) {
 
-            .verify-form,
             .poles-grid,
             .form-grid {
                 grid-template-columns: 1fr;
             }
-        }
 
-        .hero-grid>* {
-            min-width: 0;
-            /* évite qu'une image large déforme la grille */
-        }
-
-        /* Cadre FIXE : ses dimensions ne dépendent plus de l'image affichée */
-        .hero-carousel {
-            position: relative;
-            width: 100%;
-            max-width: 540px;
-            margin-inline: auto;
-            aspect-ratio: 4 / 5;
-            /* ratio fixe du bloc */
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            background: var(--white-bg);
-        }
-
-        .hc-slide {
-            display: none;
-            flex-direction: column;
-            background: var(--white);
-            height: 100%;
-        }
-
-        .hc-slide.active {
-            display: flex;
-        }
-
-        /* Zone image : prend tout l'espace restant au-dessus de la légende */
-        .hc-media {
-            flex: 1;
-            min-height: 0;
-            /* indispensable pour que flex puisse réduire */
-            background: var(--white);
-        }
-
-        /* L'image s'adapte au cadre sans jamais le modifier */
-        .hc-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            /* affiche l'affiche en entier, sans rognage */
-        }
-
-        /* Légende à hauteur fixe pour que la zone image ne bouge pas non plus */
-        .hc-caption {
-            flex: none;
-            height: 84px;
-            background: #fff;
-            padding: 14px 26px;
-            border-top: 3px solid var(--orange);
-            overflow: hidden;
-        }
-
-        .hc-caption .title {
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        /* ========== 40 ANS ONFP ========== */
-        .anniv-bar {
-            background: linear-gradient(90deg, var(--green), var(--green));
-            color: #fff;
-            text-align: center;
-            font-size: .85rem;
-            font-weight: 700;
-            padding: 9px 16px;
-        }
-
-        .anniv-bar a {
-            text-decoration: underline;
-            text-underline-offset: 3px;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--orange-tint);
-            color: var(--orange-dark);
-            border: 1px solid rgba(224, 122, 47, .35);
-            padding: 6px 14px;
-            border-radius: 999px;
-            font-size: .8rem;
-            font-weight: 800;
-            margin-bottom: 18px;
-        }
-
-        .anniv {
-            background: #1c1d21;
-            color: #fff;
-            padding: 72px 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .anniv::before {
-            content: "40";
-            position: absolute;
-            right: -20px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: clamp(12rem, 30vw, 26rem);
-            line-height: 1;
-            color: rgba(224, 122, 47, .1);
-            pointer-events: none;
-        }
-
-        .anniv-grid {
-            position: relative;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 48px;
-            align-items: center;
-        }
-
-        .anniv h2 {
-            color: #fff;
-            font-size: clamp(1.7rem, 3.4vw, 2.6rem);
-            line-height: 1.15;
-        }
-
-        .anniv h2 .accent {
-            color: var(--orange);
-        }
-
-        .anniv p {
-            color: #c9cace;
-            margin: 16px 0 24px;
-            max-width: 480px;
-        }
-
-        .anniv-meta {
-            display: flex;
-            gap: 22px;
-            flex-wrap: wrap;
-            font-size: .9rem;
-            color: #fff;
-            font-weight: 600;
-        }
-
-        .anniv-meta i {
-            color: var(--orange);
-            margin-right: 6px;
-        }
-
-        .countdown {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 14px;
-        }
-
-        .cd-box {
-            background: rgba(255, 255, 255, .06);
-            border: 1px solid rgba(255, 255, 255, .12);
-            border-radius: var(--radius);
-            padding: 22px 8px;
-            text-align: center;
-        }
-
-        .cd-box .n {
-            display: block;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(2rem, 4.5vw, 3.2rem);
-            font-weight: 700;
-            line-height: 1;
-            color: var(--orange);
-            font-variant-numeric: tabular-nums;
-        }
-
-        .cd-box .l {
-            display: block;
-            margin-top: 8px;
-            font-size: .7rem;
-            letter-spacing: .12em;
-            text-transform: uppercase;
-            color: #c9cace;
-        }
-
-        .cd-done {
-            grid-column: 1 / -1;
-            text-align: center;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--orange);
-        }
-
-        @media (max-width: 920px) {
-            .anniv-grid {
+            .hero-stats {
                 grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .wrap {
+                padding: 0 20px;
             }
         }
     </style>
 </head>
 
 <body>
-    {{-- ========== NAVBAR ========== --}}
+    {{-- ========== BARRE 40 ANS ========== --}}
     <div class="anniv-bar">
-        L'ONFP fête ses 40 ans le 19 novembre 2026 · <a href="#anniversaire">Découvrir</a>
+        🎉 L'ONFP fête ses 40 ans le 19 novembre 2026 · <a href="#anniversaire">Découvrir</a>
     </div>
+
+    {{-- ========== NAVBAR ========== --}}
     <header>
         <nav>
             <a href="{{ url('/') }}" class="brand">
@@ -1179,7 +1574,7 @@
                 <li><a href="#apropos">À propos</a></li>
                 <li><a href="#services">Services</a></li>
                 <li><a href="#poles">Nos pôles</a></li>
-                <li><a href="{{ route('manuels.showDefault') }}" target="_blank">Nos manuels</a></li>
+                <li><a href="{{ route('manuels.showDefault') }}" target="_blank" rel="noopener">Nos manuels</a></li>
                 <li><a href="#faq">FAQ</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -1187,8 +1582,10 @@
             <div class="nav-actions">
                 <a href="{{ route('register-page') }}" class="btn btn-ghost">S'inscrire</a>
                 <a href="{{ url('login') }}" class="btn btn-primary">Se connecter</a>
-                <button type="button" class="menu-toggle" aria-label="Ouvrir le menu"
-                    onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
+                <button type="button" class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu"
+                    aria-expanded="false" aria-controls="navLinks">
+                    <i class="bi bi-list"></i>
+                </button>
             </div>
         </nav>
     </header>
@@ -1199,42 +1596,37 @@
     <section class="hero" id="accueil">
         <div class="wrap hero-grid">
             <div>
-                <a href="#anniversaire" class="hero-badge">1986 – 2026 · 40 ans au service de la formation</a>
+                <a href="#anniversaire" class="hero-badge">
+                    <i class="bi bi-stars"></i> 1986 – 2026 · 40 ans au service de la formation
+                </a>
                 <div class="eyebrow">Office national de formation professionnelle</div>
-                <h1>La référence de la <span class="accente">formation professionnelle</span> au Sénégal</h1>
+                <h1>La référence de la <span class="accent">formation professionnelle</span> au Sénégal</h1>
                 <p class="lead">SIGOF centralise et digitalise vos démarches : demandes de formation, agréments
                     d'opérateurs, suivi des partenariats, en un seul portail, partout dans le pays.</p>
                 <div class="hero-cta">
-                    <a href="{{ route('register-page') }}" class="btn btn-primary">Créer mon compte</a>
+                    <a href="{{ route('register-page') }}" class="btn btn-primary">
+                        Créer mon compte <i class="bi bi-arrow-right"></i>
+                    </a>
+                    <a href="#apropos" class="btn btn-ghost">Découvrir la plateforme</a>
                     {{-- <a href="{{ url('pcharge') }}" class="btn btn-danger">Déposer une prise en charge</a> --}}
                 </div>
-                <div class="hero-stat">
-                    <span class="num">{{ $anciennete }}+</span>
-                    <p class="lead">ans d'expérience dans la formation professionnelle au Sénégal</p>
+
+                <div class="hero-stats">
+                    <div class="stat-card">
+                        <span class="num">{{ $anciennete }}+</span>
+                        <span class="lbl">ans d'expérience dans la formation professionnelle</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="num">{{ $antennes->count() }}</span>
+                        <span class="lbl">pôles sur tout le territoire</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="num">6</span>
+                        <span class="lbl">domaines d'intervention</span>
+                    </div>
                 </div>
             </div>
 
-            {{-- @if ($slides->isNotEmpty())
-                <div class="hero-carousel" id="heroCarousel">
-                    @foreach ($slides as $post)
-                        <div class="hc-slide {{ $loop->first ? 'active' : '' }}">
-                            <img src="{{ asset($post->getPoste()) }}" alt="{{ $post->legende ?? $post->name }}">
-                            <div class="hc-caption">
-                                <div class="tag">{{ $post->titre }}</div>
-                                <div class="title">{{ str($post->name)->limit(50) }}</div>
-                            </div>
-                        </div>
-                    @endforeach
-
-                    @if ($slides->count() > 1)
-                        <button type="button" class="hc-nav hc-prev" onclick="hcMove(-1)"
-                            aria-label="Image précédente">‹</button>
-                        <button type="button" class="hc-nav hc-next" onclick="hcMove(1)"
-                            aria-label="Image suivante">›</button>
-                        <div class="hc-dots" id="hcDots"></div>
-                    @endif
-                </div>
-            @endif --}}
             @if ($slides->isNotEmpty())
                 <div class="hero-carousel" id="heroCarousel">
                     @foreach ($slides as $post)
@@ -1257,9 +1649,14 @@
                         <div class="hc-dots" id="hcDots"></div>
                     @endif
                 </div>
+            @else
+                <div class="hero-visual">
+                    <img src="{{ asset('assets/img/logo-onfp.png') }}" alt="Logo ONFP">
+                </div>
             @endif
         </div>
 
+        {{-- Bloc « Vérifiez votre sélection » (désactivé) --}}
         {{-- <div class="wrap">
             <div class="verify-card">
                 <h3>Vérifiez votre sélection</h3>
@@ -1282,46 +1679,42 @@
                 </form>
             </div>
         </div> --}}
-        {{-- ========== 40 ANS ========== --}}
-        <section class="anniv" id="anniversaire">
-            <div class="wrap anniv-grid">
-                <div>
-                    <div class="eyebrow" style="color:var(--orange)">Événement</div>
-                    <h2>L'ONFP célèbre ses <span class="accent">40 ans</span></h2>
-                    <p>Quatre décennies d'engagement pour la formation professionnelle au Sénégal.
-                        Rejoignez-nous pour célébrer cette étape historique.</p>
-                    <div class="anniv-meta">
-                        <span><i class="bi bi-calendar-event"></i>Jeudi 19 novembre 2026</span>
-                        <span><i class="bi bi-geo-alt"></i>Azalaï Hôtel, Dakar</span>
-                    </div>
-                </div>
+    </section>
 
-                <div class="countdown" id="countdown" aria-live="off">
-                    <div class="cd-box"><span class="n" id="cd-d">--</span><span class="l">Jours</span>
-                    </div>
-                    <div class="cd-box"><span class="n" id="cd-h">--</span><span class="l">Heures</span>
-                    </div>
-                    <div class="cd-box"><span class="n" id="cd-m">--</span><span
-                            class="l">Minutes</span></div>
-                    <div class="cd-box"><span class="n" id="cd-s">--</span><span
-                            class="l">Secondes</span></div>
+    {{-- ========== 40 ANS ========== --}}
+    <section class="anniv" id="anniversaire">
+        <div class="wrap anniv-grid">
+            <div class="reveal">
+                <div class="eyebrow">Événement</div>
+                <h2>L'ONFP célèbre ses <span class="accent">40 ans</span></h2>
+                <p>Quatre décennies d'engagement pour la formation professionnelle au Sénégal.
+                    Rejoignez-nous pour célébrer cette étape historique.</p>
+                <div class="anniv-meta">
+                    <span><i class="bi bi-calendar-event"></i>Jeudi 19 novembre 2026</span>
+                    <span><i class="bi bi-geo-alt"></i>Azalaï Hôtel, Dakar</span>
                 </div>
             </div>
-        </section>
+
+            <div class="countdown reveal" id="countdown" aria-live="off">
+                <div class="cd-box"><span class="n" id="cd-d">--</span><span class="l">Jours</span></div>
+                <div class="cd-box"><span class="n" id="cd-h">--</span><span class="l">Heures</span></div>
+                <div class="cd-box"><span class="n" id="cd-m">--</span><span class="l">Minutes</span></div>
+                <div class="cd-box"><span class="n" id="cd-s">--</span><span class="l">Secondes</span></div>
+            </div>
+        </div>
     </section>
 
     {{-- ========== À PROPOS ========== --}}
     <section class="about" id="apropos">
         <div class="wrap about-grid">
-            <div>
+            <div class="reveal">
                 <div class="eyebrow">À propos de l'ONFP</div>
                 <h2>Un établissement public au service de la formation, depuis 1986</h2>
                 <ul class="about-list">
                     <li><span class="dot"></span>Aider à mettre en œuvre les objectifs sectoriels du gouvernement et
                         assister les organismes publics et privés.</li>
                     <li><span class="dot"></span>Réaliser des études sur l'emploi, la qualification professionnelle
-                        et
-                        les moyens de la formation initiale et continue.</li>
+                        et les moyens de la formation initiale et continue.</li>
                     <li><span class="dot"></span>Coordonner les interventions par branche professionnelle et par
                         action prioritaire.</li>
                     <li><span class="dot"></span>Coordonner l'action de formation professionnelle des organismes
@@ -1336,33 +1729,39 @@
                 </div>
             </div>
 
-            <div>
+            <div class="reveal">
                 <div class="eyebrow">La plateforme SIGOF</div>
                 <h2>Toute la gestion des opérations de formation, sur un seul portail</h2>
                 <p class="about-intro">Le Système Intégré de Gestion des Opérations de Formation centralise et
                     automatise la gestion des demandeurs, des opérateurs et des partenaires de l'ONFP.</p>
                 <div class="objectifs">
                     <div class="obj-card">
+                        <div class="ico"><i class="bi bi-sliders"></i></div>
                         <h4>Optimisation des processus</h4>
                         <p>Simplifier la gestion des inscriptions et la coordination des parties prenantes.</p>
                     </div>
                     <div class="obj-card">
+                        <div class="ico"><i class="bi bi-person-lines-fill"></i></div>
                         <h4>Gestion des demandeurs</h4>
                         <p>Enregistrement et traitement des demandes individuelles ou collectives.</p>
                     </div>
                     <div class="obj-card">
+                        <div class="ico"><i class="bi bi-building"></i></div>
                         <h4>Gestion des opérateurs</h4>
                         <p>Enregistrement et traitement des prestataires de formation.</p>
                     </div>
                     <div class="obj-card">
+                        <div class="ico"><i class="bi bi-link-45deg"></i></div>
                         <h4>Gestion des partenaires</h4>
                         <p>Coordination et suivi des collaborations institutionnelles.</p>
                     </div>
                     <div class="obj-card">
+                        <div class="ico"><i class="bi bi-window-desktop"></i></div>
                         <h4>Portail interactif</h4>
                         <p>Interface accessible en ligne pour demandeurs et opérateurs.</p>
                     </div>
                     <div class="obj-card">
+                        <div class="ico"><i class="bi bi-bar-chart-line"></i></div>
                         <h4>Statistiques à jour</h4>
                         <p>Suivi des actions de formation menées sur l'ensemble du territoire.</p>
                     </div>
@@ -1372,53 +1771,59 @@
     </section>
 
     {{-- ========== SERVICES ========== --}}
-    <section id="services">
+    <section class="services" id="services">
         <div class="wrap">
-            <div class="section-head">
+            <div class="section-head reveal">
                 <div class="eyebrow">Nos missions</div>
                 <h2>Six domaines d'intervention, une seule mission</h2>
                 <p>De la formation à l'insertion professionnelle, l'ONFP accompagne les branches professionnelles, les
                     entreprises et les demandeurs d'emploi à chaque étape.</p>
             </div>
             <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">🎓</div>
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="bi bi-mortarboard"></i></div>
                     <h4>Formation | Qualification</h4>
                     <p>Organisation d'actions de formation au bénéfice des branches professionnelles, demandeurs
                         d'emploi, travailleurs et entreprises.</p>
-                    <a class="link" href="https://www.onfp.sn/formations">En savoir plus →</a>
+                    <a class="link" href="https://www.onfp.sn/formations">En savoir plus <i
+                            class="bi bi-arrow-right"></i></a>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">✅</div>
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="bi bi-patch-check"></i></div>
                     <h4>Évaluation | Certification</h4>
                     <p>Contrôle de l'exécution des conventions signées avec les opérateurs et évaluation des actions
                         de formation menées.</p>
-                    <a class="link" href="https://www.onfp.sn/evaluations">En savoir plus →</a>
+                    <a class="link" href="https://www.onfp.sn/evaluations">En savoir plus <i
+                            class="bi bi-arrow-right"></i></a>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">🏗️</div>
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="bi bi-bricks"></i></div>
                     <h4>Construction | Équipement</h4>
                     <p>Maîtrise d'ouvrage de construction et d'équipement de centres de formation professionnelle.</p>
-                    <a class="link" href="https://www.onfp.sn/constructions">En savoir plus →</a>
+                    <a class="link" href="https://www.onfp.sn/constructions">En savoir plus <i
+                            class="bi bi-arrow-right"></i></a>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">🧭</div>
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="bi bi-compass"></i></div>
                     <h4>Suivi-Insertion</h4>
                     <p>Analyse des besoins, co-élaboration du projet professionnel et conseil sur les opportunités du
                         marché de l'emploi.</p>
-                    <a class="link" href="https://www.onfp.sn/suivi-insertions">En savoir plus →</a>
+                    <a class="link" href="https://www.onfp.sn/suivi-insertions">En savoir plus <i
+                            class="bi bi-arrow-right"></i></a>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">📚</div>
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="bi bi-journal-bookmark"></i></div>
                     <h4>Documentation | Édition</h4>
                     <p>Production et diffusion de documentation et de supports techniques et pédagogiques.</p>
-                    <a class="link" href="https://www.onfp.sn/documentations">En savoir plus →</a>
+                    <a class="link" href="https://www.onfp.sn/documentations">En savoir plus <i
+                            class="bi bi-arrow-right"></i></a>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">🔎</div>
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="bi bi-search"></i></div>
                     <h4>Étude | Recherche</h4>
                     <p>Production et diffusion de connaissances et de savoirs sur la formation professionnelle.</p>
-                    <a class="link" href="https://www.onfp.sn/etudes">En savoir plus →</a>
+                    <a class="link" href="https://www.onfp.sn/etudes">En savoir plus <i
+                            class="bi bi-arrow-right"></i></a>
                 </div>
             </div>
         </div>
@@ -1427,7 +1832,7 @@
     {{-- ========== PÔLES ========== --}}
     <section class="poles" id="poles">
         <div class="wrap">
-            <div class="section-head">
+            <div class="section-head reveal">
                 <div class="eyebrow">Couverture nationale</div>
                 <h2>{{ $antennes->count() }} pôles, présents sur tout le territoire</h2>
                 <p>De Dakar à Ziguinchor, un réseau de pôles régionaux au plus proche des demandeurs et des
@@ -1443,7 +1848,7 @@
                             ->implode(' / ');
                         $regions = $antenne->regions?->pluck('nom')->filter()->implode(' - ');
                     @endphp
-                    <div class="pole-card">
+                    <div class="pole-card reveal">
                         <div class="since">
                             {{ $antenne->date_ouverture ? 'DEPUIS ' . $antenne->date_ouverture->format('Y') : $antenne->code }}
                         </div>
@@ -1470,35 +1875,42 @@
     </section>
 
     {{-- ========== FAQ ========== --}}
-    <section id="faq">
+    <section class="faq" id="faq">
         <div class="wrap" style="max-width:820px;">
-            <div class="section-head">
+            <div class="section-head reveal">
                 <div class="eyebrow">Besoin d'aide</div>
                 <h2>Réponses aux questions fréquentes</h2>
             </div>
-            <div class="faq-list">
-                <div class="faq-item" onclick="this.classList.toggle('open')">
-                    <div class="faq-q">Bonjour, je n'arrive pas à m'inscrire sur vos sites <span
-                            class="chev">+</span></div>
+            <div class="faq-list reveal">
+                <div class="faq-item">
+                    <button type="button" class="faq-q" aria-expanded="false">
+                        <span>Bonjour, je n'arrive pas à m'inscrire sur vos sites</span>
+                        <span class="right"><span class="chev">+</span></span>
+                    </button>
                     <div class="faq-a">Pour l'inscription, suivez le guide ou la vidéo disponible sur la plateforme.
                         Si le problème persiste, appelez directement le 33 827 92 51.</div>
                 </div>
-                <div class="faq-item" onclick="this.classList.toggle('open')">
-                    <div class="faq-q">Nous nous sommes trompés d'option : « apprenant » au lieu d'« opérateur »
-                        <span class="badge">Résolu</span>
-                    </div>
+                <div class="faq-item">
+                    <button type="button" class="faq-q" aria-expanded="false">
+                        <span>Nous nous sommes trompés d'option : « apprenant » au lieu d'« opérateur »</span>
+                        <span class="right"><span class="badge">Résolu</span><span class="chev">+</span></span>
+                    </button>
                     <div class="faq-a">Contactez le support via le formulaire de contact pour faire corriger votre
                         profil vers « Opérateur ».</div>
                 </div>
-                <div class="faq-item" onclick="this.classList.toggle('open')">
-                    <div class="faq-q">Je voudrais déposer une demande d'agrément de formation <span
-                            class="chev">+</span></div>
+                <div class="faq-item">
+                    <button type="button" class="faq-q" aria-expanded="false">
+                        <span>Je voudrais déposer une demande d'agrément de formation</span>
+                        <span class="right"><span class="chev">+</span></span>
+                    </button>
                     <div class="faq-a">Créez votre compte opérateur puis déposez votre dossier d'agrément directement
                         depuis votre espace personnel.</div>
                 </div>
-                <div class="faq-item" onclick="this.classList.toggle('open')">
-                    <div class="faq-q">J'aimerais supprimer mon compte et mes informations <span
-                            class="chev">+</span></div>
+                <div class="faq-item">
+                    <button type="button" class="faq-q" aria-expanded="false">
+                        <span>J'aimerais supprimer mon compte et mes informations</span>
+                        <span class="right"><span class="chev">+</span></span>
+                    </button>
                     <div class="faq-a">Contactez notre équipe via le formulaire ci-dessous ; votre demande sera
                         traitée conformément à notre politique de données.</div>
                 </div>
@@ -1509,43 +1921,56 @@
     {{-- ========== CONTACT ========== --}}
     <section class="contact-section" id="contact">
         <div class="wrap contact-grid">
-            <div>
+            <div class="reveal">
                 <div class="eyebrow">Nous contacter</div>
                 <h2>Une question ? Écrivez-nous</h2>
                 <p class="contact-lead">Ce formulaire est réservé aux questions et demandes d'information. Il ne
                     remplace pas un dépôt de candidature.</p>
-                {{-- TODO : remplacer action="#" par votre route de contact --}}
-                {{-- <form class="form-grid" method="POST" action="#">
-                    @csrf --}}
+
+                @if ($msg = session('success') ?? session('status'))
+                    <div class="flash flash-ok" role="status"><i class="bi bi-check-circle-fill"></i>
+                        <span>{{ $msg }}</span>
+                    </div>
+                @endif
+                @if ($errors->any())
+                    <div class="flash flash-err" role="alert"><i class="bi bi-exclamation-circle-fill"></i>
+                        <span>{{ $errors->first() }}</span>
+                    </div>
+                @endif
+
                 <form class="form-grid" method="POST" action="{{ route('contacts.store') }}">
                     @csrf
                     <div class="field"><label for="c-email">Email</label>
                         <input id="c-email" name="emailadresse" type="email" placeholder="vous@exemple.sn"
-                            required>
+                            value="{{ old('emailadresse') }}" required>
                     </div>
                     <div class="field"><label for="c-tel">Téléphone</label>
-                        <input id="c-tel" name="telephone" type="tel" placeholder="770000000">
+                        <input id="c-tel" name="telephone" type="tel" placeholder="770000000"
+                            value="{{ old('telephone') }}">
                     </div>
                     <div class="field full"><label for="c-objet">Objet</label>
                         <input id="c-objet" name="objet" type="text" placeholder="Objet de votre message"
-                            required>
+                            value="{{ old('objet') }}" required>
                     </div>
                     <div class="field full"><label for="c-message">Message</label>
-                        <textarea id="c-message" name="message" placeholder="Écrivez votre message ici…" required></textarea>
+                        <textarea id="c-message" name="message" placeholder="Écrivez votre message ici…" required>{{ old('message') }}</textarea>
                     </div>
-                    <div class="full"><button type="submit" class="btn btn-primary">Envoyer le message</button>
+                    <div class="full"><button type="submit" class="btn btn-primary">Envoyer le message <i
+                                class="bi bi-send"></i></button>
                     </div>
                 </form>
             </div>
 
-            <div class="contact-info">
+            <div class="contact-info reveal">
                 <h3>Direction générale</h3>
-                <div class="info-row"><span class="ic"></span><span>Sipres 1, lot 2 - 2 voies Liberté 6,
-                        extension
-                        VDN, Dakar</span></div>
-                <div class="info-row"><span class="ic"></span><span>+221 33 827 92 51</span></div>
-                <div class="info-row"><span class="ic"></span><span>onfp@onfp.sn</span></div>
-                <div class="info-row"><span class="ic"></span><span>WhatsApp : +221 77 291 18 38</span></div>
+                <div class="info-row"><span class="ic"><i class="bi bi-geo-alt"></i></span><span>Sipres 1, lot 2 - 2
+                        voies Liberté 6, extension VDN, Dakar</span></div>
+                <div class="info-row"><span class="ic"><i class="bi bi-telephone"></i></span><span>+221 33 827 92
+                        51</span></div>
+                <div class="info-row"><span class="ic"><i class="bi bi-envelope"></i></span><span>onfp@onfp.sn</span>
+                </div>
+                <div class="info-row"><span class="ic"><i class="bi bi-whatsapp"></i></span><span>WhatsApp : +221 77
+                        291 18 38</span></div>
             </div>
         </div>
     </section>
@@ -1613,6 +2038,8 @@
                         <li><a href="#accueil">Accueil</a></li>
                         <li><a href="#apropos">À propos</a></li>
                         <li><a href="#services">Services</a></li>
+                        <li><a href="#poles">Nos pôles</a></li>
+                        <li><a href="#faq">FAQ</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
@@ -1635,13 +2062,97 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <span>© ONFP · Tous droits réservés</span>
+                <span>© {{ date('Y') }} ONFP · Tous droits réservés</span>
                 <span>Conçu par l'équipe digitale ONFP</span>
             </div>
         </div>
     </footer>
 
+    <button type="button" class="to-top" id="toTop" aria-label="Retour en haut"><i
+            class="bi bi-arrow-up"></i></button>
+
+    {{-- ========== SCRIPTS ========== --}}
     <script>
+        // Menu mobile
+        (function() {
+            const toggle = document.getElementById('menuToggle');
+            const links = document.getElementById('navLinks');
+            if (!toggle || !links) return;
+            const icon = toggle.querySelector('i');
+
+            function setOpen(open) {
+                links.classList.toggle('open', open);
+                toggle.setAttribute('aria-expanded', open);
+                icon.className = open ? 'bi bi-x-lg' : 'bi bi-list';
+            }
+            toggle.addEventListener('click', () => setOpen(!links.classList.contains('open')));
+            links.addEventListener('click', e => {
+                if (e.target.closest('a')) setOpen(false);
+            });
+        })();
+
+        // Lien actif selon la section visible + bouton retour en haut
+        (function() {
+            const links = [...document.querySelectorAll('.nav-links a[href^="#"]')];
+            const map = new Map(links.map(a => [a.getAttribute('href').slice(1), a]));
+            const sections = [...map.keys()].map(id => document.getElementById(id)).filter(Boolean);
+            const toTop = document.getElementById('toTop');
+
+            function onScroll() {
+                const y = window.scrollY + 140;
+                let current = null;
+                sections.forEach(s => {
+                    if (s.offsetTop <= y) current = s.id;
+                });
+                links.forEach(a => a.classList.remove('active'));
+                if (current && map.get(current)) map.get(current).classList.add('active');
+                toTop.classList.toggle('show', window.scrollY > 600);
+            }
+            window.addEventListener('scroll', onScroll, {
+                passive: true
+            });
+            onScroll();
+            toTop.addEventListener('click', () => window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            }));
+        })();
+
+        // Apparition au scroll
+        (function() {
+            const items = document.querySelectorAll('.reveal');
+            if (!('IntersectionObserver' in window)) {
+                items.forEach(el => el.classList.add('in'));
+                return;
+            }
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(en => {
+                    if (en.isIntersecting) {
+                        en.target.classList.add('in');
+                        io.unobserve(en.target);
+                    }
+                });
+            }, {
+                threshold: .12
+            });
+            items.forEach((el, i) => {
+                el.style.transitionDelay = (i % 3) * 80 + 'ms';
+                io.observe(el);
+            });
+        })();
+
+        // FAQ (accordéon accessible)
+        document.querySelectorAll('.faq-item').forEach(item => {
+            const btn = item.querySelector('.faq-q');
+            btn.addEventListener('click', () => {
+                const open = item.classList.toggle('open');
+                btn.setAttribute('aria-expanded', open);
+            });
+        });
+    </script>
+
+    <script>
+        // Carrousel du hero
         (function() {
             const slides = document.querySelectorAll('#heroCarousel .hc-slide');
             const dotsWrap = document.getElementById('hcDots');
@@ -1681,7 +2192,9 @@
             resetTimer();
         })();
     </script>
+
     <script>
+        // Compte à rebours des 40 ans
         (function() {
             // Dakar = UTC+0 toute l'année. Ajustez l'heure de début de la cérémonie.
             const target = new Date('2026-11-19T09:00:00Z').getTime();

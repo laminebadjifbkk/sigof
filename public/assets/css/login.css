@@ -2,7 +2,7 @@
 
 /* La couleur principale vient de --green (définie dans votre thème) */
 :root {
-    --login-accent: var(--green, #14833b);
+    --login-accent: var(--green, #3fa350);
     --login-accent-dark: color-mix(in srgb, var(--login-accent) 78%, #000);
     --login-accent-light: color-mix(in srgb, var(--login-accent) 70%, #fff);
     --login-accent-soft: color-mix(in srgb, var(--login-accent) 10%, #fff);
@@ -416,7 +416,7 @@ body.login-page {
     color: #fff;
     font-weight: 700;
     font-size: 1rem;
-    background: linear-gradient(90deg, var(--green, #14833b), var(--green, #14833b));
+    background: linear-gradient(90deg, var(--green, #3fa350), var(--green, #3fa350));
     box-shadow: 0 10px 24px color-mix(in srgb, var(--login-accent) 35%, transparent);
     transition: all .2s ease;
     display: flex;
