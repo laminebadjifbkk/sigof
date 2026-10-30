@@ -1617,11 +1617,11 @@
                         <span class="lbl">ans d'expérience dans la formation professionnelle</span>
                     </div>
                     <div class="stat-card">
-                        <span class="num">{{ $antennes->count() }}</span>
+                        <span class="num">{{ $antennes->count() - 1 }}</span>
                         <span class="lbl">pôles sur tout le territoire</span>
                     </div>
                     <div class="stat-card">
-                        <span class="num">6</span>
+                        <span class="num">{{ $domaines->count() }}</span>
                         <span class="lbl">domaines d'intervention</span>
                     </div>
                 </div>

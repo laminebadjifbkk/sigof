@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Models\Antenne;
 use App\Models\Collective;
 use App\Models\Contact;
+use App\Models\Domaine;
 use App\Models\Individuelle;
 use App\Models\Module;
 use App\Models\Operateur;
@@ -118,6 +119,7 @@ class AuthenticatedSessionController extends Controller
         $count_demandeurs    = $count_individuelles + $count_collectives;
         $count_projets       = Projet::count();
         $antennes            = Antenne::orderBy('name')->get();
+        $domaines            = Domaine::orderBy('name')->get();
 
         $count_operateurs = Operateur::where('statut_agrement', 'agréé')->count();
 
@@ -164,6 +166,7 @@ class AuthenticatedSessionController extends Controller
                 'referentiels',
                 'anciennete',
                 'antennes',
+                'domaines',
                 'services',
                 'posts_count',
                 'posts',
