@@ -87,6 +87,28 @@
                                 à <b>10h</b>, au <b>Hotel Azalaï, Dakar</b>.
                             </p>
 
+                            <p style="margin:0 0 16px;">
+                                Vous trouverez les termes de référence (TDR) de la célébration en cliquant sur le bouton
+                                ci-dessous :
+                            </p>
+
+                            <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 24px;">
+                                <tr>
+                                    <td style="background:#e07a2f;border-radius:8px;">
+                                        <a href="{{ $tdrUrl }}" target="_blank"
+                                            style="display:inline-block;padding:12px 24px;font-size:15px;font-weight:bold;color:#ffffff;text-decoration:none;">
+                                            Télécharger les termes de référence
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <p style="margin:0 0 16px;font-size:13px;color:#5b5e66;">
+                                Si le bouton ne fonctionne pas, copiez ce lien dans votre navigateur :<br>
+                                <a href="{{ $tdrUrl }}"
+                                    style="color:#c05f1c;word-break:break-all;">{{ $tdrUrl }}</a>
+                            </p>
+
                             <p style="margin:0 0 8px;">Voici les informations que vous nous avez communiquées :</p>
                             <ul style="margin:0 0 20px;padding-left:20px;">
                                 <li><b>Structure</b> : {{ $inscription->structure }}</li>

@@ -48,13 +48,22 @@ class ConfirmationInscription extends Mailable
         $this->inscription = $inscription;
     }
 
-    public function build()
+    /* public function build()
     {
         return $this->subject("Confirmation de votre participation – 40 ans de l'ONFP")
             ->view('emails.confirmation_inscription')
             ->attach(public_path('TDR_CELEBRATION_DES_40_ANS.pdf'), [
                 'as'   => 'TDR 40 ANS ONFP.pdf', // nom du fichier tel qu'il apparaîtra dans le mail
                 'mime' => 'application/pdf',
+            ]);
+    } */
+    public function build()
+    {
+        return $this->subject("Confirmation de votre participation – 40 ans de l'ONFP")
+            ->view('emails.confirmation_inscription')
+            ->with([
+                // URL absolue du TDR (fichier placé dans /public)
+                'tdrUrl' => route('tdr.download'),
             ]);
     }
 }

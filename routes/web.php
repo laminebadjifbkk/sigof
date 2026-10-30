@@ -1572,6 +1572,14 @@ Route::get('/prisenchargestatutregion/{statut}/{region}/{annee_scolaire}', [Form
             'Content-Type' => 'application/pdf',
         ]);
     });
+
+    Route::get('/tdr-40-ans-onfp', function () {
+        return response()->download(
+            public_path('TDR_CELEBRATION_DES_40_ANS.pdf'),
+            'TDR 40 ANS ONFP.pdf',
+            ['Content-Type' => 'application/pdf']
+        );
+    })->name('tdr.download');
 });
 
 /* Route::get('/book/view/{filename}', [BookController::class, 'show'])->name('book.view'); */
