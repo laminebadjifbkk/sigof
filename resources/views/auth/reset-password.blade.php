@@ -75,8 +75,8 @@
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
-    <link href="assets/img/favicon.png" rel="apple-touch-icon">
+    <link href="{{ asset('assets/img/favicon-32x32.png') }}" rel="icon">
+    <link href="assets/img/favicon-32x32.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">

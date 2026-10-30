@@ -19,7 +19,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>@yield('title', 'ONFP | HOME')</title>
     <!-- Favicons -->
-    <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
+    <link href="{{ asset('assets/img/favicon-32x32.png') }}" rel="icon">
     <meta content="" name="description">
     <meta content="" name="keywords">
     <!-- Google Tag Manager -->

@@ -10,11 +10,11 @@
             response.json().then(function(data) {
                 console.log(data);
                 if (data.success && data.score > 0.5) {
-                    console.log('recpatcha valid');
+                    console.log('recaptcha valid');
                 } else {
-                    document.getElementById('registerForm').addEventListener('submit', function(event) {
+                    document.getElementById('loginForm').addEventListener('submit', function(event) {
                         event.preventDefault();
-                        alert('erreur recpatcha');
+                        alert('Erreur reCAPTCHA : veuillez réessayer.');
                     });
                 }
             });
@@ -33,193 +33,180 @@
     <meta content="" name="description">
     <meta content="" name="keywords">
 
-    <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
-    <link href="{{ asset('assets/img/favicon.png') }}" rel="apple-touch-icon">
+    <link href="{{ asset('assets/img/favicon-32x32.png') }}" rel="icon">
+    <link href="{{ asset('assets/img/favicon-32x32.png') }}" rel="apple-touch-icon">
 
     <link href="https://fonts.gstatic.com" rel="preconnect">
     <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap"
         rel="stylesheet">
 
     <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/quill/quill.snow.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/quill/quill.bubble.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/simple-datatables/style.css') }}" rel="stylesheet">
-
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/login.css') }}" rel="stylesheet">
 
 </head>
 
-<body>
-    <main>
-        <div class="container">
-            <section
-                class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div
-                            class="col-12 col-md-6 col-sm-12 col-xs-12 col-xxl-6 d-flex flex-column align-items-center justify-content-center">
+<body class="login-page">
+    <main class="login-wrapper">
 
-                            {{-- <div class="d-flex justify-content-center py-4">
-                                <a href="{{ route('accueil') }}" class="logo d-flex align-items-center w-auto"
-                                    target="_blank">
-                                    <span class="d-none d-lg-block">ONFP</span>
-                                </a>
-                            </div> --}}
+        {{-- ===== Panneau marque ===== --}}
+        <aside class="login-brand">
+            <div class="brand-top">
+                <a href="{{ route('accueil') }}" class="brand-logo-card" title="ONFP — Accueil">
+                    <img src="{{ asset('assets/img/ONFP_photo-profil_1080x1080.png') }}" alt="Logo ONFP">
+                </a>
+            </div>
 
-                            <div class="card mb-3">
+            <div class="brand-middle">
+                <h1>Bienvenue sur votre<br>espace SIGOF</h1>
+                <p class="lead">Accédez à votre tableau de bord pour suivre vos formations, vos candidatures
+                    et vos démarches en toute simplicité.</p>
 
-                                <div class="card-body">
+                <ul class="brand-features">
+                    <li>
+                        <span class="ico"><i class="bi bi-shield-check"></i></span>
+                        Connexion sécurisée et données protégées
+                    </li>
+                    <li>
+                        <span class="ico"><i class="bi bi-lightning-charge"></i></span>
+                        Un accès rapide à tous vos services
+                    </li>
+                    <li>
+                        <span class="ico"><i class="bi bi-people"></i></span>
+                        Un accompagnement tout au long de votre parcours
+                    </li>
+                </ul>
+            </div>
 
-                                    <div class="pt-0 pb-2 text-center">
-                                        <h5 class="card-title fs-4 mb-1">
-                                            {{-- <a href="{{ route('accueil') }}"
-                                                class="logo d-flex align-items-center justify-content-center w-auto"
-                                                target="_blank">
-                                                <span class="d-none d-lg-block">ONFP</span>
-                                            </a> --}}
+            <div class="brand-bottom">
+                <span class="tricolor"></span>
+                <span>Office National de Formation Professionnelle</span>
+            </div>
+        </aside>
 
-                                            <a href="{{ route('accueil') }}" style="text-decoration: none">
-                                                <span class="fw-bold" style="font-size: 2rem;">Connexion</span>
-                                            </a>
-                                        </h5>
-                                        <p class="small mb-0">Entrez vos identifiants pour vous connecter</p>
-                                    </div>
+        {{-- ===== Panneau formulaire ===== --}}
+        <section class="login-form-side">
+            <div class="login-card">
 
+                <a href="{{ route('accueil') }}" class="mobile-logo" title="ONFP — Accueil">
+                    <img src="{{ asset('assets/img/ONFP_photo-profil_1080x1080.png') }}" alt="Logo ONFP">
+                </a>
 
-                                    <div class="d-flex justify-content-center mt-3">
-                                        <a href="{{ url('auth/google') }}"
-                                            class="btn btn-light d-flex align-items-center gap-2 border shadow-sm px-3 py-2"
-                                            style="background-color:#fff;" title="Se connecter avec Google">
-                                            <img src="https://www.gstatic.com/images/branding/product/1x/gsa_64dp.png"
-                                                alt="Google" style="width:20px; height:20px;">
-                                            <span>Se connecter avec Google </span>
-                                        </a>
-                                    </div>
+                <span class="tricolor short"></span>
+                <h2>Connexion</h2>
+                <p class="subtitle">Entrez vos identifiants pour accéder à votre compte.</p>
 
-                                    <form class="row g-3 needs-validation" novalidate method="POST"
-                                        action="{{ route('login') }}">
-                                        @csrf
-                                        <div class="col-12">
-                                            <label for="email" class="form-label">Email<span
-                                                    class="text-danger mx-1">*</span></label>
-                                            <div class="input-group has-validation">
-                                                <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                                <input type="email" name="email"
-                                                    class="form-control form-control-sm @error('email') is-invalid @enderror"
-                                                    id="email" required placeholder="Votre adresse e-mail"
-                                                    value="{{ old('email') }}" autofocus>
-                                                <div class="invalid-feedback">
-                                                    @error('email')
-                                                        {{ $message }}
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
+                <a href="{{ url('auth/google') }}" class="btn-google" title="Se connecter avec Google">
+                    <img src="https://www.gstatic.com/images/branding/product/1x/gsa_64dp.png" alt="Google">
+                    <span>Se connecter avec Google</span>
+                </a>
 
+                <div class="divider">ou avec votre e-mail</div>
 
-                                        <div class="col-12">
-                                            <label for="password" class="form-label">Mot de passe<span
-                                                    class="text-danger mx-1">*</span></label>
-                                            <div class="input-group has-validation">
-                                                <span class="input-group-text" id="inputGroupPrepend"><i
-                                                        class="bi bi-key"></i></span>
-                                                <input type="password" name="password"
-                                                    class="form-control form-control-sm  @error('password') is-invalid @enderror"
-                                                    id="password" required placeholder="Votre mot de passe">
-                                                <button class="btn btn-outline-secondary" type="button"
-                                                    id="togglePassword">
-                                                    <i class="bi bi-eye"></i>
-                                                </button>
-                                                <div class="invalid-feedback">
-                                                    @error('password')
-                                                        {{ $message }}
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
+                <form id="loginForm" class="needs-validation" novalidate method="POST" action="{{ route('login') }}">
+                    @csrf
 
-                                        <div class="col-12">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="remember"
-                                                    value="true" id="rememberMe">
-                                                <label class="form-check-label" for="rememberMe">Souviens-toi de
-                                                    moi</label>
-                                            </div>
-                                        </div>
-                                        {{-- <div class="col-12">
-                                            <button class="btn btn-primary btn-sm w-100" type="submit">Se
-                                                connecter</button>
-                                        </div> --}}
-                                        <div class="col-12 col-xxl-12">
-                                            <button class="btn text-white fw-bold w-100" style="background: #FF8000;"
-                                                type="submit">
-                                                Se connecter
-                                            </button>
-                                        </div>
-
-                                        <div class="col-12">
-                                            <p class="small mb-0">Retour à la page d'<a
-                                                    href="{{ route('accueil') }}">accueil</a></p>
-                                        </div>
-                                        <div class="col-12">
-                                            <p class="small mb-0">Si vous n'avez pas encore de compte, <a
-                                                    href="{{ route('register') }}">S'inscrire</a></p>
-                                        </div>
-                                        <div class="col-12">
-                                            @if (Route::has('password.request'))
-                                                <p class="small mb-0">
-                                                    Mot de passe oublié ?
-                                                    <a href="{{ route('password.email') }}">Réinitialiser</a>
-                                                </p>
-                                            @endif
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-
-                            <div class="credits">
-                                &copy; Copyright <strong><span><a href="https://www.onfp.sn/"
-                                            target="_blank">ONFP</a></span></strong>
-                            </div>
-
+                    <div class="mb-3">
+                        <label for="email" class="field-label">Adresse e-mail <span
+                                class="text-danger">*</span></label>
+                        <div class="field">
+                            <i class="bi bi-envelope"></i>
+                            <input type="email" name="email" id="email"
+                                class="form-control @error('email') is-invalid @enderror" required
+                                placeholder="nom@exemple.com" value="{{ old('email') }}" autocomplete="email"
+                                autofocus>
                         </div>
+                        @error('email')
+                            <span class="invalid-text">{{ $message }}</span>
+                        @enderror
                     </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="field-label">Mot de passe <span
+                                class="text-danger">*</span></label>
+                        <div class="field has-toggle">
+                            <i class="bi bi-lock"></i>
+                            <input type="password" name="password" id="password"
+                                class="form-control @error('password') is-invalid @enderror" required
+                                placeholder="Votre mot de passe" autocomplete="current-password">
+                            <button class="toggle-pass" type="button" id="togglePassword"
+                                aria-label="Afficher le mot de passe">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                        @error('password')
+                            <span class="invalid-text">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div class="form-check mb-0">
+                            <input class="form-check-input" type="checkbox" name="remember" value="true"
+                                id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">Se souvenir de moi</label>
+                        </div>
+
+                        @if (Route::has('password.request'))
+                            <a class="link link-forgot" href="{{ route('password.request') }}">Mot de passe
+                                oublié ?</a>
+                        @endif
+                    </div>
+
+                    <button class="btn-onfp" type="submit" id="submitBtn">
+                        <span class="label">Se connecter</span>
+                        <i class="bi bi-arrow-right"></i>
+                    </button>
+                </form>
+
+                <div class="login-footer">
+                    <div>Vous n'avez pas encore de compte ? <a class="link"
+                            href="{{ route('register') }}">S'inscrire</a>
+                    </div>
+                    <a class="back-home" href="{{ route('accueil') }}">
+                        <i class="bi bi-arrow-left"></i> Retour à l'accueil
+                    </a>
                 </div>
 
-            </section>
-
-        </div>
+                <div class="credits">
+                    &copy; {{ date('Y') }} <a href="https://www.onfp.sn/" target="_blank"
+                        rel="noopener"><strong>ONFP</strong></a> — Tous droits réservés
+                </div>
+            </div>
+        </section>
     </main>
 
-    <script src="{{ asset('assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/chart.js/chart.umd.js') }}"></script>
-    <script src="{{ asset('assets/vendor/echarts/echarts.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/quill/quill.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/simple-datatables/simple-datatables.js') }}"></script>
-    <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
-
-    <script src="{{ asset('assets/js/main.js') }}"></script>
 
     <script>
+        // Afficher / masquer le mot de passe
         document.getElementById("togglePassword").addEventListener("click", function() {
-            let passwordField = document.getElementById("password");
-            let icon = this.querySelector("i");
+            const passwordField = document.getElementById("password");
+            const icon = this.querySelector("i");
+            const show = passwordField.type === "password";
 
-            if (passwordField.type === "password") {
-                passwordField.type = "text";
-                icon.classList.remove("bi-eye");
-                icon.classList.add("bi-eye-slash");
-            } else {
-                passwordField.type = "password";
-                icon.classList.remove("bi-eye-slash");
-                icon.classList.add("bi-eye");
+            passwordField.type = show ? "text" : "password";
+            icon.classList.toggle("bi-eye", !show);
+            icon.classList.toggle("bi-eye-slash", show);
+            this.setAttribute("aria-label", show ? "Masquer le mot de passe" : "Afficher le mot de passe");
+        });
+
+        // Validation + état de chargement du bouton
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            if (!this.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+                this.classList.add("was-validated");
+                return;
             }
+            const btn = document.getElementById("submitBtn");
+            // léger délai pour ne pas bloquer l'envoi du formulaire
+            setTimeout(function() {
+                btn.disabled = true;
+                btn.querySelector(".label").textContent = "Connexion en cours…";
+                btn.querySelector("i").className = "spinner-border spinner-border-sm";
+            }, 10);
         });
     </script>
 

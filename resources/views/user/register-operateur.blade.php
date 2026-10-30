@@ -35,7 +35,7 @@
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="{{ asset('assets/img/favicon.png') }}" rel="favicon-onfp">
+    <link href="{{ asset('assets/img/favicon-32x32.png') }}" rel="favicon-onfp">
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">

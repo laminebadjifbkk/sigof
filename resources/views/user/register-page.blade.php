@@ -7,15 +7,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script type="text/javascript">
         function callbackThen(response) {
-            // read Promise object
             response.json().then(function(data) {
                 console.log(data);
                 if (data.success && data.score > 0.5) {
-                    console.log('valid recpatcha');
+                    console.log('recaptcha valid');
                 } else {
                     document.getElementById('registerForm').addEventListener('submit', function(event) {
                         event.preventDefault();
-                        alert('recpatcha error');
+                        alert('Erreur reCAPTCHA : veuillez réessayer.');
                     });
                 }
             });
@@ -34,337 +33,243 @@
     <meta content="" name="description">
     <meta content="" name="keywords">
 
-    <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
-    <link href="{{ asset('assets/img/favicon.png') }}" rel="apple-touch-icon">
+    <link href="{{ asset('assets/img/favicon-32x32.png') }}" rel="icon">
+    <link href="{{ asset('assets/img/favicon-32x32.png') }}" rel="apple-touch-icon">
 
-    <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
     <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap"
         rel="stylesheet">
 
-    <!-- Vendor CSS Files -->
     <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/quill/quill.snow.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/quill/quill.bubble.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/simple-datatables/style.css') }}" rel="stylesheet">
-
-    <!-- Template Main CSS File -->
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/login.css') }}" rel="stylesheet">
 
-    <!-- =======================================================
-  * Template Name: NiceAdmin
-  * Updated: Jan 29 2024 with Bootstrap v5.3.2
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
-<body>
-    {{-- @include('navbar') --}}
-    <main>
-        <div class="container">
-            <section
-                class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div
-                            class="col-12 col-md-6 col-sm-12 col-xs-12 col-xxl-6 d-flex flex-column align-items-center justify-content-center">
+<body class="login-page">
+    <main class="login-wrapper">
 
-                            {{-- <div class="d-flex justify-content-center py-4">
-                                <a href="{{ route('accueil') }}" class="logo d-flex align-items-center w-auto"
-                                    target="_blank">
-                                    <span class="d-none d-lg-block">ONFP</span>
-                                </a>
-                            </div> --}}
-                            <!-- End Logo -->
+        {{-- ===== Panneau marque ===== --}}
+        <aside class="login-brand">
+            <div class="brand-top">
+                <a href="{{ route('accueil') }}" class="brand-logo-card" title="ONFP — Accueil">
+                    <img src="{{ asset('assets/img/ONFP_photo-profil_1080x1080.png') }}" alt="Logo ONFP">
+                </a>
+            </div>
 
-                            <div class="card mb-3">
+            <div class="brand-middle">
+                <h1>Rejoignez<br>l'espace ONFP</h1>
+                <p class="lead">Créez votre compte en quelques instants pour déposer vos demandes, suivre vos
+                    formations et rester informé à chaque étape.</p>
 
-                                <div class="card-body">
-                                    {{-- <div class="d-flex justify-content-center py-0">
-                                        <a href="{{ url('/register-page') }}"
-                                            class="logo d-flex align-items-center w-auto">
-                                            <h5 class="card-title">Création de compte personnel</h5>
-                                            <p class="text-center small">Entrez vos informations pour créer un compte</p>
-                                        </a>
-                                    </div> --}}
+                <ul class="brand-features">
+                    <li>
+                        <span class="ico"><i class="bi bi-stopwatch"></i></span>
+                        Inscription simple et rapide
+                    </li>
+                    <li>
+                        <span class="ico"><i class="bi bi-card-checklist"></i></span>
+                        Suivi de vos demandes en temps réel
+                    </li>
+                    <li>
+                        <span class="ico"><i class="bi bi-shield-lock"></i></span>
+                        Vos données personnelles protégées
+                    </li>
+                </ul>
+            </div>
 
-                                    {{-- <div class="pt-0 pb-2">
-                                        <h5 class="card-title text-center pb-0 fs-4">Inscription</h5>
-                                        <p class="text-center small">Entrez vos informations pour créer un compte</p>
-                                    </div> --}}
+            <div class="brand-bottom">
+                <span class="tricolor"></span>
+                <span>Office National de Formation Professionnelle</span>
+            </div>
+        </aside>
 
+        {{-- ===== Panneau formulaire ===== --}}
+        <section class="login-form-side">
+            <div class="login-card">
 
-                                    <div class="pt-0 pb-2 text-center">
-                                        <h5 class="card-title fs-4 mb-1">
-                                            {{-- <a href="{{ route('accueil') }}"
-                                                class="logo d-flex align-items-center justify-content-center w-auto"
-                                                target="_blank">
-                                                <span class="d-none d-lg-block">ONFP</span>
-                                            </a> --}}
+                <a href="{{ route('accueil') }}" class="mobile-logo" title="ONFP — Accueil">
+                    <img src="{{ asset('assets/img/ONFP_photo-profil_1080x1080.png') }}" alt="Logo ONFP">
+                </a>
 
-                                            <a href="{{ route('accueil') }}" style="text-decoration: none">
-                                                <span class="fw-bold" style="font-size: 2rem;">Inscription</span>
-                                            </a>
-                                        </h5>
-                                        <p class="small mb-0">Entrez vos informations pour créer un compte</p>
-                                    </div>
+                <span class="tricolor short"></span>
+                <h2>Inscription</h2>
+                <p class="subtitle">Entrez vos informations pour créer votre compte.</p>
 
-                                    <div class="d-flex justify-content-center mt-3">
-                                        <a href="{{ url('auth/google') }}"
-                                            class="btn btn-light d-flex align-items-center gap-2 border shadow-sm px-3 py-2"
-                                            style="background-color:#fff;" title="Se connecter avec Google">
-                                            <img src="https://www.gstatic.com/images/branding/product/1x/gsa_64dp.png"
-                                                alt="Google" style="width:20px; height:20px;">
-                                            <span>Utiliser Google pour s'inscrire </span>
-                                        </a>
-                                    </div>
-                                    <div class="tab-content">
-                                        <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                                            <form class="row g-3 needs-validation" novalidate method="POST"
-                                                action="{{ route('register') }}">
-                                                @csrf
+                <a href="{{ url('auth/google') }}" class="btn-google" title="S'inscrire avec Google">
+                    <img src="https://www.gstatic.com/images/branding/product/1x/gsa_64dp.png" alt="Google">
+                    <span>Utiliser Google pour s'inscrire</span>
+                </a>
 
-                                                <!-- Username -->
-                                                {{-- <input type="hidden" name="role" value="Demandeur">
-                                                <div class="col-12">
-                                                    <label for="username" class="form-label">Username<span
-                                                            class="text-danger mx-1">*</span></label>
-                                                    <div class="input-group has-validation">
-                                                        <span class="input-group-text" id="inputGroupPrepend"><i
-                                                                class="bi bi-person"></i></span>
-                                                        <input type="text" name="username"
-                                                            class="form-control form-control-sm @error('username') is-invalid @enderror"
-                                                            id="username" required placeholder="ex : jean221"
-                                                            value="{{ old('username') }}" autocomplete="username">
-                                                        <div class="invalid-feedback">
-                                                            @error('username')
-                                                                {{ $message }}
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                </div> --}}
+                <div class="divider">ou avec votre e-mail</div>
 
-                                                <!-- Addresse E-mail -->
-                                                <div class="col-12">
-                                                    <label for="email" class="form-label">E-mail<span
-                                                            class="text-danger mx-1">*</span></label>
-                                                    <div class="input-group has-validation">
-                                                        <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                                        <input type="email" name="email"
-                                                            class="form-control form-control-sm @error('email') is-invalid @enderror"
-                                                            id="email" required placeholder="Votre e-mail"
-                                                            value="{{ old('email') }}" autocomplete="email">
-                                                        <div class="invalid-feedback">
-                                                            @error('email')
-                                                                {{ $message }}
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                </div>
+                <form id="registerForm" class="needs-validation" novalidate method="POST"
+                    action="{{ route('register') }}">
+                    @csrf
 
-                                                <!-- Téléphone -->
-                                                <div class="col-12">
-                                                    <label for="votre_telephone" class="form-label">Téléphone<span
-                                                            class="text-danger mx-1">*</span></label>
-                                                    <div class="input-group has-validation">
-                                                        <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                                        <input type="text" name="votre_telephone" maxlength="12"
-                                                            class="form-control form-control-sm @error('votre_telephone') is-invalid @enderror"
-                                                            id="votre_telephone" required placeholder="Votre téléphone"
-                                                            value="{{ old('votre_telephone') }}"
-                                                            autocomplete="votre_telephone">
-                                                        <div class="invalid-feedback">
-                                                            @error('votre_telephone')
-                                                                {{ $message }}
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Mot de passe -->
-                                                <div class="col-12">
-                                                    <label for="password" class="form-label">Mot de passe<span
-                                                            class="text-danger mx-1">*</span></label>
-                                                    <div class="input-group has-validation">
-                                                        <span class="input-group-text" id="inputGroupPrepend"><i
-                                                                class="bi bi-key"></i></span>
-                                                        <input type="password" name="password"
-                                                            class="form-control form-control-sm @error('password') is-invalid @enderror"
-                                                            id="password" required placeholder="Votre mot de passe"
-                                                            value="{{ old('password') }}"
-                                                            autocomplete="new-password">
-                                                        <button class="btn btn-outline-secondary" type="button"
-                                                            id="togglePassword">
-                                                            <i class="bi bi-eye"></i>
-                                                        </button>
-                                                        <div class="invalid-feedback">
-                                                            @error('password')
-                                                                {{ $message }}
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Mot de passe de confirmation -->
-                                                <div class="col-12">
-                                                    <label for="password_confirmation" class="form-label">Confirmez
-                                                        mot de
-                                                        passe<span class="text-danger mx-1">*</span></label>
-                                                    <div class="input-group has-validation">
-                                                        <span class="input-group-text" id="inputGroupPrepend"><i
-                                                                class="bi bi-key"></i></span>
-                                                        <input type="password" name="password_confirmation"
-                                                            class="form-control form-control-sm @error('password_confirmation') is-invalid @enderror"
-                                                            id="password_confirmation" required
-                                                            placeholder="Confimez votre mot de passe"
-                                                            value="{{ old('password_confirmation') }}"
-                                                            autocomplete="new-password_confirmation">
-                                                        <button class="btn btn-outline-secondary" type="button"
-                                                            id="togglePassword">
-                                                            <i class="bi bi-eye"></i>
-                                                        </button>
-                                                        <div class="invalid-feedback">
-                                                            @error('password_confirmation')
-                                                                {{ $message }}
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Sélection du rôle -->
-                                                {{-- <div class="col-12">
-                                                    <label class="form-label d-block">Type de compte<span
-                                                            class="text-danger mx-1">*</span></label>
-                                                    <div class="form-check form-check-inline">
-                                                        <input
-                                                            class="form-check-input @error('role') is-invalid @enderror"
-                                                            type="radio" name="role" id="role_demandeur"
-                                                            value="Demandeur"
-                                                            {{ old('role') == 'Demandeur' ? 'checked' : '' }}>
-                                                        <label class="form-check-label" for="role_demandeur">Demandeur
-                                                            de
-                                                            formation</label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input
-                                                            class="form-check-input @error('role') is-invalid @enderror"
-                                                            type="radio" name="role" id="role_operateur"
-                                                            value="Operateur"
-                                                            {{ old('role') == 'Operateur' ? 'checked' : '' }} disabled>
-                                                        <label class="form-check-label" for="role_operateur">Opérateur
-                                                            de formation</label>
-                                                    </div>
-                                                    <div class="invalid-feedback d-block">
-                                                        @error('role')
-                                                            {{ $message }}
-                                                        @enderror
-                                                    </div>
-                                                </div> --}}
-                                                <div class="col-12">
-                                                    <div class="form-check">
-                                                        <input
-                                                            class="form-check-input @error('termes') is-invalid @enderror"
-                                                            name="termes" type="checkbox" value="1"
-                                                            id="acceptTerms" required>
-                                                        <label class="form-check-label" for="acceptTerms">J'accepte
-                                                            les
-                                                            <button style="color: blue" type="button"
-                                                                class="btn btn-default btn-sm" data-bs-toggle="modal"
-                                                                data-bs-target="#largeModal">
-                                                                termes et conditions
-                                                            </button>
-                                                            <span class="text-danger mx-1">*</span></label>
-                                                        <div class="invalid-feedback">
-                                                            @error('termes')
-                                                                {{ $message }}
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <button class="btn text-white fw-bold w-100"
-                                                        style="background: #FF8000;" type="submit">
-                                                        S'inscrire
-                                                    </button>
-                                                </div>
-                                                <div class="col-12 justify-content-center">
-                                                    <p class="small">Vous avez déjà un compte ? <a
-                                                            href="{{ route('login') }}">Se connecter</a></p>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            @include('user.termes')
-                            <div class="credits">
-                                &copy; Copyright <strong><span><a href="https://www.onfp.sn/"
-                                            target="_blank">ONFP</a></span></strong>
-                            </div>
-
+                    {{-- E-mail --}}
+                    <div class="mb-3">
+                        <label for="email" class="field-label">Adresse e-mail <span
+                                class="text-danger">*</span></label>
+                        <div class="field">
+                            <i class="bi bi-envelope"></i>
+                            <input type="email" name="email" id="email"
+                                class="form-control @error('email') is-invalid @enderror" required
+                                placeholder="nom@exemple.com" value="{{ old('email') }}" autocomplete="email"
+                                autofocus>
                         </div>
+                        @error('email')
+                            <span class="invalid-text">{{ $message }}</span>
+                        @enderror
                     </div>
+
+                    {{-- Téléphone --}}
+                    <div class="mb-3">
+                        <label for="votre_telephone" class="field-label">Téléphone <span
+                                class="text-danger">*</span></label>
+                        <div class="field">
+                            <i class="bi bi-telephone"></i>
+                            <input type="tel" name="votre_telephone" id="votre_telephone" maxlength="12"
+                                class="form-control @error('votre_telephone') is-invalid @enderror" required
+                                placeholder="Votre numéro de téléphone" value="{{ old('votre_telephone') }}"
+                                autocomplete="tel">
+                        </div>
+                        @error('votre_telephone')
+                            <span class="invalid-text">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    {{-- Mot de passe --}}
+                    <div class="mb-3">
+                        <label for="password" class="field-label">Mot de passe <span
+                                class="text-danger">*</span></label>
+                        <div class="field has-toggle">
+                            <i class="bi bi-lock"></i>
+                            <input type="password" name="password" id="password"
+                                class="form-control @error('password') is-invalid @enderror" required
+                                placeholder="Créez un mot de passe" autocomplete="new-password">
+                            <button class="toggle-pass" type="button" data-target="password"
+                                aria-label="Afficher le mot de passe">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                        @error('password')
+                            <span class="invalid-text">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    {{-- Confirmation --}}
+                    <div class="mb-3">
+                        <label for="password_confirmation" class="field-label">Confirmez le mot de passe <span
+                                class="text-danger">*</span></label>
+                        <div class="field has-toggle">
+                            <i class="bi bi-shield-lock"></i>
+                            <input type="password" name="password_confirmation" id="password_confirmation"
+                                class="form-control @error('password_confirmation') is-invalid @enderror" required
+                                placeholder="Confirmez votre mot de passe" autocomplete="new-password">
+                            <button class="toggle-pass" type="button" data-target="password_confirmation"
+                                aria-label="Afficher le mot de passe">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                        <span class="invalid-text" id="matchError" style="display:none;">Les mots de passe ne
+                            correspondent pas.</span>
+                        @error('password_confirmation')
+                            <span class="invalid-text">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    {{-- Termes et conditions --}}
+                    <div class="mb-4">
+                        <div class="form-check mb-0">
+                            <input class="form-check-input @error('termes') is-invalid @enderror" name="termes"
+                                type="checkbox" value="1" id="acceptTerms" required>
+                            <label class="form-check-label" for="acceptTerms">
+                                J'accepte les
+                                <button type="button" class="btn-terms" data-bs-toggle="modal"
+                                    data-bs-target="#largeModal">termes et conditions</button>
+                                <span class="text-danger">*</span>
+                            </label>
+                        </div>
+                        @error('termes')
+                            <span class="invalid-text">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <button class="btn-onfp" type="submit" id="submitBtn">
+                        <span class="label">S'inscrire</span>
+                        <i class="bi bi-arrow-right"></i>
+                    </button>
+                </form>
+
+                <div class="login-footer">
+                    <div>Vous avez déjà un compte ? <a class="link" href="{{ route('login') }}">Se connecter</a>
+                    </div>
+                    <a class="back-home" href="{{ route('accueil') }}">
+                        <i class="bi bi-arrow-left"></i> Retour à l'accueil
+                    </a>
                 </div>
 
-            </section>
+                <div class="credits">
+                    &copy; {{ date('Y') }} <a href="https://www.onfp.sn/" target="_blank"
+                        rel="noopener"><strong>ONFP</strong></a> — Tous droits réservés
+                </div>
+            </div>
+        </section>
+    </main>
 
-        </div>
-    </main><!-- End #main -->
+    @include('user.termes')
 
-
-    {{-- @include('layout.footer') --}}
-
-    <!-- Vendor JS Files -->
-    <script src="{{ asset('assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/chart.js/chart.umd.js') }}"></script>
-    <script src="{{ asset('assets/vendor/echarts/echarts.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/quill/quill.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/simple-datatables/simple-datatables.js') }}"></script>
-    <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
-
-    <!-- Template Main JS File -->
-    <script src="{{ asset('assets/js/main.js') }}"></script>
 
     <script>
-        document.getElementById("togglePassword").addEventListener("click", function() {
-            let passwordField = document.getElementById("password");
-            let icon = this.querySelector("i");
-            if (passwordField.type === "password") {
-                passwordField.type = "text";
-                icon.classList.remove("bi-eye");
-                icon.classList.add("bi-eye-slash");
-            } else {
-                passwordField.type = "password";
-                icon.classList.remove("bi-eye-slash");
-                icon.classList.add("bi-eye");
-            }
-        });
-    </script>
-    {{-- <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var telephoneInput = document.getElementById("votre_telephone");
+        // Afficher / masquer les mots de passe (un bouton par champ)
+        document.querySelectorAll(".toggle-pass").forEach(function(btn) {
+            btn.addEventListener("click", function() {
+                const field = document.getElementById(this.dataset.target);
+                const icon = this.querySelector("i");
+                const show = field.type === "password";
 
-            telephoneInput.addEventListener("input", function(e) {
-                var value = e.target.value.replace(/\D/g, ""); // Supprime tout sauf les chiffres
-
-                // Appliquer le format Téléphone
-                if (value.length > 2) value = value.slice(0, 2) + " " + value.slice(2);
-                if (value.length > 6) value = value.slice(0, 6) + " " + value.slice(6);
-                if (value.length > 9) value = value.slice(0, 9) + " " + value.slice(9, 11);
-
-                e.target.value = value.slice(0, 12); // Limite à 12 caractères (avec les ":")
+                field.type = show ? "text" : "password";
+                icon.classList.toggle("bi-eye", !show);
+                icon.classList.toggle("bi-eye-slash", show);
+                this.setAttribute("aria-label", show ? "Masquer le mot de passe" :
+                    "Afficher le mot de passe");
             });
         });
-    </script> --}}
+
+        const form = document.getElementById("registerForm");
+        const pwd = document.getElementById("password");
+        const pwdConfirm = document.getElementById("password_confirmation");
+        const matchError = document.getElementById("matchError");
+
+        function checkMatch() {
+            const mismatch = pwdConfirm.value !== "" && pwd.value !== pwdConfirm.value;
+            matchError.style.display = mismatch ? "block" : "none";
+            pwdConfirm.classList.toggle("is-invalid", mismatch);
+            return !mismatch;
+        }
+        pwd.addEventListener("input", checkMatch);
+        pwdConfirm.addEventListener("input", checkMatch);
+
+        // Validation + état de chargement du bouton
+        form.addEventListener("submit", function(event) {
+            if (!this.checkValidity() || !checkMatch()) {
+                event.preventDefault();
+                event.stopPropagation();
+                this.classList.add("was-validated");
+                return;
+            }
+            const btn = document.getElementById("submitBtn");
+            setTimeout(function() {
+                btn.disabled = true;
+                btn.querySelector(".label").textContent = "Création du compte…";
+                btn.querySelector("i").className = "spinner-border spinner-border-sm";
+            }, 10);
+        });
+    </script>
 
 </body>
 
