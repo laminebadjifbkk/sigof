@@ -178,6 +178,9 @@ class InscriptioncontactController extends Controller
                 "Gorgui LO",
                 "Mamadou NDIAYE",
                 "Souleymane LO",
+                "Ouly TOURE",
+                "Sidou SANE",
+                "Ndeye Soukeyna FALL",
             ],
             "Opérateurs ONFP et autres Structures de Formation" => [
                 "Cadre des opérateurs de l’ONFP",
