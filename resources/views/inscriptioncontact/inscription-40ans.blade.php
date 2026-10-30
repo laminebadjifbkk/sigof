@@ -445,13 +445,109 @@
                 height: 84px;
             }
         }
+
+        /* ---------- 40 ANS : filigrane et mise en évidence ---------- */
+
+        /* Gros "40" en filigrane sur le fond de la page */
+        .bg-40 {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(260px, 55vw, 760px);
+            font-weight: 800;
+            line-height: 1;
+            color: rgba(242, 133, 0, .07);
+            pointer-events: none;
+            user-select: none;
+            z-index: 0;
+        }
+
+        .page {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Filigrane (logo 40 ans) à l'intérieur de la carte */
+        .card-watermark {
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .card-watermark::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: url('{{ asset('assets/img/logo-40-ans.png') }}') center 62% / 70% no-repeat;
+            opacity: .06;
+            transform: rotate(-12deg);
+        }
+
+        /* Ruban "40 ANS" en haut à droite de la carte */
+        .ribbon-40 {
+            position: absolute;
+            top: 22px;
+            right: -10px;
+            z-index: 5;
+            padding: 8px 18px 8px 22px;
+            font-weight: 700;
+            font-size: .95rem;
+            letter-spacing: .08em;
+            color: #fff;
+            background: linear-gradient(135deg, var(--orange), var(--red));
+            border-radius: 999px 0 0 999px;
+            box-shadow: 0 8px 18px -6px rgba(214, 40, 40, .55);
+        }
+
+        /* "40 ANS" en grand dans le titre */
+        .big-40 {
+            display: inline-block;
+            font-size: 1.9em;
+            font-weight: 800;
+            letter-spacing: 0;
+            line-height: 1;
+            background: linear-gradient(90deg, var(--orange), var(--red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .banner-40 {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin: 4px 0 14px;
+            padding: 6px 18px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, rgba(27, 138, 58, .12), rgba(245, 184, 0, .2), rgba(214, 40, 40, .12));
+            font-size: .8rem;
+            font-weight: 600;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: #7a4a05;
+        }
+
+        @media (max-width: 575px) {
+            .ribbon-40 {
+                top: 14px;
+                font-size: .8rem;
+                padding: 6px 14px 6px 18px;
+            }
+        }
     </style>
 </head>
 
 <body>
+    <div class="bg-40" aria-hidden="true">40</div>
     <div class="page">
         <div class="form-card">
-
+            <div class="ribbon-40">40 ANS</div>
+            <div class="card-watermark" aria-hidden="true"></div>
             {{-- ============ En-tête avec logos ============ --}}
             <div class="card-head">
                 <div class="logos-row">
@@ -461,7 +557,8 @@
                         class="logo-40" onerror="this.style.display='none'">
                 </div>
 
-                <h1>Célébration des 40 ans</h1>
+                <h1>Célébration des <span class="big-40">40 ans</span></h1>
+                <div class="banner-40"><i class="bi bi-stars"></i> 1986 – 2026 · 40 ans d'excellence</div>
                 <h2>Confirmez votre participation</h2>
 
                 <div class="event-chips">
