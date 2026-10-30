@@ -467,7 +467,7 @@
                 <div class="event-chips">
                     <span class="chip"><i class="bi bi-calendar-event"></i> Jeudi 19 novembre 2026</span>
                     {{-- TODO : précisez l'heure et le lieu exacts --}}
-                    <span class="chip"><i class="bi bi-geo-alt-fill"></i> Hotel Azalaï, Dakar</span>
+                    <span class="chip"><i class="bi bi-geo-alt-fill"></i> Azalaï Hôtel, Dakar</span>
                 </div>
             </div>
 

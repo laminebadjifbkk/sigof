@@ -1289,7 +1289,7 @@
                         Rejoignez-nous pour célébrer cette étape historique.</p>
                     <div class="anniv-meta">
                         <span><i class="bi bi-calendar-event"></i>Jeudi 19 novembre 2026</span>
-                        <span><i class="bi bi-geo-alt"></i>Hotel Azalaï, Dakar</span>
+                        <span><i class="bi bi-geo-alt"></i>Azalaï Hôtel, Dakar</span>
                     </div>
                 </div>
 
