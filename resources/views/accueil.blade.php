@@ -1597,7 +1597,7 @@
         <div class="wrap hero-grid">
             <div>
                 <a href="#anniversaire" class="hero-badge">
-                    <i class="bi bi-stars"></i> 1986 – 2026 · 40 ans au service de la formation
+                    <i class="bi bi-stars"></i> 1986 – 2026 · 40 ans au service de la formation professionnelle
                 </a>
                 <div class="eyebrow">Office national de formation professionnelle</div>
                 <h1>La référence de la <span class="accent">formation professionnelle</span> au Sénégal</h1>
