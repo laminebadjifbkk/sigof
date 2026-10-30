@@ -84,7 +84,7 @@
                             <p style="margin:0 0 16px;">
                                 Nous serons ravis de vous accueillir le <b>jeudi 19 novembre 2026</b>
                                 {{-- TODO : précisez l'heure et le lieu exacts --}}
-                                à <b>10h</b>, à <b>Azalaï Hotel, Dakar</b>.
+                                à <b>10h</b>, à <b>Azalaï Hôtel, Dakar</b>.
                             </p>
 
                             <p style="margin:0 0 16px;">
