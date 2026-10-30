@@ -1834,7 +1834,7 @@
         <div class="wrap">
             <div class="section-head reveal">
                 <div class="eyebrow">Couverture nationale</div>
-                <h2>{{ $antennes->count() }} pôles, présents sur tout le territoire</h2>
+                <h2>{{ $antennes->count() - 1 }} pôles, présents sur tout le territoire en plus de la Direction générale</h2>
                 <p>De Dakar à Ziguinchor, un réseau de pôles régionaux au plus proche des demandeurs et des
                     opérateurs.</p>
             </div>
