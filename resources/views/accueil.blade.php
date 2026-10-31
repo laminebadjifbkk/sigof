@@ -1687,8 +1687,7 @@
             <div class="reveal">
                 <div class="eyebrow">Événement</div>
                 <h2>L'ONFP célèbre ses <span class="accent">40 ans</span></h2>
-                <p>Quatre décennies d'engagement pour la formation professionnelle au Sénégal.
-                    Rejoignez-nous pour célébrer cette étape historique.</p>
+                <p>Quatre décennies d'engagement pour la formation professionnelle au Sénégal.</p>
                 <div class="anniv-meta">
                     <span><i class="bi bi-calendar-event"></i>Jeudi 19 novembre 2026</span>
                     <span><i class="bi bi-geo-alt"></i>Azalaï Hôtel, Dakar</span>
@@ -1696,10 +1695,14 @@
             </div>
 
             <div class="countdown reveal" id="countdown" aria-live="off">
-                <div class="cd-box"><span class="n" id="cd-d">--</span><span class="l">Jours</span></div>
-                <div class="cd-box"><span class="n" id="cd-h">--</span><span class="l">Heures</span></div>
-                <div class="cd-box"><span class="n" id="cd-m">--</span><span class="l">Minutes</span></div>
-                <div class="cd-box"><span class="n" id="cd-s">--</span><span class="l">Secondes</span></div>
+                <div class="cd-box"><span class="n" id="cd-d">--</span><span class="l">Jours</span>
+                </div>
+                <div class="cd-box"><span class="n" id="cd-h">--</span><span class="l">Heures</span>
+                </div>
+                <div class="cd-box"><span class="n" id="cd-m">--</span><span class="l">Minutes</span>
+                </div>
+                <div class="cd-box"><span class="n" id="cd-s">--</span><span
+                        class="l">Secondes</span></div>
             </div>
         </div>
     </section>
@@ -1834,7 +1837,8 @@
         <div class="wrap">
             <div class="section-head reveal">
                 <div class="eyebrow">Couverture nationale</div>
-                <h2>{{ $antennes->count() - 1 }} pôles, présents sur tout le territoire plus de la Direction générale</h2>
+                <h2>{{ $antennes->count() - 1 }} pôles, présents sur tout le territoire plus de la Direction générale
+                </h2>
                 <p>De Dakar à Ziguinchor, un réseau de pôles régionaux au plus proche des demandeurs et des
                     opérateurs.</p>
             </div>
@@ -1963,13 +1967,16 @@
 
             <div class="contact-info reveal">
                 <h3>Direction générale</h3>
-                <div class="info-row"><span class="ic"><i class="bi bi-geo-alt"></i></span><span>Sipres 1, lot 2 - 2
+                <div class="info-row"><span class="ic"><i class="bi bi-geo-alt"></i></span><span>Sipres 1, lot 2
+                        - 2
                         voies Liberté 6, extension VDN, Dakar</span></div>
                 <div class="info-row"><span class="ic"><i class="bi bi-telephone"></i></span><span>+221 33 827 92
                         51</span></div>
-                <div class="info-row"><span class="ic"><i class="bi bi-envelope"></i></span><span>onfp@onfp.sn</span>
+                <div class="info-row"><span class="ic"><i
+                            class="bi bi-envelope"></i></span><span>onfp@onfp.sn</span>
                 </div>
-                <div class="info-row"><span class="ic"><i class="bi bi-whatsapp"></i></span><span>WhatsApp : +221 77
+                <div class="info-row"><span class="ic"><i class="bi bi-whatsapp"></i></span><span>WhatsApp : +221
+                        77
                         291 18 38</span></div>
             </div>
         </div>
