@@ -579,7 +579,7 @@ class FormulaireController extends Controller
           HistoriquePriseEnCharge::create([
             'formulaire_id' => $formulaire->id,
             'statut' => $formulaire->statut,
-            'motif' => $request->motif ?? null,
+            'motif' => $formulaire->statut,
             'user_id' => auth()->id(),
         ]);
 
