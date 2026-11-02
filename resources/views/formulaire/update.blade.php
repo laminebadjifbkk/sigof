@@ -232,7 +232,7 @@
                                             </option>
                                         </select>
                                     </div>
-                                    <div class="col-lg-4 col-md-4">
+                                    {{-- <div class="col-lg-4 col-md-4">
                                         <label class="form-label fw-semibold">Statut</label>
                                         <select name="statut" class="form-select form-select-sm" required>
                                             <option value="">-- Sélectionnez --</option>
@@ -249,7 +249,7 @@
                                                 Non conforme
                                             </option>
                                         </select>
-                                    </div>
+                                    </div> --}}
                                 </div>
 
                                 {{-- Boutons --}}
