@@ -532,7 +532,7 @@ class FormulaireController extends Controller
             'type_handicap' => 'nullable|string|max:255',
             'orphelin' => 'nullable|string|max:10',
             'type_orphelin' => 'nullable|string|max:255',
-            /* 'statut' => 'required|string|max:50', */ // nouveaux champs
+            'statut' => 'required|string|max:50', // nouveaux champs
             'responsable_etablieement' => 'nullable|string|max:255',
             'adresse_etablessement' => 'nullable|string|max:255',
             'telephone_etablissement' => 'nullable|string|max:30',
@@ -575,6 +575,13 @@ class FormulaireController extends Controller
         }
 
         $formulaire->update($data);
+
+          HistoriquePriseEnCharge::create([
+            'formulaire_id' => $formulaire->id,
+            'statut' => $formulaire->statut,
+            'motif' => $request->motif ?? null,
+            'user_id' => auth()->id(),
+        ]);
 
         /* Alert::success('Succès', 'Les informations ont été mises à jour avec succès.'); */
 
