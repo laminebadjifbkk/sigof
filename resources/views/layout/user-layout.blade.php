@@ -2422,7 +2422,7 @@
                     <a href="{{ url('/profil') }}" class="logo d-flex align-items-center">
             @endif
             {{-- <img src="{{ asset('assets/img/ONFP_photo-profil_1080x1080.png') }}" alt="Logo ONFP"> --}}
-            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/ONFP_image-partage_1200x630.png'))) }}"
+            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/ONFP_photo-profil_1080x1080.png'))) }}"
                         style="width:50px;">
             <span class="d-none d-lg-block">SIGOF</span>
             {{-- Système d'information et de gestion des opérations de formation --}}
