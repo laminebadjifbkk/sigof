@@ -2421,7 +2421,7 @@
                 @else
                     <a href="{{ url('/profil') }}" class="logo d-flex align-items-center">
             @endif
-            <img src="{{ asset('assets/img/ONFP_logo_header_600px@2x.png') }}" alt="Logo ONFP" class="brand-logo">
+            <img src="{{ asset('assets/img/ONFP_photo-profil_1080x1080.png') }}" alt="Logo ONFP">
             <span class="d-none d-lg-block">SIGOF</span>
             {{-- Système d'information et de gestion des opérations de formation --}}
             </a>
