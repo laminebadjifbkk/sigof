@@ -660,7 +660,7 @@ class IndividuelleController extends Controller
         return Redirect::back();
     }
 
-    public function addIndividuelle(Request $request)
+    public function addIndividuelleAncien(Request $request)
     {
         $cin = preg_replace('/\s+/', '', $request->cin);
 
@@ -860,6 +860,123 @@ class IndividuelleController extends Controller
 
         return redirect()->back();
     }
+
+    public function addIndividuelle(Request $request)
+    {
+        $cin = preg_replace('/\s+/', '', $request->cin);
+        $request->merge(['cin' => $cin]);
+
+        $validator = Validator::make($request->all(), [
+            'civilite'       => ['required', 'string'],
+            'date_depot'     => ['required', 'date', 'date_format:Y-m-d\TH:i'],
+            'type_piece'     => ['required', 'string', 'in:cni,extrait,passeport'],
+            'cin'            => ['required', 'string', Rule::unique('users', 'cin')->whereNull('deleted_at')],
+            'firstname'      => ['required', 'string', 'max:50'],
+            'lastname'       => ['required', 'string', 'max:25'],
+            'telephone'      => ['required', 'string', 'size:9'],
+            'date_naissance' => ['required', 'date_format:d/m/Y'],
+            'lieu_naissance' => ['required', 'string'],
+            'adresse'        => ['required', 'string', 'max:250'],
+            'departement'    => ['required', 'string', 'max:250'],
+            'module'         => ['required', 'string', 'max:250'],
+        ]);
+
+        $validator->sometimes('cin', ['regex:/^[A-Z0-9]{13,14}$/i'], fn($i) => $i->type_piece === 'cni');
+        $validator->sometimes('cin', ['regex:/^[0-9\/]{10}$/'], fn($i) => $i->type_piece === 'extrait');
+        $validator->sometimes('cin', ['regex:/^[A-Z0-9]{9}$/i'], fn($i) => $i->type_piece === 'passeport');
+
+        $data = $validator->validate();
+
+        // Date de dépôt (heure actuelle si 00:00:00)
+        $date = Carbon::parse($data['date_depot']);
+        if ($date->isStartOfDay()) {
+            $date->setTimeFrom(now());
+        }
+        $date_depot = $date->format('Y-m-d H:i:s');
+
+        // Numéro individuelle
+        $anneeEnCours = date('Y');
+
+        $numero = Individuelle::join('users', 'users.id', 'individuelles.users_id')
+            ->where('date_depot', 'LIKE', "{$anneeEnCours}%")
+            ->orderBy('individuelles.id', 'desc')
+            ->value('numero');
+
+        $numero = $numero ? ++$numero : 'I' . $anneeEnCours . '00001';
+
+        while (Individuelle::where('numero', $numero)->exists()) {
+            $numero = 'I' . str_pad((int) substr($numero, 1) + 1, 6, '0', STR_PAD_LEFT);
+        }
+        $numero = strtoupper($numero);
+
+        // Département (+ région chargée en une requête)
+        $departement = Departement::with('region')->where('nom', $data['departement'])->first();
+
+        // Module (restauré s'il était supprimé)
+        $module = Module::withTrashed()->firstOrCreate(['name' => $data['module']]);
+        if ($module->trashed()) {
+            $module->restore();
+        }
+
+        $firstname = format_proper_name($data['firstname']);
+        $lastname  = remove_accents_uppercase($data['lastname']);
+
+        DB::transaction(function () use ($data, $cin, $firstname, $lastname, $numero, $date_depot, $departement, $module) {
+
+            // 1) Création avec un email temporaire unique (l'id n'existe pas encore)
+            $user = User::create([
+                'civilite'       => $data['civilite'],
+                'cin'            => $cin,
+                'firstname'      => $firstname,
+                'name'           => $lastname,
+                'date_naissance' => Carbon::createFromFormat('d/m/Y', $data['date_naissance']),
+                'lieu_naissance' => remove_accents_uppercase($data['lieu_naissance']),
+                'email'          => 'tmp_' . Str::uuid() . '@tmp.local',
+                'telephone'      => $data['telephone'],
+                'adresse'        => $data['adresse'],
+                'password'       => Hash::make(Str::random(32)),
+                'created_by'     => Auth::id(),
+            ]);
+
+            // 2) Email = prenom.nom.id@domaine  (accents/espaces nettoyés par Str::slug)
+            $domain = config('app.email_domain', 'example.com');
+            $email  = Str::slug($firstname . ' ' . $lastname, '.') . '.' . $user->id . '@' . $domain;
+
+            $user->update([
+                'username' => $data['lastname'] . $user->id,
+                'email'    => $email,
+                'password' => Hash::make($email), // même comportement qu'avant (mot de passe = email)
+            ]);
+            $user->assignRole('Demandeur');
+
+            // 3) Individuelle
+            Individuelle::create([
+                'date_depot'      => $date_depot,
+                'numero'          => $numero,
+                'telephone'       => $data['telephone'],
+                'niveau_etude'    => request('niveau_etude'),
+                'adresse'         => $data['adresse'],
+                'departements_id' => $departement->id,
+                'regions_id'      => $departement->region->id,
+                'modules_id'      => $module->id,
+                'statut'          => 'Nouvelle',
+                'users_id'        => $user->id,
+            ]);
+
+        // 4) Fichiers associés
+        File::whereNull('users_id')->get(['legende', 'sigle'])->each(function ($file) use ($user) {
+            File::create([
+                'legende'  => $file->legende,
+                'sigle'    => $file->sigle,
+                'users_id' => $user->id,
+            ]);
+    });
+    });
+
+    Alert::success('Succès !', 'Enregistrement effectué avec succès.');
+
+    return redirect()->back();
+}
 
     /* public function edit(Individuelle $individuelle)
     {

@@ -230,7 +230,7 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="col-md-4">
+                        {{-- <div class="col-md-4">
                             <label class="form-label">
                                 Téléphone secondaire
                             </label>
@@ -246,7 +246,7 @@
                         </div>
 
                         <div class="col-md-4">
-                            <label class="form-label">Email<span class="required">*</span></label>
+                            <label class="form-label">Email</label>
                             <input type="email" name="email" value="{{ old('email') }}"
                                 class="form-control form-control-sm @error('email') is-invalid @enderror" id="email"
                                 placeholder="email">
@@ -255,7 +255,7 @@
                                     <div>{{ $message }}</div>
                                 </span>
                             @enderror
-                        </div>
+                        </div> --}}
 
                         <div class="col-md-4">
                             <label class="form-label">
@@ -271,83 +271,6 @@
                             @enderror
                         </div>
 
-                        <div class="col-md-4">
-                            <label class="form-label">
-                                Situation familiale <span class="required">*</span>
-                            </label>
-
-                            <select name="situation_familiale"
-                                class="form-select form-select-sm @error('situation_familiale') is-invalid @enderror"
-                                aria-label="Select" id="select-field-familiale-indiv"
-                                data-placeholder="Choisir situation familiale">
-                                <option value="{{ old('situation_familiale') }}">
-                                    {{ old('situation_familiale') }}
-                                </option>
-                                <option value="Marié(e)">
-                                    Marié(e)
-                                </option>
-                                <option value="Célibataire">
-                                    Célibataire
-                                </option>
-                                <option value="Veuf(ve)">
-                                    Veuf(ve)
-                                </option>
-                                <option value="Divorcé(e)">
-                                    Divorcé(e)
-                                </option>
-                            </select>
-                            @error('situation_familiale')
-                                <span class="invalid-feedback" role="alert">
-                                    <div>{{ $message }}</div>
-                                </span>
-                            @enderror
-                        </div>
-
-                        <div class="col-md-4">
-                            <label class="form-label">
-                                Situation professionnelle <span class="required">*</span>
-                            </label>
-
-                            <select name="situation_professionnelle"
-                                class="form-select form-select-sm @error('situation_professionnelle') is-invalid @enderror"
-                                aria-label="Select" id="select-field-professionnelle-indiv"
-                                data-placeholder="Choisir situation professionnelle">
-                                <option value="{{ old('situation_professionnelle') }}">
-                                    {{ old('situation_professionnelle') }}
-                                </option>
-                                <option value="Employé(e)">
-                                    Employé(e)
-                                </option>
-                                <option value="Informel">
-                                    Informel
-                                </option>
-                                <option value="Elève ou étudiant">
-                                    Elève ou étudiant
-                                </option>
-                                <option value="Chercheur emploi">
-                                    Chercheur emploi
-                                </option>
-                                <option value="Stage ou période essai">
-                                    Stage ou période essai
-                                </option>
-                                <option value="Entrepreneur ou freelance">
-                                    Entrepreneur ou freelance
-                                </option>
-                            </select>
-                            @error('situation_professionnelle')
-                                <span class="invalid-feedback" role="alert">
-                                    <div>{{ $message }}</div>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
-
-                {{-- ================= STEP 4 – ÉTUDES ================= --}}
-                <div class="step d-none">
-                    <h5 class="mb-3">Études & Diplômes</h5>
-
-                    <div class="row g-3">
                         <div class="col-md-4">
                             <label class="form-label">
                                 Niveau d’étude <span class="required">*</span>
@@ -384,7 +307,121 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="col-md-4">
+
+                        {{-- <div class="col-md-4">
+                            <label class="form-label">
+                                Situation familiale <span class="required">*</span>
+                            </label>
+
+                            <select name="situation_familiale"
+                                class="form-select form-select-sm @error('situation_familiale') is-invalid @enderror"
+                                aria-label="Select" id="select-field-familiale-indiv"
+                                data-placeholder="Choisir situation familiale">
+                                <option value="{{ old('situation_familiale') }}">
+                                    {{ old('situation_familiale') }}
+                                </option>
+                                <option value="Marié(e)">
+                                    Marié(e)
+                                </option>
+                                <option value="Célibataire">
+                                    Célibataire
+                                </option>
+                                <option value="Veuf(ve)">
+                                    Veuf(ve)
+                                </option>
+                                <option value="Divorcé(e)">
+                                    Divorcé(e)
+                                </option>
+                            </select>
+                            @error('situation_familiale')
+                                <span class="invalid-feedback" role="alert">
+                                    <div>{{ $message }}</div>
+                                </span>
+                            @enderror
+                        </div> --}}
+
+                        {{-- <div class="col-md-4">
+                            <label class="form-label">
+                                Situation professionnelle <span class="required">*</span>
+                            </label>
+
+                            <select name="situation_professionnelle"
+                                class="form-select form-select-sm @error('situation_professionnelle') is-invalid @enderror"
+                                aria-label="Select" id="select-field-professionnelle-indiv"
+                                data-placeholder="Choisir situation professionnelle">
+                                <option value="{{ old('situation_professionnelle') }}">
+                                    {{ old('situation_professionnelle') }}
+                                </option>
+                                <option value="Employé(e)">
+                                    Employé(e)
+                                </option>
+                                <option value="Informel">
+                                    Informel
+                                </option>
+                                <option value="Elève ou étudiant">
+                                    Elève ou étudiant
+                                </option>
+                                <option value="Chercheur emploi">
+                                    Chercheur emploi
+                                </option>
+                                <option value="Stage ou période essai">
+                                    Stage ou période essai
+                                </option>
+                                <option value="Entrepreneur ou freelance">
+                                    Entrepreneur ou freelance
+                                </option>
+                            </select>
+                            @error('situation_professionnelle')
+                                <span class="invalid-feedback" role="alert">
+                                    <div>{{ $message }}</div>
+                                </span>
+                            @enderror
+                        </div> --}}
+                    </div>
+                </div>
+
+                {{-- ================= STEP 4 – ÉTUDES ================= --}}
+                {{-- <div class="step d-none">
+                    <h5 class="mb-3">Études & Diplômes</h5>
+
+                    <div class="row g-3"> --}}
+                        {{-- <div class="col-md-4">
+                            <label class="form-label">
+                                Niveau d’étude <span class="required">*</span>
+                            </label>
+                            <select name="niveau_etude"
+                                class="form-select form-select-sm @error('niveau_etude') is-invalid @enderror"
+                                aria-label="Select" id="select-field-niveau_etude-indiv"
+                                data-placeholder="Choisir niveau étude">
+                                <option value="{{ old('niveau_etude') }}">
+                                    {{ old('niveau_etude') }}
+                                </option>
+                                <option value="Aucun">
+                                    Aucun
+                                </option>
+                                <option value="Arabe">
+                                    Arabe
+                                </option>
+                                <option value="Elementaire">
+                                    Elementaire
+                                </option>
+                                <option value="Secondaire">
+                                    Secondaire
+                                </option>
+                                <option value="Moyen">
+                                    Moyen
+                                </option>
+                                <option value="Supérieur">
+                                    Supérieur
+                                </option>
+                            </select>
+                            @error('niveau_etude')
+                                <span class="invalid-feedback" role="alert">
+                                    <div>{{ $message }}</div>
+                                </span>
+                            @enderror
+                        </div> --}}
+                        {{-- <div class="col-md-4">
                             <label class="form-label">
                                 Diplôme académique <span class="required">*</span>
                             </label>
@@ -428,9 +465,9 @@
                                     <div>{{ $message }}</div>
                                 </span>
                             @enderror
-                        </div>
+                        </div> --}}
 
-                        <div class="col-md-4">
+                        {{-- <div class="col-md-4">
                             <label class="form-label">
                                 Etablissement académique
                             </label>
@@ -444,9 +481,9 @@
                                     <div>{{ $message }}</div>
                                 </span>
                             @enderror
-                        </div>
+                        </div> --}}
 
-                        <div class="col-md-4">
+                        {{-- <div class="col-md-4">
                             <label class="form-label">
                                 Si autre ? précisez
                             </label>
@@ -459,9 +496,9 @@
                                     <div>{{ $message }}</div>
                                 </span>
                             @enderror
-                        </div>
+                        </div> --}}
 
-                        <div class="col-md-4">
+                        {{-- <div class="col-md-4">
                             <label for="option_diplome_academique" class="form-label">Option du
                                 diplôme</label>
                             <input type="text" name="option_diplome_academique"
@@ -473,9 +510,9 @@
                                     <div>{{ $message }}</div>
                                 </span>
                             @enderror
-                        </div>
+                        </div> --}}
 
-                        <div class="col-md-4">
+                        {{-- <div class="col-md-4">
                             <label for="diplome_pro" class="form-label">Diplôme professionnel<span
                                     class="required">*</span></label>
                             <select name="diplome_professionnel"
@@ -518,9 +555,9 @@
                                     <div>{{ $message }}</div>
                                 </span>
                             @enderror
-                        </div>
+                        </div> --}}
 
-                        <div class="col-md-4">
+                        {{-- <div class="col-md-4">
                             <label for="autre_diplome_professionnel" class="form-label">Si autre ?
                                 précisez</label>
                             <input type="text" name="autre_diplome_professionnel"
@@ -533,9 +570,9 @@
                                     <div>{{ $message }}</div>
                                 </span>
                             @enderror
-                        </div>
+                        </div> --}}
 
-                        <div class="col-md-4">
+                        {{-- <div class="col-md-4">
                             <label for="etablissement_professionnel" class="form-label">Etablissement
                                 professionnel</label>
                             <input type="text" name="etablissement_professionnel"
@@ -547,9 +584,9 @@
                                     <div>{{ $message }}</div>
                                 </span>
                             @enderror
-                        </div>
+                        </div> --}}
 
-                        <div class="col-md-4">
+                        {{-- <div class="col-md-4">
                             <label class="form-label">Spécialité</label>
                             <input type="text" name="specialite_diplome_professionnel"
                                 value="{{ old('specialite_diplome_professionnel') }}"
@@ -560,16 +597,16 @@
                                     <div>{{ $message }}</div>
                                 </span>
                             @enderror
-                        </div>
-                    </div>
-                </div>
+                        </div> --}}
+                  {{--   </div>
+                </div> --}}
 
                 {{-- ================= STEP 5 – PROJET ================= --}}
-                <div class="step d-none">
+                {{-- <div class="step d-none">
                     <h5 class="mb-3">Projet</h5>
 
-                    <div class="row g-3">
-                        <div class="col-md-6">
+                    <div class="row g-3"> --}}
+                        {{-- <div class="col-md-6">
                             <label class="form-label">
                                 Projet professionnel après la formation <span class="required">*</span>
                             </label>
@@ -614,9 +651,9 @@
                                     <div>{{ $message }}</div>
                                 </span>
                             @enderror
-                        </div>
+                        </div> --}}
 
-                        <div class="col-md-12">
+                        {{-- <div class="col-md-12">
                             <label for="experience" class="form-label">Expériences et stages</label>
                             <textarea name="experience" id="experience" rows="1"
                                 class="form-control form-control-sm @error('experience') is-invalid @enderror"
@@ -626,9 +663,9 @@
                                     <div>{{ $message }}</div>
                                 </span>
                             @enderror
-                        </div>
+                        </div> --}}
 
-                        <div class="col-md-12">
+                        {{-- <div class="col-md-12">
                             <label for="projetprofessionnel" class="form-label">Informations
                                 complémentaires
                                 sur
@@ -642,9 +679,9 @@
                                     <div>{{ $message }}</div>
                                 </span>
                             @enderror
-                        </div>
-                    </div>
-                </div>
+                        </div> --}}
+                  {{--   </div>
+                </div> --}}
 
                 {{-- ================= STEP 6 – RÉCAPITULATIF ================= --}}
                 <div class="step d-none">
