@@ -685,7 +685,7 @@
 
                 {{-- ================= STEP 6 – RÉCAPITULATIF ================= --}}
                 <div class="step d-none">
-                    <h5 class="mb-3">📋 Récapitulatif de la demande</h5>
+                    <h5 class="mb-3">Récapitulatif de la demande</h5>
 
                     <div id="recap" class="border rounded p-3 bg-light"></div>
                 </div>
