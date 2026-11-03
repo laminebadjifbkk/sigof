@@ -1080,11 +1080,11 @@ class IndividuelleController extends Controller
             'localite'               => ['required', 'string', 'max:250'],
             'module'                 => ['required', 'string', 'max:250'],
             'niveau_etude'           => ['required', 'string', 'max:250'],
-            'diplome_academique'     => ['required', 'string', 'max:250'],
+           /*  'diplome_academique'     => ['required', 'string', 'max:250'],
             'diplome_professionnel'  => ['required', 'string', 'max:250'],
             'projet_poste_formation' => ['required', 'string', 'max:250'],
             'projetprofessionnel'    => ['required', 'string', 'max:1000'],
-            'qualification'          => ['nullable', 'string', 'max:500'],
+            'qualification'          => ['nullable', 'string', 'max:500'], */
 
             'civilite'       => ['required', 'string', 'max:10'],
             'cin'            => [

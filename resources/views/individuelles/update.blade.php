@@ -51,7 +51,7 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="col-12">
-                                    <h5 class="text-primary fw-semibold mb-3 fw-bold mt-3 mb-3 border-bottom pb-2">
+                                    <h5 class="text-primary fw-semibold mb-3 fw-bold mt-3 border-bottom pb-2">
                                         Informations personnelles
                                     </h5>
                                 </div>
@@ -96,20 +96,6 @@
                                             Passeport</option>
                                     </select>
                                 </div>
-
-                                {{-- <div class="col-12 col-md-6 col-lg-4 mb-0">
-                                    <label for="cin" class="form-label">CIN</label>
-                                    <input name="cin" type="text"
-                                        class="form-control form-control-sm @error('cin') is-invalid @enderror"
-                                        id="cin" value="{{ $individuelle?->user?->cin ?? old('cin') }}"
-                                        autocomplete="off" placeholder="Ex: 1099200500012" minlength="9" maxlength="14">
-                                    @error('cin')
-                                        <span class="invalid-feedback" role="alert">
-                                            <div>{{ $message }}</div>
-                                        </span>
-                                    @enderror
-                                </div> --}}
-
 
                                 <div class="col-12 col-md-4 mb-0">
                                     <label for="num_piece" class="form-label" id="numero_piece_label">
@@ -410,8 +396,7 @@
                                 </div>
 
                                 <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-4">
-                                    <label for="diplome_academique" class="form-label">Diplôme académique<span
-                                            class="text-danger mx-1">*</span></label>
+                                    <label for="diplome_academique" class="form-label">Diplôme académique</label>
                                     <select name="diplome_academique"
                                         class="form-select  @error('diplome_academique') is-invalid @enderror"
                                         aria-label="Select" id="select-field-diplome_academique"
