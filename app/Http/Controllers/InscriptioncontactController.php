@@ -201,6 +201,9 @@ class InscriptioncontactController extends Controller
                 "Ministre Conseiller Aldiouma SOW",
                 "FAISE - Khoureychi THIAM",
                 "FONGIP - Ndeye Fatou Guédel MBODJ",
+                "AKIM ADJIBI - Association IDE",
+                "Charles GASPARD - Association Stratégies Centre de Formation",
+                "Kelly Recoules - Association Stratégies Centre de Formation",
             ],
         ];
 
