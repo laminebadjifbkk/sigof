@@ -108,8 +108,9 @@
                                 </div>
 
                                 {{-- Boutons à droite --}}
-                                @can('individuelle-create')
+                                @can('operateurs-create')
                                     <div class="d-flex align-items-center gap-2">
+                                        <a href="{{ route('operateurs.create') }}" class="btn btn-primary btn-sm float-end" title="Ajouter">Ajouter</a>
                                         <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="modal"
                                             data-bs-target="#generate_rapport">
                                             Rechercher plus
