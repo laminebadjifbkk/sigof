@@ -126,7 +126,7 @@ class ParcMissionController extends Controller
     $labels = [
         'planifiee' => 'Planifiée',
         'en_cours'  => 'En cours',
-        'cloture'  => 'Cloturée',
+        'cloturee'  => 'Cloturée',
         'annulee'   => 'Annulée',
     ];
 
