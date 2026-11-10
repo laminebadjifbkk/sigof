@@ -15,7 +15,7 @@
                     'active' => !$statut && !$annee,
                 ])
 
-                {{-- @php
+                @php
                     $percentAnnee = $totalMissions ? round(($missionsAnnee * 100) / $totalMissions, 1) : 0;
                 @endphp
                 @include('parc.missions._stat-card', [
@@ -24,7 +24,7 @@
                     'percent' => $percentAnnee,
                     'url' => route('parc-missions.index', ['annee' => now()->year]),
                     'active' => (int) $annee === now()->year && !$statut,
-                ]) --}}
+                ])
 
                 @foreach ($statutStats as $statutKey => $stat)
                     @include('parc.missions._stat-card', [
