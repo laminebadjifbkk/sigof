@@ -371,7 +371,12 @@ private function recaptchaPasses(string $token, ?string $ip): bool
 
     public function index()
     {
-        $inscriptions = Inscription::orderBy('created_at', 'desc')->get();
+        //$inscriptions = Inscription::orderBy('created_at', 'desc')->get();
+        $inscriptions = Inscription::orderBy('created_at', 'desc')
+    ->get()
+    ->groupBy(fn ($i) => $i->created_at?->format('Y') ?? 'Sans date')   // année
+    ->map(fn ($year) => $year->groupBy(fn ($i) => $i->created_at?->format('m') ?? '00')); // mois
+
         $structures = [
             "Présidence, Primature et Gouvernement" => [
                 "Présidence de la République",
