@@ -16,6 +16,7 @@ use App\Http\Requests\UpdateParcMissionPersonnelRequest;
 use App\Mail\NouvelleMissionMail;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User; // pour récupérer DAF et logistique
+use Carbon\Carbon;
 
 class ParcMissionController extends Controller
 {
@@ -65,7 +66,7 @@ class ParcMissionController extends Controller
             'missionsAnnee'
         ));
     } */
-    public function index(Request $request)
+    /* public function index(Request $request)
     {
         $query = ParcMission::query();
 
@@ -116,7 +117,67 @@ class ParcMissionController extends Controller
             'labels',
             'statut'
         ));
+    } */
+   public function index(Request $request)
+{
+    $statut = $request->query('statut');
+    $annee  = ctype_digit((string) $request->query('annee')) ? (int) $request->query('annee') : null;
+
+    $labels = [
+        'planifiee' => 'Planifiée',
+        'en_cours'  => 'En cours',
+        'terminee'  => 'Terminée',
+        'annulee'   => 'Annulée',
+    ];
+
+    // Missions filtrées, regroupées par année puis par mois
+    $query = ParcMission::query();
+
+    if ($statut === 'Aucun') {
+        $query->whereNull('statut');
+    } elseif ($statut) {
+        $query->where('statut', $statut);
     }
+
+    if ($annee) {
+        $query->whereBetween('date_depart', [
+            Carbon::create($annee)->startOfYear(),
+            Carbon::create($annee)->endOfYear(),
+        ]);
+    }
+
+    $missions = $query
+        ->withCount(['employees', 'vehicules'])
+        ->orderByDesc('date_depart')
+        ->get()
+        ->groupBy(fn ($m) => $m->date_depart?->format('Y') ?? 'Sans date')
+        ->map(fn ($year) => $year->groupBy(fn ($m) => $m->date_depart?->format('m') ?? '00'));
+
+    // Cartes : un seul GROUP BY au lieu de charger toutes les missions
+    $counts = ParcMission::selectRaw('statut, COUNT(*) as total')
+        ->groupBy('statut')
+        ->pluck('total', 'statut')
+        ->mapWithKeys(fn ($n, $s) => [$s ?: 'Aucun' => $n]);
+
+    $totalMissions = $counts->sum();
+
+    // Tous les statuts connus apparaissent, même à 0
+    $statutStats = collect($labels)->map(fn () => 0)
+        ->merge($counts)
+        ->map(fn ($n) => [
+            'count'   => $n,
+            'percent' => $totalMissions ? round($n * 100 / $totalMissions, 1) : 0,
+        ]);
+
+    $missionsAnnee = ParcMission::whereBetween('date_depart', [
+        now()->startOfYear(),
+        now()->endOfYear(),
+    ])->count();
+
+    return view('parc.missions.index', compact(
+        'missions', 'statutStats', 'totalMissions', 'missionsAnnee', 'labels', 'statut', 'annee'
+    ));
+}
 
     /**
      * Show the form for creating a new resource.

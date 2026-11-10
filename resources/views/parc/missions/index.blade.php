@@ -4,139 +4,64 @@
 @section('space-work')
     <section class="section register">
         <div class="container">
-            <div class="row mb-4">
-                <!-- Total missions -->
-                <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                    <div class="card shadow-sm text-center p-2" style="min-height: 140px; border-radius: 10px;">
-                        <h6 class="card-title mb-2 text-truncate missions-title" title="Total missions">
-                            Missions total
-                        </h6>
-                        <div class="d-flex flex-column align-items-center justify-content-center mb-2">
-                            {{-- <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-1"
-                                style="width:36px; height:36px; font-size:1rem;">
-                                <i class="bi bi-flag"></i>
-                            </div> --}}
-                            <span class="h6 mb-0" style="font-size:1rem;">{{ $totalMissions }}</span>
-                            {{-- <small class="text-muted" style="font-size:0.7rem;">mission(s)</small> --}}
-                        </div>
 
-                        <!-- Barre de pourcentage -->
-                        <div class="mb-2">
-                            <div class="progress" style="height:6px; border-radius:3px;">
-                                <div class="progress-bar bg-success" role="progressbar" style="width: 100%;"></div>
-                            </div>
-                            <small class="text-muted">100%</small>
-                        </div>
+            {{-- ===== Cartes de statistiques ===== --}}
+            <div class="row mb-3">
+                @include('parc.missions._stat-card', [
+                    'title' => 'Missions total',
+                    'count' => $totalMissions,
+                    'percent' => 100,
+                    'url' => route('parc-missions.index'),
+                    'active' => !$statut && !$annee,
+                ])
 
-                        <!-- Bouton voir plus -->
-                        <a href="{{ route('parc-missions.index') }}" class="btn btn-outline-primary btn-sm w-100"
-                            style="font-size:0.75rem;">
-                            Voir plus <i class="bi bi-arrow-right-short"></i>
-                        </a>
-                    </div>
-                </div>
+                @php
+                    $percentAnnee = $totalMissions ? round(($missionsAnnee * 100) / $totalMissions, 1) : 0;
+                @endphp
+                @include('parc.missions._stat-card', [
+                    'title' => 'Année ' . now()->year,
+                    'count' => $missionsAnnee,
+                    'percent' => $percentAnnee,
+                    'url' => route('parc-missions.index', ['annee' => now()->year]),
+                    'active' => (int) $annee === now()->year && !$statut,
+                ])
 
-                <!-- Missions de l'année en cours -->
-                <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                    <div class="card shadow-sm text-center p-2" style="min-height: 140px; border-radius: 10px;">
-                        {{-- <h6 class="card-title mb-2 text-truncate" title="Missions cette année" style="font-size:0.85rem;">
-                            Cette année
-                        </h6> --}}
-                        <h6 class="card-title mb-2 text-truncate missions-title" title="Missions cette année">
-                            Année {{ now()->year }}
-                        </h6>
-
-                        <div class="d-flex flex-column align-items-center justify-content-center mb-2">
-                            {{-- <div class="rounded-circle bg-success text-white d-flex justify-content-center align-items-center mb-1"
-                                style="width:36px; height:36px; font-size:1rem;">
-                                <i class="bi bi-calendar"></i>
-                            </div> --}}
-                            <span class="h6 mb-0" style="font-size:1rem;">{{ $missionsAnnee }}</span>
-                            {{-- <small class="text-muted" style="font-size:0.7rem;">mission(s)</small> --}}
-                        </div>
-
-                        <!-- Barre de pourcentage -->
-                        <div class="mb-2">
-                            @php
-                                $percentAnnee = $totalMissions ? round(($missionsAnnee * 100) / $totalMissions, 1) : 0;
-                            @endphp
-                            <div class="progress" style="height:6px; border-radius:3px;">
-                                <div class="progress-bar bg-success" role="progressbar"
-                                    style="width: {{ $percentAnnee }}%;"></div>
-                            </div>
-                            <small class="text-muted">{{ $percentAnnee }}%</small>
-                        </div>
-
-                        <!-- Bouton voir plus -->
-                        <a href="{{ route('parc-missions.index', ['annee' => now()->year]) }}"
-                            class="btn btn-outline-primary btn-sm w-100" style="font-size:0.75rem;">
-                            Voir plus <i class="bi bi-arrow-right-short"></i>
-                        </a>
-                    </div>
-                </div>
-
-                @foreach ($groupes as $statut_s => $items)
-                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
-                        <div class="card shadow-sm text-center p-2" style="min-height: 120px; border-radius: 10px;">
-
-                            <!-- Statut -->
-                            <h6 class="card-title mb-2 text-truncate" title="{{ $statut_s }}"
-                                style="font-size: 0.85rem;">
-                                {{ ucfirst(str_replace('ee', 'ée', str_replace('_', ' ', $statut_s))) }}
-                            </h6>
-
-                            <!-- Nombre et icône -->
-                            <div class="d-flex flex-column align-items-center justify-content-center mb-2">
-                                {{-- <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-1"
-                                    style="width: 36px; height: 36px; font-size: 1rem;">
-                                    <i class="bi bi-flag"></i>
-                                </div> --}}
-                                <span class="h6 mb-0" style="font-size: 1rem;">
-                                    {{ $items->count() }}
-                                </span>
-                                {{-- <small class="text-muted" style="font-size: 0.7rem;">mission(s)</small> --}}
-                            </div>
-
-                            <!-- Pourcentage -->
-                            <div class="mb-2">
-                                <div class="progress" style="height:6px; border-radius:3px;">
-                                    <div class="progress-bar bg-success" role="progressbar"
-                                        style="width: {{ $statutPourcentages[$statut_s]['percent'] }}%;"></div>
-                                </div>
-                                <small class="text-muted">{{ $statutPourcentages[$statut_s]['percent'] }}%</small>
-                            </div>
-
-                            <!-- Bouton voir plus -->
-                            <a href="{{ route('parc-missions.index', ['statut' => $statut_s]) }}"
-                                class="btn btn-outline-primary btn-sm w-100" style="font-size: 0.75rem;">
-                                Voir plus <i class="bi bi-arrow-right-short"></i>
-                            </a>
-
-                        </div>
-                    </div>
+                @foreach ($statutStats as $statutKey => $stat)
+                    @include('parc.missions._stat-card', [
+                        'title' => $labels[$statutKey] ?? ucfirst(str_replace('_', ' ', $statutKey)),
+                        'count' => $stat['count'],
+                        'percent' => $stat['percent'],
+                        'url' => route('parc-missions.index', ['statut' => $statutKey]),
+                        'active' => $statut === $statutKey,
+                    ])
                 @endforeach
             </div>
 
-            @can('parc-mission-create')
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h3 class="mb-0">
-                        Liste des missions
-                        <span class="etat-btn">
-
-                            @if (!empty(request('statut')))
-                                {{-- Si un statut est présent dans l'URL --}}
-                                {{ $labels[request('statut')] ?? ucfirst(str_replace('_', ' ', request('statut'))) }}
-                            @elseif(request('annee'))
-                                {{-- Si une année est présente dans l'URL --}}
-                                de l'année {{ request('annee') }}
-                            @endif
+            {{-- ===== En-tête de la liste ===== --}}
+            <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                <h3 class="mb-0">
+                    Liste des missions
+                    @if ($statut)
+                        <span class="etat-btn {{ $statut }}">
+                            {{ $labels[$statut] ?? ucfirst(str_replace('_', ' ', $statut)) }}
                         </span>
-                    </h3>
+                    @endif
+                    @if ($annee)
+                        <span class="badge bg-secondary fs-6">Année {{ $annee }}</span>
+                    @endif
+                    @if ($statut || $annee)
+                        <a href="{{ route('parc-missions.index') }}" class="btn btn-sm btn-outline-secondary ms-2">
+                            <i class="bi bi-x-circle"></i> Réinitialiser
+                        </a>
+                    @endif
+                </h3>
+
+                @can('parc-mission-create')
                     <a href="{{ route('parc-missions.create') }}" class="btn btn-sm btn-primary">
                         <i class="bi bi-plus-circle"></i> Ajouter une mission
                     </a>
-                </div>
-            @endcan
+                @endcan
+            </div>
 
             @if (session('status'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -155,153 +80,153 @@
                 </div>
             @endif
 
-            <div class="table-responsive">
-                <table class="table table-hover table-striped shadow-sm" id="table-parc-mission">
-                    <thead class="table-dark">
-                        <tr>
-                            {{-- <th>Référence</th> --}}
-                            <th>Objet</th>
-                            {{-- <th>Lieu</th> --}}
-                            <th>Périodes</th>
-                            <th class="text-center" width="12%">Véhicules</th>
-                            <th class="text-center" width="12%">Agents</th>
-                            <th class="text-center" width="12%">Statut</th>
-                            <th class="text-center" width="12%">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($missions as $mission)
-                            <tr>
-                                {{--  <td>{{ $mission->reference }}</td> --}}
-                                <td>
-                                    <span class="short-text">{{ Str::limit($mission->objet, 25) }}</span>
-                                    <span class="full-text d-none">{{ $mission->objet }}</span>
+            {{-- ===== Missions groupées par année puis par mois ===== --}}
+            @forelse ($missions as $year => $months)
+                <div class="accordion mb-3" id="accordion-{{ $loop->index }}">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button {{ $loop->first ? '' : 'collapsed' }} fw-bold" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#year-{{ $loop->index }}">
+                                <i class="bi bi-calendar3 me-2"></i> {{ $year }}
+                                <span class="badge bg-primary ms-2">{{ $months->flatten()->count() }}</span>
+                            </button>
+                        </h2>
+                        <div id="year-{{ $loop->index }}"
+                            class="accordion-collapse collapse {{ $loop->first ? 'show' : '' }}">
+                            <div class="accordion-body">
 
-                                    @if (strlen($mission->objet) > 25)
-                                        <a href="#" class="toggle-text">...voir plus</a>
-                                    @endif
-                                </td>
+                                @foreach ($months as $month => $items)
+                                    @php
+                                        $monthName =
+                                            $month === '00'
+                                                ? 'Date non disponible'
+                                                : ucfirst(
+                                                    \Carbon\Carbon::create(2000, (int) $month, 1)
+                                                        ->locale('fr')
+                                                        ->translatedFormat('F'),
+                                                );
+                                    @endphp
 
-                                {{-- <td>{{ $mission->lieu_depart }} → {{ $mission->lieu_arrivee }}</td> --}}
-                                <td>
-                                    {{ $mission->date_depart->format('d/m/Y') }}
-                                    @if ($mission->date_retour)
-                                        -{{ $mission->date_retour->format('d/m/Y') }}
-                                    @endif
-                                </td>
-                                <td class="text-center">{{ $mission?->vehicules?->count() }}</td>
-                                <td class="text-center">{{ $mission->employees->count() }}</td>
-                                <td class="text-center">
-                                    <span class="etat-btn {{ $mission->statut }}">
-                                        {{ ucfirst(str_replace('ee', 'ée', str_replace('_', ' ', $mission->statut))) }}
-                                    </span>
-                                </td>
-                                <td class="text-center">
-                                    <span class="d-flex align-items-baseline justify-content-center gap-1">
-                                        <a href="{{ route('parc-missions.show', $mission->id) }}"
-                                            class="btn btn-sm btn-info">
-                                            <i class="bi bi-eye"></i>
-                                        </a>
-                                        <a href="{{ route('parc-missions.edit', $mission->id) }}"
-                                            class="btn btn-sm btn-warning">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </a>
-                                        <form action="{{ route('parc-missions.destroy', $mission->id) }}" method="POST"
-                                            class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <input type="hidden" name="id" value="{{ $mission->id }}"> {{-- Champ caché pour forcer l’ID --}}
+                                    <h6 class="mt-4 mb-2 text-primary border-bottom pb-1">
+                                        <i class="bi bi-calendar-month me-1"></i>
+                                        {{ $monthName }} {{ $year }}
+                                        <span class="badge bg-secondary">{{ $items->count() }}</span>
+                                    </h6>
 
-                                            <button type="submit" class="btn btn-sm btn-danger show_confirm"
-                                                {{ $mission->employees_count > 0 ? 'disabled' : '' }}
-                                                title="{{ $mission->employees_count > 0 ? 'Mission déjà assignée à des employés' : 'Supprimer la mission' }}"
-                                                data-id="{{ $mission->id }}">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
-                                        </form>
-                                    </span>
-                                </td>
-                                <!-- Modal -->
-                                <div class="modal fade" id="objetModal{{ $mission->id }}" tabindex="-1">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Objet de la mission</h5>
-                                                <button type="button" class="btn-close"
-                                                    data-bs-dismiss="modal"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                {{ $mission->objet }}
-                                            </div>
-                                        </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-striped shadow-sm table-missions"
+                                            data-title="Missions - {{ $monthName }} {{ $year }}">
+                                            <thead class="table-dark">
+                                                <tr>
+                                                    <th>Objet</th>
+                                                    <th>Périodes</th>
+                                                    <th class="text-center" width="12%">Véhicules</th>
+                                                    <th class="text-center" width="12%">Agents</th>
+                                                    <th class="text-center" width="12%">Statut</th>
+                                                    <th class="text-center" width="12%">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($items as $mission)
+                                                    @include('parc.missions._row', [
+                                                        'mission' => $mission,
+                                                        'labels' => $labels,
+                                                    ])
+                                                @endforeach
+                                            </tbody>
+                                        </table>
                                     </div>
-                                </div>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+                                @endforeach
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @empty
+                <div class="alert alert-info">Aucune mission pour ces critères.</div>
+            @endforelse
         </div>
     </section>
 @endsection
 
 @push('scripts')
     <script>
-        new DataTable('#table-parc-mission', {
-            ordering: false,
-            layout: {
-                topStart: {
-                    buttons: ['csv', 'excel', 'print'],
-                }
+        const dataTableLanguage = {
+            "sProcessing": "Traitement en cours...",
+            "sSearch": "Rechercher&nbsp;:",
+            "sLengthMenu": "Afficher _MENU_ éléments",
+            "sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+            "sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
+            "sInfoFiltered": "(filtré de _MAX_ éléments au total)",
+            "sLoadingRecords": "Chargement en cours...",
+            "sZeroRecords": "Aucun élément à afficher",
+            "sEmptyTable": "Aucune donnée disponible dans le tableau",
+            "oPaginate": {
+                "sFirst": "Premier",
+                "sPrevious": "Précédent",
+                "sNext": "Suivant",
+                "sLast": "Dernier"
             },
-            language: {
-                "sProcessing": "Traitement en cours...",
-                "sSearch": "Rechercher&nbsp;:",
-                "sLengthMenu": "Afficher _MENU_ éléments",
-                "sInfo": "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
-                "sInfoEmpty": "Affichage de l'élément 0 à 0 sur 0 élément",
-                "sInfoFiltered": "(filtré de _MAX_ éléments au total)",
-                "sLoadingRecords": "Chargement en cours...",
-                "sZeroRecords": "Aucun élément à afficher",
-                "sEmptyTable": "Aucune donnée disponible dans le tableau",
-                "oPaginate": {
-                    "sFirst": "Premier",
-                    "sPrevious": "Précédent",
-                    "sNext": "Suivant",
-                    "sLast": "Dernier"
-                },
-                "oAria": {
-                    "sSortAscending": ": activer pour trier la colonne par ordre croissant",
-                    "sSortDescending": ": activer pour trier la colonne par ordre décroissant"
-                },
-                "select": {
-                    "rows": {
-                        _: "%d lignes sélectionnées",
-                        0: "Aucune ligne sélectionnée",
-                        1: "1 ligne sélectionnée"
-                    }
+            "oAria": {
+                "sSortAscending": ": activer pour trier la colonne par ordre croissant",
+                "sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+            },
+            "select": {
+                "rows": {
+                    _: "%d lignes sélectionnées",
+                    0: "Aucune ligne sélectionnée",
+                    1: "1 ligne sélectionnée"
                 }
             }
-        });
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.toggle-text').forEach(function(link) {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const td = this.closest('td');
-                    const shortText = td.querySelector('.short-text');
-                    const fullText = td.querySelector('.full-text');
+        };
 
-                    if (fullText.classList.contains('d-none')) {
-                        shortText.classList.add('d-none');
-                        fullText.classList.remove('d-none');
-                        this.textContent = 'voir moins';
-                    } else {
-                        fullText.classList.add('d-none');
-                        shortText.classList.remove('d-none');
-                        this.textContent = '...voir plus';
+        // Un DataTable par tableau (un tableau par mois)
+        document.querySelectorAll('.table-missions').forEach(function(el) {
+            const title = el.dataset.title || 'Missions';
+
+            new DataTable(el, {
+                ordering: false,
+                layout: {
+                    topStart: {
+                        buttons: [{
+                                extend: 'csv',
+                                title: title
+                            },
+                            {
+                                extend: 'excel',
+                                title: title
+                            },
+                            {
+                                extend: 'print',
+                                title: title
+                            }
+                        ],
                     }
-                });
+                },
+                language: dataTableLanguage
             });
+        });
+
+        // "voir plus / voir moins" : délégation d'événement, pour que ça fonctionne
+        // aussi sur les lignes des autres pages de DataTables
+        document.addEventListener('click', function(e) {
+            const link = e.target.closest('.toggle-text');
+            if (!link) return;
+
+            e.preventDefault();
+            const td = link.closest('td');
+            const shortText = td.querySelector('.short-text');
+            const fullText = td.querySelector('.full-text');
+
+            if (fullText.classList.contains('d-none')) {
+                shortText.classList.add('d-none');
+                fullText.classList.remove('d-none');
+                link.textContent = 'voir moins';
+            } else {
+                fullText.classList.add('d-none');
+                shortText.classList.remove('d-none');
+                link.textContent = '...voir plus';
+            }
         });
     </script>
 @endpush
