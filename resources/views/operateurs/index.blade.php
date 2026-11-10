@@ -106,7 +106,6 @@
                                         <span class="text-dark">{{ $total }}</span> demandes
                                     </span>
                                 </div>
-
                                 {{-- Boutons à droite --}}
                                 @can('operateurs-create')
                                     <div class="d-flex align-items-center gap-2">
