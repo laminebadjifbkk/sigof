@@ -131,6 +131,7 @@ use App\Http\Controllers\OnfpActiviteTagController;
 use App\Http\Controllers\OnfpDashboardController;
 
 use App\Http\Controllers\NoteFraisController;
+use App\Http\Controllers\Support\SupportTicketController;
 
 
 
@@ -1473,6 +1474,35 @@ Route::get('/prisenchargestatutregion/{statut}/{region}/{annee_scolaire}', [Form
                 'Content-Type' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
                 'Content-Disposition' => 'inline; filename="EXEMPLE_DECHARGE_TRANSPORT.docx"',
             ]);
+        });
+
+        Route::prefix('support')
+        ->name('support.')
+        ->middleware(['auth'])
+        ->group(function () {
+
+            // Tableau de bord
+            Route::get('/', [SupportTicketController::class, 'dashboard'])
+                ->name('dashboard');
+
+            // Gestion des tickets
+            Route::get('/tickets', [SupportTicketController::class, 'index'])
+                ->name('tickets.index');
+
+            Route::get('/tickets/create', [SupportTicketController::class, 'create'])
+                ->name('tickets.create');
+
+            Route::post('/tickets', [SupportTicketController::class, 'store'])
+                ->name('tickets.store');
+
+            Route::get('/tickets/{ticket}', [SupportTicketController::class, 'show'])
+                ->name('tickets.show');
+
+            // Prise en charge
+            Route::post('/tickets/{ticket}/prendre-en-charge', [
+                SupportTicketController::class,
+                'prendreEnCharge'
+            ])->name('tickets.take-charge');
         });
     });
 
