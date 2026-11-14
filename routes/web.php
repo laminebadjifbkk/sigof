@@ -1503,6 +1503,28 @@ Route::get('/prisenchargestatutregion/{statut}/{region}/{annee_scolaire}', [Form
                 SupportTicketController::class,
                 'prendreEnCharge'
             ])->name('tickets.take-charge');
+
+            Route::post(
+                '/tickets/{ticket}/affecter',
+                [SupportTicketController::class, 'affecter']
+            )->name('tickets.assign');
+
+            Route::post(
+                '/tickets/{ticket}/commentaires',
+                [SupportTicketController::class, 'ajouterCommentaire']
+            )->name('tickets.commentaires.store');
+
+            // Enregistrement d'une intervention
+            Route::post(
+                '/tickets/{ticket}/interventions',
+                [SupportTicketController::class, 'enregistrerIntervention']
+            )->name('tickets.interventions.store');
+
+            Route::post(
+                '/tickets/{ticket}/interventions',
+                [SupportTicketController::class, 'enregistrerIntervention']
+            )->name('tickets.interventions.store');
+
         });
     });
 

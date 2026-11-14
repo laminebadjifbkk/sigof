@@ -135,4 +135,14 @@ class SupportTicket extends Model
             $q->whereIn('code', ['OUVERT', 'EN_COURS', 'EN_ATTENTE']);
         });
     }
+
+
+    public function interventions(): HasMany
+    {
+        return $this->hasMany(
+            SupportTicketIntervention::class,
+            'support_ticket_id'
+        )->orderBy('date_intervention', 'desc');
+    }
+
 }

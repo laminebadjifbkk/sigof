@@ -14,46 +14,73 @@ use App\Services\Support\SupportPriseEnChargeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
+use App\Models\User;
+use App\Services\Support\SupportAffectationService;
+use App\Services\Support\SupportInterventionService;
 
 class SupportTicketController extends Controller
 {
+
     public function dashboard()
     {
-        abort_unless(auth()->user()->can('support.dashboard.view'), 403);
+        $user = auth()->user();
+
+        abort_unless($user->can('support.dashboard.view'), 403);
+
+        // Périmètre des tickets visibles par l'utilisateur.
+        $query = SupportTicket::query();
+
+        if (!$user->can('support.tickets.view-all')) {
+            if ($user->can('support.tickets.view-assigned')) {
+                $query->where(function ($q) use ($user) {
+                    $q->where('user_demandeur_id', $user->id)
+                    ->orWhere('user_assigne_id', $user->id);
+                });
+            } else {
+                $query->where('user_demandeur_id', $user->id);
+            }
+        }
 
         $stats = [
-            'total' => SupportTicket::count(),
-            'nouveaux' => SupportTicket::whereHas(
+            'total' => (clone $query)->count(),
+
+            'nouveaux' => (clone $query)->whereHas(
                 'statut',
                 fn ($q) => $q->where('code', 'NOUVEAU')
             )->count(),
-            'en_cours' => SupportTicket::whereHas(
+
+            'en_cours' => (clone $query)->whereHas(
                 'statut',
                 fn ($q) => $q->where('code', 'EN_COURS')
             )->count(),
-            'en_attente' => SupportTicket::whereHas(
+
+            'en_attente' => (clone $query)->whereHas(
                 'statut',
                 fn ($q) => $q->where('code', 'EN_ATTENTE')
             )->count(),
-            'resolus' => SupportTicket::whereHas(
+
+            'resolus' => (clone $query)->whereHas(
                 'statut',
                 fn ($q) => $q->where('code', 'RESOLU')
             )->count(),
         ];
 
-        $ticketsRecents = SupportTicket::with([
+        $ticketsRecents = (clone $query)->with([
             'categorie',
             'priorite',
             'statut',
             'demandeur',
             'assigne',
-        ])->recents()->limit(10)->get();
+        ])->orderByDesc('date_soumission')
+        ->limit(10)
+        ->get();
 
         return view('support.dashboard', compact(
             'stats',
             'ticketsRecents'
         ));
     }
+
 
     public function index(Request $request)
     {
@@ -215,14 +242,34 @@ class SupportTicketController extends Controller
             'demandeur',
             'assigne',
             'historiques.user',
-            'commentaires.user',
+            'interventions.user',
+            /* 'commentaires.user', */
+            'commentaires' => function ($query) use ($user) {
+                $query->with('user');
+
+                if (!$user->can('support.commentaires.view')) {
+                    $query->where('visible_demandeur', true);
+                }
+            },
             'piecesJointes.user',
             'affectations.ancienTechnicien',
             'affectations.nouveauTechnicien',
             'affectations.auteurAffectation',
         ]);
 
-        return view('support.tickets.show', compact('ticket'));
+        $techniciens = collect();
+
+        if ($user->can('support.tickets.assign')) {
+            $techniciens = User::role('technicien-support')
+                ->orderBy('firstname')
+                ->orderBy('name')
+                ->get();
+        }
+
+        return view('support.tickets.show', compact(
+            'ticket',
+            'techniciens'
+        ));
     }
 
     public function prendreEnCharge(
@@ -235,5 +282,195 @@ class SupportTicketController extends Controller
             'success',
             'Le ticket a été pris en charge avec succès.'
         );
+    }
+
+        public function affecter(
+        Request $request,
+        SupportTicket $ticket,
+        SupportAffectationService $service
+    ) {
+        abort_unless(
+            auth()->user()->can('support.tickets.assign'),
+            403
+        );
+
+        $validated = $request->validate([
+            'technicien_id' => [
+                'required',
+                'integer',
+                'exists:users,id',
+            ],
+            'motif' => [
+                'nullable',
+                'string',
+                'max:1000',
+            ],
+        ]);
+
+        $technicien = User::role('technicien-support')
+            ->findOrFail($validated['technicien_id']);
+
+        $service->affecter(
+            $ticket,
+            $technicien,
+            auth()->user(),
+            $validated['motif'] ?? null
+        );
+
+        return redirect()
+            ->route('support.tickets.show', $ticket)
+            ->with('success', 'Le ticket a été affecté avec succès.');
+    }
+
+
+    public function ajouterCommentaire(
+        Request $request,
+        SupportTicket $ticket
+    ) {
+        $user = auth()->user();
+
+        abort_unless(
+            $user->can('support.commentaires.create'),
+            403
+        );
+
+        // Vérifier que l'utilisateur a le droit de consulter ce ticket.
+        $autorise = $user->can('support.tickets.view-all')
+            || (
+                $user->can('support.tickets.view-assigned')
+                && (
+                    (int) $ticket->user_demandeur_id === (int) $user->id
+                    || (int) $ticket->user_assigne_id === (int) $user->id
+                )
+            )
+            || (
+                $user->can('support.tickets.view-own')
+                && (int) $ticket->user_demandeur_id === (int) $user->id
+            );
+
+        abort_unless($autorise, 403);
+
+        $validated = $request->validate([
+            'contenu' => ['required', 'string', 'min:2', 'max:5000'],
+            'visible_demandeur' => ['nullable', 'boolean'],
+        ]);
+
+        // Un utilisateur hors équipe Support ne peut publier
+        // que des commentaires visibles par le demandeur.
+        $visibleDemandeur = !$user->can('support.commentaires.view')
+            || $request->boolean('visible_demandeur');
+
+        DB::transaction(function () use (
+            $ticket,
+            $user,
+            $validated,
+            $visibleDemandeur
+        ) {
+            $commentaire = $ticket->commentaires()->create([
+                'user_id' => $user->id,
+                'contenu' => $validated['contenu'],
+                'visible_demandeur' => $visibleDemandeur,
+            ]);
+
+            SupportTicketHistorique::create([
+                'support_ticket_id' => $ticket->id,
+                'user_id' => $user->id,
+                'action' => 'COMMENTAIRE',
+                'champ' => null,
+                'ancienne_valeur' => null,
+                'nouvelle_valeur' => (string) $commentaire->id,
+                'description' => $visibleDemandeur
+                    ? 'Ajout d’un commentaire visible par le demandeur.'
+                    : 'Ajout d’une note interne au support.',
+            ]);
+        });
+
+        return redirect()
+            ->route('support.tickets.show', $ticket)
+            ->with('success', 'Votre commentaire a été enregistré.');
+    }
+
+   /*  public function enregistrerIntervention(
+    Request $request,
+    SupportTicket $ticket,
+    SupportInterventionService $service
+    ) {
+        $user = auth()->user();
+
+        $autorise =
+            $user->can('support.tickets.view-all')
+            || (
+                $user->can('support.tickets.view-assigned')
+                && (
+                    (int) $ticket->user_demandeur_id === (int) $user->id
+                    || (int) $ticket->user_assigne_id === (int) $user->id
+                )
+            )
+            || (
+                $user->can('support.tickets.view-own')
+                && (int) $ticket->user_demandeur_id === (int) $user->id
+            );
+
+        abort_unless($autorise, 403);
+
+        $donnees = $request->validate([
+            'date_intervention' => ['required', 'date'],
+            'diagnostic' => ['required', 'string', 'max:5000'],
+            'travaux_realises' => ['required', 'string', 'max:10000'],
+            'duree_minutes' => ['required', 'integer', 'min:1', 'max:100000'],
+            'resultat' => [
+                'required',
+                'in:RESOLU,NON_RESOLU,EN_ATTENTE,A_SUIVRE',
+            ],
+            'observations' => ['nullable', 'string', 'max:5000'],
+        ]);
+
+        $service->enregistrer($ticket, auth()->user(), $donnees);
+
+        return redirect()
+            ->route('support.tickets.show', $ticket)
+            ->with('success', 'L’intervention a été enregistrée avec succès.');
+    } */
+
+     public function enregistrerIntervention(
+        Request $request,
+        SupportTicket $ticket,
+        SupportInterventionService $service
+    ) {
+        $user = auth()->user();
+
+        $autorise =
+            $user->can('support.tickets.view-all')
+            || (
+                $user->can('support.tickets.view-assigned')
+                && (
+                    (int) $ticket->user_assigne_id === (int) $user->id
+                    || (int) $ticket->user_demandeur_id === (int) $user->id
+                )
+            )
+            || (
+                $user->can('support.tickets.view-own')
+                && (int) $ticket->user_demandeur_id === (int) $user->id
+            );
+
+        abort_unless($autorise, 403);
+
+        $donnees = $request->validate([
+            'date_intervention' => ['required', 'date'],
+            'diagnostic' => ['required', 'string', 'max:5000'],
+            'travaux_realises' => ['required', 'string', 'max:10000'],
+            'duree_minutes' => ['required', 'integer', 'min:1', 'max:100000'],
+            'resultat' => [
+                'required',
+                'in:RESOLU,NON_RESOLU,EN_ATTENTE,A_SUIVRE',
+            ],
+            'observations' => ['nullable', 'string', 'max:5000'],
+        ]);
+
+        $service->enregistrer($ticket, $user, $donnees);
+
+        return redirect()
+            ->route('support.tickets.show', $ticket)
+            ->with('success', 'Intervention enregistrée avec succès.');
     }
 }

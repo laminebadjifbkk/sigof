@@ -123,6 +123,22 @@ class SupportAccessSeeder extends Seeder
             $rolePermissions = [
                 'chef-service-informatique' => $permissions,
 
+                /* 'Demandeur' => [
+                    'support.access',
+                    'support.dashboard.view',
+                    'support.tickets.create',
+                    'support.tickets.view-own',
+                    'support.commentaires.create',
+                ], */
+
+                'Employe' => [
+                    'support.access',
+                    'support.dashboard.view',
+                    'support.tickets.create',
+                    'support.tickets.view-own',
+                    'support.commentaires.create',
+                ],
+
                 'responsable-support' => [
                     'support.access',
                     'support.tickets.create',
