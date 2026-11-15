@@ -278,9 +278,9 @@ class SupportTicketController extends Controller
 
         $transitions = [
             'NOUVEAU' => ['OUVERT', 'REJETE'],
-            'OUVERT' => ['EN_COURS', 'EN_ATTENTE', 'REJETE'],
+            'OUVERT' => ['EN_ATTENTE', 'REJETE'],
             'EN_COURS' => ['EN_ATTENTE', 'RESOLU'],
-            'EN_ATTENTE' => ['EN_COURS', 'RESOLU'],
+            'EN_ATTENTE' => ['RESOLU'],
             'RESOLU' => ['CLOTURE', 'EN_COURS'],
             'CLOTURE' => ['OUVERT'],
             'REJETE' => ['OUVERT'],

@@ -617,8 +617,7 @@
 
                         <div class="card-header bg-white py-3">
                             <h5 class="mb-0 fw-bold">
-                                <i class="bi bi-arrow-left-right me-2"
-                                    style="color:#F28500"></i>
+                                <i class="bi bi-arrow-left-right me-2" style="color:#F28500"></i>
                                 Gestion du statut
                             </h5>
                         </div>
@@ -635,8 +634,7 @@
                                 </span>
                             </div>
 
-                            <form method="POST"
-                                action="{{ route('support.tickets.statut.update', $ticket) }}">
+                            <form method="POST" action="{{ route('support.tickets.statut.update', $ticket) }}">
 
                                 @csrf
                                 @method('PATCH')
@@ -646,18 +644,14 @@
                                         Nouveau statut
                                     </label>
 
-                                    <select name="statut"
-                                        id="supportStatut"
-                                        class="form-select"
-                                        required>
+                                    <select name="statut" id="supportStatut" class="form-select" required>
 
                                         <option value="">
                                             Sélectionner un statut
                                         </option>
 
                                         @foreach ($statutsDisponibles as $statut)
-                                            <option value="{{ $statut->code }}"
-                                                @selected(old('statut') === $statut->code)>
+                                            <option value="{{ $statut->code }}" @selected(old('statut') === $statut->code)>
                                                 {{ $statut->libelle }}
                                             </option>
                                         @endforeach
@@ -676,11 +670,7 @@
                                         Justification
                                     </label>
 
-                                    <textarea name="motif"
-                                        id="supportMotif"
-                                        class="form-control"
-                                        rows="3"
-                                        maxlength="2000"
+                                    <textarea name="motif" id="supportMotif" class="form-control" rows="3" maxlength="2000"
                                         placeholder="Préciser le motif de cette opération si nécessaire...">{{ old('motif') }}</textarea>
 
                                     <small class="text-muted">
@@ -695,9 +685,7 @@
                                     @enderror
                                 </div>
 
-                                <button type="submit"
-                                    class="btn text-white w-100"
-                                    style="background:#F28500">
+                                <button type="submit" class="btn text-white w-100" style="background:#F28500">
 
                                     <i class="bi bi-check-circle me-1"></i>
                                     Mettre à jour le statut
