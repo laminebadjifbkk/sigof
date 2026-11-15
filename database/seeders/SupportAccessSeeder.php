@@ -79,7 +79,9 @@ class SupportAccessSeeder extends Seeder
             'support.equipements.create',
             'support.equipements.update',
             'support.equipements.delete',
+            'support.equipements.reform',
             'support.equipements.assign',
+            'support.equipements.return',
             'support.equipements.move',
 
             // Maintenance
@@ -203,7 +205,9 @@ class SupportAccessSeeder extends Seeder
                     'support.equipements.create',
                     'support.equipements.update',
                     'support.equipements.delete',
+                    'support.equipements.reform',
                     'support.equipements.assign',
+                    'support.equipements.return',
                     'support.equipements.move',
                     'support.maintenances.view',
                     'support.maintenances.create',

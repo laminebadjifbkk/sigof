@@ -405,6 +405,7 @@ class DatabaseSeeder extends Seeder
             ServiceSeeder::class,
             CorrectiveFilesSeeder::class,
             LanguesSpecialisationSeeder::class,
+            SupportCategorieEquipementSeeder::class,
 
             /* IndividuelleSeeder::class, */
         ]);

@@ -23,115 +23,130 @@ class SupportAffectationEquipementService
         'HORS_SERVICE',
     ];
 
-    /**
-     * Affecter un équipement à un employé, une direction ou une antenne.
-     */
-    public function affecter(
-        SupportEquipement $equipement,
-        array $destinataire,
-        User $acteur,
-        array $options = []
-    ): SupportAffectationEquipement {
-        $this->autoriser($acteur, 'support.equipements.assign');
 
-        $cible = $this->validerDestinataire($destinataire);
-        $options = $this->validerOptions($options, false);
+/**
+ * Affecter un équipement à un employé, une direction ou une antenne.
+ */
+public function affecter(
+    SupportEquipement $equipement,
+    array $destinataire,
+    User $acteur,
+    array $options = []
+): SupportAffectationEquipement {
+    $this->autoriser($acteur, 'support.equipements.assign');
 
-        return DB::transaction(function () use (
+    $cible = $this->validerDestinataire($destinataire);
+    $options = $this->validerOptions($options, false);
+
+    return DB::transaction(function () use (
+        $equipement,
+        $cible,
+        $acteur,
+        $options
+    ) {
+        $equipement = SupportEquipement::query()
+            ->whereKey($equipement->id)
+            ->lockForUpdate()
+            ->firstOrFail();
+
+        // Revérifier et verrouiller le destinataire dans la transaction.
+        $this->verrouillerDestinataire($cible);
+
+        $ancienEtatPhysique = $equipement->etat_physique;
+
+        if (!in_array($equipement->statut, self::STATUTS_AFFECTABLES, true)) {
+            throw ValidationException::withMessages([
+                'equipement' =>
+                    'Cet équipement n’est pas disponible pour une affectation. '
+                    . 'Statut actuel : ' . $equipement->statut . '.',
+            ]);
+        }
+
+        if ($equipement->etat_physique === 'HORS_SERVICE') {
+            throw ValidationException::withMessages([
+                'equipement' =>
+                    'Un équipement hors service ne peut pas être affecté.',
+            ]);
+        }
+
+        if ($equipement->affectationActive()->exists()) {
+            throw ValidationException::withMessages([
+                'equipement' =>
+                    'Cet équipement possède déjà une affectation active.',
+            ]);
+        }
+
+        if (($options['etat_remise'] ?? $equipement->etat_physique) === 'HORS_SERVICE') {
+            throw ValidationException::withMessages([
+                'etat_remise' =>
+                    'Un équipement hors service ne peut pas être remis à un détenteur.',
+            ]);
+        }
+
+        $affectation = SupportAffectationEquipement::create([
+            'support_equipement_id' => $equipement->id,
+            'employee_id' => $cible['employee_id'],
+            'direction_id' => $cible['direction_id'],
+            'antenne_id' => $cible['antenne_id'],
+            'date_debut' => now(),
+            'date_fin' => null,
+            'etat_remise' => $options['etat_remise']
+                ?? $equipement->etat_physique,
+            'etat_retour' => null,
+            'observations' => $options['observations'] ?? null,
+            'motif_retour' => null,
+            'user_create_id' => $acteur->id,
+            'user_update_id' => null,
+        ]);
+
+        $ancienStatut = $equipement->statut;
+
+        $equipement->statut = 'AFFECTE';
+        $equipement->etat_physique = $affectation->etat_remise;
+        $equipement->user_update_id = $acteur->id;
+        $equipement->save();
+
+        SupportMouvementEquipement::create([
+            'support_equipement_id' => $equipement->id,
+            'affectation_origine_id' => null,
+            'affectation_destination_id' => $affectation->id,
+            'type_mouvement' => 'AFFECTATION',
+            'date_mouvement' => now(),
+            'motif' => $options['motif'] ?? 'Affectation initiale',
+            'observations' => $options['observations'] ?? null,
+            'user_create_id' => $acteur->id,
+        ]);
+
+        $this->historiser(
             $equipement,
-            $cible,
             $acteur,
-            $options
-        ) {
-            $equipement = SupportEquipement::query()
-                ->whereKey($equipement->id)
-                ->lockForUpdate()
-                ->firstOrFail();
+            'AFFECTATION',
+            'statut',
+            $ancienStatut,
+            'AFFECTE',
+            'Affectation de l’équipement '
+                . $equipement->reference
+                . ' à ' . $this->descriptionCible($cible)
+                . '.'
+        );
 
-            if (!in_array($equipement->statut, self::STATUTS_AFFECTABLES, true)) {
-                throw ValidationException::withMessages([
-                    'equipement' =>
-                        'Cet équipement n’est pas disponible pour une affectation. '
-                        . 'Statut actuel : ' . $equipement->statut . '.',
-                ]);
-            }
+        $this->historiserEtatPhysique(
+            $equipement,
+            $acteur,
+            $ancienEtatPhysique,
+            $equipement->etat_physique,
+            'État physique enregistré lors de l’affectation.'
+        );
 
-            if ($equipement->etat_physique === 'HORS_SERVICE') {
-                throw ValidationException::withMessages([
-                    'equipement' =>
-                        'Un équipement hors service ne peut pas être affecté.',
-                ]);
-            }
-
-            if ($equipement->affectationActive()->exists()) {
-                throw ValidationException::withMessages([
-                    'equipement' =>
-                        'Cet équipement possède déjà une affectation active.',
-                ]);
-            }
-
-            if (($options['etat_remise'] ?? $equipement->etat_physique) === 'HORS_SERVICE') {
-                throw ValidationException::withMessages([
-                    'etat_remise' =>
-                        'Un équipement hors service ne peut pas être remis à un détenteur.',
-                ]);
-            }
-
-            $affectation = SupportAffectationEquipement::create([
-                'support_equipement_id' => $equipement->id,
-                'employee_id' => $cible['employee_id'],
-                'direction_id' => $cible['direction_id'],
-                'antenne_id' => $cible['antenne_id'],
-                'date_debut' => now(),
-                'date_fin' => null,
-                'etat_remise' => $options['etat_remise'] ?? $equipement->etat_physique,
-                'etat_retour' => null,
-                'observations' => $options['observations'] ?? null,
-                'motif_retour' => null,
-                'user_create_id' => $acteur->id,
-                'user_update_id' => null,
-            ]);
-
-            $ancienStatut = $equipement->statut;
-
-            $equipement->statut = 'AFFECTE';
-            $equipement->etat_physique = $affectation->etat_remise;
-            $equipement->user_update_id = $acteur->id;
-            $equipement->save();
-
-            SupportMouvementEquipement::create([
-                'support_equipement_id' => $equipement->id,
-                'affectation_origine_id' => null,
-                'affectation_destination_id' => $affectation->id,
-                'type_mouvement' => 'AFFECTATION',
-                'date_mouvement' => now(),
-                'motif' => $options['motif'] ?? 'Affectation initiale',
-                'observations' => $options['observations'] ?? null,
-                'user_create_id' => $acteur->id,
-            ]);
-
-            $this->historiser(
-                $equipement,
-                $acteur,
-                'AFFECTATION',
-                'statut',
-                $ancienStatut,
-                'AFFECTE',
-                'Affectation de l’équipement '
-                    . $equipement->reference
-                    . ' à ' . $this->descriptionCible($cible)
-                    . '.'
-            );
-
-            return $affectation->fresh([
-                'equipement',
-                'employee',
-                'direction',
-                'antenne',
-                'createur',
-            ]);
-        });
-    }
+        return $affectation->fresh([
+            'equipement',
+            'employee',
+            'direction',
+            'antenne',
+            'createur',
+        ]);
+    });
+}
 
     /**
      * Enregistrer le retour d'un équipement au parc.
@@ -141,7 +156,7 @@ class SupportAffectationEquipementService
         array $donnees,
         User $acteur
     ): SupportAffectationEquipement {
-        $this->autoriser($acteur, 'support.equipements.assign');
+        $this->autoriser($acteur, 'support.equipements.return');
 
         $donnees = $this->validerRetour($donnees);
 
@@ -180,6 +195,7 @@ class SupportAffectationEquipementService
 
             $affectation->save();
 
+            $ancienEtatPhysique = $equipement->etat_physique;
             $ancienStatut = $equipement->statut;
 
             $equipement->statut =
@@ -215,6 +231,14 @@ class SupportAffectationEquipementService
                 'Retour de l’équipement '
                     . $equipement->reference
                     . ' au parc informatique.'
+            );
+
+            $this->historiserEtatPhysique(
+                $equipement,
+                $acteur,
+                $ancienEtatPhysique,
+                $equipement->etat_physique,
+                'État physique constaté lors du retour au parc.'
             );
 
             return $affectation->fresh([
@@ -255,6 +279,8 @@ class SupportAffectationEquipementService
                 ->lockForUpdate()
                 ->firstOrFail();
 
+            $this->verrouillerDestinataire($cible);
+
             if ($equipement->statut !== 'AFFECTE') {
                 throw ValidationException::withMessages([
                     'equipement' =>
@@ -272,6 +298,8 @@ class SupportAffectationEquipementService
                         'Aucune affectation active ne permet ce transfert.',
                 ]);
             }
+
+            $ancienEtatPhysique = $equipement->etat_physique;
 
             if (
                 (int) ($ancienneAffectation->employee_id ?? 0)
@@ -322,6 +350,7 @@ class SupportAffectationEquipementService
                 'date_debut' => $dateMouvement,
                 'date_fin' => null,
                 'etat_remise' => $options['etat_remise']
+                    ?? $options['etat_retour']
                     ?? $equipement->etat_physique,
                 'etat_retour' => null,
                 'observations' => $options['observations'] ?? null,
@@ -366,6 +395,14 @@ class SupportAffectationEquipementService
             $equipement->statut = 'AFFECTE';
             $equipement->save();
 
+            $this->historiserEtatPhysique(
+                $equipement,
+                $acteur,
+                $ancienEtatPhysique,
+                $equipement->etat_physique,
+                'État physique enregistré lors du transfert.'
+            );
+
             return $nouvelleAffectation->fresh([
                 'equipement',
                 'employee',
@@ -376,6 +413,42 @@ class SupportAffectationEquipementService
         });
     }
 
+    /**
+ * Vérifier et verrouiller le destinataire pendant la transaction.
+ */
+private function verrouillerDestinataire(array $cible): void
+{
+    $tables = [
+        'employee_id' => 'employees',
+        'direction_id' => 'directions',
+        'antenne_id' => 'antennes',
+    ];
+
+    foreach ($tables as $champ => $table) {
+        if (empty($cible[$champ])) {
+            continue;
+        }
+
+        $existe = DB::table($table)
+            ->where('id', $cible[$champ])
+            ->whereNull('deleted_at')
+            ->lockForUpdate()
+            ->exists();
+
+        if (!$existe) {
+            throw ValidationException::withMessages([
+                'destinataire' =>
+                    'Le destinataire sélectionné n’est plus disponible.',
+            ]);
+        }
+
+        return;
+    }
+
+    throw ValidationException::withMessages([
+        'destinataire' => 'Aucun destinataire valide n’a été sélectionné.',
+    ]);
+}
 
 /**
  * Vérifier qu'un seul destinataire est renseigné et qu'il existe.
@@ -508,10 +581,9 @@ private function validerDestinataire(array $donnees): array
     private function autoriser(User $acteur, string $permission): void
     {
         if (!$acteur->can($permission)) {
-            throw ValidationException::withMessages([
-                'autorisation' =>
-                    'Vous n’êtes pas autorisé à effectuer cette opération.',
-            ]);
+            throw new \Illuminate\Auth\Access\AuthorizationException(
+                'Vous n’êtes pas autorisé à effectuer cette opération.'
+            );
         }
     }
 
@@ -536,6 +608,31 @@ private function validerDestinataire(array $donnees): array
             'nouvelle_valeur' => $nouvelleValeur,
             'description' => $description,
         ]);
+    }
+
+    /**
+     * Historiser un changement d'état physique.
+     */
+    private function historiserEtatPhysique(
+        SupportEquipement $equipement,
+        User $acteur,
+        ?string $ancienEtat,
+        ?string $nouvelEtat,
+        string $description
+    ): void {
+        if ($ancienEtat === $nouvelEtat) {
+            return;
+        }
+
+        $this->historiser(
+            $equipement,
+            $acteur,
+            'ETAT_PHYSIQUE_MODIFIE',
+            'etat_physique',
+            $ancienEtat,
+            $nouvelEtat,
+            $description
+        );
     }
 
     /**

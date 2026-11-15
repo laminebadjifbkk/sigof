@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Carbon;
 
 
 class SupportEquipementService
@@ -37,6 +38,7 @@ class SupportEquipementService
         $this->autoriser($acteur, 'support.equipements.create');
 
         $donnees = $this->valider($donnees, true);
+        $this->verifierCoherenceDates($donnees);
 
         return DB::transaction(function () use ($donnees, $acteur) {
 
@@ -120,6 +122,8 @@ class SupportEquipementService
                 ->whereKey($equipement->id)
                 ->lockForUpdate()
                 ->firstOrFail();
+
+            $this->verifierCoherenceDates($donnees, $equipement);
 
             $affectationActive = $equipement->affectationActive()->exists();
 
@@ -238,7 +242,7 @@ class SupportEquipementService
         User $acteur,
         ?string $motif = null
     ): SupportEquipement {
-        $this->autoriser($acteur, 'support.equipements.delete');
+        $this->autoriser($acteur, 'support.equipements.reform');
 
         return DB::transaction(function () use (
             $equipement,
@@ -365,13 +369,46 @@ class SupportEquipementService
         return $validateur->validated();
     }
 
+    /**
+ * Vérifier la cohérence entre la date d'acquisition
+ * et la date de fin de garantie.
+ */
+    /**
+     * Vérifier la cohérence entre la date d'acquisition
+     * et la date de fin de garantie.
+     */
+    private function verifierCoherenceDates(
+        array $donnees,
+        ?SupportEquipement $equipement = null
+    ): void {
+        $dateAcquisition = array_key_exists('date_acquisition', $donnees)
+            ? $donnees['date_acquisition']
+            : $equipement?->date_acquisition?->format('Y-m-d');
+
+        $dateFinGarantie = array_key_exists('date_fin_garantie', $donnees)
+            ? $donnees['date_fin_garantie']
+            : $equipement?->date_fin_garantie?->format('Y-m-d');
+
+        if (!$dateAcquisition || !$dateFinGarantie) {
+            return;
+        }
+
+        if (
+            Carbon::parse($dateFinGarantie)->startOfDay()
+                ->lt(Carbon::parse($dateAcquisition)->startOfDay())
+        ) {
+            throw ValidationException::withMessages([
+                'date_fin_garantie' =>
+                    'La date de fin de garantie ne peut pas être antérieure à la date d’acquisition.',
+            ]);
+        }
+    }
     private function autoriser(User $acteur, string $permission): void
     {
         if (!$acteur->can($permission)) {
-            throw ValidationException::withMessages([
-                'autorisation' =>
-                    'Vous n’êtes pas autorisé à effectuer cette opération.',
-            ]);
+            throw new \Illuminate\Auth\Access\AuthorizationException(
+                'Vous n’êtes pas autorisé à effectuer cette opération.'
+            );
         }
     }
 

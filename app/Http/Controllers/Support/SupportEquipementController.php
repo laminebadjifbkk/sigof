@@ -65,7 +65,7 @@ class SupportEquipementController extends Controller
             ->withQueryString();
 
         $categories = SupportCategorieEquipement::actives()
-            ->ordonnes()
+            ->ordonnees()
             ->get();
 
         $stats = [
@@ -95,7 +95,7 @@ class SupportEquipementController extends Controller
         );
 
         $categories = SupportCategorieEquipement::actives()
-            ->ordonnes()
+            ->ordonnees()
             ->get();
 
         return view('support.equipements.create', compact('categories'));
@@ -153,9 +153,10 @@ class SupportEquipementController extends Controller
         ]);
 
         $peutAffecter = $request->user()->can('support.equipements.assign');
+        $peutRetourner = $request->user()->can('support.equipements.return');
         $peutTransferer = $request->user()->can('support.equipements.move');
         $peutModifier = $request->user()->can('support.equipements.update');
-        $peutReformer = $request->user()->can('support.equipements.delete');
+        $peutReformer = $request->user()->can('support.equipements.reform');
 
         $employes = collect();
         $directions = collect();
@@ -184,7 +185,8 @@ class SupportEquipementController extends Controller
             'peutAffecter',
             'peutTransferer',
             'peutModifier',
-            'peutReformer'
+            'peutReformer',
+            'peutRetourner'
         ));
     }
 
@@ -199,7 +201,7 @@ class SupportEquipementController extends Controller
         );
 
         $categories = SupportCategorieEquipement::actives()
-            ->ordonnes()
+            ->ordonnees()
             ->get();
 
         return view('support.equipements.edit', compact(

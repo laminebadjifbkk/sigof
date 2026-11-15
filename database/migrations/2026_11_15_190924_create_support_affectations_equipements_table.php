@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -58,7 +59,25 @@ return new class extends Migration
             $table->index(['direction_id', 'date_fin'], 'idx_affect_direction_date_fin');
             $table->index(['antenne_id', 'date_fin'], 'idx_affect_antenne_date_fin');
         });
-    }
+
+        DB::statement("
+            ALTER TABLE support_affectations_equipements
+            ADD CONSTRAINT chk_affectation_equipement_destinataire
+            CHECK (
+                (employee_id IS NOT NULL AND direction_id IS NULL AND antenne_id IS NULL)
+                OR
+                (employee_id IS NULL AND direction_id IS NOT NULL AND antenne_id IS NULL)
+                OR
+                (employee_id IS NULL AND direction_id IS NULL AND antenne_id IS NOT NULL)
+            )
+        ");
+
+        DB::statement("
+            ALTER TABLE support_affectations_equipements
+            ADD CONSTRAINT chk_affectation_dates
+            CHECK (date_fin IS NULL OR date_fin >= date_debut)
+        ");
+        }
 
     public function down(): void
     {

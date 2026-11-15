@@ -129,7 +129,7 @@
             && !$affectationActive
             && $equipement->etat_physique !== 'HORS_SERVICE';
 
-        $peutFaireRetour = $peutAffecter
+        $peutFaireRetour = $peutRetourner
             && $equipement->statut === 'AFFECTE'
             && $affectationActive;
 
@@ -668,7 +668,7 @@
 
                             <div class="text-muted small mt-1">
                                 Du {{ $affectation->date_debut?->format('d/m/Y H:i') ?? '—' }}
-                                au {{ $affectation->date_fin?->format('d/m/Y H:i') ?? 'Aujourd'hui' }}
+                                au {{ $affectation->date_fin?->format('d/m/Y H:i') ?? "Aujourd'hui" }}
                             </div>
 
                             @if($affectation->employee?->matricule)

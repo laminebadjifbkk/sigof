@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -52,6 +53,27 @@ return new class extends Migration
             $table->index(['support_categorie_equipement_id', 'statut']);
             $table->index('date_acquisition');
         });
+        DB::statement("
+            ALTER TABLE support_equipements
+            ADD CONSTRAINT chk_equipement_etat_physique
+            CHECK (etat_physique IN ('BON', 'MOYEN', 'MAUVAIS', 'HORS_SERVICE'))
+        ");
+
+        DB::statement("
+            ALTER TABLE support_equipements
+            ADD CONSTRAINT chk_equipement_statut
+            CHECK (statut IN ('EN_STOCK', 'AFFECTE', 'EN_MAINTENANCE', 'REFORME', 'PERDU'))
+        ");
+
+        DB::statement("
+            ALTER TABLE support_equipements
+            ADD CONSTRAINT chk_equipement_dates
+            CHECK (
+                date_acquisition IS NULL
+                OR date_fin_garantie IS NULL
+                OR date_fin_garantie >= date_acquisition
+            )
+        ");
     }
 
     public function down(): void
