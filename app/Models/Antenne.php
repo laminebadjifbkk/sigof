@@ -88,4 +88,16 @@ class Antenne extends Model
 	{
 		return $this->belongsTo(Employee::class, 'chef_id');
 	}
+
+    /**
+     * Historique des affectations d'équipements à l'antenne.
+     */
+    public function affectationsEquipements()
+    {
+        return $this->hasMany(
+            \App\Models\Support\SupportAffectationEquipement::class,
+            'antenne_id'
+        );
+    }
+
 }

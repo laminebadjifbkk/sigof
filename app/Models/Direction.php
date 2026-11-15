@@ -107,4 +107,16 @@ class Direction extends Model
     {
         return $this->belongsTo(Employee::class, 'chef_id');
     }
+
+    /**
+     * Historique des affectations d'équipements à la direction.
+     */
+    public function affectationsEquipements()
+    {
+        return $this->hasMany(
+            \App\Models\Support\SupportAffectationEquipement::class,
+            'direction_id'
+        );
+    }
+
 }

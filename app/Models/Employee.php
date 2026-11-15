@@ -314,4 +314,16 @@ class Employee extends Model
 
         return $nomComplet ?: ($this->matricule ?? 'Employé');
     }
+
+    /**
+     * Historique des affectations d'équipements informatiques.
+     */
+    public function affectationsEquipements()
+    {
+        return $this->hasMany(
+            \App\Models\Support\SupportAffectationEquipement::class,
+            'employee_id'
+        );
+    }
+
 }
