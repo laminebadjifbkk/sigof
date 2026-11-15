@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class SupportTicket extends Model
 {
@@ -145,4 +146,16 @@ class SupportTicket extends Model
         )->orderBy('date_intervention', 'desc');
     }
 
+    public function incidents(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            SupportIncident::class,
+            'support_incident_tickets',
+            'support_ticket_id',
+            'support_incident_id'
+        )
+        ->using(SupportIncidentTicket::class)
+        ->withPivot('user_create_id')
+        ->withTimestamps();
+    }
 }
