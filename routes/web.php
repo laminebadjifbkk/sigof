@@ -100,7 +100,7 @@ use App\Http\Controllers\ValidationformationController;
 use App\Http\Controllers\ValidationIndividuelleController;
 use App\Http\Controllers\ValidationmoduleController;
 use App\Http\Controllers\ValidationoperateurController;
-
+use App\Http\Controllers\Support\SupportIncidentController;
 
 
 
@@ -1525,6 +1525,34 @@ Route::get('/prisenchargestatutregion/{statut}/{region}/{annee_scolaire}', [Form
                 '/tickets/{ticket}/interventions',
                 [SupportTicketController::class, 'enregistrerIntervention']
             )->name('tickets.interventions.store');
+
+            // ==========================================
+            // GESTION DES INCIDENTS
+            // ==========================================
+
+            // Liste des incidents
+            Route::get('/incidents', [
+                SupportIncidentController::class,
+                'index'
+            ])->name('incidents.index');
+
+            // Formulaire de déclaration
+            Route::get('/incidents/create', [
+                SupportIncidentController::class,
+                'create'
+            ])->name('incidents.create');
+
+            // Enregistrement d'un incident
+            Route::post('/incidents', [
+                SupportIncidentController::class,
+                'store'
+            ])->name('incidents.store');
+
+            // Consultation d'un incident
+            Route::get('/incidents/{incident}', [
+                SupportIncidentController::class,
+                'show'
+            ])->name('incidents.show');
 
         });
     });

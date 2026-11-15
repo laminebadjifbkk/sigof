@@ -137,14 +137,12 @@
 
                     {{-- Incidents : à activer lorsque les routes seront créées --}}
                     @can('support.incidents.view')
-                        {{--
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('support.incidents.*') ? 'active' : 'collapsed' }}"
-                        href="{{ route('support.incidents.index') }}">
-                        <span>Incidents</span>
-                    </a>
-                </li>
-                --}}
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('support.incidents.*') ? 'active' : 'collapsed' }}"
+                                href="{{ route('support.incidents.index') }}">
+                                <span>Incidents</span>
+                            </a>
+                        </li>
                     @endcan
 
                 </ul>
