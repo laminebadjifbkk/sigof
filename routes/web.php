@@ -1554,6 +1554,19 @@ Route::get('/prisenchargestatutregion/{statut}/{region}/{annee_scolaire}', [Form
                 'show'
             ])->name('incidents.show');
 
+
+            // Association de tickets à un incident
+            Route::post('/incidents/{incident}/tickets', [
+                SupportIncidentController::class,
+                'associerTickets'
+            ])->name('incidents.tickets.associer');
+
+            // Retrait d'un ticket d'un incident
+            Route::delete('/incidents/{incident}/tickets/{ticket}', [
+                SupportIncidentController::class,
+                'retirerTicket'
+            ])->name('incidents.tickets.retirer');
+
         });
     });
 
