@@ -458,12 +458,15 @@
                         @if($incident->responsable)
 
                             <strong>
-                                {{ trim($incident->responsable->firstname . ' ' . $incident->responsable->name) }}
+                                {{ trim(($incident->responsable->firstname ?? '') . ' ' . ($incident->responsable->name ?? '')) }}
                             </strong>
 
-                            <div class="small text-muted mt-1">
-                                {{ $incident->responsable->email }}
-                            </div>
+                            @if($incident->responsable->email)
+                                <div class="small text-muted mt-1">
+                                    <i class="bi bi-envelope me-1"></i>
+                                    {{ $incident->responsable->email }}
+                                </div>
+                            @endif
 
                         @else
 
@@ -474,50 +477,222 @@
 
                         @endif
 
+                        {{-- AFFECTATION DU RESPONSABLE --}}
+                        @can('support.incidents.manage')
+
+                            @if($incident->statut?->code !== 'CLOTURE')
+
+                                <hr>
+
+                                <form method="POST" action="{{ route('support.incidents.responsable.update', $incident) }}">
+
+                                    @csrf
+                                    @method('PATCH')
+
+                                    <label for="user_responsable_id" class="form-label fw-semibold">
+                                        Affecter un responsable
+                                    </label>
+
+                                    <select name="user_responsable_id" id="user_responsable_id" class="form-select" required>
+
+                                        <option value="">Choisir un technicien ou responsable</option>
+
+                                        @foreach($responsablesDisponibles as $responsable)
+                                            <option value="{{ $responsable->id }}"
+                                                @selected($incident->user_responsable_id == $responsable->id)>
+                                                {{ trim($responsable->firstname . ' ' . $responsable->name) }}
+                                                @if($responsable->email)
+                                                    — {{ $responsable->email }}
+                                                @endif
+                                            </option>
+                                        @endforeach
+
+                                    </select>
+
+                                    <button type="submit" class="btn btn-sm btn-warning mt-3">
+                                        <i class="bi bi-person-check me-1"></i>
+                                        Affecter
+                                    </button>
+
+                                </form>
+
+                            @endif
+
+                        @endcan
+
                     </div>
                 </div>
 
                 {{-- SUIVI --}}
-                <div class="card border-0 shadow-sm mb-4">
+<div class="card border-0 shadow-sm mb-4">
 
-                    <div class="card-header bg-white py-3">
-                        <h5 class="mb-0 fw-bold">
-                            <i class="bi bi-calendar-check me-2" style="color:#F28500"></i>
-                            Suivi de l'incident
-                        </h5>
-                    </div>
+    <div class="card-header bg-white py-3">
+        <h5 class="mb-0 fw-bold">
+            <i class="bi bi-calendar-check me-2" style="color:#F28500"></i>
+            Suivi de l'incident
+        </h5>
+    </div>
 
-                    <div class="card-body">
+    <div class="card-body">
 
-                        <div class="mb-3">
-                            <small class="text-muted d-block">
-                                Prise en charge
-                            </small>
-                            <strong>
-                                {{ $incident->date_prise_en_charge?->format('d/m/Y à H:i') ?? 'Non prise en charge' }}
-                            </strong>
-                        </div>
+        {{-- DATES DE SUIVI --}}
+        <div class="mb-3">
+            <small class="text-muted d-block">
+                Prise en charge
+            </small>
+            <strong>
+                {{ $incident->date_prise_en_charge?->format('d/m/Y à H:i') ?? 'Non prise en charge' }}
+            </strong>
+        </div>
 
-                        <div class="mb-3">
-                            <small class="text-muted d-block">
-                                Résolution
-                            </small>
-                            <strong>
-                                {{ $incident->date_resolution?->format('d/m/Y à H:i') ?? 'Non résolu' }}
-                            </strong>
-                        </div>
+        <div class="mb-3">
+            <small class="text-muted d-block">
+                Résolution
+            </small>
+            <strong>
+                {{ $incident->date_resolution?->format('d/m/Y à H:i') ?? 'Non résolu' }}
+            </strong>
+        </div>
 
-                        <div>
-                            <small class="text-muted d-block">
-                                Clôture
-                            </small>
-                            <strong>
-                                {{ $incident->date_cloture?->format('d/m/Y à H:i') ?? 'Non clôturé' }}
-                            </strong>
-                        </div>
+        <div class="mb-3">
+            <small class="text-muted d-block">
+                Clôture
+            </small>
+            <strong>
+                {{ $incident->date_cloture?->format('d/m/Y à H:i') ?? 'Non clôturé' }}
+            </strong>
+        </div>
 
-                    </div>
+        {{-- ACTIONS DE SUIVI --}}
+        @php
+            $utilisateur = auth()->user();
+
+            $peutGererIncident = $utilisateur->can('support.incidents.manage');
+
+            $peutSuivreIncident = $peutGererIncident
+                || (
+                    $utilisateur->can('support.incidents.update')
+                    && $incident->user_responsable_id == $utilisateur->id
+                );
+
+            $statutActuel = $incident->statut?->code;
+
+            $transitionsPossibles = [
+                'DECLARE' => ['QUALIFIE'],
+                'QUALIFIE' => ['EN_COURS'],
+                'EN_COURS' => ['EN_ATTENTE', 'RESOLU'],
+                'EN_ATTENTE' => ['EN_COURS'],
+                'RESOLU' => $peutGererIncident ? ['CLOTURE'] : [],
+                'CLOTURE' => [],
+            ];
+
+            $statutsPossibles = $transitionsPossibles[$statutActuel] ?? [];
+        @endphp
+
+        @if($peutSuivreIncident && count($statutsPossibles) > 0)
+
+            <hr>
+
+            <form method="POST"
+                  action="{{ route('support.incidents.statut.update', $incident) }}">
+
+                @csrf
+                @method('PATCH')
+
+                <div class="mb-3">
+                    <label for="statut_code" class="form-label fw-semibold">
+                        Faire évoluer le statut
+                    </label>
+
+                    <select name="statut_code"
+                            id="statut_code"
+                            class="form-select"
+                            required>
+
+                        <option value="">Choisir une action</option>
+
+                        @foreach($statutsPossibles as $code)
+                            <option value="{{ $code }}">
+                                @switch($code)
+                                    @case('QUALIFIE')
+                                        Qualifier l'incident
+                                        @break
+
+                                    @case('EN_COURS')
+                                        Prendre en charge / Reprendre
+                                        @break
+
+                                    @case('EN_ATTENTE')
+                                        Mettre en attente
+                                        @break
+
+                                    @case('RESOLU')
+                                        Déclarer comme résolu
+                                        @break
+
+                                    @case('CLOTURE')
+                                        Clôturer définitivement
+                                        @break
+                                @endswitch
+                            </option>
+                        @endforeach
+
+                    </select>
                 </div>
+
+                <div class="mb-3">
+                    <label for="motif_attente" class="form-label">
+                        Motif de mise en attente
+                    </label>
+                    <textarea name="motif_attente"
+                              id="motif_attente"
+                              class="form-control"
+                              rows="2"
+                              placeholder="Préciser pourquoi l'incident est mis en attente..."></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="cause" class="form-label">
+                        Cause de l'incident
+                    </label>
+                    <textarea name="cause"
+                              id="cause"
+                              class="form-control"
+                              rows="2"
+                              placeholder="Préciser la cause identifiée..."></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="solution" class="form-label">
+                        Solution apportée
+                    </label>
+                    <textarea name="solution"
+                              id="solution"
+                              class="form-control"
+                              rows="2"
+                              placeholder="Décrire la solution mise en œuvre..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-warning w-100">
+                    <i class="bi bi-arrow-repeat me-1"></i>
+                    Enregistrer le changement
+                </button>
+
+            </form>
+
+        @elseif($statutActuel === 'CLOTURE')
+
+            <hr>
+
+            <div class="alert alert-success mb-0">
+                <i class="bi bi-check-circle me-1"></i>
+                Cet incident est définitivement clôturé.
+            </div>
+
+        @endif
+
+    </div>
+</div>
 
             </div>
 

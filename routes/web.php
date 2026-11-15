@@ -1567,6 +1567,17 @@ Route::get('/prisenchargestatutregion/{statut}/{region}/{annee_scolaire}', [Form
                 'retirerTicket'
             ])->name('incidents.tickets.retirer');
 
+            // Affectation du responsable
+            Route::patch('/incidents/{incident}/responsable', [
+                SupportIncidentController::class,
+                'affecterResponsable'
+            ])->name('incidents.responsable.update');
+
+            // Changement du statut et suivi du traitement
+            Route::patch('/incidents/{incident}/statut', [
+                SupportIncidentController::class,
+                'changerStatut'
+            ])->name('incidents.statut.update');
         });
     });
 

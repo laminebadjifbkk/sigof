@@ -14,6 +14,7 @@ use App\Models\Support\SupportTicket;
 use App\Models\Support\SupportIncidentHistorique;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
+use App\Models\User;
 
 class SupportIncidentController extends Controller
 {
@@ -234,6 +235,26 @@ public function show(
         'tickets.statut',
     ]);
 
+    $responsablesDisponibles = collect();
+
+    if ($user->can('support.incidents.manage')) {
+        $responsablesDisponibles = User::query()
+            ->whereHas('roles', function ($query) {
+                $query->whereIn('name', [
+                    'technicien-support',
+                    'responsable-support',
+                ]);
+            })
+            ->orderBy('firstname')
+            ->orderBy('name')
+            ->get([
+                'id',
+                'firstname',
+                'name',
+                'email',
+            ]);
+    }
+
     // Tickets visibles par l'utilisateur et non encore associés.
     $ticketsDisponibles = $this->ticketsVisiblesPour($user)
         ->with('statut')
@@ -255,7 +276,8 @@ public function show(
     return view('support.incidents.show', compact(
         'incident',
         'ticketsDisponibles',
-        'peutModifierIncident'
+        'peutModifierIncident',
+        'responsablesDisponibles'
     ));
 }
 
@@ -420,4 +442,239 @@ public function retirerTicket(
         ->with('success', 'L’association du ticket a été retirée. Le ticket est conservé.');
 }
 
+/**
+ * Affecter un responsable à un incident.
+ */
+public function affecterResponsable(
+    Request $request,
+    SupportIncident $incident
+) {
+    $user = $request->user();
+
+    abort_unless(
+        $user->can('support.incidents.manage'),
+        403
+    );
+
+    $validated = $request->validate([
+        'user_responsable_id' => [
+            'required',
+            'integer',
+            'exists:users,id',
+        ],
+    ]);
+
+    $responsable = User::query()
+        ->whereKey($validated['user_responsable_id'])
+        ->whereHas('roles', function ($query) {
+            $query->whereIn('name', [
+                'technicien-support',
+                'responsable-support',
+            ]);
+        })
+        ->first();
+
+    if (!$responsable) {
+        throw ValidationException::withMessages([
+            'user_responsable_id' =>
+                'Le compte sélectionné ne possède pas un rôle autorisé pour le support.',
+        ]);
+    }
+
+    DB::transaction(function () use (
+        $incident,
+        $responsable,
+        $user
+    ) {
+        $incident = SupportIncident::query()
+            ->lockForUpdate()
+            ->findOrFail($incident->id);
+
+        $ancienResponsable = $incident->responsable;
+
+        $incident->update([
+            'user_responsable_id' => $responsable->id,
+            'user_update_id' => $user->id,
+        ]);
+
+        SupportIncidentHistorique::create([
+            'support_incident_id' => $incident->id,
+            'user_id' => $user->id,
+            'action' => 'RESPONSABLE_AFFECTE',
+            'champ' => 'user_responsable_id',
+            'ancienne_valeur' => $ancienResponsable
+                ? trim($ancienResponsable->firstname . ' ' . $ancienResponsable->name)
+                : null,
+            'nouvelle_valeur' => trim(
+                $responsable->firstname . ' ' . $responsable->name
+            ),
+            'description' => 'Responsable de l’incident '
+                . $incident->reference
+                . ' affecté à '
+                . trim($responsable->firstname . ' ' . $responsable->name)
+                . '.',
+        ]);
+    });
+
+    return redirect()
+        ->route('support.incidents.show', $incident)
+        ->with('success', 'Le responsable a été affecté avec succès.');
+}
+/**
+ * Faire évoluer le statut d'un incident.
+ */
+public function changerStatut(
+    Request $request,
+    SupportIncident $incident
+) {
+    $user = $request->user();
+
+    $estGestionnaire = $user->can('support.incidents.manage');
+
+    $estResponsableAffecte =
+        (int) $incident->user_responsable_id === (int) $user->id;
+
+    abort_unless(
+        $estGestionnaire
+        || (
+            $estResponsableAffecte
+            && $user->can('support.incidents.update')
+        ),
+        403
+    );
+
+    $validated = $request->validate([
+        'statut_code' => [
+            'required',
+            'string',
+            Rule::in([
+                'QUALIFIE',
+                'EN_COURS',
+                'EN_ATTENTE',
+                'RESOLU',
+                'CLOTURE',
+            ]),
+        ],
+        'motif_attente' => [
+            'required_if:statut_code,EN_ATTENTE',
+            'nullable',
+            'string',
+            'min:5',
+            'max:2000',
+        ],
+        'cause' => [
+            'required_if:statut_code,RESOLU',
+            'nullable',
+            'string',
+            'min:5',
+            'max:5000',
+        ],
+        'solution' => [
+            'required_if:statut_code,RESOLU',
+            'nullable',
+            'string',
+            'min:5',
+            'max:5000',
+        ],
+    ]);
+
+    $statutCible = SupportIncidentStatut::actifs()
+        ->where('code', $validated['statut_code'])
+        ->firstOrFail();
+
+    DB::transaction(function () use (
+        $incident,
+        $statutCible,
+        $validated,
+        $user,
+        $estGestionnaire
+    ) {
+        $incident = SupportIncident::query()
+            ->lockForUpdate()
+            ->with('statut')
+            ->findOrFail($incident->id);
+
+        $ancienCode = $incident->statut->code ?? null;
+
+        $transitions = [
+            'DECLARE' => ['QUALIFIE'],
+            'QUALIFIE' => ['EN_COURS'],
+            'EN_COURS' => ['EN_ATTENTE', 'RESOLU'],
+            'EN_ATTENTE' => ['EN_COURS'],
+            'RESOLU' => ['CLOTURE'],
+            'CLOTURE' => [],
+        ];
+
+        $transitionsAutorisees = $transitions[$ancienCode] ?? [];
+
+        if (!in_array($statutCible->code, $transitionsAutorisees, true)) {
+            throw ValidationException::withMessages([
+                'statut_code' =>
+                    'Cette transition de statut n’est pas autorisée.',
+            ]);
+        }
+
+        // La clôture définitive est réservée au gestionnaire.
+        if (
+            $statutCible->code === 'CLOTURE'
+            && !$estGestionnaire
+        ) {
+            abort(403);
+        }
+
+        $description = 'Statut de l’incident '
+            . $incident->reference
+            . ' modifié de '
+            . $ancienCode
+            . ' vers '
+            . $statutCible->code
+            . '.';
+
+        $donnees = [
+            'support_incident_statut_id' => $statutCible->id,
+            'user_update_id' => $user->id,
+        ];
+
+        if ($statutCible->code === 'EN_COURS') {
+            $donnees['date_prise_en_charge'] =
+                $incident->date_prise_en_charge ?? now();
+        }
+
+        if ($statutCible->code === 'EN_ATTENTE') {
+            $description .= ' Motif : '
+                . $validated['motif_attente'];
+        }
+
+        if ($statutCible->code === 'RESOLU') {
+            $donnees['date_resolution'] = now();
+            $donnees['cause'] = $validated['cause'];
+            $donnees['solution'] = $validated['solution'];
+
+            $description .= ' Cause : '
+                . $validated['cause']
+                . ' Solution : '
+                . $validated['solution'];
+        }
+
+        if ($statutCible->code === 'CLOTURE') {
+            $donnees['date_cloture'] = now();
+        }
+
+        $incident->update($donnees);
+
+        SupportIncidentHistorique::create([
+            'support_incident_id' => $incident->id,
+            'user_id' => $user->id,
+            'action' => 'STATUT_MODIFIE',
+            'champ' => 'support_incident_statut_id',
+            'ancienne_valeur' => $ancienCode,
+            'nouvelle_valeur' => $statutCible->code,
+            'description' => $description,
+        ]);
+    });
+
+    return redirect()
+        ->route('support.incidents.show', $incident)
+        ->with('success', 'Le statut de l’incident a été mis à jour.');
+}
 }
