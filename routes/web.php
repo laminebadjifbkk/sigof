@@ -101,6 +101,7 @@ use App\Http\Controllers\ValidationIndividuelleController;
 use App\Http\Controllers\ValidationmoduleController;
 use App\Http\Controllers\ValidationoperateurController;
 use App\Http\Controllers\Support\SupportIncidentController;
+use App\Http\Controllers\Support\SupportEquipementController;
 
 
 
@@ -1525,6 +1526,70 @@ Route::get('/prisenchargestatutregion/{statut}/{region}/{annee_scolaire}', [Form
                 '/tickets/{ticket}/interventions',
                 [SupportTicketController::class, 'enregistrerIntervention']
             )->name('tickets.interventions.store');
+
+            // ==========================================
+            // GESTION DU PARC INFORMATIQUE
+            // ==========================================
+
+            // Liste des équipements
+            Route::get('/equipements', [
+                SupportEquipementController::class,
+                'index'
+            ])->name('equipements.index');
+
+            // Formulaire de création
+            Route::get('/equipements/create', [
+                SupportEquipementController::class,
+                'create'
+            ])->name('equipements.create');
+
+            // Enregistrement
+            Route::post('/equipements', [
+                SupportEquipementController::class,
+                'store'
+            ])->name('equipements.store');
+
+            // Modification
+            Route::get('/equipements/{equipement}/edit', [
+                SupportEquipementController::class,
+                'edit'
+            ])->name('equipements.edit');
+
+            Route::put('/equipements/{equipement}', [
+                SupportEquipementController::class,
+                'update'
+            ])->name('equipements.update');
+
+            // Affectation
+            Route::post('/equipements/{equipement}/affecter', [
+                SupportEquipementController::class,
+                'affecter'
+            ])->name('equipements.affecter');
+
+            // Retour
+            Route::patch('/equipements/{equipement}/retourner', [
+                SupportEquipementController::class,
+                'retourner'
+            ])->name('equipements.retourner');
+
+            // Transfert
+            Route::post('/equipements/{equipement}/transferer', [
+                SupportEquipementController::class,
+                'transferer'
+            ])->name('equipements.transferer');
+
+            // Réforme
+            Route::patch('/equipements/{equipement}/reformer', [
+                SupportEquipementController::class,
+                'reformer'
+            ])->name('equipements.reformer');
+
+            // Consultation d'un équipement
+            Route::get('/equipements/{equipement}', [
+                SupportEquipementController::class,
+                'show'
+            ])->name('equipements.show');
+
 
             // ==========================================
             // GESTION DES INCIDENTS

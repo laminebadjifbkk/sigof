@@ -11,6 +11,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
 
+
 class SupportEquipementService
 {
     private const ETATS = ['BON', 'MOYEN', 'MAUVAIS', 'HORS_SERVICE'];
@@ -63,7 +64,9 @@ class SupportEquipementService
                 'prix_acquisition' => $donnees['prix_acquisition'] ?? null,
                 'date_fin_garantie' => $donnees['date_fin_garantie'] ?? null,
                 'etat_physique' => $donnees['etat_physique'] ?? 'BON',
-                'statut' => 'EN_STOCK',
+                'statut' => ($donnees['etat_physique'] ?? 'BON') === 'HORS_SERVICE'
+                    ? 'EN_MAINTENANCE'
+                    : 'EN_STOCK',
                 'emplacement' => $donnees['emplacement'] ?? null,
                 'description' => $donnees['description'] ?? null,
                 'observations' => $donnees['observations'] ?? null,
@@ -99,6 +102,13 @@ class SupportEquipementService
     ): SupportEquipement {
         $this->autoriser($acteur, 'support.equipements.update');
 
+        if (array_key_exists('statut', $donnees)) {
+            throw ValidationException::withMessages([
+                'statut' =>
+                    'Le statut opérationnel doit être modifié via les opérations dédiées du parc.',
+            ]);
+        }
+
         $donnees = $this->valider($donnees, false, $equipement->id);
 
         return DB::transaction(function () use (
@@ -110,6 +120,20 @@ class SupportEquipementService
                 ->whereKey($equipement->id)
                 ->lockForUpdate()
                 ->firstOrFail();
+
+            $affectationActive = $equipement->affectationActive()->exists();
+
+            if (
+                $affectationActive
+                && isset($donnees['etat_physique'])
+                && $this->normaliser($donnees['etat_physique'])
+                    !== $this->normaliser($equipement->etat_physique)
+            ) {
+                throw ValidationException::withMessages([
+                    'etat_physique' =>
+                        'L’état physique doit être enregistré lors du retour ou du transfert de l’équipement.',
+                ]);
+            }
 
             if (isset($donnees['support_categorie_equipement_id'])) {
                 $categorieActive = SupportCategorieEquipement::query()
@@ -125,21 +149,6 @@ class SupportEquipementService
                 }
             }
 
-            if (
-                isset($donnees['statut'])
-                && $equipement->affectationActive()->exists()
-                && in_array($donnees['statut'], [
-                    'EN_STOCK',
-                    'REFORME',
-                    'PERDU',
-                ], true)
-            ) {
-                throw ValidationException::withMessages([
-                    'statut' =>
-                        'Cet équipement est affecté. Enregistrez son retour avant de modifier son statut.',
-                ]);
-            }
-
             $champs = [
                 'designation',
                 'support_categorie_equipement_id',
@@ -151,7 +160,6 @@ class SupportEquipementService
                 'prix_acquisition',
                 'date_fin_garantie',
                 'etat_physique',
-                'statut',
                 'emplacement',
                 'description',
                 'observations',
@@ -177,6 +185,18 @@ class SupportEquipementService
                 ];
 
                 $equipement->{$champ} = $donnees[$champ];
+            }
+
+            if (
+                $equipement->statut === 'EN_STOCK'
+                && $equipement->etat_physique === 'HORS_SERVICE'
+            ) {
+                $modifications['statut'] = [
+                    'ancienne' => 'EN_STOCK',
+                    'nouvelle' => 'EN_MAINTENANCE',
+                ];
+
+                $equipement->statut = 'EN_MAINTENANCE';
             }
 
             if (empty($modifications)) {
@@ -243,13 +263,25 @@ class SupportEquipementService
                 ]);
             }
 
+            if ($equipement->statut === 'PERDU') {
+                throw ValidationException::withMessages([
+                    'equipement' =>
+                        'Un équipement déclaré perdu ne peut pas être réformé avant la régularisation de sa situation.',
+                ]);
+            }
+
             $ancienStatut = $equipement->statut;
 
             $equipement->statut = 'REFORME';
             $equipement->user_update_id = $acteur->id;
 
             if ($motif !== null && trim($motif) !== '') {
-                $equipement->observations = trim($motif);
+                $observationsExistantes = trim((string) $equipement->observations);
+                $nouveauMotif = trim($motif);
+
+                $equipement->observations = $observationsExistantes !== ''
+                    ? $observationsExistantes . "\n\nMotif de réforme : " . $nouveauMotif
+                    : "Motif de réforme : " . $nouveauMotif;
             }
 
             $equipement->save();
@@ -319,19 +351,10 @@ class SupportEquipementService
                 'required',
                 'in:' . implode(',', self::ETATS),
             ],
-            'statut' => [
-                'sometimes',
-                'required',
-                'in:' . implode(',', self::STATUTS),
-            ],
             'emplacement' => ['sometimes', 'nullable', 'string', 'max:200'],
             'description' => ['sometimes', 'nullable', 'string'],
             'observations' => ['sometimes', 'nullable', 'string'],
         ];
-
-        if ($creation) {
-            unset($regles['statut']);
-        }
 
         $validateur = Validator::make($donnees, $regles);
 
