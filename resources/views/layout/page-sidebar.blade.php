@@ -30,18 +30,18 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         @hasanyrole('Employe|super-admin|admin')
-            <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('home') ? 'active' : 'collapsed' }}" href="{{ url('/home') }}">
-                    <i class="bi bi-grid"></i>
-                    <span>Tableau de bord</span>
-                </a>
-            </li>
-            {{-- <li class="nav-item">
-                <a class="nav-link " href="{{ url('/') }}">
-                    <i class="bi bi-grid"></i>
-                    <span>Tableau de bord</span>
-                </a>
-            </li> --}}
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('home') ? 'active' : 'collapsed' }}" href="{{ url('/home') }}">
+                <i class="bi bi-grid"></i>
+                <span>Tableau de bord</span>
+            </a>
+        </li>
+        {{-- <li class="nav-item">
+            <a class="nav-link " href="{{ url('/') }}">
+                <i class="bi bi-grid"></i>
+                <span>Tableau de bord</span>
+            </a>
+        </li> --}}
         @endhasanyrole
 
         @can('parc-view')
@@ -92,8 +92,14 @@
         @endcan
 
         {{-- SUPPORT INFORMATIQUE --}}
-        @canany(['support.tickets.view-own', 'support.tickets.view-assigned', 'support.tickets.view-all',
-            'support.tickets.create', 'support.incidents.view'])
+        @canany([
+                'support.tickets.view-own',
+                'support.tickets.view-assigned',
+                'support.tickets.view-all',
+                'support.tickets.create',
+                'support.incidents.view',
+                'support.equipements.view'
+            ])
             <li class="nav-item">
 
                 <a class="nav-link {{ $activeSupport ? '' : 'collapsed' }}" data-bs-target="#support-nav"
@@ -114,6 +120,18 @@
                             <span>Tableau de bord</span>
                         </a>
                     </li>
+
+                    {{-- Gestion du parc informatique --}}
+                    @can('support.equipements.view')
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('support.equipements.*') ? 'active' : 'collapsed' }}"
+                                href="{{ route('support.equipements.index') }}">
+                                <span>
+                                    Parc informatique
+                                </span>
+                            </a>
+                        </li>
+                    @endcan
 
                     {{-- Liste des tickets --}}
                     @canany(['support.tickets.view-own', 'support.tickets.view-assigned', 'support.tickets.view-all'])
@@ -197,17 +215,17 @@
         @endcan
 
         {{-- @can('activite-view')
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('activites-quotidiennes.index') }}">
-                    <i class="bi bi-list-check"></i>
-                    <span>Mes activités</span>
-                    @if ($retards > 0)
-                        <span class="badge bg-danger text-white ms-2">
-                            {{ $retards }} en retard
-                        </span>
-                    @endif
-                </a>
-            </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('activites-quotidiennes.index') }}">
+                <i class="bi bi-list-check"></i>
+                <span>Mes activités</span>
+                @if ($retards > 0)
+                <span class="badge bg-danger text-white ms-2">
+                    {{ $retards }} en retard
+                </span>
+                @endif
+            </a>
+        </li>
         @endcan --}}
 
         @can('activite-view')
@@ -267,27 +285,26 @@
         @endcan
 
         @hasrole('Employe')
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('mescourriers') }}">
-                    <i class="bi bi-envelope"></i>
-                    <span>Mes courriers</span>
-                </a>
-            </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('mescourriers') }}">
+                <i class="bi bi-envelope"></i>
+                <span>Mes courriers</span>
+            </a>
+        </li>
         @endhasrole
 
         @hasrole('Demandeur')
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('nouvellesformations') }}">
-                    <i class="bi bi-grid"></i>
-                    <span>Mes formations</span>
-                </a>
-            </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('nouvellesformations') }}">
+                <i class="bi bi-grid"></i>
+                <span>Mes formations</span>
+            </a>
+        </li>
         @endhasrole
 
         @can('demande-view')
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#demande--ind-nav" data-bs-toggle="collapse"
-                    href="#">
+                <a class="nav-link collapsed" data-bs-target="#demande--ind-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-folder-plus"></i><span>Gestion des demandes</span><i
                         class="bi bi-chevron-down ms-auto"></i>
                 </a>
@@ -342,16 +359,16 @@
                     @endcan
 
                     @hasrole('super-admin')
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="{{ route('individuelles.corbeille') }}">
-                                <span>Corbeille individuelles</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="{{ route('collectives.corbeille') }}">
-                                <span>Corbeille collectives</span>
-                            </a>
-                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="{{ route('individuelles.corbeille') }}">
+                            <span>Corbeille individuelles</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="{{ route('collectives.corbeille') }}">
+                            <span>Corbeille collectives</span>
+                        </a>
+                    </li>
                     @endhasrole
                 </ul>
             </li>
@@ -378,8 +395,7 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#demandeurs-nav-programme" data-bs-toggle="collapse"
-                    href="#">
+                <a class="nav-link collapsed" data-bs-target="#demandeurs-nav-programme" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-list-check"></i>
                     <span>Offres spéciales</span>
                     @if ($projets->contains('statut', 'ouvert'))
@@ -392,8 +408,7 @@
                 <ul id="demandeurs-nav-programme" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                     @foreach ($projets as $projet)
                         <li class="nav-item">
-                            <a class="nav-link collapsed"
-                                href="{{ route('projetsIndividuelle', ['uuid' => $projet->uuid]) }}">
+                            <a class="nav-link collapsed" href="{{ route('projetsIndividuelle', ['uuid' => $projet->uuid]) }}">
                                 <span>{{ $projet->sigle }}</span>
                             </a>
                         </li>
@@ -404,8 +419,7 @@
 
         @can('devenir-operateur-view')
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#demandeurs-operateur-nav" data-bs-toggle="collapse"
-                    href="#">
+                <a class="nav-link collapsed" data-bs-target="#demandeurs-operateur-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-folder-plus"></i><span>Devenir opérateur</span><i
                         class="bi bi-chevron-down ms-auto"></i>
                 </a>
@@ -421,8 +435,7 @@
 
         @can('devenir-operateur-view')
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#operateur-formations-nav" data-bs-toggle="collapse"
-                    href="#">
+                <a class="nav-link collapsed" data-bs-target="#operateur-formations-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-folder-plus"></i><span>Formations</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="operateur-formations-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
@@ -449,11 +462,11 @@
                         </a>
                     </li>
                     {{-- @can('agrement-view')
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="{{ route('agrement') }}">
-                                <span>Traitement agréments</span>
-                            </a>
-                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="{{ route('agrement') }}">
+                            <span>Traitement agréments</span>
+                        </a>
+                    </li>
                     @endcan --}}
 
                     @can('agrement-commission')
@@ -495,11 +508,11 @@
                     @endcan
 
                     @hasrole('super-admin')
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="{{ route('operateurs.corbeille') }}">
-                                <span>Corbeille</span>
-                            </a>
-                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="{{ route('operateurs.corbeille') }}">
+                            <span>Corbeille</span>
+                        </a>
+                    </li>
                     @endhasrole
                 </ul>
             </li>
@@ -576,13 +589,13 @@
             </li>
         @endcan
         {{-- @can('lettrevaluation-view')
-            <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('lettrevaluations.*') ? 'active' : 'collapsed' }}"
-                    href="{{ route('lettrevaluations.index') }}">
-                    <i class="bi bi-clipboard-check fs-5"></i>
-                    <span>Évaluations formations</span>
-                </a>
-            </li>
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('lettrevaluations.*') ? 'active' : 'collapsed' }}"
+                href="{{ route('lettrevaluations.index') }}">
+                <i class="bi bi-clipboard-check fs-5"></i>
+                <span>Évaluations formations</span>
+            </a>
+        </li>
         @endcan --}}
 
         @can('lettrevaluation-view')
@@ -638,12 +651,12 @@
         @endcan
 
         {{-- @can('ingenieur-corbeille-view')
-            <li class="nav-item {{ request()->routeIs('ingenieurs.corbeille') ? 'active' : 'collapsed' }}">
-                <a class="nav-link collapsed" href="{{ route('ingenieurs.corbeille') }}">
-                    <i class="bi bi-people-fill"></i>
-                    <span>Ingénieurs supprimés</span>
-                </a>
-            </li>
+        <li class="nav-item {{ request()->routeIs('ingenieurs.corbeille') ? 'active' : 'collapsed' }}">
+            <a class="nav-link collapsed" href="{{ route('ingenieurs.corbeille') }}">
+                <i class="bi bi-people-fill"></i>
+                <span>Ingénieurs supprimés</span>
+            </a>
+        </li>
         @endcan --}}
 
         @can('evaluateur-view')
@@ -719,11 +732,11 @@
                         </a>
                     </li>
                     {{-- @can('direction-view')
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="{{ url('/directions') }}">
-                                <span>Directions</span>
-                            </a>
-                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="{{ url('/directions') }}">
+                            <span>Directions</span>
+                        </a>
+                    </li>
                     @endcan --}}
 
                     @can('categorie-view')
@@ -827,32 +840,32 @@
                         </a>
                     </li>
                     @hasrole('super-admin')
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="{{ route('modules.corbeille') }}">
-                                <span>Corbeille</span>
-                            </a>
-                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="{{ route('modules.corbeille') }}">
+                            <span>Corbeille</span>
+                        </a>
+                    </li>
                     @endhasrole
                 </ul>
             </li>
         @endcan
 
         @hasrole(['CCP', 'super-admin', 'DG', 'admin', 'SG', 'DPP', 'ADIOF', 'Ingenieur'])
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ url('projets') }}">
-                    <i class="bi bi-layers-half"></i>
-                    <span>Nos partenaires</span>
-                </a>
-            </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ url('projets') }}">
+                <i class="bi bi-layers-half"></i>
+                <span>Nos partenaires</span>
+            </a>
+        </li>
         @endhasrole
 
         @hasrole(['CCP', 'super-admin'])
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ url('inscriptioncontacts') }}">
-                    <i class="bi bi-layers-half"></i>
-                    <span>Inscription partenaires</span>
-                </a>
-            </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ url('inscriptioncontacts') }}">
+                <i class="bi bi-layers-half"></i>
+                <span>Inscription partenaires</span>
+            </a>
+        </li>
         @endhasrole
 
         @can('contact-view')
@@ -867,27 +880,26 @@
         @can('antenne-view')
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#antennes-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-diagram-3"></i><span>Gestion des pôles</span><i
-                        class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bi bi-diagram-3"></i><span>Gestion des pôles</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
 
                 <ul id="antennes-nav" class="nav-content collapse {{ $activeAntennes ? 'show' : '' }}"
                     data-bs-parent="#sidebar-nav">
                     @hasrole(['super-admin'])
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="{{ route('antennes.index') }}">
-                                <span>Pôles</span>
-                            </a>
-                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="{{ route('antennes.index') }}">
+                            <span>Pôles</span>
+                        </a>
+                    </li>
                     @endhasrole
                     @foreach ($antennes as $antenne)
                         @if (!empty($antenne?->code) && is_string($antenne?->code))
                             @hasrole([$antenne?->code, 'CAR', 'super-admin'])
-                                <li class="nav-item">
-                                    <a class="nav-link collapsed" href="{{ route('antennes.show', $antenne?->id) }}">
-                                        <span>{{ $antenne?->name }}</span>
-                                    </a>
-                                </li>
+                            <li class="nav-item">
+                                <a class="nav-link collapsed" href="{{ route('antennes.show', $antenne?->id) }}">
+                                    <span>{{ $antenne?->name }}</span>
+                                </a>
+                            </li>
                             @endhasrole
                         @endif
                     @endforeach
@@ -902,37 +914,38 @@
                 </a>
                 <ul id="directions-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                     @hasrole('super-admin|DG|DRH|ADRH')
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="{{ route('directions.index') }}">
-                                <span>Directions</span>
-                            </a>
-                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="{{ route('directions.index') }}">
+                            <span>Directions</span>
+                        </a>
+                    </li>
                     @endhasrole
-                    {{--  @foreach ($directions as $direction)
-                        @if (!empty($direction->sigle))
-                            @hasrole('super-admin')
-                                <li class="nav-item">
-                                    <a class="nav-link collapsed" href="{{ route('directions.show', $direction) }}">
-                                        <span>{{ $direction->sigle }}</span>
-                                    </a>
-                                </li>
-                            @else
-                                @hasrole($direction->sigle)
-                                    <li class="nav-item">
-                                        <a class="nav-link collapsed" href="{{ route('directions.show', $direction) }}">
-                                            <span>{{ $direction->sigle }}</span>
-                                        </a>
-                                    </li>
-                                @endhasrole
-                            @endhasrole
-                        @endif
+                    {{-- @foreach ($directions as $direction)
+                    @if (!empty($direction->sigle))
+                    @hasrole('super-admin')
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="{{ route('directions.show', $direction) }}">
+                            <span>{{ $direction->sigle }}</span>
+                        </a>
+                    </li>
+                    @else
+                    @hasrole($direction->sigle)
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="{{ route('directions.show', $direction) }}">
+                            <span>{{ $direction->sigle }}</span>
+                        </a>
+                    </li>
+                    @endhasrole
+                    @endhasrole
+                    @endif
                     @endforeach --}}
                     @foreach ($directions as $direction)
                         @if (
-                            !empty($direction->sigle) &&
+                                !empty($direction->sigle) &&
                                 (auth()->user()->employee?->direction?->sigle === $direction->sigle ||
                                     auth()->user()->hasRole('super-admin') ||
-                                    auth()->user()->hasRole('DRH')))
+                                    auth()->user()->hasRole('DRH'))
+                            )
                             <li class="nav-item">
                                 <a class="nav-link collapsed" href="{{ route('directions.show', $direction) }}">
                                     <span>{{ $direction->sigle }}</span>
@@ -946,8 +959,7 @@
 
         @can('rapport-suivi-formes-view')
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#suivi-formes-nav" data-bs-toggle="collapse"
-                    href="#">
+                <a class="nav-link collapsed" data-bs-target="#suivi-formes-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-diagram-3-fill"></i><span>{{ __('Suivi des formés') }}</span><i
                         class="bi bi-chevron-down ms-auto"></i>
                 </a>
@@ -1097,61 +1109,60 @@
 
 
         @hasanyrole('super-admin|admin')
-            @can('user-view')
-                <li class="nav-item">
-                    <a class="nav-link collapsed" data-bs-target="#users-nav" data-bs-toggle="collapse" href="#">
-                        <i class="bi bi-person"></i><span>{{ __('Gestion utilisateurs') }}</span><i
-                            class="bi bi-chevron-down ms-auto"></i>
-                    </a>
-                    <ul id="users-nav" class="nav-content collapse {{ $activeUsers ? 'show' : '' }}"
-                        data-bs-parent="#sidebar-nav">
+        @can('user-view')
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#users-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-person"></i><span>{{ __('Gestion utilisateurs') }}</span><i
+                        class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="users-nav" class="nav-content collapse {{ $activeUsers ? 'show' : '' }}"
+                    data-bs-parent="#sidebar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('users.online') ? 'active' : 'collapsed' }}"
+                            href="{{ route('users.online') }}">
+                            <span>En ligne</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('users.actifs') ? 'active' : 'collapsed' }}"
+                            href="{{ route('users.actifs') }}">
+                            <span>Actifs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('users.inactifs') ? 'active' : 'collapsed' }}"
+                            href="{{ route('users.inactifs') }}">
+                            <span>Inactifs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('users.corbeille') ? 'active' : 'collapsed' }}"
+                            href="{{ route('users.corbeille') }}">
+                            <span>Corbeille</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('users.restored') ? 'active' : 'collapsed' }}"
+                            href="{{ route('users.restored') }}">
+                            <span>Restaurés</span>
+                        </a>
+                    </li>
+                    @can('rapport-user-view')
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('users.online') ? 'active' : 'collapsed' }}"
-                                href="{{ route('users.online') }}">
-                                <span>En ligne</span>
+                            <a class="nav-link {{ request()->routeIs('users.rapport') ? 'active' : 'collapsed' }}"
+                                href="{{ route('users.rapport') }}">
+                                <span>Utilisateurs</span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('users.actifs') ? 'active' : 'collapsed' }}"
-                                href="{{ route('users.actifs') }}">
-                                <span>Actifs</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('users.inactifs') ? 'active' : 'collapsed' }}"
-                                href="{{ route('users.inactifs') }}">
-                                <span>Inactifs</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('users.corbeille') ? 'active' : 'collapsed' }}"
-                                href="{{ route('users.corbeille') }}">
-                                <span>Corbeille</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('users.restored') ? 'active' : 'collapsed' }}"
-                                href="{{ route('users.restored') }}">
-                                <span>Restaurés</span>
-                            </a>
-                        </li>
-                        @can('rapport-user-view')
-                            <li class="nav-item">
-                                <a class="nav-link {{ request()->routeIs('users.rapport') ? 'active' : 'collapsed' }}"
-                                    href="{{ route('users.rapport') }}">
-                                    <span>Utilisateurs</span>
-                                </a>
-                            </li>
-                        @endcan
-                    </ul>
-                </li>
-            @endcan
+                    @endcan
+                </ul>
+            </li>
+        @endcan
         @endhasanyrole
 
         @can('role-view')
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#autorisation-nav" data-bs-toggle="collapse"
-                    href="#">
+                <a class="nav-link collapsed" data-bs-target="#autorisation-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-key"></i><span>{{ __("Contrôle d'accès") }}</span><i
                         class="bi bi-chevron-down ms-auto"></i>
                 </a>
