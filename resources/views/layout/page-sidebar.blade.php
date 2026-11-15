@@ -23,6 +23,7 @@
             request()->routeIs('onfp.dashboard.*');
 
         $noteFrais = request()->routeIs('formations.notes-frais.*');
+        $activeSupport = request()->is('support*');
 
     @endphp
 
@@ -89,6 +90,66 @@
                 </ul>
             </li>
         @endcan
+
+        {{-- SUPPORT INFORMATIQUE --}}
+        @canany(['support.tickets.view-own', 'support.tickets.view-assigned', 'support.tickets.view-all',
+            'support.tickets.create', 'support.incidents.view'])
+            <li class="nav-item">
+
+                <a class="nav-link {{ $activeSupport ? '' : 'collapsed' }}" data-bs-target="#support-nav"
+                    data-bs-toggle="collapse" href="#">
+
+                    <i class="bi bi-headset"></i>
+                    <span>Support informatique</span>
+                    <i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+
+                <ul id="support-nav" class="nav-content collapse {{ $activeSupport ? 'show' : '' }}"
+                    data-bs-parent="#sidebar-nav">
+
+                    {{-- Tableau de bord --}}
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->is('support') ? 'active' : 'collapsed' }}"
+                            href="{{ url('/support') }}">
+                            <span>Tableau de bord</span>
+                        </a>
+                    </li>
+
+                    {{-- Liste des tickets --}}
+                    @canany(['support.tickets.view-own', 'support.tickets.view-assigned', 'support.tickets.view-all'])
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('support.tickets.index') || request()->routeIs('support.tickets.show') ? 'active' : 'collapsed' }}"
+                                href="{{ route('support.tickets.index') }}">
+                                <span>Tickets</span>
+                            </a>
+                        </li>
+                    @endcanany
+
+                    {{-- Nouveau ticket --}}
+                    @can('support.tickets.create')
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('support.tickets.create') ? 'active' : 'collapsed' }}"
+                                href="{{ route('support.tickets.create') }}">
+                                <span>Créer un ticket</span>
+                            </a>
+                        </li>
+                    @endcan
+
+                    {{-- Incidents : à activer lorsque les routes seront créées --}}
+                    @can('support.incidents.view')
+                        {{--
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('support.incidents.*') ? 'active' : 'collapsed' }}"
+                        href="{{ route('support.incidents.index') }}">
+                        <span>Incidents</span>
+                    </a>
+                </li>
+                --}}
+                    @endcan
+
+                </ul>
+            </li>
+        @endcanany
 
         @can('courrier-view')
             <li class="nav-item">
@@ -227,7 +288,8 @@
 
         @can('demande-view')
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#demande--ind-nav" data-bs-toggle="collapse" href="#">
+                <a class="nav-link collapsed" data-bs-target="#demande--ind-nav" data-bs-toggle="collapse"
+                    href="#">
                     <i class="bi bi-folder-plus"></i><span>Gestion des demandes</span><i
                         class="bi bi-chevron-down ms-auto"></i>
                 </a>

@@ -11,7 +11,7 @@
             <p class="text-muted mb-0">Tableau de bord de suivi des demandes informatiques</p>
         </div>
         @can('support.tickets.create')
-            <a href="{{ route('support.tickets.create') }}" class="btn text-white"
+            <a href="{{ route('support.tickets.create') }}" class="btn btn-sm text-white"
                style="background:#F28500">
                 <i class="bi bi-plus-circle me-1"></i> Nouveau ticket
             </a>
@@ -33,6 +33,7 @@
                 ['En cours', $stats['en_cours'], 'bi-gear', '#198754'],
                 ['En attente', $stats['en_attente'], 'bi-hourglass-split', '#6f42c1'],
                 ['Résolus', $stats['resolus'], 'bi-check-circle', '#20a39e'],
+                ['Clôturés', $stats['clotures'], 'bi-lock-fill', '#6c757d'],
             ];
         @endphp
 

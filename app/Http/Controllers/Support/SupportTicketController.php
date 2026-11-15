@@ -64,6 +64,10 @@ class SupportTicketController extends Controller
                 'statut',
                 fn ($q) => $q->where('code', 'RESOLU')
             )->count(),
+             'clotures' => (clone $query)->whereHas(
+                'statut',
+                fn ($q) => $q->where('code', 'CLOTURE')
+            )->count(),
         ];
 
         $ticketsRecents = (clone $query)->with([
