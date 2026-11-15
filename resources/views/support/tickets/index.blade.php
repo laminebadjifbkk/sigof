@@ -11,7 +11,7 @@
             <p class="text-muted mb-0">Consultez et suivez les demandes d'assistance informatique.</p>
         </div>
         @can('support.tickets.create')
-            <a href="{{ route('support.tickets.create') }}" class="btn text-white" style="background:#F28500">
+            <a href="{{ route('support.tickets.create') }}" class="btn btn-sm text-white" style="background:#F28500">
                 <i class="bi bi-plus-circle me-1"></i> Nouveau ticket
             </a>
         @endcan
@@ -30,12 +30,12 @@
                 <div class="row g-3 align-items-end">
                     <div class="col-md-4">
                         <label class="form-label">Référence</label>
-                        <input type="text" name="reference" class="form-control"
+                        <input type="text" name="reference" class="form-control form-control-sm"
                                value="{{ request('reference') }}" placeholder="Ex. SUP-2026">
                     </div>
                     <div class="col-md-3">
                         <label class="form-label">Statut</label>
-                        <select name="statut" class="form-select">
+                        <select name="statut" class="form-select form-select-sm">
                             <option value="">Tous les statuts</option>
                             @foreach($statuts as $statut)
                                 <option value="{{ $statut->id }}" @selected(request('statut') == $statut->id)>
@@ -46,7 +46,7 @@
                     </div>
                     <div class="col-md-3">
                         <label class="form-label">Priorité</label>
-                        <select name="priorite" class="form-select">
+                        <select name="priorite" class="form-select form-select-sm">
                             <option value="">Toutes les priorités</option>
                             @foreach($priorites as $priorite)
                                 <option value="{{ $priorite->id }}" @selected(request('priorite') == $priorite->id)>
@@ -56,10 +56,10 @@
                         </select>
                     </div>
                     <div class="col-md-2 d-flex gap-2">
-                        <button class="btn btn-primary flex-fill" type="submit">
+                        <button class="btn btn-sm btn-primary flex-fill" type="submit">
                             <i class="bi bi-search"></i> Filtrer
                         </button>
-                        <a href="{{ route('support.tickets.index') }}" class="btn btn-outline-secondary" title="Réinitialiser">
+                        <a href="{{ route('support.tickets.index') }}" class="btn btn-sm btn-outline-secondary" title="Réinitialiser">
                             <i class="bi bi-arrow-counterclockwise"></i>
                         </a>
                     </div>

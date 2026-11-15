@@ -32,7 +32,7 @@
                 <div class="row g-3">
                     <div class="col-md-6">
                         <label class="form-label fw-semibold">Catégorie <span class="text-danger">*</span></label>
-                        <select name="support_category_id" id="support_category_id" class="form-select" required>
+                        <select name="support_category_id" id="support_category_id" class="form-select form-select-sm" required>
                             <option value="">Sélectionner une catégorie</option>
                             @foreach($categories as $categorie)
                                 <option value="{{ $categorie->id }}"
@@ -46,7 +46,7 @@
 
                     <div class="col-md-6">
                         <label class="form-label fw-semibold">Type de demande <span class="text-danger">*</span></label>
-                        <select name="support_type_id" id="support_type_id" class="form-select" required>
+                        <select name="support_type_id" id="support_type_id" class="form-select form-select-sm" required>
                             <option value="">Sélectionner un type</option>
                             @foreach($types as $type)
                                 <option value="{{ $type->id }}"
@@ -61,14 +61,14 @@
 
                     <div class="col-md-8">
                         <label class="form-label fw-semibold">Objet de la demande <span class="text-danger">*</span></label>
-                        <input type="text" name="objet" class="form-control" maxlength="200"
+                        <input type="text" name="objet" class="form-control form-control-sm" maxlength="200"
                                value="{{ old('objet') }}" placeholder="Résumez votre problème en quelques mots" required>
                         @error('objet') <div class="text-danger small">{{ $message }}</div> @enderror
                     </div>
 
                     <div class="col-md-4">
                         <label class="form-label fw-semibold">Priorité souhaitée <span class="text-danger">*</span></label>
-                        <select name="support_priorite_id" class="form-select" required>
+                        <select name="support_priorite_id" class="form-select form-select-sm" required>
                             <option value="">Sélectionner</option>
                             @foreach($priorites as $priorite)
                                 <option value="{{ $priorite->id }}"
@@ -83,7 +83,7 @@
 
                     <div class="col-12">
                         <label class="form-label fw-semibold">Description détaillée <span class="text-danger">*</span></label>
-                        <textarea name="description" class="form-control" rows="6"
+                        <textarea name="description" class="form-control form-control-sm" rows="6"
                                   placeholder="Décrivez le problème, les circonstances, les messages d'erreur éventuels et les actions déjà effectuées..."
                                   required>{{ old('description') }}</textarea>
                         @error('description') <div class="text-danger small">{{ $message }}</div> @enderror
@@ -93,8 +93,8 @@
                 <hr class="my-4">
 
                 <div class="d-flex justify-content-end gap-2">
-                    <a href="{{ route('support.tickets.index') }}" class="btn btn-light">Annuler</a>
-                    <button type="submit" class="btn text-white" style="background:#F28500">
+                    <a href="{{ route('support.tickets.index') }}" class="btn btn-sm btn-light">Annuler</a>
+                    <button type="submit" class="btn btn-sm text-white" style="background:#F28500">
                         <i class="bi bi-send me-1"></i> Soumettre le ticket
                     </button>
                 </div>

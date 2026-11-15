@@ -25,7 +25,7 @@
                     !in_array($ticket->statut->code, ['EN_COURS', 'RESOLU', 'CLOTURE', 'REJETE']))
                 <form method="POST" action="{{ route('support.tickets.take-charge', $ticket) }}">
                     @csrf
-                    <button class="btn text-white" style="background:#F28500" type="submit">
+                    <button class="btn btn-sm text-white" style="background:#F28500" type="submit">
                         <i class="bi bi-play-circle me-1"></i>
                         Prendre en charge
                     </button>
@@ -222,7 +222,7 @@
                                 @csrf
 
                                 <div class="mb-3">
-                                    <label class="form-label fw-semibold">
+                                    <label class="form-label form-label-sm fw-semibold">
                                         Ajouter un commentaire
                                     </label>
 
@@ -248,7 +248,7 @@
                                 @endcan
 
                                 <div class="text-end">
-                                    <button type="submit" class="btn text-white" style="background:#F28500">
+                                    <button type="submit" class="btn btn-sm text-white" style="background:#F28500">
                                         <i class="bi bi-send me-1"></i>
                                         Envoyer le commentaire
                                     </button>
@@ -291,7 +291,7 @@
                                 <div class="row g-3">
 
                                     <div class="col-md-6">
-                                        <label class="form-label fw-semibold">
+                                        <label class="form-label form-label-sm fw-semibold">
                                             Date de l'intervention <span class="text-danger">*</span>
                                         </label>
 
@@ -305,7 +305,7 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label class="form-label fw-semibold">
+                                        <label class="form-label form-label-sm fw-semibold">
                                             Durée en minutes <span class="text-danger">*</span>
                                         </label>
 
@@ -320,7 +320,7 @@
                                     </div>
 
                                     <div class="col-12">
-                                        <label class="form-label fw-semibold">
+                                        <label class="form-label form-label-sm fw-semibold">
                                             Diagnostic <span class="text-danger">*</span>
                                         </label>
 
@@ -333,7 +333,7 @@
                                     </div>
 
                                     <div class="col-12">
-                                        <label class="form-label fw-semibold">
+                                        <label class="form-label form-label-sm fw-semibold">
                                             Travaux réalisés <span class="text-danger">*</span>
                                         </label>
 
@@ -346,12 +346,12 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label class="form-label fw-semibold">
+                                        <label class="form-label form-label-sm fw-semibold">
                                             Résultat <span class="text-danger">*</span>
                                         </label>
 
                                         <select name="resultat"
-                                            class="form-select @error('resultat') is-invalid @enderror" required>
+                                            class="form-select form-select-sm @error('resultat') is-invalid @enderror" required>
 
                                             <option value="">Sélectionner un résultat</option>
 
@@ -379,7 +379,7 @@
                                     </div>
 
                                     <div class="col-12">
-                                        <label class="form-label fw-semibold">
+                                        <label class="form-label form-label-sm fw-semibold">
                                             Observations complémentaires
                                         </label>
 
@@ -390,7 +390,7 @@
                                 </div>
 
                                 <div class="text-end mt-4">
-                                    <button type="submit" class="btn text-white" style="background:#F28500">
+                                    <button type="submit" class="btn btn-sm text-white" style="background:#F28500">
                                         <i class="bi bi-save me-1"></i>
                                         Enregistrer l'intervention
                                     </button>
@@ -640,11 +640,11 @@
                                 @method('PATCH')
 
                                 <div class="mb-3">
-                                    <label for="supportStatut" class="form-label fw-semibold">
+                                    <label for="supportStatut" class="form-label form-label-sm fw-semibold">
                                         Nouveau statut
                                     </label>
 
-                                    <select name="statut" id="supportStatut" class="form-select" required>
+                                    <select name="statut" id="supportStatut" class="form-select form-select-sm" required>
 
                                         <option value="">
                                             Sélectionner un statut
@@ -666,7 +666,7 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="supportMotif" class="form-label fw-semibold">
+                                    <label for="supportMotif" class="form-label form-label-sm fw-semibold">
                                         Justification
                                     </label>
 
@@ -685,7 +685,7 @@
                                     @enderror
                                 </div>
 
-                                <button type="submit" class="btn text-white w-100" style="background:#F28500">
+                                <button type="submit" class="btn btn-sm text-white w-100" style="background:#F28500">
 
                                     <i class="bi bi-check-circle me-1"></i>
                                     Mettre à jour le statut
@@ -727,11 +727,11 @@
                                         @csrf
 
                                         <div class="mb-3">
-                                            <label class="form-label fw-semibold">
+                                            <label class="form-label form-label-sm fw-semibold">
                                                 Technicien
                                             </label>
 
-                                            <select name="technicien_id" class="form-select" required>
+                                            <select name="technicien_id" class="form-select form-select-sm" required>
 
                                                 <option value="">
                                                     Sélectionner un technicien
@@ -753,7 +753,7 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <label class="form-label fw-semibold">
+                                            <label class="form-label form-label-sm fw-semibold">
                                                 Motif de l'affectation
                                             </label>
 
@@ -765,7 +765,7 @@
                                             @enderror
                                         </div>
 
-                                        <button type="submit" class="btn text-white w-100" style="background:#F28500">
+                                        <button type="submit" class="btn btn-sm text-white w-100" style="background:#F28500">
                                             <i class="bi bi-person-check me-1"></i>
 
                                             {{ $ticket->user_assigne_id ? 'Réaffecter le ticket' : 'Affecter le ticket' }}
