@@ -609,6 +609,109 @@
                 </div>
 
 
+
+                {{-- CHANGEMENT DU STATUT --}}
+                @if ($statutsDisponibles->isNotEmpty())
+
+                    <div class="card border-0 shadow-sm mb-4">
+
+                        <div class="card-header bg-white py-3">
+                            <h5 class="mb-0 fw-bold">
+                                <i class="bi bi-arrow-left-right me-2"
+                                    style="color:#F28500"></i>
+                                Gestion du statut
+                            </h5>
+                        </div>
+
+                        <div class="card-body">
+
+                            <div class="mb-3">
+                                <small class="text-muted d-block mb-1">
+                                    Statut actuel
+                                </small>
+
+                                <span class="badge bg-light text-dark border">
+                                    {{ $ticket->statut->libelle ?? '-' }}
+                                </span>
+                            </div>
+
+                            <form method="POST"
+                                action="{{ route('support.tickets.statut.update', $ticket) }}">
+
+                                @csrf
+                                @method('PATCH')
+
+                                <div class="mb-3">
+                                    <label for="supportStatut" class="form-label fw-semibold">
+                                        Nouveau statut
+                                    </label>
+
+                                    <select name="statut"
+                                        id="supportStatut"
+                                        class="form-select"
+                                        required>
+
+                                        <option value="">
+                                            Sélectionner un statut
+                                        </option>
+
+                                        @foreach ($statutsDisponibles as $statut)
+                                            <option value="{{ $statut->code }}"
+                                                @selected(old('statut') === $statut->code)>
+                                                {{ $statut->libelle }}
+                                            </option>
+                                        @endforeach
+
+                                    </select>
+
+                                    @error('statut')
+                                        <div class="text-danger small mt-1">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="supportMotif" class="form-label fw-semibold">
+                                        Justification
+                                    </label>
+
+                                    <textarea name="motif"
+                                        id="supportMotif"
+                                        class="form-control"
+                                        rows="3"
+                                        maxlength="2000"
+                                        placeholder="Préciser le motif de cette opération si nécessaire...">{{ old('motif') }}</textarea>
+
+                                    <small class="text-muted">
+                                        Obligatoire pour une mise en attente,
+                                        un rejet ou une réouverture.
+                                    </small>
+
+                                    @error('motif')
+                                        <div class="text-danger small mt-1">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <button type="submit"
+                                    class="btn text-white w-100"
+                                    style="background:#F28500">
+
+                                    <i class="bi bi-check-circle me-1"></i>
+                                    Mettre à jour le statut
+
+                                </button>
+
+                            </form>
+
+                        </div>
+                    </div>
+
+                @endif
+
+
                 {{-- AFFECTATION DU TECHNICIEN --}}
                 @can('support.tickets.assign')
 

@@ -1498,6 +1498,12 @@ Route::get('/prisenchargestatutregion/{statut}/{region}/{annee_scolaire}', [Form
             Route::get('/tickets/{ticket}', [SupportTicketController::class, 'show'])
                 ->name('tickets.show');
 
+                // Changement du statut
+            Route::patch(
+                '/tickets/{ticket}/statut',
+                [SupportTicketController::class, 'changerStatut']
+            )->name('tickets.statut.update');
+
             // Prise en charge
             Route::post('/tickets/{ticket}/prendre-en-charge', [
                 SupportTicketController::class,
@@ -1515,11 +1521,6 @@ Route::get('/prisenchargestatutregion/{statut}/{region}/{annee_scolaire}', [Form
             )->name('tickets.commentaires.store');
 
             // Enregistrement d'une intervention
-            Route::post(
-                '/tickets/{ticket}/interventions',
-                [SupportTicketController::class, 'enregistrerIntervention']
-            )->name('tickets.interventions.store');
-
             Route::post(
                 '/tickets/{ticket}/interventions',
                 [SupportTicketController::class, 'enregistrerIntervention']

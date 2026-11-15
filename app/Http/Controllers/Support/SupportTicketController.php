@@ -17,6 +17,7 @@ use Illuminate\Validation\ValidationException;
 use App\Models\User;
 use App\Services\Support\SupportAffectationService;
 use App\Services\Support\SupportInterventionService;
+use App\Services\Support\SupportStatutService;
 
 class SupportTicketController extends Controller
 {
@@ -266,9 +267,59 @@ class SupportTicketController extends Controller
                 ->get();
         }
 
+        // Statuts accessibles pour le changement de statut.
+        $statutsDisponibles = collect();
+
+        $codeActuel = $ticket->statut?->code;
+
+        $peutGererStatut =
+            $user->can('support.tickets.view-all')
+            || (int) $ticket->user_assigne_id === (int) $user->id;
+
+        $transitions = [
+            'NOUVEAU' => ['OUVERT', 'REJETE'],
+            'OUVERT' => ['EN_COURS', 'EN_ATTENTE', 'REJETE'],
+            'EN_COURS' => ['EN_ATTENTE', 'RESOLU'],
+            'EN_ATTENTE' => ['EN_COURS', 'RESOLU'],
+            'RESOLU' => ['CLOTURE', 'EN_COURS'],
+            'CLOTURE' => ['OUVERT'],
+            'REJETE' => ['OUVERT'],
+        ];
+
+        if ($peutGererStatut && $codeActuel) {
+            $codesDisponibles = collect($transitions[$codeActuel] ?? [])
+                ->filter(function ($code) use ($user, $codeActuel) {
+
+                    $estReouverture =
+                        in_array($codeActuel, ['CLOTURE', 'REJETE'], true)
+                        || (
+                            $codeActuel === 'RESOLU'
+                            && $code === 'EN_COURS'
+                        );
+
+                    if ($estReouverture) {
+                        return $user->can('support.tickets.reopen');
+                    }
+
+                    if (in_array($code, ['CLOTURE', 'REJETE'], true)) {
+                        return $user->can('support.tickets.close');
+                    }
+
+                    return $user->can('support.tickets.update');
+                })
+                ->values()
+                ->all();
+
+            $statutsDisponibles = SupportStatut::actifs()
+                ->whereIn('code', $codesDisponibles)
+                ->ordonnes()
+                ->get();
+        }
+
         return view('support.tickets.show', compact(
             'ticket',
-            'techniciens'
+            'techniciens',
+            'statutsDisponibles'
         ));
     }
 
@@ -431,6 +482,49 @@ class SupportTicketController extends Controller
             ->route('support.tickets.show', $ticket)
             ->with('success', 'L’intervention a été enregistrée avec succès.');
     } */
+
+
+public function changerStatut(
+    Request $request,
+    SupportTicket $ticket,
+    SupportStatutService $service
+) {
+    $user = auth()->user();
+
+    // Vérifier que l'utilisateur peut consulter ce ticket.
+    $autorise =
+        $user->can('support.tickets.view-all')
+        || (
+            $user->can('support.tickets.view-assigned')
+            && (
+                (int) $ticket->user_assigne_id === (int) $user->id
+                || (int) $ticket->user_demandeur_id === (int) $user->id
+            )
+        )
+        || (
+            $user->can('support.tickets.view-own')
+            && (int) $ticket->user_demandeur_id === (int) $user->id
+        );
+
+    abort_unless($autorise, 403);
+
+    $donnees = $request->validate([
+        'statut' => ['required', 'string', 'max:50'],
+        'motif' => ['nullable', 'string', 'max:2000'],
+    ]);
+
+    $service->changer(
+        $ticket,
+        $user,
+        $donnees['statut'],
+        $donnees['motif'] ?? null
+    );
+
+    return redirect()
+        ->route('support.tickets.show', $ticket)
+        ->with('success', 'Le statut du ticket a été mis à jour avec succès.');
+}
+
 
      public function enregistrerIntervention(
         Request $request,
