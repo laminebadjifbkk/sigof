@@ -55,7 +55,7 @@
                         <input type="text"
                                id="designation"
                                name="designation"
-                               class="form-control @error('designation') is-invalid @enderror"
+                               class="form-control form-control-sm @error('designation') is-invalid @enderror"
                                value="{{ old('designation') }}"
                                maxlength="200"
                                placeholder="Ex. Ordinateur portable HP EliteBook"
@@ -71,7 +71,7 @@
                         </label>
                         <select id="support_categorie_equipement_id"
                                 name="support_categorie_equipement_id"
-                                class="form-select @error('support_categorie_equipement_id') is-invalid @enderror"
+                                class="form-select form-select-sm @error('support_categorie_equipement_id') is-invalid @enderror"
                                 required>
                             <option value="">Sélectionner une catégorie</option>
                             @foreach($categories as $categorie)
@@ -91,7 +91,7 @@
                         <input type="text"
                                id="marque"
                                name="marque"
-                               class="form-control @error('marque') is-invalid @enderror"
+                               class="form-control form-control-sm @error('marque') is-invalid @enderror"
                                value="{{ old('marque') }}"
                                maxlength="100"
                                placeholder="Ex. HP, Dell, Lenovo">
@@ -105,7 +105,7 @@
                         <input type="text"
                                id="modele"
                                name="modele"
-                               class="form-control @error('modele') is-invalid @enderror"
+                               class="form-control form-control-sm @error('modele') is-invalid @enderror"
                                value="{{ old('modele') }}"
                                maxlength="150"
                                placeholder="Ex. EliteBook 840 G11">
@@ -119,7 +119,7 @@
                         <input type="text"
                                id="numero_serie"
                                name="numero_serie"
-                               class="form-control @error('numero_serie') is-invalid @enderror"
+                               class="form-control form-control-sm @error('numero_serie') is-invalid @enderror"
                                value="{{ old('numero_serie') }}"
                                maxlength="150"
                                placeholder="Numéro de série constructeur">
@@ -151,7 +151,7 @@
                         <input type="date"
                                id="date_acquisition"
                                name="date_acquisition"
-                               class="form-control @error('date_acquisition') is-invalid @enderror"
+                               class="form-control form-control-sm @error('date_acquisition') is-invalid @enderror"
                                value="{{ old('date_acquisition') }}">
                         @error('date_acquisition')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -163,7 +163,7 @@
                         <input type="text"
                                id="fournisseur"
                                name="fournisseur"
-                               class="form-control @error('fournisseur') is-invalid @enderror"
+                               class="form-control form-control-sm @error('fournisseur') is-invalid @enderror"
                                value="{{ old('fournisseur') }}"
                                maxlength="200">
                         @error('fournisseur')
@@ -178,7 +178,7 @@
                         <input type="number"
                                id="prix_acquisition"
                                name="prix_acquisition"
-                               class="form-control @error('prix_acquisition') is-invalid @enderror"
+                               class="form-control form-control-sm @error('prix_acquisition') is-invalid @enderror"
                                value="{{ old('prix_acquisition') }}"
                                min="0"
                                step="0.01"
@@ -195,7 +195,7 @@
                         <input type="date"
                                id="date_fin_garantie"
                                name="date_fin_garantie"
-                               class="form-control @error('date_fin_garantie') is-invalid @enderror"
+                               class="form-control form-control-sm @error('date_fin_garantie') is-invalid @enderror"
                                value="{{ old('date_fin_garantie') }}">
                         @error('date_fin_garantie')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -224,7 +224,7 @@
                         </label>
                         <select id="etat_physique"
                                 name="etat_physique"
-                                class="form-select @error('etat_physique') is-invalid @enderror">
+                                class="form-select form-select-sm @error('etat_physique') is-invalid @enderror">
                             <option value="BON" @selected(old('etat_physique', 'BON') === 'BON')>
                                 Bon
                             </option>
@@ -250,7 +250,7 @@
                         <input type="text"
                                id="emplacement"
                                name="emplacement"
-                               class="form-control @error('emplacement') is-invalid @enderror"
+                               class="form-control form-control-sm @error('emplacement') is-invalid @enderror"
                                value="{{ old('emplacement') }}"
                                maxlength="200"
                                placeholder="Ex. Siège ONFP, salle informatique, bureau...">
@@ -292,7 +292,7 @@
                         <textarea id="description"
                                   name="description"
                                   rows="4"
-                                  class="form-control @error('description') is-invalid @enderror"
+                                  class="form-control form-control-sm @error('description') is-invalid @enderror"
                                   placeholder="Caractéristiques techniques, configuration, spécifications...">{{ old('description') }}</textarea>
                         @error('description')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -306,7 +306,7 @@
                         <textarea id="observations"
                                   name="observations"
                                   rows="4"
-                                  class="form-control @error('observations') is-invalid @enderror"
+                                  class="form-control form-control-sm @error('observations') is-invalid @enderror"
                                   placeholder="Informations ou remarques complémentaires...">{{ old('observations') }}</textarea>
                         @error('observations')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -320,11 +320,11 @@
         {{-- ACTIONS --}}
         <div class="d-flex justify-content-end gap-2 mb-4">
             <a href="{{ route('support.equipements.index') }}"
-               class="btn btn-outline-secondary">
+               class="btn btn-sm btn-outline-secondary">
                 Annuler
             </a>
 
-            <button type="submit" class="btn text-white" style="background:#F28500">
+            <button type="submit" class="btn btn-sm text-white" style="background:#F28500">
                 <i class="bi bi-save me-1"></i>
                 Enregistrer l'équipement
             </button>

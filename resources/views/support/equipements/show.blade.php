@@ -23,13 +23,13 @@
         <div class="d-flex flex-wrap gap-2">
             @if($peutModifier)
                 <a href="{{ route('support.equipements.edit', $equipement) }}"
-                   class="btn btn-outline-secondary">
+                   class="btn btn-sm btn-outline-secondary">
                     <i class="bi bi-pencil me-1"></i> Modifier
                 </a>
             @endif
 
             @if($peutReformer && !in_array($equipement->statut, ['REFORME', 'PERDU'], true))
-                <button class="btn btn-outline-danger"
+                <button class="btn btn-sm btn-outline-danger"
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#formReforme">
@@ -89,7 +89,7 @@
                                       maxlength="1000"></textarea>
                         </div>
 
-                        <button type="submit" class="btn btn-danger">
+                        <button type="submit" class="btn btn-sm btn-danger">
                             Confirmer la réforme
                         </button>
                     </form>
@@ -455,7 +455,7 @@
 
                                         <div class="col-12">
                                             <button type="submit"
-                                                    class="btn text-white"
+                                                    class="btn btn-sm text-white"
                                                     style="background:#F28500">
                                                 <i class="bi bi-person-plus me-1"></i>
                                                 Confirmer l'affectation
@@ -505,7 +505,7 @@
                                         </div>
 
                                         <div class="col-12">
-                                            <button type="submit" class="btn btn-outline-primary">
+                                            <button type="submit" class="btn btn-sm btn-outline-primary">
                                                 <i class="bi bi-box-arrow-in-left me-1"></i>
                                                 Enregistrer le retour
                                             </button>
@@ -620,7 +620,7 @@
                                         </div>
 
                                         <div class="col-12">
-                                            <button type="submit" class="btn btn-outline-primary">
+                                            <button type="submit" class="btn btn-sm btn-outline-primary">
                                                 <i class="bi bi-arrow-left-right me-1"></i>
                                                 Confirmer le transfert
                                             </button>
