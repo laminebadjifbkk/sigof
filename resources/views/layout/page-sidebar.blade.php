@@ -134,13 +134,61 @@
                         </li>
                     @endcan
 
+
                     {{-- Gestion des stocks --}}
                     @can('support.stocks.view')
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('support.stocks.*') ? 'active' : 'collapsed' }}"
-                                href="{{ route('support.stocks.dashboard') }}">
+                            <a class="nav-link {{ request()->routeIs('support.stocks.*') ? '' : 'collapsed' }}"
+                                data-bs-target="#stocks-nav" data-bs-toggle="collapse" href="#">
                                 <span>Gestion des stocks</span>
+                                <i class="bi bi-chevron-down ms-auto"></i>
                             </a>
+
+                            <ul id="stocks-nav"
+                                class="nav-content collapse {{ request()->routeIs('support.stocks.*') ? 'show' : '' }}"
+                                data-bs-parent="#support-nav">
+
+                                {{-- Tableau de bord --}}
+                                <li class="nav-item">
+                                    <a class="nav-link {{ request()->routeIs('support.stocks.dashboard') ? 'active' : 'collapsed' }}"
+                                        href="{{ route('support.stocks.dashboard') }}">
+                                        <span>Tableau de bord</span>
+                                    </a>
+                                </li>
+
+                                {{-- Articles --}}
+                                <li class="nav-item">
+                                    <a class="nav-link {{ request()->routeIs('support.stocks.catalogue.*') && request()->route('type') === 'articles' ? 'active' : 'collapsed' }}"
+                                        href="{{ route('support.stocks.catalogue.index', 'articles') }}">
+                                        <span>Articles de stock</span>
+                                    </a>
+                                </li>
+
+                                {{-- Catégories --}}
+                                <li class="nav-item">
+                                    <a class="nav-link {{ request()->routeIs('support.stocks.catalogue.*') && request()->route('type') === 'categories' ? 'active' : 'collapsed' }}"
+                                        href="{{ route('support.stocks.catalogue.index', 'categories') }}">
+                                        <span>Catégories</span>
+                                    </a>
+                                </li>
+
+                                {{-- Unités --}}
+                                <li class="nav-item">
+                                    <a class="nav-link {{ request()->routeIs('support.stocks.catalogue.*') && request()->route('type') === 'unites' ? 'active' : 'collapsed' }}"
+                                        href="{{ route('support.stocks.catalogue.index', 'unites') }}">
+                                        <span>Unités de mesure</span>
+                                    </a>
+                                </li>
+
+                                {{-- Fournisseurs --}}
+                                <li class="nav-item">
+                                    <a class="nav-link {{ request()->routeIs('support.stocks.catalogue.*') && request()->route('type') === 'fournisseurs' ? 'active' : 'collapsed' }}"
+                                        href="{{ route('support.stocks.catalogue.index', 'fournisseurs') }}">
+                                        <span>Fournisseurs</span>
+                                    </a>
+                                </li>
+
+                            </ul>
                         </li>
                     @endcan
 
