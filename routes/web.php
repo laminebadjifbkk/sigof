@@ -134,6 +134,7 @@ use App\Http\Controllers\OnfpDashboardController;
 use App\Http\Controllers\NoteFraisController;
 use App\Http\Controllers\Support\SupportTicketController;
 use App\Http\Controllers\Support\SupportStockController;
+use App\Http\Controllers\Support\SupportStockCatalogueController;
 
 
 
@@ -1491,6 +1492,20 @@ Route::get('/prisenchargestatutregion/{statut}/{region}/{annee_scolaire}', [Form
             // Tableau de bord de gestion des stocks
             Route::get('/stocks', [SupportStockController::class, 'dashboard'])
                 ->name('stocks.dashboard');
+
+            // Catalogue des stocks : catégories, unités, fournisseurs et articles
+            Route::prefix('stocks/catalogue/{type}')
+                ->name('stocks.catalogue.')
+                ->controller(SupportStockCatalogueController::class)
+                ->group(function () {
+                    Route::get('/', 'index')->name('index');
+                    Route::get('/create', 'create')->name('create');
+                    Route::post('/', 'store')->name('store');
+                    Route::get('/{id}/edit', 'edit')->whereNumber('id')->name('edit');
+                    Route::put('/{id}', 'update')->whereNumber('id')->name('update');
+                    Route::patch('/{id}/toggle', 'toggle')->whereNumber('id')->name('toggle');
+                });
+
 
             // Gestion des tickets
             Route::get('/tickets', [SupportTicketController::class, 'index'])
