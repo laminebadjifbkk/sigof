@@ -491,7 +491,11 @@ class SupportStockMouvementService
             );
 
         $valeurApres = BigDecimal::of($valeurAvant)
-            ->minus($valeurMouvement);
+            ->minus($valeurMouvement)
+            ->toScale(
+                self::ECHELLE_VALEUR,
+                RoundingMode::HALF_UP
+            );
 
         if ($valeurApres->isLessThan('0')) {
             $this->erreur(
@@ -505,7 +509,15 @@ class SupportStockMouvementService
             $cmpApres = '0.0000';
             $valeurApres = BigDecimal::zero();
         } else {
-            $cmpApres = $cmpAvant;
+            // Le CMP est recalculé sur la valeur comptable restante.
+            // Cela évite de conserver un CMP devenu incohérent
+            // après les arrondis d'une sortie partielle.
+            $cmpApres = (string) BigDecimal::of((string) $valeurApres)
+                ->dividedBy(
+                    BigDecimal::of($quantiteApres),
+                    4,
+                    RoundingMode::HALF_UP
+                );
         }
 
         return [
@@ -513,10 +525,7 @@ class SupportStockMouvementService
             $valeurMouvement,
             $quantiteApres,
             $cmpApres,
-            (string) $valeurApres->toScale(
-                self::ECHELLE_VALEUR,
-                RoundingMode::HALF_UP
-            ),
+            (string) $valeurApres,
         ];
     }
 
@@ -530,13 +539,18 @@ class SupportStockMouvementService
             );
         }
 
+        // La ligne d'origine constitue le verrou commun à tous les retours
+        // qui lui sont rattachés. Ce verrou doit être conservé jusqu'au
+        // commit de la transaction appelante.
         $origine = SupportLigneDocumentStock::query()
             ->whereKey($ligne->support_ligne_origine_id)
             ->lockForUpdate()
             ->first();
 
         if (!$origine) {
-            $this->erreur('La ligne de sortie d’origine est introuvable.');
+            $this->erreur(
+                'La ligne de sortie d’origine est introuvable.'
+            );
         }
 
         if ((int) $origine->support_article_stock_id !==
@@ -572,8 +586,8 @@ class SupportStockMouvementService
             );
         }
 
-        // Les retours déjà comptabilisés sont identifiés par leurs
-        // mouvements, et non par le simple statut de leurs documents.
+        // Les quantités déjà retournées sont calculées à partir des
+        // mouvements réellement comptabilisés.
         $quantiteDejaRetournee = SupportMouvementStock::query()
             ->join(
                 'support_lignes_documents_stocks as lignes',
@@ -595,7 +609,9 @@ class SupportStockMouvementService
             (string) $quantiteDejaRetournee
         )->plus($quantiteRetour);
 
-        if ($totalRetour->isGreaterThan((string) $mouvementOrigine->quantite)) {
+        if ($totalRetour->isGreaterThan(
+            (string) $mouvementOrigine->quantite
+        )) {
             $this->erreur(
                 'Le cumul des retours dépasse la quantité initialement sortie.'
             );

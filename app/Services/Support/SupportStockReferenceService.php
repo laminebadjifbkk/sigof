@@ -25,6 +25,14 @@ class SupportStockReferenceService
             'code' => 'STOCK_RETOUR',
             'prefixe' => 'RET',
         ],
+        'AJUSTEMENT_POSITIF' => [
+            'code' => 'STOCK_AJUSTEMENT_POSITIF',
+            'prefixe' => 'AJP',
+        ],
+        'AJUSTEMENT_NEGATIF' => [
+            'code' => 'STOCK_AJUSTEMENT_NEGATIF',
+            'prefixe' => 'AJN',
+        ],
         'INVENTAIRE' => [
             'code' => 'STOCK_INVENTAIRE',
             'prefixe' => 'INV',
