@@ -62,15 +62,15 @@ class SupportStockController extends Controller
             ->get();
 
         $mouvementsRecents = SupportMouvementStock::query()
-            ->with(['article', 'document'])
+            ->with(['article', 'document', 'createur'])
             ->orderByDesc('date_mouvement')
-            ->limit(8)
+            ->limit(10)
             ->get();
 
         $documentsRecents = SupportDocumentStock::query()
             ->with(['fournisseur', 'createur'])
             ->orderByDesc('created_at')
-            ->limit(8)
+            ->limit(10)
             ->get();
 
         $stats = [
