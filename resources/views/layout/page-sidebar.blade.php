@@ -98,7 +98,8 @@
                 'support.tickets.view-all',
                 'support.tickets.create',
                 'support.incidents.view',
-                'support.equipements.view'
+                'support.equipements.view',
+                'support.stocks.view'
             ])
             <li class="nav-item">
 
@@ -129,6 +130,16 @@
                                 <span>
                                     Parc informatique
                                 </span>
+                            </a>
+                        </li>
+                    @endcan
+
+                    {{-- Gestion des stocks --}}
+                    @can('support.stocks.view')
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('support.stocks.*') ? 'active' : 'collapsed' }}"
+                                href="{{ route('support.stocks.dashboard') }}">
+                                <span>Gestion des stocks</span>
                             </a>
                         </li>
                     @endcan

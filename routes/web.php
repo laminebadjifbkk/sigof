@@ -133,6 +133,7 @@ use App\Http\Controllers\OnfpDashboardController;
 
 use App\Http\Controllers\NoteFraisController;
 use App\Http\Controllers\Support\SupportTicketController;
+use App\Http\Controllers\Support\SupportStockController;
 
 
 
@@ -1485,6 +1486,11 @@ Route::get('/prisenchargestatutregion/{statut}/{region}/{annee_scolaire}', [Form
             // Tableau de bord
             Route::get('/', [SupportTicketController::class, 'dashboard'])
                 ->name('dashboard');
+
+
+            // Tableau de bord de gestion des stocks
+            Route::get('/stocks', [SupportStockController::class, 'dashboard'])
+                ->name('stocks.dashboard');
 
             // Gestion des tickets
             Route::get('/tickets', [SupportTicketController::class, 'index'])

@@ -27,8 +27,8 @@ class SupportInventaireStock extends Model
     ];
 
     protected $casts = [
-        'date_debut' => 'date',
-        'date_fin' => 'date',
+        'date_debut' => 'datetime',
+        'date_fin' => 'datetime',
         'date_soumission' => 'datetime',
         'date_validation' => 'datetime',
         'user_create_id' => 'integer',
