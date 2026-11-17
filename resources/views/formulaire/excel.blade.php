@@ -32,7 +32,7 @@
     <tbody>
         @foreach ($formulaires as $index => $user)
             <tr>
-                <td>{{ str_pad($user->id, 6, '0', STR_PAD_LEFT) }}</td>
+                <td>#{{ str_pad($user->id, 6, '0', STR_PAD_LEFT) }}</td>
                 <td>{{ $user?->cin }}</td>
                 <td>{{ $user?->civilite }}</td>
                 <td>{{ $user?->prenom }}</td>
