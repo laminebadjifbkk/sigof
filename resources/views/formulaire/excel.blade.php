@@ -1,7 +1,7 @@
 <table>
     <thead>
         <tr>
-            <th>N°</th>
+            <th>N° dossier</th>
             <th>Numéro CIN</th>
             <th>Civilité</th>
             <th>Prénom</th>
