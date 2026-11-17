@@ -415,7 +415,7 @@
                         handicape: "Situation de handicap",
                         type_handicap: "Type de handicap",
                         orphelin: "Orphelin",
-                        type_orphelin: "Type d’orphelinat",
+                        type_orphelin: "Type d’orphelin",
                         cin_file: "Copie du N° CIN",
                         facture_file: "Facture proforma ONFP",
                         cv: "CV",

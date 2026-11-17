@@ -827,7 +827,7 @@ Route::get('/prisenchargestatutregion/{statut}/{region}/{annee_scolaire}', [Form
         )->name('prisencharge.excel');
 
         Route::get(
-            '/prisenchargeExcel/export-excel/{statut}',
+            '/prisenchargeExcel/export-excel/{statut}/{annee_scolaire}',
             [FormulaireController::class, 'PrisenchargeExcel']
         )->name('prisenchargeExcel');
 

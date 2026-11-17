@@ -22,6 +22,7 @@ use ZipArchive;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class FormulaireController extends Controller
 {
@@ -443,7 +444,7 @@ class FormulaireController extends Controller
             'handicape' => 'Situation de handicap',
             'type_handicap' => 'Type de handicap',
             'orphelin' => 'Orphelin',
-            'type_orphelin' => 'Type d’orphelinat',
+            'type_orphelin' => 'Type d’orphelin',
             'cin_file' => 'Copie CIN',
             'facture_file' => 'Facture',
             'cv' => 'CV',
@@ -489,7 +490,7 @@ class FormulaireController extends Controller
             'handicape' => 'Situation de handicap',
             'type_handicap' => 'Type de handicap',
             'orphelin' => 'Orphelin',
-            'type_orphelin' => 'Type d’orphelinat',
+            'type_orphelin' => 'Type d’orphelin',
             'cin_file' => 'Copie CIN',
             'facture_file' => 'Facture',
             'cv' => 'CV',
@@ -677,7 +678,7 @@ class FormulaireController extends Controller
             'handicape' => 'Situation de handicap',
             'type_handicap' => 'Type de handicap', */
             /* 'orphelin' => 'Orphelin',
-            'type_orphelin' => 'Type d’orphelinat', */
+            'type_orphelin' => 'Type d’orphelin', */
             /* 'cin_file' => 'Copie CIN',
             'facture_file' => 'Facture',
             'cv' => 'CV',
@@ -705,100 +706,93 @@ class FormulaireController extends Controller
         return Excel::download(new PrisenchargeExport($statut, $region), $fileName);
     }
 
-    public function PrisenchargeExcel($statut)
-    {
-        /* $fileName = "Prises en charge - {$statut}.xlsx";
+public function PrisenchargeExcel($statut, $annee_scolaire)
+{
+    // "2025/2026" ne peut pas servir dans un nom de fichier
+    $anneeSafe  = $this->sanitizeFileName($annee_scolaire);
+    $statutSafe = $this->sanitizeFileName($statut);
 
-        return Excel::download(new ExportPrisenchargeStatut($statut), $fileName); */
+    // === 1. Dossier temporaire unique ===
+    $tempPath = storage_path('app/temp/prisencharge_' . uniqid());
+    File::ensureDirectoryExists($tempPath);
 
-        // === 1. Générer l'Excel ===
-        /* $fileName = "Prises en charge - {$statut}.xlsx";
-        $excelPath = storage_path("app/temp/{$fileName}");
-        Excel::store(new ExportPrisenchargeStatut($statut), "temp/{$fileName}"); */
+    // === 2. Générer l'Excel ===
+    $fileName     = "Prises en charge - {$statutSafe} - {$anneeSafe}.xlsx";
+    $relativeXlsx = "temp/{$fileName}";
 
-        // === 2. Créer un dossier temporaire pour les fichiers ===
-        $tempPath = storage_path('app/temp/prisencharge_' . time());
-        if (! is_dir($tempPath)) {
-            mkdir($tempPath, 0777, true);
-        }
+    Excel::store(new ExportPrisenchargeStatut($statut, $annee_scolaire), $relativeXlsx, 'local');
 
-        $fileName = "Prises en charge - {$statut}.xlsx";
-        Excel::store(new ExportPrisenchargeStatut($statut), "temp/{$fileName}", 'local');
-
-        $excelPath = storage_path("app/temp/{$fileName}");
-        if (file_exists($excelPath)) {
-            copy($excelPath, $tempPath . '/' . $fileName);
-        } else {
-            \Log::error("Excel non trouvé : " . $excelPath);
-        }
-
-        // Copier l’Excel dans le dossier
+    $excelPath = Storage::disk('local')->path($relativeXlsx);
+    if (file_exists($excelPath)) {
         copy($excelPath, $tempPath . '/' . $fileName);
+        @unlink($excelPath); // on ne garde pas le doublon
+    } else {
+        \Log::error("Excel non trouvé : " . $excelPath);
+    }
 
-        // === 3. Récupérer les dossiers concernés par lots de 100 ===
-        Formulaire::where('statut', $statut)
-            ->chunk(25, function ($prises) use ($tempPath) {
-                foreach ($prises as $prise) {
-                    // Nom du dossier par dossier
-                    $dossierFolder = $tempPath . '/' . $this->sanitizeFileName(
-                        ($prise?->prenom ?? '') . '_' . $prise?->nom . '_' . $prise?->id
-                    );
+    // === 3. Copier les pièces jointes par lots ===
+    $attachments = [
+        'cin_file'        => 'CIN',
+        'facture_file'    => 'Facture',
+        'cv'              => 'CV',
+        'diplome'         => 'Diplome',
+        'certificat_file' => 'Certificat',
+    ];
 
-                    if (! is_dir($dossierFolder)) {
-                        mkdir($dossierFolder, 0777, true);
+    Formulaire::query()
+        ->when($statut !== 'all', fn ($q) => $q->where('statut', $statut))
+        ->where('annee_scolaire', $annee_scolaire)
+        ->chunkById(25, function ($prises) use ($tempPath, $attachments) {
+            foreach ($prises as $prise) {
+                $dossierFolder = $tempPath . '/' . $this->sanitizeFileName(
+                    ($prise->prenom ?? '') . '_' . ($prise->nom ?? '') . '_' . $prise->id
+                );
+                File::ensureDirectoryExists($dossierFolder);
+
+                foreach ($attachments as $field => $prefix) {
+                    $file = $prise->$field;
+                    if (! $file || ! is_string($file)) {
+                        continue;
                     }
 
-                    // === Fichiers spécifiques ===
-                    $attachments = [
-                        'cin_file'              => 'CIN',
-                        'facture_file'          => 'Facture',
-                        'cv'                    => 'CV',
-                        'diplome'               => 'Diplome',
-                        'certificat_file'       => 'Certificat',
-                    ];
-
-                    foreach ($attachments as $field => $prefix) {
-                        $file = $prise->$field;
-                        if (! $file || ! is_string($file)) {
-                            continue;
-                        }
-
-                        $sourcePath = storage_path('app/public/' . $file);
-                        if (! file_exists($sourcePath)) {
-                            continue;
-                        }
-
-                        $filename = $this->sanitizeFileName($prefix . '_' . $prise->id)
-                            . '.' . pathinfo($sourcePath, PATHINFO_EXTENSION);
-
-                        $destination = $dossierFolder . '/' . $filename;
-                        @copy($sourcePath, $destination);
+                    $sourcePath = storage_path('app/public/' . $file);
+                    if (! file_exists($sourcePath)) {
+                        continue;
                     }
-                }
-            });
 
-        // === 4. Créer le ZIP ===
-        $zipPath = storage_path("app/temp/Prises_en_charge_{$statut}.zip");
-        $zip = new \ZipArchive;
-        if ($zip->open($zipPath, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) === true) {
-            $files = new \RecursiveIteratorIterator(
-                new \RecursiveDirectoryIterator($tempPath),
-                \RecursiveIteratorIterator::LEAVES_ONLY
-            );
+                    $filename = $this->sanitizeFileName($prefix . '_' . $prise->id)
+                        . '.' . pathinfo($sourcePath, PATHINFO_EXTENSION);
 
-            foreach ($files as $file) {
-                if (! $file->isDir()) {
-                    $filePath     = $file->getRealPath();
-                    $relativePath = substr($filePath, strlen($tempPath) + 1);
-                    $zip->addFile($filePath, $relativePath);
+                    @copy($sourcePath, $dossierFolder . '/' . $filename);
                 }
             }
-            $zip->close();
-        }
+        });
 
-        // === 5. Télécharger le ZIP ===
-        return response()->download($zipPath)->deleteFileAfterSend(true);
+    // === 4. Créer le ZIP ===
+    $zipPath = storage_path("app/temp/Prises_en_charge_{$statutSafe}_{$anneeSafe}_" . uniqid() . ".zip");
+    $zip = new \ZipArchive;
+
+    if ($zip->open($zipPath, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) === true) {
+        $files = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($tempPath, \FilesystemIterator::SKIP_DOTS),
+            \RecursiveIteratorIterator::LEAVES_ONLY
+        );
+
+        foreach ($files as $file) {
+            $filePath     = $file->getRealPath();
+            $relativePath = substr($filePath, strlen(realpath($tempPath)) + 1);
+            $zip->addFile($filePath, $relativePath);
+        }
+        $zip->close();
     }
+
+    // === 5. Nettoyer le dossier temporaire puis télécharger ===
+    File::deleteDirectory($tempPath);
+
+    return response()
+        ->download($zipPath, "Prises_en_charge_{$statutSafe}_{$anneeSafe}.zip")
+        ->deleteFileAfterSend(true);
+}
 
     protected function sanitizeFileName(string $name, int $maxLength = 150): string
     {
@@ -866,7 +860,7 @@ class FormulaireController extends Controller
             'handicape' => 'Situation de handicap',
             'type_handicap' => 'Type de handicap', */
             /* 'orphelin' => 'Orphelin',
-            'type_orphelin' => 'Type d’orphelinat', */
+            'type_orphelin' => 'Type d’orphelin', */
             /* 'cin_file' => 'Copie CIN',
             'facture_file' => 'Facture',
             'cv' => 'CV',

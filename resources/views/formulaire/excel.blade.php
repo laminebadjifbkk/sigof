@@ -21,10 +21,11 @@
             <th>Montant mensualité</th>
             <th>Montant unique</th>
             <th>Durée (en années)</th>
+            <th>Année scolaire</th>
             <th>Situation de handicap</th>
             <th>Type de handicap</th>
             <th>Orphelin</th>
-            <th>Type d’orphelinat</th>
+            <th>Type d’orphelin</th>
             <th>Statut</th>
         </tr>
     </thead>
@@ -56,6 +57,8 @@
                 <td>{{ $user?->montant_unique }}</td>
 
                 <td>{{ $user?->duree }}</td>
+
+                <td>{{ $user?->annee_scolaire }}</td>
 
                 <td>{{ $user?->handicape }}</td>
                 <td>{{ $user?->type_handicap }}</td>

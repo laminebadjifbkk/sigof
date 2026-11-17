@@ -302,7 +302,7 @@ class FormulaireController extends Controller
             'handicape' => 'Situation de handicap',
             'type_handicap' => 'Type de handicap', */
             /* 'orphelin' => 'Orphelin',
-            'type_orphelin' => 'Type d’orphelinat', */
+            'type_orphelin' => 'Type d’orphelin', */
             /* 'cin_file' => 'Copie CIN',
             'facture_file' => 'Facture',
             'cv' => 'CV',
@@ -376,7 +376,7 @@ class FormulaireController extends Controller
             'handicape' => 'Situation de handicap',
             'type_handicap' => 'Type de handicap',
             'orphelin' => 'Orphelin',
-            'type_orphelin' => 'Type d’orphelinat',
+            'type_orphelin' => 'Type d’orphelin',
             'cin_file' => 'Copie CIN',
             'facture_file' => 'Facture',
             'cv' => 'CV',
@@ -422,7 +422,7 @@ class FormulaireController extends Controller
             'handicape' => 'Situation de handicap',
             'type_handicap' => 'Type de handicap',
             'orphelin' => 'Orphelin',
-            'type_orphelin' => 'Type d’orphelinat',
+            'type_orphelin' => 'Type d’orphelin',
             'cin_file' => 'Copie CIN',
             'facture_file' => 'Facture',
             'cv' => 'CV',
@@ -593,7 +593,7 @@ class FormulaireController extends Controller
             'handicape' => 'Situation de handicap',
             'type_handicap' => 'Type de handicap', */
             /* 'orphelin' => 'Orphelin',
-            'type_orphelin' => 'Type d’orphelinat', */
+            'type_orphelin' => 'Type d’orphelin', */
             /* 'cin_file' => 'Copie CIN',
             'facture_file' => 'Facture',
             'cv' => 'CV',
@@ -811,7 +811,7 @@ public function filtrerPrisenchargeParStatut($statut, $region, $annee)
             'handicape' => 'Situation de handicap',
             'type_handicap' => 'Type de handicap', */
             /* 'orphelin' => 'Orphelin',
-            'type_orphelin' => 'Type d’orphelinat', */
+            'type_orphelin' => 'Type d’orphelin', */
             /* 'cin_file' => 'Copie CIN',
             'facture_file' => 'Facture',
             'cv' => 'CV',
@@ -897,7 +897,7 @@ public function showregion($region, $annee)
             'handicape' => 'Situation de handicap',
             'type_handicap' => 'Type de handicap', */
             /* 'orphelin' => 'Orphelin',
-            'type_orphelin' => 'Type d’orphelinat', */
+            'type_orphelin' => 'Type d’orphelin', */
             /* 'cin_file' => 'Copie CIN',
             'facture_file' => 'Facture',
             'cv' => 'CV',
@@ -983,7 +983,7 @@ public function showregion($region, $annee)
             'handicape' => 'Situation de handicap',
             'type_handicap' => 'Type de handicap', */
             /* 'orphelin' => 'Orphelin',
-            'type_orphelin' => 'Type d’orphelinat', */
+            'type_orphelin' => 'Type d’orphelin', */
             /* 'cin_file' => 'Copie CIN',
             'facture_file' => 'Facture',
             'cv' => 'CV',
