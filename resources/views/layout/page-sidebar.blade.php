@@ -134,18 +134,27 @@
                         </li>
                     @endcan
 
-
-                    {{-- Gestion des stocks --}}
+                    {{-- GESTION DES STOCKS --}}
                     @can('support.stocks.view')
+                        @php
+                            $activeStocks = request()->routeIs('support.stocks.*');
+
+                            $activeCatalogue = request()->routeIs('support.stocks.catalogue.*');
+
+                            $activeDocuments = request()->routeIs('support.stocks.documents.*');
+
+                            $typeCatalogue = request()->route('type');
+                        @endphp
+
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('support.stocks.*') ? '' : 'collapsed' }}"
-                                data-bs-target="#stocks-nav" data-bs-toggle="collapse" href="#">
+                            <a class="nav-link {{ $activeStocks ? '' : 'collapsed' }}" data-bs-target="#stocks-nav"
+                                data-bs-toggle="collapse" href="#">
+                                <i class="bi bi-box-seam"></i>
                                 <span>Gestion des stocks</span>
                                 <i class="bi bi-chevron-down ms-auto"></i>
                             </a>
 
-                            <ul id="stocks-nav"
-                                class="nav-content collapse {{ request()->routeIs('support.stocks.*') ? 'show' : '' }}"
+                            <ul id="stocks-nav" class="nav-content collapse {{ $activeStocks ? 'show' : '' }}"
                                 data-bs-parent="#support-nav">
 
                                 {{-- Tableau de bord --}}
@@ -156,38 +165,110 @@
                                     </a>
                                 </li>
 
-                                {{-- Articles --}}
+                                {{-- CATALOGUE --}}
                                 <li class="nav-item">
-                                    <a class="nav-link {{ request()->routeIs('support.stocks.catalogue.*') && request()->route('type') === 'articles' ? 'active' : 'collapsed' }}"
-                                        href="{{ route('support.stocks.catalogue.index', 'articles') }}">
-                                        <span>Articles de stock</span>
+                                    <a class="nav-link {{ $activeCatalogue ? '' : 'collapsed' }}"
+                                        data-bs-target="#stocks-catalogue-nav" data-bs-toggle="collapse" href="#">
+                                        <span>Catalogue</span>
+                                        <i class="bi bi-chevron-down ms-auto"></i>
                                     </a>
+
+                                    <ul id="stocks-catalogue-nav"
+                                        class="nav-content collapse {{ $activeCatalogue ? 'show' : '' }}"
+                                        data-bs-parent="#stocks-nav">
+
+                                        <li class="nav-item">
+                                            <a class="nav-link {{ $typeCatalogue === 'articles' ? 'active' : 'collapsed' }}"
+                                                href="{{ route('support.stocks.catalogue.index', 'articles') }}">
+                                                <span>Articles de stock</span>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link {{ $typeCatalogue === 'categories' ? 'active' : 'collapsed' }}"
+                                                href="{{ route('support.stocks.catalogue.index', 'categories') }}">
+                                                <span>Catégories</span>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link {{ $typeCatalogue === 'unites' ? 'active' : 'collapsed' }}"
+                                                href="{{ route('support.stocks.catalogue.index', 'unites') }}">
+                                                <span>Unités de mesure</span>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link {{ $typeCatalogue === 'fournisseurs' ? 'active' : 'collapsed' }}"
+                                                href="{{ route('support.stocks.catalogue.index', 'fournisseurs') }}">
+                                                <span>Fournisseurs</span>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
 
-                                {{-- Catégories --}}
+                                {{-- CYCLE DES DOCUMENTS --}}
                                 <li class="nav-item">
-                                    <a class="nav-link {{ request()->routeIs('support.stocks.catalogue.*') && request()->route('type') === 'categories' ? 'active' : 'collapsed' }}"
-                                        href="{{ route('support.stocks.catalogue.index', 'categories') }}">
-                                        <span>Catégories</span>
+                                    <a class="nav-link {{ $activeDocuments ? '' : 'collapsed' }}"
+                                        data-bs-target="#stocks-documents-nav" data-bs-toggle="collapse" href="#">
+                                        <span>Documents de stock</span>
+                                        <i class="bi bi-chevron-down ms-auto"></i>
                                     </a>
+
+                                    <ul id="stocks-documents-nav"
+                                        class="nav-content collapse {{ $activeDocuments ? 'show' : '' }}"
+                                        data-bs-parent="#stocks-nav">
+
+                                        {{-- Tous les documents --}}
+                                        <li class="nav-item">
+                                            <a class="nav-link {{ request()->routeIs('support.stocks.documents.index') ? 'active' : 'collapsed' }}"
+                                                href="{{ route('support.stocks.documents.index') }}">
+                                                <span>Tous les documents</span>
+                                            </a>
+                                        </li>
+
+                                        @canany(['support.stocks.manage', 'support.stocks.movement'])
+
+                                            <li class="nav-item">
+                                                <a class="nav-link {{ request()->routeIs('support.stocks.documents.create') && request()->route('type') === 'RECEPTION' ? 'active' : 'collapsed' }}"
+                                                    href="{{ route('support.stocks.documents.create', 'RECEPTION') }}">
+                                                    <span>Nouvelle réception</span>
+                                                </a>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <a class="nav-link {{ request()->routeIs('support.stocks.documents.create') && request()->route('type') === 'SORTIE' ? 'active' : 'collapsed' }}"
+                                                    href="{{ route('support.stocks.documents.create', 'SORTIE') }}">
+                                                    <span>Nouvelle sortie</span>
+                                                </a>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <a class="nav-link {{ request()->routeIs('support.stocks.documents.create') && request()->route('type') === 'RETOUR' ? 'active' : 'collapsed' }}"
+                                                    href="{{ route('support.stocks.documents.create', 'RETOUR') }}">
+                                                    <span>Nouveau retour</span>
+                                                </a>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <a class="nav-link {{ request()->routeIs('support.stocks.documents.create') && request()->route('type') === 'AJUSTEMENT_POSITIF' ? 'active' : 'collapsed' }}"
+                                                    href="{{ route('support.stocks.documents.create', 'AJUSTEMENT_POSITIF') }}">
+                                                    <span>Ajustement positif</span>
+                                                </a>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <a class="nav-link {{ request()->routeIs('support.stocks.documents.create') && request()->route('type') === 'AJUSTEMENT_NEGATIF' ? 'active' : 'collapsed' }}"
+                                                    href="{{ route('support.stocks.documents.create', 'AJUSTEMENT_NEGATIF') }}">
+                                                    <span>Ajustement négatif</span>
+                                                </a>
+                                            </li>
+
+                                        @endcanany
+                                    </ul>
                                 </li>
 
-                                {{-- Unités --}}
-                                <li class="nav-item">
-                                    <a class="nav-link {{ request()->routeIs('support.stocks.catalogue.*') && request()->route('type') === 'unites' ? 'active' : 'collapsed' }}"
-                                        href="{{ route('support.stocks.catalogue.index', 'unites') }}">
-                                        <span>Unités de mesure</span>
-                                    </a>
-                                </li>
-
-                                {{-- Fournisseurs --}}
-                                <li class="nav-item">
-                                    <a class="nav-link {{ request()->routeIs('support.stocks.catalogue.*') && request()->route('type') === 'fournisseurs' ? 'active' : 'collapsed' }}"
-                                        href="{{ route('support.stocks.catalogue.index', 'fournisseurs') }}">
-                                        <span>Fournisseurs</span>
-                                    </a>
-                                </li>
-
+                                {{-- INVENTAIRES : à raccorder dès l'enregistrement des routes --}}
                             </ul>
                         </li>
                     @endcan
