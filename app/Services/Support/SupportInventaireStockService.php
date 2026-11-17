@@ -232,6 +232,9 @@ class SupportInventaireStockService
                 ->lockForUpdate()
                 ->firstOrFail();
 
+            // Seul le créateur peut saisir ou corriger les comptages.
+            $this->verifierCreateur($inventaire, $userId);
+
             if (!in_array(
                 $inventaire->statut,
                 ['EN_COURS', 'REJETEE'],

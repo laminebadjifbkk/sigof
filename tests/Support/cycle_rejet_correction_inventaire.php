@@ -19,6 +19,14 @@ try {
     $validateurId = 2;
     $motifRejet = 'Comptages à vérifier : écarts physiques non justifiés.';
 
+    // Références initiales : le test ne doit pas dépendre des données existantes.
+    $mouvementsAvantTest = DB::table('support_mouvements_stocks')->count();
+
+    $documentsAjustementsAvantTest = DB::table('support_documents_stocks')
+        ->whereIn('type_document', ['AJUSTEMENT_POSITIF', 'AJUSTEMENT_NEGATIF'])
+        ->where('statut', 'VALIDEE')
+        ->count();
+
     $verifier = function (bool $condition, string $message): void {
         if (!$condition) {
             throw new RuntimeException($message);
@@ -113,11 +121,11 @@ try {
     $documentService->soumettre($reception, $createurId);
     $documentService->valider($reception, $validateurId);
 
-    $mouvementsInitiaux = DB::table('support_mouvements_stocks')->count();
+    $mouvementsApresReception = DB::table('support_mouvements_stocks')->count();
 
     $verifier(
-        $mouvementsInitiaux === 2,
-        'Les deux mouvements de réception initiale sont absents.'
+        $mouvementsApresReception === $mouvementsAvantTest + 2,
+        'Les deux mouvements de réception initiale ne sont pas créés.'
     );
 
     // =====================================================
@@ -233,7 +241,7 @@ try {
 
     // Aucun mouvement supplémentaire après rejet.
     $verifier(
-        DB::table('support_mouvements_stocks')->count() === $mouvementsInitiaux,
+        DB::table('support_mouvements_stocks')->count() === $mouvementsApresReception,
         'Un mouvement a été créé pendant le rejet.'
     );
 
@@ -362,7 +370,7 @@ try {
 
     // Aucun mouvement entre le rejet et la validation finale.
     $verifier(
-        DB::table('support_mouvements_stocks')->count() === $mouvementsInitiaux,
+        DB::table('support_mouvements_stocks')->count() === $mouvementsApresReception,
         'Un mouvement a été créé avant la validation définitive.'
     );
 
@@ -448,7 +456,7 @@ try {
     $nombreMouvementsFinal = DB::table('support_mouvements_stocks')->count();
 
     $verifier(
-        $nombreMouvementsFinal === 4,
+        $nombreMouvementsFinal === $mouvementsAvantTest + 4,
         "Nombre de mouvements final incorrect : {$nombreMouvementsFinal}."
     );
 
@@ -461,7 +469,7 @@ try {
         ->count();
 
     $verifier(
-        $nombreAjustements === 2,
+        $nombreAjustements === $documentsAjustementsAvantTest + 2,
         "Nombre de documents d'ajustement incorrect : {$nombreAjustements}."
     );
 

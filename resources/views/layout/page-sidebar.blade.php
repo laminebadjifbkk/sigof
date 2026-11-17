@@ -268,7 +268,13 @@
                                     </ul>
                                 </li>
 
-                                {{-- INVENTAIRES : à raccorder dès l'enregistrement des routes --}}
+                                {{-- INVENTAIRES PHYSIQUES --}}
+                                <li class="nav-item">
+                                    <a class="nav-link {{ request()->routeIs('support.stocks.inventaires.*') ? 'active' : 'collapsed' }}"
+                                        href="{{ route('support.stocks.inventaires.index') }}">
+                                        <span>Inventaires physiques</span>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                     @endcan

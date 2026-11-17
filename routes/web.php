@@ -1508,6 +1508,23 @@ Route::get('/prisenchargestatutregion/{statut}/{region}/{annee_scolaire}', [Form
                 });
 
 
+            // Inventaires physiques des stocks
+            Route::prefix('stocks/inventaires')
+                ->name('stocks.inventaires.')
+                ->controller(\App\Http\Controllers\Support\SupportInventaireStockController::class)
+                ->group(function () {
+                    Route::get('/', 'index')->name('index');
+                    Route::get('/create', 'create')->name('create');
+                    Route::post('/', 'store')->name('store');
+                    Route::get('/{id}', 'show')->whereNumber('id')->name('show');
+                    Route::post('/{id}/demarrer', 'demarrer')->whereNumber('id')->name('demarrer');
+                    Route::get('/{id}/comptage', 'comptage')->whereNumber('id')->name('comptage');
+                    Route::post('/{id}/comptage', 'enregistrerComptage')->whereNumber('id')->name('comptage.store');
+                    Route::post('/{id}/soumettre', 'soumettre')->whereNumber('id')->name('soumettre');
+                    Route::post('/{id}/valider', 'valider')->whereNumber('id')->name('valider');
+                    Route::post('/{id}/rejeter', 'rejeter')->whereNumber('id')->name('rejeter');
+                });
+
             // Gestion des tickets
             Route::get('/tickets', [SupportTicketController::class, 'index'])
                 ->name('tickets.index');
