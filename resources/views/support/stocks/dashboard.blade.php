@@ -81,6 +81,18 @@
 
         </div>
 
+        <div class="d-flex flex-wrap gap-2 mb-4">
+            <a href="{{ route('support.stocks.documents.index') }}" class="btn btn-primary">
+                <i class="bi bi-file-earmark-text me-1"></i>
+                Documents de stock
+            </a>
+
+            <a href="{{ route('support.stocks.catalogue.index', ['type' => 'articles']) }}" class="btn btn-outline-primary">
+                <i class="bi bi-box-seam me-1"></i>
+                Catalogue des articles
+            </a>
+        </div>
+
         {{-- Articles sous le seuil minimum --}}
         <div class="card border-0 shadow-sm mb-4">
             <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">

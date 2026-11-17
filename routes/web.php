@@ -102,6 +102,7 @@ use App\Http\Controllers\ValidationmoduleController;
 use App\Http\Controllers\ValidationoperateurController;
 use App\Http\Controllers\Support\SupportIncidentController;
 use App\Http\Controllers\Support\SupportEquipementController;
+use App\Http\Controllers\Support\SupportStockDocumentController;
 
 
 
@@ -1664,6 +1665,29 @@ Route::get('/prisenchargestatutregion/{statut}/{region}/{annee_scolaire}', [Form
                 SupportIncidentController::class,
                 'changerStatut'
             ])->name('incidents.statut.update');
+
+            // Gestion des documents de stock
+Route::prefix('stocks/documents')
+    ->name('stocks.documents.')
+    ->controller(SupportStockDocumentController::class)
+    ->group(function () {
+        Route::get('/', 'index')->name('index');
+
+        Route::get('/create/{type}', 'create')->name('create');
+        Route::post('/', 'store')->name('store');
+
+        Route::get('/{id}', 'show')->whereNumber('id')->name('show');
+        Route::get('/{id}/edit', 'edit')->whereNumber('id')->name('edit');
+        Route::put('/{id}', 'update')->whereNumber('id')->name('update');
+
+        Route::post('/{id}/lignes', 'ajouterLigne')->name('lignes.store');
+        Route::put('/{id}/lignes/{ligne}', 'modifierLigne')->name('lignes.update');
+        Route::delete('/{id}/lignes/{ligne}', 'supprimerLigne')->name('lignes.destroy');
+
+        Route::post('/{id}/soumettre', 'soumettre')->name('soumettre');
+        Route::post('/{id}/valider', 'valider')->name('valider');
+        Route::post('/{id}/rejeter', 'rejeter')->name('rejeter');
+    });
         });
     });
 
