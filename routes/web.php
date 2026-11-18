@@ -135,6 +135,7 @@ use App\Http\Controllers\OnfpDashboardController;
 use App\Http\Controllers\NoteFraisController;
 use App\Http\Controllers\Support\SupportTicketController;
 use App\Http\Controllers\Support\SupportStockController;
+use App\Http\Controllers\Support\SupportStockRapportController;
 use App\Http\Controllers\Support\SupportStockCatalogueController;
 
 
@@ -1493,6 +1494,31 @@ Route::get('/prisenchargestatutregion/{statut}/{region}/{annee_scolaire}', [Form
             // Tableau de bord de gestion des stocks
             Route::get('/stocks', [SupportStockController::class, 'dashboard'])
                 ->name('stocks.dashboard');
+
+            // Approvisionnements et suivi des fournisseurs
+            Route::prefix('stocks/approvisionnements')
+                ->name('stocks.approvisionnements.')
+                ->controller(\App\Http\Controllers\Support\SupportApprovisionnementController::class)
+                ->group(function () {
+                    Route::get('/', 'index')->name('index');
+                    Route::get('/export/excel', 'exporterExcel')->name('excel');
+                    Route::get('/export/pdf', 'exporterPdf')->name('pdf');
+                    Route::get('/{id}', 'show')->whereNumber('id')->name('show');
+                });
+
+            // Alertes et rapports de stock
+            Route::prefix('stocks/rapports')
+                ->name('stocks.rapports.')
+                ->controller(SupportStockRapportController::class)
+                ->group(function () {
+                    Route::get('/', 'index')->name('index');
+                    Route::get('/alertes', 'alertes')->name('alertes');
+                    Route::get('/mouvements', 'mouvements')->name('mouvements');
+                    Route::get('/etat/excel', 'exporterEtatExcel')->name('etat.excel');
+                    Route::get('/etat/pdf', 'exporterEtatPdf')->name('etat.pdf');
+                    Route::get('/mouvements/excel', 'exporterMouvementsExcel')->name('mouvements.excel');
+                    Route::get('/mouvements/pdf', 'exporterMouvementsPdf')->name('mouvements.pdf');
+                });
 
             // Catalogue des stocks : catégories, unités, fournisseurs et articles
             Route::prefix('stocks/catalogue/{type}')

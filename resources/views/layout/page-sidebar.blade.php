@@ -268,6 +268,28 @@
                                     </ul>
                                 </li>
 
+                                {{-- APPROVISIONNEMENTS --}}
+                                <li class="nav-item">
+                                    <a class="nav-link {{ request()->routeIs('support.stocks.approvisionnements.*') ? 'active' : 'collapsed' }}"
+                                        href="{{ route('support.stocks.approvisionnements.index') }}">
+                                        <span>Approvisionnements</span>
+                                    </a>
+                                </li>
+
+                                {{-- ALERTES ET RAPPORTS --}}
+                                <li class="nav-item">
+                                    <a class="nav-link {{ request()->routeIs('support.stocks.rapports.alertes') ? 'active' : 'collapsed' }}"
+                                        href="{{ route('support.stocks.rapports.alertes') }}">
+                                        <span>Alertes de stock</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ request()->routeIs('support.stocks.rapports.*') && !request()->routeIs('support.stocks.rapports.alertes') ? 'active' : 'collapsed' }}"
+                                        href="{{ route('support.stocks.rapports.index') }}">
+                                        <span>États et rapports</span>
+                                    </a>
+                                </li>
+
                                 {{-- INVENTAIRES PHYSIQUES --}}
                                 <li class="nav-item">
                                     <a class="nav-link {{ request()->routeIs('support.stocks.inventaires.*') ? 'active' : 'collapsed' }}"
