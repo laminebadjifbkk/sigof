@@ -216,8 +216,11 @@
                                 {{ \Carbon\Carbon::parse($reception->date_document)->format('d/m/Y') }}
                             </td>
                             <td>
-                                <div>{{ $reception->fournisseur ?? '-' }}</div>
-                                <small class="text-muted">{{ $reception->fournisseur_code }}</small>
+                                <span class="fw-semibold">
+                                    {{ $reception->fournisseur_code ?: '-' }}
+                                </span>
+                                <span class="text-muted"> - </span>
+                                {{ $reception->fournisseur ?? 'Fournisseur supprimé' }}
                             </td>
                             <td>
                                 @php
@@ -241,8 +244,9 @@
                             </td>
                             <td class="text-center">
                                 <a href="{{ route('support.stocks.approvisionnements.show', $reception->id) }}"
-                                   class="btn btn-outline-primary btn-sm" title="Consulter">
+                                   class="btn btn-outline-primary btn-sm" title="Consulter la réception">
                                     <i class="bi bi-eye"></i>
+                                    Voir
                                 </a>
                             </td>
                         </tr>
