@@ -163,9 +163,7 @@ class AttestationController extends Controller
             'collectives_id' => $listecollective->collective->id,
         ]);
 
-        /* $numeroAttestation = NumeroAttestationService::generer($formation->annee ?? $formation->date_fin?->year); */
-
-        $typeFormation = $formation->types_formation->name;
+        /* $typeFormation = $formation->types_formation->name;
         $niveauQualification = $formation->type_certification;
 
         $numeroAttestation = NumeroAttestationService::generer(
@@ -174,19 +172,7 @@ class AttestationController extends Controller
             $formation->annee ?? $formation->date_fin?->year
         );
 
-        /* $listecollective->update([
-            'attestation' => 'generer', // ou la valeur souhaitée
-            'numero_attestation'   => $numeroAttestation,
-        ]); */
-
-        // ✅ Généré à chaque itération
         if (!$listecollective->numero_attestation) {
-            /* $numeroAttestation = NumeroAttestationService::generer(
-                $formation->annee ?? $formation->date_fin?->year
-            ); */
-
-            /* $typeFormation = $formation->types_formation->name;
-            $niveauQualification = $formation->type_certification; */
 
             $numeroAttestation = NumeroAttestationService::generer(
                 $typeFormation,
@@ -201,7 +187,34 @@ class AttestationController extends Controller
         } else {
             $numeroAttestation = $listecollective->numero_attestation;
             $listecollective->update(['attestation' => 'generer']);
-        }
+        } */
+
+            $typeFormation = $formation?->types_formation?->name;
+            $niveauQualification = $formation?->type_certification;
+
+            $annee = $formation->annee ?? $formation->date_fin?->year;
+
+            if (!$listecollective?->numero_attestation) {
+
+                $numeroAttestation = NumeroAttestationService::generer(
+                    $typeFormation,
+                    $niveauQualification,
+                    $annee
+                );
+
+                $listecollective->update([
+                    'attestation'        => 'generer',
+                    'numero_attestation' => $numeroAttestation,
+                ]);
+
+            } else {
+
+                $numeroAttestation = $listecollective?->numero_attestation;
+
+                $listecollective->update([
+                    'attestation' => 'generer',
+                ]);
+            }
 
         // Remplacer votre bloc $qrContent par :
         $payload = implode('|', [
