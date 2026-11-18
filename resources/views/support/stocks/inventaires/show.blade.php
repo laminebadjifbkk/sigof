@@ -49,6 +49,49 @@
         </div>
     </div>
 
+
+    {{-- EXPORTS DE L'INVENTAIRE --}}
+    @if($inventaire->lignes->isNotEmpty())
+        <div class="card mb-3">
+            <div class="card-header fw-bold">
+                <i class="fas fa-file-export me-1"></i> États et fiches d'inventaire
+            </div>
+            <div class="card-body">
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="{{ route('support.stocks.inventaires.export.fiche-comptage.excel', $inventaire->id) }}"
+                       class="btn btn-sm btn-outline-success">
+                        <i class="fas fa-file-excel me-1"></i> Fiche de comptage Excel
+                    </a>
+
+                    <a href="{{ route('support.stocks.inventaires.export.fiche-comptage.pdf', $inventaire->id) }}"
+                       class="btn btn-sm btn-outline-danger">
+                        <i class="fas fa-file-pdf me-1"></i> Fiche de comptage PDF
+                    </a>
+
+                    <a href="{{ route('support.stocks.inventaires.export.ecarts.excel', $inventaire->id) }}"
+                       class="btn btn-sm btn-outline-success">
+                        <i class="fas fa-file-excel me-1"></i> État des écarts Excel
+                    </a>
+
+                    <a href="{{ route('support.stocks.inventaires.export.ecarts.pdf', $inventaire->id) }}"
+                       class="btn btn-sm btn-outline-danger">
+                        <i class="fas fa-file-pdf me-1"></i> État des écarts PDF
+                    </a>
+
+                    <a href="{{ route('support.stocks.inventaires.export.recapitulatif.excel', $inventaire->id) }}"
+                       class="btn btn-sm btn-outline-success">
+                        <i class="fas fa-file-excel me-1"></i> Récapitulatif Excel
+                    </a>
+
+                    <a href="{{ route('support.stocks.inventaires.export.recapitulatif.pdf', $inventaire->id) }}"
+                       class="btn btn-sm btn-outline-danger">
+                        <i class="fas fa-file-pdf me-1"></i> Récapitulatif PDF
+                    </a>
+                </div>
+            </div>
+        </div>
+    @endif
+
     @if($inventaire->statut === 'BROUILLON' && $estCreateur)
         <div class="card mb-3">
             <div class="card-header fw-bold">Sélection des articles à inventorier</div>

@@ -1549,6 +1549,36 @@ Route::get('/prisenchargestatutregion/{statut}/{region}/{annee_scolaire}', [Form
                     Route::post('/{id}/soumettre', 'soumettre')->whereNumber('id')->name('soumettre');
                     Route::post('/{id}/valider', 'valider')->whereNumber('id')->name('valider');
                     Route::post('/{id}/rejeter', 'rejeter')->whereNumber('id')->name('rejeter');
+                                        // Exports des inventaires physiques
+                    Route::get('/{id}/export/fiche-comptage/excel', [
+                        \App\Http\Controllers\Support\SupportInventaireStockExportController::class,
+                        'ficheComptageExcel'
+                    ])->whereNumber('id')->name('export.fiche-comptage.excel');
+
+                    Route::get('/{id}/export/fiche-comptage/pdf', [
+                        \App\Http\Controllers\Support\SupportInventaireStockExportController::class,
+                        'ficheComptagePdf'
+                    ])->whereNumber('id')->name('export.fiche-comptage.pdf');
+
+                    Route::get('/{id}/export/ecarts/excel', [
+                        \App\Http\Controllers\Support\SupportInventaireStockExportController::class,
+                        'ecartsExcel'
+                    ])->whereNumber('id')->name('export.ecarts.excel');
+
+                    Route::get('/{id}/export/ecarts/pdf', [
+                        \App\Http\Controllers\Support\SupportInventaireStockExportController::class,
+                        'ecartsPdf'
+                    ])->whereNumber('id')->name('export.ecarts.pdf');
+
+                    Route::get('/{id}/export/recapitulatif/excel', [
+                        \App\Http\Controllers\Support\SupportInventaireStockExportController::class,
+                        'recapitulatifExcel'
+                    ])->whereNumber('id')->name('export.recapitulatif.excel');
+
+                    Route::get('/{id}/export/recapitulatif/pdf', [
+                        \App\Http\Controllers\Support\SupportInventaireStockExportController::class,
+                        'recapitulatifPdf'
+                    ])->whereNumber('id')->name('export.recapitulatif.pdf');
                 });
 
             // Gestion des tickets
