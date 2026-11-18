@@ -58,11 +58,26 @@
                     <p class="text-muted">Coche les articles à inclure. Leurs quantités théoriques seront enregistrées et leurs stocks verrouillés au démarrage.</p>
                     <div class="table-responsive" style="max-height:380px;overflow:auto">
                         <table class="table table-sm table-hover">
-                            <thead><tr><th></th><th>Référence</th><th>Désignation</th><th>Unité</th></tr></thead>
+                            <thead>
+    <tr>
+        <th>
+            <input type="checkbox" id="selectionnerTout" class="form-check-input"
+                   title="Tout sélectionner">
+        </th>
+        <th>Référence</th>
+        <th>Désignation</th>
+        <th>Unité</th>
+    </tr>
+</thead>
                             <tbody>
                                 @forelse($articles as $article)
                                     <tr>
-                                        <td><input type="checkbox" name="article_ids[]" value="{{ $article->id }}"></td>
+                                        <td>
+    <input type="checkbox"
+           name="article_ids[]"
+           value="{{ $article->id }}"
+           class="form-check-input article-checkbox">
+</td>
                                         <td>{{ $article->reference }}</td>
                                         <td>{{ $article->designation }}</td>
                                         <td>{{ $article->unite?->libelle ?? '—' }}</td>
@@ -73,7 +88,22 @@
                             </tbody>
                         </table>
                     </div>
-                    <button class="btn btn-primary" onclick="return confirm('Démarrer cet inventaire et verrouiller les stocks sélectionnés ?')">
+                    <div class="d-flex flex-wrap align-items-center gap-2 mt-3">
+                        <button type="button" id="toutSelectionner" class="btn btn-sm btn-outline-primary">
+                            Tout sélectionner
+                        </button>
+
+                        <button type="button" id="toutDeselectionner" class="btn btn-sm btn-outline-secondary">
+                            Tout désélectionner
+                        </button>
+
+                        <span class="badge bg-info text-dark" id="nombreSelectionnes">
+                            0 article sélectionné
+                        </span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mt-3"
+                            onclick="return document.querySelectorAll('.article-checkbox:checked').length > 0 && confirm('Démarrer cet inventaire et verrouiller les stocks sélectionnés ?')">
                         Démarrer l'inventaire
                     </button>
                 </form>
@@ -170,4 +200,45 @@
         </div>
     @endif
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const cases = Array.from(document.querySelectorAll('.article-checkbox'));
+    const tout = document.getElementById('selectionnerTout');
+    const boutonTout = document.getElementById('toutSelectionner');
+    const boutonAucun = document.getElementById('toutDeselectionner');
+    const compteur = document.getElementById('nombreSelectionnes');
+
+    if (!tout || !compteur) return;
+
+    function actualiserSelection() {
+        const nombre = cases.filter(c => c.checked).length;
+
+        compteur.textContent = nombre + ' article' + (nombre > 1 ? 's' : '') + ' sélectionné' + (nombre > 1 ? 's' : '');
+
+        tout.checked = cases.length > 0 && nombre === cases.length;
+        tout.indeterminate = nombre > 0 && nombre < cases.length;
+    }
+
+    tout.addEventListener('change', function () {
+        cases.forEach(c => c.checked = tout.checked);
+        actualiserSelection();
+    });
+
+    boutonTout?.addEventListener('click', function () {
+        cases.forEach(c => c.checked = true);
+        actualiserSelection();
+    });
+
+    boutonAucun?.addEventListener('click', function () {
+        cases.forEach(c => c.checked = false);
+        actualiserSelection();
+    });
+
+    cases.forEach(c => c.addEventListener('change', actualiserSelection));
+
+    actualiserSelection();
+});
+</script>
+
 @endsection
