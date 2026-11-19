@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use NumberToWords\NumberToWords;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\DB;
 
 class AttestationController extends Controller
 {
