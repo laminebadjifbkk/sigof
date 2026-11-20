@@ -260,6 +260,8 @@ class ProfileController extends Controller
             if (in_array($formulaire->statut, ['Sélectionné', 'Validée'], true) && $formulaire->annee_scolaire === '2026-2027') {
                 $showCard = true;
                 $statusMessage = "Félicitations, votre demande de prise en charge a été retenue !";
+            } elseif(in_array($formulaire->statut, ['Sélectionné', 'Validée'], true) && $formulaire->annee_scolaire !== '2026-2027') {
+                $statusMessage = "Vous n'avez pas soumis une demande de prise en charge cette année.";
             } else {
                 $statusMessage = "Votre demande de prise en charge n'a pas été retenue.";
             }
