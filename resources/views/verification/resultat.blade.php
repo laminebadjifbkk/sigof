@@ -31,14 +31,17 @@
     $details = array_filter([
         'Formation' => $formulaire->formation,
         'Diplôme visé' => $formulaire->diplome_vise,
-        'Établissement' => $formulaire->nom_etablissement,
         'Région' => $formulaire->region,
         'Année scolaire' => $formulaire->annee_scolaire,
         'Durée' => $formulaire->duree,
-        'Montant pris en charge' => $formulaire->montant_onfp
-            ? number_format((float) $formulaire->montant_onfp, 0, ',', ' ') . ' FCFA'
-            : null,
     ], fn($v) => filled($v));
+
+    // Email partiellement masqué : a•••@gmail.com
+    $emailMasque = null;
+    if (filled($formulaire->email) && str_contains($formulaire->email, '@')) {
+        [$local, $domaine] = explode('@', $formulaire->email, 2);
+        $emailMasque = mb_substr($local, 0, 2) . str_repeat('•', max(mb_strlen($local) - 2, 3)) . '@' . $domaine;
+    }
 @endphp
 <!DOCTYPE html>
 <html lang="fr">
@@ -174,6 +177,55 @@
             font-size: .95rem;
         }
 
+        .school {
+            display: flex;
+            align-items: center;
+            gap: .9rem;
+            padding: .9rem 1rem;
+            margin-bottom: .6rem;
+            background: var(--soft);
+            border: 1.5px solid var(--c);
+            border-radius: 12px;
+        }
+
+        .school__icon {
+            flex: none;
+            display: grid;
+            place-items: center;
+            width: 42px;
+            height: 42px;
+            font-size: 1.2rem;
+            color: #fff;
+            background: var(--c);
+            border-radius: 10px;
+        }
+
+        .school small {
+            display: block;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            color: #64748b;
+        }
+
+        .school strong {
+            font-size: 1.02rem;
+        }
+
+        .steps {
+            margin: .6rem 0 0;
+            padding-left: 1.2rem;
+        }
+
+        .steps li {
+            margin-bottom: .5rem;
+        }
+
+        .steps li:last-child {
+            margin-bottom: 0;
+        }
+
         dl {
             margin: 0;
         }
@@ -292,6 +344,16 @@
                 <div>N° d'identité<strong>{{ $cinMasque }}</strong></div>
             </div>
 
+            @if ($etat === 'admis' && filled($formulaire->nom_etablissement))
+                <div class="school">
+                    <span class="school__icon"><i class="bi bi-building"></i></span>
+                    <div>
+                        <small>Établissement d'accueil</small>
+                        <strong>{{ $formulaire->nom_etablissement }}</strong>
+                    </div>
+                </div>
+            @endif
+
             @if ($etat === 'admis' && count($details))
                 <dl>
                     @foreach ($details as $label => $value)
@@ -305,8 +367,28 @@
 
             <div class="next">
                 @if ($etat === 'admis')
-                    <strong>Prochaine étape :</strong> rapprochez-vous de l'établissement de formation avec votre
-                    pièce d'identité pour finaliser votre inscription. Conservez cette page comme preuve.
+                    <strong>Prochaines étapes :</strong>
+                    <ol class="steps">
+                        <li>
+                            Rapprochez-vous de votre <strong>établissement d'accueil</strong>
+                            @if (filled($formulaire->nom_etablissement))
+                                (<em>{{ $formulaire->nom_etablissement }}</em>)
+                            @endif
+                            avec votre pièce d'identité pour finaliser votre inscription.
+                        </li>
+                        <li>
+                            Revenez ensuite sur la plateforme <strong>SIGOF</strong> et <strong>ouvrez un compte</strong>
+                            avec l'adresse email de votre dossier
+                            @if ($emailMasque)
+                                (<strong>{{ $emailMasque }}</strong>)
+                            @endif
+                            .
+                        </li>
+                        <li>
+                            <strong>Connectez-vous</strong> puis <strong>téléversez votre certificat d'inscription
+                                ou votre reçu</strong> pour valider définitivement votre prise en charge.
+                        </li>
+                    </ol>
                 @elseif ($etat === 'rejete')
                     <strong>Et maintenant ?</strong> Vous pouvez soumettre un nouveau dossier lors des prochaines
                     sessions ou contacter l'ONFP pour plus d'informations.
@@ -318,8 +400,11 @@
 
             <div class="actions">
                 @if ($etat === 'admis')
-                    <button type="button" class="btn btn-main" onclick="window.print()">
-                        <i class="bi bi-printer"></i> Imprimer le résultat
+                    <a href="{{ route('register-page') }}" class="btn btn-main">
+                        <i class="bi bi-person-plus"></i> Créer mon compte
+                    </a>
+                    <button type="button" class="btn btn-ghost" onclick="window.print()">
+                        <i class="bi bi-printer"></i> Imprimer
                     </button>
                 @endif
                 <a href="{{ url('/') }}#verifierprisencharge" class="btn btn-ghost">
