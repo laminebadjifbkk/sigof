@@ -257,7 +257,7 @@ class ProfileController extends Controller
         $showChangeCertificat = false;
 
         if ($formulaire) {
-            if ($formulaire->statut === 'Sélectionné' && $formulaire->annee_scolaire === '2026-2027') {
+            if (in_array($formulaire->statut, ['Sélectionné', 'Validée'], true) && $formulaire->annee_scolaire === '2026-2027') {
                 $showCard = true;
                 $statusMessage = "Félicitations, votre demande de prise en charge a été retenue !";
             } else {
@@ -271,7 +271,7 @@ class ProfileController extends Controller
             $statusMessage = "Vous n'avez pas de demande de prise en charge à votre nom.";
         }
         // Dates
-        $start = Carbon::create(2026, 11, 21, 8, 0);
+        $start = Carbon::create(2026, 11, 20, 8, 0);
         $end   = Carbon::create(2026, 11, 30, 17, 0);
         $showButton = Carbon::now()->between($start, $end);
 
