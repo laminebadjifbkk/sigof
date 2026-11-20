@@ -1819,6 +1819,24 @@
             }
         }
 
+        .verify-alert {
+            display: flex;
+            gap: .7rem;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            padding: .8rem 1rem;
+            font-size: .88rem;
+            color: #9b1c1c;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 12px;
+        }
+
+        .verify-alert i {
+            margin-top: 2px;
+            color: #e11d2e;
+        }
+
         .field-hint {
             display: block;
             margin-top: .3rem;
@@ -2030,15 +2048,27 @@
                     </div>
                 </div>
 
-                <form class="verify-form" method="POST" action="#" id="verifyForm">
+                @if ($errors->any())
+                    <div class="verify-alert" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                        <div>
+                            @foreach ($errors->all() as $error)
+                                <div>{{ $error }}</div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+
+                <form class="verify-form" method="POST" action="{{ route('prise-en-charge.verifier') }}"
+                    id="verifyForm">
                     @csrf
 
                     <div class="field col-full">
                         <label for="v-prenom">Prénom</label>
                         <div class="input-icon">
                             <i class="bi bi-person"></i>
-                            <input id="v-prenom" name="prenom" type="text" placeholder="Aïssatou"
-                                autocomplete="given-name" required>
+                            <input id="v-prenom" name="prenom" type="text" value="{{ old('prenom') }}"
+                                placeholder="Aïssatou" autocomplete="given-name" required>
                         </div>
                     </div>
 
@@ -2046,8 +2076,8 @@
                         <label for="v-nom">Nom</label>
                         <div class="input-icon">
                             <i class="bi bi-person-badge"></i>
-                            <input id="v-nom" name="nom" type="text" placeholder="Diop" autocomplete="family-name"
-                                required>
+                            <input id="v-nom" name="nom" type="text" value="{{ old('nom') }}" placeholder="Diop"
+                                autocomplete="family-name" required>
                         </div>
                     </div>
 
@@ -2055,7 +2085,8 @@
                         <label for="v-naissance">Date de naissance</label>
                         <div class="input-icon">
                             <i class="bi bi-calendar-event"></i>
-                            <input id="v-naissance" name="date_naissance" type="date" required>
+                            <input id="v-naissance" name="date_naissance" type="date"
+                                value="{{ old('date_naissance') }}" required>
                         </div>
                     </div>
 
@@ -2063,9 +2094,9 @@
                         <label for="v-nin">Numéro de la carte nationale d'identité (NIN)</label>
                         <div class="input-icon">
                             <i class="bi bi-person-vcard"></i>
-                            <input id="v-nin" name="nin" type="text" inputmode="numeric" pattern="[0-9]{13}"
-                                minlength="13" maxlength="13" placeholder="13 chiffres" autocomplete="off"
-                                title="Le NIN comporte 13 chiffres" required>
+                            <input id="v-nin" name="cin" type="text" inputmode="numeric" value="{{ old('cin') }}"
+                                pattern="[0-9]{13}" minlength="13" maxlength="13" placeholder="13 chiffres"
+                                autocomplete="off" title="Le NIN comporte 13 chiffres" required>
                         </div>
                         <small class="field-hint">Les 13 chiffres figurant sur votre carte d'identité
                             biométrique.</small>
@@ -2075,8 +2106,8 @@
                         <label for="v-email">Email</label>
                         <div class="input-icon">
                             <i class="bi bi-envelope"></i>
-                            <input id="v-email" name="email" type="email" placeholder="vous@exemple.sn"
-                                autocomplete="email" required>
+                            <input id="v-email" name="email" type="email" value="{{ old('email') }}"
+                                placeholder="vous@exemple.sn" autocomplete="email" required>
                         </div>
                     </div>
 

@@ -138,6 +138,7 @@ use App\Http\Controllers\Support\SupportStockController;
 use App\Http\Controllers\Support\SupportStockRapportController;
 use App\Http\Controllers\Support\SupportStockCatalogueController;
 
+use App\Http\Controllers\VerificationPriseEnChargeController;
 
 
 /*
@@ -1873,5 +1874,9 @@ Route::prefix('stocks/documents')
 /* Route::get('/book/view/{filename}', [BookController::class, 'show'])->name('book.view'); */
 Route::get('/manuel/view/{filename}', [BookController::class, 'show'])->name('manuel.view');
 Route::get('/manuels/default', [BookController::class, 'showDefault'])->name('manuels.showDefault');
+
+Route::post('/prise-en-charge/verifier', [VerificationPriseEnChargeController::class, 'verifier'])
+    ->middleware('throttle:10,1')
+    ->name('prise-en-charge.verifier');
 
 require __DIR__ . '/auth.php';
