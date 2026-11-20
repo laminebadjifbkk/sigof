@@ -1665,21 +1665,28 @@
             line-height: 1.45;
         }
 
-        .verify-form {
+        /* Sélecteurs volontairement spécifiques pour écraser d'anciens styles .verify-form / .field */
+        .verify-card .verify-form {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 1rem;
+            align-items: start;
         }
 
-        .verify-form .field:nth-child(3),
-        .verify-form .field:nth-child(4),
-        .verify-form .btn-verify,
-        .verify-form .verify-note {
+        .verify-card .verify-form>* {
+            grid-column: auto;
+            width: auto;
+            max-width: none;
+            min-width: 0;
+            margin: 0;
+        }
+
+        .verify-card .verify-form>.col-full {
             grid-column: 1 / -1;
         }
 
         @media (max-width: 520px) {
-            .verify-form {
+            .verify-card .verify-form {
                 grid-template-columns: 1fr;
             }
         }
@@ -1733,8 +1740,23 @@
             color: #00853f;
         }
 
-        .input-icon input:not(:placeholder-shown):invalid {
+        /* Rouge uniquement après une vraie interaction (pas à l'ouverture de la page) */
+        .input-icon input:user-invalid {
             border-color: #e11d2e;
+            box-shadow: 0 0 0 4px rgba(225, 29, 46, .12);
+        }
+
+        .input-icon input[type="date"] {
+            padding-right: .8rem;
+        }
+
+        .input-icon input[type="date"]::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+            opacity: .55;
+        }
+
+        .input-icon input[type="date"]::-webkit-calendar-picker-indicator:hover {
+            opacity: 1;
         }
 
         /* ---------- Bouton Vérifier ---------- */
@@ -1795,6 +1817,13 @@
             to {
                 transform: rotate(360deg);
             }
+        }
+
+        .field-hint {
+            display: block;
+            margin-top: .3rem;
+            font-size: .75rem;
+            color: #94a3b8;
         }
 
         .verify-note {
@@ -1981,7 +2010,7 @@
 
                     <a href="#verifierprisencharge" class="btn btn-alert">
                         <span class="btn-alert__badge">Résultats disponibles</span>
-                        {{-- <i class="bi bi-megaphone-fill"></i> --}}
+                        <i class="bi bi-megaphone-fill"></i>
                         Vérifier les résultats des prises en charge
                         <i class="bi bi-arrow-down-circle-fill"></i>
                     </a>
@@ -1993,7 +2022,7 @@
             ============================================================ --}}
             <div class="verify-card" id="verifierprisencharge">
                 <div class="verify-card__head">
-                    {{-- <span class="verify-card__icon"><i class="bi bi-patch-check-fill"></i></span> --}}
+                    <span class="verify-card__icon"><i class="bi bi-patch-check-fill"></i></span>
                     <div>
                         <h3>Vérifiez votre sélection</h3>
                         <p>Consultez le statut de votre dossier en quelques secondes avec vos informations personnelles.
@@ -2004,7 +2033,7 @@
                 <form class="verify-form" method="POST" action="#" id="verifyForm">
                     @csrf
 
-                    <div class="field">
+                    <div class="field col-full">
                         <label for="v-prenom">Prénom</label>
                         <div class="input-icon">
                             <i class="bi bi-person"></i>
@@ -2013,7 +2042,7 @@
                         </div>
                     </div>
 
-                    <div class="field">
+                    <div class="field col-full">
                         <label for="v-nom">Nom</label>
                         <div class="input-icon">
                             <i class="bi bi-person-badge"></i>
@@ -2022,7 +2051,7 @@
                         </div>
                     </div>
 
-                    <div class="field">
+                    <div class="field col-full">
                         <label for="v-naissance">Date de naissance</label>
                         <div class="input-icon">
                             <i class="bi bi-calendar-event"></i>
@@ -2030,7 +2059,19 @@
                         </div>
                     </div>
 
-                    <div class="field">
+                    <div class="field col-full">
+                        <label for="v-nin">Numéro de la carte nationale d'identité (NIN)</label>
+                        <div class="input-icon">
+                            <i class="bi bi-person-vcard"></i>
+                            <input id="v-nin" name="nin" type="text" inputmode="numeric" pattern="[0-9]{13}"
+                                minlength="13" maxlength="13" placeholder="13 chiffres" autocomplete="off"
+                                title="Le NIN comporte 13 chiffres" required>
+                        </div>
+                        <small class="field-hint">Les 13 chiffres figurant sur votre carte d'identité
+                            biométrique.</small>
+                    </div>
+
+                    <div class="field col-full">
                         <label for="v-email">Email</label>
                         <div class="input-icon">
                             <i class="bi bi-envelope"></i>
@@ -2039,12 +2080,12 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-verify" id="verifyBtn">
+                    <button type="submit" class="btn btn-verify col-full" id="verifyBtn">
                         <span class="btn-verify__label"><i class="bi bi-search"></i> Vérifier mon dossier</span>
                         <span class="btn-verify__loading"><span class="spinner"></span> Vérification…</span>
                     </button>
 
-                    <p class="verify-note">
+                    <p class="verify-note col-full">
                         <i class="bi bi-shield-lock-fill"></i>
                         Vos informations sont utilisées uniquement pour retrouver votre dossier.
                     </p>
@@ -2568,6 +2609,11 @@
             const t = setInterval(tick, 1000);
             tick();
         })();
+
+        // NIN : chiffres uniquement (supprime espaces, lettres, tirets à la saisie / au collage)
+        document.getElementById('v-nin')?.addEventListener('input', function () {
+            this.value = this.value.replace(/\D/g, '').slice(0, 13);
+        });
 
         // État "chargement" au clic sur Vérifier (évite les doubles envois)
         document.getElementById('verifyForm')?.addEventListener('submit', function () {
