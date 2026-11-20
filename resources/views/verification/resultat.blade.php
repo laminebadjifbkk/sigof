@@ -408,8 +408,8 @@
 
             <div class="actions">
                 @if ($etat === 'admis')
-                    <a href="{{ route('register-page') }}" class="btn btn-main">
-                        <i class="bi bi-person-plus"></i> Créer mon compte
+                    <a href="{{ route('login') }}" class="btn btn-main">
+                        <i class="bi bi-person-plus"></i> Se connecter
                     </a>
                     <button type="button" class="btn btn-ghost" onclick="window.print()">
                         <i class="bi bi-printer"></i> Imprimer
