@@ -26,12 +26,13 @@
 
                 <div class="d-flex justify-content-between align-items-center mb-3">
 
-                    @can('exporter-view')
+                    {{-- @can('exporter-view')
                         <a href="{{ route('prisenchargeExcel', ['statut' => $statut, 'annee_scolaire' => $annee_scolaire]) }}"
                             class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-2" title="Exporter Excel + Dossiers">
                             <i class="bi bi-file-earmark-zip"></i> Exporter ZIP
                         </a>
-                    @endcan
+
+                    @endcan --}}
 
                     {{ $annee_scolaire }}
 

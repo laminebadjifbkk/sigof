@@ -1027,8 +1027,9 @@ public function PrisenchargeExcel($statut, $annee_scolaire)
         return view("formulaire.historiquepc", compact('formulaire'));
     }
 
-    public function showByStatut(Request $request, $statut, $annee_scolaire)
+    /* public function showByStatut(Request $request, $statut, $annee_scolaire)
 {
+
     $statutValue = ($statut === 'Non défini') ? null : $statut;
     $anneeValue  = ($annee_scolaire === 'Non définie') ? null : $annee_scolaire;
 
@@ -1055,6 +1056,39 @@ public function PrisenchargeExcel($statut, $annee_scolaire)
         ->withQueryString();
 
     $total = $formulaires->total();
+    $totalFormulaires = number_format($total, 0, ',', ' ');
+
+    return view('formulaire.showstatut', compact(
+        'formulaires', 'statut', 'annee_scolaire', 'total', 'totalFormulaires', 'labels'
+    ));
+} */
+
+    public function showByStatut(Request $request, $statut)
+{
+    $statutValue    = ($statut === 'Non défini') ? null : $statut;
+    $annee_scolaire = config('app.annee_scolaire'); // "2026-2027"
+
+    $labels = [
+        'prenom'         => 'Prénom',
+        'nom'            => 'Nom',
+        'date_naissance' => 'Date nais.',
+        'lieu_naissance' => 'Lieu nais.',
+        'telephone'      => 'Téléphone',
+        'region'         => 'Région',
+        'autre_2'        => 'Etablissement',
+    ];
+
+    $formulaires = Formulaire::query()
+        ->when($statutValue === null,
+            fn ($q) => $q->whereNull('statut'),
+            fn ($q) => $q->where('statut', $statutValue))
+        ->where('annee_scolaire', $annee_scolaire)
+        ->select(array_merge(['id', 'statut'], array_keys($labels)))
+        ->orderBy('id', 'desc')
+        ->paginate(50)
+        ->withQueryString();
+
+    $total            = $formulaires->total();
     $totalFormulaires = number_format($total, 0, ',', ' ');
 
     return view('formulaire.showstatut', compact(
