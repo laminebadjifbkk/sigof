@@ -333,11 +333,29 @@
                 display: none;
             }
         }
+
+        .result__brand {
+            display: flex;
+            justify-content: center;
+            padding: 1.2rem 1.8rem 0;
+            background: var(--soft);
+        }
+
+        .result__brand img {
+            height: 64px;
+            width: auto;
+            max-width: 100%;
+            object-fit: contain;
+        }
     </style>
 </head>
 
 <body>
     <main class="result">
+        <div class="result__brand">
+            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/ONFP_photo-profil_1080x1080.png'))) }}"
+                style="width:100px;">
+        </div>
         <header class="result__head">
             <div class="result__icon"><i class="bi {{ $t['icon'] }}"></i></div>
             <span class="badge">{{ $t['badge'] }}</span>
