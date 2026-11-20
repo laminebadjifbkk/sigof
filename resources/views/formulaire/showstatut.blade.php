@@ -8,7 +8,8 @@
                 {{-- Tableau inscriptions --}}
 
                 <h4 class="card-title">
-                    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 p-3 bg-light rounded shadow-sm">
+                    <div
+                        class="d-flex flex-wrap justify-content-between align-items-center mb-4 p-3 bg-light rounded shadow-sm">
                         <span>{{ $totalFormulaires }}</span>
                         <span class="{{ $statut }} text-white">{{ $statut }}</span>
                     </div>
@@ -16,19 +17,20 @@
 
                 {{-- Export opérateurs en Excel --}}
                 {{-- @can('exporter-view')
-                    <span class="mb-5 d-inline-block">
-                        <a href="{{ route('prisencharge.excel', ['statut' => $statut, 'region' => $region]) }}"
-                            class="btn btn-success btn-sm" title="Exporter la liste">
-                            <i class="bi bi-file-earmark-excel"></i> Exporter prises en charge (Excel)
-                        </a>
-                    </span>
+                <span class="mb-5 d-inline-block">
+                    <a href="{{ route('prisencharge.excel', ['statut' => $statut, 'region' => $region]) }}"
+                        class="btn btn-success btn-sm" title="Exporter la liste">
+                        <i class="bi bi-file-earmark-excel"></i> Exporter prises en charge (Excel)
+                    </a>
+                </span>
                 @endcan --}}
 
                 <div class="d-flex justify-content-between align-items-center mb-3">
 
                     @can('exporter-view')
                         <a href="{{ route('prisenchargeExcel', ['statut' => $statut, 'annee_scolaire' => $annee_scolaire]) }}"
-                            class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-2" title="Exporter Excel + Dossiers">
+                            class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-2"
+                            title="Exporter Excel + Dossiers">
                             <i class="bi bi-file-earmark-zip"></i> Exporter ZIP
                         </a>
 
@@ -105,7 +107,7 @@
                                         @endforeach
                                         <th class="text-center">Certificat</th>
                                         <th class="text-center">Statut</th>
-                                        {{-- <th class="text-center">Agent</th> --}}
+                                        <th class="text-center">Agent</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
                                 </thead>
@@ -119,8 +121,8 @@
                                                             $fileUrl = $inscription->getFileUrl($field);
                                                         @endphp
                                                         @if ($fileUrl)
-                                                            <a href="{{ $fileUrl }}" target="_blank"
-                                                                class="btn btn-outline-secondary btn-sm" title="Télécharger">
+                                                            <a href="{{ $fileUrl }}" target="_blank" class="btn btn-outline-secondary btn-sm"
+                                                                title="Télécharger">
                                                                 <i class="bi bi-download"></i>
                                                             </a>
                                                         @else
@@ -139,8 +141,8 @@
                                             @endforeach
                                             <td class="text-center">
                                                 @if ($inscription->certificat_file)
-                                                    <a href="{{ asset('storage/' . $inscription->certificat_file) }}"
-                                                        target="_blank" class="btn btn-outline-primary btn-sm">
+                                                    <a href="{{ asset('storage/' . $inscription->certificat_file) }}" target="_blank"
+                                                        class="btn btn-outline-primary btn-sm">
                                                         <i class="bi bi-file-earmark-arrow-down"></i>
                                                     </a>
                                                 @else
@@ -155,8 +157,9 @@
                                                     -
                                                 @endif
                                             </td>
-                                            {{-- <td>{{ $inscription?->updatedByUser?->firstname }}
-                                                {{ $inscription?->updatedByUser?->name }}</td> --}}
+                                            <td>{{ $inscription?->updatedByUser?->firstname }}
+                                                {{ $inscription?->updatedByUser?->name }}
+                                            </td>
                                             <td class="text-center">
                                                 <div class="btn-group">
                                                     {{-- Bouton Voir --}}
@@ -326,8 +329,7 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="lieu_naissance" class="form-label">Lieu naissance</label>
-                                                    <input type="text" name="lieu_naissance"
-                                                        value="{{ old('lieu_naissance') }}"
+                                                    <input type="text" name="lieu_naissance" value="{{ old('lieu_naissance') }}"
                                                         class="form-control form-control-sm @error('lieu_naissance') is-invalid @enderror"
                                                         id="lieu_naissance" placeholder="Lieu de naissance">
                                                     @error('lieu_naissance')

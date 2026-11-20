@@ -1079,14 +1079,14 @@ public function PrisenchargeExcel($statut, $annee_scolaire)
     ];
 
     $formulaires = Formulaire::query()
-        ->when($statutValue === null,
-            fn ($q) => $q->whereNull('statut'),
-            fn ($q) => $q->where('statut', $statutValue))
-        ->where('annee_scolaire', $annee_scolaire)
-        ->select(array_merge(['id', 'statut'], array_keys($labels)))
-        ->orderBy('id', 'desc')
-        ->paginate(50)
-        ->withQueryString();
+    ->when($statutValue === null,
+        fn ($q) => $q->whereNull('statut'),
+        fn ($q) => $q->where('statut', $statutValue))
+    ->where('annee_scolaire', $annee_scolaire)
+    ->select(array_merge(['id', 'statut', 'certificat_file', 'statut_certificat'], array_keys($labels)))
+    ->orderBy('id', 'desc')
+    ->paginate(50)
+    ->withQueryString();
 
     $total            = $formulaires->total();
     $totalFormulaires = number_format($total, 0, ',', ' ');
