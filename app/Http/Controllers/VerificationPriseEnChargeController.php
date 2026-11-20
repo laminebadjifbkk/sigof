@@ -70,6 +70,7 @@ class VerificationPriseEnChargeController extends Controller
         foreach ([
             'non conforme',
             'conforme',
+            'liste attente',
             'non admis', 'non retenu', 'non selectionne', 'non valide', 'invalide',
             'rejet', 'refus', 'recale', 'ajourne',
         ] as $mot) {
