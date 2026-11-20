@@ -230,12 +230,16 @@
                                         class="btn btn-outline-danger btn-sm">
                                         Non conforme
                                     </button>
-                                    <button type="submit" name="statut" value="Validée" class="btn btn-success btn-sm">
+                                    <button type="submit" name="statut" value="Validée" class="btn btn-info btn-sm">
                                         Valider la demande
                                     </button>
                                     <button type="submit" name="statut" value="liste attente"
                                         class="btn btn-outline-secondary btn-sm">
                                         Mettre en liste d'attente
+                                    </button>
+                                    <button type="submit" name="statut" value="Admis(e)"
+                                        class="btn btn-outline-success btn-sm">
+                                        Admis(e)
                                     </button>
                                 </div>
                             </form>
@@ -298,6 +302,9 @@
                                         <option value="liste attente"
                                             {{ $selectedStatut === 'liste attente' ? 'selected' : '' }}>En
                                             liste attente</option>
+                                        <option value="Admis(e)"
+                                            {{ $selectedStatut === 'Admis(e)' ? 'selected' : '' }}>En
+                                            Admis(e)</option>
                                     </select>
                                 </div>
 

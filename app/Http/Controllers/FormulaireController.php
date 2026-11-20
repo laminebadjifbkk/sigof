@@ -999,7 +999,7 @@ public function PrisenchargeExcel($statut, $annee_scolaire)
 
         $data = $request->validate([
             'statut' => 'required|string|max:50',
-            'motif'  => 'required_unless:statut,Nouvelle,Conforme,liste attente,Sélectionné,Validée|string|max:500',
+            'motif'  => 'required_unless:statut,Nouvelle,Conforme,liste attente,Sélectionné,Validée,Admis(e)|string|max:500',
         ]);
 
         $formulaire->update($data);
