@@ -1063,10 +1063,10 @@ public function PrisenchargeExcel($statut, $annee_scolaire)
     ));
 } */
 
-    public function showByStatut(Request $request, $statut)
+    public function showByStatut(Request $request, $statut, $annee_scolaire)
 {
     $statutValue    = ($statut === 'Non défini') ? null : $statut;
-    $annee_scolaire = config('app.annee_scolaire'); // "2026-2027"
+    //$annee_scolaire = config('app.annee_scolaire'); // "2026-2027"
 
     $labels = [
         'prenom'         => 'Prénom',
@@ -1095,8 +1095,6 @@ public function PrisenchargeExcel($statut, $annee_scolaire)
         'formulaires', 'statut', 'annee_scolaire', 'total', 'totalFormulaires', 'labels'
     ));
 }
-
-
     public function exportercontratlettrePDF(Request $request, $statut)
     {
         try {
