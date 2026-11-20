@@ -41,7 +41,7 @@
         'Diplôme visé' => $formulaire->diplome_vise,
         'Région' => $formulaire->region,
         'Année scolaire' => $formulaire->annee_scolaire,
-        'Durée' => $formulaire->duree,
+        'Durée' => $formulaire->duree . ' an(s)',
     ], fn($v) => filled($v));
 
     // Email partiellement masqué : a•••@gmail.com

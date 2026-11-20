@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 class VerificationPriseEnChargeController extends Controller
 {
     /** Année scolaire concernée (formats acceptés tels qu'ils peuvent être stockés en base). */
-    private const ANNEE_SCOLAIRE = ['2026-2027', '2026/2027'];
+    private const ANNEE_SCOLAIRE = ['2026-2027'];
 
     /**
      * Vérifie le dossier d'un candidat à partir de son CIN/NIN, sa date de
