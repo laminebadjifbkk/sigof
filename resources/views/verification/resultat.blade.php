@@ -17,6 +17,14 @@
             'title' => 'Bonjour ' . $formulaire->prenom,
             'text' => 'Nous sommes au regret de vous informer que votre dossier n\'a pas été retenu cette fois-ci.',
         ],
+        'Non conforme' => [
+            'color' => '#e11d2e',
+            'soft' => '#fdecee',
+            'icon' => 'bi-x-lg',
+            'badge' => 'Non retenu(e)',
+            'title' => 'Bonjour ' . $formulaire->prenom,
+            'text' => 'Nous sommes au regret de vous informer que votre dossier n\'a pas été retenu cette fois-ci.',
+        ],
         'attente' => [
             'color' => '#d97706',
             'soft' => '#fef3e2',

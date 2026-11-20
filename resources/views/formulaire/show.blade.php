@@ -303,7 +303,7 @@
                                             {{ $selectedStatut === 'liste attente' ? 'selected' : '' }}>En
                                             liste attente</option>
                                         <option value="Admis(e)"
-                                            {{ $selectedStatut === 'Admis(e)' ? 'selected' : '' }}>En
+                                            {{ $selectedStatut === 'Admis(e)' ? 'selected' : '' }}>
                                             Admis(e)</option>
                                     </select>
                                 </div>

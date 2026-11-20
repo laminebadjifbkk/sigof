@@ -8,6 +8,9 @@ use Illuminate\Support\Str;
 
 class VerificationPriseEnChargeController extends Controller
 {
+    /** Année scolaire concernée (formats acceptés tels qu'ils peuvent être stockés en base). */
+    private const ANNEE_SCOLAIRE = ['2026-2027', '2026/2027'];
+
     /**
      * Vérifie le dossier d'un candidat à partir de son CIN/NIN, sa date de
      * naissance, son nom, son prénom et son email, puis affiche le résultat.
@@ -27,6 +30,7 @@ class VerificationPriseEnChargeController extends Controller
         // 1) Candidats probables : CIN + date de naissance (le plus récent d'abord)
         $candidats = Formulaire::query()
             ->where('cin', $data['cin'])
+            ->whereIn('annee_scolaire', self::ANNEE_SCOLAIRE)
             ->whereDate('date_naissance', $data['date_naissance'])
             ->orderByDesc('id')
             ->get();
@@ -62,13 +66,20 @@ class VerificationPriseEnChargeController extends Controller
         $s = Str::of((string) $statut)->lower()->ascii()->trim()->toString();
 
         // Les refus sont testés en premier : "non admis" contient "admis"
-        foreach (['non admis', 'non retenu', 'rejet', 'refus', 'recale', 'ajourne'] as $mot) {
+        // ⚠ $s est déjà en minuscules et sans accents : les mots-clés doivent l'être aussi
+        foreach ([
+            'non conforme',
+            'conforme',
+            'non admis', 'non retenu', 'non selectionne', 'non valide', 'invalide',
+            'rejet', 'refus', 'recale', 'ajourne',
+        ] as $mot) {
             if (str_contains($s, $mot)) {
                 return 'rejete';
             }
         }
 
-        foreach (['admis', 'accepte', 'valide', 'retenu', 'approuve'] as $mot) {
+        // Statuts considérés comme "admis" : Admis(e), Validé(e), Sélectionné(e), etc.
+        foreach (['admis', 'valide', 'selectionne', 'accepte', 'retenu', 'approuve'] as $mot) {
             if (str_contains($s, $mot)) {
                 return 'admis';
             }
