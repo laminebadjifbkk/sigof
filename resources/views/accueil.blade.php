@@ -1558,9 +1558,9 @@
 
 <body>
     {{-- ========== BARRE 40 ANS ========== --}}
-    <div class="anniv-bar">
+    {{-- <div class="anniv-bar">
         🎉 L'ONFP fête ses 40 ans le 19 novembre 2026 · <a href="#anniversaire">Découvrir</a>
-    </div>
+    </div> --}}
 
     {{-- ========== NAVBAR ========== --}}
     <header>
@@ -1682,7 +1682,7 @@
     </section>
 
     {{-- ========== 40 ANS ========== --}}
-    <section class="anniv" id="anniversaire">
+    {{-- <section class="anniv" id="anniversaire">
         <div class="wrap anniv-grid">
             <div class="reveal">
                 <div class="eyebrow">Événement</div>
@@ -1705,7 +1705,7 @@
                         class="l">Secondes</span></div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     {{-- ========== À PROPOS ========== --}}
     <section class="about" id="apropos">
