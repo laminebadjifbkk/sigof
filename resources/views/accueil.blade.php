@@ -1553,6 +1553,262 @@
                 padding: 0 20px;
             }
         }
+
+        /* ---------- Bouton rouge captivant ---------- */
+        .btn-alert {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: .6rem;
+            padding: .85rem 1.4rem;
+            border-radius: 12px;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+            background: linear-gradient(135deg, #e11d2e 0%, #b80f1d 100%);
+            box-shadow: 0 8px 22px rgba(225, 29, 46, .38);
+            animation: alertPulse 2s infinite;
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+
+        .btn-alert:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(225, 29, 46, .5);
+            color: #fff;
+        }
+
+        .btn-alert__badge {
+            position: absolute;
+            top: -11px;
+            left: 14px;
+            padding: 2px 9px;
+            font-size: .65rem;
+            font-weight: 800;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            color: #b80f1d;
+            background: #fff;
+            border: 1.5px solid #e11d2e;
+            border-radius: 999px;
+        }
+
+        @keyframes alertPulse {
+            0% {
+                box-shadow: 0 8px 22px rgba(225, 29, 46, .38), 0 0 0 0 rgba(225, 29, 46, .55);
+            }
+
+            70% {
+                box-shadow: 0 8px 22px rgba(225, 29, 46, .38), 0 0 0 14px rgba(225, 29, 46, 0);
+            }
+
+            100% {
+                box-shadow: 0 8px 22px rgba(225, 29, 46, .38), 0 0 0 0 rgba(225, 29, 46, 0);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .btn-alert {
+                animation: none;
+            }
+        }
+
+        /* ---------- Carte de vérification ---------- */
+        .verify-card {
+            position: relative;
+            overflow: hidden;
+            padding: 1.8rem;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(15, 23, 42, .14);
+            border: 1px solid rgba(15, 23, 42, .06);
+            scroll-margin-top: 90px;
+        }
+
+        .verify-card::before {
+            /* liseré aux couleurs du Sénégal */
+            content: "";
+            position: absolute;
+            inset: 0 0 auto 0;
+            height: 5px;
+            background: linear-gradient(90deg, #00853f 0 33%, #fdef42 33% 66%, #e31b23 66% 100%);
+        }
+
+        .verify-card__head {
+            display: flex;
+            gap: .9rem;
+            align-items: flex-start;
+            margin-bottom: 1.3rem;
+        }
+
+        .verify-card__icon {
+            flex: none;
+            display: grid;
+            place-items: center;
+            width: 46px;
+            height: 46px;
+            font-size: 1.4rem;
+            color: #00853f;
+            background: rgba(0, 133, 63, .12);
+            border-radius: 12px;
+        }
+
+        .verify-card h3 {
+            margin: 0 0 .2rem;
+            font-size: 1.25rem;
+            font-weight: 800;
+        }
+
+        .verify-card p {
+            margin: 0;
+            font-size: .9rem;
+            color: #64748b;
+            line-height: 1.45;
+        }
+
+        .verify-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .verify-form .field:nth-child(3),
+        .verify-form .field:nth-child(4),
+        .verify-form .btn-verify,
+        .verify-form .verify-note {
+            grid-column: 1 / -1;
+        }
+
+        @media (max-width: 520px) {
+            .verify-form {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .verify-form label {
+            display: block;
+            margin-bottom: .35rem;
+            font-size: .8rem;
+            font-weight: 700;
+            color: #334155;
+        }
+
+        .input-icon {
+            position: relative;
+        }
+
+        .input-icon i {
+            position: absolute;
+            top: 50%;
+            left: 13px;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            pointer-events: none;
+            transition: color .2s;
+        }
+
+        .input-icon input {
+            width: 100%;
+            height: 46px;
+            padding: 0 .9rem 0 2.5rem;
+            font-size: .95rem;
+            color: #0f172a;
+            background: #f8fafc;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 12px;
+            outline: none;
+            transition: border-color .2s, box-shadow .2s, background .2s;
+        }
+
+        .input-icon input::placeholder {
+            color: #a8b3c4;
+        }
+
+        .input-icon input:focus {
+            background: #fff;
+            border-color: #00853f;
+            box-shadow: 0 0 0 4px rgba(0, 133, 63, .14);
+        }
+
+        .input-icon:focus-within i {
+            color: #00853f;
+        }
+
+        .input-icon input:not(:placeholder-shown):invalid {
+            border-color: #e11d2e;
+        }
+
+        /* ---------- Bouton Vérifier ---------- */
+        .btn-verify {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #fff;
+            background: linear-gradient(135deg, #00a050, #00853f);
+            border: 0;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 133, 63, .3);
+            transition: transform .2s, box-shadow .2s, opacity .2s;
+        }
+
+        .btn-verify:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 26px rgba(0, 133, 63, .4);
+        }
+
+        .btn-verify__label i {
+            margin-right: .4rem;
+        }
+
+        .btn-verify__loading {
+            display: none;
+            align-items: center;
+            gap: .6rem;
+        }
+
+        .btn-verify.is-loading {
+            pointer-events: none;
+            opacity: .85;
+        }
+
+        .btn-verify.is-loading .btn-verify__label {
+            display: none;
+        }
+
+        .btn-verify.is-loading .btn-verify__loading {
+            display: inline-flex;
+        }
+
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2.5px solid rgba(255, 255, 255, .4);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin .7s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .verify-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .4rem;
+            font-size: .78rem !important;
+            color: #64748b;
+        }
+
+        .verify-note i {
+            color: #00853f;
+        }
     </style>
 </head>
 
@@ -1593,22 +1849,24 @@
     {{-- ========== HERO ========== --}}
     @php $slides = ($posts ?? collect())->filter(fn($p) => !empty($p->image)); @endphp
 
-    <section class="hero" id="accueil">
+    {{-- <section class="hero" id="accueil">
         <div class="wrap hero-grid">
             <div>
-                <a href="#anniversaire" class="hero-badge">
+                {{-- <a href="#anniversaire" class="hero-badge">
                     1986 – 2026 · 40 ans au service de la formation professionnelle
-                </a>
-                <div class="eyebrow">Office national de formation professionnelle</div>
+                </a> --}}
+                {{--<div class="eyebrow">Office national de formation professionnelle</div>
                 <h1>La référence de la <span class="accent">formation professionnelle</span> au Sénégal</h1>
                 <p class="lead">SIGOF centralise et digitalise vos démarches : demandes de formation, agréments
                     d'opérateurs, suivi des partenariats, en un seul portail, partout dans le pays.</p>
                 <div class="hero-cta">
                     <a href="{{ route('register-page') }}" class="btn btn-primary">
                         Créer mon compte <i class="bi bi-arrow-right"></i>
-                    </a>
-                    <a href="#apropos" class="btn btn-ghost">Découvrir la plateforme</a>
+                    </a>--}}
+                    {{-- <a href="#apropos" class="btn btn-ghost">Découvrir la plateforme</a> --}}
                     {{-- <a href="{{ url('pcharge') }}" class="btn btn-danger">Déposer une prise en charge</a> --}}
+                    {{-- <a href="#verifierprisencharge" class="btn btn-ghost">Vérifier les résultats des prises en
+                        charge</a>
                 </div>
 
                 <div class="hero-stats">
@@ -1628,37 +1886,36 @@
             </div>
 
             @if ($slides->isNotEmpty())
-                <div class="hero-carousel" id="heroCarousel">
-                    @foreach ($slides as $post)
-                        <div class="hc-slide {{ $loop->first ? 'active' : '' }}">
-                            <div class="hc-media">
-                                <img src="{{ asset($post->getPoste()) }}" alt="{{ $post->legende ?? $post->name }}">
-                            </div>
-                            <div class="hc-caption">
-                                <div class="tag">{{ $post->titre }}</div>
-                                <div class="title">{{ str($post->name)->limit(50) }}</div>
-                            </div>
-                        </div>
-                    @endforeach
+            <div class="hero-carousel" id="heroCarousel">
+                @foreach ($slides as $post)
+                <div class="hc-slide {{ $loop->first ? 'active' : '' }}">
+                    <div class="hc-media">
+                        <img src="{{ asset($post->getPoste()) }}" alt="{{ $post->legende ?? $post->name }}">
+                    </div>
+                    <div class="hc-caption">
+                        <div class="tag">{{ $post->titre }}</div>
+                        <div class="title">{{ str($post->name)->limit(50) }}</div>
+                    </div>
+                </div>
+                @endforeach
 
-                    @if ($slides->count() > 1)
-                        <button type="button" class="hc-nav hc-prev" onclick="hcMove(-1)"
-                            aria-label="Image précédente">‹</button>
-                        <button type="button" class="hc-nav hc-next" onclick="hcMove(1)"
-                            aria-label="Image suivante">›</button>
-                        <div class="hc-dots" id="hcDots"></div>
-                    @endif
-                </div>
+                @if ($slides->count() > 1)
+                <button type="button" class="hc-nav hc-prev" onclick="hcMove(-1)"
+                    aria-label="Image précédente">‹</button>
+                <button type="button" class="hc-nav hc-next" onclick="hcMove(1)" aria-label="Image suivante">›</button>
+                <div class="hc-dots" id="hcDots"></div>
+                @endif
+            </div>
             @else
-                <div class="hero-visual">
-                    <img src="{{ asset('assets/img/logo-onfp.png') }}" alt="Logo ONFP">
-                </div>
+            <div class="hero-visual">
+                <img src="{{ asset('assets/img/logo-onfp.png') }}" alt="Logo ONFP">
+            </div>
             @endif
-        </div>
+        </div>--}}
 
         {{-- Bloc « Vérifiez votre sélection » (désactivé) --}}
-        {{-- <div class="wrap">
-            <div class="verify-card">
+        {{--<div class="wrap">
+            <div class="verify-card" id="verifierprisencharge">
                 <h3>Vérifiez votre sélection</h3>
                 <p>Consultez rapidement le statut de votre dossier à l'aide de vos informations personnelles.</p>
                 <form class="verify-form" method="POST" action="#">
@@ -1678,8 +1935,8 @@
                     <button type="submit" class="btn btn-primary" style="height:44px;">Vérifier</button>
                 </form>
             </div>
-        </div> --}}
-    </section>
+        </div>
+    </section> --}}
 
     {{-- ========== 40 ANS ========== --}}
     {{-- <section class="anniv" id="anniversaire">
@@ -1701,11 +1958,100 @@
                 </div>
                 <div class="cd-box"><span class="n" id="cd-m">--</span><span class="l">Minutes</span>
                 </div>
-                <div class="cd-box"><span class="n" id="cd-s">--</span><span
-                        class="l">Secondes</span></div>
+                <div class="cd-box"><span class="n" id="cd-s">--</span><span class="l">Secondes</span></div>
             </div>
         </div>
     </section> --}}
+
+    {{-- ============================================================
+    1) HERO : bouton "Vérifier les résultats" mis en évidence
+    ============================================================ --}}
+    <section class="hero" id="accueil">
+        <div class="wrap hero-grid">
+            <div>
+                <div class="eyebrow">Office national de formation professionnelle</div>
+                <h1>La référence de la <span class="accent">formation professionnelle</span> au Sénégal</h1>
+                <p class="lead">SIGOF centralise et digitalise vos démarches : demandes de formation, agréments
+                    d'opérateurs, suivi des partenariats, en un seul portail, partout dans le pays.</p>
+
+                <div class="hero-cta">
+                    <a href="{{ route('register-page') }}" class="btn btn-primary">
+                        Créer mon compte <i class="bi bi-arrow-right"></i>
+                    </a>
+
+                    <a href="#verifierprisencharge" class="btn btn-alert">
+                        <span class="btn-alert__badge">Résultats disponibles</span>
+                        {{-- <i class="bi bi-megaphone-fill"></i> --}}
+                        Vérifier les résultats des prises en charge
+                        <i class="bi bi-arrow-down-circle-fill"></i>
+                    </a>
+                </div>
+            </div>
+
+            {{-- ============================================================
+            2) FORMULAIRE de vérification
+            ============================================================ --}}
+            <div class="verify-card" id="verifierprisencharge">
+                <div class="verify-card__head">
+                    {{-- <span class="verify-card__icon"><i class="bi bi-patch-check-fill"></i></span> --}}
+                    <div>
+                        <h3>Vérifiez votre sélection</h3>
+                        <p>Consultez le statut de votre dossier en quelques secondes avec vos informations personnelles.
+                        </p>
+                    </div>
+                </div>
+
+                <form class="verify-form" method="POST" action="#" id="verifyForm">
+                    @csrf
+
+                    <div class="field">
+                        <label for="v-prenom">Prénom</label>
+                        <div class="input-icon">
+                            <i class="bi bi-person"></i>
+                            <input id="v-prenom" name="prenom" type="text" placeholder="Aïssatou"
+                                autocomplete="given-name" required>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="v-nom">Nom</label>
+                        <div class="input-icon">
+                            <i class="bi bi-person-badge"></i>
+                            <input id="v-nom" name="nom" type="text" placeholder="Diop" autocomplete="family-name"
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="v-naissance">Date de naissance</label>
+                        <div class="input-icon">
+                            <i class="bi bi-calendar-event"></i>
+                            <input id="v-naissance" name="date_naissance" type="date" required>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="v-email">Email</label>
+                        <div class="input-icon">
+                            <i class="bi bi-envelope"></i>
+                            <input id="v-email" name="email" type="email" placeholder="vous@exemple.sn"
+                                autocomplete="email" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-verify" id="verifyBtn">
+                        <span class="btn-verify__label"><i class="bi bi-search"></i> Vérifier mon dossier</span>
+                        <span class="btn-verify__loading"><span class="spinner"></span> Vérification…</span>
+                    </button>
+
+                    <p class="verify-note">
+                        <i class="bi bi-shield-lock-fill"></i>
+                        Vos informations sont utilisées uniquement pour retrouver votre dossier.
+                    </p>
+                </form>
+            </div>
+        </div>
+    </section>
 
     {{-- ========== À PROPOS ========== --}}
     <section class="about" id="apropos">
@@ -1957,7 +2303,8 @@
                             value="{{ old('objet') }}" required>
                     </div>
                     <div class="field full"><label for="c-message">Message</label>
-                        <textarea id="c-message" name="message" placeholder="Écrivez votre message ici…" required>{{ old('message') }}</textarea>
+                        <textarea id="c-message" name="message" placeholder="Écrivez votre message ici…"
+                            required>{{ old('message') }}</textarea>
                     </div>
                     <div class="full"><button type="submit" class="btn btn-primary">Envoyer le message <i
                                 class="bi bi-send"></i></button>
@@ -1972,8 +2319,7 @@
                         voies Liberté 6, extension VDN, Dakar</span></div>
                 <div class="info-row"><span class="ic"><i class="bi bi-telephone"></i></span><span>+221 33 827 92
                         51</span></div>
-                <div class="info-row"><span class="ic"><i
-                            class="bi bi-envelope"></i></span><span>onfp@onfp.sn</span>
+                <div class="info-row"><span class="ic"><i class="bi bi-envelope"></i></span><span>onfp@onfp.sn</span>
                 </div>
                 <div class="info-row"><span class="ic"><i class="bi bi-whatsapp"></i></span><span>WhatsApp : +221
                         77
@@ -2006,8 +2352,8 @@
                                     d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.3-1.5 1.6-1.5h1.7V3.6C16.5 3.6 15.6 3.5 14.6 3.5c-2.5 0-4.2 1.5-4.2 4.3v2.1H7.7v3.1h2.7v8h3.1Z" />
                             </svg>
                         </a>
-                        <a class="social-btn" href="https://www.instagram.com/onfp.sn/" target="_blank"
-                            rel="noopener" aria-label="Instagram">
+                        <a class="social-btn" href="https://www.instagram.com/onfp.sn/" target="_blank" rel="noopener"
+                            aria-label="Instagram">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
                                 <rect x="3" y="3" width="18" height="18" rx="5" />
                                 <circle cx="12" cy="12" r="4" />
@@ -2075,13 +2421,12 @@
         </div>
     </footer>
 
-    <button type="button" class="to-top" id="toTop" aria-label="Retour en haut"><i
-            class="bi bi-arrow-up"></i></button>
+    <button type="button" class="to-top" id="toTop" aria-label="Retour en haut"><i class="bi bi-arrow-up"></i></button>
 
     {{-- ========== SCRIPTS ========== --}}
     <script>
         // Menu mobile
-        (function() {
+        (function () {
             const toggle = document.getElementById('menuToggle');
             const links = document.getElementById('navLinks');
             if (!toggle || !links) return;
@@ -2099,7 +2444,7 @@
         })();
 
         // Lien actif selon la section visible + bouton retour en haut
-        (function() {
+        (function () {
             const links = [...document.querySelectorAll('.nav-links a[href^="#"]')];
             const map = new Map(links.map(a => [a.getAttribute('href').slice(1), a]));
             const sections = [...map.keys()].map(id => document.getElementById(id)).filter(Boolean);
@@ -2126,7 +2471,7 @@
         })();
 
         // Apparition au scroll
-        (function() {
+        (function () {
             const items = document.querySelectorAll('.reveal');
             if (!('IntersectionObserver' in window)) {
                 items.forEach(el => el.classList.add('in'));
@@ -2160,7 +2505,7 @@
 
     <script>
         // Carrousel du hero
-        (function() {
+        (function () {
             const slides = document.querySelectorAll('#heroCarousel .hc-slide');
             const dotsWrap = document.getElementById('hcDots');
             if (slides.length < 2 || !dotsWrap) return;
@@ -2198,11 +2543,9 @@
             carousel.addEventListener('mouseleave', resetTimer);
             resetTimer();
         })();
-    </script>
 
-    <script>
         // Compte à rebours des 40 ans
-        (function() {
+        (function () {
             // Dakar = UTC+0 toute l'année. Ajustez l'heure de début de la cérémonie.
             const target = new Date('2026-11-19T09:00:00Z').getTime();
             const box = document.getElementById('countdown');
@@ -2225,6 +2568,13 @@
             const t = setInterval(tick, 1000);
             tick();
         })();
+
+        // État "chargement" au clic sur Vérifier (évite les doubles envois)
+        document.getElementById('verifyForm')?.addEventListener('submit', function () {
+            if (this.checkValidity()) {
+                document.getElementById('verifyBtn').classList.add('is-loading');
+            }
+        });
     </script>
 </body>
 
