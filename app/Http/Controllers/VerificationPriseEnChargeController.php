@@ -98,31 +98,31 @@ class VerificationPriseEnChargeController extends Controller
     } */
 
         private function etat(?string $statut): string
-{
-    $s = Str::of((string) $statut)->lower()->ascii()->trim()->toString();
+            {
+                $s = Str::of((string) $statut)->lower()->ascii()->trim()->toString();
 
-    // Refus testés en premier : "non conforme" contient "conforme", "non admis" contient "admis"
-    foreach ([
-        'non conforme',
-        "liste d'attente",
-        'liste attente',
-        'non admis', 'non retenu', 'non selectionne', 'non valide', 'invalide',
-        'rejet', 'refus', 'recale', 'ajourne',
-    ] as $mot) {
-        if (str_contains($s, $mot)) {
-            return 'rejete';
-        }
-    }
+                // Refus testés en premier : "non conforme" contient "conforme", "non admis" contient "admis"
+                foreach ([
+                    'non conforme',
+                    "liste d'attente",
+                    'liste attente',
+                    'non admis', 'non retenu', 'non selectionne', 'non valide', 'invalide',
+                    'rejet', 'refus', 'recale', 'ajourne',
+                ] as $mot) {
+                    if (str_contains($s, $mot)) {
+                        return 'rejete';
+                    }
+                }
 
-    // Admis : "conforme" ajouté ici
-    foreach (['conforme', 'admis', 'valide', 'selectionne', 'accepte', 'retenu', 'approuve'] as $mot) {
-        if (str_contains($s, $mot)) {
-            return 'admis';
-        }
-    }
+                // Admis : "conforme" ajouté ici
+                foreach (['conforme', 'admis', 'valide', 'selectionne', 'accepte', 'retenu', 'approuve'] as $mot) {
+                    if (str_contains($s, $mot)) {
+                        return 'admis';
+                    }
+                }
 
-    return 'attente';
-}
+                return 'attente';
+            }
 
     private function memeTexte(?string $a, ?string $b): bool
     {
