@@ -2098,7 +2098,7 @@
                                 pattern="[0-9]{13}" minlength="13" maxlength="13" placeholder="13 chiffres"
                                 autocomplete="off" title="Le NIN comporte 13 chiffres" required> --}}
                             <input id="v-nin" name="cin" type="text" inputmode="text" value="{{ old('cin') }}"
-                                pattern="[0-9A-Za-z]{13}" minlength="13" maxlength="14" placeholder="Ex : 2B01201100050"
+                                pattern="[0-9A-Za-z]{13,14}" minlength="13" maxlength="14" placeholder="Ex : 2B01201100050"
                                 autocomplete="off" style="text-transform: uppercase;"
                                 title="Le NIN comporte 13 caractères (chiffres et lettres)" required>
                         </div>
