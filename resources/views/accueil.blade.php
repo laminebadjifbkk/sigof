@@ -2102,7 +2102,7 @@
                                 autocomplete="off" style="text-transform: uppercase;"
                                 title="Le NIN comporte 13 caractères (chiffres et lettres)" required>
                         </div>
-                        <small class="field-hint">Les 13 caractères (chiffres et lettres) figurant sur votre carte
+                        <small class="field-hint">Les 13 ou 14 caractères (chiffres et lettres) figurant sur votre carte
                             d'identité biométrique.</small>
                     </div>
 
