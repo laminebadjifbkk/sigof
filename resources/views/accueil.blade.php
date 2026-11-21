@@ -2094,9 +2094,13 @@
                         <label for="v-nin">Numéro de la carte nationale d'identité (NIN)</label>
                         <div class="input-icon">
                             <i class="bi bi-person-vcard"></i>
-                            <input id="v-nin" name="cin" type="text" inputmode="numeric" value="{{ old('cin') }}"
+                            {{-- <input id="v-nin" name="cin" type="text" inputmode="numeric" value="{{ old('cin') }}"
                                 pattern="[0-9]{13}" minlength="13" maxlength="13" placeholder="13 chiffres"
-                                autocomplete="off" title="Le NIN comporte 13 chiffres" required>
+                                autocomplete="off" title="Le NIN comporte 13 chiffres" required> --}}
+                            <input id="v-nin" name="cin" type="text" inputmode="text" value="{{ old('cin') }}"
+                                pattern="[0-9A-Za-z]{13}" minlength="13" maxlength="13" placeholder="Ex : 2B01201100050"
+                                autocomplete="off" style="text-transform: uppercase;"
+                                title="Le NIN comporte 13 caractères (chiffres et lettres)" required>
                         </div>
                         <small class="field-hint">Les 13 chiffres figurant sur votre carte d'identité
                             biométrique.</small>
