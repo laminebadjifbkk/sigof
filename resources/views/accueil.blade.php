@@ -2102,8 +2102,8 @@
                                 autocomplete="off" style="text-transform: uppercase;"
                                 title="Le NIN comporte 13 caractères (chiffres et lettres)" required>
                         </div>
-                        <small class="field-hint">Les 13 chiffres figurant sur votre carte d'identité
-                            biométrique.</small>
+                        <small class="field-hint">Les 13 caractères (chiffres et lettres) figurant sur votre carte
+                            d'identité biométrique.</small>
                     </div>
 
                     <div class="field col-full">
@@ -2647,7 +2647,7 @@
 
         // NIN : chiffres uniquement (supprime espaces, lettres, tirets à la saisie / au collage)
         document.getElementById('v-nin')?.addEventListener('input', function () {
-            this.value = this.value.replace(/\D/g, '').slice(0, 13);
+            this.value = this.value.replace(/[^0-9A-Za-z]/g, '').toUpperCase().slice(0, 13);
         });
 
         // État "chargement" au clic sur Vérifier (évite les doubles envois)
