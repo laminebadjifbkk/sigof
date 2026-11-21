@@ -117,7 +117,7 @@ class VerificationPriseEnChargeController extends Controller
                 }
 
                 // Admis : "conforme" ajouté ici
-                foreach (['conforme', 'admis', 'valide', 'selectionne', 'accepte', 'retenu', 'approuve'] as $mot) {
+                foreach (['admis', 'valide', 'selectionne', 'accepte', 'retenu', 'approuve'] as $mot) {
                     if (str_contains($s, $mot)) {
                         return 'admis';
                     }
