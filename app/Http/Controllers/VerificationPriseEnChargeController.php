@@ -27,11 +27,12 @@ class VerificationPriseEnChargeController extends Controller
             'nom'            => ['required', 'string', 'max:100'],
             'date_naissance' => ['required', 'date', 'before:today'],
             /* 'cin'            => ['required', 'digits:13'], */
-            'cin'            => ['required', 'regex:/^[0-9A-Z]{13}$/'],
+            /* 'cin'            => ['required', 'regex:/^[0-9A-Z]{13}$/'], */
+            'cin' => ['required', 'regex:/^[0-9A-Z]{13,14}$/'],
             'email'          => ['required', 'email', 'max:150'],
         ], [
             /* 'cin.digits' => 'Le numéro de carte d\'identité (NIN) doit comporter 13 chiffres.', */
-            'cin.regex' => 'Le numéro de carte d\'identité (NIN) doit comporter 13 caractères (chiffres et lettres), par exemple 2B01201100050.',
+            'cin.regex' => 'Le numéro de carte d\'identité (NIN) doit comporter 13 ou 14 caractères (chiffres et lettres), par exemple 2B01201100050.',
         ]);
 
         // 1) Candidats probables : CIN + date de naissance (le plus récent d'abord)

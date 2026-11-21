@@ -2098,7 +2098,7 @@
                                 pattern="[0-9]{13}" minlength="13" maxlength="13" placeholder="13 chiffres"
                                 autocomplete="off" title="Le NIN comporte 13 chiffres" required> --}}
                             <input id="v-nin" name="cin" type="text" inputmode="text" value="{{ old('cin') }}"
-                                pattern="[0-9A-Za-z]{13}" minlength="13" maxlength="13" placeholder="Ex : 2B01201100050"
+                                pattern="[0-9A-Za-z]{13}" minlength="13" maxlength="14" placeholder="Ex : 2B01201100050"
                                 autocomplete="off" style="text-transform: uppercase;"
                                 title="Le NIN comporte 13 caractères (chiffres et lettres)" required>
                         </div>
@@ -2645,9 +2645,9 @@
             tick();
         })();
 
-        // NIN : chiffres uniquement (supprime espaces, lettres, tirets à la saisie / au collage)
+        // NIN : lettres et chiffres uniquement (supprime espaces, tirets à la saisie / au collage), 14 max
         document.getElementById('v-nin')?.addEventListener('input', function () {
-            this.value = this.value.replace(/[^0-9A-Za-z]/g, '').toUpperCase().slice(0, 13);
+            this.value = this.value.replace(/[^0-9A-Za-z]/g, '').toUpperCase().slice(0, 14);
         });
 
         // État "chargement" au clic sur Vérifier (évite les doubles envois)
