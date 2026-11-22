@@ -1,15 +1,29 @@
 <?php
 
+
+
+
 use App\Models\Support\SupportDocumentStock;
 use App\Services\Support\SupportDocumentStockService;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\DB;
 
+require __DIR__ . '/../../vendor/autoload.php';
+
+$app = require __DIR__ . '/../../bootstrap/app.php';
+
+$kernel = $app->make(
+    \Illuminate\Contracts\Console\Kernel::class
+);
+
+$kernel->bootstrap();
+
+
 $createur = 1;
 $validateur = 2922;
 $articleId = 32; // Disque SSD
 $fournisseurId = 16; // TEWA
-$employeId = 1;
+$employeId = 2;
 $coutUnitaire = '10000.0000';
 
 $service = app(SupportDocumentStockService::class);

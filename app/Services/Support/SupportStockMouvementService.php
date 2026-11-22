@@ -586,28 +586,30 @@ class SupportStockMouvementService
             );
         }
 
-        // Les quantités déjà retournées sont calculées à partir des
-        // mouvements réellement comptabilisés.
-        $quantiteDejaRetournee = SupportMouvementStock::query()
+        // Calcul des retours déjà comptabilisés.
+        // La ligne de sortie d'origine est verrouillée plus haut :
+        // elle sérialise les validations de retours concurrents.
+        $retoursExistants = SupportMouvementStock::query()
             ->join(
                 'support_lignes_documents_stocks as lignes',
                 'lignes.id',
                 '=',
                 'support_mouvements_stocks.support_ligne_document_stock_id'
             )
-            ->where(
-                'lignes.support_ligne_origine_id',
-                $origine->id
-            )
-            ->where(
-                'support_mouvements_stocks.type_mouvement',
-                'RETOUR'
-            )
-            ->sum('support_mouvements_stocks.quantite');
+            ->where('lignes.support_ligne_origine_id', $origine->id)
+            ->where('support_mouvements_stocks.type_mouvement', 'RETOUR')
+            ->lockForUpdate()
+            ->get(['support_mouvements_stocks.quantite']);
 
-        $totalRetour = BigDecimal::of(
-            (string) $quantiteDejaRetournee
-        )->plus($quantiteRetour);
+        $quantiteDejaRetournee = BigDecimal::of('0');
+
+        foreach ($retoursExistants as $retourExistant) {
+            $quantiteDejaRetournee = $quantiteDejaRetournee->plus(
+                (string) $retourExistant->quantite
+            );
+        }
+
+        $totalRetour = $quantiteDejaRetournee->plus($quantiteRetour);
 
         if ($totalRetour->isGreaterThan(
             (string) $mouvementOrigine->quantite

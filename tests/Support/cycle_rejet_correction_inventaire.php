@@ -9,6 +9,15 @@ use App\Models\Support\SupportStock;
 use App\Services\Support\SupportDocumentStockService;
 use App\Services\Support\SupportInventaireStockService;
 
+require __DIR__ . '/../../vendor/autoload.php';
+
+$app = require __DIR__ . '/../../bootstrap/app.php';
+
+$kernel = $app->make(
+    \Illuminate\Contracts\Console\Kernel::class
+);
+
+$kernel->bootstrap();
 $transactionOuverte = false;
 
 try {

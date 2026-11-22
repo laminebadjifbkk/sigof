@@ -515,15 +515,15 @@ class SupportDocumentStockService
             'support_fournisseur_stock_id' => [
                 $type === 'RECEPTION' ? 'required' : 'nullable',
                 'integer',
-                'exists:support_fournisseurs_stocks,id',
+                'exists:support_fournisseurs_stocks,id,deleted_at,NULL,actif,1',
             ],
-            'employee_id' => ['nullable', 'integer', 'exists:employees,id'],
-            'direction_id' => ['nullable', 'integer', 'exists:directions,id'],
-            'antenne_id' => ['nullable', 'integer', 'exists:antennes,id'],
+            'employee_id' => ['nullable', 'integer', 'exists:employees,id,deleted_at,NULL'],
+            'direction_id' => ['nullable', 'integer', 'exists:directions,id,deleted_at,NULL'],
+            'antenne_id' => ['nullable', 'integer', 'exists:antennes,id,deleted_at,NULL'],
             'support_ticket_id' => [
                 'nullable',
                 'integer',
-                'exists:support_tickets,id',
+                'exists:support_tickets,id,deleted_at,NULL',
             ],
         ];
 

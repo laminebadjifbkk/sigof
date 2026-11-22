@@ -8,6 +8,7 @@ use App\Models\Support\SupportInventaireLigne;
 use App\Models\Support\SupportInventaireStock;
 use App\Models\Support\SupportMouvementStock;
 use App\Models\Support\SupportStock;
+use App\Models\Support\SupportUniteStock;
 use Brick\Math\BigDecimal;
 use Brick\Math\RoundingMode;
 use Illuminate\Support\Collection;
@@ -470,7 +471,6 @@ class SupportInventaireStockService
             $this->verifierValidateur($inventaire, $userId);
 
             $lignes = $inventaire->lignes()
-                ->with('article')
                 ->orderBy('support_article_stock_id')
                 ->lockForUpdate()
                 ->get();
@@ -481,18 +481,81 @@ class SupportInventaireStockService
                 );
             }
 
+            $articleIds = $lignes
+                ->pluck('support_article_stock_id')
+                ->map(fn ($id) => (int) $id)
+                ->unique()
+                ->sort()
+                ->values()
+                ->all();
+
+            // Verrouillage des articles dans le même ordre que
+            // SupportStockMouvementService : articles -> unités -> stocks.
+            $articles = SupportArticleStock::query()
+                ->whereIn('id', $articleIds)
+                ->orderBy('id')
+                ->lockForUpdate()
+                ->get()
+                ->keyBy('id');
+
+            if ($articles->count() !== count($articleIds)) {
+                $this->erreur(
+                    'Un ou plusieurs articles de l’inventaire sont introuvables ou supprimés.'
+                );
+            }
+
             foreach ($lignes as $ligne) {
+                $article = $articles->get(
+                    (int) $ligne->support_article_stock_id
+                );
+
+                if (!$article) {
+                    $this->erreur(
+                        "L'article #{$ligne->support_article_stock_id} est introuvable."
+                    );
+                }
+
                 if ($ligne->quantite_comptee === null) {
                     $this->erreur(
-                        "Le comptage de l'article {$ligne->article->reference} est manquant."
+                        "Le comptage de l'article {$article->reference} est manquant."
                     );
                 }
             }
 
-            $articleIds = $lignes
-                ->pluck('support_article_stock_id')
-                ->map(fn ($id) => (int) $id)
-                ->all();
+            foreach ($articles as $article) {
+                if (!$article->actif) {
+                    $this->erreur(
+                        "L'article {$article->reference} est inactif."
+                    );
+                }
+            }
+
+            // Verrouillage déterministe des unités de mesure.
+            $uniteIds = $articles->pluck('support_unite_stock_id')
+                ->unique()
+                ->sort()
+                ->values();
+
+            $unites = SupportUniteStock::query()
+                ->whereIn('id', $uniteIds)
+                ->orderBy('id')
+                ->lockForUpdate()
+                ->get()
+                ->keyBy('id');
+
+            if ($unites->count() !== $uniteIds->count()) {
+                $this->erreur(
+                    'Une ou plusieurs unités de mesure sont introuvables ou supprimées.'
+                );
+            }
+
+            foreach ($unites as $unite) {
+                if (!$unite->actif) {
+                    $this->erreur(
+                        "L'unité {$unite->libelle} est inactive."
+                    );
+                }
+            }
 
             $stocks = SupportStock::query()
                 ->whereIn('support_article_stock_id', $articleIds)
@@ -503,7 +566,9 @@ class SupportInventaireStockService
 
             // Vérification stricte de la propriété des verrous.
             foreach ($lignes as $ligne) {
-                $article = $ligne->article;
+                $article = $articles->get(
+                    (int) $ligne->support_article_stock_id
+                );
                 $stock = $stocks->get($article->id);
 
                 if (
@@ -540,9 +605,14 @@ class SupportInventaireStockService
                         $ligne->support_article_stock_id
                     );
 
+                    $article = $articles->get(
+                        (int) $ligne->support_article_stock_id
+                    );
+
                     $cout = $this->determinerCoutAjustementPositif(
                         $ligne,
-                        $stock
+                        $stock,
+                        $article
                     );
 
                     $ajustementsPositifs[] = [
@@ -620,6 +690,10 @@ class SupportInventaireStockService
 
             // Contrôle final avant clôture.
             foreach ($lignes as $ligne) {
+                $article = $articles->get(
+                    (int) $ligne->support_article_stock_id
+                );
+
                 $stock = SupportStock::query()
                     ->where('support_article_stock_id', $ligne->support_article_stock_id)
                     ->lockForUpdate()
@@ -630,7 +704,7 @@ class SupportInventaireStockService
                         ->compareTo((string) $ligne->quantite_comptee) !== 0
                 ) {
                     $this->erreur(
-                        "La quantité finale de {$ligne->article->reference} ne correspond pas au comptage."
+                        "La quantité finale de {$article->reference} ne correspond pas au comptage."
                     );
                 }
 
@@ -639,7 +713,7 @@ class SupportInventaireStockService
                     || $stock->support_inventaire_id !== null
                 ) {
                     $this->erreur(
-                        "Le stock de {$ligne->article->reference} est encore verrouillé."
+                        "Le stock de {$article->reference} est encore verrouillé."
                     );
                 }
             }
@@ -717,7 +791,8 @@ class SupportInventaireStockService
      */
     private function determinerCoutAjustementPositif(
         SupportInventaireLigne $ligne,
-        SupportStock $stock
+        SupportStock $stock,
+        SupportArticleStock $article
     ): string {
         $cmp = BigDecimal::of((string) $stock->cout_moyen_pondere);
 
@@ -734,7 +809,7 @@ class SupportInventaireStockService
             ->value('cout_unitaire');
 
         if ($dernierCout === null) {
-            $reference = $ligne->article->reference;
+            $reference = $article->reference;
 
             $this->erreur(
                 "Impossible de valoriser l'écart positif de {$reference} : aucun CMP ni coût d'entrée positif dans l'historique."
