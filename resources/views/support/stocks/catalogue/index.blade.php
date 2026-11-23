@@ -50,14 +50,14 @@
                     <label class="form-label">Recherche</label>
                     <input type="text"
                            name="recherche"
-                           class="form-control"
+                           class="form-control form-control-sm"
                            value="{{ request('recherche') }}"
                            placeholder="Code, désignation, libellé, fournisseur...">
                 </div>
 
                 <div class="col-md-3">
                     <label class="form-label">Statut</label>
-                    <select name="statut" class="form-select">
+                    <select name="statut" class="form-select form-select-sm">
                         <option value="">Tous les statuts</option>
                         <option value="actif" @selected(request('statut') === 'actif')>
                             Actifs
@@ -72,12 +72,12 @@
                 </div>
 
                 <div class="col-md-3 d-flex gap-2">
-                    <button class="btn btn-dark">
+                    <button class="btn btn-sm btn-dark">
                         <i class="bi bi-search"></i> Rechercher
                     </button>
 
                     <a href="{{ route('support.stocks.catalogue.index', $type) }}"
-                       class="btn btn-outline-secondary">
+                       class="btn btn-sm btn-outline-secondary">
                         Effacer
                     </a>
                 </div>
@@ -101,7 +101,7 @@
         </div>
 
         <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
+            <table class="table table-hover align-middle mb-0" id="table-catalogue">
 
                 <thead class="table-light">
                 <tr>
@@ -265,3 +265,48 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+    <script>
+        new DataTable('#table-catalogue', {
+            ordering: true, // désactive le tri automatique
+            layout: {
+                topStart: {
+                    buttons: ['csv', 'excel', 'print'],
+                }
+            },
+            "order": [
+                [2, 'desc']
+            ],
+            language: {
+                "sProcessing": "Traitement en cours...",
+                "sSearch": "Rechercher&nbsp;:",
+                "sLengthMenu": "Afficher _MENU_ &eacute;l&eacute;ments",
+                "sInfo": "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                "sInfoEmpty": "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
+                "sInfoFiltered": "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                "sInfoPostFix": "",
+                "sLoadingRecords": "Chargement en cours...",
+                "sZeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                "sEmptyTable": "Aucune donn&eacute;e disponible dans le tableau",
+                "oPaginate": {
+                    "sFirst": "Premier",
+                    "sPrevious": "Pr&eacute;c&eacute;dent",
+                    "sNext": "Suivant",
+                    "sLast": "Dernier"
+                },
+                "oAria": {
+                    "sSortAscending": ": activer pour trier la colonne par ordre croissant",
+                    "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+                },
+                "select": {
+                    "rows": {
+                        _: "%d lignes sÃ©lÃ©ctionnÃ©es",
+                        0: "Aucune ligne sÃ©lÃ©ctionnÃ©e",
+                        1: "1 ligne sÃ©lÃ©ctionnÃ©e"
+                    }
+                }
+            }
+        });
+    </script>
+@endpush
