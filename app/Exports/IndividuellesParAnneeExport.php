@@ -3,19 +3,22 @@
 namespace App\Exports;
 
 use App\Models\Individuelle;
+use Illuminate\Support\Carbon;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
-use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithStyles;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
+use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class IndividuellesParAnneeExport implements
     FromQuery,
     WithHeadings,
     WithMapping,
-    ShouldAutoSize,
-    WithStyles
+    WithStyles,
+    WithColumnWidths,
+    WithChunkReading
 {
     protected int $annee;
     private int $compteur = 0;
@@ -27,20 +30,36 @@ class IndividuellesParAnneeExport implements
 
     public function query()
     {
+        $debut = Carbon::create($this->annee, 1, 1)->startOfDay();
+        $fin   = Carbon::create($this->annee, 12, 31)->endOfDay();
+
         return Individuelle::query()
-            ->with([
-                'user',
-                'module',
-                'region',
-                'departement',
-                'commune',
-                'arrondissement',
-                'etude',
-                'diplome',
-                'diplomespro',
-            ])
-            ->whereYear('date_depot', $this->annee)
-            ->orderByDesc('date_depot');
+            ->with(['user', 'module', 'region', 'departement'])
+            ->whereBetween('date_depot', [$debut, $fin])
+            ->orderByDesc('date_depot')
+            ->orderByDesc('id'); // tri stable pour le chunking
+    }
+
+    public function chunkSize(): int
+    {
+        return 500;
+    }
+
+    public function columnWidths(): array
+    {
+        $widths = [];
+
+        foreach (range('A', 'Z') as $col) {
+            $widths[$col] = 20;
+        }
+
+        $widths['A']  = 6;
+        $widths['AA'] = 20;
+        $widths['AB'] = 25;
+        $widths['AC'] = 25;
+        $widths['AD'] = 40;
+
+        return $widths;
     }
 
     public function headings(): array
@@ -58,8 +77,6 @@ class IndividuellesParAnneeExport implements
             'Email',
             'Région',
             'Département',
-            /* 'Commune',
-            'Arrondissement', */
             'Module sollicité',
             'Date de dépôt',
             'Statut',
@@ -98,8 +115,6 @@ class IndividuellesParAnneeExport implements
             $user?->email,
             $individuelle->region?->nom,
             $individuelle->departement?->nom,
-            /* $individuelle->commune?->nom,
-            $individuelle->arrondissement?->nom, */
             $individuelle->module?->name,
             $individuelle->date_depot?->format('d/m/Y H:i'),
             $individuelle->statut,
@@ -128,11 +143,11 @@ class IndividuellesParAnneeExport implements
         return [
             1 => [
                 'font' => [
-                    'bold' => true,
+                    'bold'  => true,
                     'color' => ['rgb' => 'FFFFFF'],
                 ],
                 'fill' => [
-                    'fillType' => 'solid',
+                    'fillType'   => 'solid',
                     'startColor' => ['rgb' => 'F28500'],
                 ],
             ],
