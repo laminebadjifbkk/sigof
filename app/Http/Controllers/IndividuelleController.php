@@ -32,6 +32,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 use ZipArchive;
 use App\Exports\IndividuellesParAnneeExport;
+use Illuminate\Support\Facades\Storage;
 
 class IndividuelleController extends Controller
 {
@@ -2845,20 +2846,53 @@ class IndividuelleController extends Controller
         return redirect()->back();
     }
 
-   public function exportParAnnee($annee)
-        {
-            $this->checkAccess();
+public function exportParAnnee($annee)
+{
+    $this->checkAccess();
 
-            abort_unless(
-                is_numeric($annee)
-                && (int) $annee >= 2000
-                && (int) $annee <= 2100,
-                404
-            );
+    $annee = (int) $annee;
 
-            return Excel::download(
-                new IndividuellesParAnneeExport((int) $annee),
-                'Demandes_individuelles_' . $annee . '.xlsx'
+    if ($annee < 2000 || $annee > now()->year) {
+        abort(404, 'Année invalide.');
+    }
+
+    // Nom du fichier
+    $fileName = "Demandes_individuelles_{$annee}.xlsx";
+
+    // Dossier temporaire
+    $tempDirectory = 'temp/individuelles_' . uniqid();
+    Storage::disk('local')->makeDirectory($tempDirectory);
+
+    // Chemin de stockage
+    $relativePath = $tempDirectory . '/' . $fileName;
+
+    try {
+        // Génération Excel directement sur le disque
+        Excel::store(
+            new IndividuellesParAnneeExport($annee),
+            $relativePath,
+            'local'
+        );
+
+        $excelPath = Storage::disk('local')->path($relativePath);
+
+        if (!file_exists($excelPath)) {
+            throw new \RuntimeException(
+                "Le fichier Excel n'a pas été généré."
             );
         }
+
+        // Téléchargement puis suppression du fichier
+        return response()
+            ->download($excelPath, $fileName)
+            ->deleteFileAfterSend(true);
+
+    } catch (\Throwable $e) {
+        Storage::disk('local')->deleteDirectory($tempDirectory);
+
+        \Log::error('Erreur export demandes individuelles : ' . $e->getMessage());
+
+        throw $e;
+    }
+}
 }
