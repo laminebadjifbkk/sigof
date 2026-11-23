@@ -56,16 +56,16 @@ class SupportDocumentStockService
                         ? ($donnees['support_fournisseur_stock_id'] ?? null)
                         : null,
                 'employee_id' => $type === 'SORTIE'
-                    ? ($donnees['employee_id'] ?? null)
+                    ? (($donnees['employee_id'] ?? null) ?: null)
                     : null,
                 'direction_id' => $type === 'SORTIE'
-                    ? ($donnees['direction_id'] ?? null)
+                    ? (($donnees['direction_id'] ?? null) ?: null)
                     : null,
                 'antenne_id' => $type === 'SORTIE'
-                    ? ($donnees['antenne_id'] ?? null)
+                    ? (($donnees['antenne_id'] ?? null) ?: null)
                     : null,
                 'support_ticket_id' => $type === 'SORTIE'
-                    ? ($donnees['support_ticket_id'] ?? null)
+                    ? (($donnees['support_ticket_id'] ?? null) ?: null)
                     : null,
                 'date_document' => $donnees['date_document'],
                 'user_create_id' => $userId,
