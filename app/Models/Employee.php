@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
+use App\Models\Antenne;
 
 /**
  * Class Employee
@@ -326,4 +327,13 @@ class Employee extends Model
         );
     }
 
+    public function antennes()
+        {
+            return $this->belongsToMany(
+                Antenne::class,
+                'antenne_employee',
+                'employee_id',
+                'antenne_id'
+            )->withTimestamps();
+        }
 }

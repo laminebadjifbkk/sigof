@@ -1504,7 +1504,7 @@ Route::get('/prisenchargestatutregion/{statut}/{region}/{annee_scolaire}', [Form
                     Route::get('/', 'index')->name('index');
                     Route::get('/export/excel', 'exporterExcel')->name('excel');
                     Route::get('/export/pdf', 'exporterPdf')->name('pdf');
-                    Route::get('/{id}', 'show')->whereNumber('id')->name('show');
+        Route::get('/{id}', 'show')->whereNumber('id')->name('show');
                 });
 
             // Alertes et rapports de stock
@@ -1749,6 +1749,10 @@ Route::prefix('stocks/documents')
 
         Route::get('/create/{type}', 'create')->name('create');
         Route::post('/', 'store')->name('store');
+
+        Route::get('/employes/{type}/{id}', 'employesParEntite')
+            ->whereNumber('id')
+            ->name('employes');
 
         Route::get('/{id}', 'show')->whereNumber('id')->name('show');
         Route::get('/{id}/edit', 'edit')->whereNumber('id')->name('edit');

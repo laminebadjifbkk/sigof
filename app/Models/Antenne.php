@@ -11,10 +11,11 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Employee;
 
 /**
  * Class Antenne
- * 
+ *
  * @property int $id
  * @property string $uuid
  * @property string|null $name
@@ -26,7 +27,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string|null $informations
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
+ *
  * @property Collection|Region[] $regions
  * @property Collection|Collective[] $collectives
  * @property Collection|Formation[] $formations
@@ -46,7 +47,7 @@ class Antenne extends Model
 		'chef_id' => 'int',
         'date_ouverture' => 'datetime'
 	];
-    
+
     protected $dates = [
         'date_ouverture'
     ];
@@ -100,4 +101,13 @@ class Antenne extends Model
         );
     }
 
+    public function employees()
+        {
+            return $this->belongsToMany(
+                Employee::class,
+                'antenne_employee',
+                'antenne_id',
+                'employee_id'
+            )->withTimestamps();
+        }
 }

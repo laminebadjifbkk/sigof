@@ -3,12 +3,17 @@
 namespace App\Http\Controllers\Support;
 
 use App\Http\Controllers\Controller;
+use App\Models\Support\SupportTicket;
+use App\Models\Employee;
+use App\Models\Direction;
+use App\Models\Antenne;
 use App\Models\Support\SupportArticleStock;
 use App\Models\Support\SupportDocumentStock;
 use App\Models\Support\SupportFournisseurStock;
 use App\Models\Support\SupportLigneDocumentStock;
 use App\Services\Support\SupportDocumentStockService;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class SupportStockDocumentController extends Controller
 {
@@ -19,6 +24,100 @@ class SupportStockDocumentController extends Controller
         'AJUSTEMENT_POSITIF',
         'AJUSTEMENT_NEGATIF',
     ];
+
+    /**
+     * Vérifie le rattachement du destinataire et prépare les champs métier.
+     */
+    private function preparerDestinataire(
+        array $donnees,
+        string $typeDocument
+    ): array {
+        $employeeId = $donnees['employee_id'] ?? null;
+        $entiteType = $donnees['entite_type'] ?? null;
+        $entiteId = $donnees['entite_id'] ?? null;
+
+        unset($donnees['entite_type'], $donnees['entite_id']);
+
+        $donnees['employee_id'] = null;
+        $donnees['direction_id'] = null;
+        $donnees['antenne_id'] = null;
+
+        if ($typeDocument !== 'SORTIE') {
+            if ($employeeId || $entiteId) {
+                throw ValidationException::withMessages([
+                    'entite_id' => 'Un destinataire est autorisé uniquement pour une sortie.',
+                ]);
+            }
+
+            return $donnees;
+        }
+
+        if (!$entiteType || !$entiteId) {
+            throw ValidationException::withMessages([
+                'entite_id' => 'Sélectionnez une direction ou une antenne.',
+            ]);
+        }
+
+        if ($entiteType === 'direction') {
+            $entite = Direction::query()->find($entiteId);
+
+            if (!$entite) {
+                throw ValidationException::withMessages([
+                    'entite_id' => 'La direction sélectionnée est introuvable ou inactive.',
+                ]);
+            }
+
+            if ($employeeId) {
+                $employe = Employee::query()
+                    ->whereKey($employeeId)
+                    ->where('directions_id', $entiteId)
+                    ->first();
+
+                if (!$employe) {
+                    throw ValidationException::withMessages([
+                        'employee_id' => 'Cet employé n’est pas rattaché à cette direction.',
+                    ]);
+                }
+
+                $donnees['employee_id'] = (int) $employe->id;
+            } else {
+                $donnees['direction_id'] = (int) $entite->id;
+            }
+        } elseif ($entiteType === 'antenne') {
+            $entite = Antenne::query()->find($entiteId);
+
+            if (!$entite) {
+                throw ValidationException::withMessages([
+                    'entite_id' => 'L’antenne sélectionnée est introuvable ou inactive.',
+                ]);
+            }
+
+            if ($employeeId) {
+                $employe = Employee::query()
+                    ->whereKey($employeeId)
+                    ->whereHas('antennes', function ($query) use ($entiteId) {
+                        $query->where('antennes.id', $entiteId);
+                    })
+                    ->first();
+
+                if (!$employe) {
+                    throw ValidationException::withMessages([
+                        'employee_id' => 'Cet employé n’est pas rattaché à cette antenne.',
+                    ]);
+                }
+
+                $donnees['employee_id'] = (int) $employe->id;
+            } else {
+                $donnees['antenne_id'] = (int) $entite->id;
+            }
+        } else {
+            throw ValidationException::withMessages([
+                'entite_type' => 'Type d’entité invalide.',
+            ]);
+        }
+
+        return $donnees;
+    }
 
     private function autoriser(Request $request, string $permission): void
     {
@@ -84,10 +183,80 @@ class SupportStockDocumentController extends Controller
             ->orderBy('raison_sociale')
             ->get();
 
+        $directions = Direction::query()
+            ->orderBy('name')
+            ->get(['id', 'name', 'sigle']);
+
+        $antennes = Antenne::query()
+            ->orderBy('name')
+            ->get(['id', 'name', 'code']);
+
+        $tickets = SupportTicket::query()
+            ->with('statut')
+            ->whereHas('statut', function ($query) {
+                $query->where('est_terminal', false)
+                    ->where('actif', true);
+            })
+            ->orderByDesc('date_soumission')
+            ->get(['id', 'reference', 'objet', 'support_statut_id']);
+
         return view('support.stocks.documents.form', compact(
             'type',
-            'fournisseurs'
+            'fournisseurs',
+            'directions',
+            'antennes',
+            'tickets'
         ));
+    }
+
+    /**
+     * Retourne les employés rattachés à une direction ou une antenne.
+     */
+    public function employesParEntite(
+        Request $request,
+        string $type,
+        int $id
+    ) {
+        $this->autoriser($request, 'support.stocks.manage');
+
+        abort_unless(in_array($type, ['direction', 'antenne'], true), 404);
+
+        if ($type === 'direction') {
+            Direction::query()->findOrFail($id);
+
+            $employes = Employee::query()
+                ->with('user')
+                ->where('directions_id', $id)
+                ->orderBy('id')
+                ->get();
+        } else {
+            Antenne::query()->findOrFail($id);
+
+            $employes = Employee::query()
+                ->with('user')
+                ->whereHas('antennes', function ($query) use ($id) {
+                    $query->where('antennes.id', $id);
+                })
+                ->orderBy('id')
+                ->get();
+        }
+
+        return response()->json(
+            $employes->map(function ($employe) {
+                $nom = trim(
+                    ($employe->user->firstname ?? '') . ' ' .
+                    ($employe->user->name ?? '')
+                );
+
+                return [
+                    'id' => $employe->id,
+                    'matricule' => $employe->matricule,
+                    'label' => ($employe->matricule
+                        ? $employe->matricule . ' — '
+                        : '') . ($nom ?: 'Employé #' . $employe->id),
+                ];
+            })->values()
+        );
     }
 
     public function store(
@@ -104,13 +273,26 @@ class SupportStockDocumentController extends Controller
                 'integer',
                 'exists:support_fournisseurs_stocks,id',
             ],
-            'employee_id' => ['nullable', 'integer'],
-            'direction_id' => ['nullable', 'integer'],
-            'antenne_id' => ['nullable', 'integer'],
-            'support_ticket_id' => ['nullable', 'integer'],
+            'entite_type' => ['required_if:type_document,SORTIE', 'nullable', 'in:direction,antenne'],
+            'entite_id' => ['required_if:type_document,SORTIE', 'nullable', 'integer'],
+            'employee_id' => [
+                'nullable',
+                'integer',
+                'exists:employees,id,deleted_at,NULL',
+            ],
+            'support_ticket_id' => [
+                'nullable',
+                'integer',
+                'exists:support_tickets,id,deleted_at,NULL',
+            ],
             'motif' => ['nullable', 'string', 'max:255'],
             'observations' => ['nullable', 'string'],
         ]);
+
+        $data = $this->preparerDestinataire(
+            $data,
+            $data['type_document']
+        );
 
         $document = $service->creerDocument(
             $data,
@@ -173,10 +355,30 @@ class SupportStockDocumentController extends Controller
             ->orderBy('raison_sociale')
             ->get();
 
+        $directions = Direction::query()
+            ->orderBy('name')
+            ->get(['id', 'name', 'sigle']);
+
+        $antennes = Antenne::query()
+            ->orderBy('name')
+            ->get(['id', 'name', 'code']);
+
+        $tickets = SupportTicket::query()
+            ->with('statut')
+            ->whereHas('statut', function ($query) {
+                $query->where('est_terminal', false)
+                    ->where('actif', true);
+            })
+            ->orderByDesc('date_soumission')
+            ->get(['id', 'reference', 'objet', 'support_statut_id']);
+
         return view('support.stocks.documents.form', compact(
             'document',
             'type',
-            'fournisseurs'
+            'fournisseurs',
+            'directions',
+            'antennes',
+            'tickets'
         ));
     }
 
@@ -187,6 +389,15 @@ class SupportStockDocumentController extends Controller
     ) {
         $this->autoriser($request, 'support.stocks.manage');
 
+        $document = $this->document($id);
+        $typeDocument = $document->type_document;
+
+        abort_unless(
+            (int) $document->user_create_id === (int) $request->user()->id
+            && in_array($document->statut, ['BROUILLON', 'REJETEE'], true),
+            403
+        );
+
         $data = $request->validate([
             'date_document' => ['required', 'date'],
             'support_fournisseur_stock_id' => [
@@ -194,13 +405,29 @@ class SupportStockDocumentController extends Controller
                 'integer',
                 'exists:support_fournisseurs_stocks,id',
             ],
-            'employee_id' => ['nullable', 'integer'],
-            'direction_id' => ['nullable', 'integer'],
-            'antenne_id' => ['nullable', 'integer'],
-            'support_ticket_id' => ['nullable', 'integer'],
+            'entite_type' => [
+                $typeDocument === 'SORTIE' ? 'required' : 'nullable',
+                'in:direction,antenne',
+            ],
+            'entite_id' => [
+                $typeDocument === 'SORTIE' ? 'required' : 'nullable',
+                'integer',
+            ],
+            'employee_id' => [
+                'nullable',
+                'integer',
+                'exists:employees,id,deleted_at,NULL',
+            ],
+            'support_ticket_id' => [
+                'nullable',
+                'integer',
+                'exists:support_tickets,id,deleted_at,NULL',
+            ],
             'motif' => ['nullable', 'string', 'max:255'],
             'observations' => ['nullable', 'string'],
         ]);
+
+        $data = $this->preparerDestinataire($data, $typeDocument);
 
         $service->modifierDocument(
             $id,

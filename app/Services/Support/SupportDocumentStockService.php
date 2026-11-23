@@ -529,11 +529,11 @@ class SupportDocumentStockService
 
         Validator::make($donnees, $regles)->validate();
 
+        // Le ticket est une référence complémentaire, pas un destinataire.
         $destinataires = array_filter([
             $donnees['employee_id'] ?? null,
             $donnees['direction_id'] ?? null,
             $donnees['antenne_id'] ?? null,
-            $donnees['support_ticket_id'] ?? null,
         ], fn ($valeur) => $valeur !== null && $valeur !== '');
 
         if ($type === 'SORTIE' && count($destinataires) !== 1) {
@@ -545,6 +545,15 @@ class SupportDocumentStockService
         if ($type !== 'SORTIE' && count($destinataires) > 0) {
             $this->erreur(
                 'Seul un document de sortie peut avoir un destinataire.'
+            );
+        }
+
+        if (
+            $type !== 'SORTIE'
+            && !empty($donnees['support_ticket_id'])
+        ) {
+            $this->erreur(
+                'Un ticket ne peut être associé qu’à un document de sortie.'
             );
         }
     }
