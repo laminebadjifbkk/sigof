@@ -2861,9 +2861,14 @@ class IndividuelleController extends Controller
     ini_set('memory_limit', '1024M');
 
     try {
-        return Excel::download(
+        /* return Excel::download(
             new IndividuellesParAnneeExport($annee),
             "Demandes_individuelles_{$annee}.xlsx"
+        ); */
+        return Excel::download(
+            new IndividuellesParAnneeExport($annee),
+            "Demandes_individuelles_{$annee}.csv",
+            \Maatwebsite\Excel\Excel::CSV
         );
     } catch (\Throwable $e) {
         \Log::error('Erreur export demandes individuelles : ' . $e->getMessage(), [
