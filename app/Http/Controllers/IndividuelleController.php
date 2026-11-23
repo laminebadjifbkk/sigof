@@ -31,6 +31,7 @@ use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 use ZipArchive;
+use App\Exports\IndividuellesParAnneeExport;
 
 class IndividuelleController extends Controller
 {
@@ -203,7 +204,7 @@ class IndividuelleController extends Controller
         ));
     }
 
-    public function parAnnee(Request $request, $annee)
+    public function parAnnee($annee)
     {
         $this->checkAccess();
         $query = Individuelle::whereYear('date_depot', $annee);
@@ -2843,4 +2844,21 @@ class IndividuelleController extends Controller
         Alert::success('Succès ', 'Questionnaire enregistré avec succès.');
         return redirect()->back();
     }
+
+   public function exportParAnnee($annee)
+        {
+            $this->checkAccess();
+
+            abort_unless(
+                is_numeric($annee)
+                && (int) $annee >= 2000
+                && (int) $annee <= 2100,
+                404
+            );
+
+            return Excel::download(
+                new IndividuellesParAnneeExport((int) $annee),
+                'Demandes_individuelles_' . $annee . '.xlsx'
+            );
+        }
 }

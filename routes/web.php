@@ -904,6 +904,11 @@ Route::get('/prisenchargestatutregion/{statut}/{region}/{annee_scolaire}', [Form
 
         Route::get('/operateurs/statut/{calid}/{region}', [OperateurController::class, 'filtrerOperateurParCALRegion'])
             ->name('operateurs.filtrerOperateurParCALRegion');
+
+        Route::get(
+            '/individuelles/export/annee/{annee}',
+            [IndividuelleController::class, 'exportParAnnee']
+        )->name('individuelles.exportParAnnee');
         /* Route::get('demandesdg', [IndividuelleController::class, 'demandesdg'])->name('demandesdg');
         Route::get('demandesth', [IndividuelleController::class, 'demandesth'])->name('demandesth');
         Route::get('demandeszig', [IndividuelleController::class, 'demandeszig'])->name('demandeszig');

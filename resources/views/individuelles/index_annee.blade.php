@@ -147,12 +147,8 @@
                                     </div>
 
                                     {{-- Boutons à droite --}}
-                                    @can('individuelle-create')
+                                    {{-- @can('individuelle-create')
                                         <div class="d-flex align-items-center gap-2">
-                                            {{-- <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#AddIndividuelModal">
-                                                Ajouter
-                                            </a> --}}
                                             <a href="{{ route('individuelles.create') }}" class="btn btn-sm btn-primary">
                                                 Ajouter
                                             </a>
@@ -161,7 +157,33 @@
                                                 Rechercher plus
                                             </button>
                                         </div>
-                                    @endcan
+                                    @endcan --}}
+
+                                    {{-- Boutons à droite --}}
+<div class="d-flex align-items-center flex-wrap gap-2">
+
+    @can('exporter-view')
+        <a href="{{ route('individuelles.exportParAnnee', ['annee' => $annee]) }}"
+            class="btn btn-sm btn-outline-success">
+            <i class="bi bi-file-earmark-excel me-1"></i>
+            Exporter Excel {{ $annee }}
+        </a>
+    @endcan
+
+    @can('individuelle-create')
+        <a href="{{ route('individuelles.create') }}" class="btn btn-sm btn-primary">
+            <i class="bi bi-plus-circle me-1"></i>
+            Ajouter
+        </a>
+
+        <button class="btn btn-sm btn-outline-secondary" type="button"
+            data-bs-toggle="modal" data-bs-target="#generate_rapport">
+            <i class="bi bi-search me-1"></i>
+            Rechercher plus
+        </button>
+    @endcan
+
+</div>
 
                                 </div>
                             </div>
