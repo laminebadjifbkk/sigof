@@ -95,7 +95,8 @@
             </span>
 
             <span class="badge bg-light text-dark border">
-                {{ $elements->total() }} résultat(s)
+                {{-- {{ $elements->total() }} résultat(s) --}}
+                {{ $elements->count() }} résultat(s)
             </span>
         </div>
 
@@ -257,9 +258,9 @@
             </table>
         </div>
 
-        <div class="card-footer bg-white">
+        {{-- <div class="card-footer bg-white">
             {{ $elements->links() }}
-        </div>
+        </div> --}}
 
     </div>
 </div>

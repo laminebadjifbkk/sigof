@@ -152,10 +152,13 @@ class SupportStockCatalogueController extends Controller
             $query->with(['categorie', 'unite', 'stock']);
         }
 
-        $elements = $query
+        /* $elements = $query
             ->orderByDesc('created_at')
             ->paginate(15)
-            ->withQueryString();
+            ->withQueryString(); */
+        $elements = $query
+            ->orderByDesc('created_at')
+            ->get();
 
         return view(
             'support.stocks.catalogue.index',
