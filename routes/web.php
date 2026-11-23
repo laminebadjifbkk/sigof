@@ -909,6 +909,7 @@ Route::get('/prisenchargestatutregion/{statut}/{region}/{annee_scolaire}', [Form
             '/individuelles/export/annee/{annee}',
             [IndividuelleController::class, 'exportParAnnee']
         )->name('individuelles.exportParAnnee');
+
         /* Route::get('demandesdg', [IndividuelleController::class, 'demandesdg'])->name('demandesdg');
         Route::get('demandesth', [IndividuelleController::class, 'demandesth'])->name('demandesth');
         Route::get('demandeszig', [IndividuelleController::class, 'demandeszig'])->name('demandeszig');
