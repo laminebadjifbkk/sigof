@@ -29,7 +29,12 @@
             $totalQuantite = $document->lignes->sum('quantite');
 
             $destinataire = $document->employe
-                ? 'Employé : ' . trim(($document->employe->user->firstname ?? '') . ' ' . ($document->employe->user->name ?? ''))
+                ? 'Employé : ' . (
+                    trim(
+                        ($document->employe->user->firstname ?? '') . ' ' .
+                        ($document->employe->user->name ?? '')
+                    ) ?: ($document->employe->matricule ?? 'Employé')
+                )
                 : ($document->direction->name ?? null);
 
             if (!$destinataire && $document->antenne) {
