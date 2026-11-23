@@ -32,7 +32,7 @@
         </div>
 
         <a href="{{ route('support.stocks.dashboard') }}"
-           class="btn btn-outline-secondary">
+           class="btn btn-sm btn-outline-secondary">
             <i class="bi bi-arrow-left me-1"></i> Tableau de bord
         </a>
     </div>
@@ -68,7 +68,7 @@
                     @foreach($types as $type => $libelle)
                         <div class="col-6 col-md-4 col-xl">
                             <a href="{{ route('support.stocks.documents.create', $type) }}"
-                               class="btn btn-outline-primary w-100 h-100 py-3">
+                               class="btn btn-sm btn-outline-primary w-100 h-100 py-3">
                                 <i class="bi bi-plus-circle d-block fs-4 mb-1"></i>
                                 {{ $libelle }}
                             </a>
@@ -87,14 +87,14 @@
                     <label class="form-label">Recherche</label>
                     <input type="text"
                            name="recherche"
-                           class="form-control"
+                           class="form-control form-control-sm"
                            value="{{ request('recherche') }}"
                            placeholder="Référence ou motif">
                 </div>
 
                 <div class="col-md-3">
                     <label class="form-label">Type de document</label>
-                    <select name="type" class="form-select">
+                    <select name="type" class="form-select form-select-sm">
                         <option value="">Tous les types</option>
                         @foreach($types as $key => $label)
                             <option value="{{ $key }}" @selected(request('type') === $key)>
@@ -106,7 +106,7 @@
 
                 <div class="col-md-3">
                     <label class="form-label">Statut</label>
-                    <select name="statut" class="form-select">
+                    <select name="statut" class="form-select form-select-sm">
                         <option value="">Tous les statuts</option>
                         @foreach($couleurs as $statut => $couleur)
                             <option value="{{ $statut }}" @selected(request('statut') === $statut)>
@@ -117,11 +117,11 @@
                 </div>
 
                 <div class="col-md-2 d-flex align-items-end gap-2">
-                    <button class="btn btn-primary flex-grow-1">
+                    <button class="btn btn-sm btn-primary flex-grow-1">
                         <i class="bi bi-search"></i> Filtrer
                     </button>
                     <a href="{{ route('support.stocks.documents.index') }}"
-                       class="btn btn-outline-secondary">
+                       class="btn btn-sm btn-outline-secondary">
                         <i class="bi bi-x-lg"></i>
                     </a>
                 </div>
@@ -198,7 +198,7 @@
 
                             <td class="text-end text-nowrap">
                                 <a href="{{ route('support.stocks.documents.show', $document->id) }}"
-                                   class="btn btn-sm btn-outline-primary">
+                                   class="btn btn-sm btn-sm btn-outline-primary">
                                     <i class="bi bi-eye"></i> Consulter
                                 </a>
                             </td>
