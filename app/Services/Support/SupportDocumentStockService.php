@@ -148,19 +148,38 @@ class SupportDocumentStockService
                 'observations' => $donnees['observations'] ?? null,
             ]);
 
+            $changements = array_intersect_key(
+                $document->getDirty(),
+                array_flip(array_keys($anciennesValeurs))
+            );
+
+            if (empty($changements)) {
+                return $document->fresh();
+            }
+
+            $anciennesValeursModifiees = array_intersect_key(
+                $anciennesValeurs,
+                $changements
+            );
+
             $document->save();
+
+            $nouvellesValeurs = $document->only(
+                array_keys($changements)
+            );
 
             $this->historiqueService->enregistrer(
                 'DOCUMENT_STOCK',
                 (int) $document->id,
                 'MODIFICATION',
                 "Modification du document {$document->reference}.",
-                $anciennesValeurs,
-                $document->only(array_keys($anciennesValeurs)),
+                $anciennesValeursModifiees,
+                $nouvellesValeurs,
                 $userId
             );
 
             return $document->fresh();
+
         }, 5);
     }
 
@@ -244,19 +263,39 @@ class SupportDocumentStockService
             ]);
 
             $this->remplirLigne($ligne, $document, $donnees);
+
+            $changements = array_intersect_key(
+                $ligne->getDirty(),
+                array_flip(array_keys($anciennesValeurs))
+            );
+
+            if (empty($changements)) {
+                return $ligne->fresh();
+            }
+
+            $anciennesValeursModifiees = array_intersect_key(
+                $anciennesValeurs,
+                $changements
+            );
+
             $ligne->save();
+
+            $nouvellesValeurs = $ligne->only(
+                array_keys($changements)
+            );
 
             $this->historiqueService->enregistrer(
                 'DOCUMENT_STOCK',
                 (int) $document->id,
                 'MODIFICATION_LIGNE',
                 "Modification de la ligne {$ligne->id}.",
-                $anciennesValeurs,
-                $ligne->only(array_keys($anciennesValeurs)),
+                $anciennesValeursModifiees,
+                $nouvellesValeurs,
                 $userId
             );
 
             return $ligne->fresh();
+
         }, 5);
     }
 
