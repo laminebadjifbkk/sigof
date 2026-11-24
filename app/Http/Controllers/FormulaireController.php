@@ -1085,7 +1085,7 @@ public function PrisenchargeExcel($statut, $annee_scolaire)
     ->where('annee_scolaire', $annee_scolaire)
     ->select(array_merge(['id', 'statut', 'certificat_file', 'statut_certificat'], array_keys($labels)))
     ->orderBy('id', 'desc')
-    ->paginate(50)
+    ->paginate(500)
     ->withQueryString();
 
     $total            = $formulaires->total();
