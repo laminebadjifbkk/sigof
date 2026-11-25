@@ -317,129 +317,129 @@ class FileController extends Controller
             ->header('Content-Disposition', 'inline; filename="documents.pdf"');
     }
 
-/**
- * Retrouve le chemin réel d'un fichier à partir de la valeur stockée en base.
- */
-private function resolveFilePath(?string $value): ?string
-{
-    if (empty($value)) {
+    /**
+     * Retrouve le chemin réel d'un fichier à partir de la valeur stockée en base.
+     */
+    private function resolveFilePath(?string $value): ?string
+    {
+        if (empty($value)) {
+            return null;
+        }
+
+        $value = ltrim($value, '/');
+
+        $candidates = [
+            public_path($value),
+            public_path('storage/' . $value),
+            storage_path('app/public/' . $value),
+            storage_path('app/' . $value),
+        ];
+
+        foreach ($candidates as $candidate) {
+            if (is_file($candidate)) {
+                return $candidate;
+            }
+        }
+
         return null;
     }
 
-    $value = ltrim($value, '/');
+    public function filesPrisencharge($id)
+    {
+        $formulaire = Formulaire::findOrFail($id);
 
-    $candidates = [
-        public_path($value),
-        public_path('storage/' . $value),
-        storage_path('app/public/' . $value),
-        storage_path('app/' . $value),
-    ];
+        $champs = [
+            'cin_file',
+            'facture_file',
+            'diplome',
+            'cv',
+            'certificat_file',
+        ];
 
-    foreach ($candidates as $candidate) {
-        if (is_file($candidate)) {
-            return $candidate;
-        }
-    }
+        $sources = [];
+        $temporaires = [];
+        $debug = [];
 
-    return null;
-}
+        foreach ($champs as $champ) {
+            $valeur = $formulaire->$champ;
 
-public function filesPrisencharge($id)
-{
-    $formulaire = Formulaire::findOrFail($id);
-
-    $champs = [
-        'cin_file',
-        'facture_file',
-        'diplome',
-        'cv',
-        'certificat_file',
-    ];
-
-    $sources = [];
-    $temporaires = [];
-    $debug = [];
-
-    foreach ($champs as $champ) {
-        $valeur = $formulaire->$champ;
-
-        if (empty($valeur)) {
-            $debug[] = "$champ : vide en base";
-            continue;
-        }
-
-        $path = $this->resolveFilePath($valeur);
-
-        if (!$path) {
-            $debug[] = "$champ : introuvable (valeur en base = $valeur)";
-            continue;
-        }
-
-        $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
-
-        if ($extension === 'pdf') {
-            $sources[] = $path;
-        } elseif (in_array($extension, ['jpg', 'jpeg', 'png'])) {
-            $tempPdf = storage_path('app/temp_' . uniqid() . '.pdf');
-
-            $pdfImg = new Fpdi();
-            $pdfImg->AddPage();
-
-            [$w, $h] = getimagesize($path);
-            $largeur = 190;
-            $hauteur = $largeur * $h / $w;
-
-            if ($hauteur > 277) {
-                $hauteur = 277;
-                $largeur = $hauteur * $w / $h;
-            }
-
-            $pdfImg->Image($path, 10, 10, $largeur, $hauteur);
-            $pdfImg->Output($tempPdf, 'F');
-
-            $sources[] = $tempPdf;
-            $temporaires[] = $tempPdf;
-        } else {
-            $debug[] = "$champ : extension non supportée ($extension)";
-        }
-    }
-
-    if (empty($sources)) {
-        // Message détaillé (à simplifier une fois le problème réglé)
-        abort(404, implode(' | ', $debug));
-    }
-
-    $pdf = new Fpdi();
-
-    try {
-        foreach ($sources as $filePath) {
-            try {
-                $pageCount = $pdf->setSourceFile($filePath);
-            } catch (\Throwable $e) {
-                $debug[] = basename($filePath) . ' : PDF illisible (' . $e->getMessage() . ')';
+            if (empty($valeur)) {
+                $debug[] = "$champ : vide en base";
                 continue;
             }
 
-            for ($i = 1; $i <= $pageCount; $i++) {
-                $tpl = $pdf->importPage($i);
-                $size = $pdf->getTemplateSize($tpl);
+            $path = $this->resolveFilePath($valeur);
 
-                $pdf->AddPage($size['orientation'], [$size['width'], $size['height']]);
-                $pdf->useTemplate($tpl);
+            if (!$path) {
+                $debug[] = "$champ : introuvable (valeur en base = $valeur)";
+                continue;
+            }
+
+            $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+
+            if ($extension === 'pdf') {
+                $sources[] = $path;
+            } elseif (in_array($extension, ['jpg', 'jpeg', 'png'])) {
+                $tempPdf = storage_path('app/temp_' . uniqid() . '.pdf');
+
+                $pdfImg = new Fpdi();
+                $pdfImg->AddPage();
+
+                [$w, $h] = getimagesize($path);
+                $largeur = 190;
+                $hauteur = $largeur * $h / $w;
+
+                if ($hauteur > 277) {
+                    $hauteur = 277;
+                    $largeur = $hauteur * $w / $h;
+                }
+
+                $pdfImg->Image($path, 10, 10, $largeur, $hauteur);
+                $pdfImg->Output($tempPdf, 'F');
+
+                $sources[] = $tempPdf;
+                $temporaires[] = $tempPdf;
+            } else {
+                $debug[] = "$champ : extension non supportée ($extension)";
             }
         }
 
-        $contenu = $pdf->Output('S');
-    } finally {
-        foreach ($temporaires as $temp) {
-            if (file_exists($temp)) {
-                unlink($temp);
+        if (empty($sources)) {
+            // Message détaillé (à simplifier une fois le problème réglé)
+            abort(404, implode(' | ', $debug));
+        }
+
+        $pdf = new Fpdi();
+
+        try {
+            foreach ($sources as $filePath) {
+                try {
+                    $pageCount = $pdf->setSourceFile($filePath);
+                } catch (\Throwable $e) {
+                    $debug[] = basename($filePath) . ' : PDF illisible (' . $e->getMessage() . ')';
+                    continue;
+                }
+
+                for ($i = 1; $i <= $pageCount; $i++) {
+                    $tpl = $pdf->importPage($i);
+                    $size = $pdf->getTemplateSize($tpl);
+
+                    $pdf->AddPage($size['orientation'], [$size['width'], $size['height']]);
+                    $pdf->useTemplate($tpl);
+                }
+            }
+
+            $contenu = $pdf->Output('S');
+        } finally {
+            foreach ($temporaires as $temp) {
+                if (file_exists($temp)) {
+                    unlink($temp);
+                }
             }
         }
+
+        return response($contenu)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'inline; filename="documents.pdf"');
     }
-
-    return response($contenu)
-        ->header('Content-Type', 'application/pdf')
-        ->header('Content-Disposition', 'inline; filename="documents.pdf"');
-}
 }
