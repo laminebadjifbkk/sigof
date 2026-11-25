@@ -273,6 +273,9 @@ Route::group(['middleware' => ['XSS']], function () {
     Route::get('/files/merge/{id}', [FileController::class, 'mergeFiles'])
         ->name('files.merge');
 
+    Route::get('/filesPrisencharge/merge/{id}', [FileController::class, 'filesPrisencharge'])
+        ->name('filesPrisencharge.merge');
+
     /* Route::group(['middleware' => ['auth', 'verified']], function () { */
     Route::group(['middleware' => ['auth']], function () {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

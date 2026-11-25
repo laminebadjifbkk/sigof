@@ -1322,6 +1322,7 @@ class IndividuelleController extends Controller
 
         $excludedRoles = [
             'super-admin',
+            'chef-service-informatique',
             'Employe',
             'admin',
             'DIOF',

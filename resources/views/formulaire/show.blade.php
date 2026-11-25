@@ -40,69 +40,67 @@
                                 @endif
                             @endcan
                             @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
-                                @if ($formulaire?->historiques->count() > '0')
-                                    <span class="d-flex mt-2 align-items-baseline">
-                                        <nav class="header-nav ms-auto">
-                                            <ul class="d-flex align-items-center">
-                                                <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-                                                    <i class="bi bi-chat-left-text m-1"></i>
-                                                    <span class="badge bg-success badge-number" title="{{ $formulaire?->statut }}">
-                                                        {{ $formulaire?->historiques->count() }}
-                                                    </span>
-                                                </a>
-                                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-                                                    <li class="dropdown-header">
-                                                        Vous avez
-                                                        {{ $formulaire?->historiques->count() }}
-                                                        validation(s)
+                            @if ($formulaire?->historiques->count() > '0')
+                                <span class="d-flex mt-2 align-items-baseline">
+                                    <nav class="header-nav ms-auto">
+                                        <ul class="d-flex align-items-center">
+                                            <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                                                <i class="bi bi-chat-left-text m-1"></i>
+                                                <span class="badge bg-success badge-number" title="{{ $formulaire?->statut }}">
+                                                    {{ $formulaire?->historiques->count() }}
+                                                </span>
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+                                                <li class="dropdown-header">
+                                                    Vous avez
+                                                    {{ $formulaire?->historiques->count() }}
+                                                    validation(s)
+                                                </li>
+                                                <li>
+                                                    <hr class="dropdown-divider">
+                                                </li>
+                                                @foreach ($formulaire?->historiques->sortByDesc('created_at')->take(2) as $history)
+                                                    <li class="message-item">
+                                                        <div>
+                                                            <p><span class="{{ $history->statut }}">{{ $history->statut }}</span>
+                                                            </p>
+                                                            <p>{!! $history->created_at->diffForHumans() !!}</p>
+                                                        </div>
                                                     </li>
                                                     <li>
                                                         <hr class="dropdown-divider">
                                                     </li>
-                                                    @foreach ($formulaire?->historiques->sortByDesc('created_at')->take(2) as $history)
-                                                        <li class="message-item">
-                                                            <div>
-                                                                <p><span
-                                                                        class="{{ $history->statut }}">{{ $history->statut }}</span>
-                                                                </p>
-                                                                <p>{!! $history->created_at->diffForHumans() !!}</p>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <hr class="dropdown-divider">
-                                                        </li>
-                                                    @endforeach
-                                                    <li class="dropdown-footer">
-                                                        <form action="{{ route('validationhistoriquepc') }}" method="post"
-                                                            target="_blank">
-                                                            @csrf
-                                                            <input type="hidden" name="id" value="{{ $formulaire?->id }}">
-                                                            <button class="btn btn-sm mx-1">Voir
-                                                                toutes les validations</button>
-                                                        </form>
-                                                    </li>
-                                                </ul>
+                                                @endforeach
+                                                <li class="dropdown-footer">
+                                                    <form action="{{ route('validationhistoriquepc') }}" method="post"
+                                                        target="_blank">
+                                                        @csrf
+                                                        <input type="hidden" name="id" value="{{ $formulaire?->id }}">
+                                                        <button class="btn btn-sm mx-1">Voir
+                                                            toutes les validations</button>
+                                                    </form>
+                                                </li>
                                             </ul>
-                                        </nav>
-                                    </span>
-                                @endif
-                                <span class="d-flex align-items-baseline float-end">
-                                    <span class="{{ $formulaire?->statut }}">{{ $formulaire?->statut }}</span>
-                                    <div class="filter">
-                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                class="bi bi-three-dots"></i></a>
-                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                            <li>
-                                                <button class="btn btn-sm mx-1" data-bs-toggle="modal"
-                                                    data-bs-target="#validationDemande">Validation</button>
-                                            </li>
-                                            {{-- <li>
-                                                <button class="btn btn-sm mx-1" data-bs-toggle="modal"
-                                                    data-bs-target="#NoteDemandeModal">Notation</button>
-                                            </li> --}}
                                         </ul>
-                                    </div>
+                                    </nav>
                                 </span>
+                            @endif
+                            <span class="d-flex align-items-baseline float-end">
+                                <span class="{{ $formulaire?->statut }}">{{ $formulaire?->statut }}</span>
+                                <div class="filter">
+                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                        <li>
+                                            <button class="btn btn-sm mx-1" data-bs-toggle="modal"
+                                                data-bs-target="#validationDemande">Validation</button>
+                                        </li>
+                                        {{-- <li>
+                                            <button class="btn btn-sm mx-1" data-bs-toggle="modal"
+                                                data-bs-target="#NoteDemandeModal">Notation</button>
+                                        </li> --}}
+                                    </ul>
+                                </div>
+                            </span>
                             @endhasanyrole
                         </div>
                         <div class="card-body">
@@ -123,31 +121,31 @@
                                     </a>
                                 </div>
                                 {{-- @foreach ($labels as $field => $label)
-                                    <div class="col-md-4">
-                                        <strong>{{ $label }} :</strong><br>
+                                <div class="col-md-4">
+                                    <strong>{{ $label }} :</strong><br>
 
-                                        @if (in_array($field, $fileFields))
-                                            @if (!empty($formulaire->$field))
-                                                <a href="{{ asset('storage/' . $formulaire->$field) }}" target="_blank"
-                                                    class="btn btn-outline-primary btn-sm mt-1">
-                                                    <i class="bi bi-file-earmark-arrow-down"></i> Ouvrir
-                                                </a>
-                                            @else
-                                                <span class="text-muted">Aucun fichier</span>
-                                            @endif
-                                        @elseif ($field === 'date_naissance' && $formulaire->$field)
-                                            {{ \Carbon\Carbon::parse($formulaire->$field)->format('d/m/Y') }}
-                                        @elseif ($field === 'email' && $formulaire->$field)
-                                            <a href="mailto:{{ $formulaire->email }}">{{ $formulaire->email }}</a>
-                                        @elseif ($field === 'telephone' && $formulaire->$field)
-                                            <a href="tel:+221{{ $formulaire->telephone }}">{{ $formulaire->telephone }}</a>
-                                        @elseif ($field === 'telephone_secondaire' && $formulaire->$field)
-                                            <a
-                                                href="tel:+221{{ $formulaire?->telephone_secondaire }}">{{ $formulaire?->telephone_secondaire }}</a>
-                                        @else
-                                            {{ $formulaire->$field ?? '-' }}
-                                        @endif
-                                    </div>
+                                    @if (in_array($field, $fileFields))
+                                    @if (!empty($formulaire->$field))
+                                    <a href="{{ asset('storage/' . $formulaire->$field) }}" target="_blank"
+                                        class="btn btn-outline-primary btn-sm mt-1">
+                                        <i class="bi bi-file-earmark-arrow-down"></i> Ouvrir
+                                    </a>
+                                    @else
+                                    <span class="text-muted">Aucun fichier</span>
+                                    @endif
+                                    @elseif ($field === 'date_naissance' && $formulaire->$field)
+                                    {{ \Carbon\Carbon::parse($formulaire->$field)->format('d/m/Y') }}
+                                    @elseif ($field === 'email' && $formulaire->$field)
+                                    <a href="mailto:{{ $formulaire->email }}">{{ $formulaire->email }}</a>
+                                    @elseif ($field === 'telephone' && $formulaire->$field)
+                                    <a href="tel:+221{{ $formulaire->telephone }}">{{ $formulaire->telephone }}</a>
+                                    @elseif ($field === 'telephone_secondaire' && $formulaire->$field)
+                                    <a href="tel:+221{{ $formulaire?->telephone_secondaire }}">{{
+                                        $formulaire?->telephone_secondaire }}</a>
+                                    @else
+                                    {{ $formulaire->$field ?? '-' }}
+                                    @endif
+                                </div>
                                 @endforeach --}}
                                 @foreach ($labels as $field => $label)
                                     <div class="col-md-3">
@@ -165,20 +163,17 @@
                                                     <div class="document-preview">
                                                         @if (in_array($ext, ['jpg', 'jpeg', 'png']))
                                                             <a href="{{ $url }}" target="_blank">
-                                                                <img src="{{ $url }}" alt="{{ $label }}"
-                                                                    class="img-fluid rounded border"
+                                                                <img src="{{ $url }}" alt="{{ $label }}" class="img-fluid rounded border"
                                                                     style="max-height: 150px; object-fit: cover;">
                                                             </a>
                                                         @else
-                                                            <a href="{{ $url }}" target="_blank"
-                                                                class="document-file-link">
+                                                            <a href="{{ $url }}" target="_blank" class="document-file-link">
                                                                 📄 Voir le PDF
                                                             </a>
                                                         @endif
                                                     </div>
 
-                                                    <a href="{{ $url }}" download
-                                                        class="btn btn-outline-secondary btn-sm mt-2">
+                                                    <a href="{{ $url }}" download class="btn btn-outline-secondary btn-sm mt-2">
                                                         <i class="bi bi-download"></i> Télécharger
                                                     </a>
                                                 </div>
@@ -199,6 +194,14 @@
                                         @endif
                                     </div>
                                 @endforeach
+                                <div class="document-card mt-1">
+                                    @hasanyrole('super-admin|admin|DIOF|ADIOF|Ingenieur')
+                                    <a href="{{ route('filesPrisencharge.merge', $formulaire->id) }}" target="_blank"
+                                        class="btn btn-sm btn-primary">
+                                        <i class="bi bi-file-earmark-pdf"></i> Voir tout
+                                    </a>
+                                    @endhasanyrole
+                                </div>
                             </div>
                             <br>
                             <h3>Traitement de la demande</h3>
@@ -214,7 +217,8 @@
                                 <div class="mb-3">
                                     <label for="motif" class="form-label">Explications (optionnel)</label>
                                     <textarea name="motif" id="motif" rows="4"
-                                        class="form-control form-control-sm @error('motif') is-invalid @enderror" placeholder="Indiquez les raisons">{{ old('motif', $formulaire?->motif) }}</textarea>
+                                        class="form-control form-control-sm @error('motif') is-invalid @enderror"
+                                        placeholder="Indiquez les raisons">{{ old('motif', $formulaire?->motif) }}</textarea>
 
                                     @error('motif')
                                         <span class="invalid-feedback d-block" role="alert">{{ $message }}</span>
@@ -222,8 +226,7 @@
                                 </div>
 
                                 <div class="d-flex flex-wrap gap-2 mt-3">
-                                    <button type="submit" name="statut" value="Conforme"
-                                        class="btn btn-outline-info btn-sm">
+                                    <button type="submit" name="statut" value="Conforme" class="btn btn-outline-info btn-sm">
                                         Conforme
                                     </button>
                                     <button type="submit" name="statut" value="Non conforme"
@@ -237,15 +240,15 @@
                                         class="btn btn-outline-secondary btn-sm">
                                         Mettre en liste d'attente
                                     </button>
-                                    <button type="submit" name="statut" value="Admis(e)"
-                                        class="btn btn-outline-success btn-sm">
+                                    <button type="submit" name="statut" value="Admis(e)" class="btn btn-outline-success btn-sm">
                                         Admis(e)
                                     </button>
                                 </div>
                             </form>
                             {{-- Boutons --}}
                             <div class="mt-4 d-flex justify-content-between">
-                                {{-- <a href="{{ route('formulaires.showregiondiplome', ['region' => $formulaire?->region, 'diplome_vise' => $formulaire?->diplome_vise, 'annee' => $formulaire?->annee_scolaire]) }}"
+                                {{-- <a
+                                    href="{{ route('formulaires.showregiondiplome', ['region' => $formulaire?->region, 'diplome_vise' => $formulaire?->diplome_vise, 'annee' => $formulaire?->annee_scolaire]) }}"
                                     class="btn btn-secondary btn-sm">
                                     Retour à la liste
                                 </a> --}}
@@ -272,8 +275,7 @@
                             <div class="modal-header bg-light border-bottom-0">
                                 <h5 class="modal-title fw-bold text-info" id="validationDemandeLabel">Traitement de la
                                     demande</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Fermer"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
                             </div>
 
                             <div class="modal-body">
@@ -294,16 +296,14 @@
                                             Sélectionné</option>
                                         <option value="Conforme" {{ $selectedStatut === 'Conforme' ? 'selected' : '' }}>
                                             Conforme</option>
-                                        <option value="Non conforme"
-                                            {{ $selectedStatut === 'Non conforme' ? 'selected' : '' }}>
+                                        <option value="Non conforme" {{ $selectedStatut === 'Non conforme' ? 'selected' : '' }}>
                                             Non conforme</option>
                                         <option value="Validée" {{ $selectedStatut === 'Validée' ? 'selected' : '' }}>
                                             Validée</option>
-                                        <option value="liste attente"
-                                            {{ $selectedStatut === 'liste attente' ? 'selected' : '' }}>En
+                                        <option value="liste attente" {{ $selectedStatut === 'liste attente' ? 'selected' : '' }}>
+                                            En
                                             liste attente</option>
-                                        <option value="Admis(e)"
-                                            {{ $selectedStatut === 'Admis(e)' ? 'selected' : '' }}>
+                                        <option value="Admis(e)" {{ $selectedStatut === 'Admis(e)' ? 'selected' : '' }}>
                                             Admis(e)</option>
                                     </select>
                                 </div>
@@ -312,7 +312,8 @@
                                     <label for="motif" class="form-label">Explications</label>
 
                                     <textarea name="motif" id="motif" rows="5"
-                                        class="form-control form-control-sm @error('motif') is-invalid @enderror" placeholder="Indiquez les raisons">{{ old('motif', $formulaire?->motif) }}</textarea>
+                                        class="form-control form-control-sm @error('motif') is-invalid @enderror"
+                                        placeholder="Indiquez les raisons">{{ old('motif', $formulaire?->motif) }}</textarea>
 
                                     @error('motif')
                                         <span class="invalid-feedback d-block" role="alert">
