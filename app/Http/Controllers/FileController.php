@@ -349,8 +349,8 @@ public function filesPrisencharge($id)
     $formulaire = Formulaire::findOrFail($id);
 
     $champs = [
-        'facture_file',
         'cin_file',
+        'facture_file',
         'diplome',
         'cv',
         'certificat_file',
