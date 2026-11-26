@@ -55,9 +55,25 @@
                 </p>
             </div>
 
+            {{-- <div class="d-flex flex-wrap gap-2">
+                <a href="{{ route('support.stocks.documents.index') }}" class="btn btn-sm btn-outline-secondary">
+                    <i class="bi bi-arrow-left"></i> Liste
+                </a>
+
+                @if($modifiable)
+                <a href="{{ route('support.stocks.documents.edit', $document->id) }}"
+                    class="btn btn-sm btn-outline-primary">
+                    <i class="bi bi-pencil"></i> Modifier l'entête
+                </a>
+                @endif
+            </div> --}}
             <div class="d-flex flex-wrap gap-2">
                 <a href="{{ route('support.stocks.documents.index') }}" class="btn btn-sm btn-outline-secondary">
                     <i class="bi bi-arrow-left"></i> Liste
+                </a>
+
+                <a href="{{ route('support.stocks.documents.pdf', $document->id) }}" class="btn btn-sm btn-outline-danger">
+                    <i class="bi bi-file-earmark-pdf"></i> Télécharger le PDF
                 </a>
 
                 @if($modifiable)
