@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Support;
 
 use App\Http\Controllers\Controller;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Support\SupportTicket;
 use App\Models\Employee;
 use App\Models\Direction;
@@ -334,6 +335,40 @@ class SupportStockDocumentController extends Controller
             'articles',
             'lignesSortie'
         ));
+    }
+
+    /**
+     * Génère le bon de stock au format PDF.
+     */
+    public function exporterPdf(Request $request, int $id)
+    {
+        $this->autoriser($request, 'support.stocks.view');
+
+        $document = $this->document($id);
+
+        $libelles = [
+            'RECEPTION' => 'Bon de réception',
+            'SORTIE' => 'Bon de sortie',
+            'RETOUR' => 'Bon de retour',
+            'AJUSTEMENT_POSITIF' => 'Bon d’ajustement positif',
+            'AJUSTEMENT_NEGATIF' => 'Bon d’ajustement négatif',
+        ];
+
+        $titre = $libelles[$document->type_document]
+            ?? 'Document de stock';
+
+        $reference = preg_replace(
+            '/[^A-Za-z0-9._-]/',
+            '-',
+            $document->reference
+        );
+
+        return Pdf::loadView('support.stocks.documents.pdf', [
+            'document' => $document,
+            'titre' => $titre,
+        ])
+            ->setPaper('a4', 'landscape')
+            ->download($reference . '.pdf');
     }
 
     public function edit(Request $request, int $id)

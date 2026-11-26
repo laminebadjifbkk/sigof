@@ -276,7 +276,7 @@ Route::group(['middleware' => ['XSS']], function () {
     Route::get('/filesPrisencharge/merge/{id}', [FileController::class, 'filesPrisencharge'])
         ->name('filesPrisencharge.merge');
 
-    
+
 
     /* Route::group(['middleware' => ['auth', 'verified']], function () { */
     Route::group(['middleware' => ['auth']], function () {
@@ -1554,6 +1554,10 @@ Route::get('/prisenchargestatutregion/{statut}/{region}/{annee_scolaire}', [Form
                     Route::get('/', 'index')->name('index');
                     Route::get('/create', 'create')->name('create');
                     Route::post('/', 'store')->name('store');
+                    Route::get('/{id}/pdf', 'exporterPdf')
+                        ->whereNumber('id')
+                        ->name('pdf');
+
                     Route::get('/{id}', 'show')->whereNumber('id')->name('show');
                     Route::post('/{id}/demarrer', 'demarrer')->whereNumber('id')->name('demarrer');
                     Route::get('/{id}/comptage', 'comptage')->whereNumber('id')->name('comptage');
@@ -1765,6 +1769,10 @@ Route::get('/prisenchargestatutregion/{statut}/{region}/{annee_scolaire}', [Form
                         ->whereNumber('id')
                         ->name('employes');
 
+                    Route::get('/{id}/pdf', 'exporterPdf')
+                        ->whereNumber('id')
+                        ->name('pdf');
+
                     Route::get('/{id}', 'show')->whereNumber('id')->name('show');
                     Route::get('/{id}/edit', 'edit')->whereNumber('id')->name('edit');
                     Route::put('/{id}', 'update')->whereNumber('id')->name('update');
@@ -1777,12 +1785,8 @@ Route::get('/prisenchargestatutregion/{statut}/{region}/{annee_scolaire}', [Form
                     Route::post('/{id}/valider', 'valider')->name('valider');
                     Route::post('/{id}/rejeter', 'rejeter')->name('rejeter');
                 });
-        });
-                Route::get('/{id}/pdf', 'exporterPdf')
-            ->whereNumber('id')
-            ->name('pdf');
 
-        Route::get('/{id}', 'show')->whereNumber('id')->name('show');
+        });
     });
 
     Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
