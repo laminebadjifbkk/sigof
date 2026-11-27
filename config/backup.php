@@ -23,10 +23,20 @@ return [
                  *
                  * Directories used by the backup process will automatically be excluded.
                  */
-                'exclude'                       => [
+
+                'exclude' => [
                     base_path('vendor'),
                     base_path('node_modules'),
+                    base_path('.git'),
+
+                    // Anciennes archives de sauvegarde
+                    storage_path('app/ONFP'),
+
+                    // Répertoires techniques de sauvegarde
                     storage_path('app/backups'),
+                    storage_path('app/backup-temp'),
+                    storage_path('app/laravel-backup'),
+                    storage_path('app/db-backups'),
                 ],
 
                 /*
@@ -152,8 +162,8 @@ return [
              * The disk names on which the backups will be stored.
              */
             'disks'              => [
-                /* 'backup', */
-                'local',
+                'backup',
+                /* 'local', */
             ],
         ],
 
@@ -257,10 +267,10 @@ return [
     'monitor_backups' => [
         [
             'name'          => env('APP_NAME', 'laravel-backup'),
-            'disks'         => ['local'],
+            'disks'         => ['backup'],
             'health_checks' => [
                 \Spatie\Backup\Tasks\Monitor\HealthChecks\MaximumAgeInDays::class          => 1,
-                \Spatie\Backup\Tasks\Monitor\HealthChecks\MaximumStorageInMegabytes::class => 5000,
+                \Spatie\Backup\Tasks\Monitor\HealthChecks\MaximumStorageInMegabytes::class => 1000,
             ],
         ],
 
@@ -329,7 +339,7 @@ return [
             * cette limite en mégaoctets.
             * Mettre "null" pour ne pas fixer de limite de taille.
             */
-            'delete_oldest_backups_when_using_more_megabytes_than' => 5000,
+            'delete_oldest_backups_when_using_more_megabytes_than' => 1000,
         ],
 
         /*
